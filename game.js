@@ -186,7 +186,7 @@
       ['O que é um endereço IP público?', ['Um endereço roteável globalmente na Internet', 'Um nome de rede Wi-Fi', 'Um endereço MAC de fábrica', 'Uma senha de servidor'], 0, 'Endereços públicos são usados para roteamento global, conforme alocação e políticas.']
     ])
   };
-  const PHASES = [
+  const PHASE_DEFINITIONS = [
     { name: 'Hardware do computador', theme: 'hardware', length: 2450, objective: 'Desative os vírus e recupere placa-mãe, CPU e memória.', palette: ['#07151d','#14323b','#56e5cf','#245c57','#775c45'], platforms: [[230,150,82],[520,150,118],[875,190,90],[1230,150,112],[1640,190,78],[2040,150,108]], obstacles: [[455,42,44],[790,54,65],[1175,48,54],[1570,55,75],[1980,58,50]], components: [660,1430], enemies: [{x:390,type:'common'},{x:1060,type:'fast'},{x:1840,type:'common'}], items: [570,1570], features: [380,980,1610,2130] },
     { name: 'Software do computador', theme: 'software', length: 2250, objective: 'Encontre processos infectados e restaure os arquivos corrompidos.', palette: ['#101026','#26254c','#a78cff','#4e477e','#8b5278'], platforms: [[180,130,100],[420,180,65],[760,140,122],[1050,210,82],[1450,160,110],[1790,180,70]], obstacles: [[350,48,68],[690,44,42],[1010,58,78],[1395,45,56],[1730,52,68]], components: [600,1290], enemies: [{x:460,type:'fast'},{x:900,type:'common'},{x:1630,type:'fast'}], items: [280,1140], features: [300,830,1370,1880] },
     { name: 'Switch de rede', theme: 'switch', length: 2350, objective: 'Neutralize os vírus das portas e reconecte os equipamentos do switch.', palette: ['#071820','#12313a','#56d9ce','#285a65','#b17b51'], platforms: [[260,190,75],[600,120,112],[850,180,80],[1190,145,126],[1500,200,72],[1900,150,108]], obstacles: [[500,50,58],[800,42,45],[1120,52,75],[1450,44,60],[1840,62,78]], components: [700,1320,1740], enemies: [{x:430,type:'common'},{x:980,type:'fast'},{x:1600,type:'common'}], items: [300,1560], features: [360,900,1490,2010] },
@@ -198,6 +198,68 @@
     { name: 'Firewall e segurança', theme: 'firewall', length: 2650, objective: 'Derrube as ameaças e reative os escudos do firewall.', palette: ['#1c1017','#3c1d29','#ff7c68','#8d3548','#b18a57'], platforms: [[220,150,85],[500,170,118],[820,140,75],[1110,190,122],[1480,150,78],[1780,180,115],[2150,160,82]], obstacles: [[455,48,65],[780,48,75],[1070,55,58],[1440,48,80],[1740,52,60],[2110,52,76]], components: [650,1320,1970], enemies: [{x:430,type:'fast'},{x:970,type:'common'},{x:1580,type:'fast'},{x:2250,type:'common'}], items: [300,1510,2300], features: [320,850,1530,2220] },
     { name: 'Servidores e Internet', theme: 'servers', length: 3100, objective: 'Repare os servidores da rede e derrote VIRUS ZERO no núcleo.', palette: ['#070f20','#172b50','#80dbff','#336783','#a35267'], platforms: [[230,150,82],[510,160,118],[820,180,75],[1150,140,120],[1420,190,78],[1770,160,112],[2070,170,80],[2390,160,118],[2680,140,75]], obstacles: [[465,48,54],[770,52,72],[1100,48,65],[1370,55,80],[1720,50,60],[2020,52,70],[2340,50,58],[2630,54,78]], components: [670,1460,2210], enemies: [{x:480,type:'common'},{x:1250,type:'fast'},{x:1920,type:'common'},{x:2400,type:'fast'},{x:2760,type:'boss',hp:28}], items: [300,1550,2440], features: [340,900,1510,2140,2760] }
   ];
+
+  function normalizePhase(definition, index) {
+    const width = definition.map?.width || definition.length;
+    const map = {
+      width, height: 'viewport', layout: 'horizontal',
+      start: { x: 70, y: null, anchor: 'floor', offset: 0 },
+      exit: { x: width - 94, y: null, anchor: 'floor', offset: 0 },
+      bounds: { left: true, right: true, ceiling: true, floor: true },
+      camera: { axes: ['x'], followOffsetX: .36, followOffsetY: .5 },
+      routes: [],
+      width
+    };
+    if (definition.map) {
+      Object.assign(map, definition.map);
+      map.bounds = { left: true, right: true, ceiling: true, floor: true, ...definition.map.bounds };
+      map.camera = { axes: ['x'], followOffsetX: .36, followOffsetY: .5, ...definition.map.camera };
+      map.start = { x: 70, y: null, anchor: 'floor', offset: 0, ...definition.map.start };
+      map.exit = { x: width - 94, y: null, anchor: 'floor', offset: 0, ...definition.map.exit };
+      map.routes = definition.map.routes || [];
+      map.width = definition.map.width || definition.length;
+    }
+    const normalizePlatform = (spec, platformIndex) => {
+      if (!Array.isArray(spec)) return {
+        id: 'p' + String(platformIndex + 1).padStart(2, '0'), type: 'fixed', collision: 'one-way', anchor: 'floor', offset: 0,
+        height: 18, ...spec
+      };
+      const [x, platformWidth, rise] = spec;
+      return { id: 'p' + String(platformIndex + 1).padStart(2, '0'), type: 'fixed', collision: 'one-way',
+        x, y: null, anchor: 'floor', offset: rise, width: platformWidth, height: 18 };
+    };
+    const platforms = definition.platforms.map(normalizePlatform);
+    const obstacles = definition.obstacles.map((spec, obstacleIndex) => {
+      if (!Array.isArray(spec)) return { id: 'o' + String(obstacleIndex + 1).padStart(2, '0'), type: 'block', collision: 'solid', anchor: 'floor', offset: spec.height || 0, ...spec };
+      const [x, obstacleWidth, obstacleHeight] = spec;
+      return { id: 'o' + String(obstacleIndex + 1).padStart(2, '0'), type: 'block', collision: 'solid',
+        x, y: null, anchor: 'floor', offset: obstacleHeight, width: obstacleWidth, height: obstacleHeight };
+    });
+    const components = definition.components.map((spec, componentIndex) => Array.isArray(spec) || typeof spec === 'number' ? {
+      id: 'c' + String(componentIndex + 1).padStart(2, '0'), x: spec, y: null, anchor: 'floor', offset: 44, width: 34, height: 44
+    } : { id: 'c' + String(componentIndex + 1).padStart(2, '0'), anchor: 'floor', offset: 44, width: 34, height: 44, ...spec });
+    const enemies = definition.enemies.map((enemy, enemyIndex) => ({
+      id: 'e' + String(enemyIndex + 1).padStart(2, '0'), anchor: 'floor',
+      offset: enemy.type === 'boss' ? 46 : enemy.type === 'fast' ? 26 : 24, ...enemy
+    }));
+    const collectibles = definition.items.map((item, itemIndex) => typeof item === 'number' ? {
+      id: 'i' + String(itemIndex + 1).padStart(2, '0'), x: item, y: null, anchor: 'floor', offset: 39 + (itemIndex % 2) * 48, radius: 10
+    } : { id: 'i' + String(itemIndex + 1).padStart(2, '0'), anchor: 'floor', offset: 39 + (itemIndex % 2) * 48, radius: 10, ...item });
+    const features = definition.features.map((feature, featureIndex) => typeof feature === 'number'
+      ? { id: 'f' + (featureIndex + 1), x: feature, y: null, anchor: 'floor' }
+      : { id: 'f' + (featureIndex + 1), anchor: 'floor', ...feature });
+    return {
+      id: 'phase-' + String(index + 1).padStart(2, '0'),
+      name: definition.name, theme: definition.theme, objective: definition.objective,
+      palette: definition.palette,
+      map,
+      entities: { platforms, obstacles, components, enemies, collectibles, features },
+      objectives: { defeatAllViruses: true, repairAllComponents: true, requireExitQuestion: true,
+        enemiesToDefeat: enemies.length, componentsToRepair: components.length, ...definition.objectives }
+    };
+  }
+
+  const PHASES = PHASE_DEFINITIONS.map(normalizePhase);
   let phaseIndex = 0;
   let phaseData = PHASES[0];
   let highestUnlockedPhase = 0;
@@ -219,6 +281,8 @@
   let height = 500;
   let pixelRatio = 1;
   let cameraX = 0;
+  let cameraY = 0;
+  let platformRuntime = new Map();
   let player;
   let viruses = [];
   let projectiles = [];
@@ -395,7 +459,9 @@
       const source = saved.player || {};
       player.health = Math.max(1, Math.min(player.maxHealth, Number(source.health) || player.maxHealth));
       player.x = Math.max(0, Math.min(worldWidth() - player.width, Number(source.x) || 70));
-      player.y = Math.max(0, Math.min(floorY() - player.height, Number(source.y) || floorY() - player.height));
+      const savedY = Number.isFinite(Number(source.y)) ? Number(source.y) : mapStart().y;
+      const mapBottom = phaseData.map.bounds.floor ? floorY() - player.height : worldHeight() - player.height;
+      player.y = Math.max(phaseData.map.bounds.ceiling ? 0 : -Infinity, Math.min(mapBottom, savedY));
       player.facing = source.facing === -1 ? -1 : 1;
       player.grounded = Boolean(source.grounded);
       player.shieldTime = Math.max(0, Math.min(player.shieldDuration, Number(source.shieldTime) || 0));
@@ -407,11 +473,14 @@
       components.forEach((component, index) => { component.repaired = Boolean(saved.repaired?.[index]); });
       collectibles.forEach((item, index) => { item.collected = Boolean(saved.collected?.[index]); });
       defeated = viruses.filter(virus => !virus.alive).length;
-      objectives.allRepairs = components.length > 0 && components.every(component => component.repaired);
-      objectives.allViruses = viruses.length > 0 && viruses.every(virus => !virus.alive);
+      objectives.allRepairs = components.filter(component => component.repaired).length >= phaseData.objectives.componentsToRepair;
+      objectives.allViruses = viruses.filter(virus => !virus.alive).length >= phaseData.objectives.enemiesToDefeat;
       phaseExitUnlocked = Boolean(saved.phaseExitUnlocked && objectives.allRepairs && objectives.allViruses);
       phaseObjectiveAwarded = Boolean(saved.phaseObjectiveAwarded && phaseExitUnlocked);
-      cameraX = Math.max(0, Math.min(worldWidth() - width, player.x - width * .36));
+      cameraX = phaseData.map.camera.axes.includes('x')
+        ? Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX)) : 0;
+      cameraY = phaseData.map.camera.axes.includes('y')
+        ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
     }
     renderSkills(); updateHud(); draw();
     launchLoadedPhase();
@@ -491,26 +560,80 @@
       ctx.shadowColor = particle.color;
       ctx.shadowBlur = 8;
       ctx.beginPath();
-      ctx.arc(screenX, particle.y, particle.radius, 0, Math.PI * 2);
+      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
     ctx.shadowBlur = 0;
   }
 
-  function floorY() { return height - 42; }
-  function worldWidth() { return phaseData.length; }
-
-  // Each phase provides its own platform and obstacle geometry.
+  function worldWidth() { return phaseData.map.width; }
+  function worldHeight() { return phaseData.map.height === 'viewport' ? height : phaseData.map.height; }
+  function floorY() { return worldHeight() - 42; }
+  function entityY(spec, fallbackOffset = 0) {
+    if (Number.isFinite(spec.y)) return spec.y;
+    const offset = Number.isFinite(spec.offset) ? spec.offset : fallbackOffset;
+    return spec.anchor === 'floor' ? floorY() - offset : offset;
+  }
+  function mapStart() {
+    const start = phaseData.map.start;
+    const y = Number.isFinite(start.y) ? start.y
+      : start.anchor === 'floor' ? floorY() - ROBOT_HEIGHT - (start.offset || 0) : (start.offset || 0);
+    return { x: start.x, y };
+  }
+  function platformShape(spec) {
+    const state = platformRuntime.get(spec.id) || { elapsed: 0, active: true, triggered: false };
+    let x = spec.x;
+    let y = entityY(spec, 0);
+    if (spec.type === 'moving' && spec.motion) {
+      const motion = spec.motion;
+      const shift = Math.sin(animationTime * (motion.speed || 1) + (motion.phase || 0)) * (motion.range || 0);
+      if (motion.axis === 'x') x += shift; else y += shift;
+    }
+    if (spec.type === 'temporary' && !state.active) return null;
+    return { id: spec.id, x, y, w: spec.width, h: spec.height || 18, kind: 'platform', type: spec.type || 'fixed', collision: spec.collision || 'one-way', hazardDamage: spec.damage || 8 };
+  }
   function solids() {
-    const floor = floorY();
-    const geometry = [
-      { x: 0, y: floor, w: phaseData.length, h: height - floor, kind: 'floor' },
-      ...phaseData.platforms.map(([x, w, rise]) => ({ x, y: floor - rise, w, h: 18, kind: 'platform' })),
-      ...phaseData.obstacles.map(([x, w, h]) => ({ x, y: floor - h, w, h, kind: 'block' }))
-    ];
-    if (!phaseExitUnlocked) geometry.push({ x: phaseData.length - 112, y: 0, w: 20, h: floor, kind: 'gate' });
+    const map = phaseData.map;
+    const geometry = [];
+    if (map.bounds.floor) geometry.push({ x: 0, y: floorY(), w: worldWidth(), h: Math.max(42, worldHeight() - floorY()), kind: 'floor', type: 'fixed' });
+    for (const spec of phaseData.entities.platforms) {
+      const shape = platformShape(spec);
+      if (shape) geometry.push(shape);
+    }
+    for (const spec of phaseData.entities.obstacles) {
+      geometry.push({ id: spec.id, x: spec.x, y: entityY(spec, spec.height), w: spec.width, h: spec.height, kind: 'block', type: spec.type || 'block', collision: spec.collision || 'solid' });
+    }
+    if (!phaseExitUnlocked && map.bounds.right) {
+      const exitX = map.exit.x;
+      if (map.layout === 'horizontal') {
+        geometry.push({ x: Math.max(0, exitX - 18), y: 0, w: Math.min(20, Math.max(0, worldWidth() - exitX + 18)), h: floorY(), kind: 'gate', type: 'fixed', collision: 'solid' });
+      } else {
+        const gateWidth = map.exit.width || 34;
+        const gateHeight = map.exit.height || 126;
+        const gateY = Number.isFinite(map.exit.y) ? map.exit.y - gateHeight / 2 : floorY() - gateHeight;
+        geometry.push({ x: exitX - gateWidth / 2, y: gateY, w: gateWidth, h: gateHeight, kind: 'gate', type: 'fixed', collision: 'solid' });
+      }
+    }
     return geometry;
+  }
+
+  function advancePlatformMotion(dt) {
+    animationTime += dt;
+    for (const spec of phaseData.entities.platforms) {
+      if (spec.type !== 'moving') continue;
+      const current = platformShape(spec);
+      const state = platformRuntime.get(spec.id) || { elapsed: 0, active: true, triggered: false };
+      if (Number.isFinite(state.lastX) && player.grounded &&
+        Math.abs(player.y + player.height - state.lastY) < 4 &&
+        player.x + player.width > state.lastX && player.x < state.lastX + spec.width) {
+        player.x += current.x - state.lastX;
+        player.y += current.y - state.lastY;
+      }
+      state.lastX = current.x;
+      state.lastY = current.y;
+      platformRuntime.set(spec.id, state);
+    }
   }
 
   function resetCampaign() {
@@ -533,9 +656,10 @@
     phaseData = PHASES[phaseIndex];
     if (retry) player.health = player.maxHealth;
     else if (phaseIndex > 0) player.health = Math.min(player.maxHealth, player.health + 25);
-    player.x = 70; player.y = floorY() - ROBOT_HEIGHT;
+    const start = mapStart();
+    player.x = start.x; player.y = start.y;
     player.vx = 0; player.vy = 0; player.grounded = true; player.facing = 1;
-    cameraX = 0; animationTime = 0; jumpQueued = false;
+    cameraX = 0; cameraY = 0; platformRuntime = new Map(); animationTime = 0; jumpQueued = false;
     effects = []; saveTimer = 0;
     viruses = createViruses(); projectiles = []; components = createComponents(); collectibles = createCollectibles();
     defeated = 0; levelChoiceOpen = false; repairTarget = null; repairProgress = 0;
@@ -549,12 +673,11 @@
   }
 
   function createViruses() {
-    const floor = floorY();
-    return phaseData.enemies.map((spec, index) => {
+    return phaseData.entities.enemies.map((spec, index) => {
       const boss = spec.type === 'boss';
       const hp = spec.hp || (boss ? 28 : spec.type === 'fast' ? 1 : 2);
-      const y = floor - (boss ? 46 : spec.type === 'fast' ? 26 : 24);
-      return { x: spec.x, baseX: spec.x, y, baseY: y, hp, maxHp: hp,
+      const y = entityY(spec, boss ? 46 : spec.type === 'fast' ? 26 : 24);
+      return { id: spec.id, x: spec.x, baseX: spec.x, y, baseY: y, hp, maxHp: hp,
         radius: boss ? 38 : spec.type === 'fast' ? 11 : 15,
         speed: boss ? 38 : spec.type === 'fast' ? 112 + index * 4 : 54 + index * 3,
         patrol: 70 + index * 8, direction: index % 2 ? 1 : -1,
@@ -563,13 +686,11 @@
   }
 
   function createComponents() {
-    const floor = floorY();
-    return phaseData.components.map((x, index) => ({ x, y: floor - 44, width: 34, height: 44, repaired: false, phase: index * .9 }));
+    return phaseData.entities.components.map((spec, index) => ({ id: spec.id, x: spec.x, y: entityY(spec, 44), width: spec.width || 34, height: spec.height || 44, repaired: false, phase: index * .9 }));
   }
 
   function createCollectibles() {
-    const floor = floorY();
-    return phaseData.items.map((x, index) => ({ x, y: floor - 39 - (index % 2) * 48, radius: 10, collected: false, phase: index * .8 }));
+    return phaseData.entities.collectibles.map((spec, index) => ({ id: spec.id, x: spec.x, y: entityY(spec, 39 + (index % 2) * 48), radius: spec.radius || 10, collected: false, phase: index * .8 }));
   }
 
   function updatePhaseUI() {
@@ -600,17 +721,18 @@
     pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
     width = rect.width;
     height = rect.height;
-    const floorShift = floorY() - oldFloor;
+    const floorShift = phaseData.map.height === 'viewport' ? floorY() - oldFloor : 0;
     canvas.width = Math.round(width * pixelRatio);
     canvas.height = Math.round(height * pixelRatio);
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     if (player) {
-      player.y = Math.min(player.y, floorY() - player.height);
-      if (player.y + player.height >= floorY()) {
+      if (phaseData.map.bounds.floor && player.y + player.height >= floorY()) {
         player.y = floorY() - player.height;
         player.vy = 0;
         player.grounded = true;
       }
+      cameraX = phaseData.map.camera.axes.includes('x') ? Math.max(0, Math.min(worldWidth() - width, cameraX)) : 0;
+      cameraY = phaseData.map.camera.axes.includes('y') ? Math.max(0, Math.min(worldHeight() - height, cameraY)) : 0;
     }
     for (const virus of viruses) {
       virus.y += floorShift;
@@ -644,14 +766,16 @@
     const collisionObjects = solids();
     const previousX = player.x;
     player.x += player.vx * dt;
-    player.x = Math.max(0, Math.min(worldWidth() - player.width, player.x));
+    if (phaseData.map.bounds.left) player.x = Math.max(0, player.x);
+    if (phaseData.map.bounds.right) player.x = Math.min(worldWidth() - player.width, player.x);
     for (const object of collisionObjects) {
+      if (object.collision === 'one-way') continue;
       if (!overlaps(player, object)) continue;
       if (player.vx > 0) player.x = object.x - player.width;
       else if (player.vx < 0) player.x = object.x + object.w;
     }
-    // Keep the outer map boundary solid even when the camera reaches its end.
-    player.x = Math.max(0, Math.min(worldWidth() - player.width, player.x));
+    if (phaseData.map.bounds.left) player.x = Math.max(0, player.x);
+    if (phaseData.map.bounds.right) player.x = Math.min(worldWidth() - player.width, player.x);
 
     const previousY = player.y;
     player.vy = Math.min(player.vy + GRAVITY * dt, 1050);
@@ -662,30 +786,40 @@
       const previousBottom = previousY + player.height;
       const previousTop = previousY;
       const crossedTop = player.vy >= 0 && previousBottom <= object.y + 2 && player.y + player.height >= object.y && horizontalOverlap;
-      const crossedBottom = player.vy < 0 && previousTop >= object.y + object.h - 2 && player.y <= object.y + object.h && horizontalOverlap;
+      const crossedBottom = object.collision !== 'one-way' && player.vy < 0 && previousTop >= object.y + object.h - 2 && player.y <= object.y + object.h && horizontalOverlap;
       if (crossedTop) {
         player.y = object.y - player.height;
         player.vy = 0;
         player.grounded = true;
+        if (object.type === 'temporary') {
+          const state = platformRuntime.get(object.id) || { elapsed: 0, active: true, triggered: false };
+          state.triggered = true;
+          platformRuntime.set(object.id, state);
+        }
+        if (object.type === 'dangerous' && damageCooldown <= 0) damagePlayer(object.hazardDamage || 8, object);
       } else if (crossedBottom) {
         player.y = object.y + object.h;
         player.vy = 0;
-      } else if (overlaps(player, object) && player.x > object.x && player.x < object.x + object.w) {
+      } else if (object.collision !== 'one-way' && overlaps(player, object) && player.x > object.x && player.x < object.x + object.w) {
         // Resolve any remaining side overlap to prevent tunneling into block walls.
         if (previousX + player.width <= object.x) player.x = object.x - player.width;
         else if (previousX >= object.x + object.w) player.x = object.x + object.w;
       }
     }
 
-    // The map has a continuous floor and a hard end wall, so the robot cannot fall forever.
-    if (player.y + player.height >= floorY()) {
+    if (phaseData.map.bounds.floor && player.y + player.height >= floorY()) {
       player.y = floorY() - player.height;
       player.vy = 0;
       player.grounded = true;
     }
-    if (player.y < 0) {
+    if (phaseData.map.bounds.ceiling && player.y < 0) {
       player.y = 0;
       if (player.vy < 0) player.vy = 0;
+    }
+    if (!phaseData.map.bounds.floor && player.y > worldHeight() + 180) {
+      player.y = worldHeight() - player.height;
+      player.vy = 0;
+      player.grounded = true;
     }
     if (direction) player.walkTime += dt * 12;
     else player.walkTime *= Math.max(0, 1 - dt * 12);
@@ -758,11 +892,13 @@
   }
 
   function checkObjectives() {
-    if (!objectives.allRepairs && components.length && components.every(component => component.repaired)) {
+    const repairedCount = components.filter(component => component.repaired).length;
+    const defeatedCount = viruses.filter(virus => !virus.alive).length;
+    if (!objectives.allRepairs && repairedCount >= phaseData.objectives.componentsToRepair) {
       objectives.allRepairs = true;
       awardExperience(100, 'objetivo concluído: setor reparado');
     }
-    if (!objectives.allViruses && viruses.length && viruses.every(virus => !virus.alive)) {
+    if (!objectives.allViruses && defeatedCount >= phaseData.objectives.enemiesToDefeat) {
       objectives.allViruses = true;
       awardExperience(100, 'objetivo concluído: setor limpo');
     }
@@ -1164,24 +1300,38 @@
   }
 
   function update(dt) {
+    advancePlatformMotion(dt);
     movePlayer(dt);
     updateCombat(dt);
     if (!running) return;
     updateRepair(dt);
     updateCollectibles(dt);
     checkObjectives();
-    animationTime += dt;
     // Camera easing keeps R-07 near the left-center of the viewport as the map scrolls.
-    const cameraTarget = Math.max(0, Math.min(worldWidth() - width, player.x - width * .36));
+    const cameraTarget = phaseData.map.camera.axes.includes('x')
+      ? Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX)) : 0;
     cameraX += (cameraTarget - cameraX) * Math.min(1, dt * 7);
     if (Math.abs(cameraTarget - cameraX) < .5) cameraX = cameraTarget;
+    const cameraTargetY = phaseData.map.camera.axes.includes('y')
+      ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
+    cameraY += (cameraTargetY - cameraY) * Math.min(1, dt * 7);
+    if (Math.abs(cameraTargetY - cameraY) < .5) cameraY = cameraTargetY;
     updateHud();
     updateComponents(dt);
     updateEffects(dt);
     saveTimer += dt;
     if (saveTimer >= 2.5) { saveTimer = 0; saveCampaign(); }
     if (xp >= xpRequired) openLevelChoice();
-    if (running && phaseExitUnlocked && player.x + player.width >= phaseData.length - 74) openPhaseQuestion();
+    const exitY = Number.isFinite(phaseData.map.exit.y) ? phaseData.map.exit.y : floorY() - 63;
+    if (running && phaseExitUnlocked && player.x + player.width >= phaseData.map.exit.x + 20 &&
+      Math.abs(player.y + player.height / 2 - exitY) <= (phaseData.map.exit.triggerRadiusY || 86)) openPhaseQuestion();
+    for (const spec of phaseData.entities.platforms) {
+      if (spec.type !== 'temporary') continue;
+      const state = platformRuntime.get(spec.id);
+      if (!state?.triggered || !state.active) continue;
+      state.elapsed += dt;
+      if (state.elapsed >= (spec.duration || 1.8)) state.active = false;
+    }
   }
 
   function updateComponents(dt) {
@@ -1235,14 +1385,15 @@
       ctx.fillRect(x + 9, height - 170 - (i % 3) * 24, 43, 2);
     }
     ctx.restore();
-    drawThemeStructures();
   }
 
   function drawThemeStructures() {
-    const floor = floorY();
-    for (let index = 0; index < phaseData.features.length; index++) {
-      const x = phaseData.features[index] - cameraX;
-      if (x < -160 || x > width + 160) continue;
+
+    for (let index = 0; index < phaseData.entities.features.length; index++) {
+      const feature = phaseData.entities.features[index];
+      const x = feature.x;
+      const base = entityY(feature);
+      if (x - cameraX < -160 || x - cameraX > width + 160) continue;
       const accent = phaseData.palette[2];
       const trim = phaseData.palette[4];
       ctx.save();
@@ -1251,49 +1402,49 @@
       ctx.fillStyle = phaseData.palette[3];
       ctx.globalAlpha = .78;
       if (phaseData.theme === 'hardware') {
-        ctx.fillRect(x - 54, floor - 186, 108, 92); ctx.strokeRect(x - 54, floor - 186, 108, 92);
-        ctx.fillStyle = trim; ctx.fillRect(x - 18, floor - 164, 36, 35); ctx.strokeRect(x - 18, floor - 164, 36, 35);
-        for (let p = 0; p < 4; p++) { ctx.fillRect(x - 45 + p * 25, floor - 179, 14, 6); ctx.fillRect(x - 45 + p * 25, floor - 111, 14, 6); }
-        ctx.beginPath(); ctx.moveTo(x - 52, floor - 78); ctx.lineTo(x - 35, floor - 78); ctx.lineTo(x - 35, floor - 45); ctx.stroke();
+        ctx.fillRect(x - 54, base - 186, 108, 92); ctx.strokeRect(x - 54, base - 186, 108, 92);
+        ctx.fillStyle = trim; ctx.fillRect(x - 18, base - 164, 36, 35); ctx.strokeRect(x - 18, base - 164, 36, 35);
+        for (let p = 0; p < 4; p++) { ctx.fillRect(x - 45 + p * 25, base - 179, 14, 6); ctx.fillRect(x - 45 + p * 25, base - 111, 14, 6); }
+        ctx.beginPath(); ctx.moveTo(x - 52, base - 78); ctx.lineTo(x - 35, base - 78); ctx.lineTo(x - 35, base - 45); ctx.stroke();
       } else if (phaseData.theme === 'software') {
-        ctx.fillRect(x - 58, floor - 178, 116, 88); ctx.strokeRect(x - 58, floor - 178, 116, 88);
-        ctx.fillStyle = accent; ctx.fillRect(x - 58, floor - 178, 116, 14);
-        for (let row = 0; row < 4; row++) { ctx.fillStyle = row === 3 ? '#ff5968' : trim; ctx.fillRect(x - 43, floor - 151 + row * 12, row === 3 ? 56 : 74, 3); }
-        ctx.strokeStyle = '#ff5968'; ctx.beginPath(); ctx.moveTo(x + 35, floor - 117); ctx.lineTo(x + 49, floor - 103); ctx.moveTo(x + 49, floor - 117); ctx.lineTo(x + 35, floor - 103); ctx.stroke();
+        ctx.fillRect(x - 58, base - 178, 116, 88); ctx.strokeRect(x - 58, base - 178, 116, 88);
+        ctx.fillStyle = accent; ctx.fillRect(x - 58, base - 178, 116, 14);
+        for (let row = 0; row < 4; row++) { ctx.fillStyle = row === 3 ? '#ff5968' : trim; ctx.fillRect(x - 43, base - 151 + row * 12, row === 3 ? 56 : 74, 3); }
+        ctx.strokeStyle = '#ff5968'; ctx.beginPath(); ctx.moveTo(x + 35, base - 117); ctx.lineTo(x + 49, base - 103); ctx.moveTo(x + 49, base - 117); ctx.lineTo(x + 35, base - 103); ctx.stroke();
       } else if (phaseData.theme === 'switch') {
-        ctx.fillRect(x - 72, floor - 132, 144, 70); ctx.strokeRect(x - 72, floor - 132, 144, 70);
-        for (let port = 0; port < 6; port++) { ctx.fillStyle = port % 3 === index % 3 ? '#ff815e' : accent; ctx.fillRect(x - 58 + port * 21, floor - 111, 13, 10); }
+        ctx.fillRect(x - 72, base - 132, 144, 70); ctx.strokeRect(x - 72, base - 132, 144, 70);
+        for (let port = 0; port < 6; port++) { ctx.fillStyle = port % 3 === index % 3 ? '#ff815e' : accent; ctx.fillRect(x - 58 + port * 21, base - 111, 13, 10); }
         ctx.strokeStyle = trim;
-        for (let cable = 0; cable < 3; cable++) { ctx.beginPath(); ctx.moveTo(x - 48 + cable * 35, floor - 61); ctx.bezierCurveTo(x - 46 + cable * 35, floor - 35, x + 48, floor - 68, x + 48, floor - 36); ctx.stroke(); }
+        for (let cable = 0; cable < 3; cable++) { ctx.beginPath(); ctx.moveTo(x - 48 + cable * 35, base - 61); ctx.bezierCurveTo(x - 46 + cable * 35, base - 35, x + 48, base - 68, x + 48, base - 36); ctx.stroke(); }
       } else if (phaseData.theme === 'router') {
-        ctx.fillRect(x - 66, floor - 92, 132, 34); ctx.strokeRect(x - 66, floor - 92, 132, 34);
-        ctx.beginPath(); ctx.moveTo(x - 42, floor - 92); ctx.lineTo(x - 55, floor - 158); ctx.moveTo(x + 42, floor - 92); ctx.lineTo(x + 55, floor - 158); ctx.stroke();
-        ctx.fillStyle = accent; ctx.fillRect(x - 30, floor - 78, 7, 5); ctx.fillRect(x - 12, floor - 78, 7, 5); ctx.fillRect(x + 7, floor - 78, 7, 5);
-        ctx.strokeStyle = accent; for (let arc = 0; arc < 3; arc++) { ctx.beginPath(); ctx.arc(x, floor - 160, 23 + arc * 12, Math.PI * 1.18, Math.PI * 1.82); ctx.stroke(); }
+        ctx.fillRect(x - 66, base - 92, 132, 34); ctx.strokeRect(x - 66, base - 92, 132, 34);
+        ctx.beginPath(); ctx.moveTo(x - 42, base - 92); ctx.lineTo(x - 55, base - 158); ctx.moveTo(x + 42, base - 92); ctx.lineTo(x + 55, base - 158); ctx.stroke();
+        ctx.fillStyle = accent; ctx.fillRect(x - 30, base - 78, 7, 5); ctx.fillRect(x - 12, base - 78, 7, 5); ctx.fillRect(x + 7, base - 78, 7, 5);
+        ctx.strokeStyle = accent; for (let arc = 0; arc < 3; arc++) { ctx.beginPath(); ctx.arc(x, base - 160, 23 + arc * 12, Math.PI * 1.18, Math.PI * 1.82); ctx.stroke(); }
       } else if (phaseData.theme === 'wifi') {
-        ctx.strokeStyle = trim; ctx.beginPath(); ctx.moveTo(x, floor - 44); ctx.lineTo(x, floor - 177); ctx.stroke();
-        ctx.fillStyle = accent; ctx.beginPath(); ctx.arc(x, floor - 181, 7, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = accent; for (let arc = 0; arc < 4; arc++) { ctx.beginPath(); ctx.arc(x, floor - 181, 22 + arc * 15, Math.PI * 1.2, Math.PI * 1.8); ctx.stroke(); }
-        if (index % 2) { ctx.strokeStyle = '#ff7868'; ctx.beginPath(); ctx.moveTo(x - 75, floor - 130); ctx.lineTo(x + 75, floor - 130); ctx.moveTo(x - 58, floor - 145); ctx.lineTo(x + 55, floor - 115); ctx.stroke(); }
+        ctx.strokeStyle = trim; ctx.beginPath(); ctx.moveTo(x, base - 44); ctx.lineTo(x, base - 177); ctx.stroke();
+        ctx.fillStyle = accent; ctx.beginPath(); ctx.arc(x, base - 181, 7, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = accent; for (let arc = 0; arc < 4; arc++) { ctx.beginPath(); ctx.arc(x, base - 181, 22 + arc * 15, Math.PI * 1.2, Math.PI * 1.8); ctx.stroke(); }
+        if (index % 2) { ctx.strokeStyle = '#ff7868'; ctx.beginPath(); ctx.moveTo(x - 75, base - 130); ctx.lineTo(x + 75, base - 130); ctx.moveTo(x - 58, base - 145); ctx.lineTo(x + 55, base - 115); ctx.stroke(); }
       } else if (phaseData.theme === 'cabling') {
-        ctx.fillRect(x - 55, floor - 194, 110, 148); ctx.strokeRect(x - 55, floor - 194, 110, 148);
-        for (let rack = 0; rack < 4; rack++) { ctx.strokeRect(x - 42, floor - 180 + rack * 31, 84, 23); ctx.fillStyle = [accent, '#ff665f', '#e8d24e', trim][rack]; ctx.fillRect(x - 31, floor - 171 + rack * 31, 47, 4); }
-        ctx.strokeStyle = '#ff675d'; ctx.beginPath(); ctx.moveTo(x - 35, floor - 46); ctx.bezierCurveTo(x - 55, floor - 28, x + 42, floor - 45, x + 38, floor - 18); ctx.stroke();
+        ctx.fillRect(x - 55, base - 194, 110, 148); ctx.strokeRect(x - 55, base - 194, 110, 148);
+        for (let rack = 0; rack < 4; rack++) { ctx.strokeRect(x - 42, base - 180 + rack * 31, 84, 23); ctx.fillStyle = [accent, '#ff665f', '#e8d24e', trim][rack]; ctx.fillRect(x - 31, base - 171 + rack * 31, 47, 4); }
+        ctx.strokeStyle = '#ff675d'; ctx.beginPath(); ctx.moveTo(x - 35, base - 46); ctx.bezierCurveTo(x - 55, base - 28, x + 42, base - 45, x + 38, base - 18); ctx.stroke();
       } else if (phaseData.theme === 'dhcp') {
-        for (let address = 0; address < 3; address++) { ctx.fillRect(x - 69 + address * 47, floor - 142 - address * 15, 42, 36); ctx.strokeRect(x - 69 + address * 47, floor - 142 - address * 15, 42, 36); ctx.fillStyle = accent; ctx.fillRect(x - 61 + address * 47, floor - 132 - address * 15, 26, 3); ctx.fillRect(x - 61 + address * 47, floor - 122 - address * 15, 18, 3); }
-        ctx.fillStyle = trim; ctx.font = '9px monospace'; ctx.fillText('192.168.' + (index + 1) + '.0/24', x - 55, floor - 82);
+        for (let address = 0; address < 3; address++) { ctx.fillRect(x - 69 + address * 47, base - 142 - address * 15, 42, 36); ctx.strokeRect(x - 69 + address * 47, base - 142 - address * 15, 42, 36); ctx.fillStyle = accent; ctx.fillRect(x - 61 + address * 47, base - 132 - address * 15, 26, 3); ctx.fillRect(x - 61 + address * 47, base - 122 - address * 15, 18, 3); }
+        ctx.fillStyle = trim; ctx.font = '9px monospace'; ctx.fillText('192.168.' + (index + 1) + '.0/24', x - 55, base - 82);
       } else if (phaseData.theme === 'dns') {
-        ctx.strokeStyle = accent; ctx.beginPath(); ctx.moveTo(x, floor - 150); ctx.lineTo(x, floor - 92); ctx.moveTo(x, floor - 121); ctx.lineTo(x - 44, floor - 83); ctx.moveTo(x, floor - 121); ctx.lineTo(x + 44, floor - 83); ctx.stroke();
+        ctx.strokeStyle = accent; ctx.beginPath(); ctx.moveTo(x, base - 150); ctx.lineTo(x, base - 92); ctx.moveTo(x, base - 121); ctx.lineTo(x - 44, base - 83); ctx.moveTo(x, base - 121); ctx.lineTo(x + 44, base - 83); ctx.stroke();
         [[0,-157],[-48,-78],[0,-78],[48,-78]].forEach(([dx,dy], node) => { ctx.fillStyle = node ? trim : accent; ctx.beginPath(); ctx.arc(x + dx, floor + dy, node ? 13 : 16, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); });
-        ctx.fillStyle = '#fff'; ctx.font = '8px monospace'; ctx.fillText('DNS', x - 12, floor - 74);
+        ctx.fillStyle = '#fff'; ctx.font = '8px monospace'; ctx.fillText('DNS', x - 12, base - 74);
       } else if (phaseData.theme === 'firewall') {
-        ctx.fillStyle = '#512b39'; ctx.fillRect(x - 48, floor - 170, 34, 126); ctx.fillRect(x + 14, floor - 170, 34, 126);
-        ctx.strokeStyle = accent; ctx.strokeRect(x - 48, floor - 170, 34, 126); ctx.strokeRect(x + 14, floor - 170, 34, 126);
-        ctx.fillStyle = '#361d2a'; ctx.beginPath(); ctx.moveTo(x, floor - 181); ctx.lineTo(x + 19, floor - 163); ctx.lineTo(x + 15, floor - 133); ctx.lineTo(x, floor - 120); ctx.lineTo(x - 15, floor - 133); ctx.lineTo(x - 19, floor - 163); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#512b39'; ctx.fillRect(x - 48, base - 170, 34, 126); ctx.fillRect(x + 14, base - 170, 34, 126);
+        ctx.strokeStyle = accent; ctx.strokeRect(x - 48, base - 170, 34, 126); ctx.strokeRect(x + 14, base - 170, 34, 126);
+        ctx.fillStyle = '#361d2a'; ctx.beginPath(); ctx.moveTo(x, base - 181); ctx.lineTo(x + 19, base - 163); ctx.lineTo(x + 15, base - 133); ctx.lineTo(x, base - 120); ctx.lineTo(x - 15, base - 133); ctx.lineTo(x - 19, base - 163); ctx.closePath(); ctx.fill(); ctx.stroke();
       } else {
-        ctx.fillRect(x - 52, floor - 206, 104, 164); ctx.strokeRect(x - 52, floor - 206, 104, 164);
-        for (let tray = 0; tray < 4; tray++) { ctx.strokeRect(x - 42, floor - 193 + tray * 36, 84, 28); ctx.fillStyle = tray === index % 4 ? '#ff5b79' : accent; ctx.beginPath(); ctx.arc(x + 32, floor - 179 + tray * 36, 3, 0, Math.PI * 2); ctx.fill(); }
-        if (index === phaseData.features.length - 1) { ctx.shadowColor = '#ff456a'; ctx.shadowBlur = 18; ctx.strokeStyle = '#ff456a'; ctx.beginPath(); ctx.arc(x, floor - 250, 26, 0, Math.PI * 2); ctx.stroke(); ctx.shadowBlur = 0; ctx.fillStyle = '#ff6c7c'; ctx.font = 'bold 10px monospace'; ctx.fillText('V0', x - 9, floor - 246); }
+        ctx.fillRect(x - 52, base - 206, 104, 164); ctx.strokeRect(x - 52, base - 206, 104, 164);
+        for (let tray = 0; tray < 4; tray++) { ctx.strokeRect(x - 42, base - 193 + tray * 36, 84, 28); ctx.fillStyle = tray === index % 4 ? '#ff5b79' : accent; ctx.beginPath(); ctx.arc(x + 32, base - 179 + tray * 36, 3, 0, Math.PI * 2); ctx.fill(); }
+        if (index === phaseData.entities.features.length - 1) { ctx.shadowColor = '#ff456a'; ctx.shadowBlur = 18; ctx.strokeStyle = '#ff456a'; ctx.beginPath(); ctx.arc(x, base - 250, 26, 0, Math.PI * 2); ctx.stroke(); ctx.shadowBlur = 0; ctx.fillStyle = '#ff6c7c'; ctx.font = 'bold 10px monospace'; ctx.fillText('V0', x - 9, base - 246); }
       }
       ctx.restore();
     }
@@ -1301,8 +1452,8 @@
 
   function drawSolids() {
     for (const object of solids()) {
-      const x = object.x - cameraX;
-      if (x + object.w < 0 || x > width) continue;
+      const x = object.x;
+      if (x + object.w - cameraX < 0 || x - cameraX > width) continue;
       if (object.kind === 'floor') {
         ctx.fillStyle = phaseData.palette[1];
         ctx.fillRect(x, object.y, object.w, object.h);
@@ -1314,17 +1465,18 @@
         ctx.strokeStyle = phaseData.palette[3];
         ctx.globalAlpha = .45;
         for (let tileX = Math.floor(object.x / 48) * 48; tileX < object.x + object.w; tileX += 48) {
-          const screenX = tileX - cameraX;
-          ctx.strokeRect(screenX + .5, object.y + 8.5, 47, object.h - 9);
+          ctx.strokeRect(tileX + .5, object.y + 8.5, 47, object.h - 9);
           ctx.fillStyle = phaseData.palette[2];
           ctx.globalAlpha = .28;
           ctx.fillRect(screenX + 8, object.y + 17, 7, 2);
         }
         ctx.globalAlpha = 1;
       } else if (object.kind === 'platform') {
-        ctx.fillStyle = phaseData.palette[3];
+        const platformColor = object.type === 'dangerous' ? '#aa4154' : phaseData.palette[3];
+        ctx.fillStyle = platformColor;
+        if (object.type === 'temporary' && (platformRuntime.get(object.id)?.triggered)) ctx.globalAlpha = .55 + Math.sin(animationTime * 18) * .2;
         ctx.fillRect(x, object.y, object.w, object.h);
-        ctx.fillStyle = phaseData.palette[2];
+        ctx.fillStyle = object.type === 'dangerous' ? '#ff7181' : phaseData.palette[2];
         ctx.fillRect(x, object.y, object.w, 3);
         ctx.strokeStyle = phaseData.palette[2];
         ctx.globalAlpha = .65;
@@ -1334,6 +1486,12 @@
         ctx.globalAlpha = .55;
         for (let dot = 12; dot < object.w - 5; dot += 24) ctx.fillRect(x + dot, object.y + 8, 3, 3);
         ctx.globalAlpha = 1;
+        if (object.type === 'dangerous') {
+          ctx.fillStyle = '#ffd0d6';
+          for (let tooth = 8; tooth < object.w; tooth += 18) {
+            ctx.beginPath(); ctx.moveTo(x + tooth, object.y + 3); ctx.lineTo(x + tooth + 5, object.y - 5); ctx.lineTo(x + tooth + 10, object.y + 3); ctx.fill();
+          }
+        }
       } else if (object.kind === 'gate') {
         ctx.fillStyle = '#4d2731';
         ctx.fillRect(x, object.y, object.w, object.h);
@@ -1357,18 +1515,21 @@
       }
     }
 
-    const gateX = phaseData.length - 94 - cameraX;
-    if (gateX > -70 && gateX < width + 70) {
+    const gateX = phaseData.map.exit.x;
+    if (gateX - cameraX > -70 && gateX - cameraX < width + 70) {
       const gateColor = phaseExitUnlocked ? '#70ffce' : '#ff806b';
+      const gateHeight = phaseData.map.layout === 'horizontal' ? 126 : (phaseData.map.exit.height || 126);
+      const gateCenterY = Number.isFinite(phaseData.map.exit.y) ? phaseData.map.exit.y : floorY() - gateHeight / 2;
+      const gateTop = gateCenterY - gateHeight / 2;
       ctx.save();
       ctx.shadowColor = gateColor; ctx.shadowBlur = 17;
       ctx.strokeStyle = gateColor; ctx.lineWidth = 2;
       ctx.fillStyle = phaseExitUnlocked ? 'rgba(48, 205, 164, .17)' : 'rgba(225, 76, 82, .13)';
-      ctx.fillRect(gateX - 23, floorY() - 126, 46, 126);
-      ctx.strokeRect(gateX - 23, floorY() - 126, 46, 126);
-      ctx.beginPath(); ctx.moveTo(gateX, floorY() - 120); ctx.lineTo(gateX, floorY() - 6); ctx.stroke();
+      ctx.fillRect(gateX - 23, gateTop, 46, gateHeight);
+      ctx.strokeRect(gateX - 23, gateTop, 46, gateHeight);
+      ctx.beginPath(); ctx.moveTo(gateX, gateTop + 6); ctx.lineTo(gateX, gateTop + gateHeight - 6); ctx.stroke();
       ctx.shadowBlur = 0; ctx.fillStyle = gateColor; ctx.font = 'bold 8px monospace'; ctx.textAlign = 'center';
-      ctx.fillText(phaseExitUnlocked ? 'SAÍDA' : 'BLOQUEADA', gateX, floorY() - 134);
+      ctx.fillText(phaseExitUnlocked ? 'SAÍDA' : 'BLOQUEADA', gateX, gateTop - 8);
       ctx.restore();
     }
   }
@@ -1376,8 +1537,8 @@
   function drawComponents() {
     const nearby = findNearbyComponent();
     for (const component of components) {
-      const x = component.x - cameraX;
-      if (x + component.width < 0 || x > width) continue;
+      const x = component.x;
+      if (x + component.width - cameraX < 0 || x - cameraX > width) continue;
       const cx = x + component.width / 2;
       const repaired = component.repaired;
       const color = repaired ? '#55e2bb' : '#ff9367';
@@ -1438,8 +1599,8 @@
   function drawCollectibles() {
     for (const collectible of collectibles) {
       if (collectible.collected) continue;
-      const x = collectible.x - cameraX;
-      if (x < -20 || x > width + 20) continue;
+      const x = collectible.x;
+      if (x - cameraX < -20 || x - cameraX > width + 20) continue;
       const bob = Math.sin(collectible.phase) * 4;
       ctx.save();
       ctx.translate(x, collectible.y + bob);
@@ -1460,8 +1621,8 @@
   function drawViruses() {
     for (const virus of viruses) {
       if (!virus.alive) continue;
-      const x = virus.x - cameraX;
-      if (x + virus.radius < -10 || x - virus.radius > width + 10) continue;
+      const x = virus.x;
+      if (x - cameraX + virus.radius < -10 || x - cameraX - virus.radius > width + 10) continue;
       const pulse = 1 + Math.sin(virus.phase) * .08;
       const fast = virus.type === 'fast';
       const boss = virus.type === 'boss';
@@ -1527,7 +1688,7 @@
 
   function drawProjectiles() {
     for (const projectile of projectiles) {
-      const x = projectile.x - cameraX;
+      const x = projectile.x;
       ctx.save();
       ctx.strokeStyle = 'rgba(78, 245, 223, .55)';
       ctx.lineWidth = 3;
@@ -1547,8 +1708,7 @@
 
   function drawRobot() {
     if (!player) return;
-    const screenX = player.x - cameraX;
-    const cx = screenX + player.width / 2;
+    const cx = player.x + player.width / 2;
     const top = player.y;
     const stride = player.grounded ? Math.sin(player.walkTime) * 5 : 2;
     ctx.save();
@@ -1647,14 +1807,14 @@
 
   function draw() {
     drawBackground();
-    // Subtle world grid inside the computer's digital environment.
     ctx.save();
-    ctx.translate(-cameraX % 44, 0);
+    ctx.translate(-cameraX, -cameraY);
+    drawThemeStructures();
+    // Subtle world grid inside the computer's digital environment.
     ctx.strokeStyle = 'rgba(62, 132, 145, .08)';
-    for (let x = -44; x < width + 44; x += 44) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, height); ctx.stroke();
+    for (let x = Math.floor(cameraX / 44) * 44; x < cameraX + width + 44; x += 44) {
+      ctx.beginPath(); ctx.moveTo(x, cameraY); ctx.lineTo(x, cameraY + height); ctx.stroke();
     }
-    ctx.restore();
     drawSolids();
     drawComponents();
     drawCollectibles();
@@ -1662,6 +1822,7 @@
     drawProjectiles();
     drawEffects();
     drawRobot();
+    ctx.restore();
     ctx.fillStyle = '#718994';
     ctx.font = '9px monospace';
     ctx.fillText('X: ' + String(Math.floor(player.x)).padStart(4, '0') + '  CAM: ' + String(Math.floor(cameraX)).padStart(4, '0'), 12, height - 12);
