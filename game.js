@@ -49,6 +49,16 @@
   const GRAVITY = 1850;
   const RUN_SPEED = 255;
   const JUMP_SPEED = 690;
+  const ENEMY_PROFILES = {
+    common: { hp: 2, damage: 12, speed: 60, radius: 15, behavior: 'chase', attack: 'melee', attackRange: 34, attackCooldown: 1.15, windup: .28, xp: 45, color: '#bb7bff' },
+    basic: { hp: 2, damage: 12, speed: 60, radius: 15, behavior: 'chase', attack: 'melee', attackRange: 34, attackCooldown: 1.15, windup: .28, xp: 45, color: '#bb7bff' },
+    fast: { hp: 1, damage: 8, speed: 142, radius: 11, behavior: 'chase', attack: 'melee', attackRange: 28, attackCooldown: .85, windup: .18, xp: 35, color: '#ff9263' },
+    armored: { hp: 7, damage: 18, speed: 42, radius: 18, behavior: 'patrol', attack: 'melee', attackRange: 40, attackCooldown: 1.8, windup: .48, armor: .68, vulnerableDuration: 1.25, special: 'barrier', specialCooldown: 7, xp: 85, color: '#76b9ff' },
+    flyer: { hp: 2, damage: 10, speed: 88, radius: 14, behavior: 'chase', attack: 'melee', attackRange: 38, attackCooldown: 1.4, windup: .32, flying: true, xp: 55, color: '#73e4ff' },
+    shooter: { hp: 3, damage: 10, speed: 48, radius: 15, behavior: 'patrol', attack: 'ranged', attackRange: 330, preferredRange: 230, attackCooldown: 2.2, projectileSpeed: 285, xp: 60, color: '#ffd166' },
+    parasite: { hp: 3, damage: 7, speed: 38, radius: 13, behavior: 'support', attack: 'interfere', buffRange: 190, interferenceRange: 260, drainRate: 8, summonCooldown: 9, summonLimit: 2, xp: 70, color: '#7dff9b' },
+    boss: { hp: 28, damage: 20, speed: 42, radius: 38, behavior: 'chase', attack: 'melee', attackRange: 70, attackCooldown: 1.3, windup: .36, special: 'summon', specialCooldown: 8, summonLimit: 3, xp: 250, color: '#ff476f' }
+  };
   const ABILITIES = [
     { id: 'armor', name: 'Armadura reforçada', maxLevel: 5, description: level => `Reduz o dano recebido em ${level * 10}% no total.`, apply: level => { player.armor = Math.min(.5, level * .1); } },
     { id: 'rapid', name: 'Disparo rápido', maxLevel: 5, description: level => `Reduz o intervalo entre ataques em ${Math.round((1 - Math.pow(.9, level)) * 100)}%.`, apply: level => { player.fireRate = Math.max(.14, .32 * Math.pow(.9, level)); } },
@@ -198,6 +208,13 @@
     { name: 'Firewall e segurança', theme: 'firewall', length: 2650, objective: 'Derrube as ameaças e reative os escudos do firewall.', palette: ['#1c1017','#3c1d29','#ff7c68','#8d3548','#b18a57'], platforms: [[220,150,85],[500,170,118],[820,140,75],[1110,190,122],[1480,150,78],[1780,180,115],[2150,160,82]], obstacles: [[455,48,65],[780,48,75],[1070,55,58],[1440,48,80],[1740,52,60],[2110,52,76]], components: [650,1320,1970], enemies: [{x:430,type:'fast'},{x:970,type:'common'},{x:1580,type:'fast'},{x:2250,type:'common'}], items: [300,1510,2300], features: [320,850,1530,2220] },
     { name: 'Servidores e Internet', theme: 'servers', length: 3100, objective: 'Repare os servidores da rede e derrote VIRUS ZERO no núcleo.', palette: ['#070f20','#172b50','#80dbff','#336783','#a35267'], platforms: [[230,150,82],[510,160,118],[820,180,75],[1150,140,120],[1420,190,78],[1770,160,112],[2070,170,80],[2390,160,118],[2680,140,75]], obstacles: [[465,48,54],[770,52,72],[1100,48,65],[1370,55,80],[1720,50,60],[2020,52,70],[2340,50,58],[2630,54,78]], components: [670,1460,2210], enemies: [{x:480,type:'common'},{x:1250,type:'fast'},{x:1920,type:'common'},{x:2400,type:'fast'},{x:2760,type:'boss',hp:28}], items: [300,1550,2440], features: [340,900,1510,2140,2760] }
   ];
+  // Each sector selects a small roster from the shared enemy catalog.
+  const PHASE_ENEMY_ROSTERS = [
+    ['basic','fast','armored'], ['fast','basic','shooter'], ['basic','parasite','shooter'],
+    ['fast','flyer','armored'], ['shooter','fast','basic'], ['basic','fast','parasite','fast'],
+    ['fast','armored','flyer'], ['basic','shooter','parasite'], ['armored','shooter','fast','basic'],
+    ['basic','shooter','flyer','fast','boss']
+  ];
 
   function normalizePhase(definition, index) {
     const width = definition.map?.width || definition.length;
@@ -261,10 +278,14 @@
     const components = definition.components.map((spec, componentIndex) => Array.isArray(spec) || typeof spec === 'number' ? {
       id: 'c' + String(componentIndex + 1).padStart(2, '0'), x: spec, y: null, anchor: 'floor', offset: 44, width: 34, height: 44
     } : { id: 'c' + String(componentIndex + 1).padStart(2, '0'), anchor: 'floor', offset: 44, width: 34, height: 44, ...spec });
-    const enemies = definition.enemies.map((enemy, enemyIndex) => ({
-      id: 'e' + String(enemyIndex + 1).padStart(2, '0'), anchor: 'floor',
-      offset: enemy.type === 'boss' ? 46 : enemy.type === 'fast' ? 26 : 24, ...enemy
-    }));
+    const enemies = definition.enemies.map((enemy, enemyIndex) => {
+      const configuredType = enemy.variant || (['common', 'fast'].includes(enemy.type)
+        ? PHASE_ENEMY_ROSTERS[index]?.[enemyIndex] || (enemy.type === 'common' ? 'basic' : 'fast')
+        : enemy.type || 'basic');
+      const type = configuredType === 'boss' ? 'boss' : configuredType;
+      return { id: 'e' + String(enemyIndex + 1).padStart(2, '0'), anchor: 'floor',
+        offset: type === 'boss' ? 46 : type === 'fast' ? 26 : type === 'flyer' ? 92 : 24, ...enemy, type };
+    });
     const collectibles = definition.items.map((item, itemIndex) => typeof item === 'number' ? {
       id: 'i' + String(itemIndex + 1).padStart(2, '0'), x: item, y: null, anchor: 'floor', offset: 39 + (itemIndex % 2) * 48, radius: 10
     } : { id: 'i' + String(itemIndex + 1).padStart(2, '0'), anchor: 'floor', offset: 39 + (itemIndex % 2) * 48, radius: 10, ...item });
@@ -315,6 +336,8 @@
   let player;
   let viruses = [];
   let projectiles = [];
+  let enemyProjectiles = [];
+  let enemyObstacles = [];
   let components = [];
   let collectibles = [];
   let defeated = 0;
@@ -434,6 +457,7 @@
       player: { x: player.x, y: player.y, health: player.health, facing: player.facing, grounded: player.grounded, shieldTime: player.shieldTime, shieldCooldown: player.shieldCooldown },
       viruses: viruses.map(virus => ({ alive: virus.alive, hp: virus.hp, x: virus.x, y: virus.y, direction: virus.direction })),
       repaired: components.map(component => component.repaired),
+      componentIntegrity: components.map(component => ({ integrity: component.integrity, corruption: component.corruption })),
       collected: collectibles.map(item => item.collected),
       phaseExitUnlocked, phaseObjectiveAwarded, phaseTransition, campaignComplete, gameOver, checkpointX,
       savedAt: Date.now()
@@ -503,7 +527,11 @@
         const progress = saved.viruses?.[index];
         return progress ? { ...virus, alive: Boolean(progress.alive), hp: Math.max(0, Math.min(virus.maxHp, Number(progress.hp) || 0)), x: Number(progress.x) || virus.x, y: Number(progress.y) || virus.y, direction: progress.direction < 0 ? -1 : 1 } : virus;
       });
-      components.forEach((component, index) => { component.repaired = Boolean(saved.repaired?.[index]); });
+      components.forEach((component, index) => {
+        component.repaired = Boolean(saved.repaired?.[index]);
+        const integrity = saved.componentIntegrity?.[index];
+        if (integrity) { component.integrity = Math.max(0, Math.min(100, Number(integrity.integrity) || 0)); component.corruption = Math.max(0, Math.min(100, Number(integrity.corruption) || 0)); }
+      });
       collectibles.forEach((item, index) => { item.collected = Boolean(saved.collected?.[index]); });
       defeated = viruses.filter(virus => !virus.alive).length;
       objectives.allRepairs = components.filter(component => component.repaired).length >= phaseData.objectives.componentsToRepair;
@@ -646,6 +674,9 @@
     for (const spec of phaseData.entities.obstacles) {
       geometry.push({ id: spec.id, x: spec.x, y: entityY(spec, spec.height), w: spec.width, h: spec.height, kind: 'block', type: spec.type || 'block', collision: spec.collision || 'solid' });
     }
+    for (const obstacle of enemyObstacles) {
+      if (obstacle.life > 0) geometry.push({ id: obstacle.id, x: obstacle.x, y: obstacle.y, w: obstacle.w, h: obstacle.h, kind: 'block', type: 'enemy-temporary', collision: 'solid' });
+    }
     if (!phaseExitUnlocked && map.bounds.right) {
       const exitX = map.exit.x;
       if (map.layout === 'horizontal') {
@@ -704,7 +735,7 @@
     cameraX = 0; cameraY = 0; platformRuntime = new Map(); animationTime = 0; jumpQueued = false;
     checkpointX = start.x;
     effects = []; saveTimer = 0;
-    viruses = createViruses(); projectiles = []; components = createComponents(); collectibles = createCollectibles();
+    viruses = createViruses(); projectiles = []; enemyProjectiles = []; enemyObstacles = []; components = createComponents(); collectibles = createCollectibles();
     defeated = 0; levelChoiceOpen = false; repairTarget = null; repairProgress = 0;
     phaseExitUnlocked = false; phaseObjectiveAwarded = false; phaseTransition = false; campaignComplete = false;
     objectives = { allRepairs: false, allViruses: false };
@@ -717,19 +748,23 @@
 
   function createViruses() {
     return phaseData.entities.enemies.map((spec, index) => {
-      const boss = spec.type === 'boss';
-      const hp = spec.hp || (boss ? 28 : spec.type === 'fast' ? 1 : 2);
-      const y = entityY(spec, boss ? 46 : spec.type === 'fast' ? 26 : 24);
-      return { id: spec.id, x: spec.x, baseX: spec.x, y, baseY: y, hp, maxHp: hp,
-        radius: boss ? 38 : spec.type === 'fast' ? 11 : 15,
-        speed: boss ? 38 : spec.type === 'fast' ? 112 + index * 4 : 54 + index * 3,
-        patrol: 70 + index * 8, direction: index % 2 ? 1 : -1,
-        type: spec.type, alive: true, phase: index * .9 };
+      const type = spec.type === 'common' ? 'basic' : spec.type;
+      const profile = ENEMY_PROFILES[type] || ENEMY_PROFILES.basic;
+      const enemy = { ...profile, ...spec, type };
+      const hp = Number(enemy.hp) || profile.hp;
+      const y = entityY(enemy, enemy.flying ? 92 : enemy.type === 'boss' ? 46 : 24);
+      return { ...enemy, id: spec.id, x: spec.x, baseX: spec.x, y, baseY: y, hp, maxHp: hp,
+        radius: Number(enemy.radius) || profile.radius, speed: Number(enemy.speed) || profile.speed,
+        patrol: enemy.patrol || 70 + index * 8, patrolMin: enemy.patrolMin ?? spec.x - (enemy.patrol || 70 + index * 8),
+        patrolMax: enemy.patrolMax ?? spec.x + (enemy.patrol || 70 + index * 8), direction: index % 2 ? 1 : -1,
+        alive: true, countsForObjective: true, phase: index * .9, attackCooldownTimer: .45 + index * .16,
+        attackWindup: 0, vulnerableTime: 0, specialCooldownTimer: (enemy.specialCooldown || 7) * .45,
+        summonCooldownTimer: (enemy.summonCooldown || 9) * .5, obstacleId: null };
     });
   }
 
   function createComponents() {
-    return phaseData.entities.components.map((spec, index) => ({ id: spec.id, x: spec.x, y: entityY(spec, 44), width: spec.width || 34, height: spec.height || 44, repaired: false, phase: index * .9 }));
+    return phaseData.entities.components.map((spec, index) => ({ id: spec.id, x: spec.x, y: entityY(spec, 44), width: spec.width || 34, height: spec.height || 44, repaired: false, integrity: 100, corruption: 0, phase: index * .9 }));
   }
 
   function createCollectibles() {
@@ -909,6 +944,8 @@
     repairProgress += dt;
     if (repairProgress >= repairDuration) {
       component.repaired = true;
+      component.integrity = 100;
+      component.corruption = 0;
       repairTarget = null;
       repairProgress = 0;
       interactionMessage = 'COMPONENTE REPARADO';
@@ -940,7 +977,7 @@
 
   function checkObjectives() {
     const repairedCount = components.filter(component => component.repaired).length;
-    const defeatedCount = viruses.filter(virus => !virus.alive).length;
+    const defeatedCount = viruses.filter(virus => !virus.alive && virus.countsForObjective !== false).length;
     if (!objectives.allRepairs && repairedCount >= phaseData.objectives.componentsToRepair) {
       objectives.allRepairs = true;
       awardExperience(100, 'objetivo concluído: setor reparado');
@@ -1115,6 +1152,7 @@
     damageCooldown = 1.5;
     repairTarget = null; repairProgress = 0; jumpQueued = false;
     platformRuntime = new Map();
+    enemyProjectiles = []; enemyObstacles = [];
     cameraX = Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX));
     cameraY = Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY));
     addLog('ReinicializaÃ§Ã£o no checkpoint. Objetivos mantidos.');
@@ -1293,6 +1331,168 @@
     saveCampaign();
   }
 
+  function fireEnemyProjectile(virus, targetX, targetY) {
+    const dx = targetX - virus.x;
+    const dy = targetY - virus.y;
+    const length = Math.hypot(dx, dy) || 1;
+    enemyProjectiles.push({ x: virus.x + Math.sign(dx || 1) * (virus.radius + 4), y: virus.y,
+      vx: dx / length * (virus.projectileSpeed || 285), vy: dy / length * (virus.projectileSpeed || 285),
+      life: 2.8, radius: 6, damage: virus.damage, ownerX: virus.x, color: virus.color || '#ffd166' });
+    emitParticles(virus.x, virus.y, virus.color || '#ffd166', 3);
+  }
+
+  function spawnEnemyMinion(virus) {
+    const aliveMinions = viruses.filter(enemy => enemy.alive && enemy.summonedBy === virus.id).length;
+    if (aliveMinions >= (virus.summonLimit || 2)) return false;
+    const profile = ENEMY_PROFILES.fast;
+    const side = Math.random() < .5 ? -1 : 1;
+    virus.minionSerial = (virus.minionSerial || 0) + 1;
+    viruses.push({ ...profile, id: virus.id + '-m' + String(virus.minionSerial).padStart(2, '0'),
+      type: 'fast', x: Math.max(35, Math.min(worldWidth() - 35, virus.x + side * 28)), baseX: virus.x,
+      y: floorY() - 26, baseY: floorY() - 26, hp: 1, maxHp: 1, radius: 9, speed: 126,
+      alive: true, countsForObjective: false, summonedBy: virus.id, life: 13, phase: 0,
+      attackCooldownTimer: .8, attackWindup: 0, vulnerableTime: 0, specialCooldownTimer: 99,
+      summonCooldownTimer: 99, direction: side, patrolMin: virus.x - 70, patrolMax: virus.x + 70 });
+    addLog(virus.type === 'boss' ? 'VIRUS ZERO invocou reforcos.' : 'Parasita invocou um reforco rapido.');
+    return true;
+  }
+
+  function createEnemyBarrier(virus) {
+    const side = player.x + player.width / 2 >= virus.x ? 1 : -1;
+    const x = Math.max(25, Math.min(worldWidth() - 50,
+      side > 0 ? player.x + player.width + 58 : player.x - 82));
+    if (enemyObstacles.some(obstacle => obstacle.life > 0 && Math.abs(obstacle.x - x) < 55)) return;
+    enemyObstacles.push({ id: 'enemy-barrier-' + virus.id + '-' + Math.floor(animationTime), x,
+      y: floorY() - 72, w: 24, h: 72, life: 3.6 });
+    addLog('Vírus blindado ergueu uma barreira temporária.');
+  }
+
+  function damageVirus(virus, damage) {
+    const armor = virus.vulnerableTime > 0 ? 0 : (virus.armor || 0);
+    virus.hp = Math.max(0, virus.hp - Math.max(1, Math.ceil(damage * (1 - armor))));
+    virus.hitFlash = .12;
+    emitParticles(virus.x, virus.y, virus.color || '#c078ff', virus.type === 'boss' ? 10 : 6);
+    playSound('hit');
+    if (virus.hp > 0) return;
+    virus.alive = false;
+    if (virus.countsForObjective !== false) defeated++;
+    addLog(virus.type === 'boss' ? 'VIRUS ZERO recebeu dano critico.' : virus.type === 'fast' ? 'Virus rapido neutralizado.' : 'Virus neutralizado.');
+    awardExperience(virus.countsForObjective === false ? 12 : virus.xp || 45, virus.type === 'boss' ? 'chefe derrotado' : 'vÃ­rus derrotado');
+  }
+
+  function updateEnemyBrain(virus, dt, playerCenterX, playerCenterY) {
+    if (virus.life !== undefined) {
+      virus.life -= dt;
+      if (virus.life <= 0) { virus.alive = false; return; }
+    }
+    virus.attackCooldownTimer = Math.max(0, virus.attackCooldownTimer - dt);
+    virus.specialCooldownTimer = Math.max(0, virus.specialCooldownTimer - dt);
+    virus.summonCooldownTimer = Math.max(0, virus.summonCooldownTimer - dt);
+    virus.vulnerableTime = Math.max(0, virus.vulnerableTime - dt);
+    virus.hitFlash = Math.max(0, (virus.hitFlash || 0) - dt);
+    virus.phase += dt * (virus.type === 'fast' ? 9 : virus.flying ? 6 : 4);
+    const dx = playerCenterX - virus.x;
+    const dy = playerCenterY - virus.y;
+    const distance = Math.hypot(dx, dy);
+    let moveDirection = 0;
+
+    if (virus.type === 'parasite') {
+      const target = components.filter(component => !component.repaired)
+        .sort((a, b) => Math.abs(a.x + a.width / 2 - virus.x) - Math.abs(b.x + b.width / 2 - virus.x))[0];
+      if (target) {
+        const componentDx = target.x + target.width / 2 - virus.x;
+        moveDirection = Math.abs(componentDx) > 72 ? Math.sign(componentDx) : 0;
+        if (Math.abs(componentDx) < (virus.interferenceRange || 86)) {
+          target.corruption = Math.min(100, target.corruption + (virus.drainRate || 6) * dt);
+          target.integrity = Math.max(0, 100 - target.corruption);
+        }
+      }
+      if (virus.summonCooldownTimer <= 0 && distance < 430) {
+        if (spawnEnemyMinion(virus)) virus.summonCooldownTimer = virus.summonCooldown || 9;
+        else virus.summonCooldownTimer = 2;
+      }
+    } else if (virus.behavior === 'patrol' && distance > (virus.aggroRange || 460)) {
+      if (virus.x <= virus.patrolMin) virus.direction = 1;
+      if (virus.x >= virus.patrolMax) virus.direction = -1;
+      moveDirection = virus.direction;
+    } else if (virus.attack === 'ranged') {
+      const preferred = virus.preferredRange || 230;
+      if (Math.abs(dx) > (virus.attackRange || 330)) moveDirection = Math.sign(dx);
+      else if (Math.abs(dx) < preferred * .68) moveDirection = -Math.sign(dx);
+    } else if (virus.behavior === 'chase' || distance < (virus.aggroRange || 460)) {
+      moveDirection = Math.sign(dx);
+    } else {
+      if (virus.x <= virus.patrolMin) virus.direction = 1;
+      if (virus.x >= virus.patrolMax) virus.direction = -1;
+      moveDirection = virus.direction;
+    }
+
+    const speed = virus.speed * (virus.buffed ? 1.3 : 1) * (virus.flying && virus.attackWindup > 0 ? 1.55 : 1);
+    const nextX = Math.max(virus.radius, Math.min(worldWidth() - virus.radius, virus.x + moveDirection * speed * dt));
+    const blocked = solids().some(object => object.collision === 'solid' && object.kind !== 'gate' &&
+      nextX + virus.radius > object.x && nextX - virus.radius < object.x + object.w &&
+      virus.y + virus.radius > object.y && virus.y - virus.radius < object.y + object.h);
+    if (virus.flying || !blocked) virus.x = nextX;
+    else virus.direction *= -1;
+
+    if (virus.flying) {
+      const hoverY = Math.max(55, Math.min(floorY() - 92, playerCenterY - 55 + Math.sin(virus.phase * .65) * 16));
+      virus.y += Math.max(-speed, Math.min(speed, hoverY - virus.y)) * dt;
+    } else virus.y = virus.baseY + Math.sin(virus.phase) * 3;
+
+    if (virus.attack === 'ranged' && distance <= (virus.attackRange || 330) && virus.attackCooldownTimer <= 0) {
+      fireEnemyProjectile(virus, playerCenterX, playerCenterY);
+      virus.attackCooldownTimer = virus.attackCooldown || 2.2;
+    } else if (virus.attack === 'melee') {
+      if (virus.attackWindup <= 0 && distance <= (virus.attackRange || 34) + virus.radius + 17 && virus.attackCooldownTimer <= 0) {
+        virus.attackWindup = virus.windup || .28;
+        virus.attackCooldownTimer = virus.attackCooldown || 1.2;
+      }
+      if (virus.attackWindup > 0) {
+        virus.attackWindup = Math.max(0, virus.attackWindup - dt);
+        if (virus.attackWindup === 0) {
+          if (Math.hypot(playerCenterX - virus.x, playerCenterY - virus.y) <= (virus.attackRange || 34) + virus.radius + 17) {
+            damagePlayer(virus.damage * (virus.buffed ? 1.25 : 1), virus);
+          }
+          virus.vulnerableTime = virus.vulnerableDuration || (virus.type === 'armored' ? 1.25 : 0);
+        }
+      }
+    }
+
+    if (virus.special === 'barrier' && virus.specialCooldownTimer <= 0 && distance < 230) {
+      createEnemyBarrier(virus);
+      virus.specialCooldownTimer = virus.specialCooldown || 7;
+    } else if (virus.special === 'summon' && virus.specialCooldownTimer <= 0 && distance < 470) {
+      const aliveMinions = viruses.filter(enemy => enemy.alive && enemy.summonedBy === virus.id).length;
+      if (aliveMinions < (virus.summonLimit || 3)) spawnEnemyMinion(virus);
+      virus.specialCooldownTimer = virus.specialCooldown || 8;
+    }
+  }
+
+  function updateHostileProjectiles(dt) {
+    const barriers = solids();
+    for (const projectile of enemyProjectiles) {
+      projectile.x += projectile.vx * dt;
+      projectile.y += projectile.vy * dt;
+      projectile.life -= dt;
+      if (barriers.some(object => object.collision === 'solid' && object.kind !== 'floor' &&
+        projectile.x + projectile.radius > object.x && projectile.x - projectile.radius < object.x + object.w &&
+        projectile.y + projectile.radius > object.y && projectile.y - projectile.radius < object.y + object.h)) {
+        projectile.life = 0;
+        continue;
+      }
+      const nearestX = Math.max(player.x, Math.min(projectile.x, player.x + player.width));
+      const nearestY = Math.max(player.y, Math.min(projectile.y, player.y + player.height));
+      if (Math.hypot(projectile.x - nearestX, projectile.y - nearestY) <= projectile.radius) {
+        damagePlayer(projectile.damage, { x: projectile.ownerX });
+        projectile.life = 0;
+      }
+    }
+    enemyProjectiles = enemyProjectiles.filter(projectile => projectile.life > 0 && projectile.x > 0 && projectile.x < worldWidth());
+    for (const obstacle of enemyObstacles) obstacle.life -= dt;
+    enemyObstacles = enemyObstacles.filter(obstacle => obstacle.life > 0);
+  }
+
   function updateCombat(dt) {
     attackCooldown = Math.max(0, attackCooldown - dt);
     damageCooldown = Math.max(0, damageCooldown - dt);
@@ -1312,25 +1512,20 @@
 
     const playerCenterX = player.x + player.width / 2;
     const playerCenterY = player.y + player.height / 2;
-    for (const virus of viruses) {
-      if (!virus.alive) continue;
-      const dx = playerCenterX - virus.x;
-      if (Math.abs(dx) < 470) {
-        virus.x += Math.sign(dx) * virus.speed * dt;
-      } else {
-        virus.x += virus.direction * virus.speed * .45 * dt;
-        if (virus.x < virus.baseX - virus.patrol || virus.x > virus.baseX + virus.patrol) virus.direction *= -1;
-      }
-      const desiredY = Math.max(45, Math.min(floorY() - 20, playerCenterY - 2));
-      virus.y += Math.max(-95, Math.min(95, (desiredY - virus.y) * 1.8)) * dt;
-      virus.phase += dt * (virus.type === 'fast' ? 8 : 4);
-      virus.x = Math.max(35, Math.min(worldWidth() - 35, virus.x));
-
-      if (Math.hypot(playerCenterX - virus.x, playerCenterY - virus.y) < virus.radius + 17) {
-        damagePlayer(virus.type === 'boss' ? 20 : virus.type === 'fast' ? 8 : 12, virus);
-        if (!running) return;
+    for (const virus of viruses) virus.buffed = false;
+    for (const parasite of viruses) {
+      if (!parasite.alive || parasite.type !== 'parasite') continue;
+      for (const ally of viruses) {
+        if (ally !== parasite && ally.alive && ally.type !== 'parasite' &&
+          Math.hypot(ally.x - parasite.x, ally.y - parasite.y) <= (parasite.buffRange || 190)) ally.buffed = true;
       }
     }
+    for (const virus of viruses) {
+      if (!virus.alive) continue;
+      updateEnemyBrain(virus, dt, playerCenterX, playerCenterY);
+      if (!running) return;
+    }
+    updateHostileProjectiles(dt);
 
     for (const projectile of projectiles) {
       projectile.x += projectile.vx * dt;
@@ -1339,20 +1534,13 @@
         if (!virus.alive) continue;
         if (Math.hypot(projectile.x - virus.x, projectile.y - virus.y) <= virus.radius + projectile.radius) {
           projectile.life = 0;
-          virus.hp -= projectile.damage;
-          emitParticles(virus.x, virus.y, virus.type === 'boss' ? '#ff638e' : '#c078ff', virus.type === 'boss' ? 10 : 6);
-          playSound('hit');
-          if (virus.hp <= 0) {
-            virus.alive = false;
-            defeated++;
-            addLog(virus.type === 'boss' ? 'VIRUS ZERO recebeu dano crítico.' : virus.type === 'fast' ? 'Vírus rápido neutralizado.' : 'Vírus comum neutralizado.');
-            awardExperience(virus.type === 'boss' ? 250 : virus.type === 'fast' ? 35 : 45, virus.type === 'boss' ? 'chefe derrotado' : 'vírus derrotado');
-          }
+          damageVirus(virus, projectile.damage);
           break;
         }
       }
     }
     projectiles = projectiles.filter(projectile => projectile.life > 0 && projectile.x > 0 && projectile.x < worldWidth());
+    viruses = viruses.filter(virus => virus.countsForObjective !== false || virus.alive);
     checkObjectives();
   }
 
@@ -1372,7 +1560,7 @@
     if (running && !gameOver) ui.stage.textContent = 'FASE ' + String(phaseIndex + 1).padStart(2, '0') + ' // ' + (phaseExitUnlocked ? 'SAÍDA LIBERADA' : 'OBJETIVOS EM ANDAMENTO');
     ui.gate.textContent = phaseExitUnlocked ? 'LIBERADA' : 'BLOQUEADA';
     ui.gate.style.color = phaseExitUnlocked ? '#62e4b7' : '#ff8a72';
-    ui.defeated.textContent = String(defeated).padStart(2, '0') + ' / ' + String(viruses.length).padStart(2, '0');
+    ui.defeated.textContent = String(defeated).padStart(2, '0') + ' / ' + String(phaseData.objectives.enemiesToDefeat).padStart(2, '0');
     const miniRect = ui.map.parentElement.getBoundingClientRect();
     const miniRange = Math.max(0, miniRect.width - 16);
     ui.map.style.left = (8 + (player.x / (worldWidth() - player.width)) * miniRange) + 'px';
@@ -1580,14 +1768,14 @@
         ctx.strokeRect(x + 1, object.y + 1, object.w - 2, object.h - 2);
         for (let y = 8; y < object.h; y += 20) { ctx.fillStyle = '#ff8a72'; ctx.fillRect(x + 5, y, object.w - 10, 3); }
       } else {
-        ctx.fillStyle = phaseData.palette[3];
+        ctx.fillStyle = object.type === 'enemy-temporary' ? '#51283f' : phaseData.palette[3];
         ctx.fillRect(x, object.y, object.w, object.h);
-        ctx.strokeStyle = phaseData.palette[2];
+        ctx.strokeStyle = object.type === 'enemy-temporary' ? '#ff83a2' : phaseData.palette[2];
         ctx.lineWidth = 1;
         ctx.strokeRect(x + .5, object.y + .5, object.w - 1, object.h - 1);
-        ctx.fillStyle = phaseData.palette[4];
+        ctx.fillStyle = object.type === 'enemy-temporary' ? '#ff83a2' : phaseData.palette[4];
         ctx.fillRect(x + 6, object.y + 6, object.w - 12, 3);
-        ctx.fillStyle = phaseData.palette[2];
+        ctx.fillStyle = object.type === 'enemy-temporary' ? '#ffb2c4' : phaseData.palette[2];
         ctx.globalAlpha = .32;
         ctx.fillRect(x + 6, object.y + 15, 4, object.h - 22);
         ctx.fillRect(x + 15, object.y + 15, 4, object.h - 22);
@@ -1651,6 +1839,12 @@
       ctx.fillRect(x + 6, component.y + 7, component.width - 12, 13);
       ctx.fillStyle = repaired ? '#208e80' : '#633844';
       ctx.fillRect(x + 9, component.y + 11, component.width - 18, 3);
+      if (!repaired && component.corruption > 0) {
+        ctx.fillStyle = '#30252a';
+        ctx.fillRect(x, component.y + component.height + 3, component.width, 3);
+        ctx.fillStyle = '#e85c79';
+        ctx.fillRect(x, component.y + component.height + 3, component.width * component.corruption / 100, 3);
+      }
       ctx.strokeStyle = repaired ? '#59ddb7' : '#ff8c68';
       ctx.beginPath();
       ctx.moveTo(cx, component.y + 20);
@@ -1722,15 +1916,30 @@
       const pulse = 1 + Math.sin(virus.phase) * .08;
       const fast = virus.type === 'fast';
       const boss = virus.type === 'boss';
-      const color = boss ? '#ff476f' : fast ? '#ff9263' : '#bb7bff';
+      const palette = { basic: '#bb7bff', fast: '#ff9263', armored: '#76b9ff', flyer: '#73e4ff', shooter: '#ffd166', parasite: '#7dff9b' };
+      const color = boss ? '#ff476f' : palette[virus.type] || '#bb7bff';
+      const armored = virus.type === 'armored';
+      const flyer = virus.type === 'flyer';
+      const shooter = virus.type === 'shooter';
+      const parasite = virus.type === 'parasite';
       ctx.save();
       ctx.translate(x, virus.y);
       ctx.scale(pulse, pulse);
       ctx.shadowColor = color;
       ctx.shadowBlur = boss ? 26 : fast ? 16 : 13;
-      ctx.fillStyle = boss ? '#45142d' : fast ? '#4c2528' : '#302044';
+      ctx.fillStyle = virus.hitFlash > 0 ? '#ffffff' : boss ? '#45142d' : fast ? '#4c2528' : armored ? '#183353' : flyer ? '#143d4a' : shooter ? '#4a3b1c' : parasite ? '#17442b' : '#302044';
       ctx.strokeStyle = color;
       ctx.lineWidth = boss ? 3 : fast ? 2 : 1.8;
+      if (armored && virus.vulnerableTime <= 0) {
+        ctx.strokeStyle = '#c2e8ff'; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.arc(0, 0, virus.radius + 8, -.45, Math.PI * 1.45); ctx.stroke();
+        ctx.strokeStyle = color; ctx.lineWidth = 1.8;
+      }
+      if (flyer) {
+        const wing = 8 + Math.sin(virus.phase * 2) * 4;
+        ctx.beginPath(); ctx.moveTo(-5, -4); ctx.lineTo(-virus.radius - wing, -wing); ctx.lineTo(-virus.radius - 2, 3); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(5, -4); ctx.lineTo(virus.radius + wing, -wing); ctx.lineTo(virus.radius + 2, 3); ctx.closePath(); ctx.fill(); ctx.stroke();
+      }
       if (boss) {
         ctx.strokeStyle = '#ffafc4';
         ctx.beginPath(); ctx.arc(0, 0, virus.radius + 9, 0, Math.PI * 2); ctx.stroke();
@@ -1749,6 +1958,19 @@
       ctx.arc(0, 0, virus.radius, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
+      if (shooter) {
+        ctx.fillStyle = '#fff0b5'; ctx.fillRect(-4, virus.radius - 1, 8, 7);
+        ctx.fillStyle = color; ctx.fillRect(-2, virus.radius + 2, 4, 3);
+      }
+      if (parasite) {
+        ctx.strokeStyle = color; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(-4, virus.radius - 2); ctx.lineTo(-12, virus.radius + 10 + Math.sin(virus.phase) * 3);
+        ctx.moveTo(4, virus.radius - 2); ctx.lineTo(12, virus.radius + 10 - Math.sin(virus.phase) * 3); ctx.stroke();
+      }
+      if (virus.attackWindup > 0) {
+        ctx.strokeStyle = '#fff0a3'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(0, 0, virus.radius + 12 + Math.sin(virus.phase * 4) * 2, 0, Math.PI * 2); ctx.stroke();
+      }
       for (let spike = 0; spike < 8; spike++) {
         const angle = spike * Math.PI / 4 + virus.phase * .12;
         const sx = Math.cos(angle), sy = Math.sin(angle);
@@ -1768,12 +1990,16 @@
       ctx.stroke();
       ctx.restore();
 
-      if (virus.hp < virus.maxHp || boss) {
+      if (virus.hp < virus.maxHp || boss || armored) {
         const barWidth = boss ? 82 : 28;
         ctx.fillStyle = '#1a2029';
         ctx.fillRect(x - barWidth / 2, virus.y - virus.radius - 10, barWidth, boss ? 6 : 3);
         ctx.fillStyle = color;
         ctx.fillRect(x - barWidth / 2, virus.y - virus.radius - 10, barWidth * virus.hp / virus.maxHp, boss ? 6 : 3);
+        if (armored && virus.vulnerableTime > 0) {
+          ctx.fillStyle = '#ffe58b';
+          ctx.fillRect(x - barWidth / 2, virus.y - virus.radius - 5, barWidth * Math.min(1, virus.vulnerableTime / (virus.vulnerableDuration || 1.25)), 2);
+        }
         if (boss) {
           ctx.fillStyle = '#ffd9e4'; ctx.font = 'bold 9px monospace'; ctx.textAlign = 'center';
           ctx.fillText('VIRUS ZERO', x, virus.y - virus.radius - 15);
@@ -1798,6 +2024,22 @@
       ctx.beginPath();
       ctx.arc(x, projectile.y, projectile.radius * .65, 0, Math.PI * 2);
       ctx.fill();
+      ctx.restore();
+    }
+    for (const projectile of enemyProjectiles) {
+      const screenX = projectile.x;
+      if (screenX - cameraX < -16 || screenX - cameraX > width + 16) continue;
+      ctx.save();
+      ctx.strokeStyle = projectile.color || '#ff806b';
+      ctx.lineWidth = 3;
+      ctx.shadowColor = projectile.color || '#ff806b';
+      ctx.shadowBlur = 12;
+      ctx.beginPath();
+      ctx.moveTo(screenX - projectile.vx * .035, projectile.y - projectile.vy * .035);
+      ctx.lineTo(screenX, projectile.y);
+      ctx.stroke();
+      ctx.fillStyle = '#fff3cf';
+      ctx.beginPath(); ctx.arc(screenX, projectile.y, projectile.radius * .6, 0, Math.PI * 2); ctx.fill();
       ctx.restore();
     }
   }
