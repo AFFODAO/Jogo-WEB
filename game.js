@@ -229,12 +229,35 @@
         x, y: null, anchor: 'floor', offset: rise, width: platformWidth, height: 18 };
     };
     const platforms = definition.platforms.map(normalizePlatform);
+    if (index === 0) {
+      // Demonstration lane: stepped precision jumps and an optional high shelf.
+      platforms.push(
+        { id: 'demo-step-a', x: 925, width: 76, offset: 72, height: 16 },
+        { id: 'demo-step-b', x: 1050, width: 68, offset: 118, height: 16 },
+        { id: 'demo-step-c', x: 1170, width: 98, offset: 78, height: 16 },
+        { id: 'demo-secret-a', x: 1510, width: 84, offset: 108, height: 16 },
+        { id: 'demo-secret-b', x: 1630, width: 92, offset: 156, height: 16 }
+      );
+    }
+    // Every sector uses the same parkour toolkit, with its moving route and
+    // breakaway ledge placed among the phase's existing jump platforms.
+    const movingPlatform = platforms[Math.min(2, platforms.length - 1)];
+    if (movingPlatform) {
+      movingPlatform.type = 'moving';
+      movingPlatform.motion = { axis: index % 2 ? 'y' : 'x', range: index % 2 ? 34 : 48, speed: .9 + (index % 3) * .12, phase: index * .7 };
+    }
+    const breakawayPlatform = platforms[Math.min(4, platforms.length - 1)];
+    if (breakawayPlatform) { breakawayPlatform.type = 'temporary'; breakawayPlatform.duration = 2.1; }
     const obstacles = definition.obstacles.map((spec, obstacleIndex) => {
       if (!Array.isArray(spec)) return { id: 'o' + String(obstacleIndex + 1).padStart(2, '0'), type: 'block', collision: 'solid', anchor: 'floor', offset: spec.height || 0, ...spec };
       const [x, obstacleWidth, obstacleHeight] = spec;
       return { id: 'o' + String(obstacleIndex + 1).padStart(2, '0'), type: 'block', collision: 'solid',
         x, y: null, anchor: 'floor', offset: obstacleHeight, width: obstacleWidth, height: obstacleHeight };
     });
+    if (index === 0) obstacles.push(
+      { id: 'demo-wall-a', x: 1940, width: 20, height: 92, offset: 92, anchor: 'floor', type: 'wall', collision: 'solid' },
+      { id: 'demo-wall-b', x: 2030, width: 20, height: 108, offset: 108, anchor: 'floor', type: 'wall', collision: 'solid' }
+    );
     const components = definition.components.map((spec, componentIndex) => Array.isArray(spec) || typeof spec === 'number' ? {
       id: 'c' + String(componentIndex + 1).padStart(2, '0'), x: spec, y: null, anchor: 'floor', offset: 44, width: 34, height: 44
     } : { id: 'c' + String(componentIndex + 1).padStart(2, '0'), anchor: 'floor', offset: 44, width: 34, height: 44, ...spec });
@@ -252,7 +275,12 @@
       id: 'phase-' + String(index + 1).padStart(2, '0'),
       name: definition.name, theme: definition.theme, objective: definition.objective,
       palette: definition.palette,
-      map,
+      map: {
+        ...map,
+        // Visible, reusable respawn beacons at safe floor positions.
+        checkpoints: index === 0 ? [840, 1370, 1850] : [Math.round(width * .42), Math.round(width * .72)],
+        pits: index === 0 ? [{ x: 1460, width: 92 }] : (map.pits || [])
+      },
       entities: { platforms, obstacles, components, enemies, collectibles, features },
       objectives: { defeatAllViruses: true, repairAllComponents: true, requireExitQuestion: true,
         enemiesToDefeat: enemies.length, componentsToRepair: components.length, ...definition.objectives }
@@ -283,6 +311,7 @@
   let cameraX = 0;
   let cameraY = 0;
   let platformRuntime = new Map();
+  let checkpointX = 70;
   let player;
   let viruses = [];
   let projectiles = [];
@@ -406,7 +435,7 @@
       viruses: viruses.map(virus => ({ alive: virus.alive, hp: virus.hp, x: virus.x, y: virus.y, direction: virus.direction })),
       repaired: components.map(component => component.repaired),
       collected: collectibles.map(item => item.collected),
-      phaseExitUnlocked, phaseObjectiveAwarded, phaseTransition, campaignComplete, gameOver,
+      phaseExitUnlocked, phaseObjectiveAwarded, phaseTransition, campaignComplete, gameOver, checkpointX,
       savedAt: Date.now()
     };
     try {
@@ -454,12 +483,16 @@
     const isNextPhase = saved.phaseTransition;
     const retryAfterDefeat = Boolean(saved.gameOver);
     loadPhase(phaseIndex, true);
+    checkpointX = isNextPhase ? mapStart().x
+      : Math.max(mapStart().x, Math.min(worldWidth() - player.width, Number(saved.checkpointX) || mapStart().x));
     if (isNextPhase || retryAfterDefeat) player.health = Math.min(player.maxHealth, retryAfterDefeat ? player.maxHealth : (Number(saved.player?.health) || 100) + 25);
     else {
       const source = saved.player || {};
       player.health = Math.max(1, Math.min(player.maxHealth, Number(source.health) || player.maxHealth));
-      player.x = Math.max(0, Math.min(worldWidth() - player.width, Number(source.x) || 70));
-      const savedY = Number.isFinite(Number(source.y)) ? Number(source.y) : mapStart().y;
+      player.x = retryAfterDefeat ? Math.min(worldWidth() - player.width, checkpointX + 38)
+        : Math.max(0, Math.min(worldWidth() - player.width, Number(source.x) || 70));
+      const savedY = retryAfterDefeat ? floorY() - player.height
+        : Number.isFinite(Number(source.y)) ? Number(source.y) : mapStart().y;
       const mapBottom = phaseData.map.bounds.floor ? floorY() - player.height : worldHeight() - player.height;
       player.y = Math.max(phaseData.map.bounds.ceiling ? 0 : -Infinity, Math.min(mapBottom, savedY));
       player.facing = source.facing === -1 ? -1 : 1;
@@ -596,7 +629,16 @@
   function solids() {
     const map = phaseData.map;
     const geometry = [];
-    if (map.bounds.floor) geometry.push({ x: 0, y: floorY(), w: worldWidth(), h: Math.max(42, worldHeight() - floorY()), kind: 'floor', type: 'fixed' });
+    if (map.bounds.floor) {
+      const pits = (map.pits || []).slice().sort((a, b) => a.x - b.x);
+      let floorStart = 0;
+      for (const pit of pits) {
+        const pitStart = Math.max(floorStart, Math.max(0, pit.x));
+        if (pitStart > floorStart) geometry.push({ x: floorStart, y: floorY(), w: pitStart - floorStart, h: Math.max(42, worldHeight() - floorY()), kind: 'floor', type: 'fixed' });
+        floorStart = Math.max(floorStart, Math.min(worldWidth(), pit.x + pit.width));
+      }
+      if (floorStart < worldWidth()) geometry.push({ x: floorStart, y: floorY(), w: worldWidth() - floorStart, h: Math.max(42, worldHeight() - floorY()), kind: 'floor', type: 'fixed' });
+    }
     for (const spec of phaseData.entities.platforms) {
       const shape = platformShape(spec);
       if (shape) geometry.push(shape);
@@ -660,6 +702,7 @@
     player.x = start.x; player.y = start.y;
     player.vx = 0; player.vy = 0; player.grounded = true; player.facing = 1;
     cameraX = 0; cameraY = 0; platformRuntime = new Map(); animationTime = 0; jumpQueued = false;
+    checkpointX = start.x;
     effects = []; saveTimer = 0;
     viruses = createViruses(); projectiles = []; components = createComponents(); collectibles = createCollectibles();
     defeated = 0; levelChoiceOpen = false; repairTarget = null; repairProgress = 0;
@@ -807,19 +850,23 @@
       }
     }
 
-    if (phaseData.map.bounds.floor && player.y + player.height >= floorY()) {
+    const overPit = (phaseData.map.pits || []).some(pit => player.x + player.width > pit.x && player.x < pit.x + pit.width);
+    if (phaseData.map.bounds.floor && !overPit && player.y + player.height >= floorY()) {
       player.y = floorY() - player.height;
       player.vy = 0;
       player.grounded = true;
+    }
+    if (overPit && player.y > floorY() + 112) {
+      respawnAtCheckpoint();
+      return;
     }
     if (phaseData.map.bounds.ceiling && player.y < 0) {
       player.y = 0;
       if (player.vy < 0) player.vy = 0;
     }
     if (!phaseData.map.bounds.floor && player.y > worldHeight() + 180) {
-      player.y = worldHeight() - player.height;
-      player.vy = 0;
-      player.grounded = true;
+      respawnAtCheckpoint();
+      return;
     }
     if (direction) player.walkTime += dt * 12;
     else player.walkTime *= Math.max(0, 1 - dt * 12);
@@ -1051,7 +1098,39 @@
     addLog('Impacto de vírus! Integridade em ' + player.health + '%.');
     updateHud();
     saveCampaign();
-    if (player.health <= 0) finishDefeat();
+    if (player.health <= 0) respawnAtCheckpoint();
+  }
+
+  function respawnAtCheckpoint() {
+    player.health = player.maxHealth;
+    player.x = Math.max(0, Math.min(worldWidth() - player.width, checkpointX + 38));
+    player.y = floorY() - player.height;
+    for (let attempt = 0; attempt < 4; attempt++) {
+      const blocker = solids().find(object => object.collision !== 'one-way' && overlaps(player, object));
+      if (!blocker) break;
+      player.x = Math.min(worldWidth() - player.width, blocker.x + blocker.w + 2);
+    }
+    player.vx = 0; player.vy = 0; player.grounded = true; player.facing = 1;
+    player.shieldTime = 1.5;
+    damageCooldown = 1.5;
+    repairTarget = null; repairProgress = 0; jumpQueued = false;
+    platformRuntime = new Map();
+    cameraX = Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX));
+    cameraY = Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY));
+    addLog('ReinicializaÃ§Ã£o no checkpoint. Objetivos mantidos.');
+    updateHud(); saveCampaign();
+  }
+
+  function updateCheckpoints() {
+    for (const point of phaseData.map.checkpoints || []) {
+      if (player.x + player.width >= point && checkpointX < point) {
+        checkpointX = point;
+        interactionMessage = 'CHECKPOINT ATIVADO';
+        interactionMessageTimer = 1.8;
+        addLog('Checkpoint ativado.');
+        saveCampaign();
+      }
+    }
   }
 
   function finishDefeat() {
@@ -1302,6 +1381,7 @@
   function update(dt) {
     advancePlatformMotion(dt);
     movePlayer(dt);
+    updateCheckpoints();
     updateCombat(dt);
     if (!running) return;
     updateRepair(dt);
@@ -1435,7 +1515,7 @@
         ctx.fillStyle = trim; ctx.font = '9px monospace'; ctx.fillText('192.168.' + (index + 1) + '.0/24', x - 55, base - 82);
       } else if (phaseData.theme === 'dns') {
         ctx.strokeStyle = accent; ctx.beginPath(); ctx.moveTo(x, base - 150); ctx.lineTo(x, base - 92); ctx.moveTo(x, base - 121); ctx.lineTo(x - 44, base - 83); ctx.moveTo(x, base - 121); ctx.lineTo(x + 44, base - 83); ctx.stroke();
-        [[0,-157],[-48,-78],[0,-78],[48,-78]].forEach(([dx,dy], node) => { ctx.fillStyle = node ? trim : accent; ctx.beginPath(); ctx.arc(x + dx, floor + dy, node ? 13 : 16, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); });
+        [[0,-157],[-48,-78],[0,-78],[48,-78]].forEach(([dx,dy], node) => { ctx.fillStyle = node ? trim : accent; ctx.beginPath(); ctx.arc(x + dx, base + dy, node ? 13 : 16, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); });
         ctx.fillStyle = '#fff'; ctx.font = '8px monospace'; ctx.fillText('DNS', x - 12, base - 74);
       } else if (phaseData.theme === 'firewall') {
         ctx.fillStyle = '#512b39'; ctx.fillRect(x - 48, base - 170, 34, 126); ctx.fillRect(x + 14, base - 170, 34, 126);
@@ -1513,6 +1593,22 @@
         ctx.fillRect(x + 15, object.y + 15, 4, object.h - 22);
         ctx.globalAlpha = 1;
       }
+    }
+
+    for (const point of phaseData.map.checkpoints || []) {
+      if (point - cameraX < -24 || point - cameraX > width + 24) continue;
+      const screenX = point;
+      const active = checkpointX >= point;
+      const beaconColor = active ? '#78ffd2' : '#6ea4ad';
+      ctx.save();
+      ctx.globalAlpha = active ? 1 : .65;
+      ctx.shadowColor = beaconColor; ctx.shadowBlur = active ? 14 : 5;
+      ctx.fillStyle = beaconColor;
+      ctx.fillRect(screenX - 3, floorY() - 42, 6, 30);
+      ctx.beginPath(); ctx.arc(screenX, floorY() - 47, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.shadowBlur = 0; ctx.fillStyle = '#0b2028';
+      ctx.beginPath(); ctx.arc(screenX, floorY() - 47, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
     }
 
     const gateX = phaseData.map.exit.x;
