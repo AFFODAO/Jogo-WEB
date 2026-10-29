@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111c">
+  <title>BYTE RUNNER — Núcleo infectado</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="BYTE RUNNER"><span class="brand-icon">⌘</span><span>BYTE<span class="brand-dim">RUNNER</span></span></a>
+      <div class="system-status"><span class="status-dot"></span> SISTEMA <b>INFECTADO</b></div>
+      <div class="top-right"><span class="chip" id="sectorChip">FASE 01 / 10</span><span class="version">v.2.04</span></div>
+    </header>
+
+    <section class="game-layout">
+      <aside class="side-panel left-panel">
+        <div class="panel-label"><span>01</span> STATUS DO ROBÔ</div>
+        <div class="robot-card"><div class="robot-avatar"><span>▣</span><i></i></div><div><strong>UNIDADE R-07</strong><small>PROTOCOLO GUARDIÃO</small></div></div>
+        <div class="stat-block"><div class="stat-heading"><span>INTEGRIDADE DO ROBÔ</span><b id="healthText">100%</b></div><div class="meter health-meter"><i id="healthBar"></i></div></div>
+        <div class="stat-block"><div class="stat-heading"><span>SETOR PERCORRIDO</span><b id="progressText">00%</b></div><div class="meter"><i id="progressBar"></i></div></div>
+        <div class="level-panel"><div class="level-heading"><span>NÍVEL <b id="levelValue">01</b></span><span id="xpText">0 / 100 XP</span></div><div class="level-meter"><i id="xpBar"></i></div><div class="skills-heading">HABILIDADES <b id="skillCount">0</b></div><div id="skillList" class="skill-list"><span class="no-skills">Nenhuma habilidade</span></div></div>
+        <div class="divider"></div>
+        <div class="panel-label"><span>02</span> MISSÃO ATUAL</div>
+        <div class="mission"><div class="mission-icon">⌁</div><div><strong id="phaseMission">Objetivo da fase</strong><small id="phaseObjective">Derrote as ameaças, repare os componentes e encontre a saída.</small></div></div>
+        <div class="objective"><span class="objective-dot"></span><span>POSIÇÃO</span><b id="positionText">000 m</b></div>
+        <div class="objective"><span class="objective-dot warning"></span><span>VÍRUS DERROTADOS</span><b id="defeatedCount">00</b></div>
+        <div class="objective"><span class="objective-dot"></span><span>COMPONENTES REPARADOS</span><b id="repairCount">00 / 05</b></div>
+        <div class="objective"><span class="objective-dot warning"></span><span>SAÍDA</span><b id="gateState">BLOQUEADA</b></div>
+        <div class="tip-card"><span class="tip-icon">✦</span><div><b>DICA DO SISTEMA</b><p>Pule sobre obstáculos. Use J para atacar e segure E para reparar.</p></div></div>
+      </aside>
+
+      <section class="center-stage">
+        <div class="stage-heading"><div><span class="eyebrow" id="phaseEyebrow">CAMPANHA DIGITAL // FASE 01 DE 10</span><h1 id="phaseTitle">HARDWARE DO <span>COMPUTADOR</span></h1></div><div class="live"><i></i> AO VIVO</div></div>
+        <div class="canvas-wrap">
+          <canvas id="game" aria-label="Plataforma 2D. Use A e D ou as setas para andar, W, seta para cima ou espaço para pular, J para atacar e E para reparar."></canvas>
+          <div class="scanline"></div>
+          <div class="stage-corner top-left"></div><div class="stage-corner top-right"></div><div class="stage-corner bottom-left"></div><div class="stage-corner bottom-right"></div>
+          <div class="overlay" id="overlay"><div class="overlay-card"><div class="overlay-emblem">⌘</div><div class="eyebrow">PROTOCOLO DE EXPLORAÇÃO ATIVADO</div><h2 id="overlayTitle">LIMPE O <span>SISTEMA</span></h2><p id="overlayText">Derrote os vírus e repare os componentes corrompidos pelo caminho.</p><div class="instructions"><span><kbd>A</kbd><kbd>D</kbd> ou <kbd>←</kbd><kbd>→</kbd><small>ANDAR</small></span><span><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>ESPAÇO</kbd><small>PULAR</small></span><span><kbd>J</kbd><small>ATACAR</small></span><span><kbd>E</kbd><small>SEGURAR PARA REPARAR</small></span></div><button id="startButton">INICIAR MISSÃO <span>→</span></button><small class="overlay-note">UNIDADE R-07 · SETOR DE TREINO</small></div></div>
+          <div class="level-overlay" id="levelOverlay" aria-live="polite"></div>
+          <div class="question-overlay" id="questionOverlay" aria-live="polite"></div>
+        </div>
+        <div class="stage-footer"><span><i class="footer-dot"></i> CONEXÃO ESTÁVEL</span><span id="stageLabel">AGUARDANDO INÍCIO</span><span>FASE <b id="phaseFooter">01 / 10</b></span></div>
+      </section>
+
+      <aside class="side-panel right-panel">
+        <div class="panel-label"><span>03</span> MAPA DO SISTEMA</div>
+        <div class="minimap"><div class="map-grid"></div><i class="map-player" id="mapPlayer"></i><span class="map-label">NÚCLEO</span></div>
+        <div class="map-caption"><i></i> POSIÇÃO DA UNIDADE</div>
+        <div class="divider"></div>
+        <div class="panel-label"><span>04</span> CONTROLES</div>
+        <div class="control-row"><span>ESQUERDA</span><kbd class="wide-key">A / ←</kbd></div>
+        <div class="control-row"><span>DIREITA</span><kbd class="wide-key">D / →</kbd></div>
+        <div class="control-row"><span>PULAR</span><kbd class="wide-key">W / ↑ / ESPAÇO</kbd></div>
+        <div class="control-row"><span>ATACAR</span><kbd class="wide-key">J</kbd></div>
+        <div class="control-row"><span>SEGURAR PARA REPARAR</span><kbd class="wide-key">E</kbd></div>
+        <div class="control-row"><span>PAUSAR</span><kbd class="wide-key">ESC</kbd></div>
+        <div class="system-log"><div class="log-head"><span>LOG DO SISTEMA</span><span>● REC</span></div><div id="log"><p><i>›</i> Conexão estabelecida.</p><p><i>›</i> Unidade R-07 pronta.</p></div></div>
+      </aside>
+    </section>
+    <footer class="bottom-bar"><span>BYTE RUNNER <i>© 2025</i></span><span>FEITO PARA PROTEGER. PROGRAMADO PARA SOBREVIVER.</span><span>BUILD <b>R-07.042</b></span></footer>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
