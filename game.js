@@ -3,6 +3,17 @@
   const ctx = canvas.getContext('2d');
   const overlay = document.getElementById('overlay');
   const startButton = document.getElementById('startButton');
+  const continueButton = document.createElement('button');
+  continueButton.id = 'continueButton';
+  continueButton.type = 'button';
+  continueButton.className = 'secondary-action';
+  continueButton.textContent = 'CONTINUAR CAMPANHA';
+  continueButton.hidden = true;
+  startButton.insertAdjacentElement('afterend', continueButton);
+  const soundToggle = document.getElementById('soundToggle');
+  const touchControls = document.getElementById('touchControls');
+  const SAVE_KEY = 'byteRunner.campaign.v1';
+  const SOUND_KEY = 'byteRunner.sound.v1';
   const keys = new Set();
   const ui = {
     title: document.getElementById('overlayTitle'),
@@ -198,6 +209,12 @@
   let currentQuestion = null;
   let questionAnswered = false;
   let questionHistory = readQuestionHistory();
+  let campaignStarted = false;
+  let menuScreen = true;
+  let saveTimer = 0;
+  let effects = [];
+  let audioContext = null;
+  let soundEnabled = readSoundPreference();
   let width = 800;
   let height = 500;
   let pixelRatio = 1;
@@ -254,6 +271,233 @@
     return Object.values(readQuestionHistory()).some(ids => Array.isArray(ids) && ids.length > 0);
   }
 
+  function readSoundPreference() {
+    try { return localStorage.getItem(SOUND_KEY) !== 'off'; }
+    catch { return true; }
+  }
+
+  function setSoundEnabled(enabled) {
+    soundEnabled = enabled;
+    soundToggle.textContent = soundEnabled ? 'SOM: LIGADO' : 'SOM: DESLIGADO';
+    soundToggle.setAttribute('aria-pressed', String(soundEnabled));
+    try { localStorage.setItem(SOUND_KEY, soundEnabled ? 'on' : 'off'); } catch {}
+  }
+
+  function playSound(kind) {
+    if (!soundEnabled) return;
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    if (!Audio) return;
+    try {
+      audioContext ||= new Audio();
+      if (audioContext.state === 'suspended') audioContext.resume();
+      const now = audioContext.currentTime;
+      const settings = {
+        attack: [620, .045, 'square'], hit: [150, .12, 'sawtooth'],
+        repair: [760, .16, 'sine'], xp: [880, .07, 'triangle'],
+        level: [1040, .22, 'triangle'], correct: [980, .24, 'sine'],
+        wrong: [190, .22, 'square'], damage: [110, .18, 'sawtooth']
+      }[kind] || [440, .08, 'sine'];
+      const oscillator = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      oscillator.type = settings[2];
+      oscillator.frequency.setValueAtTime(settings[0], now);
+      if (kind === 'correct' || kind === 'repair' || kind === 'level') {
+        oscillator.frequency.exponentialRampToValueAtTime(settings[0] * 1.35, now + settings[1]);
+      }
+      gain.gain.setValueAtTime(.0001, now);
+      gain.gain.exponentialRampToValueAtTime(.07, now + .012);
+      gain.gain.exponentialRampToValueAtTime(.0001, now + settings[1]);
+      oscillator.connect(gain); gain.connect(audioContext.destination);
+      oscillator.start(now); oscillator.stop(now + settings[1] + .02);
+    } catch {
+      // Audio is optional; blocked audio contexts must not interrupt gameplay.
+    }
+  }
+
+  function getSavedCampaign() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null');
+      if (!saved || saved.version !== 1 || !Number.isInteger(saved.phaseIndex) || saved.phaseIndex < 0 || saved.phaseIndex >= PHASES.length) return null;
+      return saved;
+    } catch { return null; }
+  }
+
+  function refreshContinueButton() {
+    const saved = getSavedCampaign();
+    continueButton.hidden = !menuScreen || !saved || saved.campaignComplete;
+    continueButton.textContent = saved && saved.phaseTransition ? 'CONTINUAR NA FASE ' + String(Math.min(10, saved.phaseIndex + 2)).padStart(2, '0') : 'CONTINUAR CAMPANHA';
+    if (saved && saved.campaignComplete) {
+      ui.title.innerHTML = 'VIRUS ZERO <span>NEUTRALIZADO</span>';
+      ui.copy.textContent = 'Campanha concluída. Inicie uma nova campanha para voltar à rede.';
+      startButton.innerHTML = 'NOVA CAMPANHA <span>→</span>';
+    }
+  }
+
+  function saveCampaign() {
+    if (!campaignStarted || !player) return;
+    const saved = {
+      version: 1, phaseIndex, highestUnlockedPhase, level, xp, xpRequired,
+      unlockedSkills: unlockedSkills.map(skill => ({ id: skill.id, level: skill.level })),
+      player: { x: player.x, y: player.y, health: player.health, facing: player.facing, grounded: player.grounded, shieldTime: player.shieldTime, shieldCooldown: player.shieldCooldown },
+      viruses: viruses.map(virus => ({ alive: virus.alive, hp: virus.hp, x: virus.x, y: virus.y, direction: virus.direction })),
+      repaired: components.map(component => component.repaired),
+      collected: collectibles.map(item => item.collected),
+      phaseExitUnlocked, phaseObjectiveAwarded, phaseTransition, campaignComplete, gameOver,
+      savedAt: Date.now()
+    };
+    try {
+      localStorage.setItem(SAVE_KEY, JSON.stringify(saved));
+      refreshContinueButton();
+    } catch {
+      interactionMessage = 'NÃO FOI POSSÍVEL SALVAR // ARMAZENAMENTO INDISPONÍVEL';
+      interactionMessageTimer = 2.5;
+    }
+  }
+
+  function restoreSkillEffects() {
+    player.armor = 0; player.fireRate = .32; player.damage = 1; player.jumpPower = JUMP_SPEED;
+    player.shieldDuration = 5; player.shieldCooldownDuration = 18; repairDuration = .8;
+    for (const skill of unlockedSkills) {
+      const rank = skill.level;
+      if (skill.id === 'armor') player.armor = Math.min(.5, rank * .1);
+      if (skill.id === 'rapid') player.fireRate = Math.max(.14, .32 * Math.pow(.9, rank));
+      if (skill.id === 'cannon') player.damage = 1 + rank;
+      if (skill.id === 'boost') player.jumpPower = JUMP_SPEED * Math.pow(1.08, rank);
+      if (skill.id === 'shield') {
+        player.shieldDuration = 5 + (rank - 1) * .75;
+        player.shieldCooldownDuration = Math.max(14, 18 - (rank - 1));
+      }
+      if (skill.id === 'repair') repairDuration = .8 * (1 - rank * .1);
+    }
+  }
+
+  function continueCampaign() {
+    const saved = getSavedCampaign();
+    if (!saved || saved.campaignComplete) return;
+    campaignStarted = true;
+    resetCampaign();
+    phaseIndex = saved.phaseTransition ? Math.min(PHASES.length - 1, saved.phaseIndex + 1) : saved.phaseIndex;
+    level = Math.max(1, Number(saved.level) || 1);
+    xpRequired = experienceForLevel(level);
+    xp = Math.max(0, Number(saved.xp) || 0);
+    unlockedSkills = Array.isArray(saved.unlockedSkills) ? saved.unlockedSkills.flatMap(item => {
+      const ability = ABILITIES.find(candidate => candidate.id === item.id);
+      const rank = Math.max(1, Math.min(ability ? ability.maxLevel : 1, Number(item.level) || 1));
+      return ability ? [{ id: ability.id, name: ability.name, level: rank, maxLevel: ability.maxLevel, description: ability.description(rank) }] : [];
+    }) : [];
+    restoreSkillEffects();
+    highestUnlockedPhase = Math.max(phaseIndex, Math.min(PHASES.length - 1, Number(saved.highestUnlockedPhase) || 0));
+    const isNextPhase = saved.phaseTransition;
+    const retryAfterDefeat = Boolean(saved.gameOver);
+    loadPhase(phaseIndex, true);
+    if (isNextPhase || retryAfterDefeat) player.health = Math.min(player.maxHealth, retryAfterDefeat ? player.maxHealth : (Number(saved.player?.health) || 100) + 25);
+    else {
+      const source = saved.player || {};
+      player.health = Math.max(1, Math.min(player.maxHealth, Number(source.health) || player.maxHealth));
+      player.x = Math.max(0, Math.min(worldWidth() - player.width, Number(source.x) || 70));
+      player.y = Math.max(0, Math.min(floorY() - player.height, Number(source.y) || floorY() - player.height));
+      player.facing = source.facing === -1 ? -1 : 1;
+      player.grounded = Boolean(source.grounded);
+      player.shieldTime = Math.max(0, Math.min(player.shieldDuration, Number(source.shieldTime) || 0));
+      player.shieldCooldown = Math.max(-1, Math.min(player.shieldCooldownDuration, Number(source.shieldCooldown) || 0));
+      viruses = viruses.map((virus, index) => {
+        const progress = saved.viruses?.[index];
+        return progress ? { ...virus, alive: Boolean(progress.alive), hp: Math.max(0, Math.min(virus.maxHp, Number(progress.hp) || 0)), x: Number(progress.x) || virus.x, y: Number(progress.y) || virus.y, direction: progress.direction < 0 ? -1 : 1 } : virus;
+      });
+      components.forEach((component, index) => { component.repaired = Boolean(saved.repaired?.[index]); });
+      collectibles.forEach((item, index) => { item.collected = Boolean(saved.collected?.[index]); });
+      defeated = viruses.filter(virus => !virus.alive).length;
+      objectives.allRepairs = components.length > 0 && components.every(component => component.repaired);
+      objectives.allViruses = viruses.length > 0 && viruses.every(virus => !virus.alive);
+      phaseExitUnlocked = Boolean(saved.phaseExitUnlocked && objectives.allRepairs && objectives.allViruses);
+      phaseObjectiveAwarded = Boolean(saved.phaseObjectiveAwarded && phaseExitUnlocked);
+      cameraX = Math.max(0, Math.min(worldWidth() - width, player.x - width * .36));
+    }
+    renderSkills(); updateHud(); draw();
+    launchLoadedPhase();
+  }
+
+  function startNewCampaign() {
+    if (getSavedCampaign() && !window.confirm('Iniciar uma nova campanha e substituir o progresso salvo?')) return;
+    if (hasQuestionHistory() && window.confirm('Também deseja apagar o histórico de perguntas já utilizadas?')) resetQuestionHistory();
+    campaignStarted = true;
+    continueButton.hidden = true;
+    resetCampaign();
+    launchLoadedPhase();
+    saveCampaign();
+  }
+
+  function setupMenu() {
+    menuScreen = true;
+    ui.title.innerHTML = 'BYTE <span>RUNNER</span>';
+    ui.copy.textContent = 'Um vírus tomou o computador. Atravesse dez setores, recupere a rede e neutralize VIRUS ZERO.';
+    startButton.innerHTML = (getSavedCampaign() ? 'NOVA CAMPANHA' : 'INICIAR CAMPANHA') + ' <span>→</span>';
+    refreshContinueButton();
+  }
+
+  function bindTouchControls() {
+    touchControls.querySelectorAll('[data-touch]').forEach(button => {
+      const key = button.dataset.touch;
+      const release = event => {
+        if (event) event.preventDefault();
+        keys.delete(key);
+        if (key === 'e') { repairTarget = null; repairProgress = 0; }
+      };
+      button.addEventListener('pointerdown', event => {
+        event.preventDefault();
+        if (!running) return;
+        try { if (event.pointerId !== undefined) button.setPointerCapture?.(event.pointerId); } catch {}
+        if (key === 'w' && !keys.has(key)) jumpQueued = true;
+        if (key === 'e' && !findNearbyComponent()) {
+          interactionMessage = 'NENHUM COMPONENTE AO ALCANCE';
+          interactionMessageTimer = 1.2;
+        }
+        keys.add(key);
+      });
+      button.addEventListener('pointerup', release);
+      button.addEventListener('pointercancel', release);
+      button.addEventListener('lostpointercapture', release);
+    });
+    touchControls.querySelector('[data-action="pause"]').addEventListener('click', pause);
+  }
+
+  function emitParticles(x, y, color, count = 9) {
+    for (let index = 0; index < count; index++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 35 + Math.random() * 125;
+      effects.push({
+        x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 25,
+        life: .25 + Math.random() * .42, maxLife: .67, radius: 1.5 + Math.random() * 2.5, color
+      });
+    }
+  }
+
+  function updateEffects(dt) {
+    effects = effects.filter(particle => particle.life > 0);
+    for (const particle of effects) {
+      particle.life -= dt;
+      particle.x += particle.vx * dt;
+      particle.y += particle.vy * dt;
+      particle.vy += 210 * dt;
+    }
+  }
+
+  function drawEffects() {
+    for (const particle of effects) {
+      const screenX = particle.x - cameraX;
+      if (screenX < -8 || screenX > width + 8) continue;
+      ctx.globalAlpha = Math.max(0, particle.life / particle.maxLife);
+      ctx.fillStyle = particle.color;
+      ctx.shadowColor = particle.color;
+      ctx.shadowBlur = 8;
+      ctx.beginPath();
+      ctx.arc(screenX, particle.y, particle.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
+  }
+
   function floorY() { return height - 42; }
   function worldWidth() { return phaseData.length; }
 
@@ -292,6 +536,7 @@
     player.x = 70; player.y = floorY() - ROBOT_HEIGHT;
     player.vx = 0; player.vy = 0; player.grounded = true; player.facing = 1;
     cameraX = 0; animationTime = 0; jumpQueued = false;
+    effects = []; saveTimer = 0;
     viruses = createViruses(); projectiles = []; components = createComponents(); collectibles = createCollectibles();
     defeated = 0; levelChoiceOpen = false; repairTarget = null; repairProgress = 0;
     phaseExitUnlocked = false; phaseObjectiveAwarded = false; phaseTransition = false; campaignComplete = false;
@@ -488,9 +733,12 @@
       interactionMessage = 'COMPONENTE REPARADO';
       interactionMessageTimer = 1.5;
       addLog('Componente do setor reparado.');
+      emitParticles(component.x + component.width / 2, component.y + 16, '#65f3bc', 16);
+      playSound('repair');
       awardExperience(30, 'componente reparado');
       checkObjectives();
       updateHud();
+      saveCampaign();
     }
   }
 
@@ -503,7 +751,10 @@
     interactionMessage = '+' + amount + ' XP // ' + reason.toUpperCase();
     interactionMessageTimer = 1.4;
     addLog('+' + amount + ' XP: ' + reason + '.');
+    emitParticles(player.x + player.width / 2, player.y + 10, '#ffe082', 8);
+    playSound('xp');
     updateHud();
+    saveCampaign();
   }
 
   function checkObjectives() {
@@ -521,6 +772,7 @@
       interactionMessage = 'OBJETIVOS CONCLUÍDOS // SAÍDA LIBERADA';
       interactionMessageTimer = 2.5;
       addLog('Objetivos da fase concluídos. Saída liberada.');
+      playSound('correct');
       awardExperience(100, 'objetivo concluído: saída liberada');
       updateHud();
     }
@@ -544,12 +796,15 @@
     xp -= xpRequired;
     level++;
     xpRequired = experienceForLevel(level);
+    playSound('level');
+    emitParticles(player.x + player.width / 2, player.y + 14, '#a890ff', 20);
     const choices = getAbilityChoices();
     updateHud();
     if (!choices.length) return;
 
     levelChoiceOpen = true;
     running = false;
+    document.querySelector('.game-shell').classList.remove('playing');
     keys.clear();
     ui.levelOverlay.innerHTML = '<section class="level-dialog"><div class="level-kicker">NÍVEL ' + String(level).padStart(2, '0') + ' DESBLOQUEADO</div><h2>ESCOLHA UMA HABILIDADE</h2><p>Desbloqueie uma habilidade ou aprimore uma habilidade ativa.</p><div class="ability-options">' + choices.map(choice => {
       const label = choice.kind === 'new' ? 'NOVA' : 'APRIMORAMENTO';
@@ -618,7 +873,10 @@
     addLog((skill ? 'Habilidade aprimorada: ' : 'Habilidade adquirida: ') + ability.name + ' nível ' + targetLevel + '.');
     interactionMessage = 'HABILIDADE ATIVA // ' + ability.name.toUpperCase() + ' NV. ' + targetLevel;
     interactionMessageTimer = 2;
+    saveCampaign();
+    playSound('level');
     running = true;
+    document.querySelector('.game-shell').classList.add('playing');
     lastFrame = performance.now();
     requestAnimationFrame(frame);
   }
@@ -640,23 +898,29 @@
       damage: player.damage
     });
     attackCooldown = player.fireRate;
+    emitParticles(projectiles[projectiles.length - 1].x, player.y + 22, '#70ffe5', 3);
+    playSound('attack');
   }
 
   function damagePlayer(amount, virus) {
     if (damageCooldown > 0 || !running || player.shieldTime > 0) return;
     amount = Math.max(1, Math.ceil(amount * (1 - player.armor)));
     player.health = Math.max(0, player.health - amount);
+    emitParticles(player.x + player.width / 2, player.y + 22, '#ff716e', 16);
+    playSound('damage');
     damageCooldown = 1;
     player.vy = -210;
     player.grounded = false;
     player.facing = player.x + player.width / 2 < virus.x ? -1 : 1;
     addLog('Impacto de vírus! Integridade em ' + player.health + '%.');
     updateHud();
+    saveCampaign();
     if (player.health <= 0) finishDefeat();
   }
 
   function finishDefeat() {
     running = false;
+    document.querySelector('.game-shell').classList.remove('playing');
     paused = false;
     gameOver = true;
     ui.title.innerHTML = 'SINAL <span>PERDIDO</span>';
@@ -665,6 +929,7 @@
     overlay.classList.remove('hidden');
     ui.stage.textContent = 'UNIDADE DESCONECTADA';
     addLog('Unidade R-07 desconectada.');
+    saveCampaign();
   }
 
   function choosePhaseQuestion() {
@@ -689,6 +954,7 @@
     const selection = choosePhaseQuestion();
     if (!selection) return;
     running = false;
+    document.querySelector('.game-shell').classList.remove('playing');
     keys.clear();
     phaseQuestionOpen = true;
     questionAnswered = false;
@@ -741,12 +1007,14 @@
           if (choice.dataset.correct === 'true') choice.classList.add('correct');
         });
         if (option.correct) {
+          playSound('correct');
           button.classList.add('correct');
           result.className = 'question-result success';
           result.textContent = 'RESPOSTA CORRETA. ' + selection.question.explanation;
           action.textContent = phaseIndex === PHASES.length - 1 ? 'CONCLUIR CAMPANHA' : 'LIBERAR PRÓXIMA FASE';
           action.addEventListener('click', resolvePhaseQuestion, { once: true });
         } else {
+          playSound('wrong');
           button.classList.add('wrong');
           result.className = 'question-result error';
           result.textContent = 'RESPOSTA INCORRETA. Esta fase será reiniciada. ' + selection.question.explanation;
@@ -761,6 +1029,7 @@
     dialog.append(kicker, heading, counter, prompt, options, result, action);
     ui.questionOverlay.replaceChildren(dialog);
     ui.questionOverlay.classList.add('active');
+    saveCampaign();
     draw();
   }
 
@@ -769,6 +1038,7 @@
     phaseQuestionOpen = false;
     ui.questionOverlay.classList.remove('active');
     running = true;
+    document.querySelector('.game-shell').classList.add('playing');
     completePhase();
   }
 
@@ -784,6 +1054,7 @@
   function completePhase() {
     if (!running || !phaseExitUnlocked) return;
     running = false;
+    document.querySelector('.game-shell').classList.remove('playing');
     paused = false;
     phaseTransition = true;
     keys.clear();
@@ -804,6 +1075,7 @@
     }
     overlay.classList.remove('hidden');
     draw();
+    saveCampaign();
   }
 
   function updateCombat(dt) {
@@ -853,6 +1125,8 @@
         if (Math.hypot(projectile.x - virus.x, projectile.y - virus.y) <= virus.radius + projectile.radius) {
           projectile.life = 0;
           virus.hp -= projectile.damage;
+          emitParticles(virus.x, virus.y, virus.type === 'boss' ? '#ff638e' : '#c078ff', virus.type === 'boss' ? 10 : 6);
+          playSound('hit');
           if (virus.hp <= 0) {
             virus.alive = false;
             defeated++;
@@ -903,6 +1177,9 @@
     if (Math.abs(cameraTarget - cameraX) < .5) cameraX = cameraTarget;
     updateHud();
     updateComponents(dt);
+    updateEffects(dt);
+    saveTimer += dt;
+    if (saveTimer >= 2.5) { saveTimer = 0; saveCampaign(); }
     if (xp >= xpRequired) openLevelChoice();
     if (running && phaseExitUnlocked && player.x + player.width >= phaseData.length - 74) openPhaseQuestion();
   }
@@ -1383,6 +1660,7 @@
     drawCollectibles();
     drawViruses();
     drawProjectiles();
+    drawEffects();
     drawRobot();
     ctx.fillStyle = '#718994';
     ctx.font = '9px monospace';
@@ -1408,22 +1686,20 @@
     if (running) requestAnimationFrame(frame);
   }
 
-  function start() {
-    keys.clear();
-    resetCampaign();
-    launchLoadedPhase();
-  }
-
   function launchLoadedPhase() {
     paused = false;
+    menuScreen = false;
     phaseTransition = false;
     gameOver = false;
     running = true;
+    document.querySelector('.game-shell').classList.add('playing');
+    continueButton.hidden = true;
     overlay.classList.add('hidden');
     ui.stage.textContent = 'FASE ' + String(phaseIndex + 1).padStart(2, '0') + ' // EM ANDAMENTO';
     addLog('Iniciada: ' + phaseData.name + '.');
     lastFrame = performance.now();
     requestAnimationFrame(frame);
+    saveCampaign();
   }
 
   function pause() {
@@ -1431,6 +1707,8 @@
     keys.clear();
     running = false;
     paused = true;
+    document.querySelector('.game-shell').classList.remove('playing');
+    saveCampaign();
     ui.title.innerHTML = 'TRAVESSIA <span>PAUSADA</span>';
     ui.copy.textContent = 'A unidade está em espera. Continue quando estiver pronto.';
     startButton.innerHTML = 'CONTINUAR <span>→</span>';
@@ -1443,6 +1721,9 @@
     if (paused) {
       paused = false;
       running = true;
+      menuScreen = false;
+      document.querySelector('.game-shell').classList.add('playing');
+      continueButton.hidden = true;
       overlay.classList.add('hidden');
       ui.stage.textContent = 'FASE ' + String(phaseIndex + 1).padStart(2, '0') + ' // EM ANDAMENTO';
       lastFrame = performance.now();
@@ -1454,15 +1735,11 @@
       loadPhase(phaseIndex, true);
       launchLoadedPhase();
     } else {
-      if (hasQuestionHistory() && window.confirm('Deseja apagar o histórico de perguntas desta campanha? OK apaga o histórico; Cancelar mantém as perguntas já utilizadas.')) {
-        resetQuestionHistory();
-      }
-      startButton.innerHTML = 'INICIAR TRAVESSIA <span>→</span>';
-      ui.title.innerHTML = 'ATRAVESSE O <span>SISTEMA</span>';
-      ui.copy.textContent = 'O vírus tomou o computador. Guie a unidade R-07 pelo caminho até o núcleo.';
-      start();
+      startNewCampaign();
     }
   });
+  continueButton.addEventListener('click', continueCampaign);
+  soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled));
 
   window.addEventListener('keydown', event => {
     const key = event.key.toLowerCase();
@@ -1484,9 +1761,14 @@
     }
   });
   window.addEventListener('blur', () => keys.clear());
+  window.addEventListener('pagehide', saveCampaign);
+  document.addEventListener('visibilitychange', () => { if (document.hidden) saveCampaign(); });
 
   resetCampaign();
   resize();
   draw();
+  setSoundEnabled(soundEnabled);
+  bindTouchControls();
+  setupMenu();
 
 })();

@@ -24,3 +24,22 @@
 .question-action{width:100%;margin-top:14px;padding:12px;color:#071716;background:#59e3d4;border:0;font:700 10px 'DM Mono',monospace;letter-spacing:.08em;cursor:pointer}
 .question-action:hover{filter:brightness(1.12)}
 @media(max-width:680px){.question-dialog{padding:17px}.question-dialog h2{font-size:22px}.question-option{padding:9px;font-size:10px}}
+.sound-toggle{padding:6px 8px;color:#83b9b6;background:#0a1b25;border:1px solid #29404c;font:8px 'DM Mono',monospace;letter-spacing:.06em;cursor:pointer}
+.sound-toggle[aria-pressed="false"]{color:#6d7c82}
+.secondary-action{margin-top:8px!important;color:#a9c2ca!important;background:#142630!important;border:1px solid #36515d!important}
+.overlay-card .secondary-action:hover{background:#1d3641!important}
+.game-shell:not(.playing) .touch-controls{display:none}
+.touch-controls{display:none}
+@media(pointer:coarse),(max-width:760px){
+  .top-right{gap:7px}.sound-toggle{font-size:7px;padding:6px}
+  .game-shell.playing .touch-controls{position:absolute;z-index:5;inset:auto 12px 12px;display:flex;align-items:end;justify-content:space-between;pointer-events:none}
+  .touch-movement,.touch-actions{display:flex;align-items:center;gap:7px;pointer-events:auto}
+  .touch-controls button{min-width:46px;height:46px;padding:0 9px;color:#d5f4f0;background:#0b222bd9;border:1px solid #53bdb2;border-radius:8px;box-shadow:0 3px 12px #0008;font:700 9px 'DM Mono',monospace;touch-action:none;user-select:none;-webkit-user-select:none}
+  .touch-movement button{width:52px;font-size:16px}
+  .touch-controls button:active{color:#071716;background:#5ce1d2}
+  .question-overlay.active~.touch-controls{display:none}
+}
+@media(max-width:680px){
+  .touch-actions{gap:5px}.touch-controls button{min-width:42px;height:44px;padding:0 6px;font-size:8px}
+  .touch-movement button{width:46px}
+}

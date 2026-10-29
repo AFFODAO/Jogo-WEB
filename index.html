@@ -12,7 +12,7 @@
     <header class="topbar">
       <a class="brand" href="#" aria-label="BYTE RUNNER"><span class="brand-icon">⌘</span><span>BYTE<span class="brand-dim">RUNNER</span></span></a>
       <div class="system-status"><span class="status-dot"></span> SISTEMA <b>INFECTADO</b></div>
-      <div class="top-right"><span class="chip" id="sectorChip">FASE 01 / 10</span><span class="version">v.2.04</span></div>
+      <div class="top-right"><button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true">SOM: LIGADO</button><span class="chip" id="sectorChip">FASE 01 / 10</span><span class="version">v.2.04</span></div>
     </header>
 
     <section class="game-layout">
@@ -41,6 +41,10 @@
           <div class="overlay" id="overlay"><div class="overlay-card"><div class="overlay-emblem">⌘</div><div class="eyebrow">PROTOCOLO DE EXPLORAÇÃO ATIVADO</div><h2 id="overlayTitle">LIMPE O <span>SISTEMA</span></h2><p id="overlayText">Derrote os vírus e repare os componentes corrompidos pelo caminho.</p><div class="instructions"><span><kbd>A</kbd><kbd>D</kbd> ou <kbd>←</kbd><kbd>→</kbd><small>ANDAR</small></span><span><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>ESPAÇO</kbd><small>PULAR</small></span><span><kbd>J</kbd><small>ATACAR</small></span><span><kbd>E</kbd><small>SEGURAR PARA REPARAR</small></span></div><button id="startButton">INICIAR MISSÃO <span>→</span></button><small class="overlay-note">UNIDADE R-07 · SETOR DE TREINO</small></div></div>
           <div class="level-overlay" id="levelOverlay" aria-live="polite"></div>
           <div class="question-overlay" id="questionOverlay" aria-live="polite"></div>
+          <div class="touch-controls" id="touchControls" aria-label="Controles por toque">
+            <div class="touch-movement"><button type="button" data-touch="a" aria-label="Mover para a esquerda">◀</button><button type="button" data-touch="d" aria-label="Mover para a direita">▶</button></div>
+            <div class="touch-actions"><button type="button" data-touch="w" aria-label="Pular">PULAR</button><button type="button" data-touch="j" aria-label="Atacar">ATACAR</button><button type="button" data-touch="e" aria-label="Segurar para reparar">REPARAR</button><button type="button" data-action="pause" aria-label="Pausar">Ⅱ</button></div>
+          </div>
         </div>
         <div class="stage-footer"><span><i class="footer-dot"></i> CONEXÃO ESTÁVEL</span><span id="stageLabel">AGUARDANDO INÍCIO</span><span>FASE <b id="phaseFooter">01 / 10</b></span></div>
       </section>
