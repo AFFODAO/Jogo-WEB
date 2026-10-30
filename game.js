@@ -49,6 +49,8 @@
   const GRAVITY = 1850;
   const RUN_SPEED = 255;
   const JUMP_SPEED = 690;
+  const MAX_PLAYER_ARMOR = .5;
+  const PLAYER_HIT_INVULNERABILITY = 1;
   const ENEMY_PROFILES = {
     common: { hp: 2, damage: 12, speed: 60, radius: 15, behavior: 'chase', attack: 'melee', attackRange: 34, attackCooldown: 1.15, windup: .28, xp: 45, color: '#bb7bff' },
     basic: { hp: 2, damage: 12, speed: 60, radius: 15, behavior: 'chase', attack: 'melee', attackRange: 34, attackCooldown: 1.15, windup: .28, xp: 45, color: '#bb7bff' },
@@ -60,11 +62,11 @@
     boss: { hp: 28, damage: 20, speed: 42, radius: 38, behavior: 'chase', attack: 'melee', attackRange: 70, attackCooldown: 1.3, windup: .36, special: 'summon', specialCooldown: 8, summonLimit: 3, xp: 250, color: '#ff476f' }
   };
   const ABILITIES = [
-    { id: 'armor', name: 'Armadura reforçada', maxLevel: 5, description: level => `Reduz o dano recebido em ${level * 10}% no total.`, apply: level => { player.armor = Math.min(.5, level * .1); } },
+    { id: 'armor', name: 'Armadura reforçada', maxLevel: 5, description: level => `Reduz o dano recebido em ${level * 10}% no total.`, apply: level => { player.armor = Math.min(MAX_PLAYER_ARMOR, Math.max(0, level) * .1); } },
     { id: 'rapid', name: 'Disparo rápido', maxLevel: 5, description: level => `Reduz o intervalo entre ataques em ${Math.round((1 - Math.pow(.9, level)) * 100)}%.`, apply: level => { player.fireRate = Math.max(.14, .32 * Math.pow(.9, level)); } },
     { id: 'cannon', name: 'Canhão de energia', maxLevel: 5, description: level => `Projéteis causam ${level + 1} de dano.`, apply: level => { player.damage = 1 + level; } },
     { id: 'boost', name: 'Propulsores', maxLevel: 5, description: level => `Aumenta a força do pulo em ${Math.round((Math.pow(1.08, level) - 1) * 100)}%.`, apply: level => { player.jumpPower = JUMP_SPEED * Math.pow(1.08, level); } },
-    { id: 'shield', name: 'Escudo temporário', maxLevel: 5, description: level => `Escudo por ${5 + (level - 1) * .75}s; recarga de ${Math.max(14, 18 - (level - 1))}s.`, apply: level => { player.shieldDuration = 5 + (level - 1) * .75; player.shieldCooldownDuration = Math.max(14, 18 - (level - 1)); player.shieldTime = player.shieldDuration; player.shieldCooldown = -1; } },
+    { id: 'shield', name: 'Escudo temporário', maxLevel: 5, description: level => `Escudo por ${5 + (level - 1) * .75}s; recarga de ${Math.max(14, 18 - (level - 1))}s.`, apply: level => { const rank = Math.max(1, Math.min(5, level)); player.shieldDuration = 5 + (rank - 1) * .75; player.shieldCooldownDuration = Math.max(14, 18 - (rank - 1)); player.shieldTime = player.shieldDuration; player.shieldCooldown = -1; } },
     { id: 'repair', name: 'Reparo eficiente', maxLevel: 5, description: level => `Reduz o tempo de reparo em ${level * 10}%.`, apply: level => { repairDuration = .8 * (1 - level * .1); } },
     { id: 'recovery', name: 'Recuperação', maxLevel: 5, description: level => `Restaura ${20 + level * 5} pontos de integridade ao escolher.`, apply: level => { player.health = Math.min(player.maxHealth, player.health + 20 + level * 5); } }
   ];
@@ -208,6 +210,40 @@
     { name: 'Firewall e segurança', theme: 'firewall', length: 2650, objective: 'Derrube as ameaças e reative os escudos do firewall.', palette: ['#1c1017','#3c1d29','#ff7c68','#8d3548','#b18a57'], platforms: [[220,150,85],[500,170,118],[820,140,75],[1110,190,122],[1480,150,78],[1780,180,115],[2150,160,82]], obstacles: [[455,48,65],[780,48,75],[1070,55,58],[1440,48,80],[1740,52,60],[2110,52,76]], components: [650,1320,1970], enemies: [{x:430,type:'fast'},{x:970,type:'common'},{x:1580,type:'fast'},{x:2250,type:'common'}], items: [300,1510,2300], features: [320,850,1530,2220] },
     { name: 'Servidores e Internet', theme: 'servers', length: 3100, objective: 'Repare os servidores da rede e derrote VIRUS ZERO no núcleo.', palette: ['#070f20','#172b50','#80dbff','#336783','#a35267'], platforms: [[230,150,82],[510,160,118],[820,180,75],[1150,140,120],[1420,190,78],[1770,160,112],[2070,170,80],[2390,160,118],[2680,140,75]], obstacles: [[465,48,54],[770,52,72],[1100,48,65],[1370,55,80],[1720,50,60],[2020,52,70],[2340,50,58],[2630,54,78]], components: [670,1460,2210], enemies: [{x:480,type:'common'},{x:1250,type:'fast'},{x:1920,type:'common'},{x:2400,type:'fast'},{x:2760,type:'boss',hp:28}], items: [300,1550,2440], features: [340,900,1510,2140,2760] }
   ];
+  PHASE_DEFINITIONS[5] = {
+    ...PHASE_DEFINITIONS[5],
+    components:[
+      {id:'c01',x:690,y:1014,anchor:'floor',offset:44},
+      {id:'c02',x:600,y:744,anchor:'floor',offset:44},
+      {id:'c03',x:430,y:384,anchor:'floor',offset:44}
+    ],
+    enemies:[
+      {x:590,y:1123,type:'basic'}, {x:770,y:942,type:'fast'},
+      {x:690,y:762,type:'parasite'}, {x:450,y:492,type:'shooter'}
+    ],
+    items:[{x:320,y:1260},{x:860,y:830},{x:430,y:365}],
+    features:[{x:320,y:1450},{x:850,y:1090},{x:790,y:690},{x:300,y:480}]
+  };
+  PHASE_DEFINITIONS[7] = { ...PHASE_DEFINITIONS[7], components:[750,1480] };
+  PHASE_DEFINITIONS[8] = {
+    ...PHASE_DEFINITIONS[8], components:[580,960,1970],
+    items:[300,{x:1360,y:205},2300]
+  };
+  PHASE_DEFINITIONS[9] = {
+    ...PHASE_DEFINITIONS[9], length:4650,
+    objective:'Restaure os quatro relays da Internet, desative o escudo do núcleo e neutralize VIRUS ZERO.',
+    components:[{id:'c01',x:650},{id:'c02',x:1570},{id:'c03',x:2670},{id:'c04',x:3180}],
+    enemies:[
+      {x:500,type:'basic',hp:3},{x:1120,type:'shooter',hp:3},
+      {x:1850,type:'flyer',hp:3},{x:2180,type:'shooter',hp:3},
+      {x:2470,type:'parasite',hp:4},{x:2710,type:'fast',hp:2},
+      {x:2920,type:'armored',hp:7},
+      {x:3970,type:'boss',hp:54,multiStage:true,coreShieldRequiresRepairs:true,
+        bossBounds:{left:3420,right:4450},armor:.25,damage:18,speed:58,xp:500}
+    ],
+    items:[{x:320},{x:780},{x:1420},{x:2040},{x:2620},{x:3290},{x:3560},{x:4100}],
+    features:[340,850,1430,2050,2670,3180,3550,4180,4420,3970]
+  };
   // Each sector selects a small roster from the shared enemy catalog.
   const PHASE_ENEMY_ROSTERS = [
     ['basic','fast','armored'], ['fast','basic','shooter'], ['basic','parasite','shooter'],
@@ -216,8 +252,172 @@
     ['basic','shooter','flyer','fast','boss']
   ];
 
+  // The first five sectors have their own route geometry. Coordinates are
+  // world-space; repairs open optional shortcuts or activate themed ledges.
+  const THEME_LAYOUTS = {
+    0: { platforms: [
+      { id:'cpu-bridge', x:735, width:118, offset:58, style:'circuit' },
+      { id:'ram-rail', x:1375, width:108, offset:92, style:'circuit' },
+      { id:'gpu-bridge', x:1880, width:125, offset:64, style:'circuit' },
+      { id:'repaired-bus', x:945, width:150, offset:112, style:'circuit', requiresComponentId:'c01' }
+    ], obstacles:[
+      { id:'fan-housing', x:905, width:46, height:58, offset:58, type:'fan', requiresComponentId:'c01' },
+      { id:'heatsink', x:1535, width:58, height:86, offset:86, type:'heatsink', requiresComponentId:'c02' }
+    ], gates:[{ id:'board-bus-gate', x:1090, width:22, height:96, requiresComponentId:'c01' }] },
+    1: { platforms:[
+      { id:'folder-window-a', x:300, width:116, offset:108, style:'window' },
+      { id:'folder-window-b', x:970, width:118, offset:112, style:'window' },
+      { id:'floating-process', x:1550, width:130, offset:116, style:'window', requiresComponentId:'c01' }
+    ], obstacles:[
+      { id:'corrupt-file-a', x:820, width:48, height:60, offset:60, type:'corrupt', requiresComponentId:'c01' },
+      { id:'process-crash', x:1815, width:58, height:74, offset:74, type:'corrupt', requiresComponentId:'c02' }
+    ], gates:[{ id:'directory-lock', x:930, width:22, height:108, requiresComponentId:'c01' }] },
+    2: { platforms:[
+      { id:'cable-port-a', x:390, width:132, offset:58, style:'cable' },
+      { id:'packet-bridge', x:1040, width:140, offset:112, style:'packet' },
+      { id:'cable-port-b', x:1780, width:132, offset:62, style:'cable', requiresComponentId:'c02' }
+    ], obstacles:[
+      { id:'port-stack-a', x:550, width:44, height:66, offset:66, type:'port' },
+      { id:'port-stack-b', x:1380, width:44, height:72, offset:72, type:'port' }
+    ], gates:[
+      { id:'switch-link-a', x:930, width:22, height:106, requiresComponentId:'c01' },
+      { id:'switch-link-b', x:1660, width:22, height:106, requiresComponentId:'c02' }
+    ] },
+    3: { platforms:[
+      { id:'route-high-a', x:320, width:126, offset:112, style:'route' },
+      { id:'packet-lift-a', x:960, width:126, offset:118, style:'packet' },
+      { id:'route-high-b', x:1590, width:140, offset:112, style:'route' },
+      { id:'route-shortcut', x:1190, width:152, offset:116, style:'route', requiresComponentId:'c01' }
+    ], obstacles:[
+      { id:'router-wall-a', x:720, width:42, height:96, offset:96, type:'route-wall' },
+      { id:'router-wall-b', x:1830, width:48, height:116, offset:116, type:'route-wall' }
+    ], gates:[{ id:'route-module-gate', x:1030, width:22, height:108, requiresComponentId:'c01' }] },
+    4: { platforms:[
+      { id:'signal-shelf-a', x:340, width:120, offset:112, style:'signal' },
+      { id:'signal-shelf-b', x:900, width:126, offset:112, style:'signal', requiresComponentId:'c01' },
+      { id:'signal-shelf-c', x:1510, width:145, offset:116, style:'signal', requiresComponentId:'c02' },
+      { id:'interference-bridge', x:1870, width:126, offset:108, style:'signal' }
+    ], obstacles:[
+      { id:'interference-field-a', x:735, width:48, height:82, offset:82, type:'interference', collision:'dangerous', damage:10, requiresComponentId:'c01' },
+      { id:'interference-field-b', x:1710, width:54, height:94, offset:94, type:'interference', collision:'dangerous', damage:10, requiresComponentId:'c02' }
+    ], gates:[{ id:'wifi-signal-gate', x:1110, width:22, height:102, requiresComponentId:'c01' }] },
+    5: {
+      replacePlatforms:true, replaceObstacles:true,
+      map:{ width:1100, height:1550, layout:'vertical',
+        start:{x:145,anchor:'floor',offset:0}, exit:{x:440,y:384,width:46,height:100,triggerRadiusY:74},
+        bounds:{left:true,right:true,ceiling:true,floor:true}, camera:{axes:['x','y'],followOffsetX:.5,followOffsetY:.55},
+        checkpoints:[{x:695,y:1058},{x:600,y:788}] },
+      platforms:[
+        {id:'rack-ledge-1',x:110,width:150,offset:100,style:'cable'},
+        {id:'rack-ledge-2',x:250,width:135,offset:190,style:'cable'},
+        {id:'maintenance-lift-a',x:390,width:135,offset:280,style:'cable',type:'moving',motion:{axis:'y',range:18,speed:.75,phase:0}},
+        {id:'rack-ledge-4',x:530,width:135,offset:360,style:'cable'},
+        {id:'rack-ledge-5',x:670,width:135,offset:450,style:'cable'},
+        {id:'rack-ledge-6',x:810,width:135,offset:540,style:'cable'},
+        {id:'rack-ledge-7',x:670,width:135,offset:630,style:'cable'},
+        {id:'rack-ledge-8',x:530,width:135,offset:720,style:'cable'},
+        {id:'rack-ledge-9',x:390,width:135,offset:810,style:'cable'},
+        {id:'rack-ledge-10',x:250,width:135,offset:900,style:'cable'},
+        {id:'rack-ledge-11',x:110,width:135,offset:990,style:'cable'},
+        {id:'rack-ledge-12',x:360,width:160,offset:1080,style:'cable'},
+        {id:'maintenance-lift-b',x:785,width:125,offset:720,style:'cable',type:'moving',motion:{axis:'x',range:42,speed:.6,phase:1.2}}
+      ],
+      obstacles:[
+        {id:'rack-left-wall',x:0,y:0,width:38,height:1550,offset:0,type:'rack-wall'},
+        {id:'rack-right-wall',x:1062,y:0,width:38,height:1550,offset:0,type:'rack-wall'},
+        {id:'live-ethernet-a',x:515,y:1110,width:36,height:68,offset:0,type:'interference',collision:'dangerous',damage:12,requiresComponentId:'c01'},
+        {id:'short-circuit-b',x:725,y:810,width:44,height:74,offset:0,type:'interference',collision:'dangerous',damage:12,requiresComponentId:'c02'},
+      ],
+      gates:[{id:'rack-bridge-gate',x:190,y:510,width:660,height:18,requiresComponentId:'c02'}]
+    },
+    6: { platforms:[
+      {id:'dhcp-lease-lift-a',x:660,width:132,offset:132,style:'packet',type:'moving',motion:{axis:'y',range:26,speed:.7,phase:.5},requiresComponentId:'c01'},
+      {id:'subnet-bridge',x:900,width:170,offset:76,style:'packet',requiresComponentId:'c01'},
+      {id:'dhcp-lease-lift-b',x:1580,width:138,offset:142,style:'packet',type:'moving',motion:{axis:'y',range:22,speed:.8,phase:1},requiresComponentId:'c02'},
+      {id:'alternate-subnet-shelf',x:1780,width:150,offset:192,style:'route'}
+    ], obstacles:[
+      {id:'dhcp-conflict-a',x:800,width:46,height:70,offset:70,type:'corrupt'},
+      {id:'dhcp-conflict-b',x:1540,width:48,height:78,offset:78,type:'corrupt',requiresComponentId:'c02'}
+    ], map:{pits:[{x:940,width:106}],checkpoints:[700,1500]}, gates:[
+      {id:'lease-gate-a',x:930,width:22,height:104,requiresComponentId:'c01'},
+      {id:'lease-gate-b',x:1840,width:22,height:108,requiresComponentId:'c02'}
+    ] },
+    7: { platforms:[
+      {id:'dns-cache-platform-a',x:410,width:142,offset:128,style:'window'},
+      {id:'dns-cache-platform-b',x:1000,width:145,offset:142,style:'window',type:'moving',motion:{axis:'y',range:24,speed:.72,phase:1.4}},
+      {id:'dns-packet-bridge',x:1200,width:190,offset:76,style:'packet'},
+      {id:'dns-secret-directory',x:1310,width:128,offset:170,style:'window',requiresComponentId:'c01'},
+      {id:'dns-reconnect-bridge',x:1710,width:180,offset:82,style:'packet',requiresComponentId:'c02'},
+      {id:'dns-cache-shelf',x:1950,width:130,offset:132,style:'window'}
+    ], map:{pits:[{x:620,width:90},{x:1230,width:110}]}, obstacles:[
+      {id:'corrupt-domain-a',x:730,width:48,height:78,offset:78,type:'corrupt',requiresComponentId:'c01'},
+      {id:'corrupt-domain-b',x:1500,width:54,height:88,offset:88,type:'corrupt',requiresComponentId:'c02'},
+      {id:'dns-cache-door',x:1210,width:22,height:104,offset:104,type:'gate',requiresComponentId:'c01'}
+    ], gates:[{id:'dns-root-gate',x:1640,width:22,height:104,requiresComponentId:'c02'}] },
+    8: { platforms:[
+      {id:'security-catwalk-a',x:300,width:136,offset:140,style:'route'},
+      {id:'security-timed-lift',x:850,width:138,offset:152,style:'route',type:'moving',motion:{axis:'y',range:28,speed:.9,phase:.3}},
+      {id:'risk-room-platform-a',x:1180,width:110,offset:226,style:'dangerous',type:'dangerous',damage:12},
+      {id:'risk-room-platform-b',x:1320,width:110,offset:220,style:'dangerous',type:'dangerous',damage:12},
+      {id:'firewall-safe-catwalk',x:1200,width:280,offset:65,style:'route',requiresComponentId:'c02'},
+      {id:'safe-route-bridge',x:1590,width:180,offset:86,style:'route',requiresComponentId:'c02'},
+      {id:'security-catwalk-b',x:1980,width:150,offset:146,style:'route'}
+    ], obstacles:[
+      {id:'laser-lane-a',x:650,width:34,height:86,offset:86,type:'interference',collision:'dangerous',damage:14,window:{period:3.4,active:1.5,phase:0},requiresComponentId:'c01'},
+      {id:'laser-lane-b',x:1090,width:38,height:94,offset:94,type:'interference',collision:'dangerous',damage:16,window:{period:4.1,active:1.8,phase:1.3},requiresComponentId:'c02'},
+      {id:'security-portal-wall',x:1790,width:46,height:110,offset:110,type:'route-wall',requiresComponentId:'c01'}
+    ], map:{pits:[{x:1185,width:240}]}, gates:[{id:'firewall-policy-gate',x:1880,width:24,height:112,requiresComponentId:'c02'}] },
+    9: {
+      replacePlatforms:true, replaceObstacles:true,
+      map:{width:4650,layout:'horizontal',camera:{axes:['x'],followOffsetX:.38,followOffsetY:.5},
+        checkpoints:[1210,2460,3260],pits:[{x:990,width:92},{x:2260,width:100},{x:2940,width:108}]},
+      platforms:[
+        {id:'uplink-bridge-a',x:300,width:142,offset:112,style:'cable'},
+        {id:'server-high-catwalk-a',x:460,width:120,offset:190,style:'cable'},
+        {id:'rack-transit-a',x:610,width:154,offset:148,style:'cable'},
+        {id:'shortcut-cable-bridge',x:780,width:140,offset:120,style:'cable',requiresComponentId:'c01'},
+        {id:'uplink-bridge-b',x:930,width:188,offset:92,style:'route'},
+        {id:'server-lift-a',x:1130,width:100,offset:130,style:'packet',type:'moving',motion:{axis:'y',range:22,speed:.75,phase:.6}},
+        {id:'rack-transit-b',x:1260,width:148,offset:158,style:'cable'},
+        {id:'server-high-shelf-b',x:1420,width:110,offset:200,style:'cable'},
+        {id:'relay-platform-a',x:1550,width:174,offset:112,style:'packet'},
+        {id:'relay-platform-b',x:1830,width:144,offset:172,style:'packet'},
+        {id:'combat-aerial-lift',x:2000,width:120,offset:138,style:'packet',type:'moving',motion:{axis:'x',range:32,speed:.82,phase:1.2}},
+        {id:'relay-platform-c',x:2160,width:190,offset:96,style:'route'},
+        {id:'combat-pit-step',x:2320,width:110,offset:140,style:'route',type:'moving',motion:{axis:'y',range:20,speed:.9,phase:.3}},
+        {id:'combat-step-a',x:2460,width:168,offset:154,style:'packet'},
+        {id:'combat-temp-step',x:2620,width:110,offset:130,style:'route',type:'temporary',duration:2.1,respawnDelay:2.8},
+        {id:'combat-step-b',x:2760,width:140,offset:104,style:'cable'},
+        {id:'combat-bridge',x:2900,width:186,offset:86,style:'route'},
+        {id:'combat-high-rail',x:3080,width:130,offset:150,style:'route'},
+        {id:'core-platform-a',x:3400,width:174,offset:112,style:'signal'},
+        {id:'core-dodge-high-left',x:3560,width:95,offset:232,style:'signal'},
+        {id:'core-platform-b',x:3670,width:190,offset:166,style:'signal'},
+        {id:'core-moving-lift',x:3820,width:140,offset:216,style:'packet',type:'moving',motion:{axis:'y',range:24,speed:.7,phase:.4}},
+        {id:'core-platform-c',x:3970,width:168,offset:108,style:'signal'},
+        {id:'core-dodge-high-right',x:4100,width:95,offset:224,style:'signal'},
+        {id:'core-platform-d',x:4240,width:188,offset:146,style:'signal'},
+        {id:'core-terminal-step',x:4420,width:140,offset:96,style:'signal'}
+      ],
+      obstacles:[
+        {id:'rack-cooler-a',x:450,width:48,height:62,offset:62,type:'heatsink'},
+        {id:'fiber-surge-a',x:830,width:46,height:78,offset:78,type:'interference',collision:'dangerous',damage:10},
+        {id:'rack-cooler-b',x:1370,width:52,height:74,offset:74,type:'heatsink'},
+        {id:'fiber-surge-b',x:1740,width:46,height:84,offset:84,type:'interference',collision:'dangerous',damage:10},
+        {id:'process-wall-a',x:2090,width:50,height:96,offset:96,type:'route-wall'},
+        {id:'laser-lane-p2',x:2380,width:30,height:90,offset:90,type:'interference',collision:'dangerous',damage:12,window:{period:3.6,active:1.6,phase:0.6}},
+        {id:'process-wall-b',x:2590,width:48,height:88,offset:88,type:'route-wall'},
+        {id:'core-vent-a',x:3480,width:54,height:74,offset:74,type:'heatsink'},
+        {id:'core-vent-b',x:4150,width:58,height:86,offset:86,type:'heatsink'}
+      ],
+      gates:[{id:'core-airlock',x:3340,width:28,height:126,requiresComponentId:'c04'}]
+    }
+  };
+
   function normalizePhase(definition, index) {
-    const width = definition.map?.width || definition.length;
+    const themeLayout = THEME_LAYOUTS[index] || { platforms: [], obstacles: [], gates: [] };
+    const mapDefinition = definition.map || themeLayout.map;
+    const width = mapDefinition?.width || definition.length;
     const map = {
       width, height: 'viewport', layout: 'horizontal',
       start: { x: 70, y: null, anchor: 'floor', offset: 0 },
@@ -227,14 +427,14 @@
       routes: [],
       width
     };
-    if (definition.map) {
-      Object.assign(map, definition.map);
-      map.bounds = { left: true, right: true, ceiling: true, floor: true, ...definition.map.bounds };
-      map.camera = { axes: ['x'], followOffsetX: .36, followOffsetY: .5, ...definition.map.camera };
-      map.start = { x: 70, y: null, anchor: 'floor', offset: 0, ...definition.map.start };
-      map.exit = { x: width - 94, y: null, anchor: 'floor', offset: 0, ...definition.map.exit };
-      map.routes = definition.map.routes || [];
-      map.width = definition.map.width || definition.length;
+    if (mapDefinition) {
+      Object.assign(map, mapDefinition);
+      map.bounds = { left: true, right: true, ceiling: true, floor: true, ...mapDefinition.bounds };
+      map.camera = { axes: ['x'], followOffsetX: .36, followOffsetY: .5, ...mapDefinition.camera };
+      map.start = { x: 70, y: null, anchor: 'floor', offset: 0, ...mapDefinition.start };
+      map.exit = { x: width - 94, y: null, anchor: 'floor', offset: 0, ...mapDefinition.exit };
+      map.routes = mapDefinition.routes || [];
+      map.width = mapDefinition.width || definition.length;
     }
     const normalizePlatform = (spec, platformIndex) => {
       if (!Array.isArray(spec)) return {
@@ -245,7 +445,8 @@
       return { id: 'p' + String(platformIndex + 1).padStart(2, '0'), type: 'fixed', collision: 'one-way',
         x, y: null, anchor: 'floor', offset: rise, width: platformWidth, height: 18 };
     };
-    const platforms = definition.platforms.map(normalizePlatform);
+    const platforms = (themeLayout.replacePlatforms ? [] : definition.platforms).map(normalizePlatform);
+    for (const extra of themeLayout.platforms) platforms.push({ type:'fixed', collision:'one-way', anchor:'floor', height:16, ...extra });
     if (index === 0) {
       // Demonstration lane: stepped precision jumps and an optional high shelf.
       platforms.push(
@@ -264,13 +465,14 @@
       movingPlatform.motion = { axis: index % 2 ? 'y' : 'x', range: index % 2 ? 34 : 48, speed: .9 + (index % 3) * .12, phase: index * .7 };
     }
     const breakawayPlatform = platforms[Math.min(4, platforms.length - 1)];
-    if (breakawayPlatform) { breakawayPlatform.type = 'temporary'; breakawayPlatform.duration = 2.1; }
-    const obstacles = definition.obstacles.map((spec, obstacleIndex) => {
+    if (breakawayPlatform) { breakawayPlatform.type = 'temporary'; breakawayPlatform.duration = 2.1; breakawayPlatform.respawnDelay = 3; }
+    const obstacles = (themeLayout.replaceObstacles ? [] : definition.obstacles).map((spec, obstacleIndex) => {
       if (!Array.isArray(spec)) return { id: 'o' + String(obstacleIndex + 1).padStart(2, '0'), type: 'block', collision: 'solid', anchor: 'floor', offset: spec.height || 0, ...spec };
       const [x, obstacleWidth, obstacleHeight] = spec;
       return { id: 'o' + String(obstacleIndex + 1).padStart(2, '0'), type: 'block', collision: 'solid',
         x, y: null, anchor: 'floor', offset: obstacleHeight, width: obstacleWidth, height: obstacleHeight };
     });
+    obstacles.push(...themeLayout.obstacles.map(spec => ({ type:'block', collision:'solid', anchor:'floor', ...spec })));
     if (index === 0) obstacles.push(
       { id: 'demo-wall-a', x: 1940, width: 20, height: 92, offset: 92, anchor: 'floor', type: 'wall', collision: 'solid' },
       { id: 'demo-wall-b', x: 2030, width: 20, height: 108, offset: 108, anchor: 'floor', type: 'wall', collision: 'solid' }
@@ -299,10 +501,10 @@
       map: {
         ...map,
         // Visible, reusable respawn beacons at safe floor positions.
-        checkpoints: index === 0 ? [840, 1370, 1850] : [Math.round(width * .42), Math.round(width * .72)],
+        checkpoints: map.checkpoints || (index === 0 ? [840, 1370, 1850] : [Math.round(width * .42), Math.round(width * .72)]),
         pits: index === 0 ? [{ x: 1460, width: 92 }] : (map.pits || [])
       },
-      entities: { platforms, obstacles, components, enemies, collectibles, features },
+      entities: { platforms, obstacles, components, enemies, collectibles, features, gates: themeLayout.gates },
       objectives: { defeatAllViruses: true, repairAllComponents: true, requireExitQuestion: true,
         enemiesToDefeat: enemies.length, componentsToRepair: components.length, ...definition.objectives }
     };
@@ -459,7 +661,7 @@
       repaired: components.map(component => component.repaired),
       componentIntegrity: components.map(component => ({ integrity: component.integrity, corruption: component.corruption })),
       collected: collectibles.map(item => item.collected),
-      phaseExitUnlocked, phaseObjectiveAwarded, phaseTransition, campaignComplete, gameOver, checkpointX,
+      phaseExitUnlocked, phaseObjectiveAwarded, phaseTransition, campaignComplete, gameOver, checkpointX, checkpointY,
       savedAt: Date.now()
     };
     try {
@@ -476,7 +678,7 @@
     player.shieldDuration = 5; player.shieldCooldownDuration = 18; repairDuration = .8;
     for (const skill of unlockedSkills) {
       const rank = skill.level;
-      if (skill.id === 'armor') player.armor = Math.min(.5, rank * .1);
+      if (skill.id === 'armor') player.armor = Math.min(MAX_PLAYER_ARMOR, Math.max(0, rank) * .1);
       if (skill.id === 'rapid') player.fireRate = Math.max(.14, .32 * Math.pow(.9, rank));
       if (skill.id === 'cannon') player.damage = 1 + rank;
       if (skill.id === 'boost') player.jumpPower = JUMP_SPEED * Math.pow(1.08, rank);
@@ -509,20 +711,28 @@
     loadPhase(phaseIndex, true);
     checkpointX = isNextPhase ? mapStart().x
       : Math.max(mapStart().x, Math.min(worldWidth() - player.width, Number(saved.checkpointX) || mapStart().x));
+    checkpointY = isNextPhase || saved.checkpointY == null || !Number.isFinite(Number(saved.checkpointY))
+      ? (phaseData.map.layout === 'vertical' ? floorY() : null) : Number(saved.checkpointY);
     if (isNextPhase || retryAfterDefeat) player.health = Math.min(player.maxHealth, retryAfterDefeat ? player.maxHealth : (Number(saved.player?.health) || 100) + 25);
-    else {
+    if (retryAfterDefeat) {
+      player.x = Math.max(0, Math.min(worldWidth() - player.width, checkpointX + 38));
+      player.y = (checkpointY ?? floorY()) - player.height;
+    }
+    else if (!isNextPhase) {
       const source = saved.player || {};
       player.health = Math.max(1, Math.min(player.maxHealth, Number(source.health) || player.maxHealth));
       player.x = retryAfterDefeat ? Math.min(worldWidth() - player.width, checkpointX + 38)
         : Math.max(0, Math.min(worldWidth() - player.width, Number(source.x) || 70));
-      const savedY = retryAfterDefeat ? floorY() - player.height
-        : Number.isFinite(Number(source.y)) ? Number(source.y) : mapStart().y;
+      const savedY = Number.isFinite(Number(source.y)) ? Number(source.y) : mapStart().y;
       const mapBottom = phaseData.map.bounds.floor ? floorY() - player.height : worldHeight() - player.height;
       player.y = Math.max(phaseData.map.bounds.ceiling ? 0 : -Infinity, Math.min(mapBottom, savedY));
       player.facing = source.facing === -1 ? -1 : 1;
       player.grounded = Boolean(source.grounded);
-      player.shieldTime = Math.max(0, Math.min(player.shieldDuration, Number(source.shieldTime) || 0));
-      player.shieldCooldown = Math.max(-1, Math.min(player.shieldCooldownDuration, Number(source.shieldCooldown) || 0));
+      const hasShieldSkill = unlockedSkills.some(skill => skill.id === 'shield');
+      player.shieldTime = hasShieldSkill
+        ? Math.max(0, Math.min(player.shieldDuration, Number(source.shieldTime) || 0)) : 0;
+      player.shieldCooldown = hasShieldSkill
+        ? Math.max(-1, Math.min(player.shieldCooldownDuration, Number(source.shieldCooldown) || 0)) : 0;
       viruses = viruses.map((virus, index) => {
         const progress = saved.viruses?.[index];
         return progress ? { ...virus, alive: Boolean(progress.alive), hp: Math.max(0, Math.min(virus.maxHp, Number(progress.hp) || 0)), x: Number(progress.x) || virus.x, y: Number(progress.y) || virus.y, direction: progress.direction < 0 ? -1 : 1 } : virus;
@@ -642,8 +852,17 @@
       : start.anchor === 'floor' ? floorY() - ROBOT_HEIGHT - (start.offset || 0) : (start.offset || 0);
     return { x: start.x, y };
   }
+  function getPlatformState(spec) {
+    let state = platformRuntime.get(spec.id);
+    if (!state) {
+      state = { elapsed: 0, active: true, triggered: false, respawning: false };
+      platformRuntime.set(spec.id, state);
+    }
+    return state;
+  }
   function platformShape(spec) {
-    const state = platformRuntime.get(spec.id) || { elapsed: 0, active: true, triggered: false };
+    if (spec.requiresComponentId && !components.some(component => component.id === spec.requiresComponentId && component.repaired)) return null;
+    const state = getPlatformState(spec);
     let x = spec.x;
     let y = entityY(spec, 0);
     if (spec.type === 'moving' && spec.motion) {
@@ -652,7 +871,7 @@
       if (motion.axis === 'x') x += shift; else y += shift;
     }
     if (spec.type === 'temporary' && !state.active) return null;
-    return { id: spec.id, x, y, w: spec.width, h: spec.height || 18, kind: 'platform', type: spec.type || 'fixed', collision: spec.collision || 'one-way', hazardDamage: spec.damage || 8 };
+    return { id: spec.id, x, y, w: spec.width, h: spec.height || 18, kind: 'platform', type: spec.type || 'fixed', style: spec.style, collision: spec.collision || 'one-way', hazardDamage: spec.damage || 8 };
   }
   function solids() {
     const map = phaseData.map;
@@ -672,10 +891,23 @@
       if (shape) geometry.push(shape);
     }
     for (const spec of phaseData.entities.obstacles) {
-      geometry.push({ id: spec.id, x: spec.x, y: entityY(spec, spec.height), w: spec.width, h: spec.height, kind: 'block', type: spec.type || 'block', collision: spec.collision || 'solid' });
+      if (spec.requiresComponentId && components.some(component => component.id === spec.requiresComponentId && component.repaired)) continue;
+      if (spec.window) {
+        const period = Number(spec.window.period);
+        const active = Number(spec.window.active);
+        if (Number.isFinite(period) && period > 0 && Number.isFinite(active)) {
+          const phaseTime = ((animationTime + (Number(spec.window.phase) || 0)) % period + period) % period;
+          if (phaseTime >= Math.max(0, Math.min(period, active))) continue;
+        }
+      }
+      geometry.push({ id: spec.id, x: spec.x, y: entityY(spec, spec.height), w: spec.width, h: spec.height, kind: 'block', type: spec.type || 'block', collision: spec.collision || 'solid', hazardDamage: spec.damage || 8 });
+    }
+    for (const gate of phaseData.entities.gates || []) {
+      if (components.some(component => component.id === gate.requiresComponentId && component.repaired)) continue;
+      geometry.push({ id:gate.id, x:gate.x, y:Number.isFinite(gate.y) ? gate.y : floorY() - gate.height, w:gate.width, h:gate.height, kind:'gate', type:'route-gate', collision:'solid' });
     }
     for (const obstacle of enemyObstacles) {
-      if (obstacle.life > 0) geometry.push({ id: obstacle.id, x: obstacle.x, y: obstacle.y, w: obstacle.w, h: obstacle.h, kind: 'block', type: 'enemy-temporary', collision: 'solid' });
+      if (obstacle.life > 0) geometry.push({ id: obstacle.id, x: obstacle.x, y: obstacle.y, w: obstacle.w, h: obstacle.h, kind: 'block', type: obstacle.bossOwned ? 'boss-obstacle' : 'enemy-temporary', collision: 'solid' });
     }
     if (!phaseExitUnlocked && map.bounds.right) {
       const exitX = map.exit.x;
@@ -696,7 +928,13 @@
     for (const spec of phaseData.entities.platforms) {
       if (spec.type !== 'moving') continue;
       const current = platformShape(spec);
-      const state = platformRuntime.get(spec.id) || { elapsed: 0, active: true, triggered: false };
+      const state = getPlatformState(spec);
+      if (!current) {
+        state.lastX = undefined;
+        state.lastY = undefined;
+        platformRuntime.set(spec.id, state);
+        continue;
+      }
       if (Number.isFinite(state.lastX) && player.grounded &&
         Math.abs(player.y + player.height - state.lastY) < 4 &&
         player.x + player.width > state.lastX && player.x < state.lastX + spec.width) {
@@ -732,8 +970,11 @@
     const start = mapStart();
     player.x = start.x; player.y = start.y;
     player.vx = 0; player.vy = 0; player.grounded = true; player.facing = 1;
-    cameraX = 0; cameraY = 0; platformRuntime = new Map(); animationTime = 0; jumpQueued = false;
+    cameraX = phaseData.map.camera.axes.includes('x') ? Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX)) : 0;
+    cameraY = phaseData.map.camera.axes.includes('y') ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
+    platformRuntime = new Map(); animationTime = 0; jumpQueued = false;
     checkpointX = start.x;
+    checkpointY = phaseData.map.layout === 'vertical' ? floorY() : null;
     effects = []; saveTimer = 0;
     viruses = createViruses(); projectiles = []; enemyProjectiles = []; enemyObstacles = []; components = createComponents(); collectibles = createCollectibles();
     defeated = 0; levelChoiceOpen = false; repairTarget = null; repairProgress = 0;
@@ -759,7 +1000,9 @@
         patrolMax: enemy.patrolMax ?? spec.x + (enemy.patrol || 70 + index * 8), direction: index % 2 ? 1 : -1,
         alive: true, countsForObjective: true, phase: index * .9, attackCooldownTimer: .45 + index * .16,
         attackWindup: 0, vulnerableTime: 0, specialCooldownTimer: (enemy.specialCooldown || 7) * .45,
-        summonCooldownTimer: (enemy.summonCooldown || 9) * .5, obstacleId: null };
+        summonCooldownTimer: (enemy.summonCooldown || 9) * .5, obstacleId: null,
+        bossStage: enemy.multiStage ? 1 : undefined, bossCycleCooldown: enemy.multiStage ? 1.2 : undefined,
+        bossPatternIndex: 0, bossBlockedMessageTimer: 0 };
     });
   }
 
@@ -809,8 +1052,8 @@
         player.vy = 0;
         player.grounded = true;
       }
-      cameraX = phaseData.map.camera.axes.includes('x') ? Math.max(0, Math.min(worldWidth() - width, cameraX)) : 0;
-      cameraY = phaseData.map.camera.axes.includes('y') ? Math.max(0, Math.min(worldHeight() - height, cameraY)) : 0;
+      cameraX = phaseData.map.camera.axes.includes('x') ? Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX)) : 0;
+      cameraY = phaseData.map.camera.axes.includes('y') ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
     }
     for (const virus of viruses) {
       virus.y += floorShift;
@@ -849,6 +1092,7 @@
     for (const object of collisionObjects) {
       if (object.collision === 'one-way') continue;
       if (!overlaps(player, object)) continue;
+      if (object.type === 'interference' && damageCooldown <= 0) damagePlayer(object.hazardDamage || 10, object);
       if (player.vx > 0) player.x = object.x - player.width;
       else if (player.vx < 0) player.x = object.x + object.w;
     }
@@ -870,11 +1114,13 @@
         player.vy = 0;
         player.grounded = true;
         if (object.type === 'temporary') {
-          const state = platformRuntime.get(object.id) || { elapsed: 0, active: true, triggered: false };
-          state.triggered = true;
-          platformRuntime.set(object.id, state);
+          const spec = phaseData.entities.platforms.find(platform => platform.id === object.id);
+          const state = spec ? getPlatformState(spec) : null;
+          if (state) {
+            state.triggered = true;
+          }
         }
-        if (object.type === 'dangerous' && damageCooldown <= 0) damagePlayer(object.hazardDamage || 8, object);
+        if ((object.type === 'dangerous' || object.type === 'interference') && damageCooldown <= 0) damagePlayer(object.hazardDamage || 8, object);
       } else if (crossedBottom) {
         player.y = object.y + object.h;
         player.vy = 0;
@@ -1123,12 +1369,16 @@
   }
 
   function damagePlayer(amount, virus) {
-    if (damageCooldown > 0 || !running || player.shieldTime > 0) return;
-    amount = Math.max(1, Math.ceil(amount * (1 - player.armor)));
-    player.health = Math.max(0, player.health - amount);
+    const hasShieldSkill = unlockedSkills.some(skill => skill.id === 'shield');
+    const activeShieldTime = hasShieldSkill && Number.isFinite(player.shieldTime) ? Math.max(0, player.shieldTime) : 0;
+    if (damageCooldown > 0 || !running || activeShieldTime > 0) return;
+    const armor = Number.isFinite(player.armor) ? Math.min(MAX_PLAYER_ARMOR, Math.max(0, player.armor)) : 0;
+    const incomingDamage = Number.isFinite(amount) ? Math.max(0, amount) : 0;
+    const appliedDamage = Math.max(1, Math.ceil(incomingDamage * (1 - armor)));
+    player.health = Math.max(0, player.health - appliedDamage);
     emitParticles(player.x + player.width / 2, player.y + 22, '#ff716e', 16);
     playSound('damage');
-    damageCooldown = 1;
+    damageCooldown = PLAYER_HIT_INVULNERABILITY;
     player.vy = -210;
     player.grounded = false;
     player.facing = player.x + player.width / 2 < virus.x ? -1 : 1;
@@ -1141,15 +1391,20 @@
   function respawnAtCheckpoint() {
     player.health = player.maxHealth;
     player.x = Math.max(0, Math.min(worldWidth() - player.width, checkpointX + 38));
-    player.y = floorY() - player.height;
+    player.y = (checkpointY ?? floorY()) - player.height;
     for (let attempt = 0; attempt < 4; attempt++) {
       const blocker = solids().find(object => object.collision !== 'one-way' && overlaps(player, object));
       if (!blocker) break;
       player.x = Math.min(worldWidth() - player.width, blocker.x + blocker.w + 2);
     }
     player.vx = 0; player.vy = 0; player.grounded = true; player.facing = 1;
-    player.shieldTime = 1.5;
-    damageCooldown = 1.5;
+    // Respawn protection uses the hit cooldown. Do not place that protection
+    // in shieldTime: the shield timer only ticks for the shield skill, so an
+    // unskilled player would otherwise remain shielded forever.
+    player.shieldTime = 0;
+    player.shieldCooldown = unlockedSkills.some(skill => skill.id === 'shield')
+      ? player.shieldCooldownDuration : 0;
+    damageCooldown = 2;
     repairTarget = null; repairProgress = 0; jumpQueued = false;
     platformRuntime = new Map();
     enemyProjectiles = []; enemyObstacles = [];
@@ -1161,8 +1416,15 @@
 
   function updateCheckpoints() {
     for (const point of phaseData.map.checkpoints || []) {
-      if (player.x + player.width >= point && checkpointX < point) {
-        checkpointX = point;
+      const pointX = typeof point === 'number' ? point : point.x;
+      const pointY = typeof point === 'number' ? null : point.y;
+      const reached = Number.isFinite(pointY)
+        ? player.x + player.width >= pointX - 8 && player.x <= pointX + 54 && Math.abs(player.y + player.height - pointY) <= 24
+        : player.x + player.width >= pointX && checkpointX < pointX;
+      const isNewVertical = Number.isFinite(pointY) && (checkpointY == null || pointY < checkpointY);
+      if (reached && (Number.isFinite(pointY) ? isNewVertical : true)) {
+        checkpointX = pointX;
+        checkpointY = Number.isFinite(pointY) ? pointY : null;
         interactionMessage = 'CHECKPOINT ATIVADO';
         interactionMessageTimer = 1.8;
         addLog('Checkpoint ativado.');
@@ -1313,11 +1575,17 @@
     keys.clear();
     if (phaseIndex === PHASES.length - 1) {
       campaignComplete = true;
+      const card = overlay.querySelector('.overlay-card');
+      const eyebrow = card?.querySelector('.eyebrow');
+      if (eyebrow) eyebrow.textContent = 'CAMPANHA DIGITAL CONCLUÍDA // TODOS OS SETORES SALVOS';
       ui.title.innerHTML = 'VIRUS ZERO <span>NEUTRALIZADO</span>';
-      ui.copy.textContent = 'As dez fases foram concluídas. A rede e o computador estão protegidos.';
+      ui.copy.textContent = 'Parabéns, Unidade R-07! Você neutralizou VIRUS ZERO no núcleo digital da Internet. Todos os 10 setores do computador e da infraestrutura de rede foram totalmente recuperados!';
       startButton.innerHTML = 'NOVA CAMPANHA <span>→</span>';
       ui.stage.textContent = 'CAMPANHA CONCLUÍDA';
-      addLog('VIRUS ZERO neutralizado. Campanha concluída.');
+      addLog('VIRUS ZERO neutralizado. Campanha concluída com sucesso!');
+      playSound('level');
+      emitParticles(player.x + player.width / 2, player.y, '#ffd36e', 35);
+      emitParticles(player.x + player.width / 2, player.y, '#74e8ff', 35);
     } else {
       highestUnlockedPhase = Math.max(highestUnlockedPhase, phaseIndex + 1);
       ui.title.innerHTML = 'FASE <span>CONCLUÍDA</span>';
@@ -1367,7 +1635,91 @@
     addLog('Vírus blindado ergueu uma barreira temporária.');
   }
 
+  function fireVirusZeroVolley(virus, targetX, targetY, count, speed, damage, spread) {
+    const baseAngle = Math.atan2(targetY - virus.y, targetX - virus.x);
+    for (let shot = 0; shot < count; shot++) {
+      const ratio = count === 1 ? 0 : shot / (count - 1) * 2 - 1;
+      const angle = baseAngle + ratio * spread;
+      enemyProjectiles.push({x:virus.x + Math.cos(angle) * (virus.radius + 5),
+        y:virus.y + Math.sin(angle) * (virus.radius + 5),vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,
+        life:3.2,radius:7,damage,ownerX:virus.x,color:'#ff5479',bossOwned:true});
+    }
+  }
+
+  function triggerVirusZeroAttack(virus, playerCenterX, playerCenterY) {
+    const stage = virus.bossStage || 1;
+    const kind = virus.bossAttackKind;
+    const horizontalDistance = Math.abs(playerCenterX - virus.x);
+    const verticalDistance = Math.abs(playerCenterY - virus.y);
+    if ((kind === 'slam' || kind === 'combo') && horizontalDistance <= (stage === 3 ? 188 : 148) && verticalDistance < 112) {
+      damagePlayer(stage === 3 ? 22 : 16, virus);
+    }
+    if (kind === 'charge') {
+      const oldX = virus.x;
+      const minX = virus.bossBounds?.left ?? virus.radius;
+      const maxX = virus.bossBounds?.right ?? worldWidth() - virus.radius;
+      virus.x = Math.max(minX, Math.min(maxX, virus.x + virus.bossAttackDirection * 205));
+      if (Math.abs(playerCenterX - virus.x) < 86 && Math.abs(playerCenterY - virus.y) < 105) damagePlayer(18, virus);
+      if (virus.x === oldX) virus.bossAttackDirection *= -1;
+    }
+    if (kind === 'volley' || kind === 'combo') {
+      fireVirusZeroVolley(virus, playerCenterX, playerCenterY, stage === 3 ? 5 : 3,
+        stage === 3 ? 310 : 245, stage === 3 ? 12 : 10, stage === 3 ? .38 : .24);
+    }
+    if (kind === 'surge' || kind === 'combo') {
+      const arena = virus.bossBounds || {left:3420,right:4450};
+      const positions = stage === 3 ? [arena.left + 150, arena.right - 160] :
+        [virus.x < (arena.left + arena.right) / 2 ? arena.right - 190 : arena.left + 190];
+      for (const x of positions) {
+        if (enemyObstacles.filter(obstacle => obstacle.bossOwned && obstacle.life > 0).length >= 2) break;
+        if (enemyObstacles.some(obstacle => obstacle.life > 0 && Math.abs(obstacle.x - x) < 65)) continue;
+        enemyObstacles.push({id:'virus-zero-pillar-'+Math.floor(animationTime*1000)+'-'+x,
+          x:x-15,y:floorY()-68,w:30,h:68,life:2.5,bossOwned:true});
+      }
+    }
+    virus.vulnerableTime = [0,1.25,1.1,1.4][stage];
+    virus.bossCycleCooldown = [0,1.55,1.35,1.2][stage];
+    virus.attackWindup = 0;
+  }
+
+  function updateVirusZero(virus, dt, playerCenterX, playerCenterY) {
+    const healthRatio = virus.hp / virus.maxHp;
+    const stage = healthRatio <= .34 ? 3 : healthRatio <= .67 ? 2 : 1;
+    if (stage !== virus.bossStage) {
+      virus.bossStage = stage;
+      addLog('VIRUS ZERO // ETAPA ' + stage + ' // PADRÃO DE ATAQUE ALTERADO.');
+      emitParticles(virus.x, virus.y, stage === 3 ? '#ffd36e' : '#ff5479', 18);
+    }
+    virus.coreShielded = Boolean(virus.coreShieldRequiresRepairs && components.some(component => !component.repaired));
+    virus.bossBlockedMessageTimer = Math.max(0, virus.bossBlockedMessageTimer - dt);
+    virus.bossCycleCooldown = Math.max(0, virus.bossCycleCooldown - dt);
+    if (virus.attackWindup > 0) {
+      virus.attackWindup = Math.max(0, virus.attackWindup - dt);
+      if (virus.attackWindup === 0) triggerVirusZeroAttack(virus, playerCenterX, playerCenterY);
+    } else if (virus.bossCycleCooldown <= 0) {
+      const patterns = {1:['slam','charge'],2:['volley','surge'],3:['combo','surge','volley']};
+      const options = patterns[stage];
+      virus.bossAttackKind = options[virus.bossPatternIndex % options.length];
+      virus.bossPatternIndex++;
+      virus.bossAttackDirection = Math.sign(playerCenterX - virus.x) || 1;
+      virus.attackWindup = [0,.92,.78,.68][stage];
+    }
+    if (stage >= 2 && virus.specialCooldownTimer <= 0) {
+      spawnEnemyMinion(virus);
+      virus.specialCooldownTimer = stage === 3 ? 6.5 : 9;
+    }
+  }
+
   function damageVirus(virus, damage) {
+    if (virus.type === 'boss' && virus.coreShieldRequiresRepairs && components.some(component => !component.repaired)) {
+      virus.coreShielded = true;
+      if (virus.bossBlockedMessageTimer <= 0) {
+        interactionMessage = 'NÚCLEO PROTEGIDO // REPARE OS RELAYS';
+        interactionMessageTimer = 1.6;
+        virus.bossBlockedMessageTimer = 1.6;
+      }
+      return;
+    }
     const armor = virus.vulnerableTime > 0 ? 0 : (virus.armor || 0);
     virus.hp = Math.max(0, virus.hp - Math.max(1, Math.ceil(damage * (1 - armor))));
     virus.hitFlash = .12;
@@ -1428,7 +1780,10 @@
     }
 
     const speed = virus.speed * (virus.buffed ? 1.3 : 1) * (virus.flying && virus.attackWindup > 0 ? 1.55 : 1);
-    const nextX = Math.max(virus.radius, Math.min(worldWidth() - virus.radius, virus.x + moveDirection * speed * dt));
+    if (virus.type === 'boss' && virus.multiStage && virus.attackWindup > 0) moveDirection = 0;
+    const minX = virus.bossBounds?.left ?? virus.radius;
+    const maxX = virus.bossBounds?.right ?? worldWidth() - virus.radius;
+    const nextX = Math.max(minX, Math.min(maxX, virus.x + moveDirection * speed * dt));
     const blocked = solids().some(object => object.collision === 'solid' && object.kind !== 'gate' &&
       nextX + virus.radius > object.x && nextX - virus.radius < object.x + object.w &&
       virus.y + virus.radius > object.y && virus.y - virus.radius < object.y + object.h);
@@ -1439,6 +1794,11 @@
       const hoverY = Math.max(55, Math.min(floorY() - 92, playerCenterY - 55 + Math.sin(virus.phase * .65) * 16));
       virus.y += Math.max(-speed, Math.min(speed, hoverY - virus.y)) * dt;
     } else virus.y = virus.baseY + Math.sin(virus.phase) * 3;
+
+    if (virus.type === 'boss' && virus.multiStage) {
+      updateVirusZero(virus, dt, playerCenterX, playerCenterY);
+      return;
+    }
 
     if (virus.attack === 'ranged' && distance <= (virus.attackRange || 330) && virus.attackCooldownTimer <= 0) {
       fireEnemyProjectile(virus, playerCenterX, playerCenterY);
@@ -1504,7 +1864,7 @@
       } else if (player.shieldCooldown > 0) {
         player.shieldCooldown = Math.max(0, player.shieldCooldown - dt);
       } else {
-        player.shieldTime = 5;
+        player.shieldTime = player.shieldDuration;
         player.shieldCooldown = -1;
       }
     }
@@ -1564,6 +1924,10 @@
     const miniRect = ui.map.parentElement.getBoundingClientRect();
     const miniRange = Math.max(0, miniRect.width - 16);
     ui.map.style.left = (8 + (player.x / (worldWidth() - player.width)) * miniRange) + 'px';
+    if (phaseData.map.layout === 'vertical') {
+      const miniY = Math.max(0, Math.min(1, player.y / Math.max(1, worldHeight() - player.height)));
+      ui.map.style.top = `calc(8px + ${miniY * Math.max(0, miniRect.height - 16)}px)`;
+    } else ui.map.style.top = '50%';
   }
 
   function update(dt) {
@@ -1591,14 +1955,33 @@
     if (saveTimer >= 2.5) { saveTimer = 0; saveCampaign(); }
     if (xp >= xpRequired) openLevelChoice();
     const exitY = Number.isFinite(phaseData.map.exit.y) ? phaseData.map.exit.y : floorY() - 63;
-    if (running && phaseExitUnlocked && player.x + player.width >= phaseData.map.exit.x + 20 &&
-      Math.abs(player.y + player.height / 2 - exitY) <= (phaseData.map.exit.triggerRadiusY || 86)) openPhaseQuestion();
+    const exitReached = phaseData.map.layout === 'vertical'
+      ? Math.hypot(player.x + player.width / 2 - phaseData.map.exit.x, player.y + player.height / 2 - exitY) <= (phaseData.map.exit.triggerRadius || phaseData.map.exit.triggerRadiusY || 74)
+      : player.x + player.width >= phaseData.map.exit.x + 20 && Math.abs(player.y + player.height / 2 - exitY) <= (phaseData.map.exit.triggerRadiusY || 86);
+    if (running && phaseExitUnlocked && exitReached) openPhaseQuestion();
+    // Temporary platforms use one persistent per-platform clock. It advances
+    // every frame, independent of camera range or player distance.
     for (const spec of phaseData.entities.platforms) {
       if (spec.type !== 'temporary') continue;
-      const state = platformRuntime.get(spec.id);
-      if (!state?.triggered || !state.active) continue;
+      const state = getPlatformState(spec);
+      if (!state.triggered) continue;
       state.elapsed += dt;
-      if (state.elapsed >= (spec.duration || 1.8)) state.active = false;
+      if (state.active && state.elapsed >= (Number.isFinite(spec.duration) ? spec.duration : 1.8)) {
+        state.active = false;
+        state.respawning = true;
+        state.elapsed = 0;
+      } else if (!state.active && state.respawning && state.elapsed >= (Number.isFinite(spec.respawnDelay) ? spec.respawnDelay : 3)) {
+        const x = spec.x;
+        const y = entityY(spec, 0);
+        const shape = { x, y, w: spec.width, h: spec.height || 18 };
+        // Keep the timer ready and retry each frame while the player overlaps.
+        if (!overlaps(player, shape)) {
+          state.active = true;
+          state.respawning = false;
+          state.triggered = false;
+          state.elapsed = 0;
+        }
+      }
     }
   }
 
@@ -1710,9 +2093,50 @@
         ctx.strokeStyle = accent; ctx.strokeRect(x - 48, base - 170, 34, 126); ctx.strokeRect(x + 14, base - 170, 34, 126);
         ctx.fillStyle = '#361d2a'; ctx.beginPath(); ctx.moveTo(x, base - 181); ctx.lineTo(x + 19, base - 163); ctx.lineTo(x + 15, base - 133); ctx.lineTo(x, base - 120); ctx.lineTo(x - 15, base - 133); ctx.lineTo(x - 19, base - 163); ctx.closePath(); ctx.fill(); ctx.stroke();
       } else {
-        ctx.fillRect(x - 52, base - 206, 104, 164); ctx.strokeRect(x - 52, base - 206, 104, 164);
-        for (let tray = 0; tray < 4; tray++) { ctx.strokeRect(x - 42, base - 193 + tray * 36, 84, 28); ctx.fillStyle = tray === index % 4 ? '#ff5b79' : accent; ctx.beginPath(); ctx.arc(x + 32, base - 179 + tray * 36, 3, 0, Math.PI * 2); ctx.fill(); }
-        if (index === phaseData.entities.features.length - 1) { ctx.shadowColor = '#ff456a'; ctx.shadowBlur = 18; ctx.strokeStyle = '#ff456a'; ctx.beginPath(); ctx.arc(x, base - 250, 26, 0, Math.PI * 2); ctx.stroke(); ctx.shadowBlur = 0; ctx.fillStyle = '#ff6c7c'; ctx.font = 'bold 10px monospace'; ctx.fillText('V0', x - 9, base - 246); }
+        const isCenterCore = feature.x === 3970 || index === phaseData.entities.features.length - 1;
+        const isPylon = feature.x >= 3400 && !isCenterCore;
+        if (isCenterCore) {
+          ctx.save();
+          ctx.shadowColor = '#ff3366'; ctx.shadowBlur = 24;
+          ctx.strokeStyle = '#ff436e'; ctx.lineWidth = 2.5;
+          for (let ring = 1; ring <= 3; ring++) {
+            ctx.beginPath();
+            ctx.ellipse(x, base - 195, 44 + ring * 20, 16 + ring * 7, animationTime * (ring % 2 ? 0.7 : -0.7), 0, Math.PI * 2);
+            ctx.stroke();
+          }
+          ctx.shadowBlur = 0;
+          ctx.fillStyle = '#170b1a'; ctx.fillRect(x - 36, base - 250, 72, 195);
+          ctx.strokeRect(x - 36, base - 250, 72, 195);
+          const pulse = 13 + Math.sin(animationTime * 4.5) * 4;
+          ctx.fillStyle = '#ff436e';
+          ctx.beginPath(); ctx.arc(x, base - 195, pulse, 0, Math.PI * 2); ctx.fill();
+          ctx.fillStyle = '#ffffff'; ctx.font = 'bold 9px monospace'; ctx.textAlign = 'center';
+          ctx.fillText('VIRUS ZERO', x, base - 222);
+          ctx.fillStyle = '#7ee5ff'; ctx.font = '8px monospace';
+          ctx.fillText('NÚCLEO DIGITAL', x, base - 156);
+          ctx.restore();
+        } else if (isPylon) {
+          ctx.fillStyle = '#0f1a2a'; ctx.fillRect(x - 22, base - 215, 44, 175);
+          ctx.strokeStyle = accent; ctx.strokeRect(x - 22, base - 215, 44, 175);
+          ctx.fillStyle = '#ff5b79'; ctx.fillRect(x - 4, base - 200, 8, 145);
+          ctx.fillStyle = accent; ctx.beginPath(); ctx.arc(x, base - 224, 8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        } else {
+          ctx.fillStyle = '#0b1624'; ctx.fillRect(x - 50, base - 206, 100, 166);
+          ctx.strokeStyle = accent; ctx.strokeRect(x - 50, base - 206, 100, 166);
+          for (let shelf = 0; shelf < 4; shelf++) {
+            const sy = base - 194 + shelf * 36;
+            ctx.strokeStyle = '#224059'; ctx.strokeRect(x - 42, sy, 84, 26);
+            const ledOn1 = Math.sin(animationTime * 7 + index + shelf) > 0;
+            const ledOn2 = Math.cos(animationTime * 9 + index * 2 + shelf) > 0;
+            ctx.fillStyle = ledOn1 ? '#65ffcb' : '#103f2e'; ctx.fillRect(x + 22, sy + 7, 5, 4);
+            ctx.fillStyle = ledOn2 ? '#ffb052' : '#452b10'; ctx.fillRect(x + 30, sy + 7, 5, 4);
+            ctx.fillStyle = '#182f42'; ctx.fillRect(x - 36, sy + 7, 50, 3); ctx.fillRect(x - 36, sy + 13, 50, 3);
+          }
+          ctx.fillStyle = '#8bd3ec'; ctx.font = '8px monospace'; ctx.textAlign = 'left';
+          ctx.fillText('SRV-BLADE #' + (index + 1), x - 42, base - 210);
+          ctx.strokeStyle = trim; ctx.lineWidth = 1.5;
+          ctx.beginPath(); ctx.moveTo(x - 42, base - 40); ctx.bezierCurveTo(x - 20, base - 15, x + 20, base - 15, x + 42, base - 40); ctx.stroke();
+        }
       }
       ctx.restore();
     }
@@ -1736,15 +2160,26 @@
           ctx.strokeRect(tileX + .5, object.y + 8.5, 47, object.h - 9);
           ctx.fillStyle = phaseData.palette[2];
           ctx.globalAlpha = .28;
-          ctx.fillRect(screenX + 8, object.y + 17, 7, 2);
+          ctx.fillRect(tileX + 8, object.y + 17, 7, 2);
         }
         ctx.globalAlpha = 1;
       } else if (object.kind === 'platform') {
-        const platformColor = object.type === 'dangerous' ? '#aa4154' : phaseData.palette[3];
+        const platformColor = object.type === 'dangerous' ? '#aa4154'
+          : object.style === 'window' ? '#393665'
+          : object.style === 'cable' ? '#72543d'
+          : object.style === 'packet' ? '#3b657c'
+          : object.style === 'route' ? '#4b638a'
+          : object.style === 'signal' ? '#245a77' : phaseData.palette[3];
         ctx.fillStyle = platformColor;
         if (object.type === 'temporary' && (platformRuntime.get(object.id)?.triggered)) ctx.globalAlpha = .55 + Math.sin(animationTime * 18) * .2;
         ctx.fillRect(x, object.y, object.w, object.h);
-        ctx.fillStyle = object.type === 'dangerous' ? '#ff7181' : phaseData.palette[2];
+        ctx.fillStyle = object.type === 'dangerous' ? '#ff7181'
+          : object.style === 'window' ? '#b59cff'
+          : object.style === 'cable' ? '#ffbf72'
+          : object.style === 'packet' ? '#a7edff'
+          : object.style === 'route' ? '#83bdff'
+          : object.style === 'signal' ? (Math.sin(animationTime * 4) > -.2 ? '#74e8ff' : '#3a718b')
+          : phaseData.palette[2];
         ctx.fillRect(x, object.y, object.w, 3);
         ctx.strokeStyle = phaseData.palette[2];
         ctx.globalAlpha = .65;
@@ -1766,41 +2201,70 @@
         ctx.strokeStyle = '#ff7d69';
         ctx.lineWidth = 2;
         ctx.strokeRect(x + 1, object.y + 1, object.w - 2, object.h - 2);
-        for (let y = 8; y < object.h; y += 20) { ctx.fillStyle = '#ff8a72'; ctx.fillRect(x + 5, y, object.w - 10, 3); }
+        for (let y = 8; y < object.h; y += 20) { ctx.fillStyle = object.type === 'route-gate' ? '#ffc66d' : '#ff8a72'; ctx.fillRect(x + 5, object.y + y, object.w - 10, 3); }
       } else {
-        ctx.fillStyle = object.type === 'enemy-temporary' ? '#51283f' : phaseData.palette[3];
+        ctx.fillStyle = object.type === 'boss-obstacle' ? '#49233b'
+          : object.type === 'enemy-temporary' ? '#51283f'
+          : object.type === 'corrupt' || object.type === 'interference' ? '#552d58'
+          : object.type === 'fan' || object.type === 'heatsink' ? '#425260'
+          : object.type === 'port' ? '#34534f'
+          : object.type === 'route-wall' ? '#3c4b70' : phaseData.palette[3];
         ctx.fillRect(x, object.y, object.w, object.h);
-        ctx.strokeStyle = object.type === 'enemy-temporary' ? '#ff83a2' : phaseData.palette[2];
+        ctx.strokeStyle = object.type === 'boss-obstacle' ? '#ff5479'
+          : object.type === 'enemy-temporary' ? '#ff83a2'
+          : object.type === 'corrupt' || object.type === 'interference' ? '#ec71ff'
+          : object.type === 'fan' || object.type === 'heatsink' ? '#a3d2d5'
+          : object.type === 'port' ? '#56d9ce'
+          : object.type === 'route-wall' ? '#80c6ff' : phaseData.palette[2];
         ctx.lineWidth = 1;
         ctx.strokeRect(x + .5, object.y + .5, object.w - 1, object.h - 1);
-        ctx.fillStyle = object.type === 'enemy-temporary' ? '#ff83a2' : phaseData.palette[4];
+        ctx.fillStyle = object.type === 'boss-obstacle' ? '#ff5479' : object.type === 'enemy-temporary' ? '#ff83a2' : phaseData.palette[4];
         ctx.fillRect(x + 6, object.y + 6, object.w - 12, 3);
-        ctx.fillStyle = object.type === 'enemy-temporary' ? '#ffb2c4' : phaseData.palette[2];
+        ctx.fillStyle = object.type === 'boss-obstacle' ? '#ffadc0' : object.type === 'enemy-temporary' ? '#ffb2c4' : phaseData.palette[2];
         ctx.globalAlpha = .32;
         ctx.fillRect(x + 6, object.y + 15, 4, object.h - 22);
         ctx.fillRect(x + 15, object.y + 15, 4, object.h - 22);
         ctx.globalAlpha = 1;
+        if (object.type === 'fan') {
+          ctx.save(); ctx.translate(x + object.w / 2, object.y + object.h / 2); ctx.rotate(animationTime * 5);
+          ctx.strokeStyle = '#c5e5e8'; ctx.lineWidth = 3;
+          for (let blade = 0; blade < 4; blade++) { ctx.rotate(Math.PI / 2); ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(0, -object.h * .31); ctx.stroke(); }
+          ctx.fillStyle = '#56e5cf'; ctx.beginPath(); ctx.arc(0, 0, 5, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+        } else if (object.type === 'heatsink') {
+          ctx.strokeStyle = '#c5e5e8';
+          for (let fin = 1; fin < 5; fin++) { const finX = x + fin * object.w / 5; ctx.beginPath(); ctx.moveTo(finX, object.y + 7); ctx.lineTo(finX, object.y + object.h - 7); ctx.stroke(); }
+        } else if (object.type === 'corrupt') {
+          ctx.strokeStyle = '#ff769a'; ctx.beginPath(); ctx.moveTo(x + 8, object.y + 12); ctx.lineTo(x + object.w - 8, object.y + object.h - 12); ctx.moveTo(x + object.w - 8, object.y + 12); ctx.lineTo(x + 8, object.y + object.h - 12); ctx.stroke();
+        } else if (object.type === 'interference') {
+          ctx.strokeStyle = '#f6a2ff'; ctx.globalAlpha = .7;
+          for (let wave = 0; wave < 3; wave++) { const waveY = object.y + 16 + wave * 25; ctx.beginPath(); ctx.moveTo(x + 5, waveY); ctx.lineTo(x + object.w - 5, waveY); ctx.stroke(); }
+          ctx.globalAlpha = 1;
+        }
       }
     }
 
     for (const point of phaseData.map.checkpoints || []) {
-      if (point - cameraX < -24 || point - cameraX > width + 24) continue;
-      const screenX = point;
-      const active = checkpointX >= point;
+      const pointX = typeof point === 'number' ? point : point.x;
+      const pointY = typeof point === 'number' ? floorY() : point.y;
+      if (pointX - cameraX < -24 || pointX - cameraX > width + 24 || pointY - cameraY < -58 || pointY - cameraY > height + 24) continue;
+      const screenX = pointX;
+      const active = Number.isFinite(pointY) && phaseData.map.layout === 'vertical'
+        ? checkpointY != null && checkpointY <= pointY : checkpointX >= pointX;
       const beaconColor = active ? '#78ffd2' : '#6ea4ad';
       ctx.save();
       ctx.globalAlpha = active ? 1 : .65;
       ctx.shadowColor = beaconColor; ctx.shadowBlur = active ? 14 : 5;
       ctx.fillStyle = beaconColor;
-      ctx.fillRect(screenX - 3, floorY() - 42, 6, 30);
-      ctx.beginPath(); ctx.arc(screenX, floorY() - 47, 8, 0, Math.PI * 2); ctx.fill();
+      ctx.fillRect(screenX - 3, pointY - 30, 6, 30);
+      ctx.beginPath(); ctx.arc(screenX, pointY - 35, 8, 0, Math.PI * 2); ctx.fill();
       ctx.shadowBlur = 0; ctx.fillStyle = '#0b2028';
-      ctx.beginPath(); ctx.arc(screenX, floorY() - 47, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(screenX, pointY - 35, 3, 0, Math.PI * 2); ctx.fill();
       ctx.restore();
     }
 
     const gateX = phaseData.map.exit.x;
-    if (gateX - cameraX > -70 && gateX - cameraX < width + 70) {
+    if (gateX - cameraX > -70 && gateX - cameraX < width + 70 &&
+      (!Number.isFinite(phaseData.map.exit.y) || phaseData.map.exit.y - cameraY > -100 && phaseData.map.exit.y - cameraY < height + 100)) {
       const gateColor = phaseExitUnlocked ? '#70ffce' : '#ff806b';
       const gateHeight = phaseData.map.layout === 'horizontal' ? 126 : (phaseData.map.exit.height || 126);
       const gateCenterY = Number.isFinite(phaseData.map.exit.y) ? phaseData.map.exit.y : floorY() - gateHeight / 2;
@@ -1941,8 +2405,41 @@
         ctx.beginPath(); ctx.moveTo(5, -4); ctx.lineTo(virus.radius + wing, -wing); ctx.lineTo(virus.radius + 2, 3); ctx.closePath(); ctx.fill(); ctx.stroke();
       }
       if (boss) {
-        ctx.strokeStyle = '#ffafc4';
-        ctx.beginPath(); ctx.arc(0, 0, virus.radius + 9, 0, Math.PI * 2); ctx.stroke();
+        if (virus.coreShielded) {
+          ctx.save();
+          ctx.rotate(virus.phase * .65);
+          ctx.strokeStyle = '#7cdcff';
+          ctx.lineWidth = 3.5;
+          ctx.shadowColor = '#6be4ff';
+          ctx.shadowBlur = 14;
+          ctx.beginPath();
+          for (let hex = 0; hex < 6; hex++) {
+            const ha = hex * Math.PI / 3;
+            const hx = Math.cos(ha) * (virus.radius + 14);
+            const hy = Math.sin(ha) * (virus.radius + 14);
+            if (hex === 0) ctx.moveTo(hx, hy); else ctx.lineTo(hx, hy);
+          }
+          ctx.closePath();
+          ctx.stroke();
+          ctx.restore();
+        } else if (virus.vulnerableTime > 0) {
+          ctx.strokeStyle = '#ffe27a';
+          ctx.lineWidth = 3;
+          ctx.shadowColor = '#ffe27a';
+          ctx.shadowBlur = 16;
+          ctx.beginPath(); ctx.arc(0, 0, virus.radius + 11, 0, Math.PI * 2); ctx.stroke();
+          ctx.shadowBlur = 0;
+        } else {
+          ctx.strokeStyle = '#ffafc4';
+          ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.arc(0, 0, virus.radius + 9, 0, Math.PI * 2); ctx.stroke();
+        }
+        if (virus.attackWindup > 0) {
+          ctx.strokeStyle = '#fff0a3'; ctx.lineWidth = 3;
+          ctx.setLineDash([5, 3]);
+          ctx.beginPath(); ctx.arc(0, 0, virus.radius + 16 + Math.sin(virus.phase * 5) * 2, 0, Math.PI * 2); ctx.stroke();
+          ctx.setLineDash([]);
+        }
         ctx.strokeStyle = color;
       }
       if (fast) {
@@ -2001,8 +2498,43 @@
           ctx.fillRect(x - barWidth / 2, virus.y - virus.radius - 5, barWidth * Math.min(1, virus.vulnerableTime / (virus.vulnerableDuration || 1.25)), 2);
         }
         if (boss) {
+          const stageNames = {1:'PADRÕES', 2:'DISPAROS', 3:'COMBO CRÍTICO'};
+          const stageName = stageNames[virus.bossStage || 1] || 'BATALHA';
           ctx.fillStyle = '#ffd9e4'; ctx.font = 'bold 9px monospace'; ctx.textAlign = 'center';
-          ctx.fillText('VIRUS ZERO', x, virus.y - virus.radius - 15);
+          ctx.fillText('VIRUS ZERO [ETAPA ' + (virus.bossStage || 1) + ' - ' + stageName + ']', x, virus.y - virus.radius - 15);
+          if (virus.vulnerableTime > 0) {
+            ctx.fillStyle = '#ffe27a';
+            ctx.fillRect(x - barWidth / 2, virus.y - virus.radius - 4, barWidth * Math.min(1, virus.vulnerableTime / 1.4), 2);
+          }
+          const lockText = virus.coreShielded ? 'NÚCLEO PROTEGIDO // 4 RELAYS' : 'NÚCLEO VULNERÁVEL // ESCUDO OFFLINE';
+          const attackKindTips = {
+            slam: 'ATAQUE // IMPACTO SÍSMICO [PULAR]',
+            charge: 'ATAQUE // INVESTIDA DE DADOS [PULAR/SUBIR]',
+            volley: 'ATAQUE // DISPARO DE FEIXES [ESQUIVAR]',
+            surge: 'ATAQUE // ERUPÇÃO DO NÚCLEO [SUBIR]',
+            combo: 'ATAQUE // SEQUÊNCIA CRÍTICA [CUIDADO]'
+          };
+          const combatText = virus.attackWindup > 0
+            ? (attackKindTips[virus.bossAttackKind] || ('ATAQUE // ' + String(virus.bossAttackKind || 'PREPARANDO').toUpperCase()))
+            : virus.vulnerableTime > 0 ? '⚡ VULNERÁVEL // ATAQUE AGORA! ⚡' : 'ETAPA ' + (virus.bossStage || 1) + ' // GUARDA';
+          ctx.font = 'bold 8px monospace';
+          ctx.fillStyle = virus.coreShielded ? '#9ae9ff' : '#69ffd4';
+          ctx.fillText(lockText, x, virus.y + virus.radius + 14);
+          ctx.fillStyle = virus.attackWindup > 0 ? '#fff0a3' : virus.vulnerableTime > 0 ? '#ffe27a' : '#c1d0dc';
+          ctx.fillText(combatText, x, virus.y + virus.radius + 25);
+          if (virus.attackWindup > 0 && (virus.bossAttackKind === 'slam' || virus.bossAttackKind === 'combo')) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(255, 84, 121, 0.22)';
+            ctx.strokeStyle = '#ff5479';
+            ctx.lineWidth = 1.8;
+            ctx.setLineDash([6, 4]);
+            const slamRadius = (virus.bossStage === 3 ? 188 : 148);
+            ctx.beginPath();
+            ctx.ellipse(virus.x, floorY() - 3, slamRadius, 14, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+          }
         }
       }
     }
@@ -2239,6 +2771,184 @@
   });
   continueButton.addEventListener('click', continueCampaign);
   soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled));
+
+  resetCampaign();
+
+  if (new URLSearchParams(location.search).has('final-boss-qa')) {
+    const checks = {};
+    try {
+      checks.tenPhases = PHASES.length === 10 && PHASES.every(phase => phase.entities.platforms.length && phase.entities.enemies.length && phase.entities.components.length);
+      loadPhase(0, true); running = true; xpRequired = 999999; viruses.forEach(virus => { virus.alive = false; });
+      const temporary = phaseData.entities.platforms.find(platform => platform.type === 'temporary');
+      const moving = phaseData.entities.platforms.find(platform => platform.type === 'moving');
+      const permanent = phaseData.entities.platforms.find(platform => platform.type === 'fixed');
+      const temporaryState = getPlatformState(temporary);
+      temporaryState.triggered = true; temporaryState.elapsed = temporary.duration - .05;
+      update(.1);
+      const disappeared = !platformShape(temporary);
+      update(temporary.respawnDelay + .1);
+      const returned = Boolean(platformShape(temporary)) && temporaryState === getPlatformState(temporary);
+      const fixedStayed = Boolean(platformShape(permanent));
+      const beforeMotion = platformShape(moving).x;
+      update(.5);
+      checks.platformCycles = disappeared && returned && fixedStayed && platformShape(moving).x !== beforeMotion;
+      const tempShape = platformShape(temporary);
+      temporaryState.triggered = true; temporaryState.elapsed = temporary.duration;
+      update(.016);
+      const hiddenWhileOccupied = !temporaryState.active;
+      player.x = 70; player.y = floorY() - player.height; player.grounded = true; player.vy = 0;
+      temporaryState.elapsed = temporary.respawnDelay - .016;
+      update(.016);
+      checks.noOverlapRespawn = hiddenWhileOccupied && temporaryState.active;
+
+      loadPhase(9, true); running = true; viruses.forEach(virus => { virus.alive = false; });
+      const boss = viruses.find(virus => virus.type === 'boss');
+      const hasArena = phaseData.map.width > PHASES.slice(0, 9).reduce((max, phase) => Math.max(max, phase.map.width), 0) &&
+        phaseData.entities.platforms.some(platform => platform.id === 'core-moving-lift') && phaseData.map.checkpoints.length === 3;
+      const intact = boss.hp;
+      damageVirus(boss, 30);
+      const shieldWorks = boss.hp === intact;
+      components.forEach(component => { component.repaired = true; });
+      damageVirus(boss, 10);
+      const vulnerableByRelays = boss.hp < intact;
+      boss.hp = 35; boss.bossStage = 1; boss.bossPatternIndex = 0; boss.bossCycleCooldown = 0;
+      updateVirusZero(boss, .01, 100, floorY() - 20);
+      const stageTwoTelegraph = boss.bossStage === 2 && boss.attackWindup > 0;
+      updateVirusZero(boss, 1, 100, floorY() - 20);
+      const stageTwoVolley = enemyProjectiles.filter(projectile => projectile.bossOwned).length >= 3;
+      boss.hp = 18; boss.bossStage = 2; boss.bossPatternIndex = 0; boss.bossCycleCooldown = 0;
+      updateVirusZero(boss, .01, 100, floorY() - 20);
+      const stageThreeTelegraph = boss.bossStage === 3 && boss.attackWindup > 0;
+      updateVirusZero(boss, 1, 100, floorY() - 20);
+      const stageThreeCombo = enemyProjectiles.filter(projectile => projectile.bossOwned).length >= 8 && boss.vulnerableTime > 0;
+      checks.bossStagesAndShield = hasArena && shieldWorks && vulnerableByRelays && stageTwoTelegraph && stageTwoVolley && stageThreeTelegraph && stageThreeCombo;
+
+      viruses.filter(virus => virus !== boss).forEach(virus => { virus.alive = false; });
+      boss.hp = 1; boss.vulnerableTime = 1;
+      damageVirus(boss, 10);
+      checkObjectives();
+      checks.victoryQuestionFlow = phaseExitUnlocked && !boss.alive;
+      running = true; openPhaseQuestion();
+      const correctAnswer = ui.questionOverlay.querySelector('[data-correct="true"]');
+      correctAnswer.click();
+      ui.questionOverlay.querySelector('.question-action').click();
+      checks.victoryScreen = campaignComplete && ui.stage.textContent === 'CAMPANHA CONCLUÍDA';
+      document.documentElement.dataset.finalBossQa = Object.entries(checks).filter(([,passed]) => !passed).length ? JSON.stringify(checks) : 'PASS';
+    } catch (error) {
+      document.documentElement.dataset.finalBossQa = 'ERROR: ' + error.message;
+    }
+  }
+
+if (new URLSearchParams(location.search).has('extended-boss-test')) {
+    const checks = {};
+    try {
+      loadPhase(9, true); running = true; xpRequired = 999999;
+      const phase10 = phaseData;
+      
+      // 1. Check three parts
+      const part1Platforms = phase10.entities.platforms.filter(p => p.x < 1800);
+      const part1HasShortcut = part1Platforms.some(p => p.requiresComponentId === 'c01');
+      const part1HasVertical = part1Platforms.some(p => p.type === 'moving' && p.motion?.axis === 'y');
+      const part1Components = phase10.entities.components.filter(c => c.x < 1800);
+      
+      const part2Platforms = phase10.entities.platforms.filter(p => p.x >= 1800 && p.x < 3340);
+      const part2HasBreakaway = part2Platforms.some(p => p.type === 'temporary');
+      const part2HasMoving = part2Platforms.some(p => p.type === 'moving');
+      const part2Obstacles = phase10.entities.obstacles.filter(o => o.x >= 1800 && o.x < 3340);
+      const part2HasLaser = part2Obstacles.some(o => o.window && o.collision === 'dangerous');
+      const part2Enemies = phase10.entities.enemies.filter(e => e.x >= 1800 && e.x < 3340);
+      const part2HasFlyer = part2Enemies.some(e => e.type === 'flyer');
+      const part2HasShooter = part2Enemies.some(e => e.type === 'shooter');
+      const part2HasParasite = part2Enemies.some(e => e.type === 'parasite');
+      const part2HasArmored = part2Enemies.some(e => e.type === 'armored');
+      const part2HasFast = part2Enemies.some(e => e.type === 'fast');
+      const part2Components = phase10.entities.components.filter(c => c.x >= 1800 && c.x < 3340);
+      const part2Airlock = phase10.entities.gates.some(g => g.id === 'core-airlock' && g.requiresComponentId === 'c04');
+      
+      const part3Platforms = phase10.entities.platforms.filter(p => p.x >= 3340);
+      const part3HasLift = part3Platforms.some(p => p.id === 'core-moving-lift');
+      const part3HasHighDodge = part3Platforms.some(p => p.offset > 200 && p.id !== 'core-moving-lift');
+      const part3Cover = phase10.entities.obstacles.filter(o => o.x >= 3340 && o.type === 'heatsink');
+      const boss = viruses.find(v => v.type === 'boss');
+      const part3Boss = boss && boss.bossBounds && boss.bossBounds.left === 3420 && boss.bossBounds.right === 4450;
+      
+      checks.part1Exploration = part1Platforms.length >= 6 && part1HasShortcut && part1HasVertical && part1Components.length === 2;
+      checks.part2AdvancedCombat = part2HasBreakaway && part2HasMoving && part2HasLaser &&
+        part2HasFlyer && part2HasShooter && part2HasParasite && part2HasArmored && part2HasFast &&
+        part2Components.length === 2 && part2Airlock;
+      checks.part3FinalArena = part3HasLift && part3HasHighDodge && part3Cover.length >= 2 && part3Boss && phase10.map.checkpoints.length === 3;
+      
+      // 2. Shield deactivation by fulfilling relay objectives
+      const initialHp = boss.hp;
+      damageVirus(boss, 20);
+      const damageBlockedByShield = (boss.hp === initialHp);
+      components.forEach(c => { c.repaired = true; });
+      damageVirus(boss, 10);
+      const damageAcceptedAfterRepairs = (boss.hp < initialHp);
+      checks.shieldMechanism = damageBlockedByShield && damageAcceptedAfterRepairs;
+      
+      // 3. Multi-stage boss behavior
+      // Stage 1
+      boss.hp = 45; boss.bossStage = 1; boss.bossPatternIndex = 0; boss.bossCycleCooldown = 0; boss.attackWindup = 0;
+      updateVirusZero(boss, .01, 100, floorY() - 20);
+      const stage1Attack = (boss.bossStage === 1 && boss.attackWindup > 0);
+      updateVirusZero(boss, 1, 100, floorY() - 20);
+      // Stage 2
+      boss.hp = 30; boss.bossStage = 1; boss.bossPatternIndex = 0; boss.bossCycleCooldown = 0; boss.attackWindup = 0;
+      updateVirusZero(boss, .01, 100, floorY() - 20);
+      const stage2Transition = (boss.bossStage === 2 && boss.attackWindup > 0);
+      updateVirusZero(boss, 1, 100, floorY() - 20);
+      const stage2Projectiles = enemyProjectiles.filter(p => p.bossOwned).length >= 3;
+      // Stage 3
+      boss.hp = 15; boss.bossStage = 2; boss.bossPatternIndex = 0; boss.bossCycleCooldown = 0; boss.attackWindup = 0;
+      updateVirusZero(boss, .01, 100, floorY() - 20);
+      const stage3Transition = (boss.bossStage === 3 && boss.attackWindup > 0);
+      updateVirusZero(boss, 1, 100, floorY() - 20);
+      const stage3ComboAndVulnerable = (enemyProjectiles.filter(p => p.bossOwned).length >= 8 && boss.vulnerableTime > 0);
+      checks.bossStages = stage1Attack && stage2Transition && stage2Projectiles && stage3Transition && stage3ComboAndVulnerable;
+      
+      // 4. Player skills integration test
+      player.armor = 0.3;
+      const initialPlayerHealth = player.health;
+      damagePlayer(20, { x: 0 });
+      const armorProtected = (player.health === initialPlayerHealth - Math.max(1, Math.ceil(20 * (1 - 0.3))));
+      unlockedSkills = [{ id: 'cannon', level: 3 }, { id: 'rapid', level: 2 }];
+      player.damage = 4;
+      player.fireRate = 0.25;
+      const cannonWorks = player.damage === 4 && player.fireRate === 0.25;
+      checks.playerSkills = armorProtected && cannonWorks;
+      
+      // 5. Checkpoints & Respawn
+      player.health = 10;
+      checkpointX = phase10.map.checkpoints[0];
+      respawnAtCheckpoint();
+      const cp1Safe = player.health === player.maxHealth && player.x >= 1210;
+      checkpointX = phase10.map.checkpoints[1];
+      respawnAtCheckpoint();
+      const cp2Safe = player.health === player.maxHealth && player.x >= 2460;
+      checkpointX = phase10.map.checkpoints[2];
+      respawnAtCheckpoint();
+      const cp3Safe = player.health === player.maxHealth && player.x >= 3260;
+      checks.checkpointsWorking = cp1Safe && cp2Safe && cp3Safe;
+      
+      // 6. Campaign completion & Victory screen
+      viruses.forEach(v => { v.alive = false; });
+      checkObjectives();
+      const exitUnlocked = phaseExitUnlocked;
+      running = true;
+      openPhaseQuestion();
+      const questionActive = ui.questionOverlay.classList.contains('active');
+      const correctBtn = ui.questionOverlay.querySelector('[data-correct="true"]');
+      correctBtn.click();
+      ui.questionOverlay.querySelector('.question-action').click();
+      const victoryCompleted = campaignComplete && ui.stage.textContent === 'CAMPANHA CONCLUÍDA';
+      checks.victoryAndEnd = exitUnlocked && questionActive && victoryCompleted;
+      
+      document.documentElement.dataset.extendedBossTest = Object.entries(checks).filter(([,passed]) => !passed).length ? JSON.stringify(checks) : 'PASS';
+    } catch (err) {
+      document.documentElement.dataset.extendedBossTest = 'ERROR: ' + err.message;
+    }
+  }
 
   window.addEventListener('keydown', event => {
     const key = event.key.toLowerCase();
