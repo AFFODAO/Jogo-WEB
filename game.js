@@ -230,16 +230,16 @@
     items:[300,{x:1360,y:205},2300]
   };
   PHASE_DEFINITIONS[9] = {
-    ...PHASE_DEFINITIONS[9], length:4650,
+    ...PHASE_DEFINITIONS[9], length:5200,
     objective:'Restaure os quatro relays da Internet, desative o escudo do núcleo e neutralize VIRUS ZERO.',
-    components:[{id:'c01',x:650},{id:'c02',x:1570},{id:'c03',x:2670},{id:'c04',x:3180}],
+    components:[{id:'c01',x:650},{id:'c02',x:1450,offset:244},{id:'c03',x:2670},{id:'c04',x:3180}],
     enemies:[
       {x:500,type:'basic',hp:3},{x:1120,type:'shooter',hp:3},
       {x:1850,type:'flyer',hp:3},{x:2180,type:'shooter',hp:3},
       {x:2470,type:'parasite',hp:4},{x:2710,type:'fast',hp:2},
       {x:2920,type:'armored',hp:7},
-      {x:3970,type:'boss',hp:54,multiStage:true,coreShieldRequiresRepairs:true,
-        bossBounds:{left:3420,right:4450},armor:.25,damage:18,speed:58,xp:500}
+      {x:3970,type:'boss',hp:72,multiStage:true,coreShieldRequiresRepairs:true,
+        bossBounds:{left:3420,right:4870},armor:.35,damage:18,speed:58,xp:500}
     ],
     items:[{x:320},{x:780},{x:1420},{x:2040},{x:2620},{x:3290},{x:3560},{x:4100}],
     features:[340,850,1430,2050,2670,3180,3550,4180,4420,3970]
@@ -283,7 +283,7 @@
       { id:'switch-link-a', x:930, width:22, height:106, requiresComponentId:'c01' },
       { id:'switch-link-b', x:1660, width:22, height:106, requiresComponentId:'c02' }
     ] },
-    3: { platforms:[
+    3: { map:{layout:'multi-route',routes:['rota inferior','passarelas de pacotes']}, platforms:[
       { id:'route-high-a', x:320, width:126, offset:112, style:'route' },
       { id:'packet-lift-a', x:960, width:126, offset:118, style:'packet' },
       { id:'route-high-b', x:1590, width:140, offset:112, style:'route' },
@@ -296,7 +296,7 @@
       { id:'signal-shelf-a', x:340, width:120, offset:112, style:'signal' },
       { id:'signal-shelf-b', x:900, width:126, offset:112, style:'signal', requiresComponentId:'c01' },
       { id:'signal-shelf-c', x:1510, width:145, offset:116, style:'signal', requiresComponentId:'c02' },
-      { id:'interference-bridge', x:1870, width:126, offset:108, style:'signal' }
+      { id:'interference-bridge', x:1990, width:126, offset:108, style:'signal' }
     ], obstacles:[
       { id:'interference-field-a', x:735, width:48, height:82, offset:82, type:'interference', collision:'dangerous', damage:10, requiresComponentId:'c01' },
       { id:'interference-field-b', x:1710, width:54, height:94, offset:94, type:'interference', collision:'dangerous', damage:10, requiresComponentId:'c02' }
@@ -319,13 +319,14 @@
         {id:'rack-ledge-9',x:390,width:135,offset:810,style:'cable'},
         {id:'rack-ledge-10',x:250,width:135,offset:900,style:'cable'},
         {id:'rack-ledge-11',x:110,width:135,offset:990,style:'cable'},
+        {id:'rack-service-step',x:245,width:115,offset:1035,style:'cable'},
         {id:'rack-ledge-12',x:360,width:160,offset:1080,style:'cable'},
         {id:'maintenance-lift-b',x:785,width:125,offset:720,style:'cable',type:'moving',motion:{axis:'x',range:42,speed:.6,phase:1.2}}
       ],
       obstacles:[
         {id:'rack-left-wall',x:0,y:0,width:38,height:1550,offset:0,type:'rack-wall'},
         {id:'rack-right-wall',x:1062,y:0,width:38,height:1550,offset:0,type:'rack-wall'},
-        {id:'live-ethernet-a',x:515,y:1110,width:36,height:68,offset:0,type:'interference',collision:'dangerous',damage:12,requiresComponentId:'c01'},
+        {id:'live-ethernet-a',x:925,y:1110,width:36,height:68,offset:0,type:'interference',collision:'dangerous',damage:12,requiresComponentId:'c01'},
         {id:'short-circuit-b',x:725,y:810,width:44,height:74,offset:0,type:'interference',collision:'dangerous',damage:12,requiresComponentId:'c02'},
       ],
       gates:[{id:'rack-bridge-gate',x:190,y:510,width:660,height:18,requiresComponentId:'c02'}]
@@ -348,8 +349,15 @@
       {id:'dns-packet-bridge',x:1200,width:190,offset:76,style:'packet'},
       {id:'dns-secret-directory',x:1310,width:128,offset:170,style:'window',requiresComponentId:'c01'},
       {id:'dns-reconnect-bridge',x:1710,width:180,offset:82,style:'packet',requiresComponentId:'c02'},
-      {id:'dns-cache-shelf',x:1950,width:130,offset:132,style:'window'}
-    ], map:{pits:[{x:620,width:90},{x:1230,width:110}]}, obstacles:[
+      {id:'dns-cache-shelf',x:1950,width:130,offset:132,style:'window'},
+      {id:'dns-maze-step-a',x:830,width:90,offset:100,style:'window'},
+      {id:'dns-maze-step-b',x:920,width:90,offset:196,style:'window'},
+      {id:'dns-maze-return',x:1090,width:92,offset:190,style:'window'},
+      {id:'dns-maze-step-c',x:1780,width:86,offset:104,style:'window'},
+      {id:'dns-maze-step-d',x:1850,width:95,offset:196,style:'window'}
+    ], map:{layout:'maze',pits:[{x:620,width:90},{x:1230,width:110}]}, obstacles:[
+      {id:'dns-maze-divider-a',x:1030,width:40,height:224,offset:224,type:'route-wall'},
+      {id:'dns-maze-divider-b',x:1950,width:40,height:224,offset:224,type:'route-wall'},
       {id:'corrupt-domain-a',x:730,width:48,height:78,offset:78,type:'corrupt',requiresComponentId:'c01'},
       {id:'corrupt-domain-b',x:1500,width:54,height:88,offset:88,type:'corrupt',requiresComponentId:'c02'},
       {id:'dns-cache-door',x:1210,width:22,height:104,offset:104,type:'gate',requiresComponentId:'c01'}
@@ -369,12 +377,17 @@
     ], map:{pits:[{x:1185,width:240}]}, gates:[{id:'firewall-policy-gate',x:1880,width:24,height:112,requiresComponentId:'c02'}] },
     9: {
       replacePlatforms:true, replaceObstacles:true,
-      map:{width:4650,layout:'horizontal',camera:{axes:['x'],followOffsetX:.38,followOffsetY:.5},
-        checkpoints:[1210,2460,3260],pits:[{x:990,width:92},{x:2260,width:100},{x:2940,width:108}]},
+      map:{width:5200,layout:'horizontal',camera:{axes:['x'],followOffsetX:.38,followOffsetY:.5},
+        sections:[{x:0,label:'01 // EXPLORAÇÃO DOS SERVIDORES'},{x:1800,label:'02 // TRÂNSITO SOB ATAQUE'},{x:3340,label:'03 // NÚCLEO DE VIRUS ZERO'}],
+        checkpoints:[1210,2460,3260,3540],pits:[{x:990,width:92},{x:2260,width:100},{x:2940,width:108}]},
       platforms:[
         {id:'uplink-bridge-a',x:300,width:142,offset:112,style:'cable'},
         {id:'server-high-catwalk-a',x:460,width:120,offset:190,style:'cable'},
         {id:'rack-transit-a',x:610,width:154,offset:148,style:'cable'},
+        {id:'server-upper-route-a',x:600,width:128,offset:268,style:'cable'},
+        {id:'server-upper-route-b',x:760,width:150,offset:310,style:'signal'},
+        {id:'server-upper-route-c',x:940,width:120,offset:240,style:'packet'},
+        {id:'server-repaired-uplink',x:1120,width:130,offset:230,style:'signal',requiresComponentId:'c01'},
         {id:'shortcut-cable-bridge',x:780,width:140,offset:120,style:'cable',requiresComponentId:'c01'},
         {id:'uplink-bridge-b',x:930,width:188,offset:92,style:'route'},
         {id:'server-lift-a',x:1130,width:100,offset:130,style:'packet',type:'moving',motion:{axis:'y',range:22,speed:.75,phase:.6}},
@@ -397,7 +410,10 @@
         {id:'core-platform-c',x:3970,width:168,offset:108,style:'signal'},
         {id:'core-dodge-high-right',x:4100,width:95,offset:224,style:'signal'},
         {id:'core-platform-d',x:4240,width:188,offset:146,style:'signal'},
-        {id:'core-terminal-step',x:4420,width:140,offset:96,style:'signal'}
+        {id:'core-terminal-step',x:4420,width:140,offset:96,style:'signal'},
+        {id:'core-right-cover-route',x:4590,width:148,offset:120,style:'signal'},
+        {id:'core-right-high-route',x:4740,width:130,offset:204,style:'signal'},
+        {id:'internet-terminal-route',x:4910,width:150,offset:98,style:'packet'}
       ],
       obstacles:[
         {id:'rack-cooler-a',x:450,width:48,height:62,offset:62,type:'heatsink'},
@@ -407,6 +423,7 @@
         {id:'process-wall-a',x:2090,width:50,height:96,offset:96,type:'route-wall'},
         {id:'laser-lane-p2',x:2380,width:30,height:90,offset:90,type:'interference',collision:'dangerous',damage:12,window:{period:3.6,active:1.6,phase:0.6}},
         {id:'process-wall-b',x:2590,width:48,height:88,offset:88,type:'route-wall'},
+        {id:'relay-security-laser',x:2820,width:30,height:84,offset:84,type:'interference',collision:'dangerous',damage:12,window:{period:3.2,active:1.25,phase:.5},requiresComponentId:'c03'},
         {id:'core-vent-a',x:3480,width:54,height:74,offset:74,type:'heatsink'},
         {id:'core-vent-b',x:4150,width:58,height:86,offset:86,type:'heatsink'}
       ],
@@ -450,22 +467,23 @@
     if (index === 0) {
       // Demonstration lane: stepped precision jumps and an optional high shelf.
       platforms.push(
-        { id: 'demo-step-a', x: 925, width: 76, offset: 72, height: 16 },
+        { id: 'demo-step-a', x: 1120, width: 60, offset: 72, height: 16 },
         { id: 'demo-step-b', x: 1050, width: 68, offset: 118, height: 16 },
         { id: 'demo-step-c', x: 1170, width: 98, offset: 78, height: 16 },
         { id: 'demo-secret-a', x: 1510, width: 84, offset: 108, height: 16 },
         { id: 'demo-secret-b', x: 1630, width: 92, offset: 156, height: 16 }
       );
+      for (const platform of platforms) platform.anchor ??= 'floor';
     }
     // Every sector uses the same parkour toolkit, with its moving route and
     // breakaway ledge placed among the phase's existing jump platforms.
     const movingPlatform = platforms[Math.min(2, platforms.length - 1)];
-    if (movingPlatform) {
+    if (movingPlatform && index !== 9) {
       movingPlatform.type = 'moving';
       movingPlatform.motion = { axis: index % 2 ? 'y' : 'x', range: index % 2 ? 34 : 48, speed: .9 + (index % 3) * .12, phase: index * .7 };
     }
     const breakawayPlatform = platforms[Math.min(4, platforms.length - 1)];
-    if (breakawayPlatform) { breakawayPlatform.type = 'temporary'; breakawayPlatform.duration = 2.1; breakawayPlatform.respawnDelay = 3; }
+    if (breakawayPlatform && index !== 9) { breakawayPlatform.type = 'temporary'; breakawayPlatform.duration = 2.1; breakawayPlatform.respawnDelay = 3; }
     const obstacles = (themeLayout.replaceObstacles ? [] : definition.obstacles).map((spec, obstacleIndex) => {
       if (!Array.isArray(spec)) return { id: 'o' + String(obstacleIndex + 1).padStart(2, '0'), type: 'block', collision: 'solid', anchor: 'floor', offset: spec.height || 0, ...spec };
       const [x, obstacleWidth, obstacleHeight] = spec;
@@ -535,6 +553,8 @@
   let cameraY = 0;
   let platformRuntime = new Map();
   let checkpointX = 70;
+  let checkpointY = null;
+  let questionRetryRequired = false;
   let player;
   let viruses = [];
   let projectiles = [];
@@ -661,7 +681,8 @@
       repaired: components.map(component => component.repaired),
       componentIntegrity: components.map(component => ({ integrity: component.integrity, corruption: component.corruption })),
       collected: collectibles.map(item => item.collected),
-      phaseExitUnlocked, phaseObjectiveAwarded, phaseTransition, campaignComplete, gameOver, checkpointX, checkpointY,
+      phaseExitUnlocked, phaseObjectiveAwarded, phaseTransition, campaignComplete, gameOver, checkpointX, checkpointY, questionRetryRequired,
+      pendingAbility: levelChoiceOpen,
       savedAt: Date.now()
     };
     try {
@@ -707,7 +728,7 @@
     restoreSkillEffects();
     highestUnlockedPhase = Math.max(phaseIndex, Math.min(PHASES.length - 1, Number(saved.highestUnlockedPhase) || 0));
     const isNextPhase = saved.phaseTransition;
-    const retryAfterDefeat = Boolean(saved.gameOver);
+    const retryAfterDefeat = Boolean(saved.gameOver || saved.questionRetryRequired);
     loadPhase(phaseIndex, true);
     checkpointX = isNextPhase ? mapStart().x
       : Math.max(mapStart().x, Math.min(worldWidth() - player.width, Number(saved.checkpointX) || mapStart().x));
@@ -755,6 +776,7 @@
     }
     renderSkills(); updateHud(); draw();
     launchLoadedPhase();
+    if (saved.pendingAbility && !isNextPhase) openLevelChoice(true);
   }
 
   function startNewCampaign() {
@@ -802,7 +824,8 @@
   }
 
   function emitParticles(x, y, color, count = 9) {
-    for (let index = 0; index < count; index++) {
+    const budget = Math.min(count, Math.max(0, 240 - effects.length));
+    for (let index = 0; index < budget; index++) {
       const angle = Math.random() * Math.PI * 2;
       const speed = 35 + Math.random() * 125;
       effects.push({
@@ -825,7 +848,8 @@
   function drawEffects() {
     for (const particle of effects) {
       const screenX = particle.x - cameraX;
-      if (screenX < -8 || screenX > width + 8) continue;
+      const screenY = particle.y - cameraY;
+      if (screenX < -8 || screenX > width + 8 || screenY < -8 || screenY > height + 8) continue;
       ctx.globalAlpha = Math.max(0, particle.life / particle.maxLife);
       ctx.fillStyle = particle.color;
       ctx.shadowColor = particle.color;
@@ -911,7 +935,7 @@
     }
     if (!phaseExitUnlocked && map.bounds.right) {
       const exitX = map.exit.x;
-      if (map.layout === 'horizontal') {
+      if (map.layout !== 'vertical') {
         geometry.push({ x: Math.max(0, exitX - 18), y: 0, w: Math.min(20, Math.max(0, worldWidth() - exitX + 18)), h: floorY(), kind: 'gate', type: 'fixed', collision: 'solid' });
       } else {
         const gateWidth = map.exit.width || 34;
@@ -984,6 +1008,7 @@
     ui.levelOverlay.classList.remove('active');
     ui.questionOverlay.classList.remove('active');
     phaseQuestionOpen = false; currentQuestion = null; questionAnswered = false;
+    questionRetryRequired = false;
     updatePhaseUI(); updateHud();
   }
 
@@ -1047,6 +1072,10 @@
     canvas.height = Math.round(height * pixelRatio);
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     if (player) {
+      player.y += floorShift;
+      projectiles.forEach(projectile => { projectile.y += floorShift; });
+      enemyProjectiles.forEach(projectile => { projectile.y += floorShift; });
+      enemyObstacles.forEach(obstacle => { obstacle.y += floorShift; });
       if (phaseData.map.bounds.floor && player.y + player.height >= floorY()) {
         player.y = floorY() - player.height;
         player.vy = 0;
@@ -1072,6 +1101,8 @@
   }
 
   function movePlayer(dt) {
+    const wasGrounded = player.grounded;
+    const fallingSpeed = player.vy;
     const left = keys.has('a') || keys.has('arrowleft');
     const right = keys.has('d') || keys.has('arrowright');
     const direction = Number(right) - Number(left);
@@ -1079,6 +1110,7 @@
     if (direction) player.facing = direction;
 
     if (jumpQueued && player.grounded) {
+      emitParticles(player.x + player.width / 2, player.y + player.height, phaseData.palette[2], 5);
       player.vy = -player.jumpPower;
       player.grounded = false;
     }
@@ -1100,8 +1132,9 @@
     if (phaseData.map.bounds.right) player.x = Math.min(worldWidth() - player.width, player.x);
 
     const previousY = player.y;
+    const previousVelocityY = player.vy;
     player.vy = Math.min(player.vy + GRAVITY * dt, 1050);
-    player.y += player.vy * dt;
+    player.y += (previousVelocityY + player.vy) * .5 * dt;
     player.grounded = false;
     for (const object of collisionObjects) {
       const horizontalOverlap = player.x < object.x + object.w && player.x + player.width > object.x;
@@ -1148,6 +1181,12 @@
     if (!phaseData.map.bounds.floor && player.y > worldHeight() + 180) {
       respawnAtCheckpoint();
       return;
+    }
+    // Side resolution can move the robot after the initial bounds clamp.
+    if (phaseData.map.bounds.left) player.x = Math.max(0, player.x);
+    if (phaseData.map.bounds.right) player.x = Math.min(worldWidth() - player.width, player.x);
+    if (!wasGrounded && player.grounded && fallingSpeed > 180) {
+      emitParticles(player.x + player.width / 2, player.y + player.height, phaseData.palette[2], 6);
     }
     if (direction) player.walkTime += dt * 12;
     else player.walkTime *= Math.max(0, 1 - dt * 12);
@@ -1257,11 +1296,13 @@
     }
   }
 
-  function openLevelChoice() {
+  function openLevelChoice(restorePending = false) {
     if (levelChoiceOpen || !running) return;
-    xp -= xpRequired;
-    level++;
-    xpRequired = experienceForLevel(level);
+    if (!restorePending) {
+      xp -= xpRequired;
+      level++;
+      xpRequired = experienceForLevel(level);
+    }
     playSound('level');
     emitParticles(player.x + player.width / 2, player.y + 14, '#a890ff', 20);
     const choices = getAbilityChoices();
@@ -1280,6 +1321,7 @@
       return '<button class="ability-option" data-skill="' + choice.ability.id + '" data-target="' + choice.targetLevel + '"><span class="ability-badge ' + choice.kind + '">' + label + '</span><b>' + choice.ability.name + ' — ' + levelText + '</b><small>' + choice.ability.description(choice.targetLevel) + '</small></button>';
     }).join('') + '</div></section>';
     ui.levelOverlay.classList.add('active');
+    saveCampaign();
     ui.levelOverlay.querySelectorAll('[data-skill]').forEach(button => {
       button.addEventListener('click', () => selectAbility(button.dataset.skill, Number(button.dataset.target)));
     });
@@ -1410,7 +1452,7 @@
     enemyProjectiles = []; enemyObstacles = [];
     cameraX = Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX));
     cameraY = Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY));
-    addLog('ReinicializaÃ§Ã£o no checkpoint. Objetivos mantidos.');
+    addLog('Reinicialização no checkpoint. Objetivos mantidos.');
     updateHud(); saveCampaign();
   }
 
@@ -1426,6 +1468,8 @@
         checkpointX = pointX;
         checkpointY = Number.isFinite(pointY) ? pointY : null;
         interactionMessage = 'CHECKPOINT ATIVADO';
+        emitParticles(pointX + 12, (pointY ?? floorY()) - 22, '#74e8ff', 16);
+        playSound('repair');
         interactionMessageTimer = 1.8;
         addLog('Checkpoint ativado.');
         saveCampaign();
@@ -1529,6 +1573,8 @@
           action.textContent = phaseIndex === PHASES.length - 1 ? 'CONCLUIR CAMPANHA' : 'LIBERAR PRÓXIMA FASE';
           action.addEventListener('click', resolvePhaseQuestion, { once: true });
         } else {
+          questionRetryRequired = true;
+          saveCampaign();
           playSound('wrong');
           button.classList.add('wrong');
           result.className = 'question-result error';
@@ -1549,7 +1595,7 @@
   }
 
   function resolvePhaseQuestion() {
-    if (!phaseQuestionOpen || !questionAnswered) return;
+    if (!phaseQuestionOpen || !questionAnswered || questionRetryRequired) return;
     phaseQuestionOpen = false;
     ui.questionOverlay.classList.remove('active');
     running = true;
@@ -1650,20 +1696,14 @@
     const stage = virus.bossStage || 1;
     const kind = virus.bossAttackKind;
     const horizontalDistance = Math.abs(playerCenterX - virus.x);
-    const verticalDistance = Math.abs(playerCenterY - virus.y);
-    if ((kind === 'slam' || kind === 'combo') && horizontalDistance <= (stage === 3 ? 188 : 148) && verticalDistance < 112) {
+    if ((kind === 'slam' || kind === 'combo') && horizontalDistance <= (stage === 3 ? 188 : 148) && player.y + player.height > floorY() - 28) {
       damagePlayer(stage === 3 ? 22 : 16, virus);
     }
     if (kind === 'charge') {
-      const oldX = virus.x;
-      const minX = virus.bossBounds?.left ?? virus.radius;
-      const maxX = virus.bossBounds?.right ?? worldWidth() - virus.radius;
-      virus.x = Math.max(minX, Math.min(maxX, virus.x + virus.bossAttackDirection * 205));
-      if (Math.abs(playerCenterX - virus.x) < 86 && Math.abs(playerCenterY - virus.y) < 105) damagePlayer(18, virus);
-      if (virus.x === oldX) virus.bossAttackDirection *= -1;
+      virus.chargeTime = .48;
     }
     if (kind === 'volley' || kind === 'combo') {
-      fireVirusZeroVolley(virus, playerCenterX, playerCenterY, stage === 3 ? 5 : 3,
+      fireVirusZeroVolley(virus, virus.bossAimX ?? playerCenterX, virus.bossAimY ?? playerCenterY, stage === 3 ? 5 : 3,
         stage === 3 ? 310 : 245, stage === 3 ? 12 : 10, stage === 3 ? .38 : .24);
     }
     if (kind === 'surge' || kind === 'combo') {
@@ -1673,16 +1713,19 @@
       for (const x of positions) {
         if (enemyObstacles.filter(obstacle => obstacle.bossOwned && obstacle.life > 0).length >= 2) break;
         if (enemyObstacles.some(obstacle => obstacle.life > 0 && Math.abs(obstacle.x - x) < 65)) continue;
+        const pillar = { x:x-15,y:floorY()-68,w:30,h:68 };
+        if (overlaps(player, pillar)) continue;
         enemyObstacles.push({id:'virus-zero-pillar-'+Math.floor(animationTime*1000)+'-'+x,
           x:x-15,y:floorY()-68,w:30,h:68,life:2.5,bossOwned:true});
       }
     }
-    virus.vulnerableTime = [0,1.25,1.1,1.4][stage];
-    virus.bossCycleCooldown = [0,1.55,1.35,1.2][stage];
+    virus.vulnerableTime = kind === 'charge' ? 0 : [0,1.25,1.1,1.65][stage];
+    virus.bossCycleCooldown = [0,1.9,1.6,1.9][stage];
     virus.attackWindup = 0;
   }
 
   function updateVirusZero(virus, dt, playerCenterX, playerCenterY) {
+    if (playerCenterX < virus.bossBounds.left - 120) return;
     const healthRatio = virus.hp / virus.maxHp;
     const stage = healthRatio <= .34 ? 3 : healthRatio <= .67 ? 2 : 1;
     if (stage !== virus.bossStage) {
@@ -1693,6 +1736,18 @@
     virus.coreShielded = Boolean(virus.coreShieldRequiresRepairs && components.some(component => !component.repaired));
     virus.bossBlockedMessageTimer = Math.max(0, virus.bossBlockedMessageTimer - dt);
     virus.bossCycleCooldown = Math.max(0, virus.bossCycleCooldown - dt);
+    if (virus.chargeTime > 0) {
+      const step = Math.min(dt, virus.chargeTime);
+      const oldX = virus.x;
+      virus.x = Math.max(virus.bossBounds.left, Math.min(virus.bossBounds.right, virus.x + virus.bossAttackDirection * 460 * step));
+      const blocked = solids().find(s => s.collision === 'solid' && s.kind !== 'floor' && s.kind !== 'gate' &&
+        virus.x + virus.radius > s.x && virus.x - virus.radius < s.x + s.w && virus.y + virus.radius > s.y && virus.y - virus.radius < s.y + s.h);
+      if (blocked) { virus.x = oldX; virus.chargeTime = 0; }
+      if (playerCenterX >= Math.min(oldX,virus.x)-55 && playerCenterX <= Math.max(oldX,virus.x)+55 && player.y+player.height > floorY()-76) damagePlayer(18,virus);
+      virus.chargeTime = Math.max(0,virus.chargeTime-step);
+      if (!virus.chargeTime) virus.vulnerableTime = 1.25;
+      return;
+    }
     if (virus.attackWindup > 0) {
       virus.attackWindup = Math.max(0, virus.attackWindup - dt);
       if (virus.attackWindup === 0) triggerVirusZeroAttack(virus, playerCenterX, playerCenterY);
@@ -1702,7 +1757,8 @@
       virus.bossAttackKind = options[virus.bossPatternIndex % options.length];
       virus.bossPatternIndex++;
       virus.bossAttackDirection = Math.sign(playerCenterX - virus.x) || 1;
-      virus.attackWindup = [0,.92,.78,.68][stage];
+      virus.bossAimX = playerCenterX; virus.bossAimY = playerCenterY;
+      virus.attackWindup = [0,1.05,.85,.8][stage];
     }
     if (stage >= 2 && virus.specialCooldownTimer <= 0) {
       spawnEnemyMinion(virus);
@@ -1720,6 +1776,8 @@
       }
       return;
     }
+    const bossWeakPoint = virus.multiStage && virus.vulnerableTime > 0;
+    if (bossWeakPoint) damage *= 2;
     const armor = virus.vulnerableTime > 0 ? 0 : (virus.armor || 0);
     virus.hp = Math.max(0, virus.hp - Math.max(1, Math.ceil(damage * (1 - armor))));
     virus.hitFlash = .12;
@@ -1727,12 +1785,21 @@
     playSound('hit');
     if (virus.hp > 0) return;
     virus.alive = false;
+    if (virus.multiStage) {
+      enemyProjectiles = enemyProjectiles.filter(shot => !shot.bossOwned);
+      enemyObstacles = enemyObstacles.filter(obstacle => !obstacle.bossOwned);
+      viruses.forEach(enemy => { if (enemy.summonedBy === virus.id) enemy.alive = false; });
+      interactionMessage = 'VIRUS ZERO NEUTRALIZADO // VERIFICAÇÃO FINAL DISPONÍVEL';
+      interactionMessageTimer = 4;
+      emitParticles(virus.x,virus.y,'#74e8ff',40);
+    }
     if (virus.countsForObjective !== false) defeated++;
     addLog(virus.type === 'boss' ? 'VIRUS ZERO recebeu dano critico.' : virus.type === 'fast' ? 'Virus rapido neutralizado.' : 'Virus neutralizado.');
-    awardExperience(virus.countsForObjective === false ? 12 : virus.xp || 45, virus.type === 'boss' ? 'chefe derrotado' : 'vÃ­rus derrotado');
+    awardExperience(virus.countsForObjective === false ? 12 : virus.xp || 45, virus.type === 'boss' ? 'chefe derrotado' : 'vírus derrotado');
   }
 
   function updateEnemyBrain(virus, dt, playerCenterX, playerCenterY) {
+    if (virus.multiStage && playerCenterX < virus.bossBounds.left - 120) return;
     if (virus.life !== undefined) {
       virus.life -= dt;
       if (virus.life <= 0) { virus.alive = false; return; }
@@ -1749,8 +1816,8 @@
     let moveDirection = 0;
 
     if (virus.type === 'parasite') {
-      const target = components.filter(component => !component.repaired)
-        .sort((a, b) => Math.abs(a.x + a.width / 2 - virus.x) - Math.abs(b.x + b.width / 2 - virus.x))[0];
+      const target = components.filter(component => !component.repaired && Math.abs(component.y - virus.y) < 100)
+        .sort((a, b) => Math.hypot(a.x - virus.x, a.y - virus.y) - Math.hypot(b.x - virus.x, b.y - virus.y))[0];
       if (target) {
         const componentDx = target.x + target.width / 2 - virus.x;
         moveDirection = Math.abs(componentDx) > 72 ? Math.sign(componentDx) : 0;
@@ -1780,7 +1847,7 @@
     }
 
     const speed = virus.speed * (virus.buffed ? 1.3 : 1) * (virus.flying && virus.attackWindup > 0 ? 1.55 : 1);
-    if (virus.type === 'boss' && virus.multiStage && virus.attackWindup > 0) moveDirection = 0;
+    if (virus.type === 'boss' && virus.multiStage && (virus.attackWindup > 0 || virus.chargeTime > 0 || virus.vulnerableTime > 0)) moveDirection = 0;
     const minX = virus.bossBounds?.left ?? virus.radius;
     const maxX = virus.bossBounds?.right ?? worldWidth() - virus.radius;
     const nextX = Math.max(minX, Math.min(maxX, virus.x + moveDirection * speed * dt));
@@ -1905,7 +1972,9 @@
   }
 
   function updateHud() {
-    const progress = Math.max(0, Math.min(100, Math.round(player.x / (worldWidth() - player.width) * 100)));
+    const progress = Math.max(0, Math.min(100, Math.round(phaseData.map.layout === 'vertical'
+      ? (mapStart().y - player.y) / Math.max(1, mapStart().y - phaseData.map.exit.y) * 100
+      : player.x / (worldWidth() - player.width) * 100)));
     ui.progress.textContent = String(progress).padStart(2, '0') + '%';
     ui.progressBar.style.width = progress + '%';
     const healthPercent = Math.max(0, player.health / player.maxHealth * 100);
@@ -1958,7 +2027,8 @@
     const exitReached = phaseData.map.layout === 'vertical'
       ? Math.hypot(player.x + player.width / 2 - phaseData.map.exit.x, player.y + player.height / 2 - exitY) <= (phaseData.map.exit.triggerRadius || phaseData.map.exit.triggerRadiusY || 74)
       : player.x + player.width >= phaseData.map.exit.x + 20 && Math.abs(player.y + player.height / 2 - exitY) <= (phaseData.map.exit.triggerRadiusY || 86);
-    if (running && phaseExitUnlocked && exitReached) openPhaseQuestion();
+    const finalCoreCleared = phaseIndex === PHASES.length - 1 && viruses.some(virus => virus.multiStage && !virus.alive);
+    if (running && phaseExitUnlocked && (exitReached || finalCoreCleared)) openPhaseQuestion();
     // Temporary platforms use one persistent per-platform clock. It advances
     // every frame, independent of camera range or player distance.
     for (const spec of phaseData.entities.platforms) {
@@ -2506,7 +2576,7 @@
             ctx.fillStyle = '#ffe27a';
             ctx.fillRect(x - barWidth / 2, virus.y - virus.radius - 4, barWidth * Math.min(1, virus.vulnerableTime / 1.4), 2);
           }
-          const lockText = virus.coreShielded ? 'NÚCLEO PROTEGIDO // 4 RELAYS' : 'NÚCLEO VULNERÁVEL // ESCUDO OFFLINE';
+          const lockText = virus.coreShielded ? 'NÚCLEO PROTEGIDO // REPARE OS RELAYS' : virus.vulnerableTime > 0 ? 'PONTO FRACO EXPOSTO // DANO x2' : 'ESCUDO OFFLINE // GUARDA ATIVA';
           const attackKindTips = {
             slam: 'ATAQUE // IMPACTO SÍSMICO [PULAR]',
             charge: 'ATAQUE // INVESTIDA DE DADOS [PULAR/SUBIR]',
@@ -2514,7 +2584,7 @@
             surge: 'ATAQUE // ERUPÇÃO DO NÚCLEO [SUBIR]',
             combo: 'ATAQUE // SEQUÊNCIA CRÍTICA [CUIDADO]'
           };
-          const combatText = virus.attackWindup > 0
+          const combatText = virus.chargeTime > 0 ? 'INVESTIDA // PULE OU USE A COBERTURA' : virus.attackWindup > 0
             ? (attackKindTips[virus.bossAttackKind] || ('ATAQUE // ' + String(virus.bossAttackKind || 'PREPARANDO').toUpperCase()))
             : virus.vulnerableTime > 0 ? '⚡ VULNERÁVEL // ATAQUE AGORA! ⚡' : 'ETAPA ' + (virus.bossStage || 1) + ' // GUARDA';
           ctx.font = 'bold 8px monospace';
@@ -2533,6 +2603,23 @@
             ctx.ellipse(virus.x, floorY() - 3, slamRadius, 14, 0, 0, Math.PI * 2);
             ctx.fill();
             ctx.stroke();
+            ctx.restore();
+          }
+          if (virus.attackWindup > 0) {
+            ctx.save(); ctx.strokeStyle='#fff0a3';ctx.fillStyle='rgba(255,84,121,.18)';ctx.setLineDash([5,5]);
+            if (virus.bossAttackKind === 'charge') {
+              const end=Math.max(virus.bossBounds.left,Math.min(virus.bossBounds.right,virus.x+virus.bossAttackDirection*221));
+              ctx.fillRect(Math.min(virus.x,end)-38,floorY()-76,Math.abs(end-virus.x)+76,76);
+              ctx.strokeRect(Math.min(virus.x,end)-38,floorY()-76,Math.abs(end-virus.x)+76,76);
+            }
+            if (virus.bossAttackKind === 'volley' || virus.bossAttackKind === 'combo') {
+              ctx.beginPath();ctx.moveTo(virus.x,virus.y);ctx.lineTo(virus.bossAimX,virus.bossAimY);ctx.stroke();
+            }
+            if (virus.bossAttackKind === 'surge' || virus.bossAttackKind === 'combo') {
+              const arena=virus.bossBounds;
+              const positions=virus.bossStage===3?[arena.left+150,arena.right-160]:[virus.x<(arena.left+arena.right)/2?arena.right-190:arena.left+190];
+              positions.forEach(px=>{ctx.fillRect(px-20,floorY()-68,40,68);ctx.strokeRect(px-20,floorY()-68,40,68);});
+            }
             ctx.restore();
           }
         }
@@ -2693,6 +2780,22 @@
     drawEffects();
     drawRobot();
     ctx.restore();
+    if (phaseIndex === 9) {
+      const section=phaseData.map.sections.filter(section=>player.x>=section.x).at(-1);
+      ctx.fillStyle='#b8eaff';ctx.font='bold 10px monospace';ctx.fillText(section?.label || 'SERVIDORES E INTERNET',12,15);
+      const boss=viruses.find(enemy=>enemy.multiStage && enemy.alive);
+      if (boss && player.x>=boss.bossBounds.left-140) {
+        const barWidth=Math.min(360,width-32), x=(width-barWidth)/2;
+        const protectedCore=components.some(component=>!component.repaired);
+        const state=protectedCore?'PROTEGIDO // '+components.filter(c=>c.repaired).length+'/4 RELAYS':boss.chargeTime>0?'INVESTIDA // PULE':boss.attackWindup>0?'ATAQUE EM PREPARAÇÃO':boss.vulnerableTime>0?'PONTO FRACO // DANO x2':'GUARDA';
+        ctx.fillStyle='rgba(5,12,24,.88)';ctx.fillRect(x-8,40,barWidth+16,45);
+        ctx.fillStyle=protectedCore?'#80dbff':boss.vulnerableTime>0?'#ffe27a':'#ff7197';
+        ctx.font='bold 10px monospace';ctx.fillText('VIRUS ZERO // ETAPA '+(boss.bossStage||1)+' // '+state,x,54,barWidth);
+        ctx.fillStyle='#322332';ctx.fillRect(x,62,barWidth,8);
+        ctx.fillStyle=protectedCore?'#80dbff':'#ff5479';ctx.fillRect(x,62,barWidth*boss.hp/boss.maxHp,8);
+        ctx.fillStyle='#cadbe8';ctx.font='9px monospace';ctx.fillText('A/D MOVER  •  ESPAÇO PULAR  •  J ATACAR',x,80,barWidth);
+      }
+    }
     ctx.fillStyle = '#718994';
     ctx.font = '9px monospace';
     ctx.fillText('X: ' + String(Math.floor(player.x)).padStart(4, '0') + '  CAM: ' + String(Math.floor(cameraX)).padStart(4, '0'), 12, height - 12);
@@ -2771,184 +2874,6 @@
   });
   continueButton.addEventListener('click', continueCampaign);
   soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled));
-
-  resetCampaign();
-
-  if (new URLSearchParams(location.search).has('final-boss-qa')) {
-    const checks = {};
-    try {
-      checks.tenPhases = PHASES.length === 10 && PHASES.every(phase => phase.entities.platforms.length && phase.entities.enemies.length && phase.entities.components.length);
-      loadPhase(0, true); running = true; xpRequired = 999999; viruses.forEach(virus => { virus.alive = false; });
-      const temporary = phaseData.entities.platforms.find(platform => platform.type === 'temporary');
-      const moving = phaseData.entities.platforms.find(platform => platform.type === 'moving');
-      const permanent = phaseData.entities.platforms.find(platform => platform.type === 'fixed');
-      const temporaryState = getPlatformState(temporary);
-      temporaryState.triggered = true; temporaryState.elapsed = temporary.duration - .05;
-      update(.1);
-      const disappeared = !platformShape(temporary);
-      update(temporary.respawnDelay + .1);
-      const returned = Boolean(platformShape(temporary)) && temporaryState === getPlatformState(temporary);
-      const fixedStayed = Boolean(platformShape(permanent));
-      const beforeMotion = platformShape(moving).x;
-      update(.5);
-      checks.platformCycles = disappeared && returned && fixedStayed && platformShape(moving).x !== beforeMotion;
-      const tempShape = platformShape(temporary);
-      temporaryState.triggered = true; temporaryState.elapsed = temporary.duration;
-      update(.016);
-      const hiddenWhileOccupied = !temporaryState.active;
-      player.x = 70; player.y = floorY() - player.height; player.grounded = true; player.vy = 0;
-      temporaryState.elapsed = temporary.respawnDelay - .016;
-      update(.016);
-      checks.noOverlapRespawn = hiddenWhileOccupied && temporaryState.active;
-
-      loadPhase(9, true); running = true; viruses.forEach(virus => { virus.alive = false; });
-      const boss = viruses.find(virus => virus.type === 'boss');
-      const hasArena = phaseData.map.width > PHASES.slice(0, 9).reduce((max, phase) => Math.max(max, phase.map.width), 0) &&
-        phaseData.entities.platforms.some(platform => platform.id === 'core-moving-lift') && phaseData.map.checkpoints.length === 3;
-      const intact = boss.hp;
-      damageVirus(boss, 30);
-      const shieldWorks = boss.hp === intact;
-      components.forEach(component => { component.repaired = true; });
-      damageVirus(boss, 10);
-      const vulnerableByRelays = boss.hp < intact;
-      boss.hp = 35; boss.bossStage = 1; boss.bossPatternIndex = 0; boss.bossCycleCooldown = 0;
-      updateVirusZero(boss, .01, 100, floorY() - 20);
-      const stageTwoTelegraph = boss.bossStage === 2 && boss.attackWindup > 0;
-      updateVirusZero(boss, 1, 100, floorY() - 20);
-      const stageTwoVolley = enemyProjectiles.filter(projectile => projectile.bossOwned).length >= 3;
-      boss.hp = 18; boss.bossStage = 2; boss.bossPatternIndex = 0; boss.bossCycleCooldown = 0;
-      updateVirusZero(boss, .01, 100, floorY() - 20);
-      const stageThreeTelegraph = boss.bossStage === 3 && boss.attackWindup > 0;
-      updateVirusZero(boss, 1, 100, floorY() - 20);
-      const stageThreeCombo = enemyProjectiles.filter(projectile => projectile.bossOwned).length >= 8 && boss.vulnerableTime > 0;
-      checks.bossStagesAndShield = hasArena && shieldWorks && vulnerableByRelays && stageTwoTelegraph && stageTwoVolley && stageThreeTelegraph && stageThreeCombo;
-
-      viruses.filter(virus => virus !== boss).forEach(virus => { virus.alive = false; });
-      boss.hp = 1; boss.vulnerableTime = 1;
-      damageVirus(boss, 10);
-      checkObjectives();
-      checks.victoryQuestionFlow = phaseExitUnlocked && !boss.alive;
-      running = true; openPhaseQuestion();
-      const correctAnswer = ui.questionOverlay.querySelector('[data-correct="true"]');
-      correctAnswer.click();
-      ui.questionOverlay.querySelector('.question-action').click();
-      checks.victoryScreen = campaignComplete && ui.stage.textContent === 'CAMPANHA CONCLUÍDA';
-      document.documentElement.dataset.finalBossQa = Object.entries(checks).filter(([,passed]) => !passed).length ? JSON.stringify(checks) : 'PASS';
-    } catch (error) {
-      document.documentElement.dataset.finalBossQa = 'ERROR: ' + error.message;
-    }
-  }
-
-if (new URLSearchParams(location.search).has('extended-boss-test')) {
-    const checks = {};
-    try {
-      loadPhase(9, true); running = true; xpRequired = 999999;
-      const phase10 = phaseData;
-      
-      // 1. Check three parts
-      const part1Platforms = phase10.entities.platforms.filter(p => p.x < 1800);
-      const part1HasShortcut = part1Platforms.some(p => p.requiresComponentId === 'c01');
-      const part1HasVertical = part1Platforms.some(p => p.type === 'moving' && p.motion?.axis === 'y');
-      const part1Components = phase10.entities.components.filter(c => c.x < 1800);
-      
-      const part2Platforms = phase10.entities.platforms.filter(p => p.x >= 1800 && p.x < 3340);
-      const part2HasBreakaway = part2Platforms.some(p => p.type === 'temporary');
-      const part2HasMoving = part2Platforms.some(p => p.type === 'moving');
-      const part2Obstacles = phase10.entities.obstacles.filter(o => o.x >= 1800 && o.x < 3340);
-      const part2HasLaser = part2Obstacles.some(o => o.window && o.collision === 'dangerous');
-      const part2Enemies = phase10.entities.enemies.filter(e => e.x >= 1800 && e.x < 3340);
-      const part2HasFlyer = part2Enemies.some(e => e.type === 'flyer');
-      const part2HasShooter = part2Enemies.some(e => e.type === 'shooter');
-      const part2HasParasite = part2Enemies.some(e => e.type === 'parasite');
-      const part2HasArmored = part2Enemies.some(e => e.type === 'armored');
-      const part2HasFast = part2Enemies.some(e => e.type === 'fast');
-      const part2Components = phase10.entities.components.filter(c => c.x >= 1800 && c.x < 3340);
-      const part2Airlock = phase10.entities.gates.some(g => g.id === 'core-airlock' && g.requiresComponentId === 'c04');
-      
-      const part3Platforms = phase10.entities.platforms.filter(p => p.x >= 3340);
-      const part3HasLift = part3Platforms.some(p => p.id === 'core-moving-lift');
-      const part3HasHighDodge = part3Platforms.some(p => p.offset > 200 && p.id !== 'core-moving-lift');
-      const part3Cover = phase10.entities.obstacles.filter(o => o.x >= 3340 && o.type === 'heatsink');
-      const boss = viruses.find(v => v.type === 'boss');
-      const part3Boss = boss && boss.bossBounds && boss.bossBounds.left === 3420 && boss.bossBounds.right === 4450;
-      
-      checks.part1Exploration = part1Platforms.length >= 6 && part1HasShortcut && part1HasVertical && part1Components.length === 2;
-      checks.part2AdvancedCombat = part2HasBreakaway && part2HasMoving && part2HasLaser &&
-        part2HasFlyer && part2HasShooter && part2HasParasite && part2HasArmored && part2HasFast &&
-        part2Components.length === 2 && part2Airlock;
-      checks.part3FinalArena = part3HasLift && part3HasHighDodge && part3Cover.length >= 2 && part3Boss && phase10.map.checkpoints.length === 3;
-      
-      // 2. Shield deactivation by fulfilling relay objectives
-      const initialHp = boss.hp;
-      damageVirus(boss, 20);
-      const damageBlockedByShield = (boss.hp === initialHp);
-      components.forEach(c => { c.repaired = true; });
-      damageVirus(boss, 10);
-      const damageAcceptedAfterRepairs = (boss.hp < initialHp);
-      checks.shieldMechanism = damageBlockedByShield && damageAcceptedAfterRepairs;
-      
-      // 3. Multi-stage boss behavior
-      // Stage 1
-      boss.hp = 45; boss.bossStage = 1; boss.bossPatternIndex = 0; boss.bossCycleCooldown = 0; boss.attackWindup = 0;
-      updateVirusZero(boss, .01, 100, floorY() - 20);
-      const stage1Attack = (boss.bossStage === 1 && boss.attackWindup > 0);
-      updateVirusZero(boss, 1, 100, floorY() - 20);
-      // Stage 2
-      boss.hp = 30; boss.bossStage = 1; boss.bossPatternIndex = 0; boss.bossCycleCooldown = 0; boss.attackWindup = 0;
-      updateVirusZero(boss, .01, 100, floorY() - 20);
-      const stage2Transition = (boss.bossStage === 2 && boss.attackWindup > 0);
-      updateVirusZero(boss, 1, 100, floorY() - 20);
-      const stage2Projectiles = enemyProjectiles.filter(p => p.bossOwned).length >= 3;
-      // Stage 3
-      boss.hp = 15; boss.bossStage = 2; boss.bossPatternIndex = 0; boss.bossCycleCooldown = 0; boss.attackWindup = 0;
-      updateVirusZero(boss, .01, 100, floorY() - 20);
-      const stage3Transition = (boss.bossStage === 3 && boss.attackWindup > 0);
-      updateVirusZero(boss, 1, 100, floorY() - 20);
-      const stage3ComboAndVulnerable = (enemyProjectiles.filter(p => p.bossOwned).length >= 8 && boss.vulnerableTime > 0);
-      checks.bossStages = stage1Attack && stage2Transition && stage2Projectiles && stage3Transition && stage3ComboAndVulnerable;
-      
-      // 4. Player skills integration test
-      player.armor = 0.3;
-      const initialPlayerHealth = player.health;
-      damagePlayer(20, { x: 0 });
-      const armorProtected = (player.health === initialPlayerHealth - Math.max(1, Math.ceil(20 * (1 - 0.3))));
-      unlockedSkills = [{ id: 'cannon', level: 3 }, { id: 'rapid', level: 2 }];
-      player.damage = 4;
-      player.fireRate = 0.25;
-      const cannonWorks = player.damage === 4 && player.fireRate === 0.25;
-      checks.playerSkills = armorProtected && cannonWorks;
-      
-      // 5. Checkpoints & Respawn
-      player.health = 10;
-      checkpointX = phase10.map.checkpoints[0];
-      respawnAtCheckpoint();
-      const cp1Safe = player.health === player.maxHealth && player.x >= 1210;
-      checkpointX = phase10.map.checkpoints[1];
-      respawnAtCheckpoint();
-      const cp2Safe = player.health === player.maxHealth && player.x >= 2460;
-      checkpointX = phase10.map.checkpoints[2];
-      respawnAtCheckpoint();
-      const cp3Safe = player.health === player.maxHealth && player.x >= 3260;
-      checks.checkpointsWorking = cp1Safe && cp2Safe && cp3Safe;
-      
-      // 6. Campaign completion & Victory screen
-      viruses.forEach(v => { v.alive = false; });
-      checkObjectives();
-      const exitUnlocked = phaseExitUnlocked;
-      running = true;
-      openPhaseQuestion();
-      const questionActive = ui.questionOverlay.classList.contains('active');
-      const correctBtn = ui.questionOverlay.querySelector('[data-correct="true"]');
-      correctBtn.click();
-      ui.questionOverlay.querySelector('.question-action').click();
-      const victoryCompleted = campaignComplete && ui.stage.textContent === 'CAMPANHA CONCLUÍDA';
-      checks.victoryAndEnd = exitUnlocked && questionActive && victoryCompleted;
-      
-      document.documentElement.dataset.extendedBossTest = Object.entries(checks).filter(([,passed]) => !passed).length ? JSON.stringify(checks) : 'PASS';
-    } catch (err) {
-      document.documentElement.dataset.extendedBossTest = 'ERROR: ' + err.message;
-    }
-  }
 
   window.addEventListener('keydown', event => {
     const key = event.key.toLowerCase();

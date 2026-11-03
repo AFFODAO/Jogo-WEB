@@ -1,0 +1,386 @@
+{
+  "phases": [
+    {
+      "phase": 1,
+      "render": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 26,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "armored",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 2,
+      "render": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 20,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "shooter",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 3,
+      "render": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 21,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "parasite",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "shooter",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 4,
+      "render": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 25,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "armored",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 5,
+      "render": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 21,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "basic",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 6,
+      "render": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 17,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "parasite",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "shooter",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 7,
+      "render": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 22,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "flyer",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 8,
+      "render": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 35,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "parasite",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 9,
+      "render": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 26,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "basic",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 10,
+      "render": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 47,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e05",
+          "type": "parasite",
+          "result": "PASS"
+        },
+        {
+          "id": "e06",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e07",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "e08",
+          "type": "boss",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {
+    "skills and pending choice": "PASS",
+    "enemy attacks": "PASS",
+    "boss stages, shield and projectile defeat": "PASS",
+    "temporary and moving platforms": "PASS",
+    "keyboard controls": "PASS",
+    "resize and particle budget": "PASS",
+    "frame rate independent jump": "PASS",
+    "damage, shield, healing and repair upgrades": "PASS",
+    "distinct layouts and themes": "PASS",
+    "final boss telegraphs, dodge and weak point": "PASS",
+    "boss activation, skills and final checkpoint": "PASS",
+    "boss visual states": "PASS",
+    "volley and final combo can be dodged": "PASS",
+    "boss defeat opens mandatory final question and victory": "PASS"
+  },
+  "errors": []
+}
