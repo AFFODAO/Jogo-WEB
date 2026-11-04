@@ -831,8 +831,10 @@
   function resize() {
     const rect = canvas.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
+    const nextRatio=Math.min(window.devicePixelRatio || 1, experience.settings.reducedEffects?1.25:1.5);
+    if(width===rect.width&&height===rect.height&&pixelRatio===nextRatio&&canvas.width===Math.round(rect.width*nextRatio)&&canvas.height===Math.round(rect.height*nextRatio)){draw();return;}
     const oldFloor = floorY();
-    pixelRatio = Math.min(window.devicePixelRatio || 1, experience.settings.reducedEffects?1.25:1.5);
+    pixelRatio = nextRatio;
     width = rect.width;
     height = rect.height;
     const floorShift = phaseData.map.height === 'viewport' ? floorY() - oldFloor : 0;
@@ -861,7 +863,19 @@
     draw();
   }
 
-  new ResizeObserver(resize).observe(canvas);
+  // Canvas buffer writes inside a ResizeObserver delivery can trigger another
+  // delivery in the same layout pass. Defer them and coalesce repeated changes.
+  const requestCanvasResize=window.requestAnimationFrame.bind(window);
+  let canvasResizeRequest=0;
+  new ResizeObserver(()=>{
+    if(canvasResizeRequest)return;
+    canvasResizeRequest=requestCanvasResize(()=>{
+      canvasResizeRequest=0;
+      const rect=canvas.getBoundingClientRect();
+      const ratio=Math.min(window.devicePixelRatio || 1,experience.settings.reducedEffects?1.25:1.5);
+      if(rect.width!==width||rect.height!==height||ratio!==pixelRatio)resize();
+    });
+  }).observe(canvas.parentElement);
 
   function overlaps(a, b) {
     return a.x < b.x + b.w && a.x + a.width > b.x &&

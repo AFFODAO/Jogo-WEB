@@ -9,12 +9,22 @@ import shutil
 import http.server
 import threading
 import functools
+import datetime
 from pathlib import Path
 from html import unescape
+from chrome_cdp import source_fingerprint
 
 ROOT = Path(__file__).resolve().parents[1]
 CHROME = Path('C:/Program Files/Google/Chrome/Application/chrome.exe')
+def capture_structures(profile):
+    result=subprocess.run([str(CHROME),'--headless','--disable-gpu','--hide-scrollbars',f'--user-data-dir={profile}','--window-size=1600,2850',f'--screenshot={ROOT / "tests/structures-contact.png"}',(ROOT/'tests/structures.html').as_uri()],capture_output=True,timeout=45)
+    if result.returncode or not (ROOT/'tests/structures-contact.png').exists():raise RuntimeError('Failed geometry contact sheet')
+
 def main():
+    if '--capture-structures' in sys.argv:
+        with tempfile.TemporaryDirectory(prefix='byte-structure-contact-') as folder:capture_structures(Path(folder)/'profile')
+        print('Captured tests/structures-contact.png');return
+    source_hash=source_fingerprint(ROOT)
     source = (ROOT / 'game.js').read_text(encoding='utf-8-sig')
     hook = (ROOT / 'tests/review.js').read_text(encoding='utf-8')
     architecture = (ROOT/'tests/architecture.js').read_text(encoding='utf-8')
@@ -24,22 +34,30 @@ def main():
     architecture += '\n'+(ROOT/'tests/art.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/repairs.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/experience.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/audit.js').read_text(encoding='utf-8')
     baseline = (ROOT/'tests/map-baseline.json').read_text(encoding='utf-8')
     fixture = (ROOT/'tests/fixtures/room-map.json').read_text(encoding='utf-8')
     first_five = (ROOT/'tests/fixtures/first-five-v2.json').read_text(encoding='utf-8')
-    hook = 'const FIRST_FIVE_V2='+first_five+';\nconst MAP_BASELINE='+baseline+';\nconst ARCHITECTURE_FIXTURE='+fixture+';\n'+hook.replace("const output=document.createElement",architecture+"\nconst output=document.createElement")
+    final_marker='await new Promise(resolve=>setTimeout(resolve,0));'
+    hook = 'const FIRST_FIVE_V2='+first_five+';\nconst MAP_BASELINE='+baseline+';\nconst ARCHITECTURE_FIXTURE='+fixture+';\n'+hook.replace(final_marker,architecture+'\n'+final_marker,1)
     hook = '(async()=>{\n' + hook + '\n})().catch(error=>{document.body.innerHTML="<pre id=review-result>"+JSON.stringify({phases:[],systems:{fatal:error.stack}})+"</pre>";});'
     if '--capture-map-baseline' in sys.argv:
         hook = 'const mapBaseline = JSON.parse(JSON.stringify(PHASES));\n' + hook.replace('const output=document.createElement', 'report.mapBaseline=mapBaseline;\nconst output=document.createElement')
     with tempfile.TemporaryDirectory(prefix='byte-runner-review-') as folder:
         target = Path(folder)
         (target / 'game.js').write_text(source[:source.rindex('})();')] + hook + '\n})();', encoding='utf-8')
-        (target / 'index.html').write_text((ROOT/'index.html').read_text(encoding='utf-8'),encoding='utf-8')
+        bootstrap=(ROOT/'tests/audit-bootstrap.js').read_text(encoding='utf-8')
+        page=(ROOT/'index.html').read_text(encoding='utf-8').replace('<head>','<head><script>'+bootstrap+'</script>')
+        (target / 'index.html').write_text(page,encoding='utf-8')
         (target / 'style.css').write_text((ROOT/'style.css').read_text(encoding='utf-8'),encoding='utf-8')
         shutil.copytree(ROOT/'src',target/'src')
         shutil.copytree(ROOT/'assets',target/'assets')
         class QuietHandler(http.server.SimpleHTTPRequestHandler):
             def log_message(self, *args): pass
+            def do_GET(self):
+                if self.path=='/favicon.ico':
+                    self.send_response(204);self.end_headers();return
+                super().do_GET()
         server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(QuietHandler,directory=str(target)))
         threading.Thread(target=server.serve_forever,daemon=True).start()
         try:
@@ -53,17 +71,26 @@ def main():
             (ROOT/'tests/browser-error.txt').write_text(html+'\n'+result.stderr.decode('utf-8',errors='replace'),encoding='utf-8')
             raise RuntimeError('No test result. See tests/browser-error.txt')
         report=json.loads(unescape(match.group(1)))
+        report['execution']={'atUTC':datetime.datetime.now(datetime.timezone.utc).isoformat(),'browser':str(CHROME),'transport':'localhost HTTP','isolatedStorage':True,'instrumented':True,'optionalSkillsDuringTraversal':False,'damageProtectionDuringTraversal':True,'limitations':['Graph search relocates R-07 between proven jump/portal edges; this is not an uninterrupted human playthrough.','Combat is tested separately with damage protection; survival balance still needs manual play.','Minigame solvers use generated answers through real DOM controls.']}
+        report['execution']['sourceSha256']=source_hash
         if 'mapBaseline' in report:
             (ROOT/'tests/map-baseline.json').write_text(json.dumps(report.pop('mapBaseline'),ensure_ascii=False,indent=2),encoding='utf-8')
         snapshots=ROOT/'tests/snapshots'
         snapshots.mkdir(exist_ok=True)
-        for shot in report.pop('snapshots', []):
+        captures=report.pop('snapshots', [])
+        report['captures']=[f'snapshots/phase-{shot["phase"]:02}-{shot["position"]}.png' for shot in captures]
+        for shot in captures:
             (snapshots/f'phase-{shot["phase"]:02}-{shot["position"]}.png').write_bytes(base64.b64decode(shot['image'].split(',')[1]))
         gallery='<!doctype html><meta charset="utf-8"><style>body{margin:8px;background:#07111c;color:white;font:14px Arial;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}figure{margin:0;height:206px}img{display:block;width:100%;height:183px;object-fit:contain}figcaption{text-align:center}</style>'
-        for shot in sorted(snapshots.glob('*.png')):
+        for shot in sorted(ROOT/'tests'/name for name in report['captures']):
             gallery+=f'<figure><figcaption>{shot.stem}</figcaption><img src="snapshots/{shot.name}"></figure>'
         (ROOT/'tests/gallery.html').write_text(gallery,encoding='utf-8')
-        gallery_height=((len(list(snapshots.glob('*.png')))+2)//3)*214+40
+        geometry='<!doctype html><meta charset="utf-8"><title>BYTE RUNNER · comparação geométrica</title><style>body{background:#080d17;color:#e6f2ff;font:14px monospace;margin:16px}main{display:grid;grid-template-columns:1fr 1fr;gap:12px}figure{margin:0}img{width:100%;display:block}p{line-height:1.6}</style><h1>Estruturas dos dez mapas</h1><p>Sem arte de fundo. Cinza: colisões. Azul: plataformas. Linhas verdes: interfaces. Verde: entrada. Amarelo: saída. Vermelho: componentes. Escala uniforme dentro de cada mapa; dimensões indicadas.</p><main>'
+        for entry in report.get('audit',{}).get('geometry',[]):
+            number=entry['phase'];geometry+=f'<figure><img src="snapshots/phase-{number:02}-structure.png"><figcaption>{entry["layout"]}: {entry["ground"]} pisos, {entry["platforms"]} plataformas, {entry["connections"]} conexões.</figcaption></figure>'
+        (ROOT/'tests/structures.html').write_text(geometry+'</main>',encoding='utf-8')
+        capture_structures(target/'structure-profile')
+        gallery_height=((len(captures)+2)//3)*214+40
         subprocess.run([str(CHROME),'--headless','--disable-gpu','--hide-scrollbars',f'--user-data-dir={target / "gallery-profile"}',f'--window-size=1320,{gallery_height}',f'--screenshot={ROOT / "tests/review-contact.png"}',(ROOT/'tests/gallery.html').as_uri()],capture_output=True,timeout=45)
         (ROOT/'tests/review-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
         failures=[]
@@ -72,6 +99,10 @@ def main():
                 if key=='error' or (isinstance(value,str) and value!='PASS') or (key=='platformAccess' and value) or (key=='combat' and any(v['result']!='PASS' for v in value)):
                     failures.append(f'Phase {phase["phase"]}: {key} = {value}')
         failures.extend(f'{key}: {value}' for key,value in report['systems'].items() if value!='PASS')
+        failures.extend('Runtime: '+str(error) for error in report.get('errors',[]))
+        if len(report['phases'])!=10:failures.append('Expected exactly ten tested phases')
+        report['summary']={'phases':len(report['phases']),'systems':len(report['systems']),'passedSystems':sum(value=='PASS' for value in report['systems'].values()),'captures':len(captures),'runtimeErrors':len(report.get('errors',[])),'failures':failures}
+        (ROOT/'tests/review-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
         print(json.dumps({'phases':len(report['phases']),'systems':report['systems'],'failures':failures},ensure_ascii=False,indent=2))
         if failures:
             raise SystemExit(1)

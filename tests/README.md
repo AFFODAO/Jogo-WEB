@@ -1,5 +1,7 @@
 # Revisão das dez fases do BYTE RUNNER
 
+**Relatório atual:** consulte [a revisão após a reformulação, com evidências, correções e limitações](AUDIT.md). O conteúdo abaixo registra a revisão histórica de 03/11/2026.
+
 Revisão realizada em 03/11/2026. O jogo continua com dez fases.
 
 Execute `python tests/run_review.py` a partir da pasta do projeto. Requer Python 3 e Chrome em `C:/Program Files/Google/Chrome/Application/chrome.exe`; não instala dependências. O programa usa uma cópia temporária do jogo e um perfil isolado do Chrome, sem modificar o salvamento do jogador. Retorna código diferente de zero se alguma verificação falhar.

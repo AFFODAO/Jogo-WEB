@@ -5,7 +5,7 @@ const report = { phases: [], systems: {}, errors: [], snapshots: [] };
 function assert(value, message) { if (!value) throw new Error(message); }
 function test(name, fn) { try { fn(); report.systems[name] = 'PASS'; } catch(e) { report.systems[name] = e.message; } }
 let traversedPortals=new Set();
-function setup(i) { resetCampaign(); loadPhase(i,true); running=true; campaignStarted=true; damageCooldown=99999; keys.clear();traversedPortals=new Set(); }
+function setup(i) { resetCampaign(); loadPhase(i,true); running=true; paused=false; campaignStarted=true; damageCooldown=99999; keys.clear();traversedPortals=new Set(); }
 function fulfilGoalsForQuestionTest() {
   const mark=c=>{if(c.flag)levelRuntime.setFlag(c.flag,c.value??true);(c.all||c.any||[]).forEach(mark);};
   (phaseData.objectives.goals||[]).forEach(goal=>{if(goal.type==='condition')mark(goal.condition);});
@@ -82,6 +82,9 @@ for(let i=0;i<10;i++) {
   const r={phase:i+1}; report.phases.push(r);
   try {
     setup(i);
+    await levelVisuals.ready;
+    assert(levelVisuals.errors.length===0,'phase image load failures: '+levelVisuals.errors);
+    r.assetLoad='PASS';
     if(phaseData.map.ground?.mode==='explicit') {
       const previous={width,height,pixelRatio,cameraX,cameraY,cw:canvas.width,ch:canvas.height};
       width=worldWidth();height=worldHeight();pixelRatio=1;cameraX=0;cameraY=0;canvas.width=width;canvas.height=height;ctx.setTransform(1,0,0,1,0,0);
@@ -107,6 +110,8 @@ for(let i=0;i<10;i++) {
     assert(player.x-cameraX>=-1&&player.x-cameraX+player.width<=width+1,'camera lost player');r.camera='PASS';
     assert(player.y-cameraY>=-1&&player.y-cameraY+player.height<=height+1,'vertical camera lost player');
     setup(i);
+    assert(!unlockedSkills.length&&player.jumpPower===JUMP_SPEED&&player.damage===1&&player.armor===0,'optional skill in traversal');
+    r.baseAbilities='PASS';
     const start=mapStart(); let reachable=[];
     for(let round=0;round<=components.length+phaseData.entities.interactives.length+2;round++) {
       player.x=start.x;player.y=start.y;player.vy=0;player.grounded=true;
@@ -305,4 +310,7 @@ test('boss defeat opens mandatory final question and victory',()=>{
   assert(campaignComplete&&getSavedCampaign().campaignComplete&&!overlay.classList.contains('hidden'),'victory flow');
 });
 running=false;
+await new Promise(resolve=>setTimeout(resolve,0));
+report.errors=window.__reviewErrors || [];
+report.systems['audit: no runtime errors, unhandled rejections or console.error']=report.errors.length?JSON.stringify(report.errors):'PASS';
 const output=document.createElement('pre');output.id='review-result';output.textContent=JSON.stringify(report);document.body.replaceChildren(output);

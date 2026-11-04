@@ -106,3 +106,15 @@ button:focus-visible{outline:2px solid #bdadff;outline-offset:4px}.touch-control
 @keyframes xp-gain{0%{filter:brightness(2);box-shadow:0 0 16px #c7a1ff}100%{filter:brightness(1)}}.xp-gain{animation:xp-gain .65s ease-out}.level-overlay.active .level-dialog{box-shadow:0 0 0 1px #b3a1ff66,0 0 60px #8863ce40,0 25px 80px #000a}
 .reduced-effects *{animation:none!important;transition:none!important}.reduced-effects .scanline{display:none}.reduced-effects .canvas-wrap,.reduced-effects .level-dialog{box-shadow:none}.reduced-effects .overlay{backdrop-filter:none}
 @media(max-width:760px){.top-right .chip{display:none}.experience-notice{bottom:78px;font-size:10px}.phase-intro{padding:18px;border-block-width:10px}.phase-intro h2{font-size:23px}.phase-intro p{font-size:11px}.phase-intro small{font-size:10px}.sound-toggle{padding:7px;font-size:9px}}
+
+/* Keep every dialog scrollable and its actions reachable on short viewports. */
+.canvas-wrap>#game{position:absolute;inset:0;width:100%;height:100%}
+.overlay-card,.level-dialog,.question-dialog{max-height:100%;overflow:auto;overscroll-behavior:contain}
+@media(max-width:680px){.level-overlay .ability-option{display:flex;flex-direction:column;align-items:stretch;gap:6px;min-height:0}.level-overlay .ability-option .ability-badge{align-self:flex-start}.level-overlay .ability-option small{width:100%;margin:0;font-size:10px;line-height:1.5}}
+@media(min-width:761px){.canvas-wrap{min-height:min(490px,max(260px,calc(100dvh - 245px)));max-height:calc(100dvh - 215px)}}
+@media(max-height:500px) and (min-width:681px){
+  .game-shell{padding:0 10px}.topbar{height:42px}.system-status,.top-right .chip,.version,.side-panel,.bottom-bar{display:none}
+  .game-layout{display:block;min-height:0;padding:6px 0}.center-stage{width:100%}.stage-heading{height:42px}.stage-heading h1{font-size:20px}
+  .canvas-wrap{flex:none;height:calc(100dvh - 120px);min-height:180px;max-height:calc(100dvh - 120px)}.stage-footer{height:24px}
+  .phase-intro{padding:10px 16px;border-block-width:6px}.phase-intro h2{font-size:22px;margin:4px 0}.phase-intro p,.phase-intro small{font-size:10px;line-height:1.4}.phase-intro button{margin-top:7px;min-height:36px}
+}

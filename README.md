@@ -1,5 +1,7 @@
 # BYTE RUNNER
 
+A [revisão após a reformulação](tests/AUDIT.md) registra os testes executados, as correções de interface e as capturas comparativas das dez estruturas.
+
 Repaginação **Midnight Circuit**: 22 atlas originais em pixel art, animações no Canvas, tiles por fase, paralaxe e interface renovada. Consulte [recursos, geração e integração](docs/art-direction.md).
 
 **Reparos interativos:** aperte E perto de um componente para abrir o diagnóstico da fase. O mundo fica pausado durante o desafio. Veja [minigames, controles, habilidade e salvamento](docs/repair-minigames.md).

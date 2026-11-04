@@ -2,8 +2,10 @@
   "phases": [
     {
       "phase": 1,
+      "assetLoad": "PASS",
       "render": "PASS",
       "camera": "PASS",
+      "baseAbilities": "PASS",
       "reachableSurfaces": 22,
       "repairAccess": "PASS",
       "platformAccess": [],
@@ -38,8 +40,10 @@
     },
     {
       "phase": 2,
+      "assetLoad": "PASS",
       "render": "PASS",
       "camera": "PASS",
+      "baseAbilities": "PASS",
       "reachableSurfaces": 15,
       "repairAccess": "PASS",
       "platformAccess": [],
@@ -83,8 +87,10 @@
     },
     {
       "phase": 3,
+      "assetLoad": "PASS",
       "render": "PASS",
       "camera": "PASS",
+      "baseAbilities": "PASS",
       "reachableSurfaces": 28,
       "repairAccess": "PASS",
       "platformAccess": [],
@@ -119,8 +125,10 @@
     },
     {
       "phase": 4,
+      "assetLoad": "PASS",
       "render": "PASS",
       "camera": "PASS",
+      "baseAbilities": "PASS",
       "reachableSurfaces": 21,
       "repairAccess": "PASS",
       "platformAccess": [],
@@ -161,8 +169,10 @@
     },
     {
       "phase": 5,
+      "assetLoad": "PASS",
       "render": "PASS",
       "camera": "PASS",
+      "baseAbilities": "PASS",
       "reachableSurfaces": 31,
       "repairAccess": "PASS",
       "platformAccess": [],
@@ -197,9 +207,11 @@
     },
     {
       "phase": 6,
+      "assetLoad": "PASS",
       "render": "PASS",
       "objectPlacement": "PASS",
       "camera": "PASS",
+      "baseAbilities": "PASS",
       "reachableSurfaces": 41,
       "repairAccess": "PASS",
       "platformAccess": [],
@@ -239,9 +251,11 @@
     },
     {
       "phase": 7,
+      "assetLoad": "PASS",
       "render": "PASS",
       "objectPlacement": "PASS",
       "camera": "PASS",
+      "baseAbilities": "PASS",
       "reachableSurfaces": 23,
       "repairAccess": "PASS",
       "platformAccess": [],
@@ -290,9 +304,11 @@
     },
     {
       "phase": 8,
+      "assetLoad": "PASS",
       "render": "PASS",
       "objectPlacement": "PASS",
       "camera": "PASS",
+      "baseAbilities": "PASS",
       "reachableSurfaces": 41,
       "repairAccess": "PASS",
       "platformAccess": [],
@@ -352,9 +368,11 @@
     },
     {
       "phase": 9,
+      "assetLoad": "PASS",
       "render": "PASS",
       "objectPlacement": "PASS",
       "camera": "PASS",
+      "baseAbilities": "PASS",
       "reachableSurfaces": 25,
       "repairAccess": "PASS",
       "platformAccess": [],
@@ -399,9 +417,11 @@
     },
     {
       "phase": 10,
+      "assetLoad": "PASS",
       "render": "PASS",
       "objectPlacement": "PASS",
       "camera": "PASS",
+      "baseAbilities": "PASS",
       "reachableSurfaces": 57,
       "repairAccess": "PASS",
       "platformAccess": [],
@@ -528,7 +548,1035 @@
     "experience: camera anticipation and vertical safety stay inside all map bounds": "PASS",
     "experience: fixed simulation gives consistent travel at 30, 60 and 144 Hz": "PASS",
     "experience: optional caches have clear support, are reachable and save once": "PASS",
-    "experience: original ambience differs across phases and schedules bounded voices": "PASS"
+    "experience: original ambience differs across phases and schedules bounded voices": "PASS",
+    "audit: respawn protection expires in all phases and skill combinations": "PASS",
+    "audit: stale shield without skill never blocks real damage": "PASS",
+    "audit: every temporary platform disappears, returns and waits for occupied space": "PASS",
+    "audit: actual minigame success changes world state for every component": "PASS",
+    "audit: holding E cannot complete any campaign minigame": "PASS",
+    "audit: physical exit opens mandatory question and wrong answer resets on reload": "PASS",
+    "audit: all 45 map pairs have different normalized collision structures": "PASS",
+    "audit: animated robot and enemy states change pixels over time": "PASS",
+    "audit: no runtime errors, unhandled rejections or console.error": "PASS"
   },
-  "errors": []
+  "errors": [],
+  "audit": {
+    "respawn": [
+      {
+        "phase": 1,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 1,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 1,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 1,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 2,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 2,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 2,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 2,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 3,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 3,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 3,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 3,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 4,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 4,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 4,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 4,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 5,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 5,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 5,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 5,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 6,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 6,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 6,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 6,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 7,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 7,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 7,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 7,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 8,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 8,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 8,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 8,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 9,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 9,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 9,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 9,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 10,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 10,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 10,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 10,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      }
+    ],
+    "temporaryPlatforms": [
+      {
+        "phase": 5,
+        "id": "signal-01",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 5,
+        "id": "signal-05",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 5,
+        "id": "signal-09",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 5,
+        "id": "signal-13",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 5,
+        "id": "signal-17",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 9,
+        "id": "inspection-breakaway",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 10,
+        "id": "combat-bridge-a",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      }
+    ],
+    "repairConsequences": [
+      {
+        "phase": 1,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 1,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 1,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 2,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 2,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 2,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 3,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 3,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 3,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 4,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 4,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 4,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 5,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 5,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 5,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 6,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 6,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 6,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 7,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 7,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 7,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 8,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 8,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 8,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 9,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 9,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 9,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 9,
+        "id": "c04",
+        "changed": true
+      },
+      {
+        "phase": 10,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 10,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 10,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 10,
+        "id": "c04",
+        "changed": true
+      }
+    ],
+    "geometry": [
+      {
+        "phase": 1,
+        "name": "Hardware do computador",
+        "layout": "horizontal",
+        "width": 2800,
+        "height": 1000,
+        "ground": 3,
+        "platforms": 17,
+        "connections": 0,
+        "occupiedCells": 1564
+      },
+      {
+        "phase": 2,
+        "name": "Software do computador",
+        "layout": "hub",
+        "width": 1900,
+        "height": 1400,
+        "ground": 4,
+        "platforms": 11,
+        "connections": 8,
+        "occupiedCells": 798
+      },
+      {
+        "phase": 3,
+        "name": "Switch de rede",
+        "layout": "multi-route",
+        "width": 2200,
+        "height": 1200,
+        "ground": 5,
+        "platforms": 23,
+        "connections": 0,
+        "occupiedCells": 1138
+      },
+      {
+        "phase": 4,
+        "name": "Roteador",
+        "layout": "maze",
+        "width": 2200,
+        "height": 1500,
+        "ground": 4,
+        "platforms": 17,
+        "connections": 5,
+        "occupiedCells": 849
+      },
+      {
+        "phase": 5,
+        "name": "Rede Wi-Fi",
+        "layout": "vertical",
+        "width": 1550,
+        "height": 2400,
+        "ground": 5,
+        "platforms": 26,
+        "connections": 0,
+        "occupiedCells": 767
+      },
+      {
+        "phase": 6,
+        "name": "Cabeamento e infraestrutura",
+        "layout": "vertical",
+        "width": 1600,
+        "height": 3000,
+        "ground": 8,
+        "platforms": 33,
+        "connections": 0,
+        "occupiedCells": 1165
+      },
+      {
+        "phase": 7,
+        "name": "Endereçamento IP e DHCP",
+        "layout": "hub",
+        "width": 2800,
+        "height": 1700,
+        "ground": 5,
+        "platforms": 18,
+        "connections": 8,
+        "occupiedCells": 291
+      },
+      {
+        "phase": 8,
+        "name": "DNS",
+        "layout": "maze",
+        "width": 3400,
+        "height": 2100,
+        "ground": 8,
+        "platforms": 33,
+        "connections": 14,
+        "occupiedCells": 616
+      },
+      {
+        "phase": 9,
+        "name": "Firewall e segurança",
+        "layout": "multi-route",
+        "width": 3600,
+        "height": 1800,
+        "ground": 6,
+        "platforms": 17,
+        "connections": 0,
+        "occupiedCells": 544
+      },
+      {
+        "phase": 10,
+        "name": "Servidores e Internet",
+        "layout": "multi-route",
+        "width": 6800,
+        "height": 2000,
+        "ground": 8,
+        "platforms": 44,
+        "connections": 0,
+        "occupiedCells": 455
+      }
+    ],
+    "pairs": [
+      {
+        "phases": [
+          1,
+          2
+        ],
+        "normalizedIoU": 0.0825
+      },
+      {
+        "phases": [
+          1,
+          3
+        ],
+        "normalizedIoU": 0.0752
+      },
+      {
+        "phases": [
+          1,
+          4
+        ],
+        "normalizedIoU": 0.1447
+      },
+      {
+        "phases": [
+          1,
+          5
+        ],
+        "normalizedIoU": 0.0639
+      },
+      {
+        "phases": [
+          1,
+          6
+        ],
+        "normalizedIoU": 0.1404
+      },
+      {
+        "phases": [
+          1,
+          7
+        ],
+        "normalizedIoU": 0.0277
+      },
+      {
+        "phases": [
+          1,
+          8
+        ],
+        "normalizedIoU": 0.0516
+      },
+      {
+        "phases": [
+          1,
+          9
+        ],
+        "normalizedIoU": 0.1634
+      },
+      {
+        "phases": [
+          1,
+          10
+        ],
+        "normalizedIoU": 0.007
+      },
+      {
+        "phases": [
+          2,
+          3
+        ],
+        "normalizedIoU": 0.0597
+      },
+      {
+        "phases": [
+          2,
+          4
+        ],
+        "normalizedIoU": 0.1534
+      },
+      {
+        "phases": [
+          2,
+          5
+        ],
+        "normalizedIoU": 0.0176
+      },
+      {
+        "phases": [
+          2,
+          6
+        ],
+        "normalizedIoU": 0.1065
+      },
+      {
+        "phases": [
+          2,
+          7
+        ],
+        "normalizedIoU": 0.0009
+      },
+      {
+        "phases": [
+          2,
+          8
+        ],
+        "normalizedIoU": 0.0336
+      },
+      {
+        "phases": [
+          2,
+          9
+        ],
+        "normalizedIoU": 0.0866
+      },
+      {
+        "phases": [
+          2,
+          10
+        ],
+        "normalizedIoU": 0.0886
+      },
+      {
+        "phases": [
+          3,
+          4
+        ],
+        "normalizedIoU": 0.0811
+      },
+      {
+        "phases": [
+          3,
+          5
+        ],
+        "normalizedIoU": 0.0393
+      },
+      {
+        "phases": [
+          3,
+          6
+        ],
+        "normalizedIoU": 0.024
+      },
+      {
+        "phases": [
+          3,
+          7
+        ],
+        "normalizedIoU": 0.0688
+      },
+      {
+        "phases": [
+          3,
+          8
+        ],
+        "normalizedIoU": 0.0814
+      },
+      {
+        "phases": [
+          3,
+          9
+        ],
+        "normalizedIoU": 0.0402
+      },
+      {
+        "phases": [
+          3,
+          10
+        ],
+        "normalizedIoU": 0.0277
+      },
+      {
+        "phases": [
+          4,
+          5
+        ],
+        "normalizedIoU": 0.0386
+      },
+      {
+        "phases": [
+          4,
+          6
+        ],
+        "normalizedIoU": 0.0793
+      },
+      {
+        "phases": [
+          4,
+          7
+        ],
+        "normalizedIoU": 0.0133
+      },
+      {
+        "phases": [
+          4,
+          8
+        ],
+        "normalizedIoU": 0.0593
+      },
+      {
+        "phases": [
+          4,
+          9
+        ],
+        "normalizedIoU": 0.2675
+      },
+      {
+        "phases": [
+          4,
+          10
+        ],
+        "normalizedIoU": 0.0244
+      },
+      {
+        "phases": [
+          5,
+          6
+        ],
+        "normalizedIoU": 0.0769
+      },
+      {
+        "phases": [
+          5,
+          7
+        ],
+        "normalizedIoU": 0.0292
+      },
+      {
+        "phases": [
+          5,
+          8
+        ],
+        "normalizedIoU": 0.0237
+      },
+      {
+        "phases": [
+          5,
+          9
+        ],
+        "normalizedIoU": 0.0131
+      },
+      {
+        "phases": [
+          5,
+          10
+        ],
+        "normalizedIoU": 0.0108
+      },
+      {
+        "phases": [
+          6,
+          7
+        ],
+        "normalizedIoU": 0.0175
+      },
+      {
+        "phases": [
+          6,
+          8
+        ],
+        "normalizedIoU": 0.0011
+      },
+      {
+        "phases": [
+          6,
+          9
+        ],
+        "normalizedIoU": 0.0427
+      },
+      {
+        "phases": [
+          6,
+          10
+        ],
+        "normalizedIoU": 0.026
+      },
+      {
+        "phases": [
+          7,
+          8
+        ],
+        "normalizedIoU": 0.0202
+      },
+      {
+        "phases": [
+          7,
+          9
+        ],
+        "normalizedIoU": 0.0048
+      },
+      {
+        "phases": [
+          7,
+          10
+        ],
+        "normalizedIoU": 0.0108
+      },
+      {
+        "phases": [
+          8,
+          9
+        ],
+        "normalizedIoU": 0.0078
+      },
+      {
+        "phases": [
+          8,
+          10
+        ],
+        "normalizedIoU": 0.0268
+      },
+      {
+        "phases": [
+          9,
+          10
+        ],
+        "normalizedIoU": 0.0163
+      }
+    ]
+  },
+  "execution": {
+    "atUTC": "2026-11-04T23:08:17.135016+00:00",
+    "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "transport": "localhost HTTP",
+    "isolatedStorage": true,
+    "instrumented": true,
+    "optionalSkillsDuringTraversal": false,
+    "damageProtectionDuringTraversal": true,
+    "limitations": [
+      "Graph search relocates R-07 between proven jump/portal edges; this is not an uninterrupted human playthrough.",
+      "Combat is tested separately with damage protection; survival balance still needs manual play.",
+      "Minigame solvers use generated answers through real DOM controls."
+    ],
+    "sourceSha256": "779094c2d0f1301dd42adbc37c0ad1c021698f3ac570c2a0bf8b2fd6509d7608"
+  },
+  "captures": [
+    "snapshots/phase-01-overview.png",
+    "snapshots/phase-01-0.png",
+    "snapshots/phase-01-0.5.png",
+    "snapshots/phase-01-1.png",
+    "snapshots/phase-02-overview.png",
+    "snapshots/phase-02-0.png",
+    "snapshots/phase-02-0.5.png",
+    "snapshots/phase-02-1.png",
+    "snapshots/phase-03-overview.png",
+    "snapshots/phase-03-0.png",
+    "snapshots/phase-03-0.5.png",
+    "snapshots/phase-03-1.png",
+    "snapshots/phase-04-overview.png",
+    "snapshots/phase-04-0.png",
+    "snapshots/phase-04-0.5.png",
+    "snapshots/phase-04-1.png",
+    "snapshots/phase-05-overview.png",
+    "snapshots/phase-05-0.png",
+    "snapshots/phase-05-0.5.png",
+    "snapshots/phase-05-1.png",
+    "snapshots/phase-06-overview.png",
+    "snapshots/phase-06-0.png",
+    "snapshots/phase-06-0.5.png",
+    "snapshots/phase-06-1.png",
+    "snapshots/phase-07-overview.png",
+    "snapshots/phase-07-0.png",
+    "snapshots/phase-07-0.5.png",
+    "snapshots/phase-07-1.png",
+    "snapshots/phase-08-overview.png",
+    "snapshots/phase-08-0.png",
+    "snapshots/phase-08-0.5.png",
+    "snapshots/phase-08-1.png",
+    "snapshots/phase-09-overview.png",
+    "snapshots/phase-09-0.png",
+    "snapshots/phase-09-0.5.png",
+    "snapshots/phase-09-1.png",
+    "snapshots/phase-10-overview.png",
+    "snapshots/phase-10-0.png",
+    "snapshots/phase-10-0.5.png",
+    "snapshots/phase-10-1.png",
+    "snapshots/phase-10-boss-protected.png",
+    "snapshots/phase-10-boss-charge.png",
+    "snapshots/phase-10-boss-surge.png",
+    "snapshots/phase-10-boss-combo.png",
+    "snapshots/phase-10-boss-weak-point.png",
+    "snapshots/phase-10-enemy-preparations.png",
+    "snapshots/phase-10-enemy-hit-recovery.png",
+    "snapshots/phase-10-enemy-deaths.png",
+    "snapshots/phase-01-art-start.png",
+    "snapshots/phase-02-art-start.png",
+    "snapshots/phase-03-art-start.png",
+    "snapshots/phase-04-art-start.png",
+    "snapshots/phase-05-art-start.png",
+    "snapshots/phase-06-art-start.png",
+    "snapshots/phase-07-art-start.png",
+    "snapshots/phase-08-art-start.png",
+    "snapshots/phase-09-art-start.png",
+    "snapshots/phase-10-art-start.png",
+    "snapshots/phase-01-structure.png",
+    "snapshots/phase-02-structure.png",
+    "snapshots/phase-03-structure.png",
+    "snapshots/phase-04-structure.png",
+    "snapshots/phase-05-structure.png",
+    "snapshots/phase-06-structure.png",
+    "snapshots/phase-07-structure.png",
+    "snapshots/phase-08-structure.png",
+    "snapshots/phase-09-structure.png",
+    "snapshots/phase-10-structure.png"
+  ],
+  "summary": {
+    "phases": 10,
+    "systems": 77,
+    "passedSystems": 77,
+    "captures": 68,
+    "runtimeErrors": 0,
+    "failures": []
+  }
 }
