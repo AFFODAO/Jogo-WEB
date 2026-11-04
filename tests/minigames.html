@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BYTE RUNNER · Laboratório de diagnósticos</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+body{padding:18px;max-width:1000px;margin:auto}header{margin-bottom:14px;font:12px/1.6 monospace;color:#bfd3ec}header select{padding:8px;background:#162a40;color:white;width:min(100%,320px)}
+.laboratory{position:relative;height:820px;max-height:90vh;border:1px solid #38506e;border-radius:10px;overflow:hidden}.repair-panel{box-shadow:none}
+</style>
+<header>LABORATÓRIO DE DIAGNÓSTICOS · não usa o salvamento da campanha.<br>
+<label>Fase <select id="phase"></select></label></header>
+<main class="laboratory"><section class="repair-panel" id="repairPanel" role="dialog" aria-modal="true" aria-labelledby="repairPrompt">
+<strong>REPARO DO SISTEMA</strong><p id="repairPrompt"></p><div id="repairContent"></div>
+<div class="repair-footer"><button id="cancelRepairButton" type="button">NOVO DIAGNÓSTICO</button></div>
+</section></main>
+<script src="../src/engine/maps.js"></script><script src="../src/engine/repairs.js"></script><script src="../src/engine/repair-games.js"></script>
+<script>
+let session,last=performance.now();
+const previewWidth=Number(new URLSearchParams(location.search).get('width'));
+if(previewWidth){document.body.style.width=previewWidth+'px';document.body.style.marginLeft='0';document.body.style.marginRight='0';}
+const picker=document.getElementById('phase');
+ByteRunner.repairChallenges.names.forEach((name,i)=>{const o=document.createElement('option');o.value=i;o.textContent=(i+1)+' · '+name;picker.append(o);});
+picker.value=Math.max(0,Math.min(9,Number(new URLSearchParams(location.search).get('phase'))||0));
+function open(){session?.dispose();session=ByteRunner.repairs.create(ByteRunner.repairChallenges.forPhase(Number(picker.value)),{component:{label:'Bancada de testes'},onFailure(){}});document.getElementById('repairPrompt').textContent=session.label();session.mount(document.getElementById('repairContent'));}
+picker.onchange=open;document.getElementById('cancelRepairButton').onclick=open;
+window.addEventListener('keydown',event=>{if(document.getElementById('repairPanel').contains(event.target))session.handleKey(event);});
+function frame(now){session.update(Math.min(.05,(now-last)/1000));last=now;requestAnimationFrame(frame);}open();requestAnimationFrame(frame);
+</script></html>

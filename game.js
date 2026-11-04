@@ -12,6 +12,7 @@
   startButton.insertAdjacentElement('afterend', continueButton);
   const soundToggle = document.getElementById('soundToggle');
   const touchControls = document.getElementById('touchControls');
+  const experience = ByteRunner.experience;
   const SAVE_KEY = 'byteRunner.campaign.v1';
   const SOUND_KEY = 'byteRunner.sound.v1';
   const keys = new Set();
@@ -58,7 +59,7 @@
     { id: 'cannon', name: 'Canhão de energia', maxLevel: 5, description: level => `Projéteis causam ${level + 1} de dano.`, apply: level => { player.damage = 1 + level; } },
     { id: 'boost', name: 'Propulsores', maxLevel: 5, description: level => `Aumenta a força do pulo em ${Math.round((Math.pow(1.08, level) - 1) * 100)}%.`, apply: level => { player.jumpPower = JUMP_SPEED * Math.pow(1.08, level); } },
     { id: 'shield', name: 'Escudo temporário', maxLevel: 5, description: level => `Escudo por ${5 + (level - 1) * .75}s; recarga de ${Math.max(14, 18 - (level - 1))}s.`, apply: level => { const rank = Math.max(1, Math.min(5, level)); player.shieldDuration = 5 + (rank - 1) * .75; player.shieldCooldownDuration = Math.max(14, 18 - (rank - 1)); player.shieldTime = player.shieldDuration; player.shieldCooldown = -1; } },
-    { id: 'repair', name: 'Reparo eficiente', maxLevel: 5, description: level => `Reduz o tempo de reparo em ${level * 10}%.`, apply: level => { repairDuration = .8 * (1 - level * .1); } },
+    { id: 'repair', name: 'Reparo eficiente', maxLevel: 5, description: level => `+${level} dicas por tentativa e +${Math.floor(level / 2)} verificações antes da falha.`, apply: level => { repairDuration = .8 * (1 - level * .1); } },
     { id: 'recovery', name: 'Recuperação', maxLevel: 5, description: level => `Restaura ${20 + level * 5} pontos de integridade ao escolher.`, apply: level => { player.health = Math.min(player.maxHealth, player.health + 20 + level * 5); } }
   ];
   const QUESTION_HISTORY_KEY = 'byteRunner.usedQuestions.v1';
@@ -250,6 +251,37 @@
   let lastFrame = 0;
   let animationTime = 0;
   let deathEcho = null;
+  let pacing = null;
+  let phaseIntroTime = 0;
+  let noticeTime = 0;
+  let frameAccumulator = 0;
+  let previousRenderPlayer = null;
+  let renderAlpha = 1;
+  let landingSpring = 0;
+  let shotPose = 0;
+  let activeSounds = 0;
+  let hudTimer = 0;
+
+  function notifyExperience(text) {
+    const notice=document.getElementById('experienceNotice');
+    notice.textContent=text;notice.classList.add('visible');noticeTime=4;
+  }
+
+  function endPhaseIntro() {
+    phaseIntroTime=0;keys.clear();jumpQueued=false;frameAccumulator=0;
+    document.getElementById('phaseIntro').hidden=true;
+    document.querySelector('.game-shell').classList.remove('introducing');
+  }
+
+  function beginPhaseIntro() {
+    phaseIntroTime=experience.settings.reducedEffects?1.6:2.6;
+    document.getElementById('introSector').textContent='SETOR '+String(phaseIndex+1).padStart(2,'0')+' / 10';
+    document.getElementById('introTitle').textContent=phaseData.name;
+    document.getElementById('introMission').textContent=phaseData.objective;
+    document.getElementById('introLesson').textContent=ByteRunner.pacing.lessons[phaseIndex];
+    document.getElementById('phaseIntro').hidden=false;
+    document.querySelector('.game-shell').classList.add('introducing');keys.clear();jumpQueued=false;
+  }
 
   function readQuestionHistory() {
     try {
@@ -287,20 +319,22 @@
     soundToggle.textContent = soundEnabled ? 'SOM: LIGADO' : 'SOM: DESLIGADO';
     soundToggle.setAttribute('aria-pressed', String(soundEnabled));
     try { localStorage.setItem(SOUND_KEY, soundEnabled ? 'on' : 'off'); } catch {}
+    if(!enabled)experience.silence(audioContext);
   }
 
   function playSound(kind) {
-    if (!soundEnabled) return;
+    if (!soundEnabled || experience.settings.volume===0 || experience.settings.sfx===0 || activeSounds>=12) return;
     const Audio = window.AudioContext || window.webkitAudioContext;
     if (!Audio) return;
     try {
       audioContext ||= new Audio();
-      if (audioContext.state === 'suspended') audioContext.resume();
+      if (audioContext.state === 'suspended') audioContext.resume()?.catch?.(()=>{});
       const now = audioContext.currentTime;
       const settings = {
         attack: [620, .045, 'square'], hit: [150, .12, 'sawtooth'],
         repair: [760, .16, 'sine'], xp: [880, .07, 'triangle'],
         level: [1040, .22, 'triangle'], correct: [980, .24, 'sine'],
+        checkpoint: [1320,.28,'sine'], victory:[660,.6,'triangle'], start:[330,.18,'sine'], jump:[420,.08,'triangle'], land:[100,.05,'sine'],
         wrong: [190, .22, 'square'], damage: [110, .18, 'sawtooth'],
         enemyWarning:[360,.16,'triangle'], dashWarning:[480,.2,'sawtooth'],
         enemyDash:[220,.12,'sawtooth'], enemyShot:[820,.09,'square'],
@@ -313,14 +347,16 @@
       const gain = audioContext.createGain();
       oscillator.type = settings[2];
       oscillator.frequency.setValueAtTime(settings[0], now);
-      if (kind === 'correct' || kind === 'repair' || kind === 'level') {
-        oscillator.frequency.exponentialRampToValueAtTime(settings[0] * 1.35, now + settings[1]);
+      if (kind === 'correct' || kind === 'repair' || kind === 'level' || kind === 'victory') {
+        oscillator.frequency.exponentialRampToValueAtTime(settings[0] * (kind==='victory'?2:1.35), now + settings[1]);
       }
       gain.gain.setValueAtTime(.0001, now);
-      gain.gain.exponentialRampToValueAtTime(.07, now + .012);
+      gain.gain.exponentialRampToValueAtTime(Math.max(.0001,.07*experience.settings.volume*experience.settings.sfx), now + .012);
       gain.gain.exponentialRampToValueAtTime(.0001, now + settings[1]);
       oscillator.connect(gain); gain.connect(audioContext.destination);
       oscillator.start(now); oscillator.stop(now + settings[1] + .02);
+      activeSounds++;
+      oscillator.onended=()=>{activeSounds=Math.max(0,activeSounds-1);oscillator.disconnect?.();gain.disconnect?.();};
     } catch {
       // Audio is optional; blocked audio contexts must not interrupt gameplay.
     }
@@ -460,7 +496,7 @@
         ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
     }
     renderSkills(); updateHud(); draw();
-    launchLoadedPhase();
+    launchLoadedPhase(Boolean(saved.phaseTransition));
     if(mapChanged){addLog('Mapa reconstruído: fase reiniciada, XP e habilidades mantidos.');interactionMessage='NOVO MAPA // XP E HABILIDADES PRESERVADOS';interactionMessageTimer=4;}
     if (saved.pendingAbility && !saved.phaseTransition) openLevelChoice(true);
   }
@@ -493,7 +529,7 @@
       };
       button.addEventListener('pointerdown', event => {
         event.preventDefault();
-        if (!running) return;
+        if (!running || repairSession?.blocksWorld || phaseIntroTime>0 || document.getElementById('settingsDialog').open) return;
         try { if (event.pointerId !== undefined) button.setPointerCapture?.(event.pointerId); } catch {}
         if (key === 'w' && !keys.has(key)) jumpQueued = true;
         if (key === 'e' && !findNearbyComponent()) {
@@ -501,6 +537,7 @@
           interactionMessageTimer = 1.2;
         }
         keys.add(key);
+        if(key==='e' && findNearbyComponent())updateRepair(0);
       });
       button.addEventListener('pointerup', release);
       button.addEventListener('pointercancel', release);
@@ -510,7 +547,7 @@
   }
 
   function emitParticles(x, y, color, count = 9) {
-    const budget = Math.min(count, Math.max(0, 240 - effects.length));
+    const budget = Math.min(experience.settings.reducedEffects?Math.ceil(count*.25):count, Math.max(0, (experience.settings.reducedEffects?48:160) - effects.length));
     for (let index = 0; index < budget; index++) {
       const angle = Math.random() * Math.PI * 2;
       const speed = 35 + Math.random() * 125;
@@ -539,7 +576,7 @@
       ctx.globalAlpha = Math.max(0, particle.life / particle.maxLife);
       ctx.fillStyle = particle.color;
       ctx.shadowColor = particle.color;
-      ctx.shadowBlur = 8;
+      ctx.shadowBlur = experience.settings.reducedEffects?0:5;
       ctx.beginPath();
       ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
       ctx.fill();
@@ -691,6 +728,8 @@
   }
 
   function loadMap(definition, retry = false) {
+    endPhaseIntro();experience.reset();pacing=null;previousRenderPlayer=null;landingSpring=0;shotPose=0;frameAccumulator=0;
+    document.getElementById('experienceNotice').classList.remove('visible');noticeTime=0;
     levelRuntime?.dispose();
     levelVisuals?.dispose();
     cancelRepair();
@@ -722,6 +761,11 @@
       feedback(message, box) { interactionMessage=message; interactionMessageTimer=1.5; emitParticles(box.x,box.y,'#74e8ff',12); }
     });
     levelVisuals = ByteRunner.visuals.create(phaseData);
+    pacing=ByteRunner.pacing.create(phaseData,phaseIndex,levelRuntime,{
+      solids,player:()=>player,enemies:()=>viruses,
+      reward(amount,reason,cache){awardExperience(amount,reason);experience.impact(cache.x,cache.y);},
+      hint:notifyExperience
+    });
     const activeVisuals=levelVisuals;
     activeVisuals.ready.then(() => {if (levelVisuals===activeVisuals && canvas.isConnected) draw();});
     defeated = 0; levelChoiceOpen = false; repairTarget = null; repairProgress = 0;
@@ -756,7 +800,7 @@
   }
 
   function createComponents() {
-    return phaseData.entities.components.map((spec, index) => ({ ...spec, id: spec.id, x: spec.x, y: entityY(spec, 44), width: spec.width || 34, height: spec.height || 44, repaired: false, integrity: 100, corruption: 0, phase: index * .9 }));
+    return phaseData.entities.components.map((spec, index) => ({ ...spec, repair:spec.repair && spec.repair.type!=='hold' ? spec.repair : ByteRunner.repairChallenges.forPhase(phaseIndex,index), id: spec.id, x: spec.x, y: entityY(spec, 44), width: spec.width || 34, height: spec.height || 44, repaired: false, integrity: 100, corruption: 0, phase: index * .9 }));
   }
 
   function createCollectibles() {
@@ -788,7 +832,7 @@
     const rect = canvas.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
     const oldFloor = floorY();
-    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    pixelRatio = Math.min(window.devicePixelRatio || 1, experience.settings.reducedEffects?1.25:1.5);
     width = rect.width;
     height = rect.height;
     const floorShift = phaseData.map.height === 'viewport' ? floorY() - oldFloor : 0;
@@ -836,6 +880,7 @@
     if (direction) player.facing = direction;
 
     if (jumpQueued && player.grounded) {
+      playSound('jump');
       emitParticles(player.x + player.width / 2, player.y + player.height, phaseData.palette[2], 5);
       player.vy = -player.jumpPower;
       player.grounded = false;
@@ -912,6 +957,7 @@
     if (phaseData.map.bounds.left) player.x = Math.max(0, player.x);
     if (phaseData.map.bounds.right) player.x = Math.min(worldWidth() - player.width, player.x);
     if (!wasGrounded && player.grounded && fallingSpeed > 180) {
+      landingSpring=.14;playSound('land');
       emitParticles(player.x + player.width / 2, player.y + player.height, phaseData.palette[2], 6);
     }
     if (direction) player.walkTime += dt * 12;
@@ -944,17 +990,32 @@
     repairSession = null;
     repairTarget = null;
     repairProgress = 0;
+    document.getElementById('repairPanel').hidden = true;
   }
 
   function updateRepair(dt) {
     if (!running) return;
-    const component = findNearbyComponent();
+    const component = repairSession?.blocksWorld ? repairTarget : findNearbyComponent();
     if (!component || (repairTarget && repairTarget !== component)) cancelRepair();
     if (!component) return;
     if (!repairSession) {
       if (!keys.has('e')) return;
       repairTarget = component;
-      repairSession = ByteRunner.repairs.create(component.repair || {type:'hold'}, {duration:repairDuration, component, player});
+      repairSession = ByteRunner.repairs.create(component.repair || ByteRunner.repairChallenges.forPhase(phaseIndex), {
+        duration:repairDuration, component, player,
+        repairRank:unlockedSkills.find(skill=>skill.id==='repair')?.level || 0,
+        isActive:()=>running && !paused,
+        onFailure:()=>{
+          player.health=Math.max(1,player.health-5);
+          addLog('Diagnóstico falhou: até 5 de integridade. Nova tentativa disponível.');
+          updateHud();saveCampaign();
+        }
+      });
+      if(repairSession.blocksWorld) {
+        keys.clear();jumpQueued=false;
+        document.getElementById('repairPanel').hidden=false;
+        document.getElementById('repairPrompt').textContent=repairSession.label?.() || 'DIAGNÓSTICO DO COMPONENTE';
+      }
       repairSession.mount?.(document.getElementById('repairContent'));
     }
     repairSession.update(dt * (component.infected?.65:1), {keys});
@@ -990,6 +1051,8 @@
   }
 
   function awardExperience(amount, reason) {
+    experience.pop('+'+amount+' XP',player.x+player.width/2,player.y-8,'#ffe097');
+    ui.xpBar.parentElement.classList.remove('xp-gain');void ui.xpBar.parentElement.offsetWidth;ui.xpBar.parentElement.classList.add('xp-gain');
     xp += amount;
     interactionMessage = '+' + amount + ' XP // ' + reason.toUpperCase();
     interactionMessageTimer = 1.4;
@@ -1123,6 +1186,8 @@
     addLog((skill ? 'Habilidade aprimorada: ' : 'Habilidade adquirida: ') + ability.name + ' nível ' + targetLevel + '.');
     interactionMessage = 'HABILIDADE ATIVA // ' + ability.name.toUpperCase() + ' NV. ' + targetLevel;
     interactionMessageTimer = 2;
+    notifyExperience('HABILIDADE ATIVA · '+ability.name+' · NÍVEL '+targetLevel);
+    experience.impact(player.x+17,player.y+24,true,'#c3a1ff');
     saveCampaign();
     playSound('level');
     running = true;
@@ -1139,6 +1204,7 @@
   }
 
   function fireProjectile() {
+    shotPose=.18;
     projectiles.push({
       x: player.facing > 0 ? player.x + player.width + 5 : player.x - 5,
       y: player.y + 22,
@@ -1160,6 +1226,7 @@
     const incomingDamage = Number.isFinite(amount) ? Math.max(0, amount) : 0;
     const appliedDamage = Math.max(1, Math.ceil(incomingDamage * (1 - armor)));
     player.health = Math.max(0, player.health - appliedDamage);
+    experience.impact(player.x+17,player.y+22,appliedDamage>=16,'#ff9a9a');
     emitParticles(player.x + player.width / 2, player.y + 22, '#ff716e', 16);
     playSound('damage');
     damageCooldown = PLAYER_HIT_INVULNERABILITY;
@@ -1215,7 +1282,8 @@
         checkpointY = Number.isFinite(pointY) ? pointY : null;
         interactionMessage = 'CHECKPOINT ATIVADO';
         emitParticles(pointX + 12, (pointY ?? floorY()) - 22, '#74e8ff', 16);
-        playSound('repair');
+        playSound('checkpoint');
+        experience.pop('CHECKPOINT',pointX+12,(pointY ?? floorY())-40,'#a6ddff');
         interactionMessageTimer = 1.8;
         addLog('Checkpoint ativado.');
         saveCampaign();
@@ -1375,7 +1443,7 @@
       startButton.innerHTML = 'NOVA CAMPANHA <span>→</span>';
       ui.stage.textContent = 'CAMPANHA CONCLUÍDA';
       addLog('VIRUS ZERO neutralizado. Campanha concluída com sucesso!');
-      playSound('level');
+      playSound('victory');
       emitParticles(player.x + player.width / 2, player.y, '#ffd36e', 35);
       emitParticles(player.x + player.width / 2, player.y, '#74e8ff', 35);
     } else {
@@ -1385,6 +1453,7 @@
       startButton.innerHTML = 'ACESSAR FASE ' + String(phaseIndex + 2).padStart(2, '0') + ' <span>→</span>';
       ui.stage.textContent = 'PRÓXIMA FASE LIBERADA';
       addLog('Fase concluída. ' + PHASES[phaseIndex + 1].name + ' liberada.');
+      playSound('victory');
     }
     overlay.classList.remove('hidden');
     draw();
@@ -1449,6 +1518,7 @@
 
   function triggerVirusZeroAttack(virus, playerCenterX, playerCenterY) {
     playSound('bossImpact');virus.attackFlash=.25;
+    experience.impact(virus.x,bossGroundY(virus)-8,true,'#ff759b');
     const stage = virus.bossStage || 1;
     const kind = virus.bossAttackKind;
     const horizontalDistance = Math.abs(playerCenterX - virus.x);
@@ -1488,6 +1558,8 @@
     if(region&&(playerCenterX<region.x||playerCenterX>region.x+region.width||playerCenterY<region.y||playerCenterY>region.y+region.height))return;
     const stage = virus.hp <= virus.maxHp*.34+1e-6 ? 3 : virus.hp <= virus.maxHp*.67+1e-6 ? 2 : 1;
     if (stage !== virus.bossStage) {
+      experience.impact(virus.x,virus.y,true,stage===3?'#ffd36e':'#c79aff');
+      experience.pop('NÚCLEO · ETAPA '+stage,virus.x,virus.y-virus.radius-30,'#ffd6a0');
       virus.bossStage = stage;
       playSound('bossTransition');
       virus.attackWindup=0;virus.chargeTime=0;virus.vulnerableTime=0;virus.bossPatternIndex=0;virus.bossCycleCooldown=0;virus.bossPhaseTransitionTime=.6;virus.summonWindup=0;
@@ -1557,7 +1629,10 @@
     if(virus.multiStage) {
       for(const threshold of [virus.maxHp*.67,virus.maxHp*.34])if(virus.hp>threshold+1e-6&&nextHp<threshold){nextHp=threshold;break;}
     }
+    const applied=virus.hp-nextHp;
     virus.hp=nextHp;
+    experience.impact(virus.x,virus.y,bossWeakPoint || applied>=4,virus.color || '#c078ff');
+    experience.pop((bossWeakPoint?'CRÍTICO ':'')+'−'+Math.round(applied),virus.x,virus.y-virus.radius-10,bossWeakPoint?'#ffda81':'#e1fff3');
     virus.hitFlash = .12;
     emitParticles(virus.x, virus.y, virus.color || '#c078ff', virus.type === 'boss' ? 10 : 6);
     playSound('hit');
@@ -1566,6 +1641,7 @@
     virus.deathAt=animationTime;playSound('enemyDeath');
     levelRuntime.emit('enemyDefeated',virus);
     if (virus.multiStage) {
+      experience.impact(virus.x,virus.y,true,'#a9fff2');
       enemyProjectiles = enemyProjectiles.filter(shot => !shot.bossOwned);
       enemyObstacles = enemyObstacles.filter(obstacle => !obstacle.bossOwned);
       viruses.forEach(enemy => { if (enemy.summonedBy === virus.id) enemy.alive = false; });
@@ -1815,8 +1891,12 @@
   }
 
   function update(dt) {
+    if(phaseIntroTime>0) {
+      phaseIntroTime=Math.max(0,phaseIntroTime-dt);if(phaseIntroTime===0)endPhaseIntro();return;
+    }
+    if(!repairSession && keys.has('e') && findNearbyComponent()) updateRepair(0);
     if (repairSession?.blocksWorld) {
-      updateRepair(dt); updateEffects(dt); return;
+      updateRepair(dt); return;
     }
     levelRuntime.update(dt,{keys,repairNearby:Boolean(findNearbyComponent())});
     advancePlatformMotion(dt);
@@ -1827,16 +1907,12 @@
     updateRepair(dt);
     updateCollectibles(dt);
     checkObjectives();
-    // Camera easing keeps R-07 near the left-center of the viewport as the map scrolls.
-    const cameraTarget = phaseData.map.camera.axes.includes('x')
-      ? Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX)) : 0;
-    cameraX += (cameraTarget - cameraX) * Math.min(1, dt * 7);
-    if (Math.abs(cameraTarget - cameraX) < .5) cameraX = cameraTarget;
-    const cameraTargetY = phaseData.map.camera.axes.includes('y')
-      ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
-    cameraY += (cameraTargetY - cameraY) * Math.min(1, dt * 7);
-    if (Math.abs(cameraTargetY - cameraY) < .5) cameraY = cameraTargetY;
-    updateHud();
+    const follow=experience.camera(player,{x:cameraX,y:cameraY,width,height},{width:worldWidth(),height:worldHeight(),axes:phaseData.map.camera.axes,offsetX:phaseData.map.camera.followOffsetX,offsetY:phaseData.map.camera.followOffsetY},dt);
+    cameraX=follow.x;cameraY=follow.y;
+    landingSpring=Math.max(0,landingSpring-dt);shotPose=Math.max(0,shotPose-dt);
+    experience.update(dt);pacing?.update(dt);
+    noticeTime=Math.max(0,noticeTime-dt);if(noticeTime===0)document.getElementById('experienceNotice').classList.remove('visible');
+    hudTimer+=dt;if(hudTimer>=.05){hudTimer=0;updateHud();}
     updateComponents(dt);
     updateEffects(dt);
     saveTimer += dt;
@@ -2234,7 +2310,7 @@
         ctx.fillStyle = '#ffd19a';
         ctx.font = 'bold 9px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText(component.repair?.type && component.repair.type !== 'hold' ? 'E // REPARAR' : 'SEGURE E', cx, component.y - 11);
+        ctx.fillText('E // DIAGNÓSTICO', cx, component.y - 11);
         if (repairTarget === component && repairProgress > 0) {
           ctx.fillStyle = 'rgba(15, 26, 33, .95)';
           ctx.fillRect(cx - 18, component.y - 7, 36, 4);
@@ -2529,10 +2605,16 @@
     if(deathEcho && animationTime-deathEcho.start<.7) {
       levelVisuals.sprite(ctx,{asset:'r07',animation:'death',instance:'death-echo'}, {x:deathEcho.x-8,y:deathEcho.y,width:player.width+16,height:player.height},animationTime);
     }
-    const state=damageCooldown>.7?'hit':repairTarget?'repair':attackCooldown>.15?'attack':!player.grounded?(player.vy<0?'jump':'fall'):Math.abs(player.vx)>1?'run':'idle';
+    const state=damageCooldown>.7?'hit':repairTarget?'repair':shotPose>0?'attack':!player.grounded?(player.vy<0?'jump':'fall'):Math.abs(player.vx)>1?'run':'idle';
     ctx.save();
     if(damageCooldown>0 && Math.floor(animationTime*16)%2===0)ctx.globalAlpha=.45;
-    const rendered=levelVisuals.sprite(ctx,{asset:'r07',...phaseData.playerVisual,instance:'player',flipX:player.facing<0}, {x:player.x-7,y:player.y-1,width:player.width+14,height:player.height+2},animationTime,state);
+    const interpolate=previousRenderPlayer && !repairSession && phaseIntroTime===0 && Math.hypot(previousRenderPlayer.x-player.x,previousRenderPlayer.y-player.y)<50;
+    const px=interpolate?previousRenderPlayer.x+(player.x-previousRenderPlayer.x)*renderAlpha:player.x;
+    const py=interpolate?previousRenderPlayer.y+(player.y-previousRenderPlayer.y)*renderAlpha:player.y;
+    const stretch=experience.settings.reducedEffects?1:player.grounded?1-landingSpring*.7:player.vy<0?1.035:.985;
+    const bodyHeight=(player.height+2)*stretch,bodyWidth=(player.width+14)/stretch;
+    const recoil=experience.settings.reducedEffects?0:shotPose>.12?-player.facing*2:0;
+    const rendered=levelVisuals.sprite(ctx,{asset:'r07',...phaseData.playerVisual,instance:'player',subpixel:true,flipX:player.facing<0}, {x:px+player.width/2-bodyWidth/2+recoil,y:py+player.height-bodyHeight,width:bodyWidth,height:bodyHeight},animationTime,state);
     ctx.restore();
     if(rendered) {
       if(player.shieldTime>0)levelVisuals.sprite(ctx,{asset:'fx',animation:'shield'}, {x:player.x-14,y:player.y-10,width:player.width+28,height:player.height+20},animationTime);
@@ -2638,6 +2720,10 @@
   }
 
   function draw() {
+    const activeBoss=viruses.find(v=>v.multiStage&&v.alive&&player.x+17>=v.bossBounds.left-120&&(!v.activationRegion || (player.y+24>=v.activationRegion.y && player.y+24<=v.activationRegion.y+v.activationRegion.height)));
+    experience.audio(audioContext,phaseIndex,soundEnabled&&running&&!repairSession?.blocksWorld&&!document.getElementById('settingsDialog').open,activeBoss?.bossStage || 0);
+    const shake=experience.offset();
+    ctx.save();ctx.translate(shake.x,shake.y);
     drawBackground();
     const view={x:cameraX,y:cameraY,width,height,runtime:levelRuntime};
     levelVisuals.layers(ctx,'background',view,animationTime);
@@ -2673,14 +2759,17 @@
     }
     drawComponents();
     drawCollectibles();
+    pacing?.draw(ctx,animationTime,levelVisuals,view);
     drawViruses();
     drawProjectiles();
     drawEffects();
     drawRobot();
+    experience.draw(ctx);
     ctx.restore();
     levelVisuals.layers(ctx,'foreground',view,animationTime);
     ByteRunner.art.atmosphere(ctx,view,animationTime,phaseData.palette[2]);
-    if(animationTime<.65) {ctx.fillStyle='rgba(7,11,29,'+(.7*(1-animationTime/.65))+')';ctx.fillRect(0,0,width,height);}
+    ctx.restore();
+    if(animationTime<.65 && phaseIntroTime===0) {ctx.fillStyle='rgba(7,11,29,'+(.7*(1-animationTime/.65))+')';ctx.fillRect(0,0,width,height);}
     const environment=levelRuntime.modifiers();
     if (environment.label) {ctx.fillStyle='#d5c5ff';ctx.font='bold 11px monospace';ctx.fillText(environment.label,12,height-28);}
     if (phaseData.map.sections?.length) {
@@ -2721,14 +2810,19 @@
 
   function frame(timestamp) {
     if (!running) return;
-    const dt = Math.min((timestamp - lastFrame) / 1000 || 0, 1 / 30);
+    const dt = Math.min(Math.max(0,(timestamp - lastFrame) / 1000 || 0), 1 / 15);
     lastFrame = timestamp;
-    update(dt);
+    frameAccumulator+=dt;
+    for(let step=0;frameAccumulator>=1/120 && step<8 && running;step++) {
+      previousRenderPlayer={x:player.x,y:player.y};
+      update(1/120);frameAccumulator=Math.max(0,frameAccumulator-1/120);
+    }
+    renderAlpha=Math.min(1,frameAccumulator*120);
     draw();
     if (running) requestAnimationFrame(frame);
   }
 
-  function launchLoadedPhase() {
+  function launchLoadedPhase(showIntro = true) {
     paused = false;
     menuScreen = false;
     phaseTransition = false;
@@ -2739,6 +2833,8 @@
     overlay.classList.add('hidden');
     ui.stage.textContent = 'FASE ' + String(phaseIndex + 1).padStart(2, '0') + ' // EM ANDAMENTO';
     addLog('Iniciada: ' + phaseData.name + '.');
+    if(showIntro)beginPhaseIntro();
+    playSound('start');frameAccumulator=0;previousRenderPlayer=null;
     lastFrame = performance.now();
     requestAnimationFrame(frame);
     saveCampaign();
@@ -2748,6 +2844,7 @@
     if (!running) return;
     keys.clear();
     running = false;
+    frameAccumulator=0;previousRenderPlayer=null;
     paused = true;
     document.querySelector('.game-shell').classList.remove('playing');
     saveCampaign();
@@ -2782,10 +2879,24 @@
   });
   continueButton.addEventListener('click', continueCampaign);
   soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled));
+  document.getElementById('skipIntro').addEventListener('click',endPhaseIntro);
+  experience.mountSettings(()=>{if(running)pause();},resize);
   document.getElementById('cancelRepairButton').addEventListener('click', () => {cancelRepair();keys.clear();draw();});
+  document.getElementById('repairPauseButton').addEventListener('click', pause);
 
   window.addEventListener('keydown', event => {
     const key = event.key.toLowerCase();
+    if(document.getElementById('settingsDialog').open)return;
+    if(phaseIntroTime>0 && running) {
+      if(key==='escape')pause();
+      else if(key==='enter'||key===' '){event.preventDefault();endPhaseIntro();}
+      return;
+    }
+    if(repairSession?.blocksWorld && running) {
+      if(key==='escape'){event.preventDefault();pause();return;}
+      if(repairSession.handleKey){repairSession.handleKey(event);return;}
+    }
+    if(key==='e' && event.repeat)return;
     if ([' ', 'arrowup', 'arrowleft', 'arrowright'].includes(key)) event.preventDefault();
     if (['w', 'arrowup', ' '].includes(key) && !keys.has(key)) jumpQueued = true;
     if (key === 'e' && !keys.has(key) && running && !findNearbyComponent()) {
@@ -2793,6 +2904,7 @@
       interactionMessageTimer = 1.2;
     }
     keys.add(key);
+    if(key==='e' && running && findNearbyComponent())updateRepair(0);
     if (key === 'escape') pause();
   });
   window.addEventListener('keyup', event => {
@@ -2802,7 +2914,7 @@
   });
   window.addEventListener('blur', () => keys.clear());
   window.addEventListener('pagehide', saveCampaign);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) saveCampaign(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) {if(running)pause();experience.silence(audioContext);saveCampaign();} });
 
   resetCampaign();
   resize();

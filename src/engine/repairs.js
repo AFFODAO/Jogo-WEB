@@ -23,7 +23,7 @@
       if (this.progress >= 1) this.status = 'success';
     }
   }));
-  // Opt-in example: future maps can replace it with wiring, routing or packet games.
+  // Legacy sequence extension. Campaign diagnostics live in repair-games.js.
   api.repairs.register('sequence', spec => ({
     blocksWorld:true, index:0, previous:new Set(['e']),
     update(dt,input) {

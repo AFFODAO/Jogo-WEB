@@ -14,9 +14,9 @@ def sheet(name, states, painter, size=32):
             def r(x,y,w,h,c):rect(f*size+int(x),row*size+int(y),int(w),int(h),c)
             painter(r,state,f)
     (OUT/(name+'.svg')).write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="{size*6}" height="{size*len(states)}" shape-rendering="crispEdges">'+''.join(rects)+'</svg>',encoding='utf-8')
-    manifest.append(dict(id=name,src=f'assets/sprites/{name}.svg',frameWidth=size,frameHeight=size,columns=6,animations={s:dict(frames=list(range(i*6,i*6+6)),fps=10 if s=='run' else 8,loop=s not in ['death','explosion']) for i,s in enumerate(states)}))
+    manifest.append(dict(id=name,src=f'assets/sprites/{name}.svg',frameWidth=size,frameHeight=size,columns=6,animations={s:dict(frames=list(range(i*6,i*6+6)),fps=(30 if s=='attack' else 14 if s=='run' else 12 if s in ['jump','fall'] else 8) if name=='r07' else 8,loop=s not in ['death','explosion']) for i,s in enumerate(states)}))
 def robot(r,s,f):
-    b=1 if s=='idle' and f>2 else 0
+    b=1 if s=='idle' and f>2 else round(math.sin(f*math.pi/3)) if s in ['run','jump','fall'] else -1 if s=='attack' and f<2 else 0
     if s=='death':
         for i in range(9):r(14+(i%3-1)*(3+f),14+(i//3-1)*(3+f),3,3,['#5cf7da','#eefaff','#4f6987'][i%3])
         return
@@ -24,14 +24,15 @@ def robot(r,s,f):
     step=round(math.sin(f*math.pi/3)*3) if s=='run' else 0
     r(7,12+b,7,12,'#172337');r(6,14+b,3,8,'#485b79')
     for x,d in [(11,step),(20,-step)]:
-        y=23+(2 if s=='jump' else -2 if s=='fall' else 0)
+        y=23+(round(2+math.sin(f*math.pi/6)*2) if s=='jump' else -2+f//3 if s=='fall' else 0)
         r(x+d,y,4,6,'#101b2c');r(x+d,y,2,5,'#65849d');r(x+d-1,29 if s not in ['jump','fall'] else 27,6,2,light)
     r(9,11+b,16,13,'#101a2b');r(10,12+b,14,10,'#47627a');r(11,12+b,12,3,'#c4e3e8');r(13,17+b,8,4,'#173b4c');r(14,17+b,6,2,'#45eacb')
     r(9,3+b,17,11,'#0a1020');r(10,2+b,14,3,'#e3f6ed');r(10,5+b,15,7,'#748ca3');r(12,6+b,14,5,'#122638');r(15,7+b,10,2,light);r(23,8+b,3,2,'#fff4ae');r(8,6+b,3,5,'#3adbc6')
     r(23,14+b,4,7,'#9bb8c8');r(25,17+b,4,4,'#284356')
     if s in ['attack','repair']:
-        r(24,15,7,4,'#6886a1');r(28,16,4,2,light)
-        if f%2:r(30,10 if s=='repair' else 14,2,3,'#ffcb73')
+        recoil=-2 if s=='attack' and f<2 else 0
+        r(24+recoil,15,7,4,'#6886a1');r(28+recoil,16,4,2,light)
+        if f%2 or (s=='attack' and f<2):r(30,10 if s=='repair' else 14,2,3,'#ffcb73')
 sheet('r07',['idle','run','jump','fall','attack','hit','repair','death'],robot)
 colors={'basic':'#b58aff','fast':'#ff965d','armored':'#83baff','flyer':'#63edff','shooter':'#ffce68','parasite':'#8af779','boss':'#ff5388'}
 for kind,col in colors.items():

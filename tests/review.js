@@ -115,7 +115,7 @@ for(let i=0;i<10;i++) {
         const n=reachable.find(n=>Math.abs(c.y+c.height/2-(n.y+player.height/2))<=78 && n.z+player.width/2>=c.x+c.width/2-76 && n.a+player.width/2<=c.x+c.width/2+76);
         if(!n) continue;
         player.x=Math.max(n.a,Math.min(n.z,c.x));player.y=n.y;keys.add('e');
-        for(let t=0;t<60;t++) updateRepair(1/60);
+        updateRepair(0);assert(repairSession?.model,'component minigame unavailable');solveRepairUI();updateRepair(.6);
         keys.clear();assert(c.repaired,'repair interaction failed'); changed=true;
       }
       for(const interactive of phaseData.entities.interactives) {
@@ -224,7 +224,7 @@ test('resize and particle budget',()=>{
   setup(9);const viewportMap=ByteRunner.maps.clone(PHASES[0]);viewportMap.id='test-viewport';viewportMap.map.height='viewport';delete viewportMap.map.ground;viewportMap.map.start={x:70,anchor:'floor',offset:0};loadMap(viewportMap,true);player.x=70;player.y=floorY()-player.height;const y=player.y,oldFloor=floorY();
   canvas.style.height='400px';resize();assert(Math.abs(player.y-y-(floorY()-oldFloor))<1,'floor resize drift');draw();
   setup(5);const verticalY=player.y;canvas.style.height='460px';resize();assert(player.y===verticalY,'vertical map resized');draw();
-  effects=[];for(let i=0;i<100;i++)emitParticles(50,50,'white',35);assert(effects.length===240,'unbounded particles');
+  effects=[];for(let i=0;i<100;i++)emitParticles(50,50,'white',35);assert(effects.length===160,'unbounded particles');
   canvas.style.height='';resize();
 });
 test('frame rate independent jump',()=>{

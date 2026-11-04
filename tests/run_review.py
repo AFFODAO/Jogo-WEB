@@ -22,6 +22,8 @@ def main():
     architecture += '\n'+(ROOT/'tests/last-five.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/enemies.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/art.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/repairs.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/experience.js').read_text(encoding='utf-8')
     baseline = (ROOT/'tests/map-baseline.json').read_text(encoding='utf-8')
     fixture = (ROOT/'tests/fixtures/room-map.json').read_text(encoding='utf-8')
     first_five = (ROOT/'tests/fixtures/first-five-v2.json').read_text(encoding='utf-8')

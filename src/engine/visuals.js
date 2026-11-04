@@ -41,7 +41,7 @@
           const fw=asset.frameWidth || image.width, fh=asset.frameHeight || image.height;
           const columns=asset.columns || Math.max(1,Math.floor(image.width/fw));
           ctx.save();
-          ctx.translate(Math.round(box.x+(visual.offsetX || 0)),Math.round(box.y+(visual.offsetY || 0)));
+          ctx.translate(visual.subpixel?box.x+(visual.offsetX || 0):Math.round(box.x+(visual.offsetX || 0)),visual.subpixel?box.y+(visual.offsetY || 0):Math.round(box.y+(visual.offsetY || 0)));
           if (visual.flipX) {ctx.translate(box.width,0);ctx.scale(-1,1);}
           ctx.imageSmoothingEnabled=visual.smoothing === true;
           ctx.drawImage(image,(frame%columns)*fw,Math.floor(frame/columns)*fh,fw,fh,0,0,box.width,box.height);

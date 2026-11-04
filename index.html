@@ -12,7 +12,7 @@
     <header class="topbar">
       <a class="brand" href="#" aria-label="BYTE RUNNER"><span class="brand-icon">⌘</span><span>BYTE<span class="brand-dim">RUNNER</span></span></a>
       <div class="system-status"><span class="status-dot"></span> SISTEMA <b>INFECTADO</b></div>
-      <div class="top-right"><button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true">SOM: LIGADO</button><span class="chip" id="sectorChip">FASE 01 / 10</span><span class="version">v.2.04</span></div>
+      <div class="top-right"><button class="sound-toggle" id="settingsButton" type="button">OPÇÕES</button><button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true">SOM: LIGADO</button><span class="chip" id="sectorChip">FASE 01 / 10</span><span class="version">v.2.04</span></div>
     </header>
 
     <section class="game-layout">
@@ -29,7 +29,7 @@
         <div class="objective"><span class="objective-dot warning"></span><span>VÍRUS DERROTADOS</span><b id="defeatedCount">00</b></div>
         <div class="objective"><span class="objective-dot"></span><span>COMPONENTES REPARADOS</span><b id="repairCount">00 / 05</b></div>
         <div class="objective"><span class="objective-dot warning"></span><span>SAÍDA</span><b id="gateState">BLOQUEADA</b></div>
-        <div class="tip-card"><span class="tip-icon">✦</span><div><b>DICA DO SISTEMA</b><p>Pule sobre obstáculos. Use J para atacar e segure E para reparar.</p></div></div>
+        <div class="tip-card"><span class="tip-icon">✦</span><div><b>DICA DO SISTEMA</b><p>Use J para atacar. Perto de um componente, aperte E para abrir o diagnóstico. O mundo fica pausado durante o desafio.</p></div></div>
       </aside>
 
       <section class="center-stage">
@@ -38,19 +38,20 @@
           <canvas id="game" aria-label="Plataforma 2D. Use A e D ou as setas para andar, W, seta para cima ou espaço para pular, J para atacar e E para reparar."></canvas>
           <div class="scanline"></div>
           <div class="stage-corner top-left"></div><div class="stage-corner top-right"></div><div class="stage-corner bottom-left"></div><div class="stage-corner bottom-right"></div>
-          <div class="overlay" id="overlay"><div class="overlay-card"><div class="overlay-emblem hero-robot" aria-label="Robô R-07"></div><div class="eyebrow">R-07 // PROTOCOLO DE RESTAURAÇÃO</div><h2 id="overlayTitle">BYTE <span>RUNNER</span></h2><p id="overlayText">Derrote os vírus e repare os componentes corrompidos pelo caminho.</p><div class="instructions"><span><kbd>A</kbd><kbd>D</kbd> ou <kbd>←</kbd><kbd>→</kbd><small>ANDAR</small></span><span><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>ESPAÇO</kbd><small>PULAR</small></span><span><kbd>J</kbd><small>ATACAR</small></span><span><kbd>E</kbd><small>SEGURAR PARA REPARAR</small></span></div><button id="startButton">INICIAR MISSÃO <span>→</span></button><small class="overlay-note">UNIDADE R-07 · SETOR DE TREINO</small></div></div>
+          <div class="overlay" id="overlay"><div class="overlay-card"><div class="overlay-emblem hero-robot" aria-label="Robô R-07"></div><div class="eyebrow">R-07 // PROTOCOLO DE RESTAURAÇÃO</div><h2 id="overlayTitle">BYTE <span>RUNNER</span></h2><p id="overlayText">Derrote os vírus e repare os componentes corrompidos pelo caminho.</p><div class="instructions"><span><kbd>A</kbd><kbd>D</kbd> ou <kbd>←</kbd><kbd>→</kbd><small>ANDAR</small></span><span><kbd>W</kbd> / <kbd>↑</kbd> / <kbd>ESPAÇO</kbd><small>PULAR</small></span><span><kbd>J</kbd><small>ATACAR</small></span><span><kbd>E</kbd><small>ABRIR DIAGNÓSTICO</small></span></div><button id="startButton">INICIAR MISSÃO <span>→</span></button><small class="overlay-note">UNIDADE R-07 · SETOR DE TREINO</small></div></div>
           <div class="level-overlay" id="levelOverlay" aria-live="polite"></div>
+          <div class="phase-intro" id="phaseIntro" hidden><div><span id="introSector" class="eyebrow"></span><h2 id="introTitle"></h2><p id="introMission"></p><small id="introLesson"></small><button id="skipIntro" type="button">EXPLORAR AGORA · ENTER</button></div></div>
+          <div class="experience-notice" id="experienceNotice" role="status" aria-live="polite"></div>
           <div class="question-overlay" id="questionOverlay" aria-live="polite"></div>
-          <section class="repair-panel" id="repairPanel" hidden aria-label="Minigame de reparo" aria-live="polite">
+          <section class="repair-panel" id="repairPanel" hidden role="dialog" aria-modal="true" aria-labelledby="repairPrompt">
             <strong>REPARO DO SISTEMA</strong>
             <p id="repairPrompt"></p>
             <div id="repairContent"></div>
-            <small>Use as teclas indicadas. ESC pausa o jogo.</small>
-            <button id="cancelRepairButton" type="button">CANCELAR REPARO</button>
+            <div class="repair-footer"><button id="repairPauseButton" type="button">PAUSAR</button><button id="cancelRepairButton" type="button">FECHAR DIAGNÓSTICO</button></div>
           </section>
           <div class="touch-controls" id="touchControls" aria-label="Controles por toque">
             <div class="touch-movement"><button type="button" data-touch="a" aria-label="Mover para a esquerda">◀</button><button type="button" data-touch="d" aria-label="Mover para a direita">▶</button></div>
-            <div class="touch-actions"><button type="button" data-touch="w" aria-label="Pular">PULAR</button><button type="button" data-touch="j" aria-label="Atacar">ATACAR</button><button type="button" data-touch="e" aria-label="Segurar para reparar">REPARAR</button><button type="button" data-action="pause" aria-label="Pausar">Ⅱ</button></div>
+            <div class="touch-actions"><button type="button" data-touch="w" aria-label="Pular">PULAR</button><button type="button" data-touch="j" aria-label="Atacar">ATACAR</button><button type="button" data-touch="e" aria-label="Abrir diagnóstico do componente">REPARAR</button><button type="button" data-action="pause" aria-label="Pausar">Ⅱ</button></div>
           </div>
         </div>
         <div class="stage-footer"><span><i class="footer-dot"></i> CONEXÃO ESTÁVEL</span><span id="stageLabel">AGUARDANDO INÍCIO</span><span>FASE <b id="phaseFooter">01 / 10</b></span></div>
@@ -73,15 +74,19 @@
     </section>
     <footer class="bottom-bar"><span>BYTE RUNNER <i>© 2025</i></span><span>FEITO PARA PROTEGER. PROGRAMADO PARA SOBREVIVER.</span><span>BUILD <b>R-07.042</b></span></footer>
   </main>
+  <dialog id="settingsDialog" class="settings-dialog" aria-labelledby="settingsTitle"><h2 id="settingsTitle">ÁUDIO E CONFORTO</h2><p>Ajustes salvos neste navegador. Feche e continue pelo menu de pausa.</p><label>Volume geral <output></output><input type="range" min="0" max="100" data-setting="volume" aria-label="Volume geral"></label><label>Efeitos sonoros <output></output><input type="range" min="0" max="100" data-setting="sfx" aria-label="Volume dos efeitos"></label><label>Ambientação original <output></output><input type="range" min="0" max="100" data-setting="music" aria-label="Volume da ambientação"></label><label class="setting-check"><input type="checkbox" data-setting="reducedEffects"> Reduzir partículas, brilhos e animações decorativas</label><label class="setting-check"><input type="checkbox" data-setting="shake"> Pequeno tremor em impactos fortes</label><small>Os avisos de perigo, escudos e pontos fracos continuam visíveis.</small><button id="closeSettings" type="button">FECHAR OPÇÕES</button></dialog>
   <script src="src/engine/maps.js"></script>
+  <script src="src/engine/experience.js"></script>
   <script src="src/engine/level-runtime.js"></script>
   <script src="src/engine/repairs.js"></script>
+  <script src="src/engine/repair-games.js"></script>
   <script src="src/engine/art-manifest.js"></script>
   <script src="src/engine/art.js"></script>
   <script src="src/engine/visuals.js"></script>
   <script src="src/engine/enemies.js"></script>
   <script src="src/content/first-five.js"></script>
   <script src="src/content/last-five.js"></script>
+  <script src="src/content/pacing.js"></script>
   <script src="src/maps/01-hardware.js"></script>
   <script src="src/maps/02-software.js"></script>
   <script src="src/maps/03-switch.js"></script>

@@ -510,14 +510,25 @@
     "enemies: packet hijacker captures at most one shot per preparation": "PASS",
     "enemies: defeats grant XP exactly once and minions have safe capped spawns": "PASS",
     "enemies: moving supports carry enemies and disappearing floors cause a safe fall": "PASS",
-    "enemies: infection slows actual repair and Wi-Fi hits briefly slow movement": "PASS",
+    "enemies: legacy hold infection slowdown and Wi-Fi hit interference remain supported": "PASS",
     "enemies: summon limits and file fork survive campaign resume": "PASS",
     "enemies: VIRUS ZERO interleaves final charges and warns before summoning": "PASS",
     "enemies: synthesized attack sounds use distinct oscillator settings": "PASS",
     "enemies: attack and death visual states render in the real canvas": "PASS",
     "art: all 22 local atlases decode and every animation paints pixels": "PASS",
     "art: failed image returns fallback signal": "PASS",
-    "art: robot actions and shield draw without changing gameplay": "PASS"
+    "art: robot actions and shield draw without changing gameplay": "PASS",
+    "repairs: all campaign components have solvable modal challenges and persist once": "PASS",
+    "repairs: keyboard tap opens immediately and freezes movement, combat and timers": "PASS",
+    "repairs: failure penalizes once, retry varies, cancel does not repair": "PASS",
+    "repairs: skill supplies hints and tolerance without solving the challenge": "PASS",
+    "repairs: generated variations remain solvable across all ten types": "PASS",
+    "experience: reduced effects persist, bound particles and suppress shake": "PASS",
+    "experience: intro freezes the world, can be skipped and settings pause safely": "PASS",
+    "experience: camera anticipation and vertical safety stay inside all map bounds": "PASS",
+    "experience: fixed simulation gives consistent travel at 30, 60 and 144 Hz": "PASS",
+    "experience: optional caches have clear support, are reachable and save once": "PASS",
+    "experience: original ambience differs across phases and schedules bounded voices": "PASS"
   },
   "errors": []
 }

@@ -2,6 +2,10 @@
 
 Repaginação **Midnight Circuit**: 22 atlas originais em pixel art, animações no Canvas, tiles por fase, paralaxe e interface renovada. Consulte [recursos, geração e integração](docs/art-direction.md).
 
+**Reparos interativos:** aperte E perto de um componente para abrir o diagnóstico da fase. O mundo fica pausado durante o desafio. Veja [minigames, controles, habilidade e salvamento](docs/repair-minigames.md).
+
+**Fluidez e conforto:** câmera com antecipação, impactos, ambientações originais por fase, introduções puláveis, caches opcionais e opções de volume/efeitos. Veja [integração, ritmo e limites de desempenho](docs/experience-polish.md).
+
 Jogo de plataforma 2D sobre informática e redes, com dez fases, combate, reparos, perguntas, XP, habilidades e campanha salva no navegador.
 
 Abra `index.html` em um navegador moderno. Não é necessário instalar pacotes ou compilar o projeto. Os arquivos usam módulos de navegador com scripts clássicos e o namespace `ByteRunner`, preservando a abertura local por `file://` e a hospedagem estática.
@@ -10,7 +14,7 @@ Abra `index.html` em um navegador moderno. Não é necessário instalar pacotes 
 
 As dez fases foram reconstruídas com plantas independentes. A primeira metade inclui placa-mãe, salas do sistema operacional, switch ramificado, túneis de roteamento e subida por sinais Wi-Fi. A segunda traz um prédio com shafts, setores DHCP, labirinto de domínios DNS, fortaleza de segurança e um data center com arena elevada. As dez fases continuam na campanha.
 
-Consulte [os novos percursos, efeitos dos reparos e imagens completas](docs/first-five.md). E mantém o reparo por tecla segurada e também ativa portas/interfaces por proximidade. O minimapa das fases reconstruídas mostra sua geometria real.
+Consulte [os novos percursos, efeitos dos reparos e imagens completas](docs/first-five.md). E abre o diagnóstico do componente e também ativa portas/interfaces por proximidade. O minimapa das fases reconstruídas mostra sua geometria real.
 
 Os percursos e diferenças das fases 6–10 estão em [docs/last-five.md](docs/last-five.md). Os padrões preservados e as melhorias do chefe estão em [FASE10.md](tests/FASE10.md).
 
@@ -21,7 +25,7 @@ Os percursos e diferenças das fases 6–10 estão em [docs/last-five.md](docs/l
 | `src/engine/maps.js` | Registro, validação e congelamento das definições. |
 | `src/engine/level-runtime.js` | Estado isolado da fase, condições, objetivos, interativos, mecânicas e comportamentos de inimigos registrados. |
 | `src/engine/visuals.js` | Assets, spritesheets, animações por estado, camadas, paralaxe e renderizadores de efeitos. |
-| `src/engine/repairs.js` | Registro e ciclo de vida de minigames; reparo por tecla mantida e exemplo opcional por sequência. |
+| `src/engine/repairs.js`, `src/engine/repair-games.js` | Registro, ciclo de vida e dez tipos de diagnósticos interativos, com tentativas, dicas e controles acessíveis. |
 | `game.js` | Física, combate, câmera, HUD, XP, habilidades, perguntas e coordenação dos serviços da fase. |
 | `index.html`, `style.css` | Interface, ordem de carregamento dos módulos e painel compartilhado dos reparos. |
 | `tools/` | Ferramentas Python sem bibliotecas externas para importar e auditar mapas. |

@@ -95,8 +95,8 @@ test('enemies: moving supports carry enemies and disappearing floors cause a saf
   h.tick(10);assert(h.e.y>356&&h.e.animationState==='fall','enemy hovered after floor disappeared');
   h.tick(60);assert(Math.abs(h.e.baseY-576)<.1,'enemy failed to land on lower floor');
 });
-test('enemies: infection slows actual repair and Wi-Fi hits briefly slow movement',()=>{
-  setup(2);const c=components[0];player.x=c.x;player.y=c.y-4;keys.add('e');
+test('enemies: legacy hold infection slowdown and Wi-Fi hit interference remain supported',()=>{
+  setup(2);const c=components[0];c.repair={type:'hold'};player.x=c.x;player.y=c.y-4;keys.add('e');
   updateRepair(.2);const normal=repairSession.progress;cancelRepair();c.infected=true;updateRepair(.2);
   assert(repairSession.progress<normal&&repairSession.progress>0,'infection does not affect actual repair');cancelRepair();keys.clear();
   setup(4);damageCooldown=0;player.shieldTime=0;
@@ -123,14 +123,14 @@ test('enemies: VIRUS ZERO interleaves final charges and warns before summoning',
   updateVirusZero(b,.41,player.x+17,player.y+24);assert(viruses.length===count+1,'announced boss summon failed');
 });
 test('enemies: synthesized attack sounds use distinct oscillator settings',()=>{
-  const previous=audioContext,enabled=soundEnabled,frequencies=[];
+  const previous=audioContext,enabled=soundEnabled,previousCount=activeSounds,frequencies=[];
   audioContext={state:'running',currentTime:0,destination:{},createOscillator:()=>({frequency:{setValueAtTime:f=>frequencies.push(f),exponentialRampToValueAtTime:()=>{}},connect:()=>{},start:()=>{},stop:()=>{}}),
     createGain:()=>({gain:{setValueAtTime:()=>{},exponentialRampToValueAtTime:()=>{}},connect:()=>{}})};
   soundEnabled=true;
   try {
     ['enemyDash','enemyShot','enemyStrike','enemyDive','enemySummon','dnsEcho','enemyDeath','bossTransition'].forEach(playSound);
     assert(frequencies.length===8&&new Set(frequencies).size===8,'enemy sounds not distinct or not generated');
-  }finally{audioContext=previous;soundEnabled=enabled;}
+  }finally{audioContext=previous;soundEnabled=enabled;activeSounds=previousCount;}
 });
 test('enemies: attack and death visual states render in the real canvas',()=>{
   setup(9);cameraX=420;cameraY=Math.max(0,mapStart().y-height*.65);viruses=[];

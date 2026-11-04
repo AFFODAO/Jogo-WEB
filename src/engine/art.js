@@ -3,13 +3,14 @@
   const api=window.ByteRunner;
   api.art = {
     background(ctx,view,time,index,palette) {
+      const reduced=api.experience?.settings.reducedEffects;
       const accent=palette[2];
       ctx.save();
       const sky=ctx.createLinearGradient(0,0,0,view.height);
       sky.addColorStop(0,'#070b1d');sky.addColorStop(1,palette[1]);
       ctx.fillStyle=sky;ctx.fillRect(0,0,view.width,view.height);
       // Three repeating, culled depth planes with independent camera offsets.
-      for(let layer=0;layer<3;layer++) {
+      for(let layer=0;layer<(reduced?1:3);layer++) {
         const step=layer===0?120:190;
         const offset=view.x*[.08,.19,.34][layer];
         const start=Math.floor(offset/step);
@@ -29,7 +30,7 @@
           ctx.globalAlpha=1;
         }
       }
-      for(let i=0;i<28;i++) {
+      for(let i=0;i<(reduced?0:28);i++) {
         const x=((i*137-view.x*.12+time*(3+i%4))%view.width+view.width)%view.width;
         const y=(i*71+Math.sin(time*.6+i)*8)%view.height;
         ctx.globalAlpha=.18+(Math.sin(time*2+i)+1)*.15;ctx.fillStyle=accent;ctx.fillRect(x,y,2,i%4===0?7:2);
@@ -45,7 +46,7 @@
       const bottom=Math.min(Math.ceil(object.h/32),Math.ceil((view.y+view.height-object.y)/32));
       let drawn=false;
       ctx.save();ctx.beginPath();ctx.rect(object.x,object.y,object.w,object.h);ctx.clip();
-      if(object.type==='temporary')ctx.globalAlpha=.7+Math.sin(time*7)*.15;
+      if(object.type==='temporary')ctx.globalAlpha=api.experience?.settings.reducedEffects ? .85 : .7+Math.sin(time*7)*.15;
       for(let y=top;y<bottom;y++) for(let x=start;x<end;x++) {
         drawn=visuals.sprite(ctx,{asset:'tiles-'+String(index+1).padStart(2,'0')},{x:object.x+x*32,y:object.y+y*32,width:32,height:32},time,object.type)||drawn;
       }
