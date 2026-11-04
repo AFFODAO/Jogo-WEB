@@ -56,3 +56,25 @@ Para reforçar a variação existente, o DNS recebeu divisórias e degraus e o R
 - Os projéteis do jogador mantêm o comportamento existente de atravessar obstáculos; os projéteis inimigos são bloqueados por sólidos. Essa assimetria permanece.
 
 Não restaram falhas nos casos automatizados executados. Esse resultado se limita à cobertura descrita acima.
+
+## Migração da arquitetura
+
+A rotina também executa `architecture.js` com o mapa isolado `fixtures/room-map.json`, sem acrescentá-lo à campanha. `map-baseline.json` guarda as definições anteriores à separação. Após reconstruir os dez mapas, o teste confirma que suas geometrias de revisão 2 substituíram as antigas. `fixtures/first-five-v2.json` também protege integralmente as fases 1–5 durante o trabalho nas fases 6–10.
+
+As verificações adicionais cobrem validação e imutabilidade, pisos descontínuos, ausência de piso global invisível, retorno em salas, checkpoints descendentes e de retorno, interruptores, condições compostas de portas, reparo por sequência, pausa/cancelamento, ausência de XP ao falhar, eventos e persistência de mecânicas, saída por região, spritesheets e animações por estado, camadas com paralaxe e renderizador personalizado, compatibilidade com saves de versão 1 e controladores de inimigos com estado salvo. Os testes de sprites usam canvas gerado em memória, não arquivos de arte prontos.
+
+O teste continua abrindo `index.html` por `file://`, sem a opção especial de permitir acesso entre arquivos locais. O novo suporte visual usa fallback enquanto imagens carregam; não foram incluídos nem avaliados sprites de produção ou um sistema completo de iluminação. O minigame de sequência é uma implementação de referência para teclado e permanece fora das dez fases atuais. Consulte [a arquitetura](../docs/architecture.md) e [o README principal](../README.md).
+
+## Reconstrução das fases 1–5
+
+As novas plantas e a cobertura estão em [docs/first-five.md](../docs/first-five.md). A busca de percursos agora atravessa diretórios/interfaces com E, ativa os interruptores alcançáveis e considera os modificadores de vento e rádio. Também verifica os coletáveis das cinco fases. O fluxo de perguntas é testado separadamente com seus pré-requisitos concluídos. `first-five.js` acrescenta os testes específicos, sem reconstruir os mapas 6–10.
+
+## Reconstrução das fases 6–10
+
+Os percursos, diferenças e limites da cobertura estão em [docs/last-five.md](../docs/last-five.md). A rotina verifica os coletáveis das dez fases, câmera vertical/horizontal, posições iniciais dos objetos e sobreposição após os reparos, além dos testes de elevadores, serviços DHCP, resolução DNS, vigilância, lasers e núcleo elevado em `last-five.js`. São 39 grupos de verificação de sistemas, além das verificações individuais das dez fases. Os testes antigos do chefe foram mantidos e adaptados às coordenadas reais da arena nova.
+
+## Revisão dos inimigos
+
+`enemies.js` acrescenta 15 grupos, totalizando 54 verificações de sistemas. Cobre detecção e navegação, investidas anunciadas, proteção direcional, posicionamento de tiro e mira fixada, desvio aéreo, infecção, suporte e limites de reforços, cinco variantes temáticas, XP único por morte, plataformas móveis, queda, efeitos reais no reparo e movimento, persistência, invocação anunciada do chefe, geração de sons distintos e renderização de preparação/dano/morte. Os cenários de decisão usam geometria controlada e o módulo de produção; a suíte por fase continua executando o combate real nas dez plantas.
+
+As capturas `phase-10-enemy-*.png` mostram os estados vetoriais no canvas real. A geração de áudio é verificada por chamadas aos osciladores; a qualidade sonora não foi avaliada por escuta. Consulte [docs/enemies.md](../docs/enemies.md).

@@ -1,0 +1,4476 @@
+[
+  {
+    "id": "phase-01",
+    "name": "Hardware do computador",
+    "theme": "hardware",
+    "objective": "Desative os vírus e recupere placa-mãe, CPU e memória.",
+    "palette": [
+      "#07151d",
+      "#14323b",
+      "#56e5cf",
+      "#245c57",
+      "#775c45"
+    ],
+    "map": {
+      "width": 2450,
+      "height": "viewport",
+      "layout": "horizontal",
+      "start": {
+        "x": 70,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "exit": {
+        "x": 2356,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x"
+        ],
+        "followOffsetX": 0.36,
+        "followOffsetY": 0.5
+      },
+      "routes": [],
+      "checkpoints": [
+        840,
+        1370,
+        1850
+      ],
+      "pits": [
+        {
+          "x": 1460,
+          "width": 92
+        }
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "p01",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 230,
+          "y": null,
+          "anchor": "floor",
+          "offset": 82,
+          "width": 150,
+          "height": 18
+        },
+        {
+          "id": "p02",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 520,
+          "y": null,
+          "anchor": "floor",
+          "offset": 118,
+          "width": 150,
+          "height": 18
+        },
+        {
+          "id": "p03",
+          "type": "moving",
+          "collision": "one-way",
+          "x": 875,
+          "y": null,
+          "anchor": "floor",
+          "offset": 90,
+          "width": 190,
+          "height": 18,
+          "motion": {
+            "axis": "x",
+            "range": 48,
+            "speed": 0.9,
+            "phase": 0
+          }
+        },
+        {
+          "id": "p04",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1230,
+          "y": null,
+          "anchor": "floor",
+          "offset": 112,
+          "width": 150,
+          "height": 18
+        },
+        {
+          "id": "p05",
+          "type": "temporary",
+          "collision": "one-way",
+          "x": 1640,
+          "y": null,
+          "anchor": "floor",
+          "offset": 78,
+          "width": 190,
+          "height": 18,
+          "duration": 2.1,
+          "respawnDelay": 3
+        },
+        {
+          "id": "p06",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 2040,
+          "y": null,
+          "anchor": "floor",
+          "offset": 108,
+          "width": 150,
+          "height": 18
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "cpu-bridge",
+          "x": 735,
+          "width": 118,
+          "offset": 58,
+          "style": "circuit"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "ram-rail",
+          "x": 1375,
+          "width": 108,
+          "offset": 92,
+          "style": "circuit"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "gpu-bridge",
+          "x": 1880,
+          "width": 125,
+          "offset": 64,
+          "style": "circuit"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "repaired-bus",
+          "x": 945,
+          "width": 150,
+          "offset": 112,
+          "style": "circuit",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "demo-step-a",
+          "x": 1120,
+          "width": 60,
+          "offset": 72,
+          "height": 16,
+          "anchor": "floor"
+        },
+        {
+          "id": "demo-step-b",
+          "x": 1050,
+          "width": 68,
+          "offset": 118,
+          "height": 16,
+          "anchor": "floor"
+        },
+        {
+          "id": "demo-step-c",
+          "x": 1170,
+          "width": 98,
+          "offset": 78,
+          "height": 16,
+          "anchor": "floor"
+        },
+        {
+          "id": "demo-secret-a",
+          "x": 1510,
+          "width": 84,
+          "offset": 108,
+          "height": 16,
+          "anchor": "floor"
+        },
+        {
+          "id": "demo-secret-b",
+          "x": 1630,
+          "width": 92,
+          "offset": 156,
+          "height": 16,
+          "anchor": "floor"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "o01",
+          "type": "block",
+          "collision": "solid",
+          "x": 455,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 42,
+          "height": 44
+        },
+        {
+          "id": "o02",
+          "type": "block",
+          "collision": "solid",
+          "x": 790,
+          "y": null,
+          "anchor": "floor",
+          "offset": 65,
+          "width": 54,
+          "height": 65
+        },
+        {
+          "id": "o03",
+          "type": "block",
+          "collision": "solid",
+          "x": 1175,
+          "y": null,
+          "anchor": "floor",
+          "offset": 54,
+          "width": 48,
+          "height": 54
+        },
+        {
+          "id": "o04",
+          "type": "block",
+          "collision": "solid",
+          "x": 1570,
+          "y": null,
+          "anchor": "floor",
+          "offset": 75,
+          "width": 55,
+          "height": 75
+        },
+        {
+          "id": "o05",
+          "type": "block",
+          "collision": "solid",
+          "x": 1980,
+          "y": null,
+          "anchor": "floor",
+          "offset": 50,
+          "width": 58,
+          "height": 50
+        },
+        {
+          "type": "fan",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "fan-housing",
+          "x": 905,
+          "width": 46,
+          "height": 58,
+          "offset": 58,
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "heatsink",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "heatsink",
+          "x": 1535,
+          "width": 58,
+          "height": 86,
+          "offset": 86,
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "demo-wall-a",
+          "x": 1940,
+          "width": 20,
+          "height": 92,
+          "offset": 92,
+          "anchor": "floor",
+          "type": "wall",
+          "collision": "solid"
+        },
+        {
+          "id": "demo-wall-b",
+          "x": 2030,
+          "width": 20,
+          "height": 108,
+          "offset": 108,
+          "anchor": "floor",
+          "type": "wall",
+          "collision": "solid"
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 660,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        },
+        {
+          "id": "c02",
+          "x": 1430,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 390,
+          "type": "basic"
+        },
+        {
+          "id": "e02",
+          "anchor": "floor",
+          "offset": 26,
+          "x": 1060,
+          "type": "fast"
+        },
+        {
+          "id": "e03",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 1840,
+          "type": "armored"
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 570,
+          "y": null,
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10
+        },
+        {
+          "id": "i02",
+          "x": 1570,
+          "y": null,
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10
+        }
+      ],
+      "features": [
+        {
+          "id": "f1",
+          "x": 380,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f2",
+          "x": 980,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f3",
+          "x": 1610,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f4",
+          "x": 2130,
+          "y": null,
+          "anchor": "floor"
+        }
+      ],
+      "gates": [
+        {
+          "id": "board-bus-gate",
+          "x": 1090,
+          "width": 22,
+          "height": 96,
+          "requiresComponentId": "c01"
+        }
+      ]
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 3,
+      "componentsToRepair": 2
+    }
+  },
+  {
+    "id": "phase-02",
+    "name": "Software do computador",
+    "theme": "software",
+    "objective": "Encontre processos infectados e restaure os arquivos corrompidos.",
+    "palette": [
+      "#101026",
+      "#26254c",
+      "#a78cff",
+      "#4e477e",
+      "#8b5278"
+    ],
+    "map": {
+      "width": 2250,
+      "height": "viewport",
+      "layout": "horizontal",
+      "start": {
+        "x": 70,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "exit": {
+        "x": 2156,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x"
+        ],
+        "followOffsetX": 0.36,
+        "followOffsetY": 0.5
+      },
+      "routes": [],
+      "checkpoints": [
+        945,
+        1620
+      ],
+      "pits": []
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "p01",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 180,
+          "y": null,
+          "anchor": "floor",
+          "offset": 100,
+          "width": 130,
+          "height": 18
+        },
+        {
+          "id": "p02",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 420,
+          "y": null,
+          "anchor": "floor",
+          "offset": 65,
+          "width": 180,
+          "height": 18
+        },
+        {
+          "id": "p03",
+          "type": "moving",
+          "collision": "one-way",
+          "x": 760,
+          "y": null,
+          "anchor": "floor",
+          "offset": 122,
+          "width": 140,
+          "height": 18,
+          "motion": {
+            "axis": "y",
+            "range": 34,
+            "speed": 1.02,
+            "phase": 0.7
+          }
+        },
+        {
+          "id": "p04",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1050,
+          "y": null,
+          "anchor": "floor",
+          "offset": 82,
+          "width": 210,
+          "height": 18
+        },
+        {
+          "id": "p05",
+          "type": "temporary",
+          "collision": "one-way",
+          "x": 1450,
+          "y": null,
+          "anchor": "floor",
+          "offset": 110,
+          "width": 160,
+          "height": 18,
+          "duration": 2.1,
+          "respawnDelay": 3
+        },
+        {
+          "id": "p06",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1790,
+          "y": null,
+          "anchor": "floor",
+          "offset": 70,
+          "width": 180,
+          "height": 18
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "folder-window-a",
+          "x": 300,
+          "width": 116,
+          "offset": 108,
+          "style": "window"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "folder-window-b",
+          "x": 970,
+          "width": 118,
+          "offset": 112,
+          "style": "window"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "floating-process",
+          "x": 1550,
+          "width": 130,
+          "offset": 116,
+          "style": "window",
+          "requiresComponentId": "c01"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "o01",
+          "type": "block",
+          "collision": "solid",
+          "x": 350,
+          "y": null,
+          "anchor": "floor",
+          "offset": 68,
+          "width": 48,
+          "height": 68
+        },
+        {
+          "id": "o02",
+          "type": "block",
+          "collision": "solid",
+          "x": 690,
+          "y": null,
+          "anchor": "floor",
+          "offset": 42,
+          "width": 44,
+          "height": 42
+        },
+        {
+          "id": "o03",
+          "type": "block",
+          "collision": "solid",
+          "x": 1010,
+          "y": null,
+          "anchor": "floor",
+          "offset": 78,
+          "width": 58,
+          "height": 78
+        },
+        {
+          "id": "o04",
+          "type": "block",
+          "collision": "solid",
+          "x": 1395,
+          "y": null,
+          "anchor": "floor",
+          "offset": 56,
+          "width": 45,
+          "height": 56
+        },
+        {
+          "id": "o05",
+          "type": "block",
+          "collision": "solid",
+          "x": 1730,
+          "y": null,
+          "anchor": "floor",
+          "offset": 68,
+          "width": 52,
+          "height": 68
+        },
+        {
+          "type": "corrupt",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "corrupt-file-a",
+          "x": 820,
+          "width": 48,
+          "height": 60,
+          "offset": 60,
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "corrupt",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "process-crash",
+          "x": 1815,
+          "width": 58,
+          "height": 74,
+          "offset": 74,
+          "requiresComponentId": "c02"
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 600,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        },
+        {
+          "id": "c02",
+          "x": 1290,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "anchor": "floor",
+          "offset": 26,
+          "x": 460,
+          "type": "fast"
+        },
+        {
+          "id": "e02",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 900,
+          "type": "basic"
+        },
+        {
+          "id": "e03",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 1630,
+          "type": "shooter"
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 280,
+          "y": null,
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10
+        },
+        {
+          "id": "i02",
+          "x": 1140,
+          "y": null,
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10
+        }
+      ],
+      "features": [
+        {
+          "id": "f1",
+          "x": 300,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f2",
+          "x": 830,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f3",
+          "x": 1370,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f4",
+          "x": 1880,
+          "y": null,
+          "anchor": "floor"
+        }
+      ],
+      "gates": [
+        {
+          "id": "directory-lock",
+          "x": 930,
+          "width": 22,
+          "height": 108,
+          "requiresComponentId": "c01"
+        }
+      ]
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 3,
+      "componentsToRepair": 2
+    }
+  },
+  {
+    "id": "phase-03",
+    "name": "Switch de rede",
+    "theme": "switch",
+    "objective": "Neutralize os vírus das portas e reconecte os equipamentos do switch.",
+    "palette": [
+      "#071820",
+      "#12313a",
+      "#56d9ce",
+      "#285a65",
+      "#b17b51"
+    ],
+    "map": {
+      "width": 2350,
+      "height": "viewport",
+      "layout": "horizontal",
+      "start": {
+        "x": 70,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "exit": {
+        "x": 2256,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x"
+        ],
+        "followOffsetX": 0.36,
+        "followOffsetY": 0.5
+      },
+      "routes": [],
+      "checkpoints": [
+        987,
+        1692
+      ],
+      "pits": []
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "p01",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 260,
+          "y": null,
+          "anchor": "floor",
+          "offset": 75,
+          "width": 190,
+          "height": 18
+        },
+        {
+          "id": "p02",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 600,
+          "y": null,
+          "anchor": "floor",
+          "offset": 112,
+          "width": 120,
+          "height": 18
+        },
+        {
+          "id": "p03",
+          "type": "moving",
+          "collision": "one-way",
+          "x": 850,
+          "y": null,
+          "anchor": "floor",
+          "offset": 80,
+          "width": 180,
+          "height": 18,
+          "motion": {
+            "axis": "x",
+            "range": 48,
+            "speed": 1.1400000000000001,
+            "phase": 1.4
+          }
+        },
+        {
+          "id": "p04",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1190,
+          "y": null,
+          "anchor": "floor",
+          "offset": 126,
+          "width": 145,
+          "height": 18
+        },
+        {
+          "id": "p05",
+          "type": "temporary",
+          "collision": "one-way",
+          "x": 1500,
+          "y": null,
+          "anchor": "floor",
+          "offset": 72,
+          "width": 200,
+          "height": 18,
+          "duration": 2.1,
+          "respawnDelay": 3
+        },
+        {
+          "id": "p06",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1900,
+          "y": null,
+          "anchor": "floor",
+          "offset": 108,
+          "width": 150,
+          "height": 18
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "cable-port-a",
+          "x": 390,
+          "width": 132,
+          "offset": 58,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "packet-bridge",
+          "x": 1040,
+          "width": 140,
+          "offset": 112,
+          "style": "packet"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "cable-port-b",
+          "x": 1780,
+          "width": 132,
+          "offset": 62,
+          "style": "cable",
+          "requiresComponentId": "c02"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "o01",
+          "type": "block",
+          "collision": "solid",
+          "x": 500,
+          "y": null,
+          "anchor": "floor",
+          "offset": 58,
+          "width": 50,
+          "height": 58
+        },
+        {
+          "id": "o02",
+          "type": "block",
+          "collision": "solid",
+          "x": 800,
+          "y": null,
+          "anchor": "floor",
+          "offset": 45,
+          "width": 42,
+          "height": 45
+        },
+        {
+          "id": "o03",
+          "type": "block",
+          "collision": "solid",
+          "x": 1120,
+          "y": null,
+          "anchor": "floor",
+          "offset": 75,
+          "width": 52,
+          "height": 75
+        },
+        {
+          "id": "o04",
+          "type": "block",
+          "collision": "solid",
+          "x": 1450,
+          "y": null,
+          "anchor": "floor",
+          "offset": 60,
+          "width": 44,
+          "height": 60
+        },
+        {
+          "id": "o05",
+          "type": "block",
+          "collision": "solid",
+          "x": 1840,
+          "y": null,
+          "anchor": "floor",
+          "offset": 78,
+          "width": 62,
+          "height": 78
+        },
+        {
+          "type": "port",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "port-stack-a",
+          "x": 550,
+          "width": 44,
+          "height": 66,
+          "offset": 66
+        },
+        {
+          "type": "port",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "port-stack-b",
+          "x": 1380,
+          "width": 44,
+          "height": 72,
+          "offset": 72
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 700,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        },
+        {
+          "id": "c02",
+          "x": 1320,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        },
+        {
+          "id": "c03",
+          "x": 1740,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 430,
+          "type": "basic"
+        },
+        {
+          "id": "e02",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 980,
+          "type": "parasite"
+        },
+        {
+          "id": "e03",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 1600,
+          "type": "shooter"
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 300,
+          "y": null,
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10
+        },
+        {
+          "id": "i02",
+          "x": 1560,
+          "y": null,
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10
+        }
+      ],
+      "features": [
+        {
+          "id": "f1",
+          "x": 360,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f2",
+          "x": 900,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f3",
+          "x": 1490,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f4",
+          "x": 2010,
+          "y": null,
+          "anchor": "floor"
+        }
+      ],
+      "gates": [
+        {
+          "id": "switch-link-a",
+          "x": 930,
+          "width": 22,
+          "height": 106,
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "switch-link-b",
+          "x": 1660,
+          "width": 22,
+          "height": 106,
+          "requiresComponentId": "c02"
+        }
+      ]
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 3,
+      "componentsToRepair": 3
+    }
+  },
+  {
+    "id": "phase-04",
+    "name": "Roteador",
+    "theme": "router",
+    "objective": "Reative as rotas e elimine as falhas de comunicação entre redes.",
+    "palette": [
+      "#101522",
+      "#263a52",
+      "#80c6ff",
+      "#496b8b",
+      "#a17b56"
+    ],
+    "map": {
+      "width": 2550,
+      "height": "viewport",
+      "layout": "multi-route",
+      "start": {
+        "x": 70,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "exit": {
+        "x": 2456,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x"
+        ],
+        "followOffsetX": 0.36,
+        "followOffsetY": 0.5
+      },
+      "routes": [
+        "rota inferior",
+        "passarelas de pacotes"
+      ],
+      "checkpoints": [
+        1071,
+        1836
+      ],
+      "pits": []
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "p01",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 200,
+          "y": null,
+          "anchor": "floor",
+          "offset": 115,
+          "width": 140,
+          "height": 18
+        },
+        {
+          "id": "p02",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 470,
+          "y": null,
+          "anchor": "floor",
+          "offset": 75,
+          "width": 180,
+          "height": 18
+        },
+        {
+          "id": "p03",
+          "type": "moving",
+          "collision": "one-way",
+          "x": 820,
+          "y": null,
+          "anchor": "floor",
+          "offset": 125,
+          "width": 135,
+          "height": 18,
+          "motion": {
+            "axis": "y",
+            "range": 34,
+            "speed": 0.9,
+            "phase": 2.0999999999999996
+          }
+        },
+        {
+          "id": "p04",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1100,
+          "y": null,
+          "anchor": "floor",
+          "offset": 88,
+          "width": 190,
+          "height": 18
+        },
+        {
+          "id": "p05",
+          "type": "temporary",
+          "collision": "one-way",
+          "x": 1470,
+          "y": null,
+          "anchor": "floor",
+          "offset": 115,
+          "width": 160,
+          "height": 18,
+          "duration": 2.1,
+          "respawnDelay": 3
+        },
+        {
+          "id": "p06",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1800,
+          "y": null,
+          "anchor": "floor",
+          "offset": 72,
+          "width": 180,
+          "height": 18
+        },
+        {
+          "id": "p07",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 2160,
+          "y": null,
+          "anchor": "floor",
+          "offset": 108,
+          "width": 150,
+          "height": 18
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "route-high-a",
+          "x": 320,
+          "width": 126,
+          "offset": 112,
+          "style": "route"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "packet-lift-a",
+          "x": 960,
+          "width": 126,
+          "offset": 118,
+          "style": "packet"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "route-high-b",
+          "x": 1590,
+          "width": 140,
+          "offset": 112,
+          "style": "route"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "route-shortcut",
+          "x": 1190,
+          "width": 152,
+          "offset": 116,
+          "style": "route",
+          "requiresComponentId": "c01"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "o01",
+          "type": "block",
+          "collision": "solid",
+          "x": 395,
+          "y": null,
+          "anchor": "floor",
+          "offset": 68,
+          "width": 48,
+          "height": 68
+        },
+        {
+          "id": "o02",
+          "type": "block",
+          "collision": "solid",
+          "x": 760,
+          "y": null,
+          "anchor": "floor",
+          "offset": 55,
+          "width": 52,
+          "height": 55
+        },
+        {
+          "id": "o03",
+          "type": "block",
+          "collision": "solid",
+          "x": 1050,
+          "y": null,
+          "anchor": "floor",
+          "offset": 72,
+          "width": 45,
+          "height": 72
+        },
+        {
+          "id": "o04",
+          "type": "block",
+          "collision": "solid",
+          "x": 1420,
+          "y": null,
+          "anchor": "floor",
+          "offset": 66,
+          "width": 52,
+          "height": 66
+        },
+        {
+          "id": "o05",
+          "type": "block",
+          "collision": "solid",
+          "x": 1750,
+          "y": null,
+          "anchor": "floor",
+          "offset": 55,
+          "width": 48,
+          "height": 55
+        },
+        {
+          "id": "o06",
+          "type": "block",
+          "collision": "solid",
+          "x": 2100,
+          "y": null,
+          "anchor": "floor",
+          "offset": 78,
+          "width": 55,
+          "height": 78
+        },
+        {
+          "type": "route-wall",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "router-wall-a",
+          "x": 720,
+          "width": 42,
+          "height": 96,
+          "offset": 96
+        },
+        {
+          "type": "route-wall",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "router-wall-b",
+          "x": 1830,
+          "width": 48,
+          "height": 116,
+          "offset": 116
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 650,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        },
+        {
+          "id": "c02",
+          "x": 1260,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "anchor": "floor",
+          "offset": 26,
+          "x": 530,
+          "type": "fast"
+        },
+        {
+          "id": "e02",
+          "anchor": "floor",
+          "offset": 92,
+          "x": 1000,
+          "type": "flyer"
+        },
+        {
+          "id": "e03",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 1740,
+          "type": "armored"
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 300,
+          "y": null,
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10
+        },
+        {
+          "id": "i02",
+          "x": 1540,
+          "y": null,
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10
+        }
+      ],
+      "features": [
+        {
+          "id": "f1",
+          "x": 310,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f2",
+          "x": 870,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f3",
+          "x": 1510,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f4",
+          "x": 2200,
+          "y": null,
+          "anchor": "floor"
+        }
+      ],
+      "gates": [
+        {
+          "id": "route-module-gate",
+          "x": 1030,
+          "width": 22,
+          "height": 108,
+          "requiresComponentId": "c01"
+        }
+      ]
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 3,
+      "componentsToRepair": 2
+    }
+  },
+  {
+    "id": "phase-05",
+    "name": "Rede Wi-Fi",
+    "theme": "wifi",
+    "objective": "Reduza as interferências e repare os pontos de acesso sem fio.",
+    "palette": [
+      "#091a29",
+      "#123b50",
+      "#74e8ff",
+      "#256782",
+      "#9c8a50"
+    ],
+    "map": {
+      "width": 2300,
+      "height": "viewport",
+      "layout": "horizontal",
+      "start": {
+        "x": 70,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "exit": {
+        "x": 2206,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x"
+        ],
+        "followOffsetX": 0.36,
+        "followOffsetY": 0.5
+      },
+      "routes": [],
+      "checkpoints": [
+        966,
+        1656
+      ],
+      "pits": []
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "p01",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 210,
+          "y": null,
+          "anchor": "floor",
+          "offset": 80,
+          "width": 170,
+          "height": 18
+        },
+        {
+          "id": "p02",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 520,
+          "y": null,
+          "anchor": "floor",
+          "offset": 120,
+          "width": 130,
+          "height": 18
+        },
+        {
+          "id": "p03",
+          "type": "moving",
+          "collision": "one-way",
+          "x": 790,
+          "y": null,
+          "anchor": "floor",
+          "offset": 74,
+          "width": 200,
+          "height": 18,
+          "motion": {
+            "axis": "x",
+            "range": 48,
+            "speed": 1.02,
+            "phase": 2.8
+          }
+        },
+        {
+          "id": "p04",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1160,
+          "y": null,
+          "anchor": "floor",
+          "offset": 115,
+          "width": 145,
+          "height": 18
+        },
+        {
+          "id": "p05",
+          "type": "temporary",
+          "collision": "one-way",
+          "x": 1450,
+          "y": null,
+          "anchor": "floor",
+          "offset": 82,
+          "width": 180,
+          "height": 18,
+          "duration": 2.1,
+          "respawnDelay": 3
+        },
+        {
+          "id": "p06",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1800,
+          "y": null,
+          "anchor": "floor",
+          "offset": 120,
+          "width": 180,
+          "height": 18
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "signal-shelf-a",
+          "x": 340,
+          "width": 120,
+          "offset": 112,
+          "style": "signal"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "signal-shelf-b",
+          "x": 900,
+          "width": 126,
+          "offset": 112,
+          "style": "signal",
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "signal-shelf-c",
+          "x": 1510,
+          "width": 145,
+          "offset": 116,
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "interference-bridge",
+          "x": 1990,
+          "width": 126,
+          "offset": 108,
+          "style": "signal"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "o01",
+          "type": "block",
+          "collision": "solid",
+          "x": 460,
+          "y": null,
+          "anchor": "floor",
+          "offset": 60,
+          "width": 45,
+          "height": 60
+        },
+        {
+          "id": "o02",
+          "type": "block",
+          "collision": "solid",
+          "x": 740,
+          "y": null,
+          "anchor": "floor",
+          "offset": 80,
+          "width": 52,
+          "height": 80
+        },
+        {
+          "id": "o03",
+          "type": "block",
+          "collision": "solid",
+          "x": 1110,
+          "y": null,
+          "anchor": "floor",
+          "offset": 52,
+          "width": 46,
+          "height": 52
+        },
+        {
+          "id": "o04",
+          "type": "block",
+          "collision": "solid",
+          "x": 1400,
+          "y": null,
+          "anchor": "floor",
+          "offset": 72,
+          "width": 48,
+          "height": 72
+        },
+        {
+          "id": "o05",
+          "type": "block",
+          "collision": "solid",
+          "x": 1740,
+          "y": null,
+          "anchor": "floor",
+          "offset": 62,
+          "width": 52,
+          "height": 62
+        },
+        {
+          "type": "interference",
+          "collision": "dangerous",
+          "anchor": "floor",
+          "id": "interference-field-a",
+          "x": 735,
+          "width": 48,
+          "height": 82,
+          "offset": 82,
+          "damage": 10,
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "interference",
+          "collision": "dangerous",
+          "anchor": "floor",
+          "id": "interference-field-b",
+          "x": 1710,
+          "width": 54,
+          "height": 94,
+          "offset": 94,
+          "damage": 10,
+          "requiresComponentId": "c02"
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 630,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        },
+        {
+          "id": "c02",
+          "x": 1280,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 440,
+          "type": "shooter"
+        },
+        {
+          "id": "e02",
+          "anchor": "floor",
+          "offset": 26,
+          "x": 970,
+          "type": "fast"
+        },
+        {
+          "id": "e03",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 1580,
+          "type": "basic"
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 300,
+          "y": null,
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10
+        },
+        {
+          "id": "i02",
+          "x": 1520,
+          "y": null,
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10
+        }
+      ],
+      "features": [
+        {
+          "id": "f1",
+          "x": 330,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f2",
+          "x": 820,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f3",
+          "x": 1390,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f4",
+          "x": 1900,
+          "y": null,
+          "anchor": "floor"
+        }
+      ],
+      "gates": [
+        {
+          "id": "wifi-signal-gate",
+          "x": 1110,
+          "width": 22,
+          "height": 102,
+          "requiresComponentId": "c01"
+        }
+      ]
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 3,
+      "componentsToRepair": 2
+    }
+  },
+  {
+    "id": "phase-06",
+    "name": "Cabeamento e infraestrutura",
+    "theme": "cabling",
+    "objective": "Restaure os conectores rompidos e proteja o cabeamento do rack.",
+    "palette": [
+      "#171615",
+      "#332b24",
+      "#f0b66d",
+      "#786044",
+      "#556b77"
+    ],
+    "map": {
+      "width": 1100,
+      "height": 1550,
+      "layout": "vertical",
+      "start": {
+        "x": 145,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "exit": {
+        "x": 440,
+        "y": 384,
+        "anchor": "floor",
+        "offset": 0,
+        "width": 46,
+        "height": 100,
+        "triggerRadiusY": 74
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.5,
+        "followOffsetY": 0.55
+      },
+      "routes": [],
+      "checkpoints": [
+        {
+          "x": 695,
+          "y": 1058
+        },
+        {
+          "x": 600,
+          "y": 788
+        }
+      ],
+      "pits": []
+    },
+    "entities": {
+      "platforms": [
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-1",
+          "x": 110,
+          "width": 150,
+          "offset": 100,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-2",
+          "x": 250,
+          "width": 135,
+          "offset": 190,
+          "style": "cable"
+        },
+        {
+          "type": "moving",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "maintenance-lift-a",
+          "x": 390,
+          "width": 135,
+          "offset": 280,
+          "style": "cable",
+          "motion": {
+            "axis": "y",
+            "range": 34,
+            "speed": 1.1400000000000001,
+            "phase": 3.5
+          }
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-4",
+          "x": 530,
+          "width": 135,
+          "offset": 360,
+          "style": "cable"
+        },
+        {
+          "type": "temporary",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-5",
+          "x": 670,
+          "width": 135,
+          "offset": 450,
+          "style": "cable",
+          "duration": 2.1,
+          "respawnDelay": 3
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-6",
+          "x": 810,
+          "width": 135,
+          "offset": 540,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-7",
+          "x": 670,
+          "width": 135,
+          "offset": 630,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-8",
+          "x": 530,
+          "width": 135,
+          "offset": 720,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-9",
+          "x": 390,
+          "width": 135,
+          "offset": 810,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-10",
+          "x": 250,
+          "width": 135,
+          "offset": 900,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-11",
+          "x": 110,
+          "width": 135,
+          "offset": 990,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-service-step",
+          "x": 245,
+          "width": 115,
+          "offset": 1035,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-ledge-12",
+          "x": 360,
+          "width": 160,
+          "offset": 1080,
+          "style": "cable"
+        },
+        {
+          "type": "moving",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "maintenance-lift-b",
+          "x": 785,
+          "width": 125,
+          "offset": 720,
+          "style": "cable",
+          "motion": {
+            "axis": "x",
+            "range": 42,
+            "speed": 0.6,
+            "phase": 1.2
+          }
+        }
+      ],
+      "obstacles": [
+        {
+          "type": "rack-wall",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "rack-left-wall",
+          "x": 0,
+          "y": 0,
+          "width": 38,
+          "height": 1550,
+          "offset": 0
+        },
+        {
+          "type": "rack-wall",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "rack-right-wall",
+          "x": 1062,
+          "y": 0,
+          "width": 38,
+          "height": 1550,
+          "offset": 0
+        },
+        {
+          "type": "interference",
+          "collision": "dangerous",
+          "anchor": "floor",
+          "id": "live-ethernet-a",
+          "x": 925,
+          "y": 1110,
+          "width": 36,
+          "height": 68,
+          "offset": 0,
+          "damage": 12,
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "interference",
+          "collision": "dangerous",
+          "anchor": "floor",
+          "id": "short-circuit-b",
+          "x": 725,
+          "y": 810,
+          "width": 44,
+          "height": 74,
+          "offset": 0,
+          "damage": 12,
+          "requiresComponentId": "c02"
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44,
+          "x": 690,
+          "y": 1014
+        },
+        {
+          "id": "c02",
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44,
+          "x": 600,
+          "y": 744
+        },
+        {
+          "id": "c03",
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44,
+          "x": 430,
+          "y": 384
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 590,
+          "y": 1123,
+          "type": "basic"
+        },
+        {
+          "id": "e02",
+          "anchor": "floor",
+          "offset": 26,
+          "x": 770,
+          "y": 942,
+          "type": "fast"
+        },
+        {
+          "id": "e03",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 690,
+          "y": 762,
+          "type": "parasite"
+        },
+        {
+          "id": "e04",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 450,
+          "y": 492,
+          "type": "shooter"
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10,
+          "x": 320,
+          "y": 1260
+        },
+        {
+          "id": "i02",
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10,
+          "x": 860,
+          "y": 830
+        },
+        {
+          "id": "i03",
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10,
+          "x": 430,
+          "y": 365
+        }
+      ],
+      "features": [
+        {
+          "id": "f1",
+          "anchor": "floor",
+          "x": 320,
+          "y": 1450
+        },
+        {
+          "id": "f2",
+          "anchor": "floor",
+          "x": 850,
+          "y": 1090
+        },
+        {
+          "id": "f3",
+          "anchor": "floor",
+          "x": 790,
+          "y": 690
+        },
+        {
+          "id": "f4",
+          "anchor": "floor",
+          "x": 300,
+          "y": 480
+        }
+      ],
+      "gates": [
+        {
+          "id": "rack-bridge-gate",
+          "x": 190,
+          "y": 510,
+          "width": 660,
+          "height": 18,
+          "requiresComponentId": "c02"
+        }
+      ]
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 4,
+      "componentsToRepair": 3
+    }
+  },
+  {
+    "id": "phase-07",
+    "name": "Endereçamento IP e DHCP",
+    "theme": "dhcp",
+    "objective": "Corrija concessões DHCP e recupere os endereços IP da rede.",
+    "palette": [
+      "#081b1b",
+      "#123b36",
+      "#72edb0",
+      "#337a69",
+      "#7d7851"
+    ],
+    "map": {
+      "width": 2350,
+      "height": "viewport",
+      "layout": "horizontal",
+      "start": {
+        "x": 70,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "exit": {
+        "x": 2256,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x"
+        ],
+        "followOffsetX": 0.36,
+        "followOffsetY": 0.5
+      },
+      "routes": [],
+      "pits": [
+        {
+          "x": 940,
+          "width": 106
+        }
+      ],
+      "checkpoints": [
+        700,
+        1500
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "p01",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 170,
+          "y": null,
+          "anchor": "floor",
+          "offset": 80,
+          "width": 170,
+          "height": 18
+        },
+        {
+          "id": "p02",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 480,
+          "y": null,
+          "anchor": "floor",
+          "offset": 120,
+          "width": 140,
+          "height": 18
+        },
+        {
+          "id": "p03",
+          "type": "moving",
+          "collision": "one-way",
+          "x": 760,
+          "y": null,
+          "anchor": "floor",
+          "offset": 75,
+          "width": 170,
+          "height": 18,
+          "motion": {
+            "axis": "x",
+            "range": 48,
+            "speed": 0.9,
+            "phase": 4.199999999999999
+          }
+        },
+        {
+          "id": "p04",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1080,
+          "y": null,
+          "anchor": "floor",
+          "offset": 125,
+          "width": 130,
+          "height": 18
+        },
+        {
+          "id": "p05",
+          "type": "temporary",
+          "collision": "one-way",
+          "x": 1350,
+          "y": null,
+          "anchor": "floor",
+          "offset": 85,
+          "width": 180,
+          "height": 18,
+          "duration": 2.1,
+          "respawnDelay": 3
+        },
+        {
+          "id": "p06",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1700,
+          "y": null,
+          "anchor": "floor",
+          "offset": 115,
+          "width": 150,
+          "height": 18
+        },
+        {
+          "id": "p07",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1990,
+          "y": null,
+          "anchor": "floor",
+          "offset": 72,
+          "width": 140,
+          "height": 18
+        },
+        {
+          "type": "moving",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dhcp-lease-lift-a",
+          "x": 660,
+          "width": 132,
+          "offset": 132,
+          "style": "packet",
+          "motion": {
+            "axis": "y",
+            "range": 26,
+            "speed": 0.7,
+            "phase": 0.5
+          },
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "subnet-bridge",
+          "x": 900,
+          "width": 170,
+          "offset": 76,
+          "style": "packet",
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "moving",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dhcp-lease-lift-b",
+          "x": 1580,
+          "width": 138,
+          "offset": 142,
+          "style": "packet",
+          "motion": {
+            "axis": "y",
+            "range": 22,
+            "speed": 0.8,
+            "phase": 1
+          },
+          "requiresComponentId": "c02"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "alternate-subnet-shelf",
+          "x": 1780,
+          "width": 150,
+          "offset": 192,
+          "style": "route"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "o01",
+          "type": "block",
+          "collision": "solid",
+          "x": 430,
+          "y": null,
+          "anchor": "floor",
+          "offset": 60,
+          "width": 48,
+          "height": 60
+        },
+        {
+          "id": "o02",
+          "type": "block",
+          "collision": "solid",
+          "x": 710,
+          "y": null,
+          "anchor": "floor",
+          "offset": 68,
+          "width": 45,
+          "height": 68
+        },
+        {
+          "id": "o03",
+          "type": "block",
+          "collision": "solid",
+          "x": 1030,
+          "y": null,
+          "anchor": "floor",
+          "offset": 78,
+          "width": 54,
+          "height": 78
+        },
+        {
+          "id": "o04",
+          "type": "block",
+          "collision": "solid",
+          "x": 1300,
+          "y": null,
+          "anchor": "floor",
+          "offset": 56,
+          "width": 44,
+          "height": 56
+        },
+        {
+          "id": "o05",
+          "type": "block",
+          "collision": "solid",
+          "x": 1650,
+          "y": null,
+          "anchor": "floor",
+          "offset": 72,
+          "width": 50,
+          "height": 72
+        },
+        {
+          "id": "o06",
+          "type": "block",
+          "collision": "solid",
+          "x": 1940,
+          "y": null,
+          "anchor": "floor",
+          "offset": 55,
+          "width": 50,
+          "height": 55
+        },
+        {
+          "type": "corrupt",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "dhcp-conflict-a",
+          "x": 800,
+          "width": 46,
+          "height": 70,
+          "offset": 70
+        },
+        {
+          "type": "corrupt",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "dhcp-conflict-b",
+          "x": 1540,
+          "width": 48,
+          "height": 78,
+          "offset": 78,
+          "requiresComponentId": "c02"
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 610,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        },
+        {
+          "id": "c02",
+          "x": 1430,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "anchor": "floor",
+          "offset": 26,
+          "x": 410,
+          "type": "fast"
+        },
+        {
+          "id": "e02",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 930,
+          "type": "armored"
+        },
+        {
+          "id": "e03",
+          "anchor": "floor",
+          "offset": 92,
+          "x": 1600,
+          "type": "flyer"
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 260,
+          "y": null,
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10
+        },
+        {
+          "id": "i02",
+          "x": 1370,
+          "y": null,
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10
+        }
+      ],
+      "features": [
+        {
+          "id": "f1",
+          "x": 300,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f2",
+          "x": 790,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f3",
+          "x": 1390,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f4",
+          "x": 1880,
+          "y": null,
+          "anchor": "floor"
+        }
+      ],
+      "gates": [
+        {
+          "id": "lease-gate-a",
+          "x": 930,
+          "width": 22,
+          "height": 104,
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "lease-gate-b",
+          "x": 1840,
+          "width": 22,
+          "height": 108,
+          "requiresComponentId": "c02"
+        }
+      ]
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 3,
+      "componentsToRepair": 2
+    }
+  },
+  {
+    "id": "phase-08",
+    "name": "DNS",
+    "theme": "dns",
+    "objective": "Restaure os servidores DNS e reconstrua a resolução de domínios.",
+    "palette": [
+      "#10162b",
+      "#202f52",
+      "#9fbdff",
+      "#536a9b",
+      "#a17a61"
+    ],
+    "map": {
+      "width": 2400,
+      "height": "viewport",
+      "layout": "maze",
+      "start": {
+        "x": 70,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "exit": {
+        "x": 2306,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x"
+        ],
+        "followOffsetX": 0.36,
+        "followOffsetY": 0.5
+      },
+      "routes": [],
+      "pits": [
+        {
+          "x": 620,
+          "width": 90
+        },
+        {
+          "x": 1230,
+          "width": 110
+        }
+      ],
+      "checkpoints": [
+        1008,
+        1728
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "p01",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 240,
+          "y": null,
+          "anchor": "floor",
+          "offset": 115,
+          "width": 160,
+          "height": 18
+        },
+        {
+          "id": "p02",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 540,
+          "y": null,
+          "anchor": "floor",
+          "offset": 74,
+          "width": 130,
+          "height": 18
+        },
+        {
+          "id": "p03",
+          "type": "moving",
+          "collision": "one-way",
+          "x": 810,
+          "y": null,
+          "anchor": "floor",
+          "offset": 120,
+          "width": 180,
+          "height": 18,
+          "motion": {
+            "axis": "y",
+            "range": 34,
+            "speed": 1.02,
+            "phase": 4.8999999999999995
+          }
+        },
+        {
+          "id": "p04",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1150,
+          "y": null,
+          "anchor": "floor",
+          "offset": 78,
+          "width": 145,
+          "height": 18
+        },
+        {
+          "id": "p05",
+          "type": "temporary",
+          "collision": "one-way",
+          "x": 1450,
+          "y": null,
+          "anchor": "floor",
+          "offset": 112,
+          "width": 180,
+          "height": 18,
+          "duration": 2.1,
+          "respawnDelay": 3
+        },
+        {
+          "id": "p06",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1800,
+          "y": null,
+          "anchor": "floor",
+          "offset": 78,
+          "width": 150,
+          "height": 18
+        },
+        {
+          "id": "p07",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 2100,
+          "y": null,
+          "anchor": "floor",
+          "offset": 118,
+          "width": 140,
+          "height": 18
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-cache-platform-a",
+          "x": 410,
+          "width": 142,
+          "offset": 128,
+          "style": "window"
+        },
+        {
+          "type": "moving",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-cache-platform-b",
+          "x": 1000,
+          "width": 145,
+          "offset": 142,
+          "style": "window",
+          "motion": {
+            "axis": "y",
+            "range": 24,
+            "speed": 0.72,
+            "phase": 1.4
+          }
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-packet-bridge",
+          "x": 1200,
+          "width": 190,
+          "offset": 76,
+          "style": "packet"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-secret-directory",
+          "x": 1310,
+          "width": 128,
+          "offset": 170,
+          "style": "window",
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-reconnect-bridge",
+          "x": 1710,
+          "width": 180,
+          "offset": 82,
+          "style": "packet",
+          "requiresComponentId": "c02"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-cache-shelf",
+          "x": 1950,
+          "width": 130,
+          "offset": 132,
+          "style": "window"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-maze-step-a",
+          "x": 830,
+          "width": 90,
+          "offset": 100,
+          "style": "window"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-maze-step-b",
+          "x": 920,
+          "width": 90,
+          "offset": 196,
+          "style": "window"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-maze-return",
+          "x": 1090,
+          "width": 92,
+          "offset": 190,
+          "style": "window"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-maze-step-c",
+          "x": 1780,
+          "width": 86,
+          "offset": 104,
+          "style": "window"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "dns-maze-step-d",
+          "x": 1850,
+          "width": 95,
+          "offset": 196,
+          "style": "window"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "o01",
+          "type": "block",
+          "collision": "solid",
+          "x": 490,
+          "y": null,
+          "anchor": "floor",
+          "offset": 66,
+          "width": 48,
+          "height": 66
+        },
+        {
+          "id": "o02",
+          "type": "block",
+          "collision": "solid",
+          "x": 770,
+          "y": null,
+          "anchor": "floor",
+          "offset": 55,
+          "width": 54,
+          "height": 55
+        },
+        {
+          "id": "o03",
+          "type": "block",
+          "collision": "solid",
+          "x": 1110,
+          "y": null,
+          "anchor": "floor",
+          "offset": 70,
+          "width": 45,
+          "height": 70
+        },
+        {
+          "id": "o04",
+          "type": "block",
+          "collision": "solid",
+          "x": 1410,
+          "y": null,
+          "anchor": "floor",
+          "offset": 62,
+          "width": 48,
+          "height": 62
+        },
+        {
+          "id": "o05",
+          "type": "block",
+          "collision": "solid",
+          "x": 1760,
+          "y": null,
+          "anchor": "floor",
+          "offset": 78,
+          "width": 50,
+          "height": 78
+        },
+        {
+          "id": "o06",
+          "type": "block",
+          "collision": "solid",
+          "x": 2060,
+          "y": null,
+          "anchor": "floor",
+          "offset": 58,
+          "width": 48,
+          "height": 58
+        },
+        {
+          "type": "route-wall",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "dns-maze-divider-a",
+          "x": 1030,
+          "width": 40,
+          "height": 224,
+          "offset": 224
+        },
+        {
+          "type": "route-wall",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "dns-maze-divider-b",
+          "x": 1950,
+          "width": 40,
+          "height": 224,
+          "offset": 224
+        },
+        {
+          "type": "corrupt",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "corrupt-domain-a",
+          "x": 730,
+          "width": 48,
+          "height": 78,
+          "offset": 78,
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "corrupt",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "corrupt-domain-b",
+          "x": 1500,
+          "width": 54,
+          "height": 88,
+          "offset": 88,
+          "requiresComponentId": "c02"
+        },
+        {
+          "type": "gate",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "dns-cache-door",
+          "x": 1210,
+          "width": 22,
+          "height": 104,
+          "offset": 104,
+          "requiresComponentId": "c01"
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 750,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        },
+        {
+          "id": "c02",
+          "x": 1480,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 460,
+          "type": "basic"
+        },
+        {
+          "id": "e02",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 990,
+          "type": "shooter"
+        },
+        {
+          "id": "e03",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 1690,
+          "type": "parasite"
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 300,
+          "y": null,
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10
+        },
+        {
+          "id": "i02",
+          "x": 1500,
+          "y": null,
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10
+        }
+      ],
+      "features": [
+        {
+          "id": "f1",
+          "x": 330,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f2",
+          "x": 850,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f3",
+          "x": 1480,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f4",
+          "x": 2040,
+          "y": null,
+          "anchor": "floor"
+        }
+      ],
+      "gates": [
+        {
+          "id": "dns-root-gate",
+          "x": 1640,
+          "width": 22,
+          "height": 104,
+          "requiresComponentId": "c02"
+        }
+      ]
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 3,
+      "componentsToRepair": 2
+    }
+  },
+  {
+    "id": "phase-09",
+    "name": "Firewall e segurança",
+    "theme": "firewall",
+    "objective": "Derrube as ameaças e reative os escudos do firewall.",
+    "palette": [
+      "#1c1017",
+      "#3c1d29",
+      "#ff7c68",
+      "#8d3548",
+      "#b18a57"
+    ],
+    "map": {
+      "width": 2650,
+      "height": "viewport",
+      "layout": "horizontal",
+      "start": {
+        "x": 70,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "exit": {
+        "x": 2556,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x"
+        ],
+        "followOffsetX": 0.36,
+        "followOffsetY": 0.5
+      },
+      "routes": [],
+      "pits": [
+        {
+          "x": 1185,
+          "width": 240
+        }
+      ],
+      "checkpoints": [
+        1113,
+        1908
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "p01",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 220,
+          "y": null,
+          "anchor": "floor",
+          "offset": 85,
+          "width": 150,
+          "height": 18
+        },
+        {
+          "id": "p02",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 500,
+          "y": null,
+          "anchor": "floor",
+          "offset": 118,
+          "width": 170,
+          "height": 18
+        },
+        {
+          "id": "p03",
+          "type": "moving",
+          "collision": "one-way",
+          "x": 820,
+          "y": null,
+          "anchor": "floor",
+          "offset": 75,
+          "width": 140,
+          "height": 18,
+          "motion": {
+            "axis": "x",
+            "range": 48,
+            "speed": 1.1400000000000001,
+            "phase": 5.6
+          }
+        },
+        {
+          "id": "p04",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1110,
+          "y": null,
+          "anchor": "floor",
+          "offset": 122,
+          "width": 190,
+          "height": 18
+        },
+        {
+          "id": "p05",
+          "type": "temporary",
+          "collision": "one-way",
+          "x": 1480,
+          "y": null,
+          "anchor": "floor",
+          "offset": 78,
+          "width": 150,
+          "height": 18,
+          "duration": 2.1,
+          "respawnDelay": 3
+        },
+        {
+          "id": "p06",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 1780,
+          "y": null,
+          "anchor": "floor",
+          "offset": 115,
+          "width": 180,
+          "height": 18
+        },
+        {
+          "id": "p07",
+          "type": "fixed",
+          "collision": "one-way",
+          "x": 2150,
+          "y": null,
+          "anchor": "floor",
+          "offset": 82,
+          "width": 160,
+          "height": 18
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "security-catwalk-a",
+          "x": 300,
+          "width": 136,
+          "offset": 140,
+          "style": "route"
+        },
+        {
+          "type": "moving",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "security-timed-lift",
+          "x": 850,
+          "width": 138,
+          "offset": 152,
+          "style": "route",
+          "motion": {
+            "axis": "y",
+            "range": 28,
+            "speed": 0.9,
+            "phase": 0.3
+          }
+        },
+        {
+          "type": "dangerous",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "risk-room-platform-a",
+          "x": 1180,
+          "width": 110,
+          "offset": 226,
+          "style": "dangerous",
+          "damage": 12
+        },
+        {
+          "type": "dangerous",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "risk-room-platform-b",
+          "x": 1320,
+          "width": 110,
+          "offset": 220,
+          "style": "dangerous",
+          "damage": 12
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "firewall-safe-catwalk",
+          "x": 1200,
+          "width": 280,
+          "offset": 65,
+          "style": "route",
+          "requiresComponentId": "c02"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "safe-route-bridge",
+          "x": 1590,
+          "width": 180,
+          "offset": 86,
+          "style": "route",
+          "requiresComponentId": "c02"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "security-catwalk-b",
+          "x": 1980,
+          "width": 150,
+          "offset": 146,
+          "style": "route"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "o01",
+          "type": "block",
+          "collision": "solid",
+          "x": 455,
+          "y": null,
+          "anchor": "floor",
+          "offset": 65,
+          "width": 48,
+          "height": 65
+        },
+        {
+          "id": "o02",
+          "type": "block",
+          "collision": "solid",
+          "x": 780,
+          "y": null,
+          "anchor": "floor",
+          "offset": 75,
+          "width": 48,
+          "height": 75
+        },
+        {
+          "id": "o03",
+          "type": "block",
+          "collision": "solid",
+          "x": 1070,
+          "y": null,
+          "anchor": "floor",
+          "offset": 58,
+          "width": 55,
+          "height": 58
+        },
+        {
+          "id": "o04",
+          "type": "block",
+          "collision": "solid",
+          "x": 1440,
+          "y": null,
+          "anchor": "floor",
+          "offset": 80,
+          "width": 48,
+          "height": 80
+        },
+        {
+          "id": "o05",
+          "type": "block",
+          "collision": "solid",
+          "x": 1740,
+          "y": null,
+          "anchor": "floor",
+          "offset": 60,
+          "width": 52,
+          "height": 60
+        },
+        {
+          "id": "o06",
+          "type": "block",
+          "collision": "solid",
+          "x": 2110,
+          "y": null,
+          "anchor": "floor",
+          "offset": 76,
+          "width": 52,
+          "height": 76
+        },
+        {
+          "type": "interference",
+          "collision": "dangerous",
+          "anchor": "floor",
+          "id": "laser-lane-a",
+          "x": 650,
+          "width": 34,
+          "height": 86,
+          "offset": 86,
+          "damage": 14,
+          "window": {
+            "period": 3.4,
+            "active": 1.5,
+            "phase": 0
+          },
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "interference",
+          "collision": "dangerous",
+          "anchor": "floor",
+          "id": "laser-lane-b",
+          "x": 1090,
+          "width": 38,
+          "height": 94,
+          "offset": 94,
+          "damage": 16,
+          "window": {
+            "period": 4.1,
+            "active": 1.8,
+            "phase": 1.3
+          },
+          "requiresComponentId": "c02"
+        },
+        {
+          "type": "route-wall",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "security-portal-wall",
+          "x": 1790,
+          "width": 46,
+          "height": 110,
+          "offset": 110,
+          "requiresComponentId": "c01"
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 580,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        },
+        {
+          "id": "c02",
+          "x": 960,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        },
+        {
+          "id": "c03",
+          "x": 1970,
+          "y": null,
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 430,
+          "type": "armored"
+        },
+        {
+          "id": "e02",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 970,
+          "type": "shooter"
+        },
+        {
+          "id": "e03",
+          "anchor": "floor",
+          "offset": 26,
+          "x": 1580,
+          "type": "fast"
+        },
+        {
+          "id": "e04",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 2250,
+          "type": "basic"
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 300,
+          "y": null,
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10
+        },
+        {
+          "id": "i02",
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10,
+          "x": 1360,
+          "y": 205
+        },
+        {
+          "id": "i03",
+          "x": 2300,
+          "y": null,
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10
+        }
+      ],
+      "features": [
+        {
+          "id": "f1",
+          "x": 320,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f2",
+          "x": 850,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f3",
+          "x": 1530,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f4",
+          "x": 2220,
+          "y": null,
+          "anchor": "floor"
+        }
+      ],
+      "gates": [
+        {
+          "id": "firewall-policy-gate",
+          "x": 1880,
+          "width": 24,
+          "height": 112,
+          "requiresComponentId": "c02"
+        }
+      ]
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 4,
+      "componentsToRepair": 3
+    }
+  },
+  {
+    "id": "phase-10",
+    "name": "Servidores e Internet",
+    "theme": "servers",
+    "objective": "Restaure os quatro relays da Internet, desative o escudo do núcleo e neutralize VIRUS ZERO.",
+    "palette": [
+      "#070f20",
+      "#172b50",
+      "#80dbff",
+      "#336783",
+      "#a35267"
+    ],
+    "map": {
+      "width": 5200,
+      "height": "viewport",
+      "layout": "horizontal",
+      "start": {
+        "x": 70,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "exit": {
+        "x": 5106,
+        "y": null,
+        "anchor": "floor",
+        "offset": 0
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x"
+        ],
+        "followOffsetX": 0.38,
+        "followOffsetY": 0.5
+      },
+      "routes": [],
+      "sections": [
+        {
+          "x": 0,
+          "label": "01 // EXPLORAÇÃO DOS SERVIDORES"
+        },
+        {
+          "x": 1800,
+          "label": "02 // TRÂNSITO SOB ATAQUE"
+        },
+        {
+          "x": 3340,
+          "label": "03 // NÚCLEO DE VIRUS ZERO"
+        }
+      ],
+      "checkpoints": [
+        1210,
+        2460,
+        3260,
+        3540
+      ],
+      "pits": [
+        {
+          "x": 990,
+          "width": 92
+        },
+        {
+          "x": 2260,
+          "width": 100
+        },
+        {
+          "x": 2940,
+          "width": 108
+        }
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "uplink-bridge-a",
+          "x": 300,
+          "width": 142,
+          "offset": 112,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "server-high-catwalk-a",
+          "x": 460,
+          "width": 120,
+          "offset": 190,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-transit-a",
+          "x": 610,
+          "width": 154,
+          "offset": 148,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "server-upper-route-a",
+          "x": 600,
+          "width": 128,
+          "offset": 268,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "server-upper-route-b",
+          "x": 760,
+          "width": 150,
+          "offset": 310,
+          "style": "signal"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "server-upper-route-c",
+          "x": 940,
+          "width": 120,
+          "offset": 240,
+          "style": "packet"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "server-repaired-uplink",
+          "x": 1120,
+          "width": 130,
+          "offset": 230,
+          "style": "signal",
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "shortcut-cable-bridge",
+          "x": 780,
+          "width": 140,
+          "offset": 120,
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "uplink-bridge-b",
+          "x": 930,
+          "width": 188,
+          "offset": 92,
+          "style": "route"
+        },
+        {
+          "type": "moving",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "server-lift-a",
+          "x": 1130,
+          "width": 100,
+          "offset": 130,
+          "style": "packet",
+          "motion": {
+            "axis": "y",
+            "range": 22,
+            "speed": 0.75,
+            "phase": 0.6
+          }
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "rack-transit-b",
+          "x": 1260,
+          "width": 148,
+          "offset": 158,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "server-high-shelf-b",
+          "x": 1420,
+          "width": 110,
+          "offset": 200,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "relay-platform-a",
+          "x": 1550,
+          "width": 174,
+          "offset": 112,
+          "style": "packet"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "relay-platform-b",
+          "x": 1830,
+          "width": 144,
+          "offset": 172,
+          "style": "packet"
+        },
+        {
+          "type": "moving",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "combat-aerial-lift",
+          "x": 2000,
+          "width": 120,
+          "offset": 138,
+          "style": "packet",
+          "motion": {
+            "axis": "x",
+            "range": 32,
+            "speed": 0.82,
+            "phase": 1.2
+          }
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "relay-platform-c",
+          "x": 2160,
+          "width": 190,
+          "offset": 96,
+          "style": "route"
+        },
+        {
+          "type": "moving",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "combat-pit-step",
+          "x": 2320,
+          "width": 110,
+          "offset": 140,
+          "style": "route",
+          "motion": {
+            "axis": "y",
+            "range": 20,
+            "speed": 0.9,
+            "phase": 0.3
+          }
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "combat-step-a",
+          "x": 2460,
+          "width": 168,
+          "offset": 154,
+          "style": "packet"
+        },
+        {
+          "type": "temporary",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "combat-temp-step",
+          "x": 2620,
+          "width": 110,
+          "offset": 130,
+          "style": "route",
+          "duration": 2.1,
+          "respawnDelay": 2.8
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "combat-step-b",
+          "x": 2760,
+          "width": 140,
+          "offset": 104,
+          "style": "cable"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "combat-bridge",
+          "x": 2900,
+          "width": 186,
+          "offset": 86,
+          "style": "route"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "combat-high-rail",
+          "x": 3080,
+          "width": 130,
+          "offset": 150,
+          "style": "route"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "core-platform-a",
+          "x": 3400,
+          "width": 174,
+          "offset": 112,
+          "style": "signal"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "core-dodge-high-left",
+          "x": 3560,
+          "width": 95,
+          "offset": 232,
+          "style": "signal"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "core-platform-b",
+          "x": 3670,
+          "width": 190,
+          "offset": 166,
+          "style": "signal"
+        },
+        {
+          "type": "moving",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "core-moving-lift",
+          "x": 3820,
+          "width": 140,
+          "offset": 216,
+          "style": "packet",
+          "motion": {
+            "axis": "y",
+            "range": 24,
+            "speed": 0.7,
+            "phase": 0.4
+          }
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "core-platform-c",
+          "x": 3970,
+          "width": 168,
+          "offset": 108,
+          "style": "signal"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "core-dodge-high-right",
+          "x": 4100,
+          "width": 95,
+          "offset": 224,
+          "style": "signal"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "core-platform-d",
+          "x": 4240,
+          "width": 188,
+          "offset": 146,
+          "style": "signal"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "core-terminal-step",
+          "x": 4420,
+          "width": 140,
+          "offset": 96,
+          "style": "signal"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "core-right-cover-route",
+          "x": 4590,
+          "width": 148,
+          "offset": 120,
+          "style": "signal"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "core-right-high-route",
+          "x": 4740,
+          "width": 130,
+          "offset": 204,
+          "style": "signal"
+        },
+        {
+          "type": "fixed",
+          "collision": "one-way",
+          "anchor": "floor",
+          "height": 16,
+          "id": "internet-terminal-route",
+          "x": 4910,
+          "width": 150,
+          "offset": 98,
+          "style": "packet"
+        }
+      ],
+      "obstacles": [
+        {
+          "type": "heatsink",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "rack-cooler-a",
+          "x": 450,
+          "width": 48,
+          "height": 62,
+          "offset": 62
+        },
+        {
+          "type": "interference",
+          "collision": "dangerous",
+          "anchor": "floor",
+          "id": "fiber-surge-a",
+          "x": 830,
+          "width": 46,
+          "height": 78,
+          "offset": 78,
+          "damage": 10
+        },
+        {
+          "type": "heatsink",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "rack-cooler-b",
+          "x": 1370,
+          "width": 52,
+          "height": 74,
+          "offset": 74
+        },
+        {
+          "type": "interference",
+          "collision": "dangerous",
+          "anchor": "floor",
+          "id": "fiber-surge-b",
+          "x": 1740,
+          "width": 46,
+          "height": 84,
+          "offset": 84,
+          "damage": 10
+        },
+        {
+          "type": "route-wall",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "process-wall-a",
+          "x": 2090,
+          "width": 50,
+          "height": 96,
+          "offset": 96
+        },
+        {
+          "type": "interference",
+          "collision": "dangerous",
+          "anchor": "floor",
+          "id": "laser-lane-p2",
+          "x": 2380,
+          "width": 30,
+          "height": 90,
+          "offset": 90,
+          "damage": 12,
+          "window": {
+            "period": 3.6,
+            "active": 1.6,
+            "phase": 0.6
+          }
+        },
+        {
+          "type": "route-wall",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "process-wall-b",
+          "x": 2590,
+          "width": 48,
+          "height": 88,
+          "offset": 88
+        },
+        {
+          "type": "interference",
+          "collision": "dangerous",
+          "anchor": "floor",
+          "id": "relay-security-laser",
+          "x": 2820,
+          "width": 30,
+          "height": 84,
+          "offset": 84,
+          "damage": 12,
+          "window": {
+            "period": 3.2,
+            "active": 1.25,
+            "phase": 0.5
+          },
+          "requiresComponentId": "c03"
+        },
+        {
+          "type": "heatsink",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "core-vent-a",
+          "x": 3480,
+          "width": 54,
+          "height": 74,
+          "offset": 74
+        },
+        {
+          "type": "heatsink",
+          "collision": "solid",
+          "anchor": "floor",
+          "id": "core-vent-b",
+          "x": 4150,
+          "width": 58,
+          "height": 86,
+          "offset": 86
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44,
+          "x": 650
+        },
+        {
+          "id": "c02",
+          "anchor": "floor",
+          "offset": 244,
+          "width": 34,
+          "height": 44,
+          "x": 1450
+        },
+        {
+          "id": "c03",
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44,
+          "x": 2670
+        },
+        {
+          "id": "c04",
+          "anchor": "floor",
+          "offset": 44,
+          "width": 34,
+          "height": 44,
+          "x": 3180
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 500,
+          "type": "basic",
+          "hp": 3
+        },
+        {
+          "id": "e02",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 1120,
+          "type": "shooter",
+          "hp": 3
+        },
+        {
+          "id": "e03",
+          "anchor": "floor",
+          "offset": 92,
+          "x": 1850,
+          "type": "flyer",
+          "hp": 3
+        },
+        {
+          "id": "e04",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 2180,
+          "type": "shooter",
+          "hp": 3
+        },
+        {
+          "id": "e05",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 2470,
+          "type": "parasite",
+          "hp": 4
+        },
+        {
+          "id": "e06",
+          "anchor": "floor",
+          "offset": 26,
+          "x": 2710,
+          "type": "fast",
+          "hp": 2
+        },
+        {
+          "id": "e07",
+          "anchor": "floor",
+          "offset": 24,
+          "x": 2920,
+          "type": "armored",
+          "hp": 7
+        },
+        {
+          "id": "e08",
+          "anchor": "floor",
+          "offset": 46,
+          "x": 3970,
+          "type": "boss",
+          "hp": 72,
+          "multiStage": true,
+          "coreShieldRequiresRepairs": true,
+          "bossBounds": {
+            "left": 3420,
+            "right": 4870
+          },
+          "armor": 0.35,
+          "damage": 18,
+          "speed": 58,
+          "xp": 500
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10,
+          "x": 320
+        },
+        {
+          "id": "i02",
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10,
+          "x": 780
+        },
+        {
+          "id": "i03",
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10,
+          "x": 1420
+        },
+        {
+          "id": "i04",
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10,
+          "x": 2040
+        },
+        {
+          "id": "i05",
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10,
+          "x": 2620
+        },
+        {
+          "id": "i06",
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10,
+          "x": 3290
+        },
+        {
+          "id": "i07",
+          "anchor": "floor",
+          "offset": 39,
+          "radius": 10,
+          "x": 3560
+        },
+        {
+          "id": "i08",
+          "anchor": "floor",
+          "offset": 87,
+          "radius": 10,
+          "x": 4100
+        }
+      ],
+      "features": [
+        {
+          "id": "f1",
+          "x": 340,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f2",
+          "x": 850,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f3",
+          "x": 1430,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f4",
+          "x": 2050,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f5",
+          "x": 2670,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f6",
+          "x": 3180,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f7",
+          "x": 3550,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f8",
+          "x": 4180,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f9",
+          "x": 4420,
+          "y": null,
+          "anchor": "floor"
+        },
+        {
+          "id": "f10",
+          "x": 3970,
+          "y": null,
+          "anchor": "floor"
+        }
+      ],
+      "gates": [
+        {
+          "id": "core-airlock",
+          "x": 3340,
+          "width": 28,
+          "height": 126,
+          "requiresComponentId": "c04"
+        }
+      ]
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 8,
+      "componentsToRepair": 4
+    }
+  }
+]

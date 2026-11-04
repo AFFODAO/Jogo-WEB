@@ -47,3 +47,7 @@
 @keyframes dialog-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .level-overlay.active .level-dialog,.question-overlay.active .question-dialog{animation:dialog-enter .18s ease-out}
 @media(prefers-reduced-motion:reduce){.level-dialog,.question-dialog{animation:none!important}}
+.repair-panel{position:absolute;inset:30% 8% auto;z-index:6;padding:20px;background:#091923f5;border:1px solid #65f3bc;color:#cdece6;text-align:center;font:12px/1.7 monospace;box-shadow:0 12px 40px #0009}
+.repair-panel[hidden]{display:none}.repair-panel strong{color:#65f3bc}.repair-panel small{color:#9eb8c2}.repair-panel:not([hidden])~.touch-controls{display:none}
+.repair-panel button{display:block;margin:12px auto 0;padding:8px 12px;border:1px solid #4b807d;background:#12313a;color:#d4f7ee;cursor:pointer;font:inherit}.repair-panel button:focus-visible{outline:2px solid #65f3bc;outline-offset:3px}
+#mapGeometry{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}#mapGeometry[hidden]{display:none}

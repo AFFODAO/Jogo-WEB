@@ -51,16 +51,7 @@
   const JUMP_SPEED = 690;
   const MAX_PLAYER_ARMOR = .5;
   const PLAYER_HIT_INVULNERABILITY = 1;
-  const ENEMY_PROFILES = {
-    common: { hp: 2, damage: 12, speed: 60, radius: 15, behavior: 'chase', attack: 'melee', attackRange: 34, attackCooldown: 1.15, windup: .28, xp: 45, color: '#bb7bff' },
-    basic: { hp: 2, damage: 12, speed: 60, radius: 15, behavior: 'chase', attack: 'melee', attackRange: 34, attackCooldown: 1.15, windup: .28, xp: 45, color: '#bb7bff' },
-    fast: { hp: 1, damage: 8, speed: 142, radius: 11, behavior: 'chase', attack: 'melee', attackRange: 28, attackCooldown: .85, windup: .18, xp: 35, color: '#ff9263' },
-    armored: { hp: 7, damage: 18, speed: 42, radius: 18, behavior: 'patrol', attack: 'melee', attackRange: 40, attackCooldown: 1.8, windup: .48, armor: .68, vulnerableDuration: 1.25, special: 'barrier', specialCooldown: 7, xp: 85, color: '#76b9ff' },
-    flyer: { hp: 2, damage: 10, speed: 88, radius: 14, behavior: 'chase', attack: 'melee', attackRange: 38, attackCooldown: 1.4, windup: .32, flying: true, xp: 55, color: '#73e4ff' },
-    shooter: { hp: 3, damage: 10, speed: 48, radius: 15, behavior: 'patrol', attack: 'ranged', attackRange: 330, preferredRange: 230, attackCooldown: 2.2, projectileSpeed: 285, xp: 60, color: '#ffd166' },
-    parasite: { hp: 3, damage: 7, speed: 38, radius: 13, behavior: 'support', attack: 'interfere', buffRange: 190, interferenceRange: 260, drainRate: 8, summonCooldown: 9, summonLimit: 2, xp: 70, color: '#7dff9b' },
-    boss: { hp: 28, damage: 20, speed: 42, radius: 38, behavior: 'chase', attack: 'melee', attackRange: 70, attackCooldown: 1.3, windup: .36, special: 'summon', specialCooldown: 8, summonLimit: 3, xp: 250, color: '#ff476f' }
-  };
+  const ENEMY_PROFILES = ByteRunner.enemies.profiles;
   const ABILITIES = [
     { id: 'armor', name: 'Armadura reforçada', maxLevel: 5, description: level => `Reduz o dano recebido em ${level * 10}% no total.`, apply: level => { player.armor = Math.min(MAX_PLAYER_ARMOR, Math.max(0, level) * .1); } },
     { id: 'rapid', name: 'Disparo rápido', maxLevel: 5, description: level => `Reduz o intervalo entre ataques em ${Math.round((1 - Math.pow(.9, level)) * 100)}%.`, apply: level => { player.fireRate = Math.max(.14, .32 * Math.pow(.9, level)); } },
@@ -198,337 +189,7 @@
       ['O que é um endereço IP público?', ['Um endereço roteável globalmente na Internet', 'Um nome de rede Wi-Fi', 'Um endereço MAC de fábrica', 'Uma senha de servidor'], 0, 'Endereços públicos são usados para roteamento global, conforme alocação e políticas.']
     ])
   };
-  const PHASE_DEFINITIONS = [
-    { name: 'Hardware do computador', theme: 'hardware', length: 2450, objective: 'Desative os vírus e recupere placa-mãe, CPU e memória.', palette: ['#07151d','#14323b','#56e5cf','#245c57','#775c45'], platforms: [[230,150,82],[520,150,118],[875,190,90],[1230,150,112],[1640,190,78],[2040,150,108]], obstacles: [[455,42,44],[790,54,65],[1175,48,54],[1570,55,75],[1980,58,50]], components: [660,1430], enemies: [{x:390,type:'common'},{x:1060,type:'fast'},{x:1840,type:'common'}], items: [570,1570], features: [380,980,1610,2130] },
-    { name: 'Software do computador', theme: 'software', length: 2250, objective: 'Encontre processos infectados e restaure os arquivos corrompidos.', palette: ['#101026','#26254c','#a78cff','#4e477e','#8b5278'], platforms: [[180,130,100],[420,180,65],[760,140,122],[1050,210,82],[1450,160,110],[1790,180,70]], obstacles: [[350,48,68],[690,44,42],[1010,58,78],[1395,45,56],[1730,52,68]], components: [600,1290], enemies: [{x:460,type:'fast'},{x:900,type:'common'},{x:1630,type:'fast'}], items: [280,1140], features: [300,830,1370,1880] },
-    { name: 'Switch de rede', theme: 'switch', length: 2350, objective: 'Neutralize os vírus das portas e reconecte os equipamentos do switch.', palette: ['#071820','#12313a','#56d9ce','#285a65','#b17b51'], platforms: [[260,190,75],[600,120,112],[850,180,80],[1190,145,126],[1500,200,72],[1900,150,108]], obstacles: [[500,50,58],[800,42,45],[1120,52,75],[1450,44,60],[1840,62,78]], components: [700,1320,1740], enemies: [{x:430,type:'common'},{x:980,type:'fast'},{x:1600,type:'common'}], items: [300,1560], features: [360,900,1490,2010] },
-    { name: 'Roteador', theme: 'router', length: 2550, objective: 'Reative as rotas e elimine as falhas de comunicação entre redes.', palette: ['#101522','#263a52','#80c6ff','#496b8b','#a17b56'], platforms: [[200,140,115],[470,180,75],[820,135,125],[1100,190,88],[1470,160,115],[1800,180,72],[2160,150,108]], obstacles: [[395,48,68],[760,52,55],[1050,45,72],[1420,52,66],[1750,48,55],[2100,55,78]], components: [650,1260], enemies: [{x:530,type:'fast'},{x:1000,type:'common'},{x:1740,type:'fast'}], items: [300,1540], features: [310,870,1510,2200] },
-    { name: 'Rede Wi-Fi', theme: 'wifi', length: 2300, objective: 'Reduza as interferências e repare os pontos de acesso sem fio.', palette: ['#091a29','#123b50','#74e8ff','#256782','#9c8a50'], platforms: [[210,170,80],[520,130,120],[790,200,74],[1160,145,115],[1450,180,82],[1800,180,120]], obstacles: [[460,45,60],[740,52,80],[1110,46,52],[1400,48,72],[1740,52,62]], components: [630,1280], enemies: [{x:440,type:'fast'},{x:970,type:'fast'},{x:1580,type:'common'}], items: [300,1520], features: [330,820,1390,1900] },
-    { name: 'Cabeamento e infraestrutura', theme: 'cabling', length: 2700, objective: 'Restaure os conectores rompidos e proteja o cabeamento do rack.', palette: ['#171615','#332b24','#f0b66d','#786044','#556b77'], platforms: [[250,140,105],[520,190,75],[870,140,120],[1150,200,85],[1530,160,116],[1840,190,72],[2220,160,110]], obstacles: [[470,50,58],[820,45,75],[1100,48,62],[1480,52,80],[1800,48,56],[2180,55,78]], components: [690,1320,2010], enemies: [{x:430,type:'common'},{x:1010,type:'fast'},{x:1640,type:'common'},{x:2290,type:'fast'}], items: [300,1580,2360], features: [360,930,1550,2230] },
-    { name: 'Endereçamento IP e DHCP', theme: 'dhcp', length: 2350, objective: 'Corrija concessões DHCP e recupere os endereços IP da rede.', palette: ['#081b1b','#123b36','#72edb0','#337a69','#7d7851'], platforms: [[170,170,80],[480,140,120],[760,170,75],[1080,130,125],[1350,180,85],[1700,150,115],[1990,140,72]], obstacles: [[430,48,60],[710,45,68],[1030,54,78],[1300,44,56],[1650,50,72],[1940,50,55]], components: [610,1430], enemies: [{x:410,type:'fast'},{x:930,type:'common'},{x:1600,type:'fast'}], items: [260,1370], features: [300,790,1390,1880] },
-    { name: 'DNS', theme: 'dns', length: 2400, objective: 'Restaure os servidores DNS e reconstrua a resolução de domínios.', palette: ['#10162b','#202f52','#9fbdff','#536a9b','#a17a61'], platforms: [[240,160,115],[540,130,74],[810,180,120],[1150,145,78],[1450,180,112],[1800,150,78],[2100,140,118]], obstacles: [[490,48,66],[770,54,55],[1110,45,70],[1410,48,62],[1760,50,78],[2060,48,58]], components: [680,1320], enemies: [{x:460,type:'common'},{x:990,type:'fast'},{x:1690,type:'common'}], items: [300,1500], features: [330,850,1480,2040] },
-    { name: 'Firewall e segurança', theme: 'firewall', length: 2650, objective: 'Derrube as ameaças e reative os escudos do firewall.', palette: ['#1c1017','#3c1d29','#ff7c68','#8d3548','#b18a57'], platforms: [[220,150,85],[500,170,118],[820,140,75],[1110,190,122],[1480,150,78],[1780,180,115],[2150,160,82]], obstacles: [[455,48,65],[780,48,75],[1070,55,58],[1440,48,80],[1740,52,60],[2110,52,76]], components: [650,1320,1970], enemies: [{x:430,type:'fast'},{x:970,type:'common'},{x:1580,type:'fast'},{x:2250,type:'common'}], items: [300,1510,2300], features: [320,850,1530,2220] },
-    { name: 'Servidores e Internet', theme: 'servers', length: 3100, objective: 'Repare os servidores da rede e derrote VIRUS ZERO no núcleo.', palette: ['#070f20','#172b50','#80dbff','#336783','#a35267'], platforms: [[230,150,82],[510,160,118],[820,180,75],[1150,140,120],[1420,190,78],[1770,160,112],[2070,170,80],[2390,160,118],[2680,140,75]], obstacles: [[465,48,54],[770,52,72],[1100,48,65],[1370,55,80],[1720,50,60],[2020,52,70],[2340,50,58],[2630,54,78]], components: [670,1460,2210], enemies: [{x:480,type:'common'},{x:1250,type:'fast'},{x:1920,type:'common'},{x:2400,type:'fast'},{x:2760,type:'boss',hp:28}], items: [300,1550,2440], features: [340,900,1510,2140,2760] }
-  ];
-  PHASE_DEFINITIONS[5] = {
-    ...PHASE_DEFINITIONS[5],
-    components:[
-      {id:'c01',x:690,y:1014,anchor:'floor',offset:44},
-      {id:'c02',x:600,y:744,anchor:'floor',offset:44},
-      {id:'c03',x:430,y:384,anchor:'floor',offset:44}
-    ],
-    enemies:[
-      {x:590,y:1123,type:'basic'}, {x:770,y:942,type:'fast'},
-      {x:690,y:762,type:'parasite'}, {x:450,y:492,type:'shooter'}
-    ],
-    items:[{x:320,y:1260},{x:860,y:830},{x:430,y:365}],
-    features:[{x:320,y:1450},{x:850,y:1090},{x:790,y:690},{x:300,y:480}]
-  };
-  PHASE_DEFINITIONS[7] = { ...PHASE_DEFINITIONS[7], components:[750,1480] };
-  PHASE_DEFINITIONS[8] = {
-    ...PHASE_DEFINITIONS[8], components:[580,960,1970],
-    items:[300,{x:1360,y:205},2300]
-  };
-  PHASE_DEFINITIONS[9] = {
-    ...PHASE_DEFINITIONS[9], length:5200,
-    objective:'Restaure os quatro relays da Internet, desative o escudo do núcleo e neutralize VIRUS ZERO.',
-    components:[{id:'c01',x:650},{id:'c02',x:1450,offset:244},{id:'c03',x:2670},{id:'c04',x:3180}],
-    enemies:[
-      {x:500,type:'basic',hp:3},{x:1120,type:'shooter',hp:3},
-      {x:1850,type:'flyer',hp:3},{x:2180,type:'shooter',hp:3},
-      {x:2470,type:'parasite',hp:4},{x:2710,type:'fast',hp:2},
-      {x:2920,type:'armored',hp:7},
-      {x:3970,type:'boss',hp:72,multiStage:true,coreShieldRequiresRepairs:true,
-        bossBounds:{left:3420,right:4870},armor:.35,damage:18,speed:58,xp:500}
-    ],
-    items:[{x:320},{x:780},{x:1420},{x:2040},{x:2620},{x:3290},{x:3560},{x:4100}],
-    features:[340,850,1430,2050,2670,3180,3550,4180,4420,3970]
-  };
-  // Each sector selects a small roster from the shared enemy catalog.
-  const PHASE_ENEMY_ROSTERS = [
-    ['basic','fast','armored'], ['fast','basic','shooter'], ['basic','parasite','shooter'],
-    ['fast','flyer','armored'], ['shooter','fast','basic'], ['basic','fast','parasite','fast'],
-    ['fast','armored','flyer'], ['basic','shooter','parasite'], ['armored','shooter','fast','basic'],
-    ['basic','shooter','flyer','fast','boss']
-  ];
-
-  // The first five sectors have their own route geometry. Coordinates are
-  // world-space; repairs open optional shortcuts or activate themed ledges.
-  const THEME_LAYOUTS = {
-    0: { platforms: [
-      { id:'cpu-bridge', x:735, width:118, offset:58, style:'circuit' },
-      { id:'ram-rail', x:1375, width:108, offset:92, style:'circuit' },
-      { id:'gpu-bridge', x:1880, width:125, offset:64, style:'circuit' },
-      { id:'repaired-bus', x:945, width:150, offset:112, style:'circuit', requiresComponentId:'c01' }
-    ], obstacles:[
-      { id:'fan-housing', x:905, width:46, height:58, offset:58, type:'fan', requiresComponentId:'c01' },
-      { id:'heatsink', x:1535, width:58, height:86, offset:86, type:'heatsink', requiresComponentId:'c02' }
-    ], gates:[{ id:'board-bus-gate', x:1090, width:22, height:96, requiresComponentId:'c01' }] },
-    1: { platforms:[
-      { id:'folder-window-a', x:300, width:116, offset:108, style:'window' },
-      { id:'folder-window-b', x:970, width:118, offset:112, style:'window' },
-      { id:'floating-process', x:1550, width:130, offset:116, style:'window', requiresComponentId:'c01' }
-    ], obstacles:[
-      { id:'corrupt-file-a', x:820, width:48, height:60, offset:60, type:'corrupt', requiresComponentId:'c01' },
-      { id:'process-crash', x:1815, width:58, height:74, offset:74, type:'corrupt', requiresComponentId:'c02' }
-    ], gates:[{ id:'directory-lock', x:930, width:22, height:108, requiresComponentId:'c01' }] },
-    2: { platforms:[
-      { id:'cable-port-a', x:390, width:132, offset:58, style:'cable' },
-      { id:'packet-bridge', x:1040, width:140, offset:112, style:'packet' },
-      { id:'cable-port-b', x:1780, width:132, offset:62, style:'cable', requiresComponentId:'c02' }
-    ], obstacles:[
-      { id:'port-stack-a', x:550, width:44, height:66, offset:66, type:'port' },
-      { id:'port-stack-b', x:1380, width:44, height:72, offset:72, type:'port' }
-    ], gates:[
-      { id:'switch-link-a', x:930, width:22, height:106, requiresComponentId:'c01' },
-      { id:'switch-link-b', x:1660, width:22, height:106, requiresComponentId:'c02' }
-    ] },
-    3: { map:{layout:'multi-route',routes:['rota inferior','passarelas de pacotes']}, platforms:[
-      { id:'route-high-a', x:320, width:126, offset:112, style:'route' },
-      { id:'packet-lift-a', x:960, width:126, offset:118, style:'packet' },
-      { id:'route-high-b', x:1590, width:140, offset:112, style:'route' },
-      { id:'route-shortcut', x:1190, width:152, offset:116, style:'route', requiresComponentId:'c01' }
-    ], obstacles:[
-      { id:'router-wall-a', x:720, width:42, height:96, offset:96, type:'route-wall' },
-      { id:'router-wall-b', x:1830, width:48, height:116, offset:116, type:'route-wall' }
-    ], gates:[{ id:'route-module-gate', x:1030, width:22, height:108, requiresComponentId:'c01' }] },
-    4: { platforms:[
-      { id:'signal-shelf-a', x:340, width:120, offset:112, style:'signal' },
-      { id:'signal-shelf-b', x:900, width:126, offset:112, style:'signal', requiresComponentId:'c01' },
-      { id:'signal-shelf-c', x:1510, width:145, offset:116, style:'signal', requiresComponentId:'c02' },
-      { id:'interference-bridge', x:1990, width:126, offset:108, style:'signal' }
-    ], obstacles:[
-      { id:'interference-field-a', x:735, width:48, height:82, offset:82, type:'interference', collision:'dangerous', damage:10, requiresComponentId:'c01' },
-      { id:'interference-field-b', x:1710, width:54, height:94, offset:94, type:'interference', collision:'dangerous', damage:10, requiresComponentId:'c02' }
-    ], gates:[{ id:'wifi-signal-gate', x:1110, width:22, height:102, requiresComponentId:'c01' }] },
-    5: {
-      replacePlatforms:true, replaceObstacles:true,
-      map:{ width:1100, height:1550, layout:'vertical',
-        start:{x:145,anchor:'floor',offset:0}, exit:{x:440,y:384,width:46,height:100,triggerRadiusY:74},
-        bounds:{left:true,right:true,ceiling:true,floor:true}, camera:{axes:['x','y'],followOffsetX:.5,followOffsetY:.55},
-        checkpoints:[{x:695,y:1058},{x:600,y:788}] },
-      platforms:[
-        {id:'rack-ledge-1',x:110,width:150,offset:100,style:'cable'},
-        {id:'rack-ledge-2',x:250,width:135,offset:190,style:'cable'},
-        {id:'maintenance-lift-a',x:390,width:135,offset:280,style:'cable',type:'moving',motion:{axis:'y',range:18,speed:.75,phase:0}},
-        {id:'rack-ledge-4',x:530,width:135,offset:360,style:'cable'},
-        {id:'rack-ledge-5',x:670,width:135,offset:450,style:'cable'},
-        {id:'rack-ledge-6',x:810,width:135,offset:540,style:'cable'},
-        {id:'rack-ledge-7',x:670,width:135,offset:630,style:'cable'},
-        {id:'rack-ledge-8',x:530,width:135,offset:720,style:'cable'},
-        {id:'rack-ledge-9',x:390,width:135,offset:810,style:'cable'},
-        {id:'rack-ledge-10',x:250,width:135,offset:900,style:'cable'},
-        {id:'rack-ledge-11',x:110,width:135,offset:990,style:'cable'},
-        {id:'rack-service-step',x:245,width:115,offset:1035,style:'cable'},
-        {id:'rack-ledge-12',x:360,width:160,offset:1080,style:'cable'},
-        {id:'maintenance-lift-b',x:785,width:125,offset:720,style:'cable',type:'moving',motion:{axis:'x',range:42,speed:.6,phase:1.2}}
-      ],
-      obstacles:[
-        {id:'rack-left-wall',x:0,y:0,width:38,height:1550,offset:0,type:'rack-wall'},
-        {id:'rack-right-wall',x:1062,y:0,width:38,height:1550,offset:0,type:'rack-wall'},
-        {id:'live-ethernet-a',x:925,y:1110,width:36,height:68,offset:0,type:'interference',collision:'dangerous',damage:12,requiresComponentId:'c01'},
-        {id:'short-circuit-b',x:725,y:810,width:44,height:74,offset:0,type:'interference',collision:'dangerous',damage:12,requiresComponentId:'c02'},
-      ],
-      gates:[{id:'rack-bridge-gate',x:190,y:510,width:660,height:18,requiresComponentId:'c02'}]
-    },
-    6: { platforms:[
-      {id:'dhcp-lease-lift-a',x:660,width:132,offset:132,style:'packet',type:'moving',motion:{axis:'y',range:26,speed:.7,phase:.5},requiresComponentId:'c01'},
-      {id:'subnet-bridge',x:900,width:170,offset:76,style:'packet',requiresComponentId:'c01'},
-      {id:'dhcp-lease-lift-b',x:1580,width:138,offset:142,style:'packet',type:'moving',motion:{axis:'y',range:22,speed:.8,phase:1},requiresComponentId:'c02'},
-      {id:'alternate-subnet-shelf',x:1780,width:150,offset:192,style:'route'}
-    ], obstacles:[
-      {id:'dhcp-conflict-a',x:800,width:46,height:70,offset:70,type:'corrupt'},
-      {id:'dhcp-conflict-b',x:1540,width:48,height:78,offset:78,type:'corrupt',requiresComponentId:'c02'}
-    ], map:{pits:[{x:940,width:106}],checkpoints:[700,1500]}, gates:[
-      {id:'lease-gate-a',x:930,width:22,height:104,requiresComponentId:'c01'},
-      {id:'lease-gate-b',x:1840,width:22,height:108,requiresComponentId:'c02'}
-    ] },
-    7: { platforms:[
-      {id:'dns-cache-platform-a',x:410,width:142,offset:128,style:'window'},
-      {id:'dns-cache-platform-b',x:1000,width:145,offset:142,style:'window',type:'moving',motion:{axis:'y',range:24,speed:.72,phase:1.4}},
-      {id:'dns-packet-bridge',x:1200,width:190,offset:76,style:'packet'},
-      {id:'dns-secret-directory',x:1310,width:128,offset:170,style:'window',requiresComponentId:'c01'},
-      {id:'dns-reconnect-bridge',x:1710,width:180,offset:82,style:'packet',requiresComponentId:'c02'},
-      {id:'dns-cache-shelf',x:1950,width:130,offset:132,style:'window'},
-      {id:'dns-maze-step-a',x:830,width:90,offset:100,style:'window'},
-      {id:'dns-maze-step-b',x:920,width:90,offset:196,style:'window'},
-      {id:'dns-maze-return',x:1090,width:92,offset:190,style:'window'},
-      {id:'dns-maze-step-c',x:1780,width:86,offset:104,style:'window'},
-      {id:'dns-maze-step-d',x:1850,width:95,offset:196,style:'window'}
-    ], map:{layout:'maze',pits:[{x:620,width:90},{x:1230,width:110}]}, obstacles:[
-      {id:'dns-maze-divider-a',x:1030,width:40,height:224,offset:224,type:'route-wall'},
-      {id:'dns-maze-divider-b',x:1950,width:40,height:224,offset:224,type:'route-wall'},
-      {id:'corrupt-domain-a',x:730,width:48,height:78,offset:78,type:'corrupt',requiresComponentId:'c01'},
-      {id:'corrupt-domain-b',x:1500,width:54,height:88,offset:88,type:'corrupt',requiresComponentId:'c02'},
-      {id:'dns-cache-door',x:1210,width:22,height:104,offset:104,type:'gate',requiresComponentId:'c01'}
-    ], gates:[{id:'dns-root-gate',x:1640,width:22,height:104,requiresComponentId:'c02'}] },
-    8: { platforms:[
-      {id:'security-catwalk-a',x:300,width:136,offset:140,style:'route'},
-      {id:'security-timed-lift',x:850,width:138,offset:152,style:'route',type:'moving',motion:{axis:'y',range:28,speed:.9,phase:.3}},
-      {id:'risk-room-platform-a',x:1180,width:110,offset:226,style:'dangerous',type:'dangerous',damage:12},
-      {id:'risk-room-platform-b',x:1320,width:110,offset:220,style:'dangerous',type:'dangerous',damage:12},
-      {id:'firewall-safe-catwalk',x:1200,width:280,offset:65,style:'route',requiresComponentId:'c02'},
-      {id:'safe-route-bridge',x:1590,width:180,offset:86,style:'route',requiresComponentId:'c02'},
-      {id:'security-catwalk-b',x:1980,width:150,offset:146,style:'route'}
-    ], obstacles:[
-      {id:'laser-lane-a',x:650,width:34,height:86,offset:86,type:'interference',collision:'dangerous',damage:14,window:{period:3.4,active:1.5,phase:0},requiresComponentId:'c01'},
-      {id:'laser-lane-b',x:1090,width:38,height:94,offset:94,type:'interference',collision:'dangerous',damage:16,window:{period:4.1,active:1.8,phase:1.3},requiresComponentId:'c02'},
-      {id:'security-portal-wall',x:1790,width:46,height:110,offset:110,type:'route-wall',requiresComponentId:'c01'}
-    ], map:{pits:[{x:1185,width:240}]}, gates:[{id:'firewall-policy-gate',x:1880,width:24,height:112,requiresComponentId:'c02'}] },
-    9: {
-      replacePlatforms:true, replaceObstacles:true,
-      map:{width:5200,layout:'horizontal',camera:{axes:['x'],followOffsetX:.38,followOffsetY:.5},
-        sections:[{x:0,label:'01 // EXPLORAÇÃO DOS SERVIDORES'},{x:1800,label:'02 // TRÂNSITO SOB ATAQUE'},{x:3340,label:'03 // NÚCLEO DE VIRUS ZERO'}],
-        checkpoints:[1210,2460,3260,3540],pits:[{x:990,width:92},{x:2260,width:100},{x:2940,width:108}]},
-      platforms:[
-        {id:'uplink-bridge-a',x:300,width:142,offset:112,style:'cable'},
-        {id:'server-high-catwalk-a',x:460,width:120,offset:190,style:'cable'},
-        {id:'rack-transit-a',x:610,width:154,offset:148,style:'cable'},
-        {id:'server-upper-route-a',x:600,width:128,offset:268,style:'cable'},
-        {id:'server-upper-route-b',x:760,width:150,offset:310,style:'signal'},
-        {id:'server-upper-route-c',x:940,width:120,offset:240,style:'packet'},
-        {id:'server-repaired-uplink',x:1120,width:130,offset:230,style:'signal',requiresComponentId:'c01'},
-        {id:'shortcut-cable-bridge',x:780,width:140,offset:120,style:'cable',requiresComponentId:'c01'},
-        {id:'uplink-bridge-b',x:930,width:188,offset:92,style:'route'},
-        {id:'server-lift-a',x:1130,width:100,offset:130,style:'packet',type:'moving',motion:{axis:'y',range:22,speed:.75,phase:.6}},
-        {id:'rack-transit-b',x:1260,width:148,offset:158,style:'cable'},
-        {id:'server-high-shelf-b',x:1420,width:110,offset:200,style:'cable'},
-        {id:'relay-platform-a',x:1550,width:174,offset:112,style:'packet'},
-        {id:'relay-platform-b',x:1830,width:144,offset:172,style:'packet'},
-        {id:'combat-aerial-lift',x:2000,width:120,offset:138,style:'packet',type:'moving',motion:{axis:'x',range:32,speed:.82,phase:1.2}},
-        {id:'relay-platform-c',x:2160,width:190,offset:96,style:'route'},
-        {id:'combat-pit-step',x:2320,width:110,offset:140,style:'route',type:'moving',motion:{axis:'y',range:20,speed:.9,phase:.3}},
-        {id:'combat-step-a',x:2460,width:168,offset:154,style:'packet'},
-        {id:'combat-temp-step',x:2620,width:110,offset:130,style:'route',type:'temporary',duration:2.1,respawnDelay:2.8},
-        {id:'combat-step-b',x:2760,width:140,offset:104,style:'cable'},
-        {id:'combat-bridge',x:2900,width:186,offset:86,style:'route'},
-        {id:'combat-high-rail',x:3080,width:130,offset:150,style:'route'},
-        {id:'core-platform-a',x:3400,width:174,offset:112,style:'signal'},
-        {id:'core-dodge-high-left',x:3560,width:95,offset:232,style:'signal'},
-        {id:'core-platform-b',x:3670,width:190,offset:166,style:'signal'},
-        {id:'core-moving-lift',x:3820,width:140,offset:216,style:'packet',type:'moving',motion:{axis:'y',range:24,speed:.7,phase:.4}},
-        {id:'core-platform-c',x:3970,width:168,offset:108,style:'signal'},
-        {id:'core-dodge-high-right',x:4100,width:95,offset:224,style:'signal'},
-        {id:'core-platform-d',x:4240,width:188,offset:146,style:'signal'},
-        {id:'core-terminal-step',x:4420,width:140,offset:96,style:'signal'},
-        {id:'core-right-cover-route',x:4590,width:148,offset:120,style:'signal'},
-        {id:'core-right-high-route',x:4740,width:130,offset:204,style:'signal'},
-        {id:'internet-terminal-route',x:4910,width:150,offset:98,style:'packet'}
-      ],
-      obstacles:[
-        {id:'rack-cooler-a',x:450,width:48,height:62,offset:62,type:'heatsink'},
-        {id:'fiber-surge-a',x:830,width:46,height:78,offset:78,type:'interference',collision:'dangerous',damage:10},
-        {id:'rack-cooler-b',x:1370,width:52,height:74,offset:74,type:'heatsink'},
-        {id:'fiber-surge-b',x:1740,width:46,height:84,offset:84,type:'interference',collision:'dangerous',damage:10},
-        {id:'process-wall-a',x:2090,width:50,height:96,offset:96,type:'route-wall'},
-        {id:'laser-lane-p2',x:2380,width:30,height:90,offset:90,type:'interference',collision:'dangerous',damage:12,window:{period:3.6,active:1.6,phase:0.6}},
-        {id:'process-wall-b',x:2590,width:48,height:88,offset:88,type:'route-wall'},
-        {id:'relay-security-laser',x:2820,width:30,height:84,offset:84,type:'interference',collision:'dangerous',damage:12,window:{period:3.2,active:1.25,phase:.5},requiresComponentId:'c03'},
-        {id:'core-vent-a',x:3480,width:54,height:74,offset:74,type:'heatsink'},
-        {id:'core-vent-b',x:4150,width:58,height:86,offset:86,type:'heatsink'}
-      ],
-      gates:[{id:'core-airlock',x:3340,width:28,height:126,requiresComponentId:'c04'}]
-    }
-  };
-
-  function normalizePhase(definition, index) {
-    const themeLayout = THEME_LAYOUTS[index] || { platforms: [], obstacles: [], gates: [] };
-    const mapDefinition = definition.map || themeLayout.map;
-    const width = mapDefinition?.width || definition.length;
-    const map = {
-      width, height: 'viewport', layout: 'horizontal',
-      start: { x: 70, y: null, anchor: 'floor', offset: 0 },
-      exit: { x: width - 94, y: null, anchor: 'floor', offset: 0 },
-      bounds: { left: true, right: true, ceiling: true, floor: true },
-      camera: { axes: ['x'], followOffsetX: .36, followOffsetY: .5 },
-      routes: [],
-      width
-    };
-    if (mapDefinition) {
-      Object.assign(map, mapDefinition);
-      map.bounds = { left: true, right: true, ceiling: true, floor: true, ...mapDefinition.bounds };
-      map.camera = { axes: ['x'], followOffsetX: .36, followOffsetY: .5, ...mapDefinition.camera };
-      map.start = { x: 70, y: null, anchor: 'floor', offset: 0, ...mapDefinition.start };
-      map.exit = { x: width - 94, y: null, anchor: 'floor', offset: 0, ...mapDefinition.exit };
-      map.routes = mapDefinition.routes || [];
-      map.width = mapDefinition.width || definition.length;
-    }
-    const normalizePlatform = (spec, platformIndex) => {
-      if (!Array.isArray(spec)) return {
-        id: 'p' + String(platformIndex + 1).padStart(2, '0'), type: 'fixed', collision: 'one-way', anchor: 'floor', offset: 0,
-        height: 18, ...spec
-      };
-      const [x, platformWidth, rise] = spec;
-      return { id: 'p' + String(platformIndex + 1).padStart(2, '0'), type: 'fixed', collision: 'one-way',
-        x, y: null, anchor: 'floor', offset: rise, width: platformWidth, height: 18 };
-    };
-    const platforms = (themeLayout.replacePlatforms ? [] : definition.platforms).map(normalizePlatform);
-    for (const extra of themeLayout.platforms) platforms.push({ type:'fixed', collision:'one-way', anchor:'floor', height:16, ...extra });
-    if (index === 0) {
-      // Demonstration lane: stepped precision jumps and an optional high shelf.
-      platforms.push(
-        { id: 'demo-step-a', x: 1120, width: 60, offset: 72, height: 16 },
-        { id: 'demo-step-b', x: 1050, width: 68, offset: 118, height: 16 },
-        { id: 'demo-step-c', x: 1170, width: 98, offset: 78, height: 16 },
-        { id: 'demo-secret-a', x: 1510, width: 84, offset: 108, height: 16 },
-        { id: 'demo-secret-b', x: 1630, width: 92, offset: 156, height: 16 }
-      );
-      for (const platform of platforms) platform.anchor ??= 'floor';
-    }
-    // Every sector uses the same parkour toolkit, with its moving route and
-    // breakaway ledge placed among the phase's existing jump platforms.
-    const movingPlatform = platforms[Math.min(2, platforms.length - 1)];
-    if (movingPlatform && index !== 9) {
-      movingPlatform.type = 'moving';
-      movingPlatform.motion = { axis: index % 2 ? 'y' : 'x', range: index % 2 ? 34 : 48, speed: .9 + (index % 3) * .12, phase: index * .7 };
-    }
-    const breakawayPlatform = platforms[Math.min(4, platforms.length - 1)];
-    if (breakawayPlatform && index !== 9) { breakawayPlatform.type = 'temporary'; breakawayPlatform.duration = 2.1; breakawayPlatform.respawnDelay = 3; }
-    const obstacles = (themeLayout.replaceObstacles ? [] : definition.obstacles).map((spec, obstacleIndex) => {
-      if (!Array.isArray(spec)) return { id: 'o' + String(obstacleIndex + 1).padStart(2, '0'), type: 'block', collision: 'solid', anchor: 'floor', offset: spec.height || 0, ...spec };
-      const [x, obstacleWidth, obstacleHeight] = spec;
-      return { id: 'o' + String(obstacleIndex + 1).padStart(2, '0'), type: 'block', collision: 'solid',
-        x, y: null, anchor: 'floor', offset: obstacleHeight, width: obstacleWidth, height: obstacleHeight };
-    });
-    obstacles.push(...themeLayout.obstacles.map(spec => ({ type:'block', collision:'solid', anchor:'floor', ...spec })));
-    if (index === 0) obstacles.push(
-      { id: 'demo-wall-a', x: 1940, width: 20, height: 92, offset: 92, anchor: 'floor', type: 'wall', collision: 'solid' },
-      { id: 'demo-wall-b', x: 2030, width: 20, height: 108, offset: 108, anchor: 'floor', type: 'wall', collision: 'solid' }
-    );
-    const components = definition.components.map((spec, componentIndex) => Array.isArray(spec) || typeof spec === 'number' ? {
-      id: 'c' + String(componentIndex + 1).padStart(2, '0'), x: spec, y: null, anchor: 'floor', offset: 44, width: 34, height: 44
-    } : { id: 'c' + String(componentIndex + 1).padStart(2, '0'), anchor: 'floor', offset: 44, width: 34, height: 44, ...spec });
-    const enemies = definition.enemies.map((enemy, enemyIndex) => {
-      const configuredType = enemy.variant || (['common', 'fast'].includes(enemy.type)
-        ? PHASE_ENEMY_ROSTERS[index]?.[enemyIndex] || (enemy.type === 'common' ? 'basic' : 'fast')
-        : enemy.type || 'basic');
-      const type = configuredType === 'boss' ? 'boss' : configuredType;
-      return { id: 'e' + String(enemyIndex + 1).padStart(2, '0'), anchor: 'floor',
-        offset: type === 'boss' ? 46 : type === 'fast' ? 26 : type === 'flyer' ? 92 : 24, ...enemy, type };
-    });
-    const collectibles = definition.items.map((item, itemIndex) => typeof item === 'number' ? {
-      id: 'i' + String(itemIndex + 1).padStart(2, '0'), x: item, y: null, anchor: 'floor', offset: 39 + (itemIndex % 2) * 48, radius: 10
-    } : { id: 'i' + String(itemIndex + 1).padStart(2, '0'), anchor: 'floor', offset: 39 + (itemIndex % 2) * 48, radius: 10, ...item });
-    const features = definition.features.map((feature, featureIndex) => typeof feature === 'number'
-      ? { id: 'f' + (featureIndex + 1), x: feature, y: null, anchor: 'floor' }
-      : { id: 'f' + (featureIndex + 1), anchor: 'floor', ...feature });
-    return {
-      id: 'phase-' + String(index + 1).padStart(2, '0'),
-      name: definition.name, theme: definition.theme, objective: definition.objective,
-      palette: definition.palette,
-      map: {
-        ...map,
-        // Visible, reusable respawn beacons at safe floor positions.
-        checkpoints: map.checkpoints || (index === 0 ? [840, 1370, 1850] : [Math.round(width * .42), Math.round(width * .72)]),
-        pits: index === 0 ? [{ x: 1460, width: 92 }] : (map.pits || [])
-      },
-      entities: { platforms, obstacles, components, enemies, collectibles, features, gates: themeLayout.gates },
-      objectives: { defeatAllViruses: true, repairAllComponents: true, requireExitQuestion: true,
-        enemiesToDefeat: enemies.length, componentsToRepair: components.length, ...definition.objectives }
-    };
-  }
-
-  const PHASES = PHASE_DEFINITIONS.map(normalizePhase);
+  const PHASES = ByteRunner.maps.campaign(ByteRunner.campaign);
   let phaseIndex = 0;
   let phaseData = PHASES[0];
   let highestUnlockedPhase = 0;
@@ -554,6 +215,12 @@
   let platformRuntime = new Map();
   let checkpointX = 70;
   let checkpointY = null;
+  let checkpointIndex = -1;
+  let levelRuntime = null;
+  let levelVisuals = null;
+  let repairSession = null;
+  let visualGeometry = new Map();
+  let minimapKey = '';
   let questionRetryRequired = false;
   let player;
   let viruses = [];
@@ -633,7 +300,13 @@
         attack: [620, .045, 'square'], hit: [150, .12, 'sawtooth'],
         repair: [760, .16, 'sine'], xp: [880, .07, 'triangle'],
         level: [1040, .22, 'triangle'], correct: [980, .24, 'sine'],
-        wrong: [190, .22, 'square'], damage: [110, .18, 'sawtooth']
+        wrong: [190, .22, 'square'], damage: [110, .18, 'sawtooth'],
+        enemyWarning:[360,.16,'triangle'], dashWarning:[480,.2,'sawtooth'],
+        enemyDash:[220,.12,'sawtooth'], enemyShot:[820,.09,'square'],
+        enemyStrike:[180,.1,'triangle'], enemyDive:[560,.15,'sine'],
+        infectWarning:[130,.25,'sine'], enemySummon:[260,.3,'triangle'],
+        dnsEcho:[1020,.12,'sine'], enemyDeath:[90,.22,'sawtooth'],
+        bossTransition:[75,.45,'sawtooth'], bossWarning:[290,.24,'square'], bossImpact:[65,.2,'triangle']
       }[kind] || [440, .08, 'sine'];
       const oscillator = audioContext.createOscillator();
       const gain = audioContext.createGain();
@@ -655,6 +328,7 @@
   function getSavedCampaign() {
     try {
       const saved = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null');
+      if (saved?.phaseId) saved.phaseIndex = PHASES.findIndex(phase => phase.id === saved.phaseId);
       if (!saved || saved.version !== 1 || !Number.isInteger(saved.phaseIndex) || saved.phaseIndex < 0 || saved.phaseIndex >= PHASES.length) return null;
       return saved;
     } catch { return null; }
@@ -674,10 +348,12 @@
   function saveCampaign() {
     if (!campaignStarted || !player) return;
     const saved = {
-      version: 1, phaseIndex, highestUnlockedPhase, level, xp, xpRequired,
+      version: 1, phaseIndex, phaseId:phaseData.id, mapRevision:phaseData.revision || 1, highestUnlockedPhase, level, xp, xpRequired,
+      levelState:levelRuntime?.save(), checkpointIndex,
       unlockedSkills: unlockedSkills.map(skill => ({ id: skill.id, level: skill.level })),
       player: { x: player.x, y: player.y, health: player.health, facing: player.facing, grounded: player.grounded, shieldTime: player.shieldTime, shieldCooldown: player.shieldCooldown },
-      viruses: viruses.map(virus => ({ alive: virus.alive, hp: virus.hp, x: virus.x, y: virus.y, direction: virus.direction })),
+      viruses: viruses.map(virus => ({ alive: virus.alive, hp: virus.hp, x: virus.x, y: virus.y, baseY:virus.baseY, direction: virus.direction, state:virus.state,
+        enemyMemory:{forked:Boolean(virus.forked),totalSummons:virus.totalSummons||0,minionSerial:virus.minionSerial||0,altitudeIndex:virus.altitudeIndex||0} })),
       repaired: components.map(component => component.repaired),
       componentIntegrity: components.map(component => ({ integrity: component.integrity, corruption: component.corruption })),
       collected: collectibles.map(item => item.collected),
@@ -727,13 +403,16 @@
     }) : [];
     restoreSkillEffects();
     highestUnlockedPhase = Math.max(phaseIndex, Math.min(PHASES.length - 1, Number(saved.highestUnlockedPhase) || 0));
-    const isNextPhase = saved.phaseTransition;
+    const mapChanged=(saved.mapRevision || 1)!==(PHASES[phaseIndex].revision || 1);
+    const isNextPhase = saved.phaseTransition || mapChanged;
     const retryAfterDefeat = Boolean(saved.gameOver || saved.questionRetryRequired);
     loadPhase(phaseIndex, true);
     checkpointX = isNextPhase ? mapStart().x
-      : Math.max(mapStart().x, Math.min(worldWidth() - player.width, Number(saved.checkpointX) || mapStart().x));
+      : Math.max(0, Math.min(worldWidth() - player.width, Number.isFinite(saved.checkpointX) ? saved.checkpointX : mapStart().x));
     checkpointY = isNextPhase || saved.checkpointY == null || !Number.isFinite(Number(saved.checkpointY))
-      ? (phaseData.map.layout === 'vertical' ? floorY() : null) : Number(saved.checkpointY);
+      ? (phaseData.map.layout === 'vertical' || phaseData.map.ground?.mode === 'explicit' ? mapStart().y+player.height : null) : Number(saved.checkpointY);
+    checkpointIndex = isNextPhase ? -1 : Number.isInteger(saved.checkpointIndex) ? saved.checkpointIndex
+      : phaseData.map.checkpoints.findIndex(point => (typeof point === 'number' ? point : point.x) === checkpointX);
     if (isNextPhase || retryAfterDefeat) player.health = Math.min(player.maxHealth, retryAfterDefeat ? player.maxHealth : (Number(saved.player?.health) || 100) + 25);
     if (retryAfterDefeat) {
       player.x = Math.max(0, Math.min(worldWidth() - player.width, checkpointX + 38));
@@ -743,9 +422,9 @@
       const source = saved.player || {};
       player.health = Math.max(1, Math.min(player.maxHealth, Number(source.health) || player.maxHealth));
       player.x = retryAfterDefeat ? Math.min(worldWidth() - player.width, checkpointX + 38)
-        : Math.max(0, Math.min(worldWidth() - player.width, Number(source.x) || 70));
+        : Math.max(0, Math.min(worldWidth() - player.width, Number.isFinite(source.x) ? source.x : mapStart().x));
       const savedY = Number.isFinite(Number(source.y)) ? Number(source.y) : mapStart().y;
-      const mapBottom = phaseData.map.bounds.floor ? floorY() - player.height : worldHeight() - player.height;
+      const mapBottom = phaseData.map.bounds.floor && phaseData.map.ground?.mode !== 'explicit' ? floorY() - player.height : worldHeight() - player.height;
       player.y = Math.max(phaseData.map.bounds.ceiling ? 0 : -Infinity, Math.min(mapBottom, savedY));
       player.facing = source.facing === -1 ? -1 : 1;
       player.grounded = Boolean(source.grounded);
@@ -756,7 +435,11 @@
         ? Math.max(-1, Math.min(player.shieldCooldownDuration, Number(source.shieldCooldown) || 0)) : 0;
       viruses = viruses.map((virus, index) => {
         const progress = saved.viruses?.[index];
-        return progress ? { ...virus, alive: Boolean(progress.alive), hp: Math.max(0, Math.min(virus.maxHp, Number(progress.hp) || 0)), x: Number(progress.x) || virus.x, y: Number(progress.y) || virus.y, direction: progress.direction < 0 ? -1 : 1 } : virus;
+        return progress ? { ...virus, state:progress.state || {}, alive: Boolean(progress.alive), hp: Math.max(0, Math.min(virus.maxHp, Number(progress.hp) || 0)), x: Number.isFinite(progress.x) ? progress.x : virus.x, y: Number.isFinite(progress.y) ? progress.y : virus.y,
+          baseY:Number.isFinite(progress.baseY)?Math.max(0,Math.min(worldHeight(),progress.baseY)):virus.baseY,
+          forked:Boolean(progress.enemyMemory?.forked),totalSummons:Math.max(0,Math.min(4,Number(progress.enemyMemory?.totalSummons)||0)),
+          minionSerial:Math.max(0,Number(progress.enemyMemory?.minionSerial)||0),altitudeIndex:Math.max(0,Math.floor(Number(progress.enemyMemory?.altitudeIndex)||0)),
+          direction: progress.direction < 0 ? -1 : 1 } : virus;
       });
       components.forEach((component, index) => {
         component.repaired = Boolean(saved.repaired?.[index]);
@@ -764,10 +447,11 @@
         if (integrity) { component.integrity = Math.max(0, Math.min(100, Number(integrity.integrity) || 0)); component.corruption = Math.max(0, Math.min(100, Number(integrity.corruption) || 0)); }
       });
       collectibles.forEach((item, index) => { item.collected = Boolean(saved.collected?.[index]); });
+      levelRuntime.restore(saved.levelState);
       defeated = viruses.filter(virus => !virus.alive).length;
-      objectives.allRepairs = components.filter(component => component.repaired).length >= phaseData.objectives.componentsToRepair;
-      objectives.allViruses = viruses.filter(virus => !virus.alive).length >= phaseData.objectives.enemiesToDefeat;
-      phaseExitUnlocked = Boolean(saved.phaseExitUnlocked && objectives.allRepairs && objectives.allViruses);
+      objectives.allRepairs = phaseData.objectives.repairAllComponents === false || components.filter(component => component.repaired).length >= phaseData.objectives.componentsToRepair;
+      objectives.allViruses = phaseData.objectives.defeatAllViruses === false || viruses.filter(virus => !virus.alive).length >= phaseData.objectives.enemiesToDefeat;
+      phaseExitUnlocked = Boolean(saved.phaseExitUnlocked && objectives.allRepairs && objectives.allViruses && levelRuntime.goalsComplete());
       phaseObjectiveAwarded = Boolean(saved.phaseObjectiveAwarded && phaseExitUnlocked);
       cameraX = phaseData.map.camera.axes.includes('x')
         ? Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX)) : 0;
@@ -776,7 +460,8 @@
     }
     renderSkills(); updateHud(); draw();
     launchLoadedPhase();
-    if (saved.pendingAbility && !isNextPhase) openLevelChoice(true);
+    if(mapChanged){addLog('Mapa reconstruído: fase reiniciada, XP e habilidades mantidos.');interactionMessage='NOVO MAPA // XP E HABILIDADES PRESERVADOS';interactionMessageTimer=4;}
+    if (saved.pendingAbility && !saved.phaseTransition) openLevelChoice(true);
   }
 
   function startNewCampaign() {
@@ -803,7 +488,7 @@
       const release = event => {
         if (event) event.preventDefault();
         keys.delete(key);
-        if (key === 'e') { repairTarget = null; repairProgress = 0; }
+        if (key === 'e' && !repairSession?.blocksWorld) cancelRepair();
       };
       button.addEventListener('pointerdown', event => {
         event.preventDefault();
@@ -885,6 +570,7 @@
     return state;
   }
   function platformShape(spec) {
+    if (levelRuntime && !levelRuntime.matches(spec.requires)) return null;
     if (spec.requiresComponentId && !components.some(component => component.id === spec.requiresComponentId && component.repaired)) return null;
     const state = getPlatformState(spec);
     let x = spec.x;
@@ -900,7 +586,12 @@
   function solids() {
     const map = phaseData.map;
     const geometry = [];
-    if (map.bounds.floor) {
+    if (map.ground?.mode === 'explicit') {
+      for (const spec of map.ground.segments) {
+        if (levelRuntime && !levelRuntime.matches(spec.requires)) continue;
+        geometry.push({id:spec.id,x:spec.x,y:spec.y,w:spec.width,h:spec.height,kind:'floor',type:'fixed',collision:spec.collision || 'solid'});
+      }
+    } else if (map.bounds.floor) {
       const pits = (map.pits || []).slice().sort((a, b) => a.x - b.x);
       let floorStart = 0;
       for (const pit of pits) {
@@ -915,6 +606,7 @@
       if (shape) geometry.push(shape);
     }
     for (const spec of phaseData.entities.obstacles) {
+      if (levelRuntime && (!levelRuntime.matches(spec.requires) || (spec.disabledWhen && levelRuntime.matches(spec.disabledWhen)))) continue;
       if (spec.requiresComponentId && components.some(component => component.id === spec.requiresComponentId && component.repaired)) continue;
       if (spec.window) {
         const period = Number(spec.window.period);
@@ -927,6 +619,7 @@
       geometry.push({ id: spec.id, x: spec.x, y: entityY(spec, spec.height), w: spec.width, h: spec.height, kind: 'block', type: spec.type || 'block', collision: spec.collision || 'solid', hazardDamage: spec.damage || 8 });
     }
     for (const gate of phaseData.entities.gates || []) {
+      if (levelRuntime && (!levelRuntime.matches(gate.requires) || (gate.opensWhen && levelRuntime.matches(gate.opensWhen)))) continue;
       if (components.some(component => component.id === gate.requiresComponentId && component.repaired)) continue;
       geometry.push({ id:gate.id, x:gate.x, y:Number.isFinite(gate.y) ? gate.y : floorY() - gate.height, w:gate.width, h:gate.height, kind:'gate', type:'route-gate', collision:'solid' });
     }
@@ -935,7 +628,10 @@
     }
     if (!phaseExitUnlocked && map.bounds.right) {
       const exitX = map.exit.x;
-      if (map.layout !== 'vertical') {
+      if (map.exit.mode === 'region') {
+        // A room/arena exit is an objective region, not an invisible map-wide wall.
+        // Authors may place an explicit gate with opensWhen if a physical lock is needed.
+      } else if (map.layout !== 'vertical') {
         geometry.push({ x: Math.max(0, exitX - 18), y: 0, w: Math.min(20, Math.max(0, worldWidth() - exitX + 18)), h: floorY(), kind: 'gate', type: 'fixed', collision: 'solid' });
       } else {
         const gateWidth = map.exit.width || 34;
@@ -987,8 +683,17 @@
   }
 
   function loadPhase(index, retry = false) {
+    player.interferenceTime=0;
     phaseIndex = Math.max(0, Math.min(PHASES.length - 1, index));
-    phaseData = PHASES[phaseIndex];
+    loadMap(PHASES[phaseIndex], retry);
+  }
+
+  function loadMap(definition, retry = false) {
+    levelRuntime?.dispose();
+    levelVisuals?.dispose();
+    cancelRepair();
+    phaseData = definition;
+    visualGeometry = new Map([...phaseData.entities.platforms,...phaseData.entities.obstacles,...phaseData.entities.gates].filter(spec=>spec.visual).map(spec=>[spec.id,spec]));
     if (retry) player.health = player.maxHealth;
     else if (phaseIndex > 0) player.health = Math.min(player.maxHealth, player.health + 25);
     const start = mapStart();
@@ -998,9 +703,25 @@
     cameraY = phaseData.map.camera.axes.includes('y') ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
     platformRuntime = new Map(); animationTime = 0; jumpQueued = false;
     checkpointX = start.x;
-    checkpointY = phaseData.map.layout === 'vertical' ? floorY() : null;
+    checkpointIndex = -1;
+    checkpointY = phaseData.map.layout === 'vertical' || phaseData.map.ground?.mode === 'explicit' ? start.y+player.height : null;
     effects = []; saveTimer = 0;
     viruses = createViruses(); projectiles = []; enemyProjectiles = []; enemyObstacles = []; components = createComponents(); collectibles = createCollectibles();
+    levelRuntime = ByteRunner.levels.create(phaseData, {
+      player:() => player, components:() => components, enemies:() => viruses, collectibles:() => collectibles,
+      entityY, emitParticles, damagePlayer, damageVirus, fireEnemyProjectile, spawnEnemyMinion, solids, worldWidth, worldHeight, floorY,
+      teleportPlayer(x,y) {
+        player.x=Math.max(0,Math.min(worldWidth()-player.width,x));player.y=Math.max(0,Math.min(worldHeight()-player.height,y));
+        player.vx=0;player.vy=0;player.grounded=true;jumpQueued=false;damageCooldown=Math.max(damageCooldown,.5);
+        cameraX=Math.max(0,Math.min(worldWidth()-width,player.x-width*phaseData.map.camera.followOffsetX));
+        cameraY=Math.max(0,Math.min(worldHeight()-height,player.y-height*phaseData.map.camera.followOffsetY));
+        saveCampaign();
+      },
+      feedback(message, box) { interactionMessage=message; interactionMessageTimer=1.5; emitParticles(box.x,box.y,'#74e8ff',12); }
+    });
+    levelVisuals = ByteRunner.visuals.create(phaseData);
+    const activeVisuals=levelVisuals;
+    activeVisuals.ready.then(() => {if (levelVisuals===activeVisuals && canvas.isConnected) draw();});
     defeated = 0; levelChoiceOpen = false; repairTarget = null; repairProgress = 0;
     phaseExitUnlocked = false; phaseObjectiveAwarded = false; phaseTransition = false; campaignComplete = false;
     objectives = { allRepairs: false, allViruses: false };
@@ -1016,10 +737,11 @@
     return phaseData.entities.enemies.map((spec, index) => {
       const type = spec.type === 'common' ? 'basic' : spec.type;
       const profile = ENEMY_PROFILES[type] || ENEMY_PROFILES.basic;
-      const enemy = { ...profile, ...spec, type };
+      const enemy = { ...profile, ...spec, type, variant:spec.variant || ByteRunner.enemies.variantFor(phaseIndex+1,type) };
       const hp = Number(enemy.hp) || profile.hp;
       const y = entityY(enemy, enemy.flying ? 92 : enemy.type === 'boss' ? 46 : 24);
-      return { ...enemy, id: spec.id, x: spec.x, baseX: spec.x, y, baseY: y, hp, maxHp: hp,
+      const spawnX=Math.max(enemy.navigationBounds?.left??0,Math.min(enemy.navigationBounds?.right??worldWidth(),spec.x));
+      return { ...enemy, state:JSON.parse(JSON.stringify(enemy.state || {})), id: spec.id, x: spawnX, baseX: spawnX, y, baseY: y, hp, maxHp: hp,
         radius: Number(enemy.radius) || profile.radius, speed: Number(enemy.speed) || profile.speed,
         patrol: enemy.patrol || 70 + index * 8, patrolMin: enemy.patrolMin ?? spec.x - (enemy.patrol || 70 + index * 8),
         patrolMax: enemy.patrolMax ?? spec.x + (enemy.patrol || 70 + index * 8), direction: index % 2 ? 1 : -1,
@@ -1032,7 +754,7 @@
   }
 
   function createComponents() {
-    return phaseData.entities.components.map((spec, index) => ({ id: spec.id, x: spec.x, y: entityY(spec, 44), width: spec.width || 34, height: spec.height || 44, repaired: false, integrity: 100, corruption: 0, phase: index * .9 }));
+    return phaseData.entities.components.map((spec, index) => ({ ...spec, id: spec.id, x: spec.x, y: entityY(spec, 44), width: spec.width || 34, height: spec.height || 44, repaired: false, integrity: 100, corruption: 0, phase: index * .9 }));
   }
 
   function createCollectibles() {
@@ -1076,7 +798,7 @@
       projectiles.forEach(projectile => { projectile.y += floorShift; });
       enemyProjectiles.forEach(projectile => { projectile.y += floorShift; });
       enemyObstacles.forEach(obstacle => { obstacle.y += floorShift; });
-      if (phaseData.map.bounds.floor && player.y + player.height >= floorY()) {
+      if (phaseData.map.bounds.floor && phaseData.map.ground?.mode !== 'explicit' && player.y + player.height >= floorY()) {
         player.y = floorY() - player.height;
         player.vy = 0;
         player.grounded = true;
@@ -1106,7 +828,9 @@
     const left = keys.has('a') || keys.has('arrowleft');
     const right = keys.has('d') || keys.has('arrowright');
     const direction = Number(right) - Number(left);
-    player.vx = direction * RUN_SPEED;
+    const environment=levelRuntime.modifiers();
+    player.interferenceTime=Math.max(0,(player.interferenceTime||0)-dt);
+    player.vx = direction * RUN_SPEED * environment.speedMultiplier * (player.interferenceTime>0?.82:1) + environment.forceX;
     if (direction) player.facing = direction;
 
     if (jumpQueued && player.grounded) {
@@ -1165,7 +889,7 @@
     }
 
     const overPit = (phaseData.map.pits || []).some(pit => player.x + player.width > pit.x && player.x < pit.x + pit.width);
-    if (phaseData.map.bounds.floor && !overPit && player.y + player.height >= floorY()) {
+    if (phaseData.map.bounds.floor && phaseData.map.ground?.mode !== 'explicit' && !overPit && player.y + player.height >= floorY()) {
       player.y = floorY() - player.height;
       player.vy = 0;
       player.grounded = true;
@@ -1178,7 +902,7 @@
       player.y = 0;
       if (player.vy < 0) player.vy = 0;
     }
-    if (!phaseData.map.bounds.floor && player.y > worldHeight() + 180) {
+    if ((!phaseData.map.bounds.floor || phaseData.map.ground?.mode === 'explicit') && player.y > worldHeight() + 180) {
       respawnAtCheckpoint();
       return;
     }
@@ -1210,34 +934,48 @@
     return nearest;
   }
 
+  function cancelRepair() {
+    if (repairSession?.blocksWorld) jumpQueued=false;
+    if (repairSession?.status === 'running') repairSession.cancel();
+    repairSession?.dispose?.();
+    document.getElementById('repairContent').replaceChildren();
+    repairSession = null;
+    repairTarget = null;
+    repairProgress = 0;
+  }
+
   function updateRepair(dt) {
-    if (!keys.has('e') || !running) {
-      repairTarget = null;
-      repairProgress = 0;
-      return;
-    }
+    if (!running) return;
     const component = findNearbyComponent();
-    if (!component) {
-      repairTarget = null;
-      repairProgress = 0;
+    if (!component || (repairTarget && repairTarget !== component)) cancelRepair();
+    if (!component) return;
+    if (!repairSession) {
+      if (!keys.has('e')) return;
+      repairTarget = component;
+      repairSession = ByteRunner.repairs.create(component.repair || {type:'hold'}, {duration:repairDuration, component, player});
+      repairSession.mount?.(document.getElementById('repairContent'));
+    }
+    repairSession.update(dt * (component.infected?.65:1), {keys});
+    repairProgress = repairSession.progress * repairDuration;
+    if (['failed','cancelled'].includes(repairSession.status)) {
+      const failed=repairSession.status === 'failed';
+      cancelRepair();
+      if (failed) { keys.clear(); interactionMessage='REPARO NÃO CONCLUÍDO // TENTE NOVAMENTE'; interactionMessageTimer=1.5; }
       return;
     }
-    if (repairTarget !== component) {
-      repairTarget = component;
-      repairProgress = 0;
-    }
-    repairProgress += dt;
-    if (repairProgress >= repairDuration) {
+    if (repairSession.status === 'success') {
+      const wasModal = repairSession.blocksWorld;
       component.repaired = true;
       component.integrity = 100;
       component.corruption = 0;
-      repairTarget = null;
-      repairProgress = 0;
+      cancelRepair();
+      if (wasModal) keys.clear();
       interactionMessage = 'COMPONENTE REPARADO';
       interactionMessageTimer = 1.5;
       addLog('Componente do setor reparado.');
       emitParticles(component.x + component.width / 2, component.y + 16, '#65f3bc', 16);
       playSound('repair');
+      levelRuntime.emit('repair',component);
       awardExperience(30, 'componente reparado');
       checkObjectives();
       updateHud();
@@ -1263,15 +1001,17 @@
   function checkObjectives() {
     const repairedCount = components.filter(component => component.repaired).length;
     const defeatedCount = viruses.filter(virus => !virus.alive && virus.countsForObjective !== false).length;
-    if (!objectives.allRepairs && repairedCount >= phaseData.objectives.componentsToRepair) {
+    const requireRepairs=phaseData.objectives.repairAllComponents !== false;
+    const requireEnemies=phaseData.objectives.defeatAllViruses !== false;
+    if (!objectives.allRepairs && (!requireRepairs || repairedCount >= phaseData.objectives.componentsToRepair)) {
       objectives.allRepairs = true;
-      awardExperience(100, 'objetivo concluído: setor reparado');
+      if (requireRepairs) awardExperience(100, 'objetivo concluído: setor reparado');
     }
-    if (!objectives.allViruses && defeatedCount >= phaseData.objectives.enemiesToDefeat) {
+    if (!objectives.allViruses && (!requireEnemies || defeatedCount >= phaseData.objectives.enemiesToDefeat)) {
       objectives.allViruses = true;
-      awardExperience(100, 'objetivo concluído: setor limpo');
+      if (requireEnemies) awardExperience(100, 'objetivo concluído: setor limpo');
     }
-    if (!phaseObjectiveAwarded && objectives.allRepairs && objectives.allViruses) {
+    if (!phaseObjectiveAwarded && objectives.allRepairs && objectives.allViruses && levelRuntime.goalsComplete()) {
       phaseObjectiveAwarded = true;
       phaseExitUnlocked = true;
       interactionMessage = 'OBJETIVOS CONCLUÍDOS // SAÍDA LIBERADA';
@@ -1400,12 +1140,12 @@
     projectiles.push({
       x: player.facing > 0 ? player.x + player.width + 5 : player.x - 5,
       y: player.y + 22,
-      vx: player.facing * 570,
+      vx: player.facing * 570 * levelRuntime.modifiers().projectileSpeedMultiplier,
       life: 1.35,
       radius: 5,
       damage: player.damage
     });
-    attackCooldown = player.fireRate;
+    attackCooldown = player.fireRate * levelRuntime.modifiers().fireIntervalMultiplier;
     emitParticles(projectiles[projectiles.length - 1].x, player.y + 22, '#70ffe5', 3);
     playSound('attack');
   }
@@ -1431,6 +1171,7 @@
   }
 
   function respawnAtCheckpoint() {
+    player.interferenceTime=0;
     player.health = player.maxHealth;
     player.x = Math.max(0, Math.min(worldWidth() - player.width, checkpointX + 38));
     player.y = (checkpointY ?? floorY()) - player.height;
@@ -1447,24 +1188,27 @@
     player.shieldCooldown = unlockedSkills.some(skill => skill.id === 'shield')
       ? player.shieldCooldownDuration : 0;
     damageCooldown = 2;
-    repairTarget = null; repairProgress = 0; jumpQueued = false;
+    cancelRepair(); jumpQueued = false;
     platformRuntime = new Map();
     enemyProjectiles = []; enemyObstacles = [];
-    cameraX = Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX));
-    cameraY = Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY));
+    cameraX = phaseData.map.camera.axes.includes('x') ? Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX)) : 0;
+    cameraY = phaseData.map.camera.axes.includes('y') ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
     addLog('Reinicialização no checkpoint. Objetivos mantidos.');
     updateHud(); saveCampaign();
   }
 
   function updateCheckpoints() {
-    for (const point of phaseData.map.checkpoints || []) {
+    for (const [index,point] of (phaseData.map.checkpoints || []).entries()) {
+      if (phaseData.map.checkpointMode === 'ordered' && index !== checkpointIndex+1) continue;
       const pointX = typeof point === 'number' ? point : point.x;
       const pointY = typeof point === 'number' ? null : point.y;
       const reached = Number.isFinite(pointY)
         ? player.x + player.width >= pointX - 8 && player.x <= pointX + 54 && Math.abs(player.y + player.height - pointY) <= 24
-        : player.x + player.width >= pointX && checkpointX < pointX;
-      const isNewVertical = Number.isFinite(pointY) && (checkpointY == null || pointY < checkpointY);
-      if (reached && (Number.isFinite(pointY) ? isNewVertical : true)) {
+        : phaseData.map.checkpointMode && phaseData.map.checkpointMode !== 'legacy'
+          ? Math.abs(player.x+player.width/2-pointX) <= 54
+          : player.x + player.width >= pointX && checkpointX < pointX;
+      if (reached && (phaseData.map.checkpointMode==='free' ? index!==checkpointIndex : index>checkpointIndex)) {
+        checkpointIndex = index;
         checkpointX = pointX;
         checkpointY = Number.isFinite(pointY) ? pointY : null;
         interactionMessage = 'CHECKPOINT ATIVADO';
@@ -1651,19 +1395,26 @@
     const length = Math.hypot(dx, dy) || 1;
     enemyProjectiles.push({ x: virus.x + Math.sign(dx || 1) * (virus.radius + 4), y: virus.y,
       vx: dx / length * (virus.projectileSpeed || 285), vy: dy / length * (virus.projectileSpeed || 285),
-      life: 2.8, radius: 6, damage: virus.damage, ownerX: virus.x, color: virus.color || '#ffd166' });
+      life: 2.8, radius: 6, damage: virus.damage, slowOnHit:virus.slowOnHit, ownerX: virus.x, color: virus.color || '#ffd166' });
     emitParticles(virus.x, virus.y, virus.color || '#ffd166', 3);
   }
 
   function spawnEnemyMinion(virus) {
     const aliveMinions = viruses.filter(enemy => enemy.alive && enemy.summonedBy === virus.id).length;
-    if (aliveMinions >= (virus.summonLimit || 2)) return false;
+    if (aliveMinions >= (virus.summonLimit || 2) || (!virus.multiStage && (virus.totalSummons||0)>=4)) return false;
     const profile = ENEMY_PROFILES.fast;
     const side = Math.random() < .5 ? -1 : 1;
+    const spawnY=virus.baseY ?? virus.y;
+    const geometry=solids();
+    const spot=[virus.x+side*28,virus.x-side*28].map(x=>({x,lane:ByteRunner.enemies.lane({...virus,x},geometry)})).find(({x,lane})=>
+      lane&&x>=lane.left&&x<=lane.right&&!geometry.some(s=>s.collision==='solid'&&x+9>s.x&&x-9<s.x+s.w&&spawnY+9>s.y&&spawnY-9<s.y+s.h));
+    if(!spot)return false;
+    const {x:spawnX,lane}=spot;
     virus.minionSerial = (virus.minionSerial || 0) + 1;
+    virus.totalSummons=(virus.totalSummons||0)+1;
     viruses.push({ ...profile, id: virus.id + '-m' + String(virus.minionSerial).padStart(2, '0'),
-      type: 'fast', x: Math.max(35, Math.min(worldWidth() - 35, virus.x + side * 28)), baseX: virus.x,
-      y: floorY() - 26, baseY: floorY() - 26, hp: 1, maxHp: 1, radius: 9, speed: 126,
+      type: 'fast', x: spawnX, baseX: spawnX,
+      y: lane.y-24, baseY: lane.y-24, groundY:lane.y, navigationBounds:virus.navigationBounds, activationRegion:virus.activationRegion, hp: 1, maxHp: 1, radius: 9, speed: 126,
       alive: true, countsForObjective: false, summonedBy: virus.id, life: 13, phase: 0,
       attackCooldownTimer: .8, attackWindup: 0, vulnerableTime: 0, specialCooldownTimer: 99,
       summonCooldownTimer: 99, direction: side, patrolMin: virus.x - 70, patrolMax: virus.x + 70 });
@@ -1677,7 +1428,7 @@
       side > 0 ? player.x + player.width + 58 : player.x - 82));
     if (enemyObstacles.some(obstacle => obstacle.life > 0 && Math.abs(obstacle.x - x) < 55)) return;
     enemyObstacles.push({ id: 'enemy-barrier-' + virus.id + '-' + Math.floor(animationTime), x,
-      y: floorY() - 72, w: 24, h: 72, life: 3.6 });
+      y: (virus.groundY ?? floorY()) - 72, w: 24, h: 72, life: 3.6 });
     addLog('Vírus blindado ergueu uma barreira temporária.');
   }
 
@@ -1692,11 +1443,15 @@
     }
   }
 
+  function bossGroundY(virus) { return Number.isFinite(virus.groundY) ? virus.groundY : floorY(); }
+
   function triggerVirusZeroAttack(virus, playerCenterX, playerCenterY) {
+    playSound('bossImpact');virus.attackFlash=.25;
     const stage = virus.bossStage || 1;
     const kind = virus.bossAttackKind;
     const horizontalDistance = Math.abs(playerCenterX - virus.x);
-    if ((kind === 'slam' || kind === 'combo') && horizontalDistance <= (stage === 3 ? 188 : 148) && player.y + player.height > floorY() - 28) {
+    const ground=bossGroundY(virus);
+    if ((kind === 'slam' || kind === 'combo') && horizontalDistance <= (stage === 3 ? 188 : 148) && player.y + player.height > ground - 28) {
       damagePlayer(stage === 3 ? 22 : 16, virus);
     }
     if (kind === 'charge') {
@@ -1713,10 +1468,11 @@
       for (const x of positions) {
         if (enemyObstacles.filter(obstacle => obstacle.bossOwned && obstacle.life > 0).length >= 2) break;
         if (enemyObstacles.some(obstacle => obstacle.life > 0 && Math.abs(obstacle.x - x) < 65)) continue;
-        const pillar = { x:x-15,y:floorY()-68,w:30,h:68 };
+        const pillar = { x:x-15,y:ground-68,w:30,h:68 };
         if (overlaps(player, pillar)) continue;
+        if (viruses.some(enemy=>enemy.alive&&enemy.x+enemy.radius>pillar.x&&enemy.x-enemy.radius<pillar.x+pillar.w&&enemy.y+enemy.radius>pillar.y&&enemy.y-enemy.radius<pillar.y+pillar.h)) continue;
         enemyObstacles.push({id:'virus-zero-pillar-'+Math.floor(animationTime*1000)+'-'+x,
-          x:x-15,y:floorY()-68,w:30,h:68,life:2.5,bossOwned:true});
+          x:x-15,y:ground-68,w:30,h:68,life:2.5,bossOwned:true});
       }
     }
     virus.vulnerableTime = kind === 'charge' ? 0 : [0,1.25,1.1,1.65][stage];
@@ -1726,47 +1482,62 @@
 
   function updateVirusZero(virus, dt, playerCenterX, playerCenterY) {
     if (playerCenterX < virus.bossBounds.left - 120) return;
-    const healthRatio = virus.hp / virus.maxHp;
-    const stage = healthRatio <= .34 ? 3 : healthRatio <= .67 ? 2 : 1;
+    const region=virus.activationRegion;
+    if(region&&(playerCenterX<region.x||playerCenterX>region.x+region.width||playerCenterY<region.y||playerCenterY>region.y+region.height))return;
+    const stage = virus.hp <= virus.maxHp*.34+1e-6 ? 3 : virus.hp <= virus.maxHp*.67+1e-6 ? 2 : 1;
     if (stage !== virus.bossStage) {
       virus.bossStage = stage;
+      playSound('bossTransition');
+      virus.attackWindup=0;virus.chargeTime=0;virus.vulnerableTime=0;virus.bossPatternIndex=0;virus.bossCycleCooldown=0;virus.bossPhaseTransitionTime=.6;virus.summonWindup=0;
       addLog('VIRUS ZERO // ETAPA ' + stage + ' // PADRÃO DE ATAQUE ALTERADO.');
       emitParticles(virus.x, virus.y, stage === 3 ? '#ffd36e' : '#ff5479', 18);
     }
     virus.coreShielded = Boolean(virus.coreShieldRequiresRepairs && components.some(component => !component.repaired));
     virus.bossBlockedMessageTimer = Math.max(0, virus.bossBlockedMessageTimer - dt);
     virus.bossCycleCooldown = Math.max(0, virus.bossCycleCooldown - dt);
+    virus.bossPhaseTransitionTime=Math.max(0,(virus.bossPhaseTransitionTime || 0)-dt);
+    if(virus.bossPhaseTransitionTime>0)return;
+    if(virus.summonWindup>0) {
+      virus.summonWindup=Math.max(0,virus.summonWindup-dt);
+      if(!virus.summonWindup){spawnEnemyMinion(virus);playSound('enemySummon');}
+    }
     if (virus.chargeTime > 0) {
       const step = Math.min(dt, virus.chargeTime);
       const oldX = virus.x;
       virus.x = Math.max(virus.bossBounds.left, Math.min(virus.bossBounds.right, virus.x + virus.bossAttackDirection * 460 * step));
       const blocked = solids().find(s => s.collision === 'solid' && s.kind !== 'floor' && s.kind !== 'gate' &&
         virus.x + virus.radius > s.x && virus.x - virus.radius < s.x + s.w && virus.y + virus.radius > s.y && virus.y - virus.radius < s.y + s.h);
-      if (blocked) { virus.x = oldX; virus.chargeTime = 0; }
-      if (playerCenterX >= Math.min(oldX,virus.x)-55 && playerCenterX <= Math.max(oldX,virus.x)+55 && player.y+player.height > floorY()-76) damagePlayer(18,virus);
+      if (blocked) {
+        virus.x = oldX; virus.chargeTime = 0;
+        interactionMessage='INVESTIDA BLOQUEADA // NÚCLEO EXPOSTO';interactionMessageTimer=1.5;emitParticles(virus.x,virus.y,'#ffe27a',14);
+      }
+      if (!blocked && playerCenterX >= Math.min(oldX,virus.x)-55 && playerCenterX <= Math.max(oldX,virus.x)+55 && player.y+player.height > bossGroundY(virus)-76) damagePlayer(18,virus);
       virus.chargeTime = Math.max(0,virus.chargeTime-step);
-      if (!virus.chargeTime) virus.vulnerableTime = 1.25;
+      if (!virus.chargeTime) virus.vulnerableTime = blocked ? 1.8 : 1.25;
       return;
     }
     if (virus.attackWindup > 0) {
       virus.attackWindup = Math.max(0, virus.attackWindup - dt);
       if (virus.attackWindup === 0) triggerVirusZeroAttack(virus, playerCenterX, playerCenterY);
     } else if (virus.bossCycleCooldown <= 0) {
-      const patterns = {1:['slam','charge'],2:['volley','surge'],3:['combo','surge','volley']};
+      const patterns = {1:['slam','charge'],2:['volley','surge'],3:['combo','charge','surge','volley']};
       const options = patterns[stage];
       virus.bossAttackKind = options[virus.bossPatternIndex % options.length];
       virus.bossPatternIndex++;
       virus.bossAttackDirection = Math.sign(playerCenterX - virus.x) || 1;
       virus.bossAimX = playerCenterX; virus.bossAimY = playerCenterY;
       virus.attackWindup = [0,1.05,.85,.8][stage];
+      playSound('bossWarning');
     }
     if (stage >= 2 && virus.specialCooldownTimer <= 0) {
-      spawnEnemyMinion(virus);
+      virus.summonWindup=.9;playSound('infectWarning');
       virus.specialCooldownTimer = stage === 3 ? 6.5 : 9;
     }
   }
 
-  function damageVirus(virus, damage) {
+  function damageVirus(virus, damage, sourceX=player.x+player.width/2) {
+    if(!virus.alive)return;
+    if(virus.multiStage&&virus.bossPhaseTransitionTime>0)return;
     if (virus.type === 'boss' && virus.coreShieldRequiresRepairs && components.some(component => !component.repaired)) {
       virus.coreShielded = true;
       if (virus.bossBlockedMessageTimer <= 0) {
@@ -1778,13 +1549,20 @@
     }
     const bossWeakPoint = virus.multiStage && virus.vulnerableTime > 0;
     if (bossWeakPoint) damage *= 2;
-    const armor = virus.vulnerableTime > 0 ? 0 : (virus.armor || 0);
-    virus.hp = Math.max(0, virus.hp - Math.max(1, Math.ceil(damage * (1 - armor))));
+    damage*=ByteRunner.enemies.damageMultiplier(virus,sourceX);
+    const armor = virus.type==='armored' || virus.vulnerableTime > 0 ? 0 : (virus.armor || 0);
+    let nextHp=Math.max(0, virus.hp - Math.max(1, Math.ceil(damage * (1 - armor))));
+    if(virus.multiStage) {
+      for(const threshold of [virus.maxHp*.67,virus.maxHp*.34])if(virus.hp>threshold+1e-6&&nextHp<threshold){nextHp=threshold;break;}
+    }
+    virus.hp=nextHp;
     virus.hitFlash = .12;
     emitParticles(virus.x, virus.y, virus.color || '#c078ff', virus.type === 'boss' ? 10 : 6);
     playSound('hit');
     if (virus.hp > 0) return;
     virus.alive = false;
+    virus.deathAt=animationTime;playSound('enemyDeath');
+    levelRuntime.emit('enemyDefeated',virus);
     if (virus.multiStage) {
       enemyProjectiles = enemyProjectiles.filter(shot => !shot.bossOwned);
       enemyObstacles = enemyObstacles.filter(obstacle => !obstacle.bossOwned);
@@ -1799,6 +1577,9 @@
   }
 
   function updateEnemyBrain(virus, dt, playerCenterX, playerCenterY) {
+    const region=virus.activationRegion;
+    if (region && (playerCenterX<region.x || playerCenterX>region.x+region.width || playerCenterY<region.y || playerCenterY>region.y+region.height)) return;
+    if (levelRuntime.updateEnemy(virus,dt,playerCenterX,playerCenterY)) return;
     if (virus.multiStage && playerCenterX < virus.bossBounds.left - 120) return;
     if (virus.life !== undefined) {
       virus.life -= dt;
@@ -1810,6 +1591,10 @@
     virus.vulnerableTime = Math.max(0, virus.vulnerableTime - dt);
     virus.hitFlash = Math.max(0, (virus.hitFlash || 0) - dt);
     virus.phase += dt * (virus.type === 'fast' ? 9 : virus.flying ? 6 : 4);
+    if(!virus.multiStage && ByteRunner.enemies.update(virus,{
+      playerX:playerCenterX,playerY:playerCenterY,player,shapes:solids(),width:worldWidth(),height:worldHeight(),
+      components,damage:damagePlayer,fire:fireEnemyProjectile,spawn:spawnEnemyMinion,sound:playSound
+    },dt))return;
     const dx = playerCenterX - virus.x;
     const dy = playerCenterY - virus.y;
     const distance = Math.hypot(dx, dy);
@@ -1847,9 +1632,10 @@
     }
 
     const speed = virus.speed * (virus.buffed ? 1.3 : 1) * (virus.flying && virus.attackWindup > 0 ? 1.55 : 1);
-    if (virus.type === 'boss' && virus.multiStage && (virus.attackWindup > 0 || virus.chargeTime > 0 || virus.vulnerableTime > 0)) moveDirection = 0;
-    const minX = virus.bossBounds?.left ?? virus.radius;
-    const maxX = virus.bossBounds?.right ?? worldWidth() - virus.radius;
+    if(virus.multiStage && virus.bossStage>=2 && Math.abs(dx)<220)moveDirection=-Math.sign(dx);
+    if (virus.type === 'boss' && virus.multiStage && (virus.attackWindup > 0 || virus.chargeTime > 0 || virus.vulnerableTime > 0 || virus.bossPhaseTransitionTime>0)) moveDirection = 0;
+    const minX = virus.bossBounds?.left ?? virus.navigationBounds?.left ?? virus.radius;
+    const maxX = virus.bossBounds?.right ?? virus.navigationBounds?.right ?? worldWidth() - virus.radius;
     const nextX = Math.max(minX, Math.min(maxX, virus.x + moveDirection * speed * dt));
     const blocked = solids().some(object => object.collision === 'solid' && object.kind !== 'gate' &&
       nextX + virus.radius > object.x && nextX - virus.radius < object.x + object.w &&
@@ -1911,7 +1697,9 @@
       const nearestX = Math.max(player.x, Math.min(projectile.x, player.x + player.width));
       const nearestY = Math.max(player.y, Math.min(projectile.y, player.y + player.height));
       if (Math.hypot(projectile.x - nearestX, projectile.y - nearestY) <= projectile.radius) {
+        const health=player.health;
         damagePlayer(projectile.damage, { x: projectile.ownerX });
+        if(player.health<health && projectile.slowOnHit)player.interferenceTime=Math.max(player.interferenceTime||0,projectile.slowOnHit);
         projectile.life = 0;
       }
     }
@@ -1939,12 +1727,13 @@
 
     const playerCenterX = player.x + player.width / 2;
     const playerCenterY = player.y + player.height / 2;
+    for(const component of components)component.infected=false;
     for (const virus of viruses) virus.buffed = false;
     for (const parasite of viruses) {
       if (!parasite.alive || parasite.type !== 'parasite') continue;
       for (const ally of viruses) {
         if (ally !== parasite && ally.alive && ally.type !== 'parasite' &&
-          Math.hypot(ally.x - parasite.x, ally.y - parasite.y) <= (parasite.buffRange || 190)) ally.buffed = true;
+          Math.hypot(ally.x - parasite.x, ally.y - parasite.y) <= (parasite.buffRange || 190) && ByteRunner.enemies.sight(parasite,ally.x,ally.y,solids())) ally.buffed = true;
       }
     }
     for (const virus of viruses) {
@@ -1959,9 +1748,12 @@
       projectile.life -= dt;
       for (const virus of viruses) {
         if (!virus.alive) continue;
+        if(virus.variant==='packet' && virus.attackWindup>0 && !virus.intercepted && Math.hypot(projectile.x-virus.x,projectile.y-virus.y)<virus.radius+35) {
+          virus.intercepted=true;virus.stolenShot=true;projectile.life=0;emitParticles(projectile.x,projectile.y,'#60ffd4',6);break;
+        }
         if (Math.hypot(projectile.x - virus.x, projectile.y - virus.y) <= virus.radius + projectile.radius) {
           projectile.life = 0;
-          damageVirus(virus, projectile.damage);
+          damageVirus(virus, projectile.damage, projectile.x-Math.sign(projectile.vx)*12);
           break;
         }
       }
@@ -1972,11 +1764,12 @@
   }
 
   function updateHud() {
-    const progress = Math.max(0, Math.min(100, Math.round(phaseData.map.layout === 'vertical'
-      ? (mapStart().y - player.y) / Math.max(1, mapStart().y - phaseData.map.exit.y) * 100
-      : player.x / (worldWidth() - player.width) * 100)));
-    ui.progress.textContent = String(progress).padStart(2, '0') + '%';
-    ui.progressBar.style.width = progress + '%';
+    const progressAxis=phaseData.map.progress?.axis || (phaseData.map.layout === 'vertical' ? 'y' : 'x');
+    const progress = Math.max(0, Math.min(100, Math.round(player.x / (worldWidth() - player.width) * 100)));
+    const authoredProgress=progressAxis === 'objectives' ? Math.round(levelRuntime.progress()*100) : progressAxis === 'y'
+      ? Math.max(0,Math.min(100,Math.round((mapStart().y-player.y)/Math.max(1,mapStart().y-phaseData.map.exit.y)*100))) : progress;
+    ui.progress.textContent = String(authoredProgress).padStart(2, '0') + '%';
+    ui.progressBar.style.width = authoredProgress + '%';
     const healthPercent = Math.max(0, player.health / player.maxHealth * 100);
     ui.health.style.width = healthPercent + '%';
     ui.healthText.textContent = Math.ceil(healthPercent) + '%';
@@ -1991,15 +1784,35 @@
     ui.gate.style.color = phaseExitUnlocked ? '#62e4b7' : '#ff8a72';
     ui.defeated.textContent = String(defeated).padStart(2, '0') + ' / ' + String(phaseData.objectives.enemiesToDefeat).padStart(2, '0');
     const miniRect = ui.map.parentElement.getBoundingClientRect();
+    const mapCanvas=document.getElementById('mapGeometry');
+    mapCanvas.hidden=!(phaseData.revision>=2);
+    if(phaseData.revision>=2) {
+      const s=Math.min(Math.max(1,miniRect.width-16)/worldWidth(),Math.max(1,miniRect.height-16)/worldHeight());
+      const ox=(miniRect.width-worldWidth()*s)/2,oy=(miniRect.height-worldHeight()*s)/2;
+      const key=phaseData.id+':'+miniRect.width+':'+Math.floor(animationTime*5)+':'+components.map(c=>Number(c.repaired)).join('')+phaseData.entities.interactives.map(i=>Number(Boolean(levelRuntime.getFlag(i.flag || i.id)))).join('');
+      if(key!==minimapKey) {
+        minimapKey=key;mapCanvas.width=Math.max(1,Math.round(miniRect.width));mapCanvas.height=Math.max(1,Math.round(miniRect.height));
+        const mc=mapCanvas.getContext('2d');mc.clearRect(0,0,mapCanvas.width,mapCanvas.height);
+        for(const shape of solids()){mc.fillStyle=shape.kind==='floor'?'#7397a4':shape.kind==='platform'?'#63e4d6':'#a46e86';mc.fillRect(ox+shape.x*s,oy+shape.y*s,Math.max(1,shape.w*s),Math.max(1,shape.h*s));}
+        mc.fillStyle='#ffbd79';components.filter(c=>!c.repaired).forEach(c=>mc.fillRect(ox+c.x*s-1,oy+c.y*s-1,3,3));
+        mc.fillStyle='#87baff';levelRuntime.connections().forEach(p=>mc.fillRect(ox+p.x*s-1,oy+p.y*s-1,3,3));
+      }
+      ui.map.style.left=(ox+(player.x+17)*s-3)+'px';ui.map.style.top=(oy+(player.y+24)*s-3)+'px';
+      return;
+    }
     const miniRange = Math.max(0, miniRect.width - 16);
     ui.map.style.left = (8 + (player.x / (worldWidth() - player.width)) * miniRange) + 'px';
-    if (phaseData.map.layout === 'vertical') {
+    if (phaseData.map.camera.axes.includes('y')) {
       const miniY = Math.max(0, Math.min(1, player.y / Math.max(1, worldHeight() - player.height)));
       ui.map.style.top = `calc(8px + ${miniY * Math.max(0, miniRect.height - 16)}px)`;
     } else ui.map.style.top = '50%';
   }
 
   function update(dt) {
+    if (repairSession?.blocksWorld) {
+      updateRepair(dt); updateEffects(dt); return;
+    }
+    levelRuntime.update(dt,{keys,repairNearby:Boolean(findNearbyComponent())});
     advancePlatformMotion(dt);
     movePlayer(dt);
     updateCheckpoints();
@@ -2024,11 +1837,16 @@
     if (saveTimer >= 2.5) { saveTimer = 0; saveCampaign(); }
     if (xp >= xpRequired) openLevelChoice();
     const exitY = Number.isFinite(phaseData.map.exit.y) ? phaseData.map.exit.y : floorY() - 63;
-    const exitReached = phaseData.map.layout === 'vertical'
+    const exitReached = phaseData.map.exit.mode === 'region'
+      ? overlaps(player,{x:phaseData.map.exit.x,y:phaseData.map.exit.y,w:phaseData.map.exit.width,h:phaseData.map.exit.height})
+      : phaseData.map.layout === 'vertical'
       ? Math.hypot(player.x + player.width / 2 - phaseData.map.exit.x, player.y + player.height / 2 - exitY) <= (phaseData.map.exit.triggerRadius || phaseData.map.exit.triggerRadiusY || 74)
       : player.x + player.width >= phaseData.map.exit.x + 20 && Math.abs(player.y + player.height / 2 - exitY) <= (phaseData.map.exit.triggerRadiusY || 86);
-    const finalCoreCleared = phaseIndex === PHASES.length - 1 && viruses.some(virus => virus.multiStage && !virus.alive);
-    if (running && phaseExitUnlocked && (exitReached || finalCoreCleared)) openPhaseQuestion();
+    const finalCoreCleared = phaseData.completion?.type === 'boss-question' && viruses.some(virus => virus.id === phaseData.completion.enemyId && !virus.alive);
+    if (running && phaseExitUnlocked && (exitReached || finalCoreCleared)) {
+      if (phaseData.objectives.requireExitQuestion !== false) openPhaseQuestion();
+      else completePhase();
+    }
     // Temporary platforms use one persistent per-platform clock. It advances
     // every frame, independent of camera range or player distance.
     for (const spec of phaseData.entities.platforms) {
@@ -2068,6 +1886,7 @@
     gradient.addColorStop(1, phaseData.palette[0]);
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
+    if (phaseData.presentation?.procedural === false) return;
 
     // Distant circuit paths move slower than the level for a subtle parallax effect.
     ctx.save();
@@ -2313,12 +2132,12 @@
       }
     }
 
-    for (const point of phaseData.map.checkpoints || []) {
+    for (const [index,point] of (phaseData.map.checkpoints || []).entries()) {
       const pointX = typeof point === 'number' ? point : point.x;
       const pointY = typeof point === 'number' ? floorY() : point.y;
       if (pointX - cameraX < -24 || pointX - cameraX > width + 24 || pointY - cameraY < -58 || pointY - cameraY > height + 24) continue;
       const screenX = pointX;
-      const active = Number.isFinite(pointY) && phaseData.map.layout === 'vertical'
+      const active = phaseData.revision>=2 ? (phaseData.map.checkpointMode==='free'?index===checkpointIndex:index<=checkpointIndex) : Number.isFinite(pointY) && phaseData.map.layout === 'vertical'
         ? checkpointY != null && checkpointY <= pointY : checkpointX >= pointX;
       const beaconColor = active ? '#78ffd2' : '#6ea4ad';
       ctx.save();
@@ -2332,12 +2151,13 @@
       ctx.restore();
     }
 
-    const gateX = phaseData.map.exit.x;
+    const regionExit=phaseData.map.exit.mode === 'region';
+    const gateX = phaseData.map.exit.x + (regionExit ? phaseData.map.exit.width/2 : 0);
     if (gateX - cameraX > -70 && gateX - cameraX < width + 70 &&
       (!Number.isFinite(phaseData.map.exit.y) || phaseData.map.exit.y - cameraY > -100 && phaseData.map.exit.y - cameraY < height + 100)) {
       const gateColor = phaseExitUnlocked ? '#70ffce' : '#ff806b';
       const gateHeight = phaseData.map.layout === 'horizontal' ? 126 : (phaseData.map.exit.height || 126);
-      const gateCenterY = Number.isFinite(phaseData.map.exit.y) ? phaseData.map.exit.y : floorY() - gateHeight / 2;
+      const gateCenterY = Number.isFinite(phaseData.map.exit.y) ? phaseData.map.exit.y + (regionExit ? gateHeight/2 : 0) : floorY() - gateHeight / 2;
       const gateTop = gateCenterY - gateHeight / 2;
       ctx.save();
       ctx.shadowColor = gateColor; ctx.shadowBlur = 17;
@@ -2361,6 +2181,8 @@
       const repaired = component.repaired;
       const color = repaired ? '#55e2bb' : '#ff9367';
       ctx.save();
+      const spriteDrawn = levelVisuals.sprite(ctx,component.visual,component,animationTime,repaired?'repaired':'idle');
+      if (!spriteDrawn) {
       ctx.shadowColor = color;
       ctx.shadowBlur = repaired ? 10 : 5;
       ctx.fillStyle = repaired ? '#103a39' : '#35262b';
@@ -2390,6 +2212,7 @@
       ctx.fillStyle = color;
       ctx.fillRect(x + 7, component.y + 37, 4, 3);
       ctx.fillRect(x + component.width - 11, component.y + 37, 4, 3);
+      }
       if (!repaired && nearby === component) {
         const pulse = .65 + (Math.sin(animationTime * 6) + 1) * .15;
         ctx.globalAlpha = pulse;
@@ -2401,7 +2224,7 @@
         ctx.fillStyle = '#ffd19a';
         ctx.font = 'bold 9px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('SEGURE E', cx, component.y - 11);
+        ctx.fillText(component.repair?.type && component.repair.type !== 'hold' ? 'E // REPARAR' : 'SEGURE E', cx, component.y - 11);
         if (repairTarget === component && repairProgress > 0) {
           ctx.fillStyle = 'rgba(15, 26, 33, .95)';
           ctx.fillRect(cx - 18, component.y - 7, 36, 4);
@@ -2444,10 +2267,11 @@
 
   function drawViruses() {
     for (const virus of viruses) {
+      ByteRunner.enemies.draw(ctx,virus,animationTime,components);
       if (!virus.alive) continue;
       const x = virus.x;
       if (x - cameraX + virus.radius < -10 || x - cameraX - virus.radius > width + 10) continue;
-      const pulse = 1 + Math.sin(virus.phase) * .08;
+      const pulse = 1 + Math.sin(virus.phase) * (virus.animationState==='patrol'?.035:.08);
       const fast = virus.type === 'fast';
       const boss = virus.type === 'boss';
       const palette = { basic: '#bb7bff', fast: '#ff9263', armored: '#76b9ff', flyer: '#73e4ff', shooter: '#ffd166', parasite: '#7dff9b' };
@@ -2456,8 +2280,13 @@
       const flyer = virus.type === 'flyer';
       const shooter = virus.type === 'shooter';
       const parasite = virus.type === 'parasite';
+      const spriteDrawn = levelVisuals.sprite(ctx,virus.visual,{id:virus.id,x:x-virus.radius,y:virus.y-virus.radius,width:virus.radius*2,height:virus.radius*2},animationTime,virus.hitFlash>0?'hit':virus.vulnerableTime>0?'vulnerable':virus.attackWindup>0?'prepare':virus.animationState||'idle');
+      if (!spriteDrawn) {
       ctx.save();
       ctx.translate(x, virus.y);
+      ctx.rotate(virus.hitFlash>0?Math.sin(virus.hitFlash*90)*.2:virus.dashTime>0?virus.attackDirection*.16:0);
+      if(virus.attackWindup>0)ctx.scale(1.1,.9);
+      else if(virus.attackFlash>0)ctx.scale(.9,1.12);
       ctx.scale(pulse, pulse);
       ctx.shadowColor = color;
       ctx.shadowBlur = boss ? 26 : fast ? 16 : 13;
@@ -2466,7 +2295,9 @@
       ctx.lineWidth = boss ? 3 : fast ? 2 : 1.8;
       if (armored && virus.vulnerableTime <= 0) {
         ctx.strokeStyle = '#c2e8ff'; ctx.lineWidth = 3;
-        ctx.beginPath(); ctx.arc(0, 0, virus.radius + 8, -.45, Math.PI * 1.45); ctx.stroke();
+        const shieldAngle=virus.direction>0?0:Math.PI;
+        ctx.beginPath(); ctx.arc(0, 0, virus.radius + 8, shieldAngle-1.3, shieldAngle+1.3); ctx.stroke();
+        ctx.fillStyle='#ffe27a';ctx.fillRect(-virus.direction*(virus.radius+3)-3,-3,6,6);
         ctx.strokeStyle = color; ctx.lineWidth = 1.8;
       }
       if (flyer) {
@@ -2475,7 +2306,14 @@
         ctx.beginPath(); ctx.moveTo(5, -4); ctx.lineTo(virus.radius + wing, -wing); ctx.lineTo(virus.radius + 2, 3); ctx.closePath(); ctx.fill(); ctx.stroke();
       }
       if (boss) {
-        if (virus.coreShielded) {
+        ctx.save();ctx.rotate(virus.phase*(virus.bossStage||1)*.22);
+        ctx.strokeStyle=virus.bossPhaseTransitionTime>0?'#7cdcff':'#ffafc4';ctx.lineWidth=2;
+        for(let ring=0;ring<(virus.bossStage||1);ring++) {
+          ctx.beginPath();ctx.arc(0,0,virus.radius+18+ring*6,ring*2,ring*2+1.2);ctx.stroke();
+        }
+        ctx.restore();
+        if(virus.summonWindup>0){ctx.strokeStyle='#7dff9b';ctx.setLineDash([3,4]);ctx.strokeRect(-virus.radius-12,-virus.radius-12,virus.radius*2+24,virus.radius*2+24);ctx.setLineDash([]);}
+        if (virus.coreShielded || virus.bossPhaseTransitionTime>0) {
           ctx.save();
           ctx.rotate(virus.phase * .65);
           ctx.strokeStyle = '#7cdcff';
@@ -2556,7 +2394,7 @@
       ctx.lineTo(3, 4);
       ctx.stroke();
       ctx.restore();
-
+      }
       if (virus.hp < virus.maxHp || boss || armored) {
         const barWidth = boss ? 82 : 28;
         ctx.fillStyle = '#1a2029';
@@ -2568,6 +2406,7 @@
           ctx.fillRect(x - barWidth / 2, virus.y - virus.radius - 5, barWidth * Math.min(1, virus.vulnerableTime / (virus.vulnerableDuration || 1.25)), 2);
         }
         if (boss) {
+          const ground=bossGroundY(virus);
           const stageNames = {1:'PADRÕES', 2:'DISPAROS', 3:'COMBO CRÍTICO'};
           const stageName = stageNames[virus.bossStage || 1] || 'BATALHA';
           ctx.fillStyle = '#ffd9e4'; ctx.font = 'bold 9px monospace'; ctx.textAlign = 'center';
@@ -2576,7 +2415,7 @@
             ctx.fillStyle = '#ffe27a';
             ctx.fillRect(x - barWidth / 2, virus.y - virus.radius - 4, barWidth * Math.min(1, virus.vulnerableTime / 1.4), 2);
           }
-          const lockText = virus.coreShielded ? 'NÚCLEO PROTEGIDO // REPARE OS RELAYS' : virus.vulnerableTime > 0 ? 'PONTO FRACO EXPOSTO // DANO x2' : 'ESCUDO OFFLINE // GUARDA ATIVA';
+          const lockText = virus.coreShielded ? 'NÚCLEO PROTEGIDO // REPARE OS RELAYS' : virus.bossPhaseTransitionTime>0 ? 'RECONFIGURANDO // ESCUDO DE TRANSIÇÃO' : virus.vulnerableTime > 0 ? 'PONTO FRACO EXPOSTO // DANO x2' : 'ESCUDO OFFLINE // GUARDA ATIVA';
           const attackKindTips = {
             slam: 'ATAQUE // IMPACTO SÍSMICO [PULAR]',
             charge: 'ATAQUE // INVESTIDA DE DADOS [PULAR/SUBIR]',
@@ -2600,7 +2439,7 @@
             ctx.setLineDash([6, 4]);
             const slamRadius = (virus.bossStage === 3 ? 188 : 148);
             ctx.beginPath();
-            ctx.ellipse(virus.x, floorY() - 3, slamRadius, 14, 0, 0, Math.PI * 2);
+            ctx.ellipse(virus.x, ground - 3, slamRadius, 14, 0, 0, Math.PI * 2);
             ctx.fill();
             ctx.stroke();
             ctx.restore();
@@ -2609,8 +2448,8 @@
             ctx.save(); ctx.strokeStyle='#fff0a3';ctx.fillStyle='rgba(255,84,121,.18)';ctx.setLineDash([5,5]);
             if (virus.bossAttackKind === 'charge') {
               const end=Math.max(virus.bossBounds.left,Math.min(virus.bossBounds.right,virus.x+virus.bossAttackDirection*221));
-              ctx.fillRect(Math.min(virus.x,end)-38,floorY()-76,Math.abs(end-virus.x)+76,76);
-              ctx.strokeRect(Math.min(virus.x,end)-38,floorY()-76,Math.abs(end-virus.x)+76,76);
+              ctx.fillRect(Math.min(virus.x,end)-38,ground-76,Math.abs(end-virus.x)+76,76);
+              ctx.strokeRect(Math.min(virus.x,end)-38,ground-76,Math.abs(end-virus.x)+76,76);
             }
             if (virus.bossAttackKind === 'volley' || virus.bossAttackKind === 'combo') {
               ctx.beginPath();ctx.moveTo(virus.x,virus.y);ctx.lineTo(virus.bossAimX,virus.bossAimY);ctx.stroke();
@@ -2618,7 +2457,7 @@
             if (virus.bossAttackKind === 'surge' || virus.bossAttackKind === 'combo') {
               const arena=virus.bossBounds;
               const positions=virus.bossStage===3?[arena.left+150,arena.right-160]:[virus.x<(arena.left+arena.right)/2?arena.right-190:arena.left+190];
-              positions.forEach(px=>{ctx.fillRect(px-20,floorY()-68,40,68);ctx.strokeRect(px-20,floorY()-68,40,68);});
+              positions.forEach(px=>{ctx.fillRect(px-20,ground-68,40,68);ctx.strokeRect(px-20,ground-68,40,68);});
             }
             ctx.restore();
           }
@@ -2664,6 +2503,7 @@
   }
 
   function drawRobot() {
+    if (levelVisuals.sprite(ctx,{...phaseData.playerVisual,instance:'player',flipX:player.facing<0},player,animationTime,!player.grounded?'jump':player.vx?'run':'idle')) return;
     if (!player) return;
     const cx = player.x + player.width / 2;
     const top = player.y;
@@ -2764,15 +2604,35 @@
 
   function draw() {
     drawBackground();
+    const view={x:cameraX,y:cameraY,width,height,runtime:levelRuntime};
+    levelVisuals.layers(ctx,'background',view,animationTime);
     ctx.save();
     ctx.translate(-cameraX, -cameraY);
-    drawThemeStructures();
+    if (phaseData.presentation?.procedural !== false) drawThemeStructures();
+    ctx.restore();
+    levelVisuals.layers(ctx,'midground',view,animationTime);
+    ctx.save();
+    ctx.translate(-cameraX,-cameraY);
     // Subtle world grid inside the computer's digital environment.
     ctx.strokeStyle = 'rgba(62, 132, 145, .08)';
     for (let x = Math.floor(cameraX / 44) * 44; x < cameraX + width + 44; x += 44) {
       ctx.beginPath(); ctx.moveTo(x, cameraY); ctx.lineTo(x, cameraY + height); ctx.stroke();
     }
     drawSolids();
+    levelRuntime.draw(ctx,view,animationTime);
+    if (visualGeometry.size) for (const object of solids()) {
+      const spec=visualGeometry.get(object.id);
+      if (spec?.visual) levelVisuals.sprite(ctx,spec.visual,{x:object.x,y:object.y,width:object.w,height:object.h},animationTime);
+    }
+    for (const spec of phaseData.entities.interactives) {
+      if (spec.hidden || !levelRuntime.matches(spec.requires)) continue;
+      const box={x:spec.x,y:entityY(spec),width:spec.width || 32,height:spec.height || 40};
+      if (!levelVisuals.sprite(ctx,spec.visual,box,animationTime,levelRuntime.getFlag(spec.flag || spec.id)?'active':'idle')) {
+        ctx.fillStyle=levelRuntime.getFlag(spec.flag || spec.id)?'#65f3bc':'#ffd166';
+        ctx.fillRect(box.x,box.y,box.width,box.height);
+        ctx.fillStyle='#0a1822';ctx.font='bold 10px monospace';ctx.fillText(spec.label || 'E',box.x+4,box.y+20);
+      }
+    }
     drawComponents();
     drawCollectibles();
     drawViruses();
@@ -2780,14 +2640,17 @@
     drawEffects();
     drawRobot();
     ctx.restore();
-    if (phaseIndex === 9) {
+    levelVisuals.layers(ctx,'foreground',view,animationTime);
+    const environment=levelRuntime.modifiers();
+    if (environment.label) {ctx.fillStyle='#d5c5ff';ctx.font='bold 11px monospace';ctx.fillText(environment.label,12,height-28);}
+    if (phaseData.map.sections?.length) {
       const section=phaseData.map.sections.filter(section=>player.x>=section.x).at(-1);
       ctx.fillStyle='#b8eaff';ctx.font='bold 10px monospace';ctx.fillText(section?.label || 'SERVIDORES E INTERNET',12,15);
       const boss=viruses.find(enemy=>enemy.multiStage && enemy.alive);
-      if (boss && player.x>=boss.bossBounds.left-140) {
+      if (boss && player.x>=boss.bossBounds.left-140 && (!boss.activationRegion || (player.y+24>=boss.activationRegion.y-100&&player.y+24<=boss.activationRegion.y+boss.activationRegion.height+100))) {
         const barWidth=Math.min(360,width-32), x=(width-barWidth)/2;
         const protectedCore=components.some(component=>!component.repaired);
-        const state=protectedCore?'PROTEGIDO // '+components.filter(c=>c.repaired).length+'/4 RELAYS':boss.chargeTime>0?'INVESTIDA // PULE':boss.attackWindup>0?'ATAQUE EM PREPARAÇÃO':boss.vulnerableTime>0?'PONTO FRACO // DANO x2':'GUARDA';
+        const state=protectedCore?'PROTEGIDO // '+components.filter(c=>c.repaired).length+'/4 RELAYS':boss.bossPhaseTransitionTime>0?'RECONFIGURAÇÃO // AGUARDE':boss.chargeTime>0?'INVESTIDA // PULE':boss.attackWindup>0?'ATAQUE EM PREPARAÇÃO':boss.vulnerableTime>0?'PONTO FRACO // DANO x2':'GUARDA';
         ctx.fillStyle='rgba(5,12,24,.88)';ctx.fillRect(x-8,40,barWidth+16,45);
         ctx.fillStyle=protectedCore?'#80dbff':boss.vulnerableTime>0?'#ffe27a':'#ff7197';
         ctx.font='bold 10px monospace';ctx.fillText('VIRUS ZERO // ETAPA '+(boss.bossStage||1)+' // '+state,x,54,barWidth);
@@ -2808,6 +2671,11 @@
       ctx.shadowBlur = 8;
       ctx.fillText(interactionMessage, width / 2, 27);
       ctx.restore();
+    }
+    const repairPanel=document.getElementById('repairPanel');
+    repairPanel.hidden=!(running && repairSession?.blocksWorld);
+    if (repairSession?.blocksWorld) {
+      document.getElementById('repairPrompt').textContent=repairSession.label?.() || 'REPARO EM ANDAMENTO';
     }
   }
 
@@ -2874,6 +2742,7 @@
   });
   continueButton.addEventListener('click', continueCampaign);
   soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled));
+  document.getElementById('cancelRepairButton').addEventListener('click', () => {cancelRepair();keys.clear();draw();});
 
   window.addEventListener('keydown', event => {
     const key = event.key.toLowerCase();
@@ -2889,10 +2758,7 @@
   window.addEventListener('keyup', event => {
     const key = event.key.toLowerCase();
     keys.delete(key);
-    if (key === 'e') {
-      repairTarget = null;
-      repairProgress = 0;
-    }
+    if (key === 'e' && !repairSession?.blocksWorld) cancelRepair();
   });
   window.addEventListener('blur', () => keys.clear());
   window.addEventListener('pagehide', saveCampaign);

@@ -4,7 +4,12 @@ soundEnabled = false;
 const report = { phases: [], systems: {}, errors: [], snapshots: [] };
 function assert(value, message) { if (!value) throw new Error(message); }
 function test(name, fn) { try { fn(); report.systems[name] = 'PASS'; } catch(e) { report.systems[name] = e.message; } }
-function setup(i) { resetCampaign(); loadPhase(i,true); running=true; campaignStarted=true; damageCooldown=99999; keys.clear(); }
+let traversedPortals=new Set();
+function setup(i) { resetCampaign(); loadPhase(i,true); running=true; campaignStarted=true; damageCooldown=99999; keys.clear();traversedPortals=new Set(); }
+function fulfilGoalsForQuestionTest() {
+  const mark=c=>{if(c.flag)levelRuntime.setFlag(c.flag,c.value??true);(c.all||c.any||[]).forEach(mark);};
+  (phaseData.objectives.goals||[]).forEach(goal=>{if(goal.type==='condition')mark(goal.condition);});
+}
 function surfaces() {
   const all=solids(); const result=[];
   for(const s of all) {
@@ -25,6 +30,17 @@ function reachability() {
   const queue=[start];
   for(let q=0;q<queue.length;q++) {
     const src=nodes[queue[q]];
+    for (const link of levelRuntime.connections()) {
+      const px=Math.max(src.a,Math.min(src.z,link.x));
+      if(Math.hypot(px+17-link.x-link.width/2,src.y+24-link.y-link.height/2)>=72)continue;
+      player.x=px;player.y=src.y;player.vy=0;player.grounded=true;
+      levelRuntime.update(.6,{keys:new Set(),repairNearby:false});
+      levelRuntime.update(.016,{keys:new Set(['e']),repairNearby:Boolean(findNearbyComponent())});
+      if(Math.abs(player.x-link.to.x)>1||Math.abs(player.y-link.to.y)>1)continue;
+      traversedPortals.add(link.id);
+      const j=nodes.findIndex(n=>player.x>=n.a-1&&player.x<=n.z+1&&Math.abs(player.y-n.y)<3);
+      if(j>=0&&!reached.has(j)){reached.add(j);queue.push(j);}
+    }
     for(let j=0;j<nodes.length;j++) {
       if(reached.has(j)) continue;
       const dst=nodes[j];
@@ -66,19 +82,33 @@ for(let i=0;i<10;i++) {
   const r={phase:i+1}; report.phases.push(r);
   try {
     setup(i);
+    if(phaseData.map.ground?.mode==='explicit') {
+      const previous={width,height,pixelRatio,cameraX,cameraY,cw:canvas.width,ch:canvas.height};
+      width=worldWidth();height=worldHeight();pixelRatio=1;cameraX=0;cameraY=0;canvas.width=width;canvas.height=height;ctx.setTransform(1,0,0,1,0,0);
+      draw();report.snapshots.push({phase:i+1,position:'overview',image:canvas.toDataURL()});
+      width=previous.width;height=previous.height;pixelRatio=previous.pixelRatio;cameraX=previous.cameraX;cameraY=previous.cameraY;canvas.width=previous.cw;canvas.height=previous.ch;ctx.setTransform(pixelRatio,0,0,pixelRatio,0,0);
+    }
     for(const position of [0,.5,1]) {
       cameraX=Math.max(0,worldWidth()-width)*position;cameraY=Math.max(0,worldHeight()-height)*(1-position);draw();
       report.snapshots.push({phase:i+1,position,image:canvas.toDataURL()});
     }
     r.render='PASS';
+    if(i>=5) {
+      const boxes=solids();
+      const embedded=components.filter(c=>boxes.some(s=>overlaps(c,s))).map(c=>c.id);
+      embedded.push(...collectibles.filter(c=>boxes.some(s=>c.x+c.radius>s.x&&c.x-c.radius<s.x+s.w&&c.y+c.radius>s.y&&c.y-c.radius<s.y+s.h)).map(c=>c.id));
+      embedded.push(...viruses.filter(v=>boxes.some(s=>v.x+v.radius>s.x&&v.x-v.radius<s.x+s.w&&v.y+v.radius>s.y&&v.y-v.radius<s.y+s.h)).map(v=>v.id));
+      r.objectPlacement=embedded.length?'EMBEDDED: '+embedded.join(','):'PASS';
+    }
     viruses.forEach(v=>v.alive=false);xpRequired=999999;
     player.x=worldWidth()-player.width-8;player.y=phaseData.map.layout==='vertical'?400:floorY()-player.height;
     for(let t=0;t<90;t++) update(1/60);
     assert(cameraX>=0&&cameraX<=Math.max(0,worldWidth()-width)&&cameraY>=0&&cameraY<=Math.max(0,worldHeight()-height),'camera outside map');
     assert(player.x-cameraX>=-1&&player.x-cameraX+player.width<=width+1,'camera lost player');r.camera='PASS';
+    assert(player.y-cameraY>=-1&&player.y-cameraY+player.height<=height+1,'vertical camera lost player');
     setup(i);
     const start=mapStart(); let reachable=[];
-    for(let round=0;round<=components.length;round++) {
+    for(let round=0;round<=components.length+phaseData.entities.interactives.length+2;round++) {
       player.x=start.x;player.y=start.y;player.vy=0;player.grounded=true;
       reachable=reachability(); let changed=false;
       for(const c of components.filter(c=>!c.repaired)) {
@@ -88,21 +118,43 @@ for(let i=0;i<10;i++) {
         for(let t=0;t<60;t++) updateRepair(1/60);
         keys.clear();assert(c.repaired,'repair interaction failed'); changed=true;
       }
+      for(const interactive of phaseData.entities.interactives) {
+        if(levelRuntime.getFlag(interactive.flag || interactive.id))continue;
+        const n=reachable.find(n=>Math.abs(interactive.y+20-(n.y+24))<60&&n.z+34>=interactive.x-50&&n.a<=interactive.x+70);
+        if(!n)continue;
+        player.x=Math.max(n.a,Math.min(n.z,interactive.x));player.y=n.y;
+        levelRuntime.update(.6,{keys:new Set(),repairNearby:false});
+        levelRuntime.update(.016,{keys:new Set(['e']),repairNearby:Boolean(findNearbyComponent())});
+        if(levelRuntime.getFlag(interactive.flag || interactive.id))changed=true;
+      }
       if(!changed) break;
     }
     r.reachableSurfaces=reachable.length;
     r.repairAccess=components.every(c=>c.repaired)?'PASS':'UNREACHABLE: '+components.filter(c=>!c.repaired).map(c=>c.id);
     if(r.repairAccess!=='PASS') r.debug={nodes:reachable,components:components.map(c=>({id:c.id,x:c.x,y:c.y,repaired:c.repaired}))};
     r.platformAccess=phaseData.entities.platforms.filter(s=>!reachable.some(n=>n.id===s.id)).map(s=>s.id);
+    r.switchAccess=phaseData.entities.interactives.every(spec=>levelRuntime.getFlag(spec.flag || spec.id))?'PASS':'FAIL';
+    r.portals=[...traversedPortals];
+    if(phaseData.map.ground?.mode==='explicit') {
+      for(const item of collectibles) {
+        const options=reachable.filter(n=>n.z+34>=item.x-item.radius&&n.a<=item.x+item.radius&&n.y+24-item.y>=-35&&n.y+24-item.y<165);
+        for(const n of options) {
+          player.x=Math.max(n.a,Math.min(n.z,item.x-17));player.y=n.y;player.vy=0;player.grounded=true;jumpQueued=true;keys.clear();
+          for(let t=0;t<80&&!item.collected;t++){movePlayer(1/60);updateCollectibles(1/60);}
+          if(item.collected)break;
+        }
+      }
+      r.collectibleAccess=collectibles.every(item=>item.collected)?'PASS':'UNREACHABLE: '+collectibles.filter(item=>!item.collected).map(item=>item.id).join(',');
+    }
     phaseExitUnlocked=true;
     player.x=start.x;player.y=start.y;player.grounded=true;
     const exitNodes=reachability();
-    r.exitAccess=exitNodes.some(n=>phaseData.map.layout==='vertical'? Math.hypot(Math.max(n.a,Math.min(n.z,phaseData.map.exit.x))+17-phaseData.map.exit.x,n.y+24-phaseData.map.exit.y)<74:n.z+34>=phaseData.map.exit.x+20)?'PASS':'FAIL';
+    r.exitAccess=exitNodes.some(n=>phaseData.map.exit.mode==='region'?Math.max(n.a,Math.min(n.z,phaseData.map.exit.x))+34>phaseData.map.exit.x&&n.a<phaseData.map.exit.x+phaseData.map.exit.width&&n.y+48>phaseData.map.exit.y&&n.y<phaseData.map.exit.y+phaseData.map.exit.height:phaseData.map.layout==='vertical'? Math.hypot(Math.max(n.a,Math.min(n.z,phaseData.map.exit.x))+17-phaseData.map.exit.x,n.y+24-phaseData.map.exit.y)<74:n.z+34>=phaseData.map.exit.x+20)?'PASS':'FAIL';
     r.enemyAccess=viruses.every(v=>reachable.some(n=> Math.abs(n.y+22-v.y)<v.radius+5+126 && n.z+800>=v.x && n.a-800<=v.x))?'PASS':'FAIL';
     r.combat=[];
     for(const enemy of viruses.filter(v=>v.countsForObjective!==false)) {
       const options=reachable.flatMap(n=>[n.a,n.z,(n.a+n.z)/2].map(x=>({n,x,score:Math.abs(Math.abs(x-enemy.x)-140)+Math.abs(n.y+22-enemy.y)*3})))
-        .filter(p=>p.n.y+22-enemy.y>=-enemy.radius-5 && p.n.y+22-enemy.y<125+enemy.radius).sort((a,b)=>a.score-b.score);
+        .filter(p=>p.n.y+22-enemy.y>=-enemy.radius-5 && p.n.y+22-enemy.y<125+enemy.radius&&(!enemy.activationRegion||(p.x+17>=enemy.activationRegion.x&&p.x+17<=enemy.activationRegion.x+enemy.activationRegion.width&&p.n.y+24>=enemy.activationRegion.y&&p.n.y+24<=enemy.activationRegion.y+enemy.activationRegion.height))).sort((a,b)=>a.score-b.score);
       for(const p of options.slice(0,8)) {
         player.x=p.x;player.y=p.n.y;player.vy=0;player.grounded=true;damageCooldown=99999;keys.clear();keys.add('j');projectiles=[];
         for(let t=0;t<600&&enemy.alive;t++) {
@@ -112,7 +164,7 @@ for(let i=0;i<10;i++) {
         }
         if(!enemy.alive) break;
       }
-      keys.clear();r.combat.push({id:enemy.id,type:enemy.type,result:enemy.alive?'FAIL':'PASS'});
+      keys.clear();r.combat.push({id:enemy.id,type:enemy.type,result:enemy.alive?'FAIL':'PASS',...(enemy.alive?{position:{x:enemy.x,y:enemy.y,baseY:enemy.baseY,hp:enemy.hp},player:{x:player.x,y:player.y},support:ByteRunner.enemies.lane(enemy,solids())}: {})});
     }
     for(const point of phaseData.map.checkpoints) {
       player.x=typeof point==='number'?point:point.x; player.y=(typeof point==='number'?floorY():point.y)-player.height;updateCheckpoints();respawnAtCheckpoint();
@@ -127,10 +179,10 @@ for(let i=0;i<10;i++) {
     setup(i); const c=components[0];c.repaired=true;viruses[0].alive=false;viruses[0].hp=0;xp=37;checkpointX=typeof phaseData.map.checkpoints[0]==='number'?phaseData.map.checkpoints[0]:phaseData.map.checkpoints[0].x;
     saveCampaign();continueCampaign();assert(components[0].repaired&&!viruses[0].alive&&xp===37,'save restoration');r.save='PASS';
     setup(i);assert(!phaseExitUnlocked,'exit initially unlocked');openPhaseQuestion();assert(!phaseQuestionOpen,'premature question');
-    components.forEach(c=>c.repaired=true);viruses.forEach(v=>{v.alive=false;v.hp=0;});checkObjectives();assert(phaseExitUnlocked,'objectives');openPhaseQuestion();
+    components.forEach(c=>c.repaired=true);viruses.forEach(v=>{v.alive=false;v.hp=0;});fulfilGoalsForQuestionTest();checkObjectives();assert(phaseExitUnlocked,'objectives');openPhaseQuestion();
     ui.questionOverlay.querySelector('[data-correct="false"]').click();assert(getSavedCampaign().questionRetryRequired,'wrong answer not saved');continueCampaign();assert(components.every(c=>!c.repaired)&&viruses.every(v=>v.alive),'reload bypassed retry');
-    components.forEach(c=>c.repaired=true);viruses.forEach(v=>v.alive=false);checkObjectives();openPhaseQuestion();ui.questionOverlay.querySelector('[data-correct="false"]').click();ui.questionOverlay.querySelector('.question-action').click();assert(running&&!phaseQuestionOpen&&!phaseExitUnlocked,'retry stuck');
-    components.forEach(c=>c.repaired=true);viruses.forEach(v=>v.alive=false);checkObjectives();openPhaseQuestion();ui.questionOverlay.querySelector('[data-correct="true"]').click();ui.questionOverlay.querySelector('.question-action').click();assert(i===9?campaignComplete:phaseTransition,'correct answer progression');r.questions='PASS';
+    components.forEach(c=>c.repaired=true);viruses.forEach(v=>v.alive=false);fulfilGoalsForQuestionTest();checkObjectives();openPhaseQuestion();ui.questionOverlay.querySelector('[data-correct="false"]').click();ui.questionOverlay.querySelector('.question-action').click();assert(running&&!phaseQuestionOpen&&!phaseExitUnlocked,'retry stuck');
+    components.forEach(c=>c.repaired=true);viruses.forEach(v=>v.alive=false);fulfilGoalsForQuestionTest();checkObjectives();openPhaseQuestion();ui.questionOverlay.querySelector('[data-correct="true"]').click();ui.questionOverlay.querySelector('.question-action').click();assert(i===9?campaignComplete:phaseTransition,'correct answer progression');r.questions='PASS';
     if(i<9) {continueCampaign();assert(phaseIndex===i+1&&running&&!phaseExitUnlocked,'next phase restoration');} else assert(getSavedCampaign().campaignComplete,'victory not saved');r.transitionSave='PASS';
   } catch(e) {r.error=e.stack;}
 }
@@ -143,24 +195,24 @@ test('skills and pending choice',()=>{
 });
 test('enemy attacks',()=>{
   for(const type of ['basic','fast','armored','flyer','shooter','parasite']) {
-    setup(0);viruses=[createViruses()[0]];const v=viruses[0];Object.assign(v,ENEMY_PROFILES[type],{type,x:300,baseX:300,y:floorY()-24,baseY:floorY()-24,alive:true,attackCooldownTimer:0,specialCooldownTimer:0,summonCooldownTimer:0});
-    player.x=315;player.y=floorY()-48;damageCooldown=0;const hp=player.health;
+    setup(9);const ground=mapStart().y+48;viruses=[createViruses()[0]];const v=viruses[0];Object.assign(v,ENEMY_PROFILES[type],{type,x:300,baseX:300,y:ground-24,baseY:ground-24,groundY:ground,navigationBounds:undefined,activationRegion:undefined,alive:true,attackCooldownTimer:0,specialCooldownTimer:0,summonCooldownTimer:0});
+    player.x=315;player.y=ground-48;damageCooldown=0;const hp=player.health;
     for(let t=0;t<180;t++) updateCombat(1/60);
     assert(type==='parasite'?viruses.length>1:player.health<hp,type+' attack failed');
   }
 });
 test('boss stages, shield and projectile defeat',()=>{
   setup(9);const boss=viruses.find(v=>v.type==='boss');let hp=boss.hp;damageVirus(boss,10);assert(boss.hp===hp,'shield');components.forEach(c=>c.repaired=true);
-  for(const ratio of [.9,.6,.2]) {boss.hp=boss.maxHp*ratio;boss.bossCycleCooldown=0;boss.attackWindup=0;updateVirusZero(boss,.01,boss.x-180,boss.y);updateVirusZero(boss,1,boss.x-180,boss.y);assert(boss.bossStage===(ratio>.67?1:ratio>.34?2:3),'stage');}
-  boss.hp=boss.maxHp;viruses=viruses.filter(v=>v===boss);player.x=boss.x-150;player.y=boss.y-22;player.facing=1;keys.add('j');
-  for(let t=0;t<1600&&boss.alive;t++) {boss.speed=0;updateCombat(1/60);}
+  for(const ratio of [.9,.6,.2]) {boss.hp=boss.maxHp*ratio;boss.bossCycleCooldown=0;boss.bossPatternIndex=0;boss.attackWindup=0;boss.chargeTime=0;boss.bossPhaseTransitionTime=0;for(let t=0;t<95;t++)updateVirusZero(boss,1/60,boss.x-180,boss.y);assert(boss.bossStage===(ratio>.67?1:ratio>.34?2:3),'stage');}
+  boss.hp=boss.maxHp;boss.bossStage=1;boss.bossPhaseTransitionTime=0;boss.vulnerableTime=0;boss.attackWindup=0;boss.bossCycleCooldown=1.2;enemyProjectiles=[];enemyObstacles=[];viruses=viruses.filter(v=>v===boss);player.x=boss.x-150;player.y=boss.y-22;player.facing=1;keys.add('j');
+  for(let t=0;t<2400&&boss.alive;t++) {boss.speed=0;updateCombat(1/60);}
   assert(!boss.alive,'boss survived actual shots');
 });
 test('temporary and moving platforms',()=>{
-  setup(0);const temp=phaseData.entities.platforms.find(p=>p.type==='temporary');const state=getPlatformState(temp);state.triggered=true;player.x=70;
+  setup(9);const temp=phaseData.entities.platforms.find(p=>p.type==='temporary');const state=getPlatformState(temp);state.triggered=true;player.x=70;
   for(let t=0;t<140;t++) update(1/60);assert(!platformShape(temp),'temporary did not vanish');
   for(let t=0;t<200;t++) update(1/60);assert(platformShape(temp),'temporary did not return');
-  const moving=phaseData.entities.platforms.find(p=>p.type==='moving');const s=platformShape(moving);player.x=s.x+10;player.y=s.y-player.height;player.grounded=true;advancePlatformMotion(.01);const x=player.x;advancePlatformMotion(.1);assert(player.x!==x,'moving platform carry');
+  const moving=phaseData.entities.platforms.find(p=>p.type==='moving'&&p.motion.axis==='x');const s=platformShape(moving);player.x=s.x+10;player.y=s.y-player.height;player.grounded=true;advancePlatformMotion(.01);const x=player.x;advancePlatformMotion(.1);assert(player.x!==x,'moving platform carry');
 });
 test('keyboard controls',()=>{
   setup(0);const x=player.x;window.dispatchEvent(new KeyboardEvent('keydown',{key:'d'}));movePlayer(.1);window.dispatchEvent(new KeyboardEvent('keyup',{key:'d'}));assert(player.x>x&&!keys.has('d'),'movement');
@@ -169,7 +221,7 @@ test('keyboard controls',()=>{
   window.dispatchEvent(new KeyboardEvent('keydown',{key:'d'}));window.dispatchEvent(new Event('blur'));assert(!keys.size,'stuck keys');
 });
 test('resize and particle budget',()=>{
-  setup(0);player.x=70;player.y=floorY()-player.height;const y=player.y,oldFloor=floorY();
+  setup(9);const viewportMap=ByteRunner.maps.clone(PHASES[0]);viewportMap.id='test-viewport';viewportMap.map.height='viewport';delete viewportMap.map.ground;viewportMap.map.start={x:70,anchor:'floor',offset:0};loadMap(viewportMap,true);player.x=70;player.y=floorY()-player.height;const y=player.y,oldFloor=floorY();
   canvas.style.height='400px';resize();assert(Math.abs(player.y-y-(floorY()-oldFloor))<1,'floor resize drift');draw();
   setup(5);const verticalY=player.y;canvas.style.height='460px';resize();assert(player.y===verticalY,'vertical map resized');draw();
   effects=[];for(let i=0;i<100;i++)emitParticles(50,50,'white',35);assert(effects.length===240,'unbounded particles');
@@ -197,7 +249,7 @@ test('distinct layouts and themes',()=>{
   for(const type of ['horizontal','vertical','maze','multi-route'])assert(PHASES.some(p=>p.map.layout===type),'missing layout '+type);
 });
 test('final boss telegraphs, dodge and weak point',()=>{
-  const arena=()=>{setup(9);components.forEach(c=>c.repaired=true);const b=viruses.find(v=>v.multiStage);viruses=[b];b.x=3700;b.baseX=3700;b.speed=0;player.x=3830;player.y=floorY()-48;damageCooldown=0;return b;};
+  const arena=()=>{setup(9);components.forEach(c=>c.repaired=true);const b=viruses.find(v=>v.multiStage);viruses=[b];b.x=5600;b.baseX=5600;b.speed=0;player.x=5730;player.y=bossGroundY(b)-48;damageCooldown=0;return b;};
   let b=arena();b.bossAttackKind='slam';triggerVirusZeroAttack(b,player.x+17,player.y+24);assert(player.health<100,'slam does not hit ground');
   b=arena();jumpQueued=true;for(let t=0;t<12;t++)movePlayer(1/60);triggerVirusZeroAttack(b,player.x+17,player.y+24);assert(player.health===100,'normal jump cannot dodge slam');
   for(const jumping of [false,true]) {
@@ -208,7 +260,7 @@ test('final boss telegraphs, dodge and weak point',()=>{
     assert(b.vulnerableTime>0,'charge recovery');
   }
   b=arena();b.hp=b.maxHp*.6;b.bossCycleCooldown=0;b.bossPatternIndex=0;
-  updateVirusZero(b,.01,player.x+17,player.y+24);const aimX=b.bossAimX,aimY=b.bossAimY;
+  updateVirusZero(b,.01,player.x+17,player.y+24);updateVirusZero(b,.65,player.x+17,player.y+24);const aimX=b.bossAimX,aimY=b.bossAimY;
   triggerVirusZeroAttack(b,player.x+200,player.y-100);const center=enemyProjectiles[1];
   assert(Math.abs(Math.atan2(center.vy,center.vx)-Math.atan2(aimY-b.y,aimX-b.x))<.001,'volley ignores target telegraph');
   enemyProjectiles=[];b.bossAttackKind='surge';triggerVirusZeroAttack(b,player.x+17,player.y+24);assert(enemyObstacles.some(o=>o.bossOwned),'no scenario change');
@@ -217,13 +269,13 @@ test('final boss telegraphs, dodge and weak point',()=>{
   spawnEnemyMinion(b);enemyProjectiles.push({bossOwned:true});b.hp=1;damageVirus(b,5);assert(!b.alive&&!viruses.some(v=>v.alive&&v.summonedBy===b.id)&&!enemyObstacles.some(o=>o.bossOwned)&&!enemyProjectiles.some(p=>p.bossOwned),'boss hazards survive death');
 });
 test('boss activation, skills and final checkpoint',()=>{
-  setup(9);const b=viruses.find(v=>v.multiStage);for(let t=0;t<300;t++)updateEnemyBrain(b,1/60,100,floorY()-24);assert(!enemyProjectiles.some(p=>p.bossOwned)&&b.x===3970,'boss attacks before arena');
+  setup(9);const b=viruses.find(v=>v.multiStage),origin=b.x;for(let t=0;t<300;t++)updateEnemyBrain(b,1/60,100,mapStart().y+24);assert(!enemyProjectiles.some(p=>p.bossOwned)&&b.x===origin,'boss attacks before arena');
   unlockedSkills=[{id:'cannon',level:3},{id:'armor',level:3},{id:'boost',level:2}];restoreSkillEffects();saveCampaign();continueCampaign();assert(player.damage===4&&player.armor>.29&&player.jumpPower>690,'campaign abilities lost');
-  player.x=3540;player.y=floorY()-48;components.forEach(c=>c.repaired=true);updateCheckpoints();respawnAtCheckpoint();assert(checkpointX===3540&&components.every(c=>c.repaired)&&!solids().some(s=>s.collision!=='one-way'&&overlaps(player,s)),'arena checkpoint');
-  saveCampaign();continueCampaign();assert(checkpointX===3540&&components.every(c=>c.repaired),'arena save');
+  const cp=phaseData.map.checkpoints.at(-1);player.x=cp.x;player.y=cp.y-48;components.forEach(c=>c.repaired=true);updateCheckpoints();respawnAtCheckpoint();assert(checkpointX===cp.x&&checkpointY===cp.y&&components.every(c=>c.repaired)&&!solids().some(s=>s.collision!=='one-way'&&overlaps(player,s)),'arena checkpoint');
+  saveCampaign();continueCampaign();assert(checkpointX===cp.x&&components.every(c=>c.repaired),'arena save');
 });
 test('boss visual states',()=>{
-  setup(9);const b=viruses.find(v=>v.multiStage);player.x=b.x-180;player.y=floorY()-48;cameraX=b.x-width*.55;
+  setup(9);const b=viruses.find(v=>v.multiStage);player.x=b.x-180;player.y=bossGroundY(b)-48;cameraX=b.x-width*.55;cameraY=Math.max(0,bossGroundY(b)-height*.78);
   const snapshot=name=>{draw();report.snapshots.push({phase:10,position:'boss-'+name,image:canvas.toDataURL()});};
   updateVirusZero(b,.01,player.x+17,player.y+24);snapshot('protected');
   components.forEach(c=>c.repaired=true);updateVirusZero(b,.01,player.x+17,player.y+24);
@@ -234,19 +286,19 @@ test('boss visual states',()=>{
 });
 test('volley and final combo can be dodged',()=>{
   setup(9);components.forEach(c=>c.repaired=true);let b=viruses.find(v=>v.multiStage);viruses=[b];b.speed=0;b.bossStage=2;b.hp=b.maxHp*.6;b.specialCooldownTimer=99;
-  player.x=b.x-250;player.y=floorY()-48;damageCooldown=0;b.bossAttackKind='volley';b.bossAimX=player.x+17;b.bossAimY=player.y+24;
+  player.x=b.x-250;player.y=bossGroundY(b)-48;damageCooldown=0;b.bossAttackKind='volley';b.bossAimX=player.x+17;b.bossAimY=player.y+24;
   triggerVirusZeroAttack(b,player.x+17,player.y+24);
   for(let t=0;t<90;t++){if(t===24)jumpQueued=true;movePlayer(1/60);updateHostileProjectiles(1/60);}
   assert(player.health===100,'volley cannot be jumped');
   setup(9);components.forEach(c=>c.repaired=true);b=viruses.find(v=>v.multiStage);viruses=[b];b.speed=0;b.hp=b.maxHp*.2;b.specialCooldownTimer=99;b.bossCycleCooldown=0;
-  player.x=3790;player.y=floorY()-166-player.height;player.grounded=true;damageCooldown=0;
+  b.x=5400;b.baseX=5400;b.bossStage=3;b.bossPhaseTransitionTime=0;player.x=5280;player.y=700-player.height;player.grounded=true;damageCooldown=0;
   updateVirusZero(b,.01,player.x+17,player.y+24);keys.add('a');
   for(let t=0;t<110;t++){movePlayer(1/60);updateCombat(1/60);}
   keys.clear();assert(player.health===100,'combo cannot be dodged by leaving upper platform');
 });
 test('boss defeat opens mandatory final question and victory',()=>{
   setup(9);xpRequired=999999;components.forEach(c=>c.repaired=true);const b=viruses.find(v=>v.multiStage);viruses.filter(v=>v!==b).forEach(v=>v.alive=false);b.hp=1;
-  player.x=b.x-120;player.y=floorY()-48;player.facing=1;keys.add('j');
+  player.x=b.x-120;player.y=bossGroundY(b)-48;player.facing=1;keys.add('j');
   for(let t=0;t<120&&!phaseQuestionOpen;t++)update(1/60);
   assert(!b.alive&&phaseQuestionOpen&&!campaignComplete,'final question does not open after projectile defeat');
   ui.questionOverlay.querySelector('[data-correct="true"]').click();ui.questionOverlay.querySelector('.question-action').click();

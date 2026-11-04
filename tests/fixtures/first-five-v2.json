@@ -1,0 +1,3003 @@
+[
+  {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-01",
+    "name": "Hardware do computador",
+    "theme": "hardware",
+    "objective": "Explore a placa-mãe: repare CPU, RAM e GPU para restaurar os barramentos e desligar os curtos.",
+    "palette": [
+      "#06191b",
+      "#143b35",
+      "#63f3bb",
+      "#286453",
+      "#d6ac64"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 2800,
+      "height": 1000,
+      "layout": "horizontal",
+      "start": {
+        "x": 70,
+        "y": 802
+      },
+      "exit": {
+        "mode": "region",
+        "x": 2670,
+        "y": 786,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "pcb-left",
+            "x": 0,
+            "y": 850,
+            "width": 720,
+            "height": 120
+          },
+          {
+            "id": "pcb-memory",
+            "x": 980,
+            "y": 850,
+            "width": 720,
+            "height": 120
+          },
+          {
+            "id": "pcb-gpu",
+            "x": 1900,
+            "y": 850,
+            "width": 900,
+            "height": 120
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 1050,
+          "y": 850
+        },
+        {
+          "x": 1400,
+          "y": 510
+        },
+        {
+          "x": 2000,
+          "y": 850
+        }
+      ],
+      "checkpointMode": "proximity",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "trilha inferior da placa-mãe",
+        "barramento da CPU",
+        "torre de memória",
+        "passarela da GPU"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "socket-step",
+          "x": 250,
+          "y": 770,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "cpu-pins",
+          "x": 390,
+          "y": 710,
+          "width": 130,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "cpu-package",
+          "x": 460,
+          "y": 650,
+          "width": 280,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "cpu-secret-cache",
+          "x": 300,
+          "y": 570,
+          "width": 120,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "trace-low-a",
+          "x": 720,
+          "y": 830,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "trace-low-b",
+          "x": 850,
+          "y": 750,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-pin-a",
+          "x": 1030,
+          "y": 670,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-pin-b",
+          "x": 1190,
+          "y": 590,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-module",
+          "x": 1320,
+          "y": 510,
+          "width": 210,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-secret-rail",
+          "x": 1510,
+          "y": 430,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "cpu-restored-bus",
+          "x": 740,
+          "y": 650,
+          "width": 240,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "memory-restored-bus",
+          "x": 1530,
+          "y": 610,
+          "width": 220,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "gpu-riser-a",
+          "x": 1770,
+          "y": 760,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-riser-b",
+          "x": 1930,
+          "y": 690,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-board",
+          "x": 2070,
+          "y": 620,
+          "width": 300,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-cache",
+          "x": 2290,
+          "y": 530,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-restored-link",
+          "x": 2380,
+          "y": 700,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit",
+          "requiresComponentId": "c03"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "live-trace",
+          "x": 1580,
+          "y": 790,
+          "width": 60,
+          "height": 60,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 10,
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "gpu-heatsink",
+          "x": 2490,
+          "y": 760,
+          "width": 64,
+          "height": 90,
+          "type": "heatsink",
+          "collision": "solid"
+        }
+      ],
+      "gates": [],
+      "components": [
+        {
+          "id": "c01",
+          "x": 560,
+          "y": 606,
+          "width": 34,
+          "height": 44,
+          "label": "SOQUETE DA CPU"
+        },
+        {
+          "id": "c02",
+          "x": 1390,
+          "y": 466,
+          "width": 34,
+          "height": 44,
+          "label": "BANCO DE RAM"
+        },
+        {
+          "id": "c03",
+          "x": 2200,
+          "y": 576,
+          "width": 34,
+          "height": 44,
+          "label": "ALIMENTAÇÃO DA GPU"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "x": 480,
+          "y": 826,
+          "groundY": 850,
+          "navigationBounds": {
+            "left": 340,
+            "right": 650
+          },
+          "patrolMin": 340,
+          "patrolMax": 650
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "x": 1260,
+          "y": 566,
+          "groundY": 590,
+          "navigationBounds": {
+            "left": 1210,
+            "right": 1320
+          },
+          "patrolMin": 1210,
+          "patrolMax": 1320
+        },
+        {
+          "id": "e03",
+          "type": "armored",
+          "x": 2310,
+          "y": 596,
+          "groundY": 620,
+          "navigationBounds": {
+            "left": 2120,
+            "right": 2340
+          },
+          "patrolMin": 2120,
+          "patrolMax": 2340
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 350,
+          "y": 540,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 1560,
+          "y": 400,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 2350,
+          "y": 500,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 1050,
+          "y": 810,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "i05",
+          "x": 2000,
+          "y": 660,
+          "radius": 10,
+          "secret": false
+        }
+      ],
+      "features": [],
+      "interactives": []
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [],
+      "componentsToRepair": 3,
+      "enemiesToDefeat": 3
+    },
+    "mechanics": [
+      {
+        "id": "cpu-cooling",
+        "type": "environment",
+        "zones": [
+          {
+            "id": "cooling-fan",
+            "x": 760,
+            "y": 670,
+            "width": 180,
+            "height": 190,
+            "forceX": 85,
+            "label": "VENTOINHA →",
+            "disabledWhen": {
+              "component": "c01"
+            }
+          }
+        ]
+      }
+    ],
+    "assets": [],
+    "layers": [
+      {
+        "id": "authored-scenery",
+        "type": "computer-world",
+        "theme": "hardware",
+        "items": [
+          {
+            "kind": "board",
+            "x": 0,
+            "y": 200,
+            "width": 2800,
+            "height": 770,
+            "label": "PLACA-MÃE"
+          },
+          {
+            "kind": "cpu",
+            "x": 460,
+            "y": 650,
+            "width": 280,
+            "height": 115,
+            "label": "CPU"
+          },
+          {
+            "kind": "ram",
+            "x": 1320,
+            "y": 510,
+            "width": 210,
+            "height": 300,
+            "label": "MEMÓRIA RAM"
+          },
+          {
+            "kind": "gpu",
+            "x": 2070,
+            "y": 620,
+            "width": 300,
+            "height": 180,
+            "label": "PLACA DE VÍDEO"
+          },
+          {
+            "kind": "fan",
+            "x": 780,
+            "y": 730,
+            "width": 120,
+            "height": 120,
+            "label": "FLUXO →"
+          },
+          {
+            "kind": "cache",
+            "x": 300,
+            "y": 540,
+            "width": 120,
+            "height": 30,
+            "label": "CACHE L1"
+          },
+          {
+            "kind": "cache",
+            "x": 1510,
+            "y": 400,
+            "width": 150,
+            "height": 30,
+            "label": "CACHE RAM"
+          }
+        ],
+        "pass": "midground"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-02",
+    "name": "Software do computador",
+    "theme": "software",
+    "objective": "Navegue pelos diretórios, restaure processos e arquivos e recupere o escalonador nas quatro salas do sistema.",
+    "palette": [
+      "#111025",
+      "#302756",
+      "#b6a0ff",
+      "#575187",
+      "#f297c7"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 1900,
+      "height": 1400,
+      "layout": "hub",
+      "start": {
+        "x": 280,
+        "y": 1202
+      },
+      "exit": {
+        "mode": "region",
+        "x": 1660,
+        "y": 1186,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "desktop-floor",
+            "x": 80,
+            "y": 1250,
+            "width": 660,
+            "height": 28
+          },
+          {
+            "id": "process-floor",
+            "x": 80,
+            "y": 650,
+            "width": 660,
+            "height": 28
+          },
+          {
+            "id": "filesystem-floor",
+            "x": 1150,
+            "y": 650,
+            "width": 660,
+            "height": 28
+          },
+          {
+            "id": "scheduler-floor",
+            "x": 1150,
+            "y": 1250,
+            "width": 660,
+            "height": 28
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 180,
+          "y": 650
+        },
+        {
+          "x": 1250,
+          "y": 650
+        },
+        {
+          "x": 1300,
+          "y": 1250
+        }
+      ],
+      "checkpointMode": "free",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "Desktop → Processos → Arquivos",
+        "Desktop → Escalonador → Arquivos"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "desktop-window",
+          "x": 300,
+          "y": 1150,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "window",
+          "motion": {
+            "axis": "x",
+            "range": 28,
+            "speed": 0.6
+          }
+        },
+        {
+          "id": "desktop-cache",
+          "x": 510,
+          "y": 1060,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "process-window",
+          "x": 250,
+          "y": 550,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "process-monitor",
+          "x": 440,
+          "y": 470,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "window",
+          "motion": {
+            "axis": "y",
+            "range": 12,
+            "speed": 0.7
+          }
+        },
+        {
+          "id": "filesystem-step",
+          "x": 1220,
+          "y": 560,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "restored-file-window",
+          "x": 1430,
+          "y": 480,
+          "width": 200,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "scheduler-step",
+          "x": 1270,
+          "y": 1170,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "scheduler-platform",
+          "x": 1450,
+          "y": 1090,
+          "width": 230,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "restored-process-link",
+          "x": 520,
+          "y": 550,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "scheduler-secret",
+          "x": 1650,
+          "y": 1000,
+          "width": 140,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "restored-scheduler-window",
+          "x": 1230,
+          "y": 1010,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window",
+          "requiresComponentId": "c03"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "desktop-wall-left",
+          "x": 60,
+          "y": 920,
+          "width": 20,
+          "height": 354,
+          "collision": "solid",
+          "type": "corrupt"
+        },
+        {
+          "id": "desktop-wall-right",
+          "x": 740,
+          "y": 920,
+          "width": 20,
+          "height": 354,
+          "collision": "solid",
+          "type": "corrupt"
+        },
+        {
+          "id": "process-wall-left",
+          "x": 60,
+          "y": 320,
+          "width": 20,
+          "height": 354,
+          "collision": "solid",
+          "type": "corrupt"
+        },
+        {
+          "id": "process-wall-right",
+          "x": 740,
+          "y": 320,
+          "width": 20,
+          "height": 354,
+          "collision": "solid",
+          "type": "corrupt"
+        },
+        {
+          "id": "files-wall-left",
+          "x": 1130,
+          "y": 320,
+          "width": 20,
+          "height": 354,
+          "collision": "solid",
+          "type": "corrupt"
+        },
+        {
+          "id": "files-wall-right",
+          "x": 1810,
+          "y": 320,
+          "width": 20,
+          "height": 354,
+          "collision": "solid",
+          "type": "corrupt"
+        },
+        {
+          "id": "scheduler-wall-left",
+          "x": 1130,
+          "y": 920,
+          "width": 20,
+          "height": 354,
+          "collision": "solid",
+          "type": "corrupt"
+        },
+        {
+          "id": "scheduler-wall-right",
+          "x": 1810,
+          "y": 920,
+          "width": 20,
+          "height": 354,
+          "collision": "solid",
+          "type": "corrupt"
+        },
+        {
+          "id": "corrupt-file",
+          "x": 1390,
+          "y": 554,
+          "width": 46,
+          "height": 96,
+          "type": "corrupt",
+          "collision": "solid",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "hung-process",
+          "x": 540,
+          "y": 570,
+          "width": 38,
+          "height": 80,
+          "type": "corrupt",
+          "collision": "solid",
+          "requiresComponentId": "c01"
+        }
+      ],
+      "gates": [],
+      "components": [
+        {
+          "id": "c01",
+          "x": 420,
+          "y": 606,
+          "width": 34,
+          "height": 44,
+          "label": "PROCESSO DO SISTEMA"
+        },
+        {
+          "id": "c02",
+          "x": 1510,
+          "y": 606,
+          "width": 34,
+          "height": 44,
+          "label": "ÍNDICE DE ARQUIVOS"
+        },
+        {
+          "id": "c03",
+          "x": 1510,
+          "y": 1046,
+          "width": 34,
+          "height": 44,
+          "label": "ESCALONADOR"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "x": 550,
+          "y": 1226,
+          "groundY": 1250,
+          "navigationBounds": {
+            "left": 220,
+            "right": 650
+          },
+          "patrolMin": 220,
+          "patrolMax": 650,
+          "activationRegion": {
+            "x": 80,
+            "y": 900,
+            "width": 660,
+            "height": 400
+          }
+        },
+        {
+          "id": "e02",
+          "type": "basic",
+          "x": 570,
+          "y": 626,
+          "groundY": 650,
+          "navigationBounds": {
+            "left": 300,
+            "right": 680
+          },
+          "patrolMin": 300,
+          "patrolMax": 680,
+          "activationRegion": {
+            "x": 80,
+            "y": 300,
+            "width": 660,
+            "height": 400
+          }
+        },
+        {
+          "id": "e03",
+          "type": "shooter",
+          "x": 1690,
+          "y": 1066,
+          "groundY": 1090,
+          "navigationBounds": {
+            "left": 1490,
+            "right": 1650
+          },
+          "patrolMin": 1490,
+          "patrolMax": 1650,
+          "activationRegion": {
+            "x": 1150,
+            "y": 900,
+            "width": 660,
+            "height": 400
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 565,
+          "y": 1030,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 510,
+          "y": 435,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 1530,
+          "y": 450,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 1720,
+          "y": 970,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": []
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [],
+      "componentsToRepair": 3,
+      "enemiesToDefeat": 3
+    },
+    "mechanics": [
+      {
+        "id": "directories",
+        "type": "portals",
+        "links": [
+          {
+            "id": "desktop-to-process",
+            "x": 610,
+            "y": 1174,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 150,
+              "y": 602
+            },
+            "label": "/PROCESSOS"
+          },
+          {
+            "id": "process-to-desktop",
+            "x": 110,
+            "y": 574,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 500,
+              "y": 1202
+            },
+            "label": "/DESKTOP"
+          },
+          {
+            "id": "process-to-files",
+            "x": 650,
+            "y": 574,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1240,
+              "y": 602
+            },
+            "label": "/ARQUIVOS",
+            "requires": {
+              "component": "c01"
+            }
+          },
+          {
+            "id": "files-to-process",
+            "x": 1170,
+            "y": 574,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 530,
+              "y": 602
+            },
+            "label": "/PROCESSOS"
+          },
+          {
+            "id": "desktop-to-scheduler",
+            "x": 120,
+            "y": 1174,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1240,
+              "y": 1202
+            },
+            "label": "/TAREFAS",
+            "requires": {
+              "component": "c01"
+            }
+          },
+          {
+            "id": "scheduler-to-desktop",
+            "x": 1180,
+            "y": 1174,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 240,
+              "y": 1202
+            },
+            "label": "/DESKTOP"
+          },
+          {
+            "id": "scheduler-to-files",
+            "x": 1740,
+            "y": 1174,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1680,
+              "y": 602
+            },
+            "label": "/ARQUIVOS"
+          },
+          {
+            "id": "files-to-scheduler",
+            "x": 1740,
+            "y": 574,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1270,
+              "y": 1202
+            },
+            "label": "/TAREFAS"
+          }
+        ]
+      }
+    ],
+    "assets": [],
+    "layers": [
+      {
+        "id": "authored-scenery",
+        "type": "computer-world",
+        "theme": "software",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 80,
+            "y": 920,
+            "width": 660,
+            "height": 330,
+            "label": "DESKTOP / ENTRADA"
+          },
+          {
+            "kind": "window-room",
+            "x": 80,
+            "y": 320,
+            "width": 660,
+            "height": 330,
+            "label": "PROCESSOS"
+          },
+          {
+            "kind": "window-room",
+            "x": 1150,
+            "y": 320,
+            "width": 660,
+            "height": 330,
+            "label": "SISTEMA DE ARQUIVOS"
+          },
+          {
+            "kind": "window-room",
+            "x": 1150,
+            "y": 920,
+            "width": 660,
+            "height": 330,
+            "label": "ESCALONADOR"
+          },
+          {
+            "kind": "folder",
+            "x": 510,
+            "y": 1020,
+            "width": 150,
+            "height": 40,
+            "label": "CACHE"
+          },
+          {
+            "kind": "process",
+            "x": 250,
+            "y": 520,
+            "width": 150,
+            "height": 30,
+            "label": "PID 014"
+          },
+          {
+            "kind": "process",
+            "x": 1450,
+            "y": 1060,
+            "width": 230,
+            "height": 30,
+            "label": "TASK MANAGER"
+          }
+        ],
+        "pass": "midground"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-03",
+    "name": "Switch de rede",
+    "theme": "switch",
+    "objective": "Restaure o backplane e as conexões; ative as portas 01 e 04 para liberar a transmissão ao uplink.",
+    "palette": [
+      "#071b24",
+      "#12384a",
+      "#63e6ed",
+      "#327e88",
+      "#f5b969"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 2200,
+      "height": 1200,
+      "layout": "multi-route",
+      "start": {
+        "x": 1000,
+        "y": 992
+      },
+      "exit": {
+        "mode": "region",
+        "x": 1050,
+        "y": 386,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "backplane-base",
+            "x": 860,
+            "y": 1040,
+            "width": 480,
+            "height": 80
+          },
+          {
+            "id": "port-01-floor",
+            "x": 150,
+            "y": 900,
+            "width": 300,
+            "height": 100
+          },
+          {
+            "id": "port-02-floor",
+            "x": 1600,
+            "y": 920,
+            "width": 350,
+            "height": 100
+          },
+          {
+            "id": "port-03-floor",
+            "x": 180,
+            "y": 400,
+            "width": 300,
+            "height": 100
+          },
+          {
+            "id": "port-04-floor",
+            "x": 1830,
+            "y": 400,
+            "width": 300,
+            "height": 100
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 1010,
+          "y": 1040
+        },
+        {
+          "x": 260,
+          "y": 900
+        },
+        {
+          "x": 1880,
+          "y": 400
+        }
+      ],
+      "checkpointMode": "free",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "ramal da porta 01",
+        "ramal da porta 02",
+        "ramal superior 03",
+        "ramal superior 04",
+        "backplane vertical"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "port01-cable-a",
+          "x": 680,
+          "y": 1030,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "port01-cable-b",
+          "x": 490,
+          "y": 960,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "port02-packet-a",
+          "x": 1370,
+          "y": 990,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "port02-packet-b",
+          "x": 1530,
+          "y": 940,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "spine-a",
+          "x": 910,
+          "y": 950,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "spine-b",
+          "x": 1030,
+          "y": 860,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "spine-c",
+          "x": 1040,
+          "y": 770,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "spine-d",
+          "x": 950,
+          "y": 680,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "spine-e",
+          "x": 1040,
+          "y": 590,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "spine-f",
+          "x": 950,
+          "y": 500,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "uplink-floor",
+          "x": 840,
+          "y": 450,
+          "width": 520,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "port03-step-a",
+          "x": 740,
+          "y": 560,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "port03-step-b",
+          "x": 660,
+          "y": 480,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "port03-step-c",
+          "x": 480,
+          "y": 450,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "port04-step-a",
+          "x": 1230,
+          "y": 570,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "port04-step-b",
+          "x": 1410,
+          "y": 490,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "port04-step-c",
+          "x": 1600,
+          "y": 410,
+          "width": 190,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "restored-left-link",
+          "x": 600,
+          "y": 810,
+          "width": 190,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "left-link-step",
+          "x": 760,
+          "y": 740,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "restored-right-link",
+          "x": 1550,
+          "y": 620,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "port04-secret",
+          "x": 1730,
+          "y": 540,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requires": {
+            "flag": "port-b"
+          }
+        },
+        {
+          "id": "port01-secret",
+          "x": 340,
+          "y": 800,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requires": {
+            "flag": "port-a"
+          }
+        },
+        {
+          "id": "restored-backplane-link",
+          "x": 1190,
+          "y": 700,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c03"
+        }
+      ],
+      "obstacles": [],
+      "gates": [],
+      "components": [
+        {
+          "id": "c01",
+          "x": 230,
+          "y": 856,
+          "width": 34,
+          "height": 44,
+          "label": "CONECTOR ETHERNET"
+        },
+        {
+          "id": "c02",
+          "x": 1880,
+          "y": 356,
+          "width": 34,
+          "height": 44,
+          "label": "ENLACE DA PORTA 04"
+        },
+        {
+          "id": "c03",
+          "x": 1100,
+          "y": 726,
+          "width": 34,
+          "height": 44,
+          "label": "BACKPLANE"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "x": 1210,
+          "y": 1016,
+          "groundY": 1040,
+          "navigationBounds": {
+            "left": 920,
+            "right": 1290
+          },
+          "patrolMin": 920,
+          "patrolMax": 1290
+        },
+        {
+          "id": "e02",
+          "type": "parasite",
+          "x": 380,
+          "y": 876,
+          "groundY": 900,
+          "navigationBounds": {
+            "left": 190,
+            "right": 420
+          },
+          "patrolMin": 190,
+          "patrolMax": 420
+        },
+        {
+          "id": "e03",
+          "type": "shooter",
+          "x": 2050,
+          "y": 376,
+          "groundY": 400,
+          "navigationBounds": {
+            "left": 1900,
+            "right": 2090
+          },
+          "patrolMin": 1900,
+          "patrolMax": 2090
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 390,
+          "y": 770,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 1750,
+          "y": 510,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 290,
+          "y": 365,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 1750,
+          "y": 885,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": [
+        {
+          "id": "ethernet-port-a",
+          "type": "switch",
+          "x": 360,
+          "y": 860,
+          "width": 36,
+          "height": 40,
+          "flag": "port-a",
+          "once": true,
+          "label": "01",
+          "message": "PORTA 01 ATIVA // PACOTES LIBERADOS"
+        },
+        {
+          "id": "ethernet-port-b",
+          "type": "switch",
+          "x": 2010,
+          "y": 360,
+          "width": 36,
+          "height": 40,
+          "flag": "port-b",
+          "once": true,
+          "label": "04",
+          "message": "PORTA 04 ATIVA // UPLINK RESTAURADO"
+        }
+      ]
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [
+        {
+          "id": "active-ports",
+          "type": "condition",
+          "condition": {
+            "all": [
+              {
+                "flag": "port-a"
+              },
+              {
+                "flag": "port-b"
+              }
+            ]
+          }
+        }
+      ],
+      "componentsToRepair": 3,
+      "enemiesToDefeat": 3
+    },
+    "mechanics": [],
+    "assets": [],
+    "layers": [
+      {
+        "id": "authored-scenery",
+        "type": "computer-world",
+        "theme": "switch",
+        "items": [
+          {
+            "kind": "backplane",
+            "x": 840,
+            "y": 450,
+            "width": 520,
+            "height": 650,
+            "label": "BACKPLANE / UPLINK"
+          },
+          {
+            "kind": "ethernet",
+            "x": 150,
+            "y": 900,
+            "width": 300,
+            "height": 110,
+            "label": "PORTA 01"
+          },
+          {
+            "kind": "ethernet",
+            "x": 1600,
+            "y": 920,
+            "width": 350,
+            "height": 110,
+            "label": "PORTA 02"
+          },
+          {
+            "kind": "ethernet",
+            "x": 180,
+            "y": 400,
+            "width": 300,
+            "height": 110,
+            "label": "PORTA 03"
+          },
+          {
+            "kind": "ethernet",
+            "x": 1830,
+            "y": 400,
+            "width": 300,
+            "height": 110,
+            "label": "PORTA 04"
+          }
+        ],
+        "pass": "midground"
+      },
+      {
+        "id": "hardware-faces",
+        "type": "computer-world",
+        "theme": "switch",
+        "pass": "foreground",
+        "items": [
+          {
+            "kind": "ethernet",
+            "x": 150,
+            "y": 900,
+            "width": 300,
+            "height": 110,
+            "label": "PORTA 01"
+          },
+          {
+            "kind": "ethernet",
+            "x": 1600,
+            "y": 920,
+            "width": 350,
+            "height": 110,
+            "label": "PORTA 02"
+          },
+          {
+            "kind": "ethernet",
+            "x": 180,
+            "y": 400,
+            "width": 300,
+            "height": 110,
+            "label": "PORTA 03"
+          },
+          {
+            "kind": "ethernet",
+            "x": 1830,
+            "y": 400,
+            "width": 300,
+            "height": 110,
+            "label": "PORTA 04"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-04",
+    "name": "Roteador",
+    "theme": "router",
+    "objective": "Explore túneis e interfaces: corrija as tabelas LAN, de trânsito e WAN para abrir novas rotas.",
+    "palette": [
+      "#0b1426",
+      "#233954",
+      "#80c6ff",
+      "#426e97",
+      "#ffbe80"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 2200,
+      "height": 1500,
+      "layout": "maze",
+      "start": {
+        "x": 150,
+        "y": 1272
+      },
+      "exit": {
+        "mode": "region",
+        "x": 1950,
+        "y": 436,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "lan-tunnel",
+            "x": 80,
+            "y": 1320,
+            "width": 2020,
+            "height": 50
+          },
+          {
+            "id": "routing-west",
+            "x": 300,
+            "y": 950,
+            "width": 800,
+            "height": 28
+          },
+          {
+            "id": "routing-east",
+            "x": 1560,
+            "y": 950,
+            "width": 500,
+            "height": 28
+          },
+          {
+            "id": "wan-tunnel",
+            "x": 740,
+            "y": 500,
+            "width": 1320,
+            "height": 28
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 1740,
+          "y": 1320
+        },
+        {
+          "x": 600,
+          "y": 950
+        },
+        {
+          "x": 1830,
+          "y": 500
+        }
+      ],
+      "checkpointMode": "free",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "túnel LAN inferior",
+        "trânsito com bifurcação",
+        "WAN superior",
+        "interfaces de retorno"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "lan-detour-a",
+          "x": 740,
+          "y": 1230,
+          "width": 140,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "lan-detour-b",
+          "x": 850,
+          "y": 1150,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "left-shaft-a",
+          "x": 220,
+          "y": 1230,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "left-shaft-b",
+          "x": 380,
+          "y": 1140,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "left-shaft-c",
+          "x": 220,
+          "y": 1050,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "transit-detour-a",
+          "x": 1100,
+          "y": 860,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "transit-detour-b",
+          "x": 1280,
+          "y": 780,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "transit-detour-c",
+          "x": 1440,
+          "y": 860,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "restored-transit",
+          "x": 1100,
+          "y": 950,
+          "width": 460,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "right-shaft-a",
+          "x": 1900,
+          "y": 860,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "right-shaft-b",
+          "x": 1780,
+          "y": 770,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "right-shaft-c",
+          "x": 1930,
+          "y": 680,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "right-shaft-d",
+          "x": 1780,
+          "y": 590,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "wan-detour-a",
+          "x": 1340,
+          "y": 410,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "wan-detour-b",
+          "x": 1210,
+          "y": 330,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "wan-cache-a",
+          "x": 760,
+          "y": 410,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "wan-cache-b",
+          "x": 640,
+          "y": 330,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "lan-route-failure",
+          "x": 920,
+          "y": 1140,
+          "width": 44,
+          "height": 180,
+          "type": "route-wall",
+          "collision": "solid",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "wan-route-failure",
+          "x": 1200,
+          "y": 320,
+          "width": 40,
+          "height": 180,
+          "type": "route-wall",
+          "collision": "solid",
+          "requiresComponentId": "c03"
+        }
+      ],
+      "gates": [],
+      "components": [
+        {
+          "id": "c01",
+          "x": 1800,
+          "y": 1276,
+          "width": 34,
+          "height": 44,
+          "label": "TABELA LAN"
+        },
+        {
+          "id": "c02",
+          "x": 620,
+          "y": 906,
+          "width": 34,
+          "height": 44,
+          "label": "TABELA DE TRÂNSITO"
+        },
+        {
+          "id": "c03",
+          "x": 900,
+          "y": 456,
+          "width": 34,
+          "height": 44,
+          "label": "TABELA WAN"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "x": 1510,
+          "y": 1296,
+          "groundY": 1320,
+          "navigationBounds": {
+            "left": 1250,
+            "right": 1960
+          },
+          "patrolMin": 1250,
+          "patrolMax": 1960,
+          "activationRegion": {
+            "x": 1000,
+            "y": 1100,
+            "width": 1100,
+            "height": 270
+          }
+        },
+        {
+          "id": "e02",
+          "type": "flyer",
+          "x": 1680,
+          "y": 848,
+          "groundY": 940,
+          "navigationBounds": {
+            "left": 1500,
+            "right": 2040
+          },
+          "patrolMin": 1500,
+          "patrolMax": 2040,
+          "activationRegion": {
+            "x": 1050,
+            "y": 670,
+            "width": 1080,
+            "height": 350
+          }
+        },
+        {
+          "id": "e03",
+          "type": "armored",
+          "x": 1600,
+          "y": 476,
+          "groundY": 500,
+          "navigationBounds": {
+            "left": 1460,
+            "right": 1900
+          },
+          "patrolMin": 1460,
+          "patrolMax": 1900,
+          "activationRegion": {
+            "x": 740,
+            "y": 280,
+            "width": 1340,
+            "height": 300
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 700,
+          "y": 300,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 1350,
+          "y": 750,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 430,
+          "y": 1110,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 1980,
+          "y": 1290,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": []
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [],
+      "componentsToRepair": 3,
+      "enemiesToDefeat": 3
+    },
+    "mechanics": [
+      {
+        "id": "network-interfaces",
+        "type": "portals",
+        "links": [
+          {
+            "id": "lan-interface",
+            "x": 200,
+            "y": 1244,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 400,
+              "y": 902
+            },
+            "label": "LAN 0",
+            "requires": {
+              "component": "c01"
+            }
+          },
+          {
+            "id": "lan-return",
+            "x": 360,
+            "y": 874,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 300,
+              "y": 1272
+            },
+            "label": "LAN 1"
+          },
+          {
+            "id": "wan-interface",
+            "x": 1960,
+            "y": 874,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1830,
+              "y": 452
+            },
+            "label": "WAN 0",
+            "requires": {
+              "component": "c02"
+            }
+          },
+          {
+            "id": "wan-return",
+            "x": 2000,
+            "y": 424,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1750,
+              "y": 902
+            },
+            "label": "WAN 1"
+          },
+          {
+            "id": "route-backup",
+            "x": 2010,
+            "y": 1244,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 780,
+              "y": 452
+            },
+            "label": "ROTA RESERVA",
+            "requires": {
+              "all": [
+                {
+                  "component": "c01"
+                },
+                {
+                  "component": "c02"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "assets": [],
+    "layers": [
+      {
+        "id": "authored-scenery",
+        "type": "computer-world",
+        "theme": "router",
+        "items": [
+          {
+            "kind": "tunnel",
+            "x": 80,
+            "y": 1030,
+            "width": 2020,
+            "height": 290,
+            "label": "LAN / ROTA INFERIOR →"
+          },
+          {
+            "kind": "tunnel",
+            "x": 300,
+            "y": 670,
+            "width": 800,
+            "height": 280,
+            "label": "← TABELA DE TRÂNSITO"
+          },
+          {
+            "kind": "tunnel",
+            "x": 1560,
+            "y": 670,
+            "width": 500,
+            "height": 280,
+            "label": "WAN ↑"
+          },
+          {
+            "kind": "tunnel",
+            "x": 740,
+            "y": 220,
+            "width": 1320,
+            "height": 280,
+            "label": "WAN / ROTA SUPERIOR"
+          },
+          {
+            "kind": "cache",
+            "x": 640,
+            "y": 290,
+            "width": 160,
+            "height": 40,
+            "label": "ROTA DE DIAGNÓSTICO"
+          }
+        ],
+        "pass": "midground"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-05",
+    "name": "Rede Wi-Fi",
+    "theme": "wifi",
+    "objective": "Suba pelos sinais, repare os três pontos de acesso e elimine a interferência até alcançar a antena de uplink.",
+    "palette": [
+      "#08162c",
+      "#143951",
+      "#81ecff",
+      "#386c91",
+      "#e4bc6f"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 1550,
+      "height": 2400,
+      "layout": "vertical",
+      "start": {
+        "x": 160,
+        "y": 2192
+      },
+      "exit": {
+        "mode": "region",
+        "x": 740,
+        "y": 286,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "wifi-start",
+            "x": 70,
+            "y": 2240,
+            "width": 500,
+            "height": 80
+          },
+          {
+            "id": "antenna-a",
+            "x": 950,
+            "y": 1880,
+            "width": 300,
+            "height": 90
+          },
+          {
+            "id": "repeater",
+            "x": 140,
+            "y": 1520,
+            "width": 290,
+            "height": 90
+          },
+          {
+            "id": "antenna-b",
+            "x": 1060,
+            "y": 1160,
+            "width": 310,
+            "height": 90
+          },
+          {
+            "id": "uplink-antenna",
+            "x": 620,
+            "y": 350,
+            "width": 300,
+            "height": 90
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 1040,
+          "y": 1880
+        },
+        {
+          "x": 240,
+          "y": 1520
+        },
+        {
+          "x": 1160,
+          "y": 1160
+        },
+        {
+          "x": 720,
+          "y": 620
+        }
+      ],
+      "checkpointMode": "proximity",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "canal principal em zigue-zague",
+        "canal limpo após reparo",
+        "cache abaixo da entrada",
+        "antena lateral secreta"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "signal-01",
+          "x": 350,
+          "y": 2150,
+          "width": 180,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.4,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "signal-02",
+          "x": 560,
+          "y": 2060,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-03",
+          "x": 760,
+          "y": 1970,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "signal",
+          "motion": {
+            "axis": "x",
+            "range": 20,
+            "speed": 0.65
+          }
+        },
+        {
+          "id": "signal-05",
+          "x": 780,
+          "y": 1790,
+          "width": 170,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.4,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "signal-06",
+          "x": 580,
+          "y": 1700,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-07",
+          "x": 380,
+          "y": 1610,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "signal",
+          "motion": {
+            "axis": "y",
+            "range": 12,
+            "speed": 0.65
+          }
+        },
+        {
+          "id": "signal-09",
+          "x": 400,
+          "y": 1430,
+          "width": 180,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.4,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "signal-10",
+          "x": 620,
+          "y": 1340,
+          "width": 190,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-11",
+          "x": 840,
+          "y": 1250,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-13",
+          "x": 880,
+          "y": 1070,
+          "width": 180,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.4,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "signal-14",
+          "x": 680,
+          "y": 980,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-15",
+          "x": 480,
+          "y": 890,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "signal",
+          "motion": {
+            "axis": "x",
+            "range": 20,
+            "speed": 0.65
+          }
+        },
+        {
+          "id": "signal-16",
+          "x": 260,
+          "y": 800,
+          "width": 210,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-17",
+          "x": 430,
+          "y": 710,
+          "width": 180,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.4,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "signal-18",
+          "x": 640,
+          "y": 620,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-19",
+          "x": 840,
+          "y": 530,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-20",
+          "x": 980,
+          "y": 440,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "entry-cache",
+          "x": 650,
+          "y": 2280,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "antenna-cache-step",
+          "x": 1300,
+          "y": 1070,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "antenna-cache-top",
+          "x": 1320,
+          "y": 980,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "clean-01",
+          "x": 80,
+          "y": 1430,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "clean-02",
+          "x": 180,
+          "y": 1340,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "clean-03",
+          "x": 60,
+          "y": 1250,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "clean-04",
+          "x": 220,
+          "y": 1160,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "clean-05",
+          "x": 400,
+          "y": 1070,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "clean-06",
+          "x": 530,
+          "y": 1020,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        }
+      ],
+      "obstacles": [],
+      "gates": [],
+      "components": [
+        {
+          "id": "c01",
+          "x": 1070,
+          "y": 1836,
+          "width": 34,
+          "height": 44,
+          "label": "PONTO DE ACESSO A"
+        },
+        {
+          "id": "c02",
+          "x": 240,
+          "y": 1476,
+          "width": 34,
+          "height": 44,
+          "label": "REPETIDOR"
+        },
+        {
+          "id": "c03",
+          "x": 1190,
+          "y": 1116,
+          "width": 34,
+          "height": 44,
+          "label": "PONTO DE ACESSO B"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "shooter",
+          "x": 1180,
+          "y": 1856,
+          "groundY": 1880,
+          "navigationBounds": {
+            "left": 1020,
+            "right": 1210
+          },
+          "patrolMin": 1020,
+          "patrolMax": 1210,
+          "activationRegion": {
+            "x": 850,
+            "y": 1650,
+            "width": 650,
+            "height": 350
+          }
+        },
+        {
+          "id": "e02",
+          "type": "flyer",
+          "x": 500,
+          "y": 1438,
+          "groundY": 1530,
+          "navigationBounds": {
+            "left": 180,
+            "right": 800
+          },
+          "patrolMin": 180,
+          "patrolMax": 800,
+          "activationRegion": {
+            "x": 100,
+            "y": 1300,
+            "width": 800,
+            "height": 400
+          }
+        },
+        {
+          "id": "e03",
+          "type": "basic",
+          "x": 1280,
+          "y": 1136,
+          "groundY": 1160,
+          "navigationBounds": {
+            "left": 1100,
+            "right": 1330
+          },
+          "patrolMin": 1100,
+          "patrolMax": 1330,
+          "activationRegion": {
+            "x": 800,
+            "y": 940,
+            "width": 700,
+            "height": 330
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 720,
+          "y": 2250,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 1390,
+          "y": 950,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 120,
+          "y": 1220,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 320,
+          "y": 770,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i05",
+          "x": 740,
+          "y": 320,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": []
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [],
+      "componentsToRepair": 3,
+      "enemiesToDefeat": 3
+    },
+    "mechanics": [
+      {
+        "id": "radio-spectrum",
+        "type": "environment",
+        "zones": [
+          {
+            "id": "weak-lower",
+            "x": 650,
+            "y": 1740,
+            "width": 630,
+            "height": 390,
+            "speedMultiplier": 0.84,
+            "fireIntervalMultiplier": 1.45,
+            "projectileSpeedMultiplier": 0.8,
+            "label": "INTERFERÊNCIA / SINAL 35%",
+            "disabledWhen": {
+              "component": "c01"
+            }
+          },
+          {
+            "id": "weak-middle",
+            "x": 400,
+            "y": 1190,
+            "width": 570,
+            "height": 380,
+            "speedMultiplier": 0.88,
+            "fireIntervalMultiplier": 1.4,
+            "projectileSpeedMultiplier": 0.82,
+            "label": "CANAL CONGESTIONADO",
+            "disabledWhen": {
+              "component": "c02"
+            }
+          },
+          {
+            "id": "weak-upper",
+            "x": 420,
+            "y": 880,
+            "width": 680,
+            "height": 340,
+            "speedMultiplier": 0.9,
+            "fireIntervalMultiplier": 1.35,
+            "projectileSpeedMultiplier": 0.85,
+            "label": "SINAL FRACO",
+            "disabledWhen": {
+              "component": "c03"
+            }
+          },
+          {
+            "id": "clean-channel",
+            "x": 40,
+            "y": 1000,
+            "width": 350,
+            "height": 530,
+            "speedMultiplier": 1.05,
+            "label": "CANAL LIMPO / SINAL 100%",
+            "requires": {
+              "component": "c02"
+            }
+          }
+        ]
+      }
+    ],
+    "assets": [],
+    "layers": [
+      {
+        "id": "authored-scenery",
+        "type": "computer-world",
+        "theme": "wifi",
+        "items": [
+          {
+            "kind": "antenna",
+            "x": 70,
+            "y": 2240,
+            "width": 500,
+            "height": 100,
+            "label": "ASSOCIAÇÃO / ENTRADA"
+          },
+          {
+            "kind": "antenna",
+            "x": 950,
+            "y": 1880,
+            "width": 300,
+            "height": 100,
+            "label": "AP A"
+          },
+          {
+            "kind": "antenna",
+            "x": 140,
+            "y": 1520,
+            "width": 290,
+            "height": 100,
+            "label": "REPETIDOR"
+          },
+          {
+            "kind": "antenna",
+            "x": 1060,
+            "y": 1160,
+            "width": 310,
+            "height": 100,
+            "label": "AP B"
+          },
+          {
+            "kind": "antenna",
+            "x": 620,
+            "y": 350,
+            "width": 300,
+            "height": 130,
+            "label": "UPLINK / INTERNET"
+          },
+          {
+            "kind": "cache",
+            "x": 1320,
+            "y": 940,
+            "width": 160,
+            "height": 40,
+            "label": "ANTENA AUXILIAR"
+          }
+        ],
+        "pass": "midground"
+      },
+      {
+        "id": "hardware-faces",
+        "type": "computer-world",
+        "theme": "wifi",
+        "pass": "foreground",
+        "items": [
+          {
+            "kind": "antenna",
+            "x": 70,
+            "y": 2240,
+            "width": 500,
+            "height": 100,
+            "label": "ASSOCIAÇÃO / ENTRADA"
+          },
+          {
+            "kind": "antenna",
+            "x": 950,
+            "y": 1880,
+            "width": 300,
+            "height": 100,
+            "label": "AP A"
+          },
+          {
+            "kind": "antenna",
+            "x": 140,
+            "y": 1520,
+            "width": 290,
+            "height": 100,
+            "label": "REPETIDOR"
+          },
+          {
+            "kind": "antenna",
+            "x": 1060,
+            "y": 1160,
+            "width": 310,
+            "height": 100,
+            "label": "AP B"
+          },
+          {
+            "kind": "antenna",
+            "x": 620,
+            "y": 350,
+            "width": 300,
+            "height": 130,
+            "label": "UPLINK / INTERNET"
+          }
+        ]
+      }
+    ]
+  }
+]

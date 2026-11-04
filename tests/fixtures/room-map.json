@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 2,
+  "id": "test-room-map",
+  "name": "Arquitetura: salas independentes",
+  "theme": "hardware",
+  "objective": "Ative energia, repare o terminal e alcance a sala inferior.",
+  "palette": ["#07111c", "#12313a", "#65f3bc", "#285a65", "#b17b51"],
+  "presentation": {"procedural": false},
+  "map": {
+    "width": 1200,
+    "height": 1000,
+    "layout": "maze",
+    "start": {"x": 70, "y": 252},
+    "exit": {"x": 620, "y": 640, "width": 90, "height": 60, "mode": "region"},
+    "bounds": {"left": true, "right": true, "ceiling": true, "floor": true},
+    "camera": {"axes": ["x", "y"], "followOffsetX": 0.5, "followOffsetY": 0.5},
+    "progress": {"axis": "objectives"},
+    "checkpointMode": "ordered",
+    "checkpoints": [{"x": 80, "y": 300}, {"x": 650, "y": 700}, {"x": 60, "y": 300}],
+    "ground": {
+      "mode": "explicit",
+      "segments": [
+        {"id": "upper-room-floor", "x": 0, "y": 300, "width": 300, "height": 24},
+        {"id": "lower-room-floor", "x": 600, "y": 700, "width": 350, "height": 24}
+      ]
+    }
+  },
+  "entities": {
+    "platforms": [{"id": "power-bridge", "x": 400, "y": 500, "width": 150, "height": 18, "collision": "one-way", "requires": {"flag": "power"}}],
+    "obstacles": [{"id": "room-divider", "x": 450, "y": 0, "width": 30, "height": 300, "collision": "solid"}],
+    "gates": [{"id": "lower-door", "x": 850, "y": 600, "width": 24, "height": 100, "opensWhen": {"all": [{"flag": "power"}, {"component": "terminal"}]}}],
+    "components": [{"id": "terminal", "x": 120, "y": 256, "width": 34, "height": 44, "repair": {"type": "sequence", "keys": ["1", "2"]}}],
+    "enemies": [],
+    "collectibles": [],
+    "features": [],
+    "interactives": [{"id": "power-switch", "type": "switch", "x": 220, "y": 260, "width": 32, "height": 40, "flag": "power", "toggle": true, "label": "E"}]
+  },
+  "objectives": {
+    "defeatAllViruses": false,
+    "repairAllComponents": false,
+    "requireExitQuestion": true,
+    "goals": [
+      {"id": "power-objective", "type": "condition", "condition": {"flag": "power"}},
+      {"id": "repair-objective", "type": "repair", "ids": ["terminal"]},
+      {"id": "lower-room-objective", "type": "region", "x": 620, "y": 640, "width": 90, "height": 60}
+    ]
+  },
+  "mechanics": [{"id": "room-signals", "type": "test-signals"}],
+  "assets": [],
+  "layers": [
+    {"id": "server-walls", "type": "rects", "pass": "background", "parallaxX": 0.5, "color": "#183353", "rects": [{"x": 40, "y": 40, "width": 80, "height": 120}]}
+  ]
+}

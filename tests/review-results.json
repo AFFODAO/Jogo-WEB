@@ -4,9 +4,12 @@
       "phase": 1,
       "render": "PASS",
       "camera": "PASS",
-      "reachableSurfaces": 26,
+      "reachableSurfaces": 22,
       "repairAccess": "PASS",
       "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
       "exitAccess": "PASS",
       "enemyAccess": "PASS",
       "combat": [
@@ -37,9 +40,21 @@
       "phase": 2,
       "render": "PASS",
       "camera": "PASS",
-      "reachableSurfaces": 20,
+      "reachableSurfaces": 15,
       "repairAccess": "PASS",
       "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "desktop-to-process",
+        "process-to-desktop",
+        "desktop-to-scheduler",
+        "process-to-files",
+        "scheduler-to-desktop",
+        "scheduler-to-files",
+        "files-to-process",
+        "files-to-scheduler"
+      ],
+      "collectibleAccess": "PASS",
       "exitAccess": "PASS",
       "enemyAccess": "PASS",
       "combat": [
@@ -70,9 +85,12 @@
       "phase": 3,
       "render": "PASS",
       "camera": "PASS",
-      "reachableSurfaces": 21,
+      "reachableSurfaces": 28,
       "repairAccess": "PASS",
       "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
       "exitAccess": "PASS",
       "enemyAccess": "PASS",
       "combat": [
@@ -103,9 +121,18 @@
       "phase": 4,
       "render": "PASS",
       "camera": "PASS",
-      "reachableSurfaces": 25,
+      "reachableSurfaces": 21,
       "repairAccess": "PASS",
       "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "lan-return",
+        "lan-interface",
+        "route-backup",
+        "wan-interface",
+        "wan-return"
+      ],
+      "collectibleAccess": "PASS",
       "exitAccess": "PASS",
       "enemyAccess": "PASS",
       "combat": [
@@ -136,9 +163,12 @@
       "phase": 5,
       "render": "PASS",
       "camera": "PASS",
-      "reachableSurfaces": 21,
+      "reachableSurfaces": 31,
       "repairAccess": "PASS",
       "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
       "exitAccess": "PASS",
       "enemyAccess": "PASS",
       "combat": [
@@ -149,7 +179,7 @@
         },
         {
           "id": "e02",
-          "type": "fast",
+          "type": "flyer",
           "result": "PASS"
         },
         {
@@ -168,10 +198,14 @@
     {
       "phase": 6,
       "render": "PASS",
+      "objectPlacement": "PASS",
       "camera": "PASS",
-      "reachableSurfaces": 17,
+      "reachableSurfaces": 41,
       "repairAccess": "PASS",
       "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
       "exitAccess": "PASS",
       "enemyAccess": "PASS",
       "combat": [
@@ -206,10 +240,23 @@
     {
       "phase": 7,
       "render": "PASS",
+      "objectPlacement": "PASS",
       "camera": "PASS",
-      "reachableSurfaces": 22,
+      "reachableSurfaces": 23,
       "repairAccess": "PASS",
       "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "dhcp-diagnostic",
+        "diagnostic-dhcp",
+        "dhcp-scope-a",
+        "dhcp-relay",
+        "scope-a-dhcp",
+        "relay-dhcp",
+        "gateway-relay",
+        "relay-gateway"
+      ],
+      "collectibleAccess": "PASS",
       "exitAccess": "PASS",
       "enemyAccess": "PASS",
       "combat": [
@@ -227,72 +274,6 @@
           "id": "e03",
           "type": "flyer",
           "result": "PASS"
-        }
-      ],
-      "checkpoints": "PASS",
-      "respawn": "PASS",
-      "bounds": "PASS",
-      "save": "PASS",
-      "questions": "PASS",
-      "transitionSave": "PASS"
-    },
-    {
-      "phase": 8,
-      "render": "PASS",
-      "camera": "PASS",
-      "reachableSurfaces": 35,
-      "repairAccess": "PASS",
-      "platformAccess": [],
-      "exitAccess": "PASS",
-      "enemyAccess": "PASS",
-      "combat": [
-        {
-          "id": "e01",
-          "type": "basic",
-          "result": "PASS"
-        },
-        {
-          "id": "e02",
-          "type": "shooter",
-          "result": "PASS"
-        },
-        {
-          "id": "e03",
-          "type": "parasite",
-          "result": "PASS"
-        }
-      ],
-      "checkpoints": "PASS",
-      "respawn": "PASS",
-      "bounds": "PASS",
-      "save": "PASS",
-      "questions": "PASS",
-      "transitionSave": "PASS"
-    },
-    {
-      "phase": 9,
-      "render": "PASS",
-      "camera": "PASS",
-      "reachableSurfaces": 26,
-      "repairAccess": "PASS",
-      "platformAccess": [],
-      "exitAccess": "PASS",
-      "enemyAccess": "PASS",
-      "combat": [
-        {
-          "id": "e01",
-          "type": "armored",
-          "result": "PASS"
-        },
-        {
-          "id": "e02",
-          "type": "shooter",
-          "result": "PASS"
-        },
-        {
-          "id": "e03",
-          "type": "fast",
-          "result": "PASS"
         },
         {
           "id": "e04",
@@ -308,12 +289,125 @@
       "transitionSave": "PASS"
     },
     {
-      "phase": 10,
+      "phase": 8,
       "render": "PASS",
+      "objectPlacement": "PASS",
       "camera": "PASS",
-      "reachableSurfaces": 47,
+      "reachableSurfaces": 41,
       "repairAccess": "PASS",
       "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "root-com",
+        "com-root",
+        "com-mail",
+        "root-org",
+        "mail-return",
+        "org-root",
+        "org-api",
+        "nxdomain-return",
+        "com-nxdomain",
+        "api-return",
+        "archive-return",
+        "cname-com-org",
+        "api-cache",
+        "cache-root"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "parasite",
+          "result": "PASS"
+        },
+        {
+          "id": "e05",
+          "type": "armored",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 9,
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 25,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "e05",
+          "type": "armored",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 10,
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "reachableSurfaces": 57,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
       "exitAccess": "PASS",
       "enemyAccess": "PASS",
       "combat": [
@@ -380,7 +474,47 @@
     "boss activation, skills and final checkpoint": "PASS",
     "boss visual states": "PASS",
     "volley and final combo can be dodged": "PASS",
-    "boss defeat opens mandatory final question and victory": "PASS"
+    "boss defeat opens mandatory final question and victory": "PASS",
+    "architecture: all layouts replaced, first five unchanged": "PASS",
+    "architecture: map validation rejects broken references and geometry": "PASS",
+    "architecture: arbitrary ground segments and room checkpoints": "PASS",
+    "architecture: switches, custom repair, objectives and persisted mechanics": "PASS",
+    "architecture: sprite frames, animation state, layers and fallback": "PASS",
+    "architecture: old saves remain compatible": "PASS",
+    "architecture: custom repair UI mounts, completes and disposes": "PASS",
+    "architecture: per-map enemy controller and state": "PASS",
+    "rebuilt maps: every repair changes scenery or mechanics": "PASS",
+    "rebuilt maps: fans and radio interference affect physics and weapons": "PASS",
+    "rebuilt maps: directories and interfaces have safe actual destinations": "PASS",
+    "rebuilt maps: active ports remain mandatory and saved": "PASS",
+    "rebuilt maps: free checkpoints and legacy map saves": "PASS",
+    "rebuilt maps: checkpoints are stable before any repairs": "PASS",
+    "rebuilt maps: unstable signals cycle and windows carry the player": "PASS",
+    "rebuilt maps: objectives reachable at opposite movement extremes": "PASS",
+    "last five: every repair restores an actual connection": "PASS",
+    "last five: objects remain clear of geometry after restoration": "PASS",
+    "last five: all checkpoint landings stable before repairs": "PASS",
+    "last five: repaired elevators and IP leases transport the player": "PASS",
+    "last five: IP services are mandatory and gateways never trap arrivals": "PASS",
+    "last five: security cameras warn, fire and shut down after repair": "PASS",
+    "last five: laser cycles are predictable and can be jumped normally": "PASS",
+    "last five: arena protection, phase grace and cover weak points": "PASS",
+    "last five: old map saves restart safely with progression intact": "PASS",
+    "enemies: patrol detects only reachable visible targets and avoids ledges": "PASS",
+    "enemies: fast dash has fixed direction, warning, dodge and retreat": "PASS",
+    "enemies: frontal armor, rear weakness and recovery remain killable": "PASS",
+    "enemies: shooters choose range, prepare and fire at a locked aim": "PASS",
+    "enemies: flyers avoid geometry and alternate approach heights": "PASS",
+    "enemies: parasite infection, support, warned capped reinforcements": "PASS",
+    "enemies: all five thematic variants are present and functional": "PASS",
+    "enemies: packet hijacker captures at most one shot per preparation": "PASS",
+    "enemies: defeats grant XP exactly once and minions have safe capped spawns": "PASS",
+    "enemies: moving supports carry enemies and disappearing floors cause a safe fall": "PASS",
+    "enemies: infection slows actual repair and Wi-Fi hits briefly slow movement": "PASS",
+    "enemies: summon limits and file fork survive campaign resume": "PASS",
+    "enemies: VIRUS ZERO interleaves final charges and warns before summoning": "PASS",
+    "enemies: synthesized attack sounds use distinct oscillator settings": "PASS",
+    "enemies: attack and death visual states render in the real canvas": "PASS"
   },
   "errors": []
 }
