@@ -6,6 +6,9 @@ import tempfile
 import base64
 import sys
 import shutil
+import http.server
+import threading
+import functools
 from pathlib import Path
 from html import unescape
 
@@ -18,10 +21,12 @@ def main():
     architecture += '\n'+(ROOT/'tests/first-five.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/last-five.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/enemies.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/art.js').read_text(encoding='utf-8')
     baseline = (ROOT/'tests/map-baseline.json').read_text(encoding='utf-8')
     fixture = (ROOT/'tests/fixtures/room-map.json').read_text(encoding='utf-8')
     first_five = (ROOT/'tests/fixtures/first-five-v2.json').read_text(encoding='utf-8')
     hook = 'const FIRST_FIVE_V2='+first_five+';\nconst MAP_BASELINE='+baseline+';\nconst ARCHITECTURE_FIXTURE='+fixture+';\n'+hook.replace("const output=document.createElement",architecture+"\nconst output=document.createElement")
+    hook = '(async()=>{\n' + hook + '\n})().catch(error=>{document.body.innerHTML="<pre id=review-result>"+JSON.stringify({phases:[],systems:{fatal:error.stack}})+"</pre>";});'
     if '--capture-map-baseline' in sys.argv:
         hook = 'const mapBaseline = JSON.parse(JSON.stringify(PHASES));\n' + hook.replace('const output=document.createElement', 'report.mapBaseline=mapBaseline;\nconst output=document.createElement')
     with tempfile.TemporaryDirectory(prefix='byte-runner-review-') as folder:
@@ -30,7 +35,16 @@ def main():
         (target / 'index.html').write_text((ROOT/'index.html').read_text(encoding='utf-8'),encoding='utf-8')
         (target / 'style.css').write_text((ROOT/'style.css').read_text(encoding='utf-8'),encoding='utf-8')
         shutil.copytree(ROOT/'src',target/'src')
-        result = subprocess.run([str(CHROME), '--headless', '--disable-gpu', '--no-first-run', '--no-default-browser-check', '--window-size=1440,1000', f'--user-data-dir={target / "profile"}', '--dump-dom', (target/'index.html').as_uri()],capture_output=True,timeout=120)
+        shutil.copytree(ROOT/'assets',target/'assets')
+        class QuietHandler(http.server.SimpleHTTPRequestHandler):
+            def log_message(self, *args): pass
+        server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(QuietHandler,directory=str(target)))
+        threading.Thread(target=server.serve_forever,daemon=True).start()
+        try:
+            result = subprocess.run([str(CHROME), '--headless', '--disable-gpu', '--no-first-run', '--no-default-browser-check', '--virtual-time-budget=20000', '--window-size=1440,1000', f'--user-data-dir={target / "profile"}', '--dump-dom', f'http://127.0.0.1:{server.server_port}/index.html'],capture_output=True,timeout=120)
+        finally:
+            server.shutdown()
+            server.server_close()
         html=result.stdout.decode('utf-8',errors='replace')
         match=re.search(r'<pre id="review-result">(.*?)</pre>',html,re.S)
         if not match:

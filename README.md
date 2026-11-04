@@ -1,5 +1,7 @@
 # BYTE RUNNER
 
+Repaginação **Midnight Circuit**: 22 atlas originais em pixel art, animações no Canvas, tiles por fase, paralaxe e interface renovada. Consulte [recursos, geração e integração](docs/art-direction.md).
+
 Jogo de plataforma 2D sobre informática e redes, com dez fases, combate, reparos, perguntas, XP, habilidades e campanha salva no navegador.
 
 Abra `index.html` em um navegador moderno. Não é necessário instalar pacotes ou compilar o projeto. Os arquivos usam módulos de navegador com scripts clássicos e o namespace `ByteRunner`, preservando a abertura local por `file://` e a hospedagem estática.

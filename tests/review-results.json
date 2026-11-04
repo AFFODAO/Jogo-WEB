@@ -514,7 +514,10 @@
     "enemies: summon limits and file fork survive campaign resume": "PASS",
     "enemies: VIRUS ZERO interleaves final charges and warns before summoning": "PASS",
     "enemies: synthesized attack sounds use distinct oscillator settings": "PASS",
-    "enemies: attack and death visual states render in the real canvas": "PASS"
+    "enemies: attack and death visual states render in the real canvas": "PASS",
+    "art: all 22 local atlases decode and every animation paints pixels": "PASS",
+    "art: failed image returns fallback signal": "PASS",
+    "art: robot actions and shield draw without changing gameplay": "PASS"
   },
   "errors": []
 }

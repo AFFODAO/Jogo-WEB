@@ -8,11 +8,12 @@
       renderers.set(type,renderer);
     },
     create(phase) {
-      const images = new Map(), assets = new Map((phase.assets || []).map(asset => [asset.id,asset]));
+      const definitions = [...(api.artAssets || []),...(phase.assets || [])];
+      const images = new Map(), assets = new Map(definitions.map(asset => [asset.id,asset]));
       const clocks = new Map();
       let disposed = false;
       const errors = [];
-      const ready = Promise.all((phase.assets || []).map(asset => new Promise(resolve => {
+      const ready = Promise.all([...assets.values()].map(asset => new Promise(resolve => {
         const img = new Image();
         img.onload = () => { if (!disposed) images.set(asset.id,img); resolve(); };
         img.onerror = () => { errors.push(asset.id); resolve(); };
@@ -40,7 +41,7 @@
           const fw=asset.frameWidth || image.width, fh=asset.frameHeight || image.height;
           const columns=asset.columns || Math.max(1,Math.floor(image.width/fw));
           ctx.save();
-          ctx.translate(box.x+(visual.offsetX || 0),box.y+(visual.offsetY || 0));
+          ctx.translate(Math.round(box.x+(visual.offsetX || 0)),Math.round(box.y+(visual.offsetY || 0)));
           if (visual.flipX) {ctx.translate(box.width,0);ctx.scale(-1,1);}
           ctx.imageSmoothingEnabled=visual.smoothing === true;
           ctx.drawImage(image,(frame%columns)*fw,Math.floor(frame/columns)*fh,fw,fh,0,0,box.width,box.height);

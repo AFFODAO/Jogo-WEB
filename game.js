@@ -249,6 +249,7 @@
   let jumpQueued = false;
   let lastFrame = 0;
   let animationTime = 0;
+  let deathEcho = null;
 
   function readQuestionHistory() {
     try {
@@ -683,6 +684,7 @@
   }
 
   function loadPhase(index, retry = false) {
+    deathEcho = {x:player.x,y:player.y,start:animationTime};
     player.interferenceTime=0;
     phaseIndex = Math.max(0, Math.min(PHASES.length - 1, index));
     loadMap(PHASES[phaseIndex], retry);
@@ -701,7 +703,7 @@
     player.vx = 0; player.vy = 0; player.grounded = true; player.facing = 1;
     cameraX = phaseData.map.camera.axes.includes('x') ? Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX)) : 0;
     cameraY = phaseData.map.camera.axes.includes('y') ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
-    platformRuntime = new Map(); animationTime = 0; jumpQueued = false;
+    platformRuntime = new Map(); animationTime = 0; deathEcho = null; jumpQueued = false;
     checkpointX = start.x;
     checkpointIndex = -1;
     checkpointY = phaseData.map.layout === 'vertical' || phaseData.map.ground?.mode === 'explicit' ? start.y+player.height : null;
@@ -1796,6 +1798,10 @@
         for(const shape of solids()){mc.fillStyle=shape.kind==='floor'?'#7397a4':shape.kind==='platform'?'#63e4d6':'#a46e86';mc.fillRect(ox+shape.x*s,oy+shape.y*s,Math.max(1,shape.w*s),Math.max(1,shape.h*s));}
         mc.fillStyle='#ffbd79';components.filter(c=>!c.repaired).forEach(c=>mc.fillRect(ox+c.x*s-1,oy+c.y*s-1,3,3));
         mc.fillStyle='#87baff';levelRuntime.connections().forEach(p=>mc.fillRect(ox+p.x*s-1,oy+p.y*s-1,3,3));
+        mc.strokeStyle='#c7b7ff';mc.lineWidth=1;
+        mc.strokeRect(ox+cameraX*s,oy+cameraY*s,Math.min(width,worldWidth())*s,Math.min(height,worldHeight())*s);
+        mc.fillStyle=phaseExitUnlocked?'#8affce':'#ff7994';
+        mc.fillRect(ox+phaseData.map.exit.x*s-2,oy+(phaseData.map.exit.y ?? floorY())*s-2,4,4);
       }
       ui.map.style.left=(ox+(player.x+17)*s-3)+'px';ui.map.style.top=(oy+(player.y+24)*s-3)+'px';
       return;
@@ -1886,6 +1892,7 @@
     gradient.addColorStop(1, phaseData.palette[0]);
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
+    ByteRunner.art.background(ctx,{x:cameraX,y:cameraY,width,height},animationTime,phaseIndex,phaseData.palette);
     if (phaseData.presentation?.procedural === false) return;
 
     // Distant circuit paths move slower than the level for a subtle parallax effect.
@@ -2035,6 +2042,7 @@
     for (const object of solids()) {
       const x = object.x;
       if (x + object.w - cameraX < 0 || x - cameraX > width) continue;
+      if (ByteRunner.art.platform(ctx,levelVisuals,object,animationTime,phaseIndex,{x:cameraX,y:cameraY,width,height})) continue;
       if (object.kind === 'floor') {
         ctx.fillStyle = phaseData.palette[1];
         ctx.fillRect(x, object.y, object.w, object.h);
@@ -2140,6 +2148,7 @@
       const active = phaseData.revision>=2 ? (phaseData.map.checkpointMode==='free'?index===checkpointIndex:index<=checkpointIndex) : Number.isFinite(pointY) && phaseData.map.layout === 'vertical'
         ? checkpointY != null && checkpointY <= pointY : checkpointX >= pointX;
       const beaconColor = active ? '#78ffd2' : '#6ea4ad';
+      if(levelVisuals.sprite(ctx,{asset:'terminal'},{x:pointX-12,y:pointY-32,width:24,height:32},animationTime,active?'active':'idle'))continue;
       ctx.save();
       ctx.globalAlpha = active ? 1 : .65;
       ctx.shadowColor = beaconColor; ctx.shadowBlur = active ? 14 : 5;
@@ -2159,6 +2168,7 @@
       const gateHeight = phaseData.map.layout === 'horizontal' ? 126 : (phaseData.map.exit.height || 126);
       const gateCenterY = Number.isFinite(phaseData.map.exit.y) ? phaseData.map.exit.y + (regionExit ? gateHeight/2 : 0) : floorY() - gateHeight / 2;
       const gateTop = gateCenterY - gateHeight / 2;
+      levelVisuals.sprite(ctx,{asset:'portal'},{x:gateX-28,y:gateTop,width:56,height:gateHeight},animationTime,phaseExitUnlocked?'active':'idle');
       ctx.save();
       ctx.shadowColor = gateColor; ctx.shadowBlur = 17;
       ctx.strokeStyle = gateColor; ctx.lineWidth = 2;
@@ -2181,7 +2191,7 @@
       const repaired = component.repaired;
       const color = repaired ? '#55e2bb' : '#ff9367';
       ctx.save();
-      const spriteDrawn = levelVisuals.sprite(ctx,component.visual,component,animationTime,repaired?'repaired':'idle');
+      const spriteDrawn = levelVisuals.sprite(ctx,component.visual || {asset:"component"},component,animationTime,repaired?'repaired':'idle');
       if (!spriteDrawn) {
       ctx.shadowColor = color;
       ctx.shadowBlur = repaired ? 10 : 5;
@@ -2249,6 +2259,7 @@
       const x = collectible.x;
       if (x - cameraX < -20 || x - cameraX > width + 20) continue;
       const bob = Math.sin(collectible.phase) * 4;
+      if(levelVisuals.sprite(ctx,{asset:'fx',animation:'pulse'},{x:x-14,y:collectible.y+bob-14,width:28,height:28},animationTime))continue;
       ctx.save();
       ctx.translate(x, collectible.y + bob);
       ctx.rotate(Math.PI / 4 + collectible.phase * .25);
@@ -2268,7 +2279,10 @@
   function drawViruses() {
     for (const virus of viruses) {
       ByteRunner.enemies.draw(ctx,virus,animationTime,components);
-      if (!virus.alive) continue;
+      if (!virus.alive) {
+        if(Number.isFinite(virus.deathAt) && animationTime-virus.deathAt<.6)levelVisuals.sprite(ctx,{asset:'fx',animation:'explosion',instance:'burst-'+virus.id},{x:virus.x-32,y:virus.y-32,width:64,height:64},animationTime);
+        continue;
+      }
       const x = virus.x;
       if (x - cameraX + virus.radius < -10 || x - cameraX - virus.radius > width + 10) continue;
       const pulse = 1 + Math.sin(virus.phase) * (virus.animationState==='patrol'?.035:.08);
@@ -2280,7 +2294,7 @@
       const flyer = virus.type === 'flyer';
       const shooter = virus.type === 'shooter';
       const parasite = virus.type === 'parasite';
-      const spriteDrawn = levelVisuals.sprite(ctx,virus.visual,{id:virus.id,x:x-virus.radius,y:virus.y-virus.radius,width:virus.radius*2,height:virus.radius*2},animationTime,virus.hitFlash>0?'hit':virus.vulnerableTime>0?'vulnerable':virus.attackWindup>0?'prepare':virus.animationState||'idle');
+      const spriteDrawn = levelVisuals.sprite(ctx,virus.visual || {asset:"virus-"+virus.type,flipX:virus.direction<0},{id:virus.id,x:x-virus.radius,y:virus.y-virus.radius,width:virus.radius*2,height:virus.radius*2},animationTime,virus.hitFlash>0?'hit':virus.vulnerableTime>0?'vulnerable':virus.attackWindup>0?'prepare':virus.attackFlash>0?'attack':virus.type==='boss'?'stage'+(virus.bossStage || 1):virus.animationState||'idle');
       if (!spriteDrawn) {
       ctx.save();
       ctx.translate(x, virus.y);
@@ -2395,6 +2409,12 @@
       ctx.stroke();
       ctx.restore();
       }
+      if(spriteDrawn && ((armored && virus.vulnerableTime<=0) || (boss && virus.coreShielded))) {
+        ctx.save();ctx.strokeStyle=armored?'#c4e4ff':'#ffadc7';ctx.lineWidth=2;
+        ctx.beginPath();
+        const angle=virus.direction>0?0:Math.PI;
+        ctx.arc(x,virus.y,virus.radius+5,boss?0:angle-1.3,boss?Math.PI*2:angle+1.3);ctx.stroke();ctx.restore();
+      }
       if (virus.hp < virus.maxHp || boss || armored) {
         const barWidth = boss ? 82 : 28;
         ctx.fillStyle = '#1a2029';
@@ -2469,6 +2489,7 @@
   function drawProjectiles() {
     for (const projectile of projectiles) {
       const x = projectile.x;
+      if(levelVisuals.sprite(ctx,{asset:'fx',animation:'bolt',flipX:projectile.vx<0},{x:x-16,y:projectile.y-12,width:32,height:24},animationTime))continue;
       ctx.save();
       ctx.strokeStyle = 'rgba(78, 245, 223, .55)';
       ctx.lineWidth = 3;
@@ -2485,6 +2506,7 @@
       ctx.restore();
     }
     for (const projectile of enemyProjectiles) {
+      if(levelVisuals.sprite(ctx,{asset:"fx",animation:"enemy",flipX:projectile.vx<0},{x:projectile.x-12,y:projectile.y-12,width:24,height:24},animationTime))continue;
       const screenX = projectile.x;
       if (screenX - cameraX < -16 || screenX - cameraX > width + 16) continue;
       ctx.save();
@@ -2503,7 +2525,20 @@
   }
 
   function drawRobot() {
-    if (levelVisuals.sprite(ctx,{...phaseData.playerVisual,instance:'player',flipX:player.facing<0},player,animationTime,!player.grounded?'jump':player.vx?'run':'idle')) return;
+    if (!player) return;
+    if(deathEcho && animationTime-deathEcho.start<.7) {
+      levelVisuals.sprite(ctx,{asset:'r07',animation:'death',instance:'death-echo'}, {x:deathEcho.x-8,y:deathEcho.y,width:player.width+16,height:player.height},animationTime);
+    }
+    const state=damageCooldown>.7?'hit':repairTarget?'repair':attackCooldown>.15?'attack':!player.grounded?(player.vy<0?'jump':'fall'):Math.abs(player.vx)>1?'run':'idle';
+    ctx.save();
+    if(damageCooldown>0 && Math.floor(animationTime*16)%2===0)ctx.globalAlpha=.45;
+    const rendered=levelVisuals.sprite(ctx,{asset:'r07',...phaseData.playerVisual,instance:'player',flipX:player.facing<0}, {x:player.x-7,y:player.y-1,width:player.width+14,height:player.height+2},animationTime,state);
+    ctx.restore();
+    if(rendered) {
+      if(player.shieldTime>0)levelVisuals.sprite(ctx,{asset:'fx',animation:'shield'}, {x:player.x-14,y:player.y-10,width:player.width+28,height:player.height+20},animationTime);
+      if(repairTarget)levelVisuals.sprite(ctx,{asset:'fx',animation:'repair'}, {x:player.x+player.facing*20,y:player.y+8,width:32,height:32},animationTime);
+      return;
+    }
     if (!player) return;
     const cx = player.x + player.width / 2;
     const top = player.y;
@@ -2627,11 +2662,14 @@
     for (const spec of phaseData.entities.interactives) {
       if (spec.hidden || !levelRuntime.matches(spec.requires)) continue;
       const box={x:spec.x,y:entityY(spec),width:spec.width || 32,height:spec.height || 40};
-      if (!levelVisuals.sprite(ctx,spec.visual,box,animationTime,levelRuntime.getFlag(spec.flag || spec.id)?'active':'idle')) {
+      if (!levelVisuals.sprite(ctx,spec.visual || {asset:/portal|link/.test(spec.type)?"portal":"terminal"},box,animationTime,levelRuntime.getFlag(spec.flag || spec.id)?'active':'idle')) {
         ctx.fillStyle=levelRuntime.getFlag(spec.flag || spec.id)?'#65f3bc':'#ffd166';
         ctx.fillRect(box.x,box.y,box.width,box.height);
         ctx.fillStyle='#0a1822';ctx.font='bold 10px monospace';ctx.fillText(spec.label || 'E',box.x+4,box.y+20);
       }
+    }
+    for(const link of levelRuntime.connections()) {
+      levelVisuals.sprite(ctx,{asset:'portal'},{x:link.x,y:link.y,width:link.width,height:link.height},animationTime,'active');
     }
     drawComponents();
     drawCollectibles();
@@ -2641,6 +2679,8 @@
     drawRobot();
     ctx.restore();
     levelVisuals.layers(ctx,'foreground',view,animationTime);
+    ByteRunner.art.atmosphere(ctx,view,animationTime,phaseData.palette[2]);
+    if(animationTime<.65) {ctx.fillStyle='rgba(7,11,29,'+(.7*(1-animationTime/.65))+')';ctx.fillRect(0,0,width,height);}
     const environment=levelRuntime.modifiers();
     if (environment.label) {ctx.fillStyle='#d5c5ff';ctx.font='bold 11px monospace';ctx.fillText(environment.label,12,height-28);}
     if (phaseData.map.sections?.length) {

@@ -59,7 +59,7 @@
       const {x,y,width:w,height:h,kind,label}=item;
       ctx.save();ctx.lineWidth=2;ctx.font='bold 13px monospace';ctx.fillStyle='#112f3a';ctx.strokeStyle='#69b7b5';
       if(kind==='board') {
-        ctx.fillStyle='#0b2929';ctx.fillRect(x,y,w,h);ctx.strokeStyle='#256251';ctx.lineWidth=2;
+        ctx.fillStyle='#0b292955';ctx.fillRect(x,y,w,h);ctx.strokeStyle='#256251';ctx.lineWidth=2;
         for(let c=x+28;c<x+w;c+=104){ctx.beginPath();ctx.moveTo(c,y+24);ctx.lineTo(c,y+h-42);ctx.lineTo(c+60,y+h-42);ctx.stroke();}
         ctx.fillStyle='#367f67';for(let c=x+28;c<x+w;c+=104)ctx.fillRect(c-3,y+30,6,6);
       } else if(kind==='cpu') {
