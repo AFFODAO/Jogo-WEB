@@ -1,0 +1,70 @@
+{
+  "phases": [],
+  "systems": {
+    "procedural: deterministic topology and physical traversal // pcb-alpha": "PASS",
+    "procedural: deterministic topology and physical traversal // pcb-beta": "PASS",
+    "procedural: deterministic topology and physical traversal // pcb-gamma": "PASS",
+    "procedural: three seeds differ structurally": "PASS",
+    "procedural: configuration limits and varied sizes remain valid": "PASS",
+    "procedural: optional diagnostic portals work in both directions": "PASS"
+  },
+  "errors": [],
+  "snapshots": [
+    {
+      "phase": 1,
+      "position": "procedural-pcb-alpha",
+      "seed": "pcb-alpha",
+      "file": "tests/procedural-pcb-alpha.png"
+    },
+    {
+      "phase": 1,
+      "position": "procedural-pcb-beta",
+      "seed": "pcb-beta",
+      "file": "tests/procedural-pcb-beta.png"
+    },
+    {
+      "phase": 1,
+      "position": "procedural-pcb-gamma",
+      "seed": "pcb-gamma",
+      "file": "tests/procedural-pcb-gamma.png"
+    }
+  ],
+  "seeds": [
+    {
+      "seed": "pcb-alpha",
+      "rooms": 12,
+      "edges": 12,
+      "cycles": 1,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 106,
+      "returnSurfaces": 106,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    },
+    {
+      "seed": "pcb-beta",
+      "rooms": 12,
+      "edges": 13,
+      "cycles": 2,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 100,
+      "returnSurfaces": 100,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    },
+    {
+      "seed": "pcb-gamma",
+      "rooms": 12,
+      "edges": 13,
+      "cycles": 2,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 125,
+      "returnSurfaces": 125,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    }
+  ]
+}

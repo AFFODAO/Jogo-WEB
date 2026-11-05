@@ -1,0 +1,11 @@
+{
+  "phases": [],
+  "systems": {
+    "procedural demo: URL loads generated phase 1 and preserves the nine remaining maps": "PASS",
+    "procedural demo: save and resume keep generated layout and progression": "PASS",
+    "procedural demo: mandatory question, wrong-answer retry and next authored phase": "PASS",
+    "procedural demo: Part 2 saves retain XP and skills while resetting obsolete geometry": "PASS"
+  },
+  "errors": [],
+  "snapshots": []
+}

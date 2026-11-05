@@ -70,7 +70,10 @@ function reachability() {
             if(player.y>floorY()+70) break;
             if(player.grounded && leftSurface && t>1) {
               if(player.x>=dst.a-2 && player.x<=dst.z+2 && Math.abs(player.y-dst.y)<3) found=true;
-              break;
+              // A real landing may first support only the front of the body.
+              // Continue walking on the same surface until the full box is over it.
+              // This matters when stepping off narrow precision ledges in reverse.
+              if(found || Math.abs(player.y-dst.y)>=3 || player.x+player.width<=dst.a || player.x>=dst.z+player.width) break;
             }
           }
           if(found) break;

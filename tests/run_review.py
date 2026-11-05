@@ -24,10 +24,12 @@ def run_page(target,url):
     cdp=None
     try:
         deadline=time.monotonic()+20;portfile=profile/'DevToolsActivePort'
-        while not portfile.exists():
+        while True:
             if time.monotonic()>deadline or process.poll() is not None:raise RuntimeError('Chrome debugger did not start')
-            time.sleep(.1)
-        cdp=CDP(page_endpoint(int(portfile.read_text().splitlines()[0])))
+            try:
+                debug_port=int(portfile.read_text().splitlines()[0]);break
+            except (OSError,ValueError,IndexError):time.sleep(.1)
+        cdp=CDP(page_endpoint(debug_port))
         cdp.call('Page.enable');cdp.call('Page.navigate',{'url':url});deadline=time.monotonic()+240
         while time.monotonic()<deadline:
             result=cdp.call('Runtime.evaluate',{'expression':'document.getElementById("review-result")?.textContent || null','returnByValue':True},timeout=240)
@@ -49,8 +51,9 @@ def main():
     source_hash=source_fingerprint(ROOT)
     source = (ROOT / 'game.js').read_text(encoding='utf-8-sig')
     hook = (ROOT / 'tests/review.js').read_text(encoding='utf-8')
-    if '--pixel-only' in sys.argv:
-        hook=hook[:hook.index('for(let i=0;i<10;i++) {')]+(ROOT/'tests/pixelart.js').read_text(encoding='utf-8')+'\nawait new Promise(resolve=>setTimeout(resolve,0));\nreport.errors=window.__reviewErrors;const output=document.createElement("pre");output.id="review-result";output.textContent=JSON.stringify(report);document.body.replaceChildren(output);'
+    focused='pixelart' if '--pixel-only' in sys.argv else 'generation' if '--generation-only' in sys.argv else 'procedural' if '--procedural-only' in sys.argv else 'procedural-demo' if '--procedural-demo' in sys.argv else 'parkour' if '--parkour-only' in sys.argv else None
+    if focused:
+        hook=hook[:hook.index('for(let i=0;i<10;i++) {')]+(ROOT/('tests/'+focused+'.js')).read_text(encoding='utf-8')+'\nawait new Promise(resolve=>setTimeout(resolve,0));\nreport.errors=window.__reviewErrors;const output=document.createElement("pre");output.id="review-result";output.textContent=JSON.stringify(report);document.body.replaceChildren(output);'
     architecture = (ROOT/'tests/architecture.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/first-five.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/last-five.js').read_text(encoding='utf-8')
@@ -60,11 +63,14 @@ def main():
     architecture += '\n'+(ROOT/'tests/experience.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/audit.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/pixelart.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/generation.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/procedural.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/parkour.js').read_text(encoding='utf-8')
     baseline = (ROOT/'tests/map-baseline.json').read_text(encoding='utf-8')
     fixture = (ROOT/'tests/fixtures/room-map.json').read_text(encoding='utf-8')
     first_five = (ROOT/'tests/fixtures/first-five-v2.json').read_text(encoding='utf-8')
     final_marker='await new Promise(resolve=>setTimeout(resolve,0));'
-    hook = 'const FIRST_FIVE_V2='+first_five+';\nconst MAP_BASELINE='+baseline+';\nconst ARCHITECTURE_FIXTURE='+fixture+';\n'+hook.replace(final_marker,('' if '--pixel-only' in sys.argv else architecture+'\n')+final_marker,1)
+    hook = 'const FIRST_FIVE_V2='+first_five+';\nconst MAP_BASELINE='+baseline+';\nconst ARCHITECTURE_FIXTURE='+fixture+';\n'+hook.replace(final_marker,('' if focused else architecture+'\n')+final_marker,1)
     hook = '(async()=>{\n' + hook + '\n})().catch(error=>{document.body.innerHTML="<pre id=review-result>"+JSON.stringify({phases:[],systems:{fatal:error.stack}})+"</pre>";});'
     if '--capture-map-baseline' in sys.argv:
         hook = 'const mapBaseline = JSON.parse(JSON.stringify(PHASES));\n' + hook.replace('const output=document.createElement', 'report.mapBaseline=mapBaseline;\nconst output=document.createElement')
@@ -90,12 +96,19 @@ def main():
         server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(QuietHandler,directory=str(target)))
         threading.Thread(target=server.serve_forever,daemon=True).start()
         try:
-            report=run_page(target,f'http://127.0.0.1:{server.server_port}/index.html')
+            query='?procedural=pcb-alpha&rooms=12&difficulty=2&optional=0.4' if focused=='procedural-demo' else ''
+            report=run_page(target,f'http://127.0.0.1:{server.server_port}/index.html'+query)
         finally:
             server.shutdown()
             server.server_close()
-        if '--pixel-only' in sys.argv:
-            (ROOT/'tests/pixelart-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+        if focused:
+            if focused=='procedural':
+                for snapshot in report.get('snapshots',[]):
+                    image=snapshot.pop('image')
+                    filename='procedural-'+snapshot['seed']+'.png'
+                    (ROOT/'tests'/filename).write_bytes(base64.b64decode(image.split(',',1)[1]))
+                    snapshot['file']='tests/'+filename
+            (ROOT/('tests/'+focused+'-results.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             print(json.dumps(report,ensure_ascii=False,indent=2))
             if report['errors'] or any(value!='PASS' for value in report['systems'].values()):raise SystemExit(1)
             return

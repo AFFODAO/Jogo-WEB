@@ -76,6 +76,16 @@
   </main>
   <dialog id="settingsDialog" class="settings-dialog" aria-labelledby="settingsTitle"><h2 id="settingsTitle">ÁUDIO E CONFORTO</h2><p>Ajustes salvos neste navegador. Feche e continue pelo menu de pausa.</p><label>Volume geral <output></output><input type="range" min="0" max="100" data-setting="volume" aria-label="Volume geral"></label><label>Efeitos sonoros <output></output><input type="range" min="0" max="100" data-setting="sfx" aria-label="Volume dos efeitos"></label><label>Ambientação original <output></output><input type="range" min="0" max="100" data-setting="music" aria-label="Volume da ambientação"></label><label class="setting-check"><input type="checkbox" data-setting="reducedEffects"> Reduzir partículas, brilhos e animações decorativas</label><label class="setting-check"><input type="checkbox" data-setting="shake"> Pequeno tremor em impactos fortes</label><small>Os avisos de perigo, escudos e pontos fracos continuam visíveis.</small><button id="closeSettings" type="button">FECHAR OPÇÕES</button></dialog>
   <script src="src/engine/maps.js"></script>
+  <script src="src/engine/platform-physics.js"></script>
+  <script src="src/engine/falling-platforms.js"></script>
+  <script src="src/generation/random.js"></script>
+  <script src="src/generation/config.js"></script>
+  <script src="src/generation/validation.js"></script>
+  <script src="src/generation/composer.js"></script>
+  <script src="src/generation/graph.js"></script>
+  <script src="src/generation/rooms.js"></script>
+  <script src="src/generation/parkour-validation.js"></script>
+  <script src="src/generation/structural.js"></script>
   <script src="src/engine/experience.js"></script>
   <script src="src/engine/level-runtime.js"></script>
   <script src="src/engine/repairs.js"></script>
@@ -86,6 +96,7 @@
   <script src="src/engine/visuals.js"></script>
   <script src="src/engine/enemies.js"></script>
   <script src="src/content/first-five.js"></script>
+  <script src="src/content/parkour.js"></script>
   <script src="src/content/last-five.js"></script>
   <script src="src/content/pacing.js"></script>
   <script src="src/maps/01-hardware.js"></script>
@@ -99,6 +110,7 @@
   <script src="src/maps/09-firewall.js"></script>
   <script src="src/maps/10-servers.js"></script>
   <script src="src/maps/campaign.js"></script>
+  <script src="src/generation/demo.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

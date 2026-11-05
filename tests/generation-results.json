@@ -1,0 +1,17 @@
+{
+  "phases": [],
+  "systems": {
+    "generation: optional architecture leaves authored campaign untouched": "PASS",
+    "generation: seeded streams reproduce and forks ignore caller order": "PASS",
+    "generation: registries validate templates and reject duplicate plugins": "PASS",
+    "generation: hybrid compiler is deterministic, immutable and has no map-registry side effects": "PASS",
+    "generation: local names and repair dependencies are qualified without collisions": "PASS",
+    "generation: enemies, zones, cameras and portal destinations translate correctly": "PASS",
+    "generation: malformed rooms and invalid layouts fail before engine loading": "PASS",
+    "generation: cross-room repairs and explicitly global flags keep their scope": "PASS",
+    "generation: missing repair references and conflicting assets are rejected": "PASS",
+    "generation: compiled room runs with existing movement, repairs and conditional geometry": "PASS"
+  },
+  "errors": [],
+  "snapshots": []
+}

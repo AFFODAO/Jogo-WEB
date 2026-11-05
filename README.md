@@ -1,5 +1,11 @@
 # BYTE RUNNER
 
+Geometria jogável e parkour da fase 1 procedural: [Parte 3](docs/procedural-parkour.md).
+
+Gerador de salas e exemplo procedural da fase 1: [instruções da Parte 2](docs/procedural-rooms.md).
+
+A [arquitetura inicial de mapas híbridos](docs/hybrid-map-architecture.md) adiciona composição opcional de salas, validação e seed determinística, sem modificar as dez fases da campanha.
+
 **Pixel art 2D:** 47 atlas PNG originais, R-07 em 32×48 com nove ações, vírus temáticos e tiles/equipamentos próprios nas dez fases. Veja [recursos e integração](docs/pixel-art.md) e [a galeria animada](tests/pixelart-gallery.html).
 
 A [revisão após a reformulação](tests/AUDIT.md) registra os testes executados, as correções de interface e as capturas comparativas das dez estruturas.

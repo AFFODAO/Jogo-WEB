@@ -566,6 +566,31 @@
     "pixel art: thematic enemy and death PNG are used in phase 8": "PASS",
     "pixel art: thematic enemy and death PNG are used in phase 9": "PASS",
     "pixel art: repair frames advance while player and world stay frozen": "PASS",
+    "generation: optional architecture leaves authored campaign untouched": "PASS",
+    "generation: seeded streams reproduce and forks ignore caller order": "PASS",
+    "generation: registries validate templates and reject duplicate plugins": "PASS",
+    "generation: hybrid compiler is deterministic, immutable and has no map-registry side effects": "PASS",
+    "generation: local names and repair dependencies are qualified without collisions": "PASS",
+    "generation: enemies, zones, cameras and portal destinations translate correctly": "PASS",
+    "generation: malformed rooms and invalid layouts fail before engine loading": "PASS",
+    "generation: cross-room repairs and explicitly global flags keep their scope": "PASS",
+    "generation: missing repair references and conflicting assets are rejected": "PASS",
+    "generation: compiled room runs with existing movement, repairs and conditional geometry": "PASS",
+    "procedural: deterministic topology and physical traversal // pcb-alpha": "PASS",
+    "procedural: deterministic topology and physical traversal // pcb-beta": "PASS",
+    "procedural: deterministic topology and physical traversal // pcb-gamma": "PASS",
+    "procedural: three seeds differ structurally": "PASS",
+    "procedural: configuration limits and varied sizes remain valid": "PASS",
+    "procedural: optional diagnostic portals work in both directions": "PASS",
+    "parkour: shared jump envelope agrees with real 30/60/144Hz movement": "PASS",
+    "parkour: varied interiors, difficulty rhythm and conservative safety certificates": "PASS",
+    "parkour: horizontal shuttles and vertical elevators carry and release the player safely": "PASS",
+    "parkour: temporary platforms disappear, wait for occupied space, return and reset on death": "PASS",
+    "parkour: falling platforms warn, fall, return offscreen and wait for occupied space": "PASS",
+    "parkour: lasers and electricity warn before real damage and leave safe crossing windows": "PASS",
+    "parkour: every checkpoint survives lethal damage and void falls, protection expires": "PASS",
+    "parkour: 60 seeded configurations pass bounds, movement envelopes and spawn safety": "PASS",
+    "parkour: advanced precision route is traversable both ways without transient platforms": "PASS",
     "audit: no runtime errors, unhandled rejections or console.error": "PASS"
   },
   "errors": [],
@@ -1495,8 +1520,46 @@
       }
     ]
   },
+  "seeds": [
+    {
+      "seed": "pcb-alpha",
+      "rooms": 12,
+      "edges": 12,
+      "cycles": 1,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 106,
+      "returnSurfaces": 106,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    },
+    {
+      "seed": "pcb-beta",
+      "rooms": 12,
+      "edges": 13,
+      "cycles": 2,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 100,
+      "returnSurfaces": 100,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    },
+    {
+      "seed": "pcb-gamma",
+      "rooms": 12,
+      "edges": 13,
+      "cycles": 2,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 125,
+      "returnSurfaces": 125,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    }
+  ],
   "execution": {
-    "atUTC": "2026-11-04T23:57:30.931865+00:00",
+    "atUTC": "2026-11-05T00:57:20.356281+00:00",
     "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
     "transport": "localhost HTTP",
     "isolatedStorage": true,
@@ -1508,7 +1571,7 @@
       "Combat is tested separately with damage protection; survival balance still needs manual play.",
       "Minigame solvers use generated answers through real DOM controls."
     ],
-    "sourceSha256": "f76db7f32e458d03ad41a19f8260e23d520ac92a41ce18c09376c19eb22fec7e"
+    "sourceSha256": "4e332327a28a760cee3a4c5c4ff140ff0dbe143d91ca4d23d95a64b1c572a11d"
   },
   "captures": [
     "snapshots/phase-01-overview.png",
@@ -1578,13 +1641,16 @@
     "snapshots/phase-07-structure.png",
     "snapshots/phase-08-structure.png",
     "snapshots/phase-09-structure.png",
-    "snapshots/phase-10-structure.png"
+    "snapshots/phase-10-structure.png",
+    "snapshots/phase-01-procedural-pcb-alpha.png",
+    "snapshots/phase-01-procedural-pcb-beta.png",
+    "snapshots/phase-01-procedural-pcb-gamma.png"
   ],
   "summary": {
     "phases": 10,
-    "systems": 86,
-    "passedSystems": 86,
-    "captures": 68,
+    "systems": 111,
+    "passedSystems": 111,
+    "captures": 71,
     "runtimeErrors": 0,
     "failures": []
   }

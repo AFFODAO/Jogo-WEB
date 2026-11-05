@@ -1,0 +1,16 @@
+{
+  "phases": [],
+  "systems": {
+    "parkour: shared jump envelope agrees with real 30/60/144Hz movement": "PASS",
+    "parkour: varied interiors, difficulty rhythm and conservative safety certificates": "PASS",
+    "parkour: horizontal shuttles and vertical elevators carry and release the player safely": "PASS",
+    "parkour: temporary platforms disappear, wait for occupied space, return and reset on death": "PASS",
+    "parkour: falling platforms warn, fall, return offscreen and wait for occupied space": "PASS",
+    "parkour: lasers and electricity warn before real damage and leave safe crossing windows": "PASS",
+    "parkour: every checkpoint survives lethal damage and void falls, protection expires": "PASS",
+    "parkour: 60 seeded configurations pass bounds, movement envelopes and spawn safety": "PASS",
+    "parkour: advanced precision route is traversable both ways without transient platforms": "PASS"
+  },
+  "errors": [],
+  "snapshots": []
+}

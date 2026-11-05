@@ -16,7 +16,7 @@
   const soundToggle = document.getElementById('soundToggle');
   const touchControls = document.getElementById('touchControls');
   const experience = ByteRunner.experience;
-  const SAVE_KEY = 'byteRunner.campaign.v1';
+  const SAVE_KEY = ByteRunner.proceduralDemo?.storageKey || 'byteRunner.campaign.v1';
   const SOUND_KEY = 'byteRunner.sound.v1';
   const keys = new Set();
   const ui = {
@@ -48,11 +48,11 @@
     log: document.getElementById('log')
   };
 
-  const ROBOT_WIDTH = 34;
-  const ROBOT_HEIGHT = 48;
-  const GRAVITY = 1850;
-  const RUN_SPEED = 255;
-  const JUMP_SPEED = 690;
+  const ROBOT_WIDTH = ByteRunner.platformPhysics.base.width;
+  const ROBOT_HEIGHT = ByteRunner.platformPhysics.base.height;
+  const GRAVITY = ByteRunner.platformPhysics.base.gravity;
+  const RUN_SPEED = ByteRunner.platformPhysics.base.speed;
+  const JUMP_SPEED = ByteRunner.platformPhysics.base.jump;
   const MAX_PLAYER_ARMOR = .5;
   const PLAYER_HIT_INVULNERABILITY = 1;
   const ENEMY_PROFILES = ByteRunner.enemies.profiles;
@@ -622,6 +622,7 @@
       if (motion.axis === 'x') x += shift; else y += shift;
     }
     if (spec.type === 'temporary' && !state.active) return null;
+    if (spec.type === 'falling') {if (!state.active) return null;y += state.drop || 0;}
     return { id: spec.id, x, y, w: spec.width, h: spec.height || 18, kind: 'platform', type: spec.type || 'fixed', style: spec.style, collision: spec.collision || 'one-way', hazardDamage: spec.damage || 8 };
   }
   function solids() {
@@ -687,7 +688,8 @@
   function advancePlatformMotion(dt) {
     animationTime += dt;
     for (const spec of phaseData.entities.platforms) {
-      if (spec.type !== 'moving') continue;
+      if (spec.type !== 'moving' && spec.type !== 'falling') continue;
+      if (spec.type === 'falling') ByteRunner.fallingPlatforms.update(spec,getPlatformState(spec),dt,box=>overlaps(player,{x:box.x,y:entityY(box),w:box.width,h:box.height || 18}));
       const current = platformShape(spec);
       const state = getPlatformState(spec);
       if (!current) {
@@ -933,7 +935,7 @@
         player.y = object.y - player.height;
         player.vy = 0;
         player.grounded = true;
-        if (object.type === 'temporary') {
+        if (object.type === 'temporary' || object.type === 'falling') {
           const spec = phaseData.entities.platforms.find(platform => platform.id === object.id);
           const state = spec ? getPlatformState(spec) : null;
           if (state) {
@@ -2165,7 +2167,7 @@
           : object.style === 'route' ? '#4b638a'
           : object.style === 'signal' ? '#245a77' : phaseData.palette[3];
         ctx.fillStyle = platformColor;
-        if (object.type === 'temporary' && (platformRuntime.get(object.id)?.triggered)) ctx.globalAlpha = .55 + Math.sin(animationTime * 18) * .2;
+        if ((object.type === 'temporary' || object.type === 'falling') && (platformRuntime.get(object.id)?.triggered)) ctx.globalAlpha = .55 + Math.sin(animationTime * 18) * .2;
         ctx.fillRect(x, object.y, object.w, object.h);
         ctx.fillStyle = object.type === 'dangerous' ? '#ff7181'
           : object.style === 'window' ? '#b59cff'

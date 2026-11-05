@@ -1,5 +1,5 @@
 {
-  "atUTC": "2026-11-05T00:00:49.208692+00:00",
+  "atUTC": "2026-11-05T00:25:51.508473+00:00",
   "viewports": [
     {
       "width": 1920,
@@ -58,8 +58,8 @@
       "visible": true,
       "left": 370.5,
       "right": 1549.5,
-      "top": 169.9499969482422,
-      "bottom": 988.9499969482422,
+      "top": 169.68455505371094,
+      "bottom": 988.6845550537109,
       "panelHeight": 819,
       "descriptionWidths": [],
       "unreachableControls": []
@@ -272,8 +272,8 @@
       "visible": true,
       "left": 257,
       "right": 1104,
-      "top": 169.45570373535156,
-      "bottom": 720.4557037353516,
+      "top": 169.68414306640625,
+      "bottom": 720.6841430664062,
       "panelHeight": 551,
       "descriptionWidths": [],
       "unreachableControls": []
@@ -486,8 +486,8 @@
       "visible": true,
       "left": 227,
       "right": 980,
-      "top": 169,
-      "bottom": 720,
+      "top": 169.12380981445312,
+      "bottom": 720.1238098144531,
       "panelHeight": 551,
       "descriptionWidths": [],
       "unreachableControls": []
@@ -591,8 +591,8 @@
       "visible": true,
       "left": 278.5,
       "right": 928.5,
-      "top": 265.2203369140625,
-      "bottom": 625.3609619140625,
+      "top": 264.421875,
+      "bottom": 624.5625,
       "panelHeight": 360.140625,
       "descriptionWidths": [],
       "unreachableControls": []
@@ -700,8 +700,8 @@
       "visible": true,
       "left": 219,
       "right": 764,
-      "top": 169.0328369140625,
-      "bottom": 552.0328369140625,
+      "top": 169.68414306640625,
+      "bottom": 552.6841430664062,
       "panelHeight": 383,
       "descriptionWidths": [],
       "unreachableControls": []
@@ -914,9 +914,9 @@
       "visible": true,
       "left": 13,
       "right": 377,
-      "top": 138.12380981445312,
-      "bottom": 576.123779296875,
-      "panelHeight": 437.9999694824219,
+      "top": 138.26693725585938,
+      "bottom": 576.2669677734375,
+      "panelHeight": 438.0000305175781,
       "descriptionWidths": [],
       "unreachableControls": []
     },
@@ -1128,9 +1128,9 @@
       "visible": true,
       "left": 13,
       "right": 347,
-      "top": 138.45494079589844,
-      "bottom": 576.4549407958984,
-      "panelHeight": 438,
+      "top": 138.2672882080078,
+      "bottom": 576.2673492431641,
+      "panelHeight": 438.00006103515625,
       "descriptionWidths": [],
       "unreachableControls": []
     },
@@ -1233,9 +1233,9 @@
       "visible": true,
       "left": 29,
       "right": 331,
-      "top": 181.359375,
-      "bottom": 532.640625,
-      "panelHeight": 351.28125,
+      "top": 191.421875,
+      "bottom": 522.5625,
+      "panelHeight": 331.140625,
       "descriptionWidths": [],
       "unreachableControls": []
     },
@@ -1342,8 +1342,8 @@
       "visible": true,
       "left": 11,
       "right": 833,
-      "top": 91.12450408935547,
-      "bottom": 359.12450408935547,
+      "top": 91.45498657226562,
+      "bottom": 359.4549865722656,
       "panelHeight": 268,
       "descriptionWidths": [],
       "unreachableControls": []
@@ -1510,7 +1510,7 @@
         "repair": false
       },
       "after": {
-        "x": 121,
+        "x": 104,
         "y": 802,
         "running": true,
         "keys": [],
@@ -1527,7 +1527,7 @@
         "repair": false
       },
       "after": {
-        "x": 227.25,
+        "x": 235.75,
         "y": 802,
         "running": true,
         "keys": [],
@@ -1612,7 +1612,7 @@
     "ui-snapshots/844x390-skills-phase-01.png",
     "ui-snapshots/844x390-settings-phase-01.png"
   ],
-  "sourceSha256": "f76db7f32e458d03ad41a19f8260e23d520ac92a41ce18c09376c19eb22fec7e",
+  "sourceSha256": "4a93d108f8ab6e2131d204ad41ccc837bfbb3fa89b2bec1488b2a52917774307",
   "phaseLoading": [
     {
       "phase": 1,

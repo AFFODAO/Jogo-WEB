@@ -23,14 +23,14 @@
       if(right<=x||bottom<=y)return true;
       ctx.save();ctx.beginPath();ctx.rect(o.x,o.y,o.w,o.h);ctx.clip();
       const body=o.kind==='gate'?5:3;art.pattern(ctx,visuals,id,body*8,{x:Math.floor(x/32)*32,y:Math.floor(y/32)*32,width:right-Math.floor(x/32)*32,height:bottom-Math.floor(y/32)*32});
-      const state=o.type==='dangerous'?6:o.type==='moving'?1:o.type==='temporary'?2:o.kind==='gate'?5:0;
+      const state=o.type==='dangerous'?6:o.type==='moving'?1:(o.type==='temporary'||o.type==='falling')?2:o.kind==='gate'?5:0;
       if(o.type==='temporary'&&api.experience?.settings.reducedEffects!==true)ctx.globalAlpha=.8+Math.sin(time*5)*.15;
       for(let tx=Math.floor((x-o.x)/32)*32+o.x;tx<right;tx+=32)visuals.sprite(ctx,{asset:id,frame:state*8+Math.abs(Math.floor(tx/32))%8},{x:tx,y:o.y,width:32,height:32},time);
       if(o.h>40&&o.y+o.h-32<view.y+view.height&&o.y+o.h>view.y)for(let tx=Math.floor((x-o.x)/32)*32+o.x;tx<right;tx+=32)visuals.sprite(ctx,{asset:id,frame:4*8},{x:tx,y:o.y+o.h-32,width:32,height:32},time);
       ctx.restore();
       // Danger teeth and a moving/temporary strip sit above the surface, preserving affordances.
       if(o.type==='dangerous'){ctx.fillStyle='#f5a1a0';for(let tx=x;tx<right;tx+=8){ctx.fillRect(Math.round(tx)+2,o.y-3,3,3);ctx.fillRect(Math.round(tx)+3,o.y-5,1,2);}}
-      if(o.type==='moving'||o.type==='temporary')art.text(ctx,o.type==='moving'?'< >':'---',o.x+5,o.y+6,'#ecddab',o.w-8);
+      if(o.type==='moving'||o.type==='temporary'||o.type==='falling')art.text(ctx,o.type==='falling'?'CAI':o.type==='moving'?'< >':'---',o.x+5,o.y+6,'#ecddab',o.w-8);
       return true;
     },
     feature(ctx,item,view,time,visuals,index){
