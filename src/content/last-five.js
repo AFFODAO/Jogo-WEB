@@ -36,10 +36,11 @@
       }
     };
   });
-  api.visuals.registerLayer('infrastructure-world',(ctx,layer,view,time)=>{
+  api.visuals.registerLayer('infrastructure-world',(ctx,layer,view,time,visuals)=>{
     for(const item of layer.items) {
       const {x,y,width:w,height:h,kind,label}=item;
       if(x+w<view.x||x>view.x+view.width||y+h<view.y||y>view.y+view.height)continue;
+      if(api.pixelArt?.feature(ctx,item,view,time,visuals,5+Math.max(0,['cabling','dhcp','dns','firewall','servers'].indexOf(layer.theme))))continue;
       ctx.save();ctx.lineWidth=2;ctx.font='bold 14px monospace';ctx.fillStyle='#102a38';ctx.strokeStyle='#5792a4';
       if(kind==='building') {
         ctx.fillStyle='#202b32';ctx.fillRect(x,y,w,h);ctx.strokeStyle='#51606a';ctx.strokeRect(x,y,w,h);

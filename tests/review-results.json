@@ -535,7 +535,7 @@
     "enemies: VIRUS ZERO interleaves final charges and warns before summoning": "PASS",
     "enemies: synthesized attack sounds use distinct oscillator settings": "PASS",
     "enemies: attack and death visual states render in the real canvas": "PASS",
-    "art: all 22 local atlases decode and every animation paints pixels": "PASS",
+    "art: all 47 PNG atlases decode and every declared frame paints pixels": "PASS",
     "art: failed image returns fallback signal": "PASS",
     "art: robot actions and shield draw without changing gameplay": "PASS",
     "repairs: all campaign components have solvable modal challenges and persist once": "PASS",
@@ -557,6 +557,15 @@
     "audit: physical exit opens mandatory question and wrong answer resets on reload": "PASS",
     "audit: all 45 map pairs have different normalized collision structures": "PASS",
     "audit: animated robot and enemy states change pixels over time": "PASS",
+    "pixel art: native PNG dimensions, opaque palette pixels and complete robot actions": "PASS",
+    "pixel art: tilesets differ structurally after removing palette colors": "PASS",
+    "pixel art: activating a real ability and respawning select the new animation rows": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 2": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 3": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 5": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 8": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 9": "PASS",
+    "pixel art: repair frames advance while player and world stay frozen": "PASS",
     "audit: no runtime errors, unhandled rejections or console.error": "PASS"
   },
   "errors": [],
@@ -1487,7 +1496,7 @@
     ]
   },
   "execution": {
-    "atUTC": "2026-11-04T23:08:17.135016+00:00",
+    "atUTC": "2026-11-04T23:57:30.931865+00:00",
     "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
     "transport": "localhost HTTP",
     "isolatedStorage": true,
@@ -1499,7 +1508,7 @@
       "Combat is tested separately with damage protection; survival balance still needs manual play.",
       "Minigame solvers use generated answers through real DOM controls."
     ],
-    "sourceSha256": "779094c2d0f1301dd42adbc37c0ad1c021698f3ac570c2a0bf8b2fd6509d7608"
+    "sourceSha256": "f76db7f32e458d03ad41a19f8260e23d520ac92a41ce18c09376c19eb22fec7e"
   },
   "captures": [
     "snapshots/phase-01-overview.png",
@@ -1573,8 +1582,8 @@
   ],
   "summary": {
     "phases": 10,
-    "systems": 77,
-    "passedSystems": 77,
+    "systems": 86,
+    "passedSystems": 86,
     "captures": 68,
     "runtimeErrors": 0,
     "failures": []

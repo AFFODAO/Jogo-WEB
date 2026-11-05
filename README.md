@@ -1,5 +1,7 @@
 # BYTE RUNNER
 
+**Pixel art 2D:** 47 atlas PNG originais, R-07 em 32×48 com nove ações, vírus temáticos e tiles/equipamentos próprios nas dez fases. Veja [recursos e integração](docs/pixel-art.md) e [a galeria animada](tests/pixelart-gallery.html).
+
 A [revisão após a reformulação](tests/AUDIT.md) registra os testes executados, as correções de interface e as capturas comparativas das dez estruturas.
 
 Repaginação **Midnight Circuit**: 22 atlas originais em pixel art, animações no Canvas, tiles por fase, paralaxe e interface renovada. Consulte [recursos, geração e integração](docs/art-direction.md).

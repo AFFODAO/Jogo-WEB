@@ -10,12 +10,34 @@ import http.server
 import threading
 import functools
 import datetime
+import time
 from pathlib import Path
 from html import unescape
-from chrome_cdp import source_fingerprint
+from chrome_cdp import source_fingerprint,CDP,page_endpoint,close_chrome
 
 ROOT = Path(__file__).resolve().parents[1]
 CHROME = Path('C:/Program Files/Google/Chrome/Application/chrome.exe')
+def run_page(target,url):
+    """Use real browser time: virtual-time dump-dom can stall PNG image onload."""
+    profile=target/'profile'
+    process=subprocess.Popen([str(CHROME),'--headless','--disable-gpu','--no-first-run','--no-default-browser-check','--remote-debugging-port=0',f'--user-data-dir={profile}','--window-size=1440,1000','about:blank'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    cdp=None
+    try:
+        deadline=time.monotonic()+20;portfile=profile/'DevToolsActivePort'
+        while not portfile.exists():
+            if time.monotonic()>deadline or process.poll() is not None:raise RuntimeError('Chrome debugger did not start')
+            time.sleep(.1)
+        cdp=CDP(page_endpoint(int(portfile.read_text().splitlines()[0])))
+        cdp.call('Page.enable');cdp.call('Page.navigate',{'url':url});deadline=time.monotonic()+240
+        while time.monotonic()<deadline:
+            result=cdp.call('Runtime.evaluate',{'expression':'document.getElementById("review-result")?.textContent || null','returnByValue':True},timeout=240)
+            value=result.get('result',{}).get('value')
+            if value:return json.loads(value)
+            time.sleep(.1)
+        raise TimeoutError('Review page did not finish')
+    finally:
+        close_chrome(process,cdp)
+
 def capture_structures(profile):
     result=subprocess.run([str(CHROME),'--headless','--disable-gpu','--hide-scrollbars',f'--user-data-dir={profile}','--window-size=1600,2850',f'--screenshot={ROOT / "tests/structures-contact.png"}',(ROOT/'tests/structures.html').as_uri()],capture_output=True,timeout=45)
     if result.returncode or not (ROOT/'tests/structures-contact.png').exists():raise RuntimeError('Failed geometry contact sheet')
@@ -27,6 +49,8 @@ def main():
     source_hash=source_fingerprint(ROOT)
     source = (ROOT / 'game.js').read_text(encoding='utf-8-sig')
     hook = (ROOT / 'tests/review.js').read_text(encoding='utf-8')
+    if '--pixel-only' in sys.argv:
+        hook=hook[:hook.index('for(let i=0;i<10;i++) {')]+(ROOT/'tests/pixelart.js').read_text(encoding='utf-8')+'\nawait new Promise(resolve=>setTimeout(resolve,0));\nreport.errors=window.__reviewErrors;const output=document.createElement("pre");output.id="review-result";output.textContent=JSON.stringify(report);document.body.replaceChildren(output);'
     architecture = (ROOT/'tests/architecture.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/first-five.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/last-five.js').read_text(encoding='utf-8')
@@ -35,15 +59,16 @@ def main():
     architecture += '\n'+(ROOT/'tests/repairs.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/experience.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/audit.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/pixelart.js').read_text(encoding='utf-8')
     baseline = (ROOT/'tests/map-baseline.json').read_text(encoding='utf-8')
     fixture = (ROOT/'tests/fixtures/room-map.json').read_text(encoding='utf-8')
     first_five = (ROOT/'tests/fixtures/first-five-v2.json').read_text(encoding='utf-8')
     final_marker='await new Promise(resolve=>setTimeout(resolve,0));'
-    hook = 'const FIRST_FIVE_V2='+first_five+';\nconst MAP_BASELINE='+baseline+';\nconst ARCHITECTURE_FIXTURE='+fixture+';\n'+hook.replace(final_marker,architecture+'\n'+final_marker,1)
+    hook = 'const FIRST_FIVE_V2='+first_five+';\nconst MAP_BASELINE='+baseline+';\nconst ARCHITECTURE_FIXTURE='+fixture+';\n'+hook.replace(final_marker,('' if '--pixel-only' in sys.argv else architecture+'\n')+final_marker,1)
     hook = '(async()=>{\n' + hook + '\n})().catch(error=>{document.body.innerHTML="<pre id=review-result>"+JSON.stringify({phases:[],systems:{fatal:error.stack}})+"</pre>";});'
     if '--capture-map-baseline' in sys.argv:
         hook = 'const mapBaseline = JSON.parse(JSON.stringify(PHASES));\n' + hook.replace('const output=document.createElement', 'report.mapBaseline=mapBaseline;\nconst output=document.createElement')
-    with tempfile.TemporaryDirectory(prefix='byte-runner-review-') as folder:
+    with tempfile.TemporaryDirectory(prefix='byte-runner-review-',ignore_cleanup_errors=True) as folder:
         target = Path(folder)
         (target / 'game.js').write_text(source[:source.rindex('})();')] + hook + '\n})();', encoding='utf-8')
         bootstrap=(ROOT/'tests/audit-bootstrap.js').read_text(encoding='utf-8')
@@ -54,6 +79,10 @@ def main():
         shutil.copytree(ROOT/'assets',target/'assets')
         class QuietHandler(http.server.SimpleHTTPRequestHandler):
             def log_message(self, *args): pass
+            def do_POST(self):
+                size=int(self.headers.get('Content-Length','0'))
+                label=self.rfile.read(size).decode('utf-8',errors='replace')
+                print(label,flush=True);self.send_response(204);self.end_headers()
             def do_GET(self):
                 if self.path=='/favicon.ico':
                     self.send_response(204);self.end_headers();return
@@ -61,16 +90,15 @@ def main():
         server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(QuietHandler,directory=str(target)))
         threading.Thread(target=server.serve_forever,daemon=True).start()
         try:
-            result = subprocess.run([str(CHROME), '--headless', '--disable-gpu', '--no-first-run', '--no-default-browser-check', '--virtual-time-budget=20000', '--window-size=1440,1000', f'--user-data-dir={target / "profile"}', '--dump-dom', f'http://127.0.0.1:{server.server_port}/index.html'],capture_output=True,timeout=120)
+            report=run_page(target,f'http://127.0.0.1:{server.server_port}/index.html')
         finally:
             server.shutdown()
             server.server_close()
-        html=result.stdout.decode('utf-8',errors='replace')
-        match=re.search(r'<pre id="review-result">(.*?)</pre>',html,re.S)
-        if not match:
-            (ROOT/'tests/browser-error.txt').write_text(html+'\n'+result.stderr.decode('utf-8',errors='replace'),encoding='utf-8')
-            raise RuntimeError('No test result. See tests/browser-error.txt')
-        report=json.loads(unescape(match.group(1)))
+        if '--pixel-only' in sys.argv:
+            (ROOT/'tests/pixelart-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+            print(json.dumps(report,ensure_ascii=False,indent=2))
+            if report['errors'] or any(value!='PASS' for value in report['systems'].values()):raise SystemExit(1)
+            return
         report['execution']={'atUTC':datetime.datetime.now(datetime.timezone.utc).isoformat(),'browser':str(CHROME),'transport':'localhost HTTP','isolatedStorage':True,'instrumented':True,'optionalSkillsDuringTraversal':False,'damageProtectionDuringTraversal':True,'limitations':['Graph search relocates R-07 between proven jump/portal edges; this is not an uninterrupted human playthrough.','Combat is tested separately with damage protection; survival balance still needs manual play.','Minigame solvers use generated answers through real DOM controls.']}
         report['execution']['sourceSha256']=source_hash
         if 'mapBaseline' in report:

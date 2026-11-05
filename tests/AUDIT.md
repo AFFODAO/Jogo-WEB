@@ -1,5 +1,7 @@
 # Revisão após a reformulação — 04/11/2026
 
+> Este documento registra a auditoria anterior à biblioteca de 47 PNGs. A revisão visual posterior e seus testes são descritos em [Pixel art 2D](../docs/pixel-art.md). Os JSONs são atualizados pelas novas execuções e podem conter mais verificações que a contagem histórica abaixo.
+
 A revisão foi executada no Chrome headless no Windows, com servidor em localhost e perfis temporários. O salvamento real do jogador não foi usado. Os resultados abaixo são das execuções posteriores às correções encontradas nesta revisão.
 
 **Resultado:** dez fases verificadas, **77/77 verificações de sistemas aprovadas**, **70/70 cenários de interface aprovados** em sete viewports, teclado/toque pelo protocolo do Chrome e retomada após navegação real aprovados. Zero erros JavaScript nos cenários executados. Isso não equivale a uma partida humana contínua nem a testes em todos os dispositivos.

@@ -2,7 +2,8 @@
 (() => {
   const api=window.ByteRunner;
   api.art = {
-    background(ctx,view,time,index,palette) {
+    background(ctx,view,time,index,palette,visuals) {
+      if(api.pixelArt&&visuals){api.pixelArt.background(ctx,view,time,index,visuals);return;}
       const reduced=api.experience?.settings.reducedEffects;
       const accent=palette[2];
       ctx.save();
@@ -38,6 +39,7 @@
       ctx.restore();
     },
     platform(ctx,visuals,object,time,index,view) {
+      if(api.pixelArt?.platform(ctx,visuals,object,time,index,view))return true;
       if(!['floor','platform'].includes(object.kind) || object.type==='dangerous')return false;
       // Bound work to visible tiles, even on extremely large floor segments.
       const start=Math.max(0,Math.floor((view.x-object.x)/32));
@@ -53,6 +55,7 @@
       ctx.restore();return drawn;
     },
     atmosphere(ctx,view,time,color) {
+      if(api.pixelArt){ctx.save();ctx.fillStyle='#070e20';for(let i=0;i<3;i++){ctx.globalAlpha=.08-i*.02;const border=4+i*5;ctx.fillRect(0,0,view.width,border);ctx.fillRect(0,view.height-border,view.width,border);ctx.fillRect(0,border,border,view.height-border*2);ctx.fillRect(view.width-border,border,border,view.height-border*2);}ctx.restore();return;}
       ctx.save();
       const vignette=ctx.createRadialGradient(view.width/2,view.height*.45,view.width*.2,view.width/2,view.height*.5,view.width*.75);
       vignette.addColorStop(0,'#02041400');vignette.addColorStop(1,'#02041499');ctx.fillStyle=vignette;ctx.fillRect(0,0,view.width,view.height);

@@ -1,14 +1,23 @@
 """Real Chrome viewports, console events, keyboard and touch through CDP."""
 from pathlib import Path
 import base64, datetime, functools, http.server, json, re, shutil, subprocess, tempfile, threading, time
-from chrome_cdp import CDP,page_endpoint,source_fingerprint
+from chrome_cdp import CDP,page_endpoint,source_fingerprint,close_chrome
 ROOT=Path(__file__).resolve().parents[1]
 CHROME='C:/Program Files/Google/Chrome/Application/chrome.exe'
+def write_capture(path,data):
+    # Replace atomically: Windows preview/indexing handles can briefly lock an old PNG.
+    pending=path.with_name(path.stem+'.pending.png')
+    for attempt in range(4):
+        try:
+            pending.write_bytes(data);pending.replace(path);return
+        except OSError:
+            if attempt==3:raise
+            time.sleep(.25*(attempt+1))
 def main():
     report={'atUTC':datetime.datetime.now(datetime.timezone.utc).isoformat(),'viewports':[],'input':{},'consoleErrors':[],'exceptions':[],'networkFailures':[],'failures':[],'captures':[]}
     report['sourceSha256']=source_fingerprint(ROOT)
     destination=ROOT/'tests'/'ui-snapshots';destination.mkdir(exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix='byte-browser-audit-') as folder:
+    with tempfile.TemporaryDirectory(prefix='byte-browser-audit-',ignore_cleanup_errors=True) as folder:
         target=Path(folder)
         for name in ['src','assets']:shutil.copytree(ROOT/name,target/name)
         for name in ['index.html','style.css']:shutil.copy2(ROOT/name,target/name)
@@ -52,7 +61,7 @@ def main():
                     if any(size<100 for size in metrics['descriptionWidths']):report['failures'].append({'unreadableAbilityDescription':entry})
                     if mode=='play' and (metrics['top']<0 or metrics['bottom']>h+1):report['failures'].append({'canvasOutsideViewport':entry})
                     name=f'{w}x{h}-{mode}-phase-{phase+1:02}.png'
-                    (destination/name).write_bytes(base64.b64decode(cdp.call('Page.captureScreenshot',{'format':'png','captureBeyondViewport':False})['data']));report['captures'].append('ui-snapshots/'+name)
+                    write_capture(destination/name,base64.b64decode(cdp.call('Page.captureScreenshot',{'format':'png','captureBeyondViewport':False})['data']));report['captures'].append('ui-snapshots/'+name)
                     unreachable=cdp.evaluate('''(()=>{const panel=document.querySelector('''+json.dumps(panel)+''');const failed=[];for(const e of panel.querySelectorAll('button:not(:disabled),input:not(:disabled),select:not(:disabled)')){if(!e.getClientRects().length||e.hidden)continue;e.scrollIntoView({block:'nearest',inline:'nearest'});const r=e.getBoundingClientRect(),x=Math.max(1,Math.min(innerWidth-1,r.x+r.width/2)),y=Math.max(1,Math.min(innerHeight-1,r.y+r.height/2));const hit=document.elementFromPoint(x,y);if(r.bottom<=0||r.top>=innerHeight||r.right<=0||r.left>=innerWidth||!(e===hit||e.contains(hit)))failed.push(e.id||e.textContent.trim().slice(0,60)||e.tagName);}return failed;})()''')
                     entry['unreachableControls']=unreachable
                     if unreachable:report['failures'].append({'unreachableControls':entry})
@@ -96,12 +105,7 @@ def main():
             if any(p['assetErrors'] for p in report['phaseLoading']):report['failures'].append('Phase image load failure')
             if any(not value['passed'] for value in report['input'].values()):report['failures'].append('Real input failed')
         finally:
-            if cdp:
-                try:cdp.call('Browser.close',timeout=5)
-                except (EOFError,OSError):pass
-                cdp.close()
-            if process.poll() is None:process.terminate()
-            process.wait(timeout=15);server.shutdown();server.server_close()
+            close_chrome(process,cdp);server.shutdown();server.server_close()
     (ROOT/'tests/browser-audit-results.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     print(json.dumps({'viewports':len(report['viewports']),'captures':len(report['captures']),'input':report['input'],'consoleErrors':len(report['consoleErrors']),'exceptions':len(report['exceptions']),'failures':report['failures']},ensure_ascii=False,indent=2))
     if report['failures']:raise SystemExit(1)

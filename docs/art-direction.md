@@ -1,5 +1,7 @@
 # BYTE RUNNER — Midnight Circuit
 
+> Histórico da primeira arte. A biblioteca visual atual é descrita em [Pixel art 2D — PNGs e integração](pixel-art.md); o jogo agora utiliza 47 atlas PNG em vez dos SVGs iniciais.
+
 Arte original feita com retângulos de pixels, sem bibliotecas, fontes remotas ou imagens externas. A interface usa azul noturno, acentos menta e violeta; o mundo combina metal escuro, circuitos luminosos e silhuetas contrastantes. Cada fase recebe um atlas de tiles próprio e preserva os elementos de cenário específicos dos mapas existentes.
 
 ## Recursos

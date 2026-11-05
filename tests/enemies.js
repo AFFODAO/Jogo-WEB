@@ -141,9 +141,9 @@ test('enemies: attack and death visual states render in the real canvas',()=>{
       aimX:player.x+17,aimY:player.y+24,attackDirection:1,animationState:'prepare',action:type==='shooter'?'shot':type==='fast'?'dash':type==='flyer'?'dive':'melee'});
     viruses.push(e);
   });
-  draw();report.snapshots.push({phase:10,position:'enemy-preparations',image:canvas.toDataURL()});
+  draw();report.snapshots.push({phase:10,position:'enemy-preparations',image:captureCanvas()});
   viruses.forEach((e,i)=>{e.attackWindup=0;e.hitFlash=i%2?.1:0;e.vulnerableTime=i%2?0:1;e.animationState='chase';});
-  draw();report.snapshots.push({phase:10,position:'enemy-hit-recovery',image:canvas.toDataURL()});
+  draw();report.snapshots.push({phase:10,position:'enemy-hit-recovery',image:captureCanvas()});
   viruses.forEach(e=>{e.alive=false;e.deathAt=animationTime-.2;});draw();
-  report.snapshots.push({phase:10,position:'enemy-deaths',image:canvas.toDataURL()});
+  report.snapshots.push({phase:10,position:'enemy-deaths',image:captureCanvas()});
 });

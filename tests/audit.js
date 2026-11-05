@@ -111,7 +111,7 @@ test('audit: animated robot and enemy states change pixels over time',()=>{
   const surface=document.createElement('canvas');surface.width=64;surface.height=64;const c=surface.getContext('2d');
   for(const asset of ByteRunner.artAssets.filter(a=>a.id==='r07'||a.id.startsWith('virus-')))for(const state of Object.keys(asset.animations)) {
     const hashes=new Set();
-    for(let frame=0;frame<6;frame++) {
+    for(let frame=0;frame<asset.animations[state].frames.length;frame++) {
       c.clearRect(0,0,64,64);levelVisuals.sprite(c,{asset:asset.id,animation:state},{x:0,y:0,width:64,height:64},frame/asset.animations[state].fps+.00001);
       let hash=2166136261;for(const value of c.getImageData(0,0,64,64).data)hash=Math.imul(hash^value,16777619);hashes.add(hash>>>0);
     }

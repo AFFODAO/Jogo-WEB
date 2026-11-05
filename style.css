@@ -60,7 +60,7 @@ body{background:radial-gradient(ellipse at 30% 0,#232043 0,transparent 55%),#070
 .game-layout{grid-template-columns:210px minmax(400px,1fr) 200px;gap:18px;padding-top:22px}
 .side-panel{background:linear-gradient(155deg,#141d31e8,#0b1224ed);border-color:#2a3650;border-radius:10px;padding:17px 14px;box-shadow:0 16px 40px #0003}
 .panel-label{color:#a7b6ce}.robot-card strong{color:#e7fff7}.robot-card small{color:#9eacc3}
-.hero-robot{background-image:url('assets/sprites/r07.svg');background-size:600% 800%;background-position:0 0;image-rendering:pixelated;background-color:transparent;border:0;box-shadow:none}
+.hero-robot{background-image:url('assets/pixelart/actors/r07.png');background-size:800% 900%;background-position:0 0;image-rendering:pixelated;background-color:transparent;border:0;box-shadow:none}
 .robot-avatar.hero-robot{width:48px;height:48px;flex-shrink:0}
 .meter,.level-meter{height:8px;background:#080e1d;border:1px solid #30415a;border-radius:3px;overflow:hidden}.meter i{background:linear-gradient(90deg,#28a994,#95ffe2)}
 .level-meter i{background:linear-gradient(90deg,#8762eb,#c9acff)}
@@ -118,3 +118,7 @@ button:focus-visible{outline:2px solid #bdadff;outline-offset:4px}.touch-control
   .canvas-wrap{flex:none;height:calc(100dvh - 120px);min-height:180px;max-height:calc(100dvh - 120px)}.stage-footer{height:24px}
   .phase-intro{padding:10px 16px;border-block-width:6px}.phase-intro h2{font-size:22px;margin:4px 0}.phase-intro p,.phase-intro small{font-size:10px;line-height:1.4}.phase-intro button{margin-top:7px;min-height:36px}
 }
+
+/* Portrait pixel sprites keep the same 2:3 ratio in the HUD and title screen. */
+.robot-avatar.hero-robot{width:32px;height:48px}.overlay-emblem.hero-robot{width:64px;height:96px;filter:none}
+@media(max-width:760px){.overlay-emblem.hero-robot{width:48px;height:72px}}

@@ -1,5 +1,5 @@
 """Small standard-library CDP transport for local Chrome audits (no packages)."""
-import base64, hashlib, json, os, socket, struct, time, urllib.parse, urllib.request
+import base64, hashlib, json, os, socket, struct, time, urllib.parse, urllib.request, subprocess
 
 class CDP:
     def __init__(self,url):
@@ -62,6 +62,18 @@ def page_endpoint(port):
 
 def source_fingerprint(root):
     digest=hashlib.sha256()
-    paths=[root/'game.js',root/'index.html',root/'style.css',*root.joinpath('src').rglob('*.js'),*root.joinpath('assets').rglob('*.svg')]
+    paths=[root/'game.js',root/'index.html',root/'style.css',*root.joinpath('src').rglob('*.js'),*root.joinpath('assets').rglob('*.svg'),*root.joinpath('assets').rglob('*.png')]
     for path in sorted(paths):digest.update(path.relative_to(root).as_posix().encode());digest.update(path.read_bytes())
     return digest.hexdigest()
+
+def close_chrome(process,cdp):
+    """Close only this isolated test process tree, including Windows cache holders."""
+    if cdp:
+        try:cdp.close()
+        except OSError:pass
+    if process.poll() is None:
+        if os.name=='nt':
+            subprocess.run(['taskkill','/PID',str(process.pid),'/T','/F'],capture_output=True,timeout=20)
+        else:process.terminate()
+    try:process.wait(timeout=15)
+    except subprocess.TimeoutExpired:process.kill();process.wait(timeout=10)

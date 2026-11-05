@@ -45,7 +45,7 @@
     update(dt){clock+=dt;shakeLife=Math.max(0,shakeLife-dt);for(const items of [floats,rings])for(let i=items.length-1;i>=0;i--){items[i].life-=dt;if(items[i].life<=0)items.splice(i,1);}},
     draw(ctx){ctx.save();ctx.textAlign='center';ctx.font='bold 12px monospace';
       for(const item of floats){ctx.globalAlpha=Math.min(1,item.life*3);ctx.fillStyle='#08121fec';ctx.fillRect(item.x-ctx.measureText(item.text).width/2-5,item.y-14-(1.3-item.life)*18,ctx.measureText(item.text).width+10,20);ctx.fillStyle=item.color;ctx.fillText(item.text,item.x,item.y-(1.3-item.life)*18);}
-      for(const ring of rings){ctx.globalAlpha=ring.life/ring.max;ctx.strokeStyle=ring.color;ctx.lineWidth=ring.strong?2:1;const size=4+(1-ring.life/ring.max)*(settings.reducedEffects?7:ring.strong?30:17);ctx.beginPath();ctx.arc(ring.x,ring.y,size,0,Math.PI*2);ctx.stroke();}
+      for(const ring of rings){ctx.globalAlpha=ring.life/ring.max;const size=4+(1-ring.life/ring.max)*(settings.reducedEffects?7:ring.strong?30:17);if(api.pixelArt)api.pixelArt.ring(ctx,ring.x,ring.y,size,ring.color);else{ctx.strokeStyle=ring.color;ctx.beginPath();ctx.arc(ring.x,ring.y,size,0,Math.PI*2);ctx.stroke();}}
       ctx.restore();
     },
     follow(current,target,dt,speed=7){return current+(target-current)*(1-Math.exp(-speed*dt));},

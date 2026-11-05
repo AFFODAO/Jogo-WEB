@@ -3,7 +3,13 @@ window.requestAnimationFrame = () => 0;
 soundEnabled = false;
 const report = { phases: [], systems: {}, errors: [], snapshots: [] };
 function assert(value, message) { if (!value) throw new Error(message); }
-function test(name, fn) { try { fn(); report.systems[name] = 'PASS'; } catch(e) { report.systems[name] = e.message; } }
+function test(name, fn) { if(name.startsWith('pixel art:'))window.__reviewProgress?.(name);try { fn(); report.systems[name] = 'PASS'; } catch(e) { report.systems[name] = e.message; } }
+function captureCanvas(){
+  const scale=Math.min(1,1600/canvas.width,1000/canvas.height);
+  if(scale===1)return canvas.toDataURL();
+  const snapshot=document.createElement('canvas');snapshot.width=Math.round(canvas.width*scale);snapshot.height=Math.round(canvas.height*scale);
+  const target=snapshot.getContext('2d');target.imageSmoothingEnabled=false;target.drawImage(canvas,0,0,snapshot.width,snapshot.height);return snapshot.toDataURL();
+}
 let traversedPortals=new Set();
 function setup(i) { resetCampaign(); loadPhase(i,true); running=true; paused=false; campaignStarted=true; damageCooldown=99999; keys.clear();traversedPortals=new Set(); }
 function fulfilGoalsForQuestionTest() {
@@ -79,6 +85,7 @@ function reachability() {
   keys.clear(); return [...reached].map(i=>nodes[i]);
 }
 for(let i=0;i<10;i++) {
+  window.__reviewProgress?.('Phase '+(i+1));
   const r={phase:i+1}; report.phases.push(r);
   try {
     setup(i);
@@ -88,12 +95,12 @@ for(let i=0;i<10;i++) {
     if(phaseData.map.ground?.mode==='explicit') {
       const previous={width,height,pixelRatio,cameraX,cameraY,cw:canvas.width,ch:canvas.height};
       width=worldWidth();height=worldHeight();pixelRatio=1;cameraX=0;cameraY=0;canvas.width=width;canvas.height=height;ctx.setTransform(1,0,0,1,0,0);
-      draw();report.snapshots.push({phase:i+1,position:'overview',image:canvas.toDataURL()});
+      draw();report.snapshots.push({phase:i+1,position:'overview',image:captureCanvas()});
       width=previous.width;height=previous.height;pixelRatio=previous.pixelRatio;cameraX=previous.cameraX;cameraY=previous.cameraY;canvas.width=previous.cw;canvas.height=previous.ch;ctx.setTransform(pixelRatio,0,0,pixelRatio,0,0);
     }
     for(const position of [0,.5,1]) {
       cameraX=Math.max(0,worldWidth()-width)*position;cameraY=Math.max(0,worldHeight()-height)*(1-position);draw();
-      report.snapshots.push({phase:i+1,position,image:canvas.toDataURL()});
+      report.snapshots.push({phase:i+1,position,image:captureCanvas()});
     }
     r.render='PASS';
     if(i>=5) {
@@ -281,7 +288,7 @@ test('boss activation, skills and final checkpoint',()=>{
 });
 test('boss visual states',()=>{
   setup(9);const b=viruses.find(v=>v.multiStage);player.x=b.x-180;player.y=bossGroundY(b)-48;cameraX=b.x-width*.55;cameraY=Math.max(0,bossGroundY(b)-height*.78);
-  const snapshot=name=>{draw();report.snapshots.push({phase:10,position:'boss-'+name,image:canvas.toDataURL()});};
+  const snapshot=name=>{draw();report.snapshots.push({phase:10,position:'boss-'+name,image:captureCanvas()});};
   updateVirusZero(b,.01,player.x+17,player.y+24);snapshot('protected');
   components.forEach(c=>c.repaired=true);updateVirusZero(b,.01,player.x+17,player.y+24);
   b.bossAttackKind='charge';b.bossAttackDirection=-1;b.attackWindup=1.05;snapshot('charge');

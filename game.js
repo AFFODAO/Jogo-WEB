@@ -1,6 +1,9 @@
 (() => {
   const canvas = document.getElementById('game');
-  const ctx = canvas.getContext('2d');
+  const displayContext = canvas.getContext('2d');
+  let ctx = displayContext;
+  const pixelScene=document.createElement('canvas');
+  const pixelContext=pixelScene.getContext('2d');
   const overlay = document.getElementById('overlay');
   const startButton = document.getElementById('startButton');
   const continueButton = document.createElement('button');
@@ -259,6 +262,8 @@
   let renderAlpha = 1;
   let landingSpring = 0;
   let shotPose = 0;
+  let abilityPose = 0;
+  let actorAnimationTime = 0;
   let activeSounds = 0;
   let hudTimer = 0;
 
@@ -576,10 +581,8 @@
       ctx.globalAlpha = Math.max(0, particle.life / particle.maxLife);
       ctx.fillStyle = particle.color;
       ctx.shadowColor = particle.color;
-      ctx.shadowBlur = experience.settings.reducedEffects?0:5;
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.shadowBlur = 0;
+      const size=Math.max(1,Math.round(particle.radius));ctx.fillRect(Math.round(particle.x),Math.round(particle.y),size,size);
     }
     ctx.globalAlpha = 1;
     ctx.shadowBlur = 0;
@@ -721,14 +724,13 @@
   }
 
   function loadPhase(index, retry = false) {
-    deathEcho = {x:player.x,y:player.y,start:animationTime};
     player.interferenceTime=0;
     phaseIndex = Math.max(0, Math.min(PHASES.length - 1, index));
     loadMap(PHASES[phaseIndex], retry);
   }
 
   function loadMap(definition, retry = false) {
-    endPhaseIntro();experience.reset();pacing=null;previousRenderPlayer=null;landingSpring=0;shotPose=0;frameAccumulator=0;
+    endPhaseIntro();experience.reset();pacing=null;previousRenderPlayer=null;landingSpring=0;shotPose=0;abilityPose=0;actorAnimationTime=0;frameAccumulator=0;
     document.getElementById('experienceNotice').classList.remove('visible');noticeTime=0;
     levelRuntime?.dispose();
     levelVisuals?.dispose();
@@ -1187,6 +1189,7 @@
     const expectedLevel = skill ? skill.level + 1 : 1;
     if (!ability || targetLevel !== expectedLevel || targetLevel > ability.maxLevel) return;
     ability.apply(targetLevel);
+    abilityPose=.65;
     if (skill) {
       skill.level = targetLevel;
       skill.description = ability.description(targetLevel);
@@ -1254,6 +1257,7 @@
   }
 
   function respawnAtCheckpoint() {
+    deathEcho = {x:player.x,y:player.y,start:animationTime};
     player.interferenceTime=0;
     player.health = player.maxHealth;
     player.x = Math.max(0, Math.min(worldWidth() - player.width, checkpointX + 38));
@@ -1813,6 +1817,7 @@
       } else {
         player.shieldTime = player.shieldDuration;
         player.shieldCooldown = -1;
+        abilityPose=.65;
       }
     }
     if (keys.has('j') && attackCooldown <= 0) fireProjectile();
@@ -1905,6 +1910,8 @@
   }
 
   function update(dt) {
+    // Sprite-only clock keeps the repair tool alive while world physics is frozen.
+    actorAnimationTime+=dt;
     if(phaseIntroTime>0) {
       phaseIntroTime=Math.max(0,phaseIntroTime-dt);if(phaseIntroTime===0)endPhaseIntro();return;
     }
@@ -1923,7 +1930,7 @@
     checkObjectives();
     const follow=experience.camera(player,{x:cameraX,y:cameraY,width,height},{width:worldWidth(),height:worldHeight(),axes:phaseData.map.camera.axes,offsetX:phaseData.map.camera.followOffsetX,offsetY:phaseData.map.camera.followOffsetY},dt);
     cameraX=follow.x;cameraY=follow.y;
-    landingSpring=Math.max(0,landingSpring-dt);shotPose=Math.max(0,shotPose-dt);
+    landingSpring=Math.max(0,landingSpring-dt);shotPose=Math.max(0,shotPose-dt);abilityPose=Math.max(0,abilityPose-dt);
     experience.update(dt);pacing?.update(dt);
     noticeTime=Math.max(0,noticeTime-dt);if(noticeTime===0)document.getElementById('experienceNotice').classList.remove('visible');
     hudTimer+=dt;if(hudTimer>=.05){hudTimer=0;updateHud();}
@@ -1982,7 +1989,7 @@
     gradient.addColorStop(1, phaseData.palette[0]);
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
-    ByteRunner.art.background(ctx,{x:cameraX,y:cameraY,width,height},animationTime,phaseIndex,phaseData.palette);
+    ByteRunner.art.background(ctx,{x:cameraX,y:cameraY,width,height},animationTime,phaseIndex,phaseData.palette,levelVisuals);
     if (phaseData.presentation?.procedural === false) return;
 
     // Distant circuit paths move slower than the level for a subtle parallax effect.
@@ -2370,7 +2377,10 @@
     for (const virus of viruses) {
       ByteRunner.enemies.draw(ctx,virus,animationTime,components);
       if (!virus.alive) {
-        if(Number.isFinite(virus.deathAt) && animationTime-virus.deathAt<.6)levelVisuals.sprite(ctx,{asset:'fx',animation:'explosion',instance:'burst-'+virus.id},{x:virus.x-32,y:virus.y-32,width:64,height:64},animationTime);
+        if(Number.isFinite(virus.deathAt) && animationTime-virus.deathAt<.75){
+          const size=virus.type==='boss'?64:32,asset='virus-'+(virus.variant || virus.type);
+          levelVisuals.sprite(ctx,{asset,animation:'death',instance:'death-'+virus.id},{x:Math.round(virus.x-size/2),y:Math.round(virus.y-size/2),width:size,height:size},animationTime);
+        }
         continue;
       }
       const x = virus.x;
@@ -2384,7 +2394,8 @@
       const flyer = virus.type === 'flyer';
       const shooter = virus.type === 'shooter';
       const parasite = virus.type === 'parasite';
-      const spriteDrawn = levelVisuals.sprite(ctx,virus.visual || {asset:"virus-"+virus.type,flipX:virus.direction<0},{id:virus.id,x:x-virus.radius,y:virus.y-virus.radius,width:virus.radius*2,height:virus.radius*2},animationTime,virus.hitFlash>0?'hit':virus.vulnerableTime>0?'vulnerable':virus.attackWindup>0?'prepare':virus.attackFlash>0?'attack':virus.type==='boss'?'stage'+(virus.bossStage || 1):virus.animationState||'idle');
+      const spriteSize=boss?64:32;
+      const spriteDrawn = levelVisuals.sprite(ctx,virus.visual || {asset:'virus-'+(virus.variant || virus.type),flipX:virus.direction<0},{id:virus.id,x:Math.round(x-spriteSize/2),y:Math.round(virus.y-spriteSize/2),width:spriteSize,height:spriteSize},animationTime,virus.hitFlash>0?'hit':virus.vulnerableTime>0?'vulnerable':virus.attackWindup>0?'prepare':virus.attackFlash>0?'attack':virus.type==='boss'?'stage'+(virus.bossStage || 1):virus.animationState||'idle');
       if (!spriteDrawn) {
       ctx.save();
       ctx.translate(x, virus.y);
@@ -2617,22 +2628,20 @@
   function drawRobot() {
     if (!player) return;
     if(deathEcho && animationTime-deathEcho.start<.7) {
-      levelVisuals.sprite(ctx,{asset:'r07',animation:'death',instance:'death-echo'}, {x:deathEcho.x-8,y:deathEcho.y,width:player.width+16,height:player.height},animationTime);
+      levelVisuals.sprite(ctx,{asset:'r07',animation:'death',instance:'death-echo-'+deathEcho.start}, {x:Math.round(deathEcho.x+1),y:Math.round(deathEcho.y),width:32,height:48},actorAnimationTime);
     }
-    const state=damageCooldown>.7?'hit':repairTarget?'repair':shotPose>0?'attack':!player.grounded?(player.vy<0?'jump':'fall'):Math.abs(player.vx)>1?'run':'idle';
+    const state=repairTarget?'repair':damageCooldown>.7?'hit':abilityPose>0?'ability':shotPose>0?'attack':!player.grounded?(player.vy<0?'jump':'fall'):Math.abs(player.vx)>1?'run':'idle';
     ctx.save();
     if(damageCooldown>0 && Math.floor(animationTime*16)%2===0)ctx.globalAlpha=.45;
     const interpolate=previousRenderPlayer && !repairSession && phaseIntroTime===0 && Math.hypot(previousRenderPlayer.x-player.x,previousRenderPlayer.y-player.y)<50;
     const px=interpolate?previousRenderPlayer.x+(player.x-previousRenderPlayer.x)*renderAlpha:player.x;
     const py=interpolate?previousRenderPlayer.y+(player.y-previousRenderPlayer.y)*renderAlpha:player.y;
-    const stretch=experience.settings.reducedEffects?1:player.grounded?1-landingSpring*.7:player.vy<0?1.035:.985;
-    const bodyHeight=(player.height+2)*stretch,bodyWidth=(player.width+14)/stretch;
     const recoil=experience.settings.reducedEffects?0:shotPose>.12?-player.facing*2:0;
-    const rendered=levelVisuals.sprite(ctx,{asset:'r07',...phaseData.playerVisual,instance:'player',subpixel:true,flipX:player.facing<0}, {x:px+player.width/2-bodyWidth/2+recoil,y:py+player.height-bodyHeight,width:bodyWidth,height:bodyHeight},animationTime,state);
+    const rendered=levelVisuals.sprite(ctx,{asset:'r07',...phaseData.playerVisual,instance:'player',flipX:player.facing<0}, {x:Math.round(px+1+recoil),y:Math.round(py),width:32,height:48},actorAnimationTime,state);
     ctx.restore();
     if(rendered) {
       if(player.shieldTime>0)levelVisuals.sprite(ctx,{asset:'fx',animation:'shield'}, {x:player.x-14,y:player.y-10,width:player.width+28,height:player.height+20},animationTime);
-      if(repairTarget)levelVisuals.sprite(ctx,{asset:'fx',animation:'repair'}, {x:player.x+player.facing*20,y:player.y+8,width:32,height:32},animationTime);
+      if(repairTarget)levelVisuals.sprite(ctx,{asset:'fx',animation:'repair'}, {x:player.x+player.facing*20,y:player.y+8,width:32,height:32},actorAnimationTime);
       return;
     }
     if (!player) return;
@@ -2736,6 +2745,9 @@
   function draw() {
     const activeBoss=viruses.find(v=>v.multiStage&&v.alive&&player.x+17>=v.bossBounds.left-120&&(!v.activationRegion || (player.y+24>=v.activationRegion.y && player.y+24<=v.activationRegion.y+v.activationRegion.height)));
     experience.audio(audioContext,phaseIndex,soundEnabled&&running&&!repairSession?.blocksWorld&&!document.getElementById('settingsDialog').open,activeBoss?.bossStage || 0);
+    const outputContext=ctx;
+    if(pixelScene.width!==Math.ceil(width)||pixelScene.height!==Math.ceil(height)){pixelScene.width=Math.ceil(width);pixelScene.height=Math.ceil(height);}
+    ctx=pixelContext;ctx.setTransform(1,0,0,1,0,0);ctx.imageSmoothingEnabled=false;
     const shake=experience.offset();
     ctx.save();ctx.translate(shake.x,shake.y);
     drawBackground();
@@ -2783,6 +2795,7 @@
     levelVisuals.layers(ctx,'foreground',view,animationTime);
     ByteRunner.art.atmosphere(ctx,view,animationTime,phaseData.palette[2]);
     ctx.restore();
+    ctx=outputContext;ctx.imageSmoothingEnabled=false;ctx.save();ctx.drawImage(pixelScene,0,0,width,height);ctx.restore();
     if(animationTime<.65 && phaseIntroTime===0) {ctx.fillStyle='rgba(7,11,29,'+(.7*(1-animationTime/.65))+')';ctx.fillRect(0,0,width,height);}
     const environment=levelRuntime.modifiers();
     if (environment.label) {ctx.fillStyle='#d5c5ff';ctx.font='bold 11px monospace';ctx.fillText(environment.label,12,height-28);}

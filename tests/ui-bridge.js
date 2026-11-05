@@ -6,7 +6,7 @@ window.__auditUI={
     running=false;window.requestAnimationFrame=()=>0;
     if(document.getElementById('settingsDialog').open)document.getElementById('settingsDialog').close();
     soundEnabled=false;resetCampaign();loadPhase(index,true);paused=false;campaignStarted=true;running=true;xpRequired=999999;
-    overlay.classList.add('hidden');document.querySelector('.game-shell').classList.add('playing');draw();
+    overlay.classList.add('hidden');document.querySelector('.game-shell').classList.add('playing');animationTime=1;actorAnimationTime=1;updateHud();draw();
   },
   show(mode,phase=0){
     this.reset(phase);

@@ -53,9 +53,10 @@
       }
     };
   });
-  api.visuals.registerLayer('computer-world',(ctx,layer,view,time)=>{
+  api.visuals.registerLayer('computer-world',(ctx,layer,view,time,visuals)=>{
     for(const item of layer.items) {
       if(!visible(item,view)||(item.requires&&!view.runtime.matches(item.requires)))continue;
+      if(api.pixelArt?.feature(ctx,item,view,time,visuals,Math.max(0,['hardware','software','switch','router','wifi'].indexOf(layer.theme))))continue;
       const {x,y,width:w,height:h,kind,label}=item;
       ctx.save();ctx.lineWidth=2;ctx.font='bold 13px monospace';ctx.fillStyle='#112f3a';ctx.strokeStyle='#69b7b5';
       if(kind==='board') {

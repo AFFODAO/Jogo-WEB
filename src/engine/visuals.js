@@ -2,6 +2,7 @@
   'use strict';
   const api = window.ByteRunner;
   const renderers = new Map();
+  const sharedImages=new Map();
   api.visuals = Object.freeze({
     registerLayer(type, renderer) {
       if (renderers.has(type)) throw new Error('Duplicate layer renderer: '+type);
@@ -13,14 +14,16 @@
       const clocks = new Map();
       let disposed = false;
       const errors = [];
-      const ready = Promise.all([...assets.values()].map(asset => new Promise(resolve => {
-        const img = new Image();
-        img.onload = () => { if (!disposed) images.set(asset.id,img); resolve(); };
-        img.onerror = () => { errors.push(asset.id); resolve(); };
-        img.src = asset.src;
-      })));
+      const ready = Promise.all([...assets.values()].map(async asset => {
+        if(!sharedImages.has(asset.src))sharedImages.set(asset.src,new Promise(resolve=>{
+          const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>resolve(null);img.src=asset.src;
+        }));
+        const img=await sharedImages.get(asset.src);
+        if(!img)errors.push(asset.id);else if(!disposed)images.set(asset.id,img);
+      }));
       const service = {
         ready, errors,
+        source(id){return images.get(id) || null;},
         // Canvas/ImageBitmap sources also allow generated assets and deterministic tests.
         add(id, source, definition = {}) { assets.set(id,{id,...definition}); images.set(id,source); },
         sprite(ctx, visual, box, time, state = 'idle') {
@@ -37,13 +40,13 @@
             elapsed=time-clock.start;
           }
           const cursor = Math.floor(elapsed*(animation?.fps || 1));
-          const frame = frames[animation?.loop === false ? Math.min(frames.length-1,cursor) : cursor%frames.length];
+          const frame = visual.frame ?? frames[animation?.loop === false ? Math.min(frames.length-1,cursor) : cursor%frames.length];
           const fw=asset.frameWidth || image.width, fh=asset.frameHeight || image.height;
           const columns=asset.columns || Math.max(1,Math.floor(image.width/fw));
           ctx.save();
           ctx.translate(visual.subpixel?box.x+(visual.offsetX || 0):Math.round(box.x+(visual.offsetX || 0)),visual.subpixel?box.y+(visual.offsetY || 0):Math.round(box.y+(visual.offsetY || 0)));
           if (visual.flipX) {ctx.translate(box.width,0);ctx.scale(-1,1);}
-          ctx.imageSmoothingEnabled=visual.smoothing === true;
+          ctx.imageSmoothingEnabled=false;
           ctx.drawImage(image,(frame%columns)*fw,Math.floor(frame/columns)*fh,fw,fh,0,0,box.width,box.height);
           ctx.restore();
           return true;

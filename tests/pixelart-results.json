@@ -1,0 +1,15 @@
+{
+  "phases": [],
+  "systems": {
+    "pixel art: native PNG dimensions, opaque palette pixels and complete robot actions": "PASS",
+    "pixel art: tilesets differ structurally after removing palette colors": "PASS",
+    "pixel art: activating a real ability and respawning select the new animation rows": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 2": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 3": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 5": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 8": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 9": "PASS"
+  },
+  "errors": [],
+  "snapshots": []
+}
