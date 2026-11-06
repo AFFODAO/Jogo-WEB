@@ -1,0 +1,565 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / servers / phase-10-review-alpha": "PASS",
+    "final audit: campaign / servers / phase-10-review-beta": "PASS",
+    "final audit: campaign / servers / phase-10-review-gamma": "PASS",
+    "final audit: procedural / servers / phase-10-review-alpha": "platform access not proven: r5:required-step,r9:required-step,r10:required-step",
+    "final audit: procedural / servers / phase-10-review-beta": "platform access not proven: r8:required-step",
+    "final audit: procedural / servers / phase-10-review-gamma": "platform access not proven: r10:required-step,r11:required-step",
+    "final audit: compare structures and identity / servers": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-10-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 39,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 43,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 46,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 48,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03",
+            "world:c04"
+          ],
+          "surfaces": 63,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 15.199999999254942,
+      "signature": "95086459",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 4,
+      "checkpoints": 5,
+      "surfaces": 63
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-10-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 39,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 43,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 46,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 48,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03",
+            "world:c04"
+          ],
+          "surfaces": 63,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 7.800000000745058,
+      "signature": "ba71628c",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 4,
+      "checkpoints": 5,
+      "surfaces": 63
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-10-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 39,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 43,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 46,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 48,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03",
+            "world:c04"
+          ],
+          "surfaces": 63,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 17.799999997019768,
+      "signature": "4c32f537",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 4,
+      "checkpoints": 5,
+      "surfaces": 63
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-10-review-alpha",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 116,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 116,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 62.399999998509884,
+      "signature": "430cc91f",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r5:required-step",
+        "r9:required-step",
+        "r10:required-step"
+      ],
+      "error": "Error: platform access not proven: r5:required-step,r9:required-step,r10:required-step\n    at assert (http://127.0.0.1:47750/game.js:14728:53)\n    at http://127.0.0.1:47750/game.js:14885:42\n    at test (http://127.0.0.1:47750/game.js:14729:98)\n    at http://127.0.0.1:47750/game.js:14832:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-10-review-beta",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 119,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r5:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 119,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r5:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 119,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 39.69999999925494,
+      "signature": "2bd5aef8",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r8:required-step"
+      ],
+      "error": "Error: platform access not proven: r8:required-step\n    at assert (http://127.0.0.1:47750/game.js:14728:53)\n    at http://127.0.0.1:47750/game.js:14885:42\n    at test (http://127.0.0.1:47750/game.js:14729:98)\n    at http://127.0.0.1:47750/game.js:14832:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-10-review-gamma",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r5:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 121,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r5:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 123,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 40.399999998509884,
+      "signature": "87ad282a",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r10:required-step",
+        "r11:required-step"
+      ],
+      "error": "Error: platform access not proven: r10:required-step,r11:required-step\n    at assert (http://127.0.0.1:47750/game.js:14728:53)\n    at http://127.0.0.1:47750/game.js:14885:42\n    at test (http://127.0.0.1:47750/game.js:14729:98)\n    at http://127.0.0.1:47750/game.js:14832:3"
+    }
+  ],
+  "phase": 10,
+  "theme": "servers",
+  "seeds": [
+    "phase-10-review-alpha",
+    "phase-10-review-beta",
+    "phase-10-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "445318d0cf858388660a2a10f549397317dd847fd597175f34e371dd4ffff53c",
+    "atUTC": "2026-11-05T23:56:56.436862+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

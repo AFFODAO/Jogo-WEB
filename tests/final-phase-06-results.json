@@ -1,0 +1,501 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / cabling / phase-06-review-alpha": "PASS",
+    "final audit: campaign / cabling / phase-06-review-beta": "PASS",
+    "final audit: campaign / cabling / phase-06-review-gamma": "PASS",
+    "final audit: procedural / cabling / phase-06-review-alpha": "PASS",
+    "final audit: procedural / cabling / phase-06-review-beta": "PASS",
+    "final audit: procedural / cabling / phase-06-review-gamma": "PASS",
+    "final audit: compare structures and identity / cabling": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-06-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 25,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 29,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 41,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 52,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 10,
+      "signature": "713c8f78",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 4,
+      "surfaces": 52
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-06-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 25,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 29,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 41,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 52,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 5.199999999254942,
+      "signature": "84672a7d",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 4,
+      "surfaces": 52
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-06-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 25,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 29,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 41,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 52,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 5.900000002235174,
+      "signature": "a26d67a3",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 4,
+      "surfaces": 52
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-06-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 121,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 52.29999999701977,
+      "signature": "0337f1ab",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 122
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-06-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 128,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 39.600000001490116,
+      "signature": "66a5cf3d",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 128
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-06-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 129,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 129,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 129,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 130,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 42.79999999701977,
+      "signature": "9d61fd2e",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 130
+    }
+  ],
+  "phase": 6,
+  "theme": "cabling",
+  "seeds": [
+    "phase-06-review-alpha",
+    "phase-06-review-beta",
+    "phase-06-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+    "atUTC": "2026-11-06T00:29:32.728832+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

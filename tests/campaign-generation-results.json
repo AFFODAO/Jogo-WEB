@@ -1,0 +1,10 @@
+{
+  "phases": [],
+  "systems": {
+    "hybrid campaign: ten independent recipes reproduce without shared source state": "PASS",
+    "hybrid campaign: architectures carry different traversal mechanics": "PASS",
+    "hybrid campaign: transmission elevator carries R-07 with base attributes": "PASS"
+  },
+  "errors": [],
+  "snapshots": []
+}

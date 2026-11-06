@@ -39,9 +39,9 @@ def cabling():
         ('roof-duct',[(1080,900),(1260,800),(1080,700),(1260,600),(1080,500)])]:
         p.extend(platform(f'{prefix}-{i}',x,y,170,'cable') for i,(x,y) in enumerate(coords,1))
     p.extend([
-        platform('reconnected-tray-a',620,2200,360,'cable',requiresComponentId='c01'),
-        platform('reconnected-tray-b',620,1600,360,'cable',requiresComponentId='c02'),
-        platform('reconnected-tray-c',620,1000,360,'cable',requiresComponentId='c03'),
+        platform('reconnected-tray-a',620,2200,144,'cable',requiresComponentId='c01'),
+        platform('reconnected-tray-b',620,1600,144,'cable',requiresComponentId='c02'),
+        platform('reconnected-tray-c',620,1000,144,'cable',requiresComponentId='c03'),
         platform('lift-dock-a',560,2500,140,'cable',requiresComponentId='c01'),
         platform('lift-dock-b',920,1900,100,'cable',requiresComponentId='c02'),
         platform('lift-dock-c',920,700,100,'cable',requiresComponentId='c03'),
@@ -49,7 +49,10 @@ def cabling():
         platform('elevator-b',720,1900,160,'cable',requiresComponentId='c02'),
         platform('elevator-c',720,700,160,'cable',requiresComponentId='c03'),
         platform('basement-cache',1310,2710,150,'cable'),platform('floor1-cache',120,2110,160,'cable'),
-        platform('floor2-cache',1340,1510,150,'cable'),platform('roof-cache',180,310,160,'cable')])
+        platform('floor2-cache',1340,1510,150,'cable'),platform('roof-cache',180,310,160,'cable'),
+        platform('reconnected-tray-a-return',836,2200,144,'cable',requiresComponentId='c01'),
+        platform('reconnected-tray-b-return',836,1600,144,'cable',requiresComponentId='c02'),
+        platform('reconnected-tray-c-return',836,1000,144,'cable',requiresComponentId='c03')])
     for id,rng in [('elevator-a',210),('elevator-b',200),('elevator-c',200)]:
         next(s for s in p if s['id']==id).update(type='moving',motion=dict(axis='y',range=rng,speed=.45))
     m['entities']['components']=[component('c01',300,2200,'QUADRO DO SHAFT A'),component('c02',1160,1600,'PATCH PANEL B'),component('c03',330,1000,'DISTRIBUIDOR DO TOPO')]
@@ -209,7 +212,7 @@ def servers():
 def main():
     for m in [cabling(),dhcp(),dns(),security(),servers()]:
         path=ROOT/'src/maps'/f'{int(m["id"][-2:]):02}-{m["theme"]}.js'
-        path.write_text('// Rebuilt layout, revision 2. Authored by tools/build_last_five.py.\nByteRunner.maps.register('+json.dumps(m,ensure_ascii=False,indent=2)+');\n',encoding='utf-8')
+        path.write_text('// Rebuilt layout, revision 2. Authored by tools/build_last_five.py.\nByteRunner.maps.register(ByteRunner.campaignGeneration.build('+json.dumps(m,ensure_ascii=False,indent=2)+'));\n',encoding='utf-8')
         print(f'{m["id"]}: {m["map"]["width"]} x {m["map"]["height"]}, {m["map"]["layout"]}')
 
 if __name__=='__main__':main()

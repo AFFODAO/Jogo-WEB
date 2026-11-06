@@ -17,6 +17,7 @@
       ctx.save();ctx.translate(Math.round(box.x),Math.round(box.y));ctx.fillStyle=entry.pattern;ctx.fillRect(0,0,box.width,box.height);ctx.restore();return true;
     },
     platform(ctx,visuals,o,time,index,view){
+      if(api.environmentArt?.platform(ctx,visuals,o,time,index,view))return true;
       const id='tiles-'+String(index+1).padStart(2,'0');if(!visuals.source(id))return false;
       if(!['floor','platform','gate','obstacle'].includes(o.kind))return false;
       const x=Math.max(o.x,view.x-32),y=Math.max(o.y,view.y-32),right=Math.min(o.x+o.w,view.x+view.width+32),bottom=Math.min(o.y+o.h,view.y+view.height+32);
@@ -34,6 +35,7 @@
       return true;
     },
     feature(ctx,item,view,time,visuals,index){
+      if(api.environmentArt?.feature(ctx,item,view,time,visuals,index))return true;
       const {x,y,width:w,height:h,kind,label}=item,id='decor-'+String(index+1).padStart(2,'0'),tiles='tiles-'+String(index+1).padStart(2,'0');
       if(!visuals.source(id))return false;
       ctx.save();ctx.beginPath();ctx.rect(x,y,w,h);ctx.clip();
@@ -59,6 +61,7 @@
       return true;
     },
     background(ctx,view,time,index,visuals){
+      if(api.environmentArt?.background(ctx,view,time,index,visuals))return;
       const bands=['#0b1223','#0d192b','#102432','#162d3a'];for(let i=0;i<4;i++){ctx.fillStyle=bands[i];ctx.fillRect(0,Math.floor(view.height*i/4),view.width,Math.ceil(view.height/4));}
       const id='sky-'+String(index+1).padStart(2,'0');
       for(let depth=0;depth<(api.experience?.settings.reducedEffects?1:3);depth++){

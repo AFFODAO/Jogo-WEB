@@ -1,0 +1,555 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / software / phase-02-review-alpha": "PASS",
+    "final audit: campaign / software / phase-02-review-beta": "PASS",
+    "final audit: campaign / software / phase-02-review-gamma": "PASS",
+    "final audit: procedural / software / phase-02-review-alpha": "PASS",
+    "final audit: procedural / software / phase-02-review-beta": "PASS",
+    "final audit: procedural / software / phase-02-review-gamma": "PASS",
+    "final audit: compare structures and identity / software": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-02-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 10,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": false
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:files-to-process",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 18,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:process-to-files",
+            "world:files-to-process",
+            "world:desktop-to-scheduler",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 17,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:process-to-files",
+            "world:files-to-process",
+            "world:desktop-to-scheduler",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 18,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:process-to-files",
+            "world:files-to-process",
+            "world:desktop-to-scheduler",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 4.699999999254942,
+      "signature": "3761577e",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 3,
+      "surfaces": 18
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-02-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 10,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": false
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:files-to-process",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 18,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:process-to-files",
+            "world:files-to-process",
+            "world:desktop-to-scheduler",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 17,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:process-to-files",
+            "world:files-to-process",
+            "world:desktop-to-scheduler",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 18,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:process-to-files",
+            "world:files-to-process",
+            "world:desktop-to-scheduler",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 4.300000000745058,
+      "signature": "fbc2ce58",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 3,
+      "surfaces": 18
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-02-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 10,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": false
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:files-to-process",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 18,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:process-to-files",
+            "world:files-to-process",
+            "world:desktop-to-scheduler",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 17,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:process-to-files",
+            "world:files-to-process",
+            "world:desktop-to-scheduler",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 18,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:desktop-to-process",
+            "world:process-to-desktop",
+            "world:process-to-files",
+            "world:files-to-process",
+            "world:desktop-to-scheduler",
+            "world:scheduler-to-desktop",
+            "world:scheduler-to-files",
+            "world:files-to-scheduler"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 6.100000001490116,
+      "signature": "90e3e980",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 3,
+      "surfaces": 18
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 128,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 51.69999999925494,
+      "signature": "e27b0b3c",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 128
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 51.100000001490116,
+      "signature": "7016a7e9",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 118
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 124,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 124,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 125,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 49.100000001490116,
+      "signature": "fc960dbe",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 125
+    }
+  ],
+  "phase": 2,
+  "theme": "software",
+  "seeds": [
+    "phase-02-review-alpha",
+    "phase-02-review-beta",
+    "phase-02-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+    "atUTC": "2026-11-06T00:26:52.352198+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

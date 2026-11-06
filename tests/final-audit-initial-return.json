@@ -1,0 +1,11 @@
+{
+  "kind": "summary of failures observed in actual browser runs; full case files were subsequently replaced by final reruns",
+  "sourceSha256": "43ee9c0c8e4957236993ec503c3740c4e8cf68fe727d6c516bf266da1d1a0da9",
+  "failures": [
+    {"seed": "phase-05-review-alpha", "scope": "procedural", "result": "repair traps player away from start r4:relay"},
+    {"seed": "phase-08-review-alpha", "scope": "procedural", "result": "repair traps player away from start r4:relay"}
+  ],
+  "cause": "Upper ledge at local x=160 and west lintel ending at x=144 left a 16-pixel return chute, narrower than the 34-pixel robot.",
+  "fix": "First upper ledge moves to x=192, leaving 48 pixels. Dedicated return tests cover west door and tunnel variants.",
+  "harnessCorrection": "An earlier DNS beta failure (unreachable repair r5:relay) was a false negative: the traversal search omitted same-height walking between contiguous supports under a low ceiling. It passed after the search added that real movement mode, without changing game physics."
+}

@@ -1,0 +1,509 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / wifi / phase-05-review-alpha": "embedded elements: world:e02",
+    "final audit: campaign / wifi / phase-05-review-beta": "embedded elements: world:e02",
+    "final audit: campaign / wifi / phase-05-review-gamma": "embedded elements: world:e02",
+    "final audit: procedural / wifi / phase-05-review-alpha": "platform access not proven: r7:required-step,r8:required-step,r9:required-step",
+    "final audit: procedural / wifi / phase-05-review-beta": "PASS",
+    "final audit: procedural / wifi / phase-05-review-gamma": "platform access not proven: r5:required-step,r9:required-step",
+    "final audit: compare structures and identity / wifi": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-05-review-alpha",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 27,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 28,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 34,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 34,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 4.899999998509884,
+      "signature": "6441ac7a",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [
+        "world:e02"
+      ],
+      "error": "Error: embedded elements: world:e02\n    at assert (http://127.0.0.1:47228/game.js:14728:53)\n    at http://127.0.0.1:47228/game.js:14890:29\n    at test (http://127.0.0.1:47228/game.js:14729:98)\n    at http://127.0.0.1:47228/game.js:14832:3\n    at http://127.0.0.1:47228/game.js:14914:3\n    at http://127.0.0.1:47228/game.js:14915:3"
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-05-review-beta",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 27,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 28,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 34,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 34,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 4.800000000745058,
+      "signature": "5cf3abcc",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [
+        "world:e02"
+      ],
+      "error": "Error: embedded elements: world:e02\n    at assert (http://127.0.0.1:47228/game.js:14728:53)\n    at http://127.0.0.1:47228/game.js:14890:29\n    at test (http://127.0.0.1:47228/game.js:14729:98)\n    at http://127.0.0.1:47228/game.js:14832:3"
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-05-review-gamma",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 27,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 28,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 34,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 34,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 3.7999999970197678,
+      "signature": "4b711b2c",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [
+        "world:e02"
+      ],
+      "error": "Error: embedded elements: world:e02\n    at assert (http://127.0.0.1:47228/game.js:14728:53)\n    at http://127.0.0.1:47228/game.js:14890:29\n    at test (http://127.0.0.1:47228/game.js:14729:98)\n    at http://127.0.0.1:47228/game.js:14832:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-05-review-alpha",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 119,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 119,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 53.400000002235174,
+      "signature": "aba08d24",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r7:required-step",
+        "r8:required-step",
+        "r9:required-step"
+      ],
+      "error": "Error: platform access not proven: r7:required-step,r8:required-step,r9:required-step\n    at assert (http://127.0.0.1:47228/game.js:14728:53)\n    at http://127.0.0.1:47228/game.js:14885:42\n    at test (http://127.0.0.1:47228/game.js:14729:98)\n    at http://127.0.0.1:47228/game.js:14832:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-05-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 52.69999999925494,
+      "signature": "a076b429",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 118
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-05-review-gamma",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 113,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r10:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 113,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r10:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r10:relay"
+          ],
+          "surfaces": 113,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r10:relay",
+            "r11:relay"
+          ],
+          "surfaces": 113,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r10:relay",
+            "r11:relay"
+          ],
+          "surfaces": 114,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 33.5,
+      "signature": "bafa2027",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r5:required-step",
+        "r9:required-step"
+      ],
+      "error": "Error: platform access not proven: r5:required-step,r9:required-step\n    at assert (http://127.0.0.1:47228/game.js:14728:53)\n    at http://127.0.0.1:47228/game.js:14885:42\n    at test (http://127.0.0.1:47228/game.js:14729:98)\n    at http://127.0.0.1:47228/game.js:14832:3"
+    }
+  ],
+  "phase": 5,
+  "theme": "wifi",
+  "seeds": [
+    "phase-05-review-alpha",
+    "phase-05-review-beta",
+    "phase-05-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "445318d0cf858388660a2a10f549397317dd847fd597175f34e371dd4ffff53c",
+    "atUTC": "2026-11-05T23:54:35.455816+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

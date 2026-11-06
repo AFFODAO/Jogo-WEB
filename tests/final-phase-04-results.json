@@ -1,0 +1,535 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / router / phase-04-review-alpha": "PASS",
+    "final audit: campaign / router / phase-04-review-beta": "PASS",
+    "final audit: campaign / router / phase-04-review-gamma": "PASS",
+    "final audit: procedural / router / phase-04-review-alpha": "PASS",
+    "final audit: procedural / router / phase-04-review-beta": "PASS",
+    "final audit: procedural / router / phase-04-review-gamma": "PASS",
+    "final audit: compare structures and identity / router": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-04-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 20,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:lan-return",
+            "world:wan-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 18,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:lan-interface",
+            "world:lan-return",
+            "world:wan-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 26,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:lan-interface",
+            "world:lan-return",
+            "world:wan-interface",
+            "world:wan-return",
+            "world:route-backup"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 24,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:lan-interface",
+            "world:lan-return",
+            "world:wan-interface",
+            "world:wan-return",
+            "world:route-backup"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 4,
+      "signature": "bd8054ee",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 3,
+      "surfaces": 24
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-04-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 20,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:lan-return",
+            "world:wan-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 18,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:lan-interface",
+            "world:lan-return",
+            "world:wan-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 26,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:lan-interface",
+            "world:lan-return",
+            "world:wan-interface",
+            "world:wan-return",
+            "world:route-backup"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 24,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:lan-interface",
+            "world:lan-return",
+            "world:wan-interface",
+            "world:wan-return",
+            "world:route-backup"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 3.699999999254942,
+      "signature": "3586dd69",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 3,
+      "surfaces": 24
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-04-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 20,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:lan-return",
+            "world:wan-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 18,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:lan-interface",
+            "world:lan-return",
+            "world:wan-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 26,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:lan-interface",
+            "world:lan-return",
+            "world:wan-interface",
+            "world:wan-return",
+            "world:route-backup"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 24,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:lan-interface",
+            "world:lan-return",
+            "world:wan-interface",
+            "world:wan-return",
+            "world:route-backup"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 3.900000002235174,
+      "signature": "585997a5",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 3,
+      "surfaces": 24
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-04-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 123,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 56.399999998509884,
+      "signature": "d69cbf89",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 123
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-04-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 128,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 39.400000002235174,
+      "signature": "b53861c3",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 128
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-04-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 114,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 114,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 114,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 115,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 33.69999999925494,
+      "signature": "a1edb3b1",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 115
+    }
+  ],
+  "phase": 4,
+  "theme": "router",
+  "seeds": [
+    "phase-04-review-alpha",
+    "phase-04-review-beta",
+    "phase-04-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+    "atUTC": "2026-11-06T00:28:31.118948+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "phases": [],
+  "systems": {
+    "final regression: narrow-tunnel head clearance / corridor": "PASS",
+    "final regression: narrow-tunnel head clearance / door": "PASS",
+    "final regression: narrow-tunnel head clearance / tunnel": "PASS",
+    "final regression: narrow-tunnel head clearance / bridge": "PASS",
+    "final regression: dependency validator honors runtime condition precedence": "validator falsely certifies circular all/not condition",
+    "final regression: encounter validator recomputes actual entity cost": "stale budget metadata hides excess enemy cost",
+    "final regression: respawn cannot depend on an undiscovered secret platform": "conditional platform incorrectly certified as permanent respawn support"
+  },
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "6c5637f93a1fd88023ecdbded9d64e0111facccdc8786dd6186847792df5faf9",
+    "atUTC": "2026-11-05T23:49:51.794194+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -1,0 +1,660 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / dns / phase-08-review-alpha": "PASS",
+    "final audit: campaign / dns / phase-08-review-beta": "PASS",
+    "final audit: campaign / dns / phase-08-review-gamma": "PASS",
+    "final audit: procedural / dns / phase-08-review-alpha": "platform access not proven: r9:required-step",
+    "final audit: procedural / dns / phase-08-review-beta": "unreachable repair: r5:relay",
+    "final audit: procedural / dns / phase-08-review-gamma": "platform access not proven: r5:required-step,r7:required-step,r8:required-step,r10:required-step,r11:required-step",
+    "final audit: compare structures and identity / dns": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-08-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 50,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 47,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:cname-com-org",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 44,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:cname-com-org",
+            "world:api-cache",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 44,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:cname-com-org",
+            "world:api-cache",
+            "world:cache-root",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return",
+            "world:root-archive-secret",
+            "world:archive-root-secret"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 8,
+      "signature": "09062b47",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 4,
+      "surfaces": 44
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-08-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 50,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 47,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:cname-com-org",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 44,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:cname-com-org",
+            "world:api-cache",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 44,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:cname-com-org",
+            "world:api-cache",
+            "world:cache-root",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return",
+            "world:root-archive-secret",
+            "world:archive-root-secret"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 14.300000000745058,
+      "signature": "811e250f",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 4,
+      "surfaces": 44
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-08-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 50,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 47,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:cname-com-org",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 44,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:cname-com-org",
+            "world:api-cache",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 44,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:root-com",
+            "world:root-org",
+            "world:com-root",
+            "world:org-root",
+            "world:com-mail",
+            "world:org-api",
+            "world:mail-return",
+            "world:api-return",
+            "world:cname-com-org",
+            "world:api-cache",
+            "world:cache-root",
+            "world:com-nxdomain",
+            "world:nxdomain-return",
+            "world:archive-return",
+            "world:root-archive-secret",
+            "world:archive-root-secret"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 6,
+      "signature": "09062b47",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 4,
+      "surfaces": 44
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-08-review-alpha",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 113,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r5:relay",
+              "accessible": true
+            },
+            {
+              "id": "r10:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 113,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r5:relay",
+              "accessible": true
+            },
+            {
+              "id": "r10:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 113,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r10:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay",
+            "r10:relay"
+          ],
+          "surfaces": 113,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay",
+            "r10:relay"
+          ],
+          "surfaces": 114,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 56.29999999701977,
+      "signature": "2ef5ecab",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r9:required-step"
+      ],
+      "error": "Error: platform access not proven: r9:required-step\n    at assert (http://127.0.0.1:47537/game.js:14728:53)\n    at http://127.0.0.1:47537/game.js:14885:42\n    at test (http://127.0.0.1:47537/game.js:14729:98)\n    at http://127.0.0.1:47537/game.js:14832:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-08-review-beta",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 103,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r5:relay",
+              "accessible": false
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 103,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "r5:relay",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 104,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "r5:relay",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 42.69999999925494,
+      "signature": "3b2ed162",
+      "error": "Error: unreachable repair: r5:relay\n    at assert (http://127.0.0.1:47537/game.js:14728:53)\n    at http://127.0.0.1:47537/game.js:14872:7\n    at test (http://127.0.0.1:47537/game.js:14729:98)\n    at http://127.0.0.1:47537/game.js:14832:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-08-review-gamma",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 123,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 123,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 124,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 36.5,
+      "signature": "81106b60",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r5:required-step",
+        "r7:required-step",
+        "r8:required-step",
+        "r10:required-step",
+        "r11:required-step"
+      ],
+      "error": "Error: platform access not proven: r5:required-step,r7:required-step,r8:required-step,r10:required-step,r11:required-step\n    at assert (http://127.0.0.1:47537/game.js:14728:53)\n    at http://127.0.0.1:47537/game.js:14885:42\n    at test (http://127.0.0.1:47537/game.js:14729:98)\n    at http://127.0.0.1:47537/game.js:14832:3"
+    }
+  ],
+  "phase": 8,
+  "theme": "dns",
+  "seeds": [
+    "phase-08-review-alpha",
+    "phase-08-review-beta",
+    "phase-08-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 2,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "445318d0cf858388660a2a10f549397317dd847fd597175f34e371dd4ffff53c",
+    "atUTC": "2026-11-05T23:55:54.049279+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "atUTC": "2026-11-05T23:46:15.114484+00:00",
+  "failures": [
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-alpha",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 52,
+      "signature": "ad59eda4",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r4:upper-0"
+      ],
+      "error": "Error: platform access not proven: r4:upper-0\n    at assert (http://127.0.0.1:46259/game.js:14728:53)\n    at http://127.0.0.1:46259/game.js:14885:42\n    at test (http://127.0.0.1:46259/game.js:14729:98)\n    at http://127.0.0.1:46259/game.js:14832:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-beta",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 116,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 116,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 32.399999998509884,
+      "signature": "1b2db293",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r4:upper-0"
+      ],
+      "error": "Error: platform access not proven: r4:upper-0\n    at assert (http://127.0.0.1:46259/game.js:14728:53)\n    at http://127.0.0.1:46259/game.js:14885:42\n    at test (http://127.0.0.1:46259/game.js:14729:98)\n    at http://127.0.0.1:46259/game.js:14832:3"
+    }
+  ],
+  "sourceSha256": "9e3658e611adb77c93b41af7b6b008b52ec969315b40419971c1dd9a16fc8779",
+  "interruptedRuns": [
+    {
+      "phase": 1,
+      "reason": "Original unindexed traversal interrupted; rerun with parity-tested collision broad phase."
+    }
+  ]
+}

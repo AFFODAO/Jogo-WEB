@@ -9,20 +9,44 @@
       renderers.set(type,renderer);
     },
     create(phase) {
-      const definitions = [...(api.artAssets || []),...(phase.assets || [])];
+      const library=api.artAssets || [],required=new Set(['r07','component','terminal','portal','fx']);
+      const themeIndex=api.environmentArt?.themes.indexOf(phase.theme)??-1;
+      if(themeIndex>=0) {
+        const suffix=String(themeIndex+1).padStart(2,'0'),modern=library.some(a=>a.id==='terrain-'+suffix);
+        for(const name of modern?['terrain','structure','vista','decor']:['tiles','decor','sky'])required.add(name+'-'+suffix);
+      }
+      for(const enemy of phase.entities?.enemies || []) {
+        required.add('virus-'+(enemy.type || 'basic'));
+        const variant=enemy.variant || api.enemies?.variantFor(themeIndex+1,enemy.type);
+        if(variant)required.add('virus-'+variant);
+        if(enemy.type==='parasite'||enemy.type==='boss'||variant==='file')required.add('virus-fast');
+      }
+      const references=value=>{
+        if(!value||typeof value!=='object')return;
+        if(typeof value.asset==='string')required.add(value.asset);
+        for(const child of Object.values(value))if(child&&typeof child==='object')references(child);
+      };
+      references(phase.layers);references(phase.entities);references(phase.playerVisual);
+      const definitions = [...library.filter(asset=>required.has(asset.id)),...(phase.assets || [])];
       const images = new Map(), assets = new Map(definitions.map(asset => [asset.id,asset]));
       const clocks = new Map();
+      const terrain=api.environmentArt?.terrain();
       let disposed = false;
       const errors = [];
       const ready = Promise.all([...assets.values()].map(async asset => {
         if(!sharedImages.has(asset.src))sharedImages.set(asset.src,new Promise(resolve=>{
           const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>resolve(null);img.src=asset.src;
         }));
-        const img=await sharedImages.get(asset.src);
+        const request=sharedImages.get(asset.src);sharedImages.delete(asset.src);sharedImages.set(asset.src,request);
+        while(sharedImages.size>32)sharedImages.delete(sharedImages.keys().next().value);
+        const img=await request;
         if(!img)errors.push(asset.id);else if(!disposed)images.set(asset.id,img);
       }));
       const service = {
-        ready, errors,
+        ready, errors,terrain,themeIndex,
+        hasAsset(id){return assets.has(id);},
+        loadedAssets(){return [...images.keys()];},
+        prepareTerrain(shapes){terrain?.sync(shapes);},
         source(id){return images.get(id) || null;},
         // Canvas/ImageBitmap sources also allow generated assets and deterministic tests.
         add(id, source, definition = {}) { assets.set(id,{id,...definition}); images.set(id,source); },
@@ -64,7 +88,7 @@
             ctx.restore();
           }
         },
-        dispose() { disposed=true; images.clear();clocks.clear(); }
+        dispose() { disposed=true; images.clear();clocks.clear();terrain?.dispose(); }
       };
       return service;
     }

@@ -1,11 +1,12 @@
 window.__reviewProgress?.('PNG pixel art verification');
 setup(0);await levelVisuals.ready;
+const pixelLibrary=ByteRunner.visuals.create({assets:ByteRunner.artAssets});await pixelLibrary.ready;
 test('pixel art: native PNG dimensions, opaque palette pixels and complete robot actions',()=>{
   const robot=ByteRunner.artAssets.find(a=>a.id==='r07');
   assert(robot.frameWidth===32&&robot.frameHeight===48&&robot.columns===8,'robot native grid');
   for(const state of ['idle','run','jump','fall','attack','hit','repair','death','ability'])assert(robot.animations[state]?.frames.length===8,'missing robot row '+state);
   for(const asset of ByteRunner.artAssets) {
-    const source=levelVisuals.source(asset.id);assert(source&&source.width===asset.frameWidth*8,'sheet width '+asset.id);
+    const source=pixelLibrary.source(asset.id);assert(source&&source.width===asset.frameWidth*8,'sheet width '+asset.id);
     const max=Math.max(...Object.values(asset.animations).flatMap(a=>a.frames));assert((Math.floor(max/8)+1)*asset.frameHeight===source.height,'sheet bounds '+asset.id);
     const sample=document.createElement('canvas');sample.width=source.width;sample.height=source.height;const c=sample.getContext('2d');c.drawImage(source,0,0);
     const data=c.getImageData(0,0,sample.width,sample.height).data;
@@ -17,13 +18,14 @@ test('pixel art: tilesets differ structurally after removing palette colors',()=
   for(let phase=1;phase<=10;phase++) {
     const id='tiles-'+String(phase).padStart(2,'0'),asset=ByteRunner.artAssets.find(a=>a.id===id);
     for(const state of ['idle','fill','bottom','wall','moving','temporary','dangerous','wire','screen'])assert(asset.animations[state],'incomplete tileset '+id+'/'+state);
-    c.clearRect(0,0,32,32);levelVisuals.sprite(c,{asset:id,animation:'fill'},{x:0,y:0,width:32,height:32},0);
+    c.clearRect(0,0,32,32);pixelLibrary.sprite(c,{asset:id,animation:'fill'},{x:0,y:0,width:32,height:32},0);
     const rgba=c.getImageData(0,0,32,32).data,colors=new Map();let hash=2166136261;
     for(let i=0;i<rgba.length;i+=4){const key=rgba.slice(i,i+4).join(',');if(!colors.has(key))colors.set(key,colors.size);hash=Math.imul(hash^colors.get(key),16777619);}
     hashes.add(hash>>>0);
   }
   assert(hashes.size===10,'tiles only recolored: '+hashes.size);
 });
+pixelLibrary.dispose();
 test('pixel art: activating a real ability and respawning select the new animation rows',()=>{
   damageCooldown=0;xp=100;openLevelChoice();ui.levelOverlay.querySelector('[data-skill]').click();
   assert(abilityPose>0,'ability pose not triggered');

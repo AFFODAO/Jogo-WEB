@@ -198,7 +198,7 @@ def wifi():
     clean=[('clean-01',80,1430,160),('clean-02',180,1340,160),('clean-03',60,1250,160),('clean-04',220,1160,180),('clean-05',400,1070,170),('clean-06',530,1020,170)]
     m['entities']['platforms'].extend(platform(id,x,y,w,'signal',requiresComponentId='c02') for id,x,y,w in clean)
     m['entities']['components']=[component('c01',1070,1880,'PONTO DE ACESSO A'),component('c02',240,1520,'REPETIDOR'),component('c03',1190,1160,'PONTO DE ACESSO B')]
-    m['entities']['enemies']=[enemy('e01','shooter',1180,1880,1020,1210,(850,1650,650,350)),enemy('e02','flyer',500,1530,180,800,(100,1300,800,400)),enemy('e03','basic',1280,1160,1100,1330,(800,940,700,330))]
+    m['entities']['enemies']=[enemy('e01','shooter',1180,1880,1020,1210,(850,1650,650,350)),enemy('e02','flyer',650,1530,180,800,(100,1300,800,400)),enemy('e03','basic',1280,1160,1100,1330,(800,940,700,330))]
     m['entities']['collectibles']=[dict(id=f'i{i:02}',x=x,y=y,radius=10,secret=True) for i,(x,y) in enumerate([(720,2250),(1390,950),(120,1220),(320,770),(740,320)],1)]
     zones=[dict(id='weak-lower',x=650,y=1740,width=630,height=390,speedMultiplier=.84,fireIntervalMultiplier=1.45,projectileSpeedMultiplier=.8,label='INTERFERÊNCIA / SINAL 35%',disabledWhen=dict(component='c01')),
         dict(id='weak-middle',x=400,y=1190,width=570,height=380,speedMultiplier=.88,fireIntervalMultiplier=1.4,projectileSpeedMultiplier=.82,label='CANAL CONGESTIONADO',disabledWhen=dict(component='c02')),
@@ -212,7 +212,7 @@ def wifi():
 def main():
     for phase in [hardware(),software(),switch(),router(),wifi()]:
         path=ROOT/'src/maps'/f'{int(phase["id"][-2:]):02}-{phase["theme"]}.js'
-        path.write_text('// Rebuilt layout, revision 2. Authored by tools/build_first_five.py.\nByteRunner.maps.register('+json.dumps(phase,ensure_ascii=False,indent=2)+');\n',encoding='utf-8')
+        path.write_text('// Rebuilt layout, revision 2. Authored by tools/build_first_five.py.\nByteRunner.maps.register(ByteRunner.campaignGeneration.build('+json.dumps(phase,ensure_ascii=False,indent=2)+'));\n',encoding='utf-8')
         print(f'{phase["id"]}: {phase["map"]["width"]} x {phase["map"]["height"]}, {phase["map"]["layout"]}')
 
 if __name__=='__main__':main()

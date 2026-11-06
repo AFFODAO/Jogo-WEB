@@ -1,0 +1,354 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / cabling / phase-06-review-alpha": "repair traps player away from start world:c01",
+    "final audit: campaign / cabling / phase-06-review-beta": "repair traps player away from start world:c01",
+    "final audit: campaign / cabling / phase-06-review-gamma": "repair traps player away from start world:c01",
+    "final audit: procedural / cabling / phase-06-review-alpha": "platform access not proven: r7:required-step,r8:required-step,r10:required-step",
+    "final audit: procedural / cabling / phase-06-review-beta": "platform access not proven: r5:required-step",
+    "final audit: procedural / cabling / phase-06-review-gamma": "platform access not proven: r5:required-step,r11:required-step",
+    "final audit: compare structures and identity / cabling": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-06-review-alpha",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 25,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 7.100000001490116,
+      "signature": "2c991558",
+      "error": "Error: repair traps player away from start world:c01\n    at assert (http://127.0.0.1:47324/game.js:14728:53)\n    at http://127.0.0.1:47324/game.js:14859:56\n    at test (http://127.0.0.1:47324/game.js:14729:98)\n    at http://127.0.0.1:47324/game.js:14832:3\n    at http://127.0.0.1:47324/game.js:14914:3\n    at http://127.0.0.1:47324/game.js:14915:3"
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-06-review-beta",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 25,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 5.100000001490116,
+      "signature": "775d2685",
+      "error": "Error: repair traps player away from start world:c01\n    at assert (http://127.0.0.1:47324/game.js:14728:53)\n    at http://127.0.0.1:47324/game.js:14859:56\n    at test (http://127.0.0.1:47324/game.js:14729:98)\n    at http://127.0.0.1:47324/game.js:14832:3"
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-06-review-gamma",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 25,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 5.199999999254942,
+      "signature": "41b209c7",
+      "error": "Error: repair traps player away from start world:c01\n    at assert (http://127.0.0.1:47324/game.js:14728:53)\n    at http://127.0.0.1:47324/game.js:14859:56\n    at test (http://127.0.0.1:47324/game.js:14729:98)\n    at http://127.0.0.1:47324/game.js:14832:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-06-review-alpha",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 119,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 58.400000002235174,
+      "signature": "2dde6e83",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r7:required-step",
+        "r8:required-step",
+        "r10:required-step"
+      ],
+      "error": "Error: platform access not proven: r7:required-step,r8:required-step,r10:required-step\n    at assert (http://127.0.0.1:47324/game.js:14728:53)\n    at http://127.0.0.1:47324/game.js:14885:42\n    at test (http://127.0.0.1:47324/game.js:14729:98)\n    at http://127.0.0.1:47324/game.js:14832:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-06-review-beta",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 42.69999999925494,
+      "signature": "03e52e60",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r5:required-step"
+      ],
+      "error": "Error: platform access not proven: r5:required-step\n    at assert (http://127.0.0.1:47324/game.js:14728:53)\n    at http://127.0.0.1:47324/game.js:14885:42\n    at test (http://127.0.0.1:47324/game.js:14729:98)\n    at http://127.0.0.1:47324/game.js:14832:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-06-review-gamma",
+      "status": "FAIL",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 41.30000000074506,
+      "signature": "af4c652c",
+      "rooms": 12,
+      "unprovenPlatforms": [
+        "r5:required-step",
+        "r11:required-step"
+      ],
+      "error": "Error: platform access not proven: r5:required-step,r11:required-step\n    at assert (http://127.0.0.1:47324/game.js:14728:53)\n    at http://127.0.0.1:47324/game.js:14885:42\n    at test (http://127.0.0.1:47324/game.js:14729:98)\n    at http://127.0.0.1:47324/game.js:14832:3"
+    }
+  ],
+  "phase": 6,
+  "theme": "cabling",
+  "seeds": [
+    "phase-06-review-alpha",
+    "phase-06-review-beta",
+    "phase-06-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "445318d0cf858388660a2a10f549397317dd847fd597175f34e371dd4ffff53c",
+    "atUTC": "2026-11-05T23:54:55.297848+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "phases": [],
+  "systems": {
+    "debug audit: isolated topology and model parity with real base movement": "PASS",
+    "debug audit: walk between contiguous supports below a low ceiling": "PASS",
+    "debug audit: detect isolation, impossible ledge and missing exit without mutation": "PASS",
+    "debug audit: active conditional portal updates reachability": "PASS",
+    "debug audit: development overview, toggles, seed and readonly analysis": "PASS",
+    "debug audit: loading another seed with same IDs invalidates the old analysis": "PASS"
+  },
+  "errors": [],
+  "snapshots": [
+    {
+      "phase": 1,
+      "position": "map-debug",
+      "file": "tests/map-debug.png"
+    }
+  ],
+  "execution": {
+    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+    "atUTC": "2026-11-06T00:28:26.236437+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

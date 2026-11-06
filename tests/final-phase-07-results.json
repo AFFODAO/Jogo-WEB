@@ -1,0 +1,669 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / dhcp / phase-07-review-alpha": "PASS",
+    "final audit: campaign / dhcp / phase-07-review-beta": "PASS",
+    "final audit: campaign / dhcp / phase-07-review-gamma": "PASS",
+    "final audit: procedural / dhcp / phase-07-review-alpha": "PASS",
+    "final audit: procedural / dhcp / phase-07-review-beta": "PASS",
+    "final audit: procedural / dhcp / phase-07-review-gamma": "PASS",
+    "final audit: compare structures and identity / dhcp": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-07-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 5,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": false
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:scope-a-dhcp",
+            "world:relay-dhcp",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 15,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": false
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:scope-a-dhcp",
+            "world:relay-dhcp",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c03"
+          ],
+          "surfaces": 19,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:scope-a-dhcp",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c03"
+          ],
+          "surfaces": 26,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:dhcp-scope-a",
+            "world:scope-a-dhcp",
+            "world:dhcp-relay",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 27,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:dhcp-scope-a",
+            "world:scope-a-dhcp",
+            "world:dhcp-relay",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 26,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:dhcp-scope-a",
+            "world:scope-a-dhcp",
+            "world:dhcp-relay",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 6.100000001490116,
+      "signature": "f8208171",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 4,
+      "surfaces": 26
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-07-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 5,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": false
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:scope-a-dhcp",
+            "world:relay-dhcp",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 15,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": false
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:scope-a-dhcp",
+            "world:relay-dhcp",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c03"
+          ],
+          "surfaces": 19,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:scope-a-dhcp",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c03"
+          ],
+          "surfaces": 26,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:dhcp-scope-a",
+            "world:scope-a-dhcp",
+            "world:dhcp-relay",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 27,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:dhcp-scope-a",
+            "world:scope-a-dhcp",
+            "world:dhcp-relay",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 26,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:dhcp-scope-a",
+            "world:scope-a-dhcp",
+            "world:dhcp-relay",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 9.699999999254942,
+      "signature": "5910b80b",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 4,
+      "surfaces": 26
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-07-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 5,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": false
+            },
+            {
+              "id": "world:c03",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:scope-a-dhcp",
+            "world:relay-dhcp",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 15,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": false
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:scope-a-dhcp",
+            "world:relay-dhcp",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c03"
+          ],
+          "surfaces": 19,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:scope-a-dhcp",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c03"
+          ],
+          "surfaces": 26,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:dhcp-scope-a",
+            "world:scope-a-dhcp",
+            "world:dhcp-relay",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 27,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:dhcp-scope-a",
+            "world:scope-a-dhcp",
+            "world:dhcp-relay",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 26,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "world:dhcp-diagnostic",
+            "world:diagnostic-dhcp",
+            "world:dhcp-scope-a",
+            "world:scope-a-dhcp",
+            "world:dhcp-relay",
+            "world:relay-dhcp",
+            "world:relay-gateway",
+            "world:gateway-relay"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 4.900000002235174,
+      "signature": "44026165",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 4,
+      "surfaces": 26
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-07-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 123,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 112.30000000074506,
+      "signature": "29245209",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 123
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-07-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 125,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 43,
+      "signature": "c1a0cf78",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 127
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-07-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 119,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 119,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 40.5,
+      "signature": "68c00747",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 120
+    }
+  ],
+  "phase": 7,
+  "theme": "dhcp",
+  "seeds": [
+    "phase-07-review-alpha",
+    "phase-07-review-beta",
+    "phase-07-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+    "atUTC": "2026-11-06T00:30:02.608294+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

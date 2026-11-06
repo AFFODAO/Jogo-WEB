@@ -1,0 +1,38 @@
+const campaignCanonical=value=>JSON.stringify(value,(_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.keys(v).sort().map(k=>[k,v[k]])):v);
+test('hybrid campaign: ten independent recipes reproduce without shared source state',()=>{
+  const seeds=new Set(),generators=new Set();
+  for(const phase of PHASES) {
+    const metadata=phase.generation;
+    assert(metadata&&phase.revision===(phase.theme==='cabling'?4:3),'hybrid generation not active '+phase.id);
+    seeds.add(metadata.seed);generators.add(metadata.recipe.rooms[0].generator);
+    const recipe=ByteRunner.maps.clone(metadata.recipe),before=JSON.stringify(recipe);
+    const a=ByteRunner.mapGeneration.compile(recipe),b=ByteRunner.mapGeneration.compile(JSON.parse(before));
+    assert(campaignCanonical(a)===campaignCanonical(b)&&JSON.stringify(recipe)===before,'recipe is not reproducible/pure');
+    const entities=JSON.parse(JSON.stringify(a.entities).replaceAll('world:',''));
+    assert(campaignCanonical(entities)===campaignCanonical(phase.entities),'replay differs from campaign');
+    assert(!ByteRunner.maps.validate(phase).length,'invalid map');
+    const original=recipe.rooms[0].config.blueprint;
+    assert(campaignCanonical(original.objectives)===campaignCanonical(phase.objectives),'objective contract changed');
+    for(const group of ['components','enemies','collectibles','interactives'])assert(campaignCanonical(original.entities[group])===campaignCanonical(phase.entities[group]),'entity content/order changed');
+    for(const route of metadata.architecture.routes) {
+      const steps=phase.entities.platforms.filter(p=>p.id.startsWith(route.id+'-'));
+      assert(steps.length===route.points.length,'service route missing');
+      for(let i=1;i<steps.length;i++)assert(Math.abs(steps[i].y-steps[i-1].y)<=ByteRunner.platformPhysics.jumpHeight*.82,'route requires optional jump skill');
+    }
+  }
+  assert(seeds.size===10&&generators.size===10,'shared theme configuration');
+});
+test('hybrid campaign: architectures carry different traversal mechanics',()=>{
+  const [pcb,desktop,backplane,router,radio]=PHASES;
+  assert(pcb.layers.some(l=>l.items?.some(i=>i.kind==='cpu'))&&pcb.layers.some(l=>l.items?.some(i=>i.kind==='ram'))&&pcb.layers.some(l=>l.items?.some(i=>i.kind==='gpu')),'motherboard regions missing');
+  assert(desktop.map.layout==='hub'&&desktop.mechanics.some(m=>m.type==='portals'&&m.links.length>=8),'directory graph missing');
+  assert(backplane.entities.interactives.length>=2&&backplane.entities.platforms.some(p=>p.id==='backplane-transmission-lift'),'backplane transmission missing');
+  assert(router.map.layout==='maze'&&router.mechanics.some(m=>m.type==='portals'&&m.links.some(l=>l.requires)),'repair shortcuts missing');
+  assert(radio.map.height>radio.map.width&&radio.mechanics.some(m=>m.type==='environment')&&radio.entities.platforms.some(p=>p.type==='temporary'),'radio vertical/unstable architecture missing');
+});
+test('hybrid campaign: transmission elevator carries R-07 with base attributes',()=>{
+  setup(2);const lift=phaseData.entities.platforms.find(p=>p.id==='backplane-transmission-lift');
+  advancePlatformMotion(.1);const shape=platformShape(lift);player.x=shape.x+30;player.y=shape.y-player.height;player.grounded=true;
+  const y=player.y;advancePlatformMotion(.1);assert(player.y!==y,'transmission elevator did not carry R-07');
+});
+running=false;

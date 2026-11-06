@@ -1,0 +1,51 @@
+{
+  "phases": [
+    {
+      "phase": 4,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 24,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "lan-return",
+        "lan-interface",
+        "route-backup",
+        "wan-interface",
+        "wan-return"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "armored",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {},
+  "errors": [],
+  "snapshots": []
+}

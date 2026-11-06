@@ -1,0 +1,16 @@
+{
+  "phases": [],
+  "systems": {
+    "room demo: gameplay is active and campaign storage stays isolated": "PASS",
+    "room demo: completed repairs, XP, skills and checkpoints survive death and campaign restore": "PASS",
+    "room demo: required repairs gate final question, wrong answers replay and correct answers advance": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+    "atUTC": "2026-11-06T00:28:46.697798+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

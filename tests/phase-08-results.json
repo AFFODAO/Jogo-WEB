@@ -1,0 +1,73 @@
+{
+  "phases": [
+    {
+      "phase": 8,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 44,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "root-com",
+        "com-root",
+        "com-mail",
+        "root-org",
+        "mail-return",
+        "org-root",
+        "org-api",
+        "nxdomain-return",
+        "com-nxdomain",
+        "api-return",
+        "archive-return",
+        "root-archive-secret",
+        "archive-root-secret",
+        "cname-com-org",
+        "api-cache",
+        "cache-root"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "parasite",
+          "result": "PASS"
+        },
+        {
+          "id": "e05",
+          "type": "armored",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {},
+  "errors": [],
+  "snapshots": []
+}

@@ -8,7 +8,8 @@
     "pixel art: thematic enemy and death PNG are used in phase 3": "PASS",
     "pixel art: thematic enemy and death PNG are used in phase 5": "PASS",
     "pixel art: thematic enemy and death PNG are used in phase 8": "PASS",
-    "pixel art: thematic enemy and death PNG are used in phase 9": "PASS"
+    "pixel art: thematic enemy and death PNG are used in phase 9": "PASS",
+    "pixel art: repair frames advance while player and world stay frozen": "PASS"
   },
   "errors": [],
   "snapshots": []

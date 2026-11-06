@@ -1,0 +1,4244 @@
+[
+  {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-06",
+    "name": "Cabeamento e infraestrutura",
+    "theme": "cabling",
+    "objective": "Escale os dutos do prédio: restaure os três quadros de conexão para liberar travessias e elevadores.",
+    "palette": [
+      "#171b20",
+      "#283842",
+      "#f3c57f",
+      "#6b7167",
+      "#b9885c"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 1600,
+      "height": 3000,
+      "layout": "vertical",
+      "start": {
+        "x": 200,
+        "y": 2752
+      },
+      "exit": {
+        "mode": "region",
+        "x": 1280,
+        "y": 336,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "building-basement",
+            "x": 100,
+            "y": 2800,
+            "width": 1400,
+            "height": 80
+          },
+          {
+            "id": "left-floor-1",
+            "x": 100,
+            "y": 2200,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "right-floor-1",
+            "x": 980,
+            "y": 2200,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "left-floor-2",
+            "x": 100,
+            "y": 1600,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "right-floor-2",
+            "x": 980,
+            "y": 1600,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "left-floor-3",
+            "x": 100,
+            "y": 1000,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "right-floor-3",
+            "x": 980,
+            "y": 1000,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "building-roof",
+            "x": 100,
+            "y": 400,
+            "width": 1400,
+            "height": 18,
+            "collision": "one-way"
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 260,
+          "y": 2200
+        },
+        {
+          "x": 1190,
+          "y": 1600
+        },
+        {
+          "x": 260,
+          "y": 1000
+        },
+        {
+          "x": 1200,
+          "y": 400
+        }
+      ],
+      "checkpointMode": "proximity",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "shaft oeste",
+        "shaft leste",
+        "poço de elevadores",
+        "passagens de manutenção"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "basement-duct-1",
+          "x": 260,
+          "y": 2700,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "basement-duct-2",
+          "x": 450,
+          "y": 2600,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "basement-duct-3",
+          "x": 270,
+          "y": 2500,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "basement-duct-4",
+          "x": 450,
+          "y": 2400,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "basement-duct-5",
+          "x": 270,
+          "y": 2300,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "east-duct-1",
+          "x": 1050,
+          "y": 2100,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "east-duct-2",
+          "x": 1240,
+          "y": 2000,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "east-duct-3",
+          "x": 1060,
+          "y": 1900,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "east-duct-4",
+          "x": 1240,
+          "y": 1800,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "east-duct-5",
+          "x": 1060,
+          "y": 1700,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "west-duct-1",
+          "x": 440,
+          "y": 1500,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "west-duct-2",
+          "x": 250,
+          "y": 1400,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "west-duct-3",
+          "x": 430,
+          "y": 1300,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "west-duct-4",
+          "x": 250,
+          "y": 1200,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "west-duct-5",
+          "x": 430,
+          "y": 1100,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-duct-1",
+          "x": 1080,
+          "y": 900,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-duct-2",
+          "x": 1260,
+          "y": 800,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-duct-3",
+          "x": 1080,
+          "y": 700,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-duct-4",
+          "x": 1260,
+          "y": 600,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-duct-5",
+          "x": 1080,
+          "y": 500,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "reconnected-tray-a",
+          "x": 620,
+          "y": 2200,
+          "width": 144,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "reconnected-tray-b",
+          "x": 620,
+          "y": 1600,
+          "width": 144,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "reconnected-tray-c",
+          "x": 620,
+          "y": 1000,
+          "width": 144,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c03"
+        },
+        {
+          "id": "lift-dock-a",
+          "x": 560,
+          "y": 2500,
+          "width": 140,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "lift-dock-b",
+          "x": 920,
+          "y": 1900,
+          "width": 100,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "lift-dock-c",
+          "x": 920,
+          "y": 700,
+          "width": 100,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c03"
+        },
+        {
+          "id": "elevator-a",
+          "x": 720,
+          "y": 2500,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01",
+          "motion": {
+            "axis": "y",
+            "range": 210,
+            "speed": 0.45
+          }
+        },
+        {
+          "id": "elevator-b",
+          "x": 720,
+          "y": 1900,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c02",
+          "motion": {
+            "axis": "y",
+            "range": 200,
+            "speed": 0.45
+          }
+        },
+        {
+          "id": "elevator-c",
+          "x": 720,
+          "y": 700,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c03",
+          "motion": {
+            "axis": "y",
+            "range": 200,
+            "speed": 0.45
+          }
+        },
+        {
+          "id": "basement-cache",
+          "x": 1310,
+          "y": 2710,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "floor1-cache",
+          "x": 120,
+          "y": 2110,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "floor2-cache",
+          "x": 1340,
+          "y": 1510,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-cache",
+          "x": 180,
+          "y": 310,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "reconnected-tray-a-return",
+          "x": 836,
+          "y": 2200,
+          "width": 144,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "reconnected-tray-b-return",
+          "x": 836,
+          "y": 1600,
+          "width": 144,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "reconnected-tray-c-return",
+          "x": 836,
+          "y": 1000,
+          "width": 144,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c03"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "building-west-wall",
+          "x": 50,
+          "y": 80,
+          "width": 24,
+          "height": 2800,
+          "collision": "solid",
+          "type": "rack-wall"
+        },
+        {
+          "id": "building-east-wall",
+          "x": 1520,
+          "y": 80,
+          "width": 24,
+          "height": 2800,
+          "collision": "solid",
+          "type": "rack-wall"
+        },
+        {
+          "id": "live-cable-a",
+          "x": 500,
+          "y": 2130,
+          "width": 28,
+          "height": 70,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "live-cable-b",
+          "x": 1400,
+          "y": 1520,
+          "width": 28,
+          "height": 80,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "live-cable-c",
+          "x": 490,
+          "y": 930,
+          "width": 28,
+          "height": 70,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c03"
+        }
+      ],
+      "gates": [],
+      "components": [
+        {
+          "id": "c01",
+          "x": 300,
+          "y": 2156,
+          "width": 34,
+          "height": 44,
+          "label": "QUADRO DO SHAFT A"
+        },
+        {
+          "id": "c02",
+          "x": 1160,
+          "y": 1556,
+          "width": 34,
+          "height": 44,
+          "label": "PATCH PANEL B"
+        },
+        {
+          "id": "c03",
+          "x": 330,
+          "y": 956,
+          "width": 34,
+          "height": 44,
+          "label": "DISTRIBUIDOR DO TOPO"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "x": 800,
+          "y": 2776,
+          "groundY": 2800,
+          "navigationBounds": {
+            "left": 400,
+            "right": 1100
+          },
+          "patrolMin": 400,
+          "patrolMax": 1100,
+          "activationRegion": {
+            "x": 100,
+            "y": 2550,
+            "width": 1400,
+            "height": 300
+          }
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "x": 540,
+          "y": 2176,
+          "groundY": 2200,
+          "navigationBounds": {
+            "left": 210,
+            "right": 590
+          },
+          "patrolMin": 210,
+          "patrolMax": 590,
+          "activationRegion": {
+            "x": 100,
+            "y": 1940,
+            "width": 520,
+            "height": 300
+          }
+        },
+        {
+          "id": "e03",
+          "type": "parasite",
+          "x": 1320,
+          "y": 1576,
+          "groundY": 1600,
+          "navigationBounds": {
+            "left": 1040,
+            "right": 1460
+          },
+          "patrolMin": 1040,
+          "patrolMax": 1460,
+          "activationRegion": {
+            "x": 980,
+            "y": 1350,
+            "width": 520,
+            "height": 300
+          }
+        },
+        {
+          "id": "e04",
+          "type": "shooter",
+          "x": 550,
+          "y": 976,
+          "groundY": 1000,
+          "navigationBounds": {
+            "left": 180,
+            "right": 580
+          },
+          "patrolMin": 180,
+          "patrolMax": 580,
+          "activationRegion": {
+            "x": 100,
+            "y": 740,
+            "width": 520,
+            "height": 300
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 1380,
+          "y": 2680,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 180,
+          "y": 2080,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 1400,
+          "y": 1480,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 230,
+          "y": 280,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": []
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [],
+      "componentsToRepair": 3,
+      "enemiesToDefeat": 4
+    },
+    "mechanics": [],
+    "assets": [],
+    "layers": [
+      {
+        "id": "new-infrastructure",
+        "type": "infrastructure-world",
+        "theme": "cabling",
+        "items": [
+          {
+            "kind": "building",
+            "x": 80,
+            "y": 180,
+            "width": 1440,
+            "height": 2670,
+            "label": "PRÉDIO TECNOLÓGICO / SHAFTS A–B"
+          },
+          {
+            "kind": "duct",
+            "x": 100,
+            "y": 450,
+            "width": 520,
+            "height": 2280,
+            "label": "ELETROCALHA OESTE"
+          },
+          {
+            "kind": "duct",
+            "x": 980,
+            "y": 450,
+            "width": 520,
+            "height": 2280,
+            "label": "ELETROCALHA LESTE"
+          },
+          {
+            "kind": "lift-shaft",
+            "x": 690,
+            "y": 410,
+            "width": 220,
+            "height": 2380,
+            "label": "ELEVADORES"
+          },
+          {
+            "kind": "rack",
+            "x": 130,
+            "y": 2200,
+            "width": 220,
+            "height": 100,
+            "label": "RACK A"
+          },
+          {
+            "kind": "rack",
+            "x": 1160,
+            "y": 1600,
+            "width": 250,
+            "height": 100,
+            "label": "RACK B"
+          },
+          {
+            "kind": "rack",
+            "x": 160,
+            "y": 1000,
+            "width": 220,
+            "height": 100,
+            "label": "PATCH / CORE"
+          }
+        ],
+        "pass": "midground"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-07",
+    "name": "Endereçamento IP e DHCP",
+    "theme": "dhcp",
+    "objective": "Restaure o DHCP, resolva conflitos e habilite reservas antes de alcançar o gateway da rede.",
+    "palette": [
+      "#0a2021",
+      "#244d42",
+      "#8df0b7",
+      "#3f866a",
+      "#c3d687"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 2800,
+      "height": 1700,
+      "layout": "hub",
+      "start": {
+        "x": 1370,
+        "y": 952
+      },
+      "exit": {
+        "mode": "region",
+        "x": 2490,
+        "y": 696,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "dhcp-core",
+            "x": 1120,
+            "y": 1000,
+            "width": 600,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "scope-a",
+            "x": 140,
+            "y": 650,
+            "width": 680,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "diagnostic-scope",
+            "x": 140,
+            "y": 1380,
+            "width": 680,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "scope-b",
+            "x": 2040,
+            "y": 760,
+            "width": 630,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "relay-scope",
+            "x": 1940,
+            "y": 1450,
+            "width": 710,
+            "height": 18,
+            "collision": "one-way"
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 1430,
+          "y": 1000
+        },
+        {
+          "x": 300,
+          "y": 650
+        },
+        {
+          "x": 2270,
+          "y": 1450
+        },
+        {
+          "x": 2330,
+          "y": 760
+        }
+      ],
+      "checkpointMode": "free",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "núcleo DHCP",
+        "escopo 10.0.10/24",
+        "rede de diagnóstico",
+        "relay e reservas",
+        "gateway de saída"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "lease-left-a",
+          "x": 950,
+          "y": 1090,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c01",
+          "motion": {
+            "axis": "x",
+            "range": 18,
+            "speed": 0.55
+          }
+        },
+        {
+          "id": "lease-left-b",
+          "x": 760,
+          "y": 1180,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "lease-left-c",
+          "x": 580,
+          "y": 1270,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c01",
+          "motion": {
+            "axis": "y",
+            "range": 8,
+            "speed": 0.55
+          }
+        },
+        {
+          "id": "lease-right-a",
+          "x": 1730,
+          "y": 1090,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "lease-right-b",
+          "x": 1900,
+          "y": 1180,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c01",
+          "motion": {
+            "axis": "x",
+            "range": 18,
+            "speed": 0.55
+          }
+        },
+        {
+          "id": "lease-right-c",
+          "x": 2080,
+          "y": 1270,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "lease-right-d",
+          "x": 2260,
+          "y": 1360,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "scope-return-a",
+          "x": 820,
+          "y": 740,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "scope-return-b",
+          "x": 1000,
+          "y": 830,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c02",
+          "motion": {
+            "axis": "y",
+            "range": 8,
+            "speed": 0.55
+          }
+        },
+        {
+          "id": "scope-return-c",
+          "x": 1120,
+          "y": 920,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "gateway-lease-a",
+          "x": 1740,
+          "y": 920,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requires": {
+            "flag": "dhcp-on"
+          }
+        },
+        {
+          "id": "gateway-lease-b",
+          "x": 1910,
+          "y": 840,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "packet",
+          "requires": {
+            "flag": "dhcp-on"
+          },
+          "motion": {
+            "axis": "x",
+            "range": 18,
+            "speed": 0.55
+          }
+        },
+        {
+          "id": "conflict-bypass",
+          "x": 490,
+          "y": 560,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "reserved-route",
+          "x": 2100,
+          "y": 670,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c03"
+        },
+        {
+          "id": "diagnostic-cache",
+          "x": 220,
+          "y": 1290,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "scope-cache",
+          "x": 170,
+          "y": 560,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "gateway-cache",
+          "x": 2260,
+          "y": 670,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        },
+        {
+          "id": "relay-cache",
+          "x": 2460,
+          "y": 1360,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "duplicate-address",
+          "x": 510,
+          "y": 540,
+          "width": 32,
+          "height": 110,
+          "type": "corrupt",
+          "collision": "solid",
+          "requiresComponentId": "c02"
+        }
+      ],
+      "gates": [
+        {
+          "id": "gateway-service-lock",
+          "x": 2380,
+          "y": 630,
+          "width": 24,
+          "height": 130,
+          "opensWhen": {
+            "all": [
+              {
+                "flag": "dhcp-on"
+              },
+              {
+                "flag": "reservation"
+              }
+            ]
+          }
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 1380,
+          "y": 956,
+          "width": 34,
+          "height": 44,
+          "label": "SERVIÇO DHCP"
+        },
+        {
+          "id": "c02",
+          "x": 370,
+          "y": 606,
+          "width": 34,
+          "height": 44,
+          "label": "POOL EM CONFLITO"
+        },
+        {
+          "id": "c03",
+          "x": 2290,
+          "y": 1406,
+          "width": 34,
+          "height": 44,
+          "label": "RELAY DHCP"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "x": 600,
+          "y": 1356,
+          "groundY": 1380,
+          "navigationBounds": {
+            "left": 220,
+            "right": 740
+          },
+          "patrolMin": 220,
+          "patrolMax": 740,
+          "activationRegion": {
+            "x": 140,
+            "y": 1100,
+            "width": 680,
+            "height": 340
+          }
+        },
+        {
+          "id": "e02",
+          "type": "armored",
+          "x": 740,
+          "y": 626,
+          "groundY": 650,
+          "navigationBounds": {
+            "left": 570,
+            "right": 770
+          },
+          "patrolMin": 570,
+          "patrolMax": 770,
+          "activationRegion": {
+            "x": 140,
+            "y": 390,
+            "width": 680,
+            "height": 320
+          }
+        },
+        {
+          "id": "e03",
+          "type": "flyer",
+          "x": 2500,
+          "y": 668,
+          "groundY": 760,
+          "navigationBounds": {
+            "left": 2110,
+            "right": 2600
+          },
+          "patrolMin": 2110,
+          "patrolMax": 2600,
+          "activationRegion": {
+            "x": 1950,
+            "y": 440,
+            "width": 760,
+            "height": 380
+          }
+        },
+        {
+          "id": "e04",
+          "type": "basic",
+          "x": 2480,
+          "y": 1426,
+          "groundY": 1450,
+          "navigationBounds": {
+            "left": 2070,
+            "right": 2600
+          },
+          "patrolMin": 2070,
+          "patrolMax": 2600,
+          "activationRegion": {
+            "x": 1940,
+            "y": 1190,
+            "width": 710,
+            "height": 320
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 280,
+          "y": 1260,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 230,
+          "y": 530,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 2320,
+          "y": 640,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 2520,
+          "y": 1330,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": [
+        {
+          "id": "dhcp-start",
+          "type": "switch",
+          "x": 1570,
+          "y": 960,
+          "width": 38,
+          "height": 40,
+          "flag": "dhcp-on",
+          "requires": {
+            "component": "c01"
+          },
+          "once": true,
+          "label": "DHCP",
+          "message": "DHCP ATIVO // CONCESSÕES LIBERADAS"
+        },
+        {
+          "id": "address-reservation",
+          "type": "switch",
+          "x": 690,
+          "y": 610,
+          "width": 38,
+          "height": 40,
+          "flag": "reservation",
+          "requires": {
+            "component": "c02"
+          },
+          "once": true,
+          "label": "FIXO",
+          "message": "RESERVA ATIVA // CONFLITOS RESOLVIDOS"
+        }
+      ]
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [
+        {
+          "id": "ip-services",
+          "type": "condition",
+          "condition": {
+            "all": [
+              {
+                "flag": "dhcp-on"
+              },
+              {
+                "flag": "reservation"
+              }
+            ]
+          }
+        }
+      ],
+      "componentsToRepair": 3,
+      "enemiesToDefeat": 4
+    },
+    "mechanics": [
+      {
+        "id": "subnet-gateways",
+        "type": "portals",
+        "links": [
+          {
+            "id": "dhcp-diagnostic",
+            "x": 1150,
+            "y": 924,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 380,
+              "y": 1332
+            },
+            "label": "169.254 / DIAG"
+          },
+          {
+            "id": "diagnostic-dhcp",
+            "x": 690,
+            "y": 1304,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1220,
+              "y": 952
+            },
+            "label": "DHCP / VOLTAR"
+          },
+          {
+            "id": "dhcp-scope-a",
+            "x": 1660,
+            "y": 924,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 240,
+              "y": 602
+            },
+            "label": "10.0.10/24",
+            "requires": {
+              "all": [
+                {
+                  "component": "c01"
+                },
+                {
+                  "flag": "dhcp-on"
+                }
+              ]
+            }
+          },
+          {
+            "id": "scope-a-dhcp",
+            "x": 220,
+            "y": 574,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1260,
+              "y": 952
+            },
+            "label": "10.0.0/24"
+          },
+          {
+            "id": "dhcp-relay",
+            "x": 1300,
+            "y": 924,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 2060,
+              "y": 1402
+            },
+            "label": "10.0.20/24",
+            "requires": {
+              "flag": "dhcp-on"
+            }
+          },
+          {
+            "id": "relay-dhcp",
+            "x": 1990,
+            "y": 1374,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1480,
+              "y": 952
+            },
+            "label": "DHCP / CORE"
+          },
+          {
+            "id": "relay-gateway",
+            "x": 2570,
+            "y": 1374,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 2150,
+              "y": 712
+            },
+            "label": "10.0.30/24",
+            "requires": {
+              "component": "c03"
+            }
+          },
+          {
+            "id": "gateway-relay",
+            "x": 2580,
+            "y": 684,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 2350,
+              "y": 1402
+            },
+            "label": "RELAY / VOLTAR"
+          }
+        ]
+      }
+    ],
+    "assets": [],
+    "layers": [
+      {
+        "id": "new-infrastructure",
+        "type": "infrastructure-world",
+        "theme": "dhcp",
+        "items": [
+          {
+            "kind": "address-sector",
+            "x": 1120,
+            "y": 690,
+            "width": 600,
+            "height": 310,
+            "label": "DHCP / 10.0.0.0/24"
+          },
+          {
+            "kind": "address-sector",
+            "x": 140,
+            "y": 340,
+            "width": 680,
+            "height": 310,
+            "label": "10.0.10.0/24 / RESERVAS"
+          },
+          {
+            "kind": "address-sector",
+            "x": 140,
+            "y": 1070,
+            "width": 680,
+            "height": 310,
+            "label": "169.254.0.0/16 / DIAGNÓSTICO"
+          },
+          {
+            "kind": "address-sector",
+            "x": 2040,
+            "y": 450,
+            "width": 630,
+            "height": 310,
+            "label": "10.0.30.0/24 / GATEWAY"
+          },
+          {
+            "kind": "address-sector",
+            "x": 1940,
+            "y": 1140,
+            "width": 710,
+            "height": 310,
+            "label": "10.0.20.0/24 / RELAY"
+          },
+          {
+            "kind": "conflict",
+            "x": 500,
+            "y": 505,
+            "width": 180,
+            "height": 35,
+            "label": "IP DUPLICADO: .42"
+          }
+        ],
+        "pass": "midground"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-08",
+    "name": "DNS",
+    "theme": "dns",
+    "objective": "Reconstrua os registros de .com, .org e do cache recursivo; encontre a resolução de retorno à raiz.",
+    "palette": [
+      "#101529",
+      "#302952",
+      "#d2b0ff",
+      "#7d68a1",
+      "#83c8e7"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 3400,
+      "height": 2100,
+      "layout": "maze",
+      "start": {
+        "x": 1600,
+        "y": 352
+      },
+      "exit": {
+        "mode": "region",
+        "x": 1940,
+        "y": 336,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "dns-root",
+            "x": 1350,
+            "y": 400,
+            "width": 700,
+            "height": 28
+          },
+          {
+            "id": "com-domain",
+            "x": 200,
+            "y": 750,
+            "width": 850,
+            "height": 28
+          },
+          {
+            "id": "org-domain",
+            "x": 2350,
+            "y": 750,
+            "width": 850,
+            "height": 28
+          },
+          {
+            "id": "mail-com",
+            "x": 200,
+            "y": 1200,
+            "width": 850,
+            "height": 28
+          },
+          {
+            "id": "api-org",
+            "x": 2350,
+            "y": 1200,
+            "width": 850,
+            "height": 28
+          },
+          {
+            "id": "recursive-cache",
+            "x": 1320,
+            "y": 1550,
+            "width": 760,
+            "height": 28
+          },
+          {
+            "id": "nxdomain-room",
+            "x": 80,
+            "y": 1700,
+            "width": 420,
+            "height": 28
+          },
+          {
+            "id": "archive-cache",
+            "x": 900,
+            "y": 1900,
+            "width": 1600,
+            "height": 28
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 1580,
+          "y": 400
+        },
+        {
+          "x": 400,
+          "y": 1200
+        },
+        {
+          "x": 2900,
+          "y": 1200
+        },
+        {
+          "x": 1510,
+          "y": 1550
+        }
+      ],
+      "checkpointMode": "free",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "raiz DNS",
+        "domínio .com e mail.com",
+        "domínio .org e api.org",
+        "cache recursivo",
+        "NXDOMAIN e arquivo"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "root-com-a",
+          "x": 1160,
+          "y": 490,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "root-com-b",
+          "x": 970,
+          "y": 580,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "root-com-c",
+          "x": 780,
+          "y": 670,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "root-org-a",
+          "x": 2080,
+          "y": 490,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "root-org-b",
+          "x": 2250,
+          "y": 580,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "root-org-c",
+          "x": 2440,
+          "y": 670,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "com-shaft-a",
+          "x": 1020,
+          "y": 840,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "com-shaft-b",
+          "x": 850,
+          "y": 930,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "com-shaft-c",
+          "x": 1020,
+          "y": 1020,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "com-shaft-d",
+          "x": 850,
+          "y": 1110,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "org-shaft-a",
+          "x": 3050,
+          "y": 840,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "org-shaft-b",
+          "x": 2860,
+          "y": 930,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "org-shaft-c",
+          "x": 3050,
+          "y": 1020,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "org-shaft-d",
+          "x": 2860,
+          "y": 1110,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "cache-west-a",
+          "x": 1100,
+          "y": 1290,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "cache-west-b",
+          "x": 1290,
+          "y": 1380,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "cache-west-c",
+          "x": 1480,
+          "y": 1470,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "cache-east-a",
+          "x": 2180,
+          "y": 1290,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "cache-east-b",
+          "x": 1990,
+          "y": 1380,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "cache-east-c",
+          "x": 1800,
+          "y": 1470,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "archive-a",
+          "x": 1100,
+          "y": 1810,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "archive-b",
+          "x": 1270,
+          "y": 1720,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "archive-c",
+          "x": 1440,
+          "y": 1630,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "com-divider-step",
+          "x": 520,
+          "y": 660,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "mail-divider-step",
+          "x": 540,
+          "y": 1110,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "org-divider-step",
+          "x": 2580,
+          "y": 660,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "api-divider-step",
+          "x": 2580,
+          "y": 1110,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "root-cache",
+          "x": 1480,
+          "y": 310,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "org-secret",
+          "x": 3020,
+          "y": 660,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "archive-secret",
+          "x": 2300,
+          "y": 1810,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "cname-com-bridge",
+          "x": 1160,
+          "y": 1200,
+          "width": 520,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "cname-org-bridge",
+          "x": 1710,
+          "y": 1200,
+          "width": 600,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "cache-restored-step",
+          "x": 1690,
+          "y": 1340,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c03"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "com-corrupt-wall",
+          "x": 680,
+          "y": 590,
+          "width": 35,
+          "height": 160,
+          "type": "corrupt",
+          "collision": "solid",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "mail-corrupt-wall",
+          "x": 700,
+          "y": 1040,
+          "width": 35,
+          "height": 160,
+          "type": "corrupt",
+          "collision": "solid",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "org-corrupt-wall",
+          "x": 2730,
+          "y": 600,
+          "width": 35,
+          "height": 150,
+          "type": "corrupt",
+          "collision": "solid",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "api-corrupt-wall",
+          "x": 2730,
+          "y": 1040,
+          "width": 35,
+          "height": 160,
+          "type": "corrupt",
+          "collision": "solid",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "root-corruption",
+          "x": 1850,
+          "y": 300,
+          "width": 30,
+          "height": 100,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c03"
+        },
+        {
+          "id": "nxdomain-corruption",
+          "x": 350,
+          "y": 1630,
+          "width": 30,
+          "height": 70,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c03",
+          "window": {
+            "period": 4,
+            "active": 1.4,
+            "phase": 0
+          }
+        }
+      ],
+      "gates": [],
+      "components": [
+        {
+          "id": "c01",
+          "x": 500,
+          "y": 1156,
+          "width": 34,
+          "height": 44,
+          "label": "REGISTRO MX / .COM"
+        },
+        {
+          "id": "c02",
+          "x": 2840,
+          "y": 1156,
+          "width": 34,
+          "height": 44,
+          "label": "REGISTRO A / .ORG"
+        },
+        {
+          "id": "c03",
+          "x": 1670,
+          "y": 1506,
+          "width": 34,
+          "height": 44,
+          "label": "CACHE RECURSIVO"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "shooter",
+          "x": 1780,
+          "y": 376,
+          "groundY": 400,
+          "navigationBounds": {
+            "left": 1460,
+            "right": 1810
+          },
+          "patrolMin": 1460,
+          "patrolMax": 1810,
+          "activationRegion": {
+            "x": 1350,
+            "y": 150,
+            "width": 700,
+            "height": 310
+          }
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "x": 930,
+          "y": 726,
+          "groundY": 750,
+          "navigationBounds": {
+            "left": 760,
+            "right": 1010
+          },
+          "patrolMin": 760,
+          "patrolMax": 1010,
+          "activationRegion": {
+            "x": 200,
+            "y": 480,
+            "width": 850,
+            "height": 330
+          }
+        },
+        {
+          "id": "e03",
+          "type": "basic",
+          "x": 3090,
+          "y": 726,
+          "groundY": 750,
+          "navigationBounds": {
+            "left": 2870,
+            "right": 3160
+          },
+          "patrolMin": 2870,
+          "patrolMax": 3160,
+          "activationRegion": {
+            "x": 2350,
+            "y": 480,
+            "width": 850,
+            "height": 330
+          }
+        },
+        {
+          "id": "e04",
+          "type": "parasite",
+          "x": 1940,
+          "y": 1526,
+          "groundY": 1550,
+          "navigationBounds": {
+            "left": 1400,
+            "right": 2020
+          },
+          "patrolMin": 1400,
+          "patrolMax": 2020,
+          "activationRegion": {
+            "x": 1320,
+            "y": 1260,
+            "width": 760,
+            "height": 350
+          }
+        },
+        {
+          "id": "e05",
+          "type": "armored",
+          "x": 3060,
+          "y": 1176,
+          "groundY": 1200,
+          "navigationBounds": {
+            "left": 2860,
+            "right": 3160
+          },
+          "patrolMin": 2860,
+          "patrolMax": 3160,
+          "activationRegion": {
+            "x": 2350,
+            "y": 940,
+            "width": 850,
+            "height": 320
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 1540,
+          "y": 280,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 3080,
+          "y": 630,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 2370,
+          "y": 1780,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 460,
+          "y": 1670,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i05",
+          "x": 980,
+          "y": 1870,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": []
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [],
+      "componentsToRepair": 3,
+      "enemiesToDefeat": 5
+    },
+    "mechanics": [
+      {
+        "id": "name-resolution",
+        "type": "portals",
+        "links": [
+          {
+            "id": "root-com",
+            "x": 1410,
+            "y": 324,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 350,
+              "y": 702
+            },
+            "label": ".COM"
+          },
+          {
+            "id": "root-org",
+            "x": 1970,
+            "y": 324,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 2500,
+              "y": 702
+            },
+            "label": ".ORG"
+          },
+          {
+            "id": "com-root",
+            "x": 260,
+            "y": 674,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1550,
+              "y": 352
+            },
+            "label": "RAIZ / VOLTAR"
+          },
+          {
+            "id": "org-root",
+            "x": 2410,
+            "y": 674,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1750,
+              "y": 352
+            },
+            "label": "RAIZ / VOLTAR"
+          },
+          {
+            "id": "com-mail",
+            "x": 450,
+            "y": 674,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 350,
+              "y": 1152
+            },
+            "label": "MAIL.COM"
+          },
+          {
+            "id": "org-api",
+            "x": 2640,
+            "y": 674,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 2500,
+              "y": 1152
+            },
+            "label": "API.ORG"
+          },
+          {
+            "id": "mail-return",
+            "x": 230,
+            "y": 1124,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 450,
+              "y": 702
+            },
+            "label": ".COM / VOLTAR"
+          },
+          {
+            "id": "api-return",
+            "x": 2400,
+            "y": 1124,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 2500,
+              "y": 702
+            },
+            "label": ".ORG / VOLTAR"
+          },
+          {
+            "id": "cname-com-org",
+            "x": 940,
+            "y": 1124,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 2930,
+              "y": 1152
+            },
+            "label": "CNAME → API.ORG",
+            "requires": {
+              "component": "c01"
+            }
+          },
+          {
+            "id": "api-cache",
+            "x": 3100,
+            "y": 1124,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1510,
+              "y": 1502
+            },
+            "label": "DNS RECURSIVO",
+            "requires": {
+              "component": "c02"
+            }
+          },
+          {
+            "id": "cache-root",
+            "x": 1950,
+            "y": 1474,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1660,
+              "y": 352
+            },
+            "label": "RAIZ / RESOLVIDO",
+            "requires": {
+              "component": "c03"
+            }
+          },
+          {
+            "id": "com-nxdomain",
+            "x": 920,
+            "y": 674,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 150,
+              "y": 1652
+            },
+            "label": "WWW.INEXISTENTE"
+          },
+          {
+            "id": "nxdomain-return",
+            "x": 420,
+            "y": 1624,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 830,
+              "y": 702
+            },
+            "label": "NXDOMAIN / VOLTAR"
+          },
+          {
+            "id": "archive-return",
+            "x": 1800,
+            "y": 1824,
+            "width": 44,
+            "height": 76,
+            "to": {
+              "x": 1510,
+              "y": 1502
+            },
+            "label": "CACHE / VOLTAR"
+          }
+        ]
+      }
+    ],
+    "assets": [],
+    "layers": [
+      {
+        "id": "new-infrastructure",
+        "type": "infrastructure-world",
+        "theme": "dns",
+        "items": [
+          {
+            "kind": "domain-root",
+            "x": 1350,
+            "y": 170,
+            "width": 700,
+            "height": 230,
+            "label": ". / RAIZ"
+          },
+          {
+            "kind": "domain-room",
+            "x": 200,
+            "y": 470,
+            "width": 850,
+            "height": 280,
+            "label": ".COM"
+          },
+          {
+            "kind": "domain-room",
+            "x": 2350,
+            "y": 470,
+            "width": 850,
+            "height": 280,
+            "label": ".ORG"
+          },
+          {
+            "kind": "domain-room",
+            "x": 200,
+            "y": 930,
+            "width": 850,
+            "height": 270,
+            "label": "MAIL.COM / MX"
+          },
+          {
+            "kind": "domain-room",
+            "x": 2350,
+            "y": 930,
+            "width": 850,
+            "height": 270,
+            "label": "API.ORG / A"
+          },
+          {
+            "kind": "domain-room",
+            "x": 1320,
+            "y": 1260,
+            "width": 760,
+            "height": 290,
+            "label": "RESOLVEDOR RECURSIVO"
+          },
+          {
+            "kind": "domain-false",
+            "x": 80,
+            "y": 1450,
+            "width": 420,
+            "height": 250,
+            "label": "NXDOMAIN / SEM REGISTRO"
+          },
+          {
+            "kind": "domain-room",
+            "x": 900,
+            "y": 1680,
+            "width": 1600,
+            "height": 220,
+            "label": "ARQUIVO / CACHE TTL"
+          }
+        ],
+        "pass": "midground"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-09",
+    "name": "Firewall e segurança",
+    "theme": "firewall",
+    "objective": "Infiltre as quatro camadas da fortaleza, restaure regras e ative o terminal de segurança da cidadela.",
+    "palette": [
+      "#210e18",
+      "#472137",
+      "#ff937b",
+      "#96516b",
+      "#edc980"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 3600,
+      "height": 1800,
+      "layout": "multi-route",
+      "start": {
+        "x": 120,
+        "y": 1512
+      },
+      "exit": {
+        "mode": "region",
+        "x": 2460,
+        "y": 476,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "outer-west",
+            "x": 80,
+            "y": 1560,
+            "width": 820,
+            "height": 60
+          },
+          {
+            "id": "outer-middle",
+            "x": 1180,
+            "y": 1560,
+            "width": 670,
+            "height": 60
+          },
+          {
+            "id": "outer-east",
+            "x": 2110,
+            "y": 1560,
+            "width": 1410,
+            "height": 60
+          },
+          {
+            "id": "inner-east",
+            "x": 2000,
+            "y": 1140,
+            "width": 1500,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "inner-west",
+            "x": 850,
+            "y": 1140,
+            "width": 1000,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "citadel",
+            "x": 1500,
+            "y": 540,
+            "width": 1200,
+            "height": 18,
+            "collision": "one-way"
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 1450,
+          "y": 1560
+        },
+        {
+          "x": 3200,
+          "y": 1560
+        },
+        {
+          "x": 2300,
+          "y": 1140
+        },
+        {
+          "x": 1050,
+          "y": 1140
+        },
+        {
+          "x": 2200,
+          "y": 540
+        }
+      ],
+      "checkpointMode": "free",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "perímetro e inspeção",
+        "bastião leste",
+        "anel interno",
+        "escadaria da cidadela"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "inspection-step-a",
+          "x": 940,
+          "y": 1500,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "inspection-step-b",
+          "x": 1120,
+          "y": 1420,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "route",
+          "motion": {
+            "axis": "y",
+            "range": 10,
+            "speed": 0.7
+          }
+        },
+        {
+          "id": "bastion-step-a",
+          "x": 3150,
+          "y": 1470,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "bastion-step-b",
+          "x": 3320,
+          "y": 1380,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "bastion-step-c",
+          "x": 3140,
+          "y": 1290,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "bastion-step-d",
+          "x": 3310,
+          "y": 1200,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "citadel-step-b",
+          "x": 1190,
+          "y": 960,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "citadel-step-c",
+          "x": 1380,
+          "y": 870,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "citadel-step-d",
+          "x": 1570,
+          "y": 780,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "citadel-step-e",
+          "x": 1760,
+          "y": 690,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "citadel-step-f",
+          "x": 1950,
+          "y": 600,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "outer-cache",
+          "x": 250,
+          "y": 1470,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "inner-cache",
+          "x": 2870,
+          "y": 1050,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "citadel-cache",
+          "x": 2550,
+          "y": 450,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route"
+        },
+        {
+          "id": "inspection-breakaway",
+          "x": 1940,
+          "y": 1470,
+          "width": 170,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "route",
+          "duration": 1.9,
+          "respawnDelay": 2.5
+        },
+        {
+          "id": "rules-bridge",
+          "x": 1840,
+          "y": 1140,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route",
+          "requiresComponentId": "c03"
+        },
+        {
+          "id": "citadel-step-a",
+          "x": 1000,
+          "y": 1050,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route",
+          "requiresComponentId": "c04"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "perimeter-laser",
+          "x": 520,
+          "y": 1480,
+          "width": 28,
+          "height": 80,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c01",
+          "window": {
+            "period": 3.8,
+            "active": 1.2,
+            "phase": 0
+          }
+        },
+        {
+          "id": "inspection-laser",
+          "x": 1300,
+          "y": 1480,
+          "width": 28,
+          "height": 80,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c02",
+          "window": {
+            "period": 3.8,
+            "active": 1.3,
+            "phase": 1
+          }
+        },
+        {
+          "id": "inner-laser",
+          "x": 2600,
+          "y": 1060,
+          "width": 30,
+          "height": 80,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c03",
+          "window": {
+            "period": 3.2,
+            "active": 1.25,
+            "phase": 0.5
+          }
+        },
+        {
+          "id": "citadel-cover",
+          "x": 2310,
+          "y": 474,
+          "width": 44,
+          "height": 66,
+          "type": "heatsink",
+          "collision": "solid"
+        }
+      ],
+      "gates": [
+        {
+          "id": "security-layer-1",
+          "x": 620,
+          "y": 1160,
+          "width": 28,
+          "height": 400,
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "security-layer-2",
+          "x": 1830,
+          "y": 1180,
+          "width": 28,
+          "height": 380,
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "security-layer-3",
+          "x": 1950,
+          "y": 900,
+          "width": 28,
+          "height": 240,
+          "requiresComponentId": "c03"
+        },
+        {
+          "id": "security-core-lock",
+          "x": 2380,
+          "y": 390,
+          "width": 26,
+          "height": 150,
+          "opensWhen": {
+            "flag": "rules-on"
+          }
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 400,
+          "y": 1516,
+          "width": 34,
+          "height": 44,
+          "label": "REGRAS DO PERÍMETRO"
+        },
+        {
+          "id": "c02",
+          "x": 1450,
+          "y": 1516,
+          "width": 34,
+          "height": 44,
+          "label": "POLÍTICA DE INSPEÇÃO"
+        },
+        {
+          "id": "c03",
+          "x": 2350,
+          "y": 1096,
+          "width": 34,
+          "height": 44,
+          "label": "REGRAS DO ANEL INTERNO"
+        },
+        {
+          "id": "c04",
+          "x": 1050,
+          "y": 1096,
+          "width": 34,
+          "height": 44,
+          "label": "ACESSO À CIDADELA"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "x": 1620,
+          "y": 1536,
+          "groundY": 1560,
+          "navigationBounds": {
+            "left": 1230,
+            "right": 1760
+          },
+          "patrolMin": 1230,
+          "patrolMax": 1760,
+          "activationRegion": {
+            "x": 1180,
+            "y": 1290,
+            "width": 670,
+            "height": 330
+          }
+        },
+        {
+          "id": "e02",
+          "type": "shooter",
+          "x": 2850,
+          "y": 1536,
+          "groundY": 1560,
+          "navigationBounds": {
+            "left": 2400,
+            "right": 3370
+          },
+          "patrolMin": 2400,
+          "patrolMax": 3370,
+          "activationRegion": {
+            "x": 2110,
+            "y": 1290,
+            "width": 1410,
+            "height": 330
+          }
+        },
+        {
+          "id": "e03",
+          "type": "armored",
+          "x": 3050,
+          "y": 1116,
+          "groundY": 1140,
+          "navigationBounds": {
+            "left": 2750,
+            "right": 3380
+          },
+          "patrolMin": 2750,
+          "patrolMax": 3380,
+          "activationRegion": {
+            "x": 2000,
+            "y": 870,
+            "width": 1500,
+            "height": 330
+          }
+        },
+        {
+          "id": "e04",
+          "type": "flyer",
+          "x": 1360,
+          "y": 1048,
+          "groundY": 1140,
+          "navigationBounds": {
+            "left": 980,
+            "right": 1790
+          },
+          "patrolMin": 980,
+          "patrolMax": 1790,
+          "activationRegion": {
+            "x": 850,
+            "y": 840,
+            "width": 1000,
+            "height": 360
+          }
+        },
+        {
+          "id": "e05",
+          "type": "armored",
+          "x": 2540,
+          "y": 516,
+          "groundY": 540,
+          "navigationBounds": {
+            "left": 2440,
+            "right": 2640
+          },
+          "patrolMin": 2440,
+          "patrolMax": 2640,
+          "activationRegion": {
+            "x": 1500,
+            "y": 270,
+            "width": 1200,
+            "height": 330
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 300,
+          "y": 1440,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 2940,
+          "y": 1020,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 2610,
+          "y": 420,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 3440,
+          "y": 1530,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": [
+        {
+          "id": "citadel-console",
+          "type": "switch",
+          "x": 2190,
+          "y": 500,
+          "width": 40,
+          "height": 40,
+          "requires": {
+            "component": "c04"
+          },
+          "flag": "rules-on",
+          "once": true,
+          "label": "ACL",
+          "message": "REGRAS RESTAURADAS // CIDADELA LIBERADA"
+        }
+      ]
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [
+        {
+          "id": "security-policy",
+          "type": "condition",
+          "condition": {
+            "flag": "rules-on"
+          }
+        }
+      ],
+      "componentsToRepair": 4,
+      "enemiesToDefeat": 5
+    },
+    "mechanics": [
+      {
+        "id": "surveillance",
+        "type": "security-grid",
+        "cameras": [
+          {
+            "id": "inspection-cam",
+            "x": 1110,
+            "y": 1300,
+            "period": 3.8,
+            "windup": 1.0,
+            "region": {
+              "x": 940,
+              "y": 1330,
+              "width": 560,
+              "height": 240
+            },
+            "disabledWhen": {
+              "component": "c02"
+            }
+          },
+          {
+            "id": "inner-cam",
+            "x": 2780,
+            "y": 900,
+            "period": 3.2,
+            "windup": 0.9,
+            "region": {
+              "x": 2510,
+              "y": 910,
+              "width": 700,
+              "height": 240
+            },
+            "disabledWhen": {
+              "component": "c03"
+            }
+          }
+        ]
+      }
+    ],
+    "assets": [],
+    "layers": [
+      {
+        "id": "new-infrastructure",
+        "type": "infrastructure-world",
+        "theme": "firewall",
+        "items": [
+          {
+            "kind": "fortress",
+            "x": 580,
+            "y": 270,
+            "width": 2480,
+            "height": 1320,
+            "label": "FORTALEZA / DEFESA EM PROFUNDIDADE"
+          },
+          {
+            "kind": "bastion",
+            "x": 620,
+            "y": 1160,
+            "width": 280,
+            "height": 400,
+            "label": "CAMADA 1"
+          },
+          {
+            "kind": "bastion",
+            "x": 1830,
+            "y": 1180,
+            "width": 280,
+            "height": 380,
+            "label": "CAMADA 2"
+          },
+          {
+            "kind": "security-hall",
+            "x": 2000,
+            "y": 870,
+            "width": 1500,
+            "height": 270,
+            "label": "BASTIÃO LESTE / INSPEÇÃO"
+          },
+          {
+            "kind": "security-hall",
+            "x": 850,
+            "y": 870,
+            "width": 1000,
+            "height": 270,
+            "label": "ANEL INTERNO / INFILTRAÇÃO"
+          },
+          {
+            "kind": "citadel",
+            "x": 1500,
+            "y": 270,
+            "width": 1200,
+            "height": 270,
+            "label": "CIDADELA / ACL"
+          }
+        ],
+        "pass": "midground"
+      }
+    ]
+  },
+  {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-10",
+    "name": "Servidores e Internet",
+    "theme": "servers",
+    "objective": "Restaure quatro relays nas torres e no backbone; abra o núcleo elevado e derrote VIRUS ZERO.",
+    "palette": [
+      "#071322",
+      "#14334c",
+      "#8ceaff",
+      "#44758d",
+      "#fa719a"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 6800,
+      "height": 2000,
+      "layout": "multi-route",
+      "start": {
+        "x": 200,
+        "y": 1592
+      },
+      "exit": {
+        "mode": "region",
+        "x": 6480,
+        "y": 836,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "dc-entry",
+            "x": 80,
+            "y": 1640,
+            "width": 1000,
+            "height": 60
+          },
+          {
+            "id": "dc-backbone",
+            "x": 1280,
+            "y": 1640,
+            "width": 1170,
+            "height": 60
+          },
+          {
+            "id": "tower-a-roof",
+            "x": 420,
+            "y": 1190,
+            "width": 600,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "tower-b-roof",
+            "x": 1660,
+            "y": 1050,
+            "width": 600,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "battle-west",
+            "x": 2580,
+            "y": 1640,
+            "width": 570,
+            "height": 60
+          },
+          {
+            "id": "battle-east",
+            "x": 3450,
+            "y": 1540,
+            "width": 700,
+            "height": 60
+          },
+          {
+            "id": "core-airlock",
+            "x": 4350,
+            "y": 1170,
+            "width": 470,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "virus-zero-arena",
+            "x": 4800,
+            "y": 900,
+            "width": 1800,
+            "height": 60
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 640,
+          "y": 1190
+        },
+        {
+          "x": 1850,
+          "y": 1050
+        },
+        {
+          "x": 2910,
+          "y": 1640
+        },
+        {
+          "x": 4450,
+          "y": 1170
+        },
+        {
+          "x": 5000,
+          "y": 900
+        }
+      ],
+      "checkpointMode": "free",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "data center inferior",
+        "torres e fibra superior",
+        "backbone sob ataque",
+        "airlock",
+        "arena exclusiva"
+      ],
+      "sections": [
+        {
+          "x": 0,
+          "label": "01 // TORRES DO DATA CENTER"
+        },
+        {
+          "x": 2500,
+          "label": "02 // BACKBONE SOB ATAQUE"
+        },
+        {
+          "x": 4800,
+          "label": "03 // ARENA DE VIRUS ZERO"
+        }
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "tower-a-step1",
+          "x": 400,
+          "y": 1550,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "tower-a-step2",
+          "x": 600,
+          "y": 1460,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "tower-a-step3",
+          "x": 420,
+          "y": 1370,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "tower-a-step4",
+          "x": 620,
+          "y": 1280,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "backbone-fallback",
+          "x": 1110,
+          "y": 1570,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "tower-b-step1",
+          "x": 1470,
+          "y": 1540,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "tower-b-step2",
+          "x": 1660,
+          "y": 1440,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "tower-b-step3",
+          "x": 1470,
+          "y": 1340,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "tower-b-step4",
+          "x": 1660,
+          "y": 1240,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "tower-b-step5",
+          "x": 1470,
+          "y": 1140,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "dc-to-battle-a",
+          "x": 2320,
+          "y": 1140,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "dc-to-battle-b",
+          "x": 2500,
+          "y": 1230,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "dc-to-battle-c",
+          "x": 2680,
+          "y": 1320,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "combat-bridge-a",
+          "x": 3200,
+          "y": 1550,
+          "width": 160,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "cable",
+          "duration": 2.0,
+          "respawnDelay": 2.6
+        },
+        {
+          "id": "combat-bridge-b",
+          "x": 3380,
+          "y": 1460,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "cable",
+          "motion": {
+            "axis": "x",
+            "range": 18,
+            "speed": 0.65
+          }
+        },
+        {
+          "id": "airlock-step1",
+          "x": 4000,
+          "y": 1440,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "airlock-step2",
+          "x": 4170,
+          "y": 1350,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "airlock-step3",
+          "x": 4350,
+          "y": 1260,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "arena-approach-a",
+          "x": 4700,
+          "y": 1080,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "arena-approach-b",
+          "x": 4580,
+          "y": 990,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "core-left-low",
+          "x": 5000,
+          "y": 800,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "core-left-high",
+          "x": 5200,
+          "y": 700,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "core-middle-low",
+          "x": 5410,
+          "y": 800,
+          "width": 190,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "core-middle-step",
+          "x": 5540,
+          "y": 720,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "core-aerial-lift",
+          "x": 5620,
+          "y": 640,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "signal",
+          "motion": {
+            "axis": "y",
+            "range": 16,
+            "speed": 0.7
+          }
+        },
+        {
+          "id": "core-right-high",
+          "x": 5830,
+          "y": 730,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "core-right-low",
+          "x": 6050,
+          "y": 820,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "core-right-step",
+          "x": 6210,
+          "y": 760,
+          "width": 130,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "core-right-top",
+          "x": 6240,
+          "y": 700,
+          "width": 190,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "entry-secret",
+          "x": 150,
+          "y": 1550,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "tower-a-secret",
+          "x": 420,
+          "y": 1100,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "tower-b-secret",
+          "x": 2130,
+          "y": 960,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "combat-secret-a",
+          "x": 2840,
+          "y": 1550,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "combat-secret-b",
+          "x": 3000,
+          "y": 1460,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "combat-secret-top",
+          "x": 2840,
+          "y": 1370,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "airlock-secret",
+          "x": 4460,
+          "y": 1080,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "fiber-link-a",
+          "x": 1080,
+          "y": 1190,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "fiber-link-b",
+          "x": 1260,
+          "y": 1120,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "fiber-link-c",
+          "x": 1450,
+          "y": 1050,
+          "width": 220,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "upper-backbone-a",
+          "x": 2280,
+          "y": 1050,
+          "width": 250,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "upper-backbone-b",
+          "x": 2540,
+          "y": 1050,
+          "width": 250,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "upper-backbone-c",
+          "x": 2800,
+          "y": 1140,
+          "width": 200,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "restored-combat-bridge",
+          "x": 3150,
+          "y": 1640,
+          "width": 300,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "route",
+          "requiresComponentId": "c03"
+        },
+        {
+          "id": "airlock-elevator",
+          "x": 4120,
+          "y": 1360,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "packet",
+          "requiresComponentId": "c03",
+          "motion": {
+            "axis": "y",
+            "range": 140,
+            "speed": 0.5
+          }
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "backbone-pulse",
+          "x": 3100,
+          "y": 1560,
+          "width": 28,
+          "height": 80,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c03",
+          "window": {
+            "period": 3.6,
+            "active": 1.2,
+            "phase": 0
+          }
+        },
+        {
+          "id": "airlock-pulse",
+          "x": 4010,
+          "y": 1460,
+          "width": 28,
+          "height": 80,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c03",
+          "window": {
+            "period": 3.4,
+            "active": 1.25,
+            "phase": 0.8
+          }
+        },
+        {
+          "id": "arena-cover-left",
+          "x": 5160,
+          "y": 826,
+          "width": 52,
+          "height": 74,
+          "type": "heatsink",
+          "collision": "solid"
+        },
+        {
+          "id": "arena-cover-right",
+          "x": 6110,
+          "y": 814,
+          "width": 60,
+          "height": 86,
+          "type": "heatsink",
+          "collision": "solid"
+        }
+      ],
+      "gates": [
+        {
+          "id": "core-access-lock",
+          "x": 4770,
+          "y": 750,
+          "width": 28,
+          "height": 420,
+          "opensWhen": {
+            "all": [
+              {
+                "component": "c01"
+              },
+              {
+                "component": "c02"
+              },
+              {
+                "component": "c03"
+              },
+              {
+                "component": "c04"
+              }
+            ]
+          }
+        }
+      ],
+      "components": [
+        {
+          "id": "c01",
+          "x": 650,
+          "y": 1146,
+          "width": 34,
+          "height": 44,
+          "label": "RELAY DA TORRE A"
+        },
+        {
+          "id": "c02",
+          "x": 1900,
+          "y": 1006,
+          "width": 34,
+          "height": 44,
+          "label": "RELAY DA TORRE B"
+        },
+        {
+          "id": "c03",
+          "x": 3730,
+          "y": 1496,
+          "width": 34,
+          "height": 44,
+          "label": "ENERGIA DO BACKBONE"
+        },
+        {
+          "id": "c04",
+          "x": 4570,
+          "y": 1126,
+          "width": 34,
+          "height": 44,
+          "label": "ESCUDO DO NÚCLEO"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "x": 800,
+          "y": 1616,
+          "groundY": 1640,
+          "navigationBounds": {
+            "left": 400,
+            "right": 1000
+          },
+          "patrolMin": 400,
+          "patrolMax": 1000,
+          "activationRegion": {
+            "x": 80,
+            "y": 1360,
+            "width": 1000,
+            "height": 340
+          }
+        },
+        {
+          "id": "e02",
+          "type": "shooter",
+          "x": 900,
+          "y": 1166,
+          "groundY": 1190,
+          "navigationBounds": {
+            "left": 470,
+            "right": 980
+          },
+          "patrolMin": 470,
+          "patrolMax": 980,
+          "activationRegion": {
+            "x": 420,
+            "y": 910,
+            "width": 600,
+            "height": 340
+          }
+        },
+        {
+          "id": "e03",
+          "type": "flyer",
+          "x": 2100,
+          "y": 958,
+          "groundY": 1050,
+          "navigationBounds": {
+            "left": 1740,
+            "right": 2200
+          },
+          "patrolMin": 1740,
+          "patrolMax": 2200,
+          "activationRegion": {
+            "x": 1300,
+            "y": 740,
+            "width": 1000,
+            "height": 370
+          }
+        },
+        {
+          "id": "e04",
+          "type": "shooter",
+          "x": 2980,
+          "y": 1616,
+          "groundY": 1640,
+          "navigationBounds": {
+            "left": 2700,
+            "right": 3090
+          },
+          "patrolMin": 2700,
+          "patrolMax": 3090,
+          "activationRegion": {
+            "x": 2580,
+            "y": 1360,
+            "width": 570,
+            "height": 340
+          }
+        },
+        {
+          "id": "e05",
+          "type": "parasite",
+          "x": 3570,
+          "y": 1516,
+          "groundY": 1540,
+          "navigationBounds": {
+            "left": 3500,
+            "right": 4000
+          },
+          "patrolMin": 3500,
+          "patrolMax": 4000,
+          "activationRegion": {
+            "x": 3450,
+            "y": 1260,
+            "width": 700,
+            "height": 340
+          }
+        },
+        {
+          "id": "e06",
+          "type": "fast",
+          "x": 3970,
+          "y": 1516,
+          "groundY": 1540,
+          "navigationBounds": {
+            "left": 3500,
+            "right": 4080
+          },
+          "patrolMin": 3500,
+          "patrolMax": 4080,
+          "activationRegion": {
+            "x": 3450,
+            "y": 1260,
+            "width": 700,
+            "height": 340
+          }
+        },
+        {
+          "id": "e07",
+          "type": "armored",
+          "x": 4660,
+          "y": 1146,
+          "groundY": 1170,
+          "navigationBounds": {
+            "left": 4430,
+            "right": 4750
+          },
+          "patrolMin": 4430,
+          "patrolMax": 4750,
+          "activationRegion": {
+            "x": 4350,
+            "y": 890,
+            "width": 470,
+            "height": 340
+          }
+        },
+        {
+          "id": "e08",
+          "type": "boss",
+          "x": 5680,
+          "y": 854,
+          "groundY": 900,
+          "hp": 90,
+          "multiStage": true,
+          "coreShieldRequiresRepairs": true,
+          "bossBounds": {
+            "left": 4880,
+            "right": 6500
+          },
+          "activationRegion": {
+            "x": 4800,
+            "y": 320,
+            "width": 1800,
+            "height": 650
+          },
+          "armor": 0.35,
+          "damage": 18,
+          "speed": 58,
+          "xp": 500
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 220,
+          "y": 1520,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 480,
+          "y": 1070,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 2190,
+          "y": 930,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 2900,
+          "y": 1340,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i05",
+          "x": 4510,
+          "y": 1050,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i06",
+          "x": 6400,
+          "y": 670,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": []
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [],
+      "componentsToRepair": 4,
+      "enemiesToDefeat": 8
+    },
+    "mechanics": [],
+    "assets": [],
+    "layers": [
+      {
+        "id": "new-infrastructure",
+        "type": "infrastructure-world",
+        "theme": "servers",
+        "items": [
+          {
+            "kind": "datacenter",
+            "x": 80,
+            "y": 870,
+            "width": 2300,
+            "height": 830,
+            "label": "DATA CENTER / REDUNDÂNCIA A–B"
+          },
+          {
+            "kind": "server-tower",
+            "x": 420,
+            "y": 1190,
+            "width": 600,
+            "height": 450,
+            "label": "TORRE A"
+          },
+          {
+            "kind": "server-tower",
+            "x": 1660,
+            "y": 1050,
+            "width": 600,
+            "height": 590,
+            "label": "TORRE B"
+          },
+          {
+            "kind": "battle-hall",
+            "x": 2580,
+            "y": 1150,
+            "width": 1570,
+            "height": 550,
+            "label": "BACKBONE / COMBATE AVANÇADO"
+          },
+          {
+            "kind": "airlock",
+            "x": 4350,
+            "y": 850,
+            "width": 470,
+            "height": 320,
+            "label": "SISTEMAS DO NÚCLEO"
+          },
+          {
+            "kind": "boss-arena",
+            "x": 4800,
+            "y": 380,
+            "width": 1800,
+            "height": 520,
+            "label": "VIRUS ZERO / NÚCLEO DA INTERNET"
+          }
+        ],
+        "pass": "midground"
+      }
+    ],
+    "completion": {
+      "type": "boss-question",
+      "enemyId": "e08"
+    }
+  }
+]

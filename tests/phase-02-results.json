@@ -1,0 +1,54 @@
+{
+  "phases": [
+    {
+      "phase": 2,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 18,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "desktop-to-process",
+        "process-to-desktop",
+        "desktop-to-scheduler",
+        "process-to-files",
+        "scheduler-to-desktop",
+        "scheduler-to-files",
+        "files-to-process",
+        "files-to-scheduler"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "shooter",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {},
+  "errors": [],
+  "snapshots": []
+}

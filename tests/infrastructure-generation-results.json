@@ -1,0 +1,12 @@
+{
+  "phases": [],
+  "systems": {
+    "infrastructure generation: original content, checkpoints and completion survive compilation": "PASS",
+    "infrastructure generation: manual VIRUS ZERO arena is identical across seeds": "PASS",
+    "infrastructure generation: procedural additions cannot enter the boss arena": "PASS",
+    "infrastructure generation: DHCP conflict region responds to its repair": "PASS",
+    "infrastructure generation: all DNS portals land safely without chained activations": "PASS"
+  },
+  "errors": [],
+  "snapshots": []
+}

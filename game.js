@@ -2138,7 +2138,9 @@
   }
 
   function drawSolids() {
-    for (const object of solids()) {
+    const terrainShapes=solids();
+    levelVisuals.prepareTerrain(terrainShapes);
+    for (const object of terrainShapes) {
       const x = object.x;
       if (x + object.w - cameraX < 0 || x - cameraX > width) continue;
       if (ByteRunner.art.platform(ctx,levelVisuals,object,animationTime,phaseIndex,{x:cameraX,y:cameraY,width,height})) continue;
@@ -2796,6 +2798,7 @@
     ctx.restore();
     levelVisuals.layers(ctx,'foreground',view,animationTime);
     ByteRunner.art.atmosphere(ctx,view,animationTime,phaseData.palette[2]);
+    if(ByteRunner.mapDebug?.enabled)ByteRunner.mapDebug.frame({phase:phaseData,shapes:solids(),links:levelRuntime.connections(),player:{x:player.x,y:player.y},repaired:components.filter(c=>c.repaired).map(c=>c.id),cacheSize:levelVisuals.terrain?.cacheSize||0});
     ctx.restore();
     ctx=outputContext;ctx.imageSmoothingEnabled=false;ctx.save();ctx.drawImage(pixelScene,0,0,width,height);ctx.restore();
     if(animationTime<.65 && phaseIntroTime===0) {ctx.fillStyle='rgba(7,11,29,'+(.7*(1-animationTime/.65))+')';ctx.fillRect(0,0,width,height);}

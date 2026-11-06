@@ -7,5 +7,11 @@
     "procedural demo: Part 2 saves retain XP and skills while resetting obsolete geometry": "PASS"
   },
   "errors": [],
-  "snapshots": []
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+    "atUTC": "2026-11-06T00:29:19.295171+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
 }

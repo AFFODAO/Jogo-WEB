@@ -1,7 +1,7 @@
 // These maps and controllers exist only in the isolated browser test copy.
 const canonical = value => JSON.stringify(value, (key,item) => item && !Array.isArray(item) && typeof item === 'object'
   ? Object.fromEntries(Object.keys(item).sort().map(key=>[key,item[key]])) : item);
-test('architecture: all layouts replaced, first five unchanged',()=>{
+test('architecture: all layouts distinct, hybrid campaign preserves authored content',()=>{
   assert(PHASES.length===MAP_BASELINE.length,'campaign size changed');
   function project(current,baseline) {
     if (Array.isArray(baseline)) return current.map((value,index)=>project(value,baseline[index]));
@@ -9,8 +9,13 @@ test('architecture: all layouts replaced, first five unchanged',()=>{
     return current;
   }
   PHASES.forEach((phase,index)=>{
-    assert(phase.revision===2&&phase.map.ground.mode==='explicit'&&canonical(phase.entities.platforms)!==canonical(MAP_BASELINE[index].entities.platforms),'layout was not rebuilt: '+phase.id);
-    if(index<5)assert(canonical(project(phase,FIRST_FIVE_V2[index]))===canonical(FIRST_FIVE_V2[index]),'first-five map changed: '+phase.id);
+    assert(phase.revision===(phase.theme==='cabling'?4:3)&&phase.map.ground.mode==='explicit'&&canonical(phase.entities.platforms)!==canonical(MAP_BASELINE[index].entities.platforms),'layout was not rebuilt: '+phase.id);
+    if(index<5) {
+      const authored=phase.generation.recipe.rooms[0].config.blueprint;
+      assert(canonical(project(authored,FIRST_FIVE_V2[index]))===canonical(FIRST_FIVE_V2[index]),'authored content changed: '+phase.id);
+      for(const group of ['components','enemies','collectibles','interactives'])assert(canonical(phase.entities[group])===canonical(authored.entities[group]),'content/order changed: '+group);
+      assert(canonical(phase.objectives)===canonical(authored.objectives),'objectives changed');
+    }
     assert(Object.isFrozen(phase)&&Object.isFrozen(phase.entities.platforms),'map definitions are mutable');
   });
 });

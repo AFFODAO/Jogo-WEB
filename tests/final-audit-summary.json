@@ -1,0 +1,614 @@
+{
+  "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+  "sourceChecks": [
+    {
+      "command": [
+        "C:\\Users\\tecnicoinfo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "tools/check_maps.py"
+      ],
+      "exitCode": 0,
+      "stdout": "phase-01: horizontal, 17 platforms, 3 enemies, 3 repairs\nphase-02: hub, 11 platforms, 3 enemies, 3 repairs\nphase-03: multi-route, 23 platforms, 3 enemies, 3 repairs\nphase-04: maze, 17 platforms, 3 enemies, 3 repairs\nphase-05: vertical, 26 platforms, 3 enemies, 3 repairs\nphase-06: vertical, 36 platforms, 4 enemies, 3 repairs\nphase-07: hub, 18 platforms, 4 enemies, 3 repairs\nphase-08: maze, 33 platforms, 5 enemies, 3 repairs\nphase-09: multi-route, 17 platforms, 5 enemies, 4 repairs\nphase-10: multi-route, 44 platforms, 8 enemies, 4 repairs\nPASS: 10 independent map modules; browser validation runs in tests/run_review.py\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\tecnicoinfo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "tools/check_generation.py"
+      ],
+      "exitCode": 0,
+      "stdout": "PASS: authored infrastructure, phases 1..5, boss/repair engines and campaign manifest preserved; generation script order valid\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\Users\\tecnicoinfo\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+        "tools/check_environment.py"
+      ],
+      "exitCode": 0,
+      "stdout": "PASS: campaign, core physics, boss and repair systems preserved around explicit audited geometry fixes and readonly debug; original PNG assets present\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "warning: in the working copy of 'src/engine/art.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/engine/pixel-art.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/engine/visuals.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/generation/demo.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/generation/rooms.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'src/generation/structural.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/audit.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tests/pixelart.js', LF will be replaced by CRLF the next time Git touches it\nwarning: in the working copy of 'tools/pixelart/build.py', LF will be replaced by CRLF the next time Git touches it\n"
+    }
+  ],
+  "phases": [
+    {
+      "phase": 1,
+      "theme": "hardware",
+      "seeds": [
+        "phase-01-review-alpha",
+        "phase-01-review-beta",
+        "phase-01-review-gamma"
+      ],
+      "cases": 6,
+      "structures": {
+        "campaign": 3,
+        "procedural": 3
+      },
+      "repairStates": 22
+    },
+    {
+      "phase": 2,
+      "theme": "software",
+      "seeds": [
+        "phase-02-review-alpha",
+        "phase-02-review-beta",
+        "phase-02-review-gamma"
+      ],
+      "cases": 6,
+      "structures": {
+        "campaign": 3,
+        "procedural": 3
+      },
+      "repairStates": 22
+    },
+    {
+      "phase": 3,
+      "theme": "switch",
+      "seeds": [
+        "phase-03-review-alpha",
+        "phase-03-review-beta",
+        "phase-03-review-gamma"
+      ],
+      "cases": 6,
+      "structures": {
+        "campaign": 3,
+        "procedural": 3
+      },
+      "repairStates": 28
+    },
+    {
+      "phase": 4,
+      "theme": "router",
+      "seeds": [
+        "phase-04-review-alpha",
+        "phase-04-review-beta",
+        "phase-04-review-gamma"
+      ],
+      "cases": 6,
+      "structures": {
+        "campaign": 3,
+        "procedural": 3
+      },
+      "repairStates": 23
+    },
+    {
+      "phase": 5,
+      "theme": "wifi",
+      "seeds": [
+        "phase-05-review-alpha",
+        "phase-05-review-beta",
+        "phase-05-review-gamma"
+      ],
+      "cases": 6,
+      "structures": {
+        "campaign": 3,
+        "procedural": 3
+      },
+      "repairStates": 24
+    },
+    {
+      "phase": 6,
+      "theme": "cabling",
+      "seeds": [
+        "phase-06-review-alpha",
+        "phase-06-review-beta",
+        "phase-06-review-gamma"
+      ],
+      "cases": 6,
+      "structures": {
+        "campaign": 3,
+        "procedural": 3
+      },
+      "repairStates": 24
+    },
+    {
+      "phase": 7,
+      "theme": "dhcp",
+      "seeds": [
+        "phase-07-review-alpha",
+        "phase-07-review-beta",
+        "phase-07-review-gamma"
+      ],
+      "cases": 6,
+      "structures": {
+        "campaign": 3,
+        "procedural": 3
+      },
+      "repairStates": 28
+    },
+    {
+      "phase": 8,
+      "theme": "dns",
+      "seeds": [
+        "phase-08-review-alpha",
+        "phase-08-review-beta",
+        "phase-08-review-gamma"
+      ],
+      "cases": 6,
+      "structures": {
+        "campaign": 2,
+        "procedural": 3
+      },
+      "repairStates": 24
+    },
+    {
+      "phase": 9,
+      "theme": "firewall",
+      "seeds": [
+        "phase-09-review-alpha",
+        "phase-09-review-beta",
+        "phase-09-review-gamma"
+      ],
+      "cases": 6,
+      "structures": {
+        "campaign": 3,
+        "procedural": 3
+      },
+      "repairStates": 27
+    },
+    {
+      "phase": 10,
+      "theme": "servers",
+      "seeds": [
+        "phase-10-review-alpha",
+        "phase-10-review-beta",
+        "phase-10-review-gamma"
+      ],
+      "cases": 6,
+      "structures": {
+        "campaign": 3,
+        "procedural": 3
+      },
+      "repairStates": 26
+    }
+  ],
+  "distinctCampaignGeometries": 10,
+  "mapsTested": 60,
+  "suites": {
+    "review": {
+      "passed": 190,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:27:57.090850+00:00"
+    },
+    "map-debug": {
+      "passed": 6,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:28:26.236437+00:00"
+    },
+    "final-regressions": {
+      "passed": 12,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:27:56.326322+00:00"
+    },
+    "final-performance": {
+      "passed": 11,
+      "failed": 11,
+      "failures": {
+        "performance: local 60Hz frame budget / 1": "p95 exceeds local 60Hz screening budget: 53.40 ms",
+        "performance: local 60Hz frame budget / 2": "p95 exceeds local 60Hz screening budget: 56.20 ms",
+        "performance: local 60Hz frame budget / 3": "p95 exceeds local 60Hz screening budget: 38.30 ms",
+        "performance: local 60Hz frame budget / 4": "p95 exceeds local 60Hz screening budget: 28.80 ms",
+        "performance: local 60Hz frame budget / 5": "p95 exceeds local 60Hz screening budget: 38.70 ms",
+        "performance: local 60Hz frame budget / 6": "p95 exceeds local 60Hz screening budget: 54.40 ms",
+        "performance: local 60Hz frame budget / 7": "p95 exceeds local 60Hz screening budget: 40.50 ms",
+        "performance: local 60Hz frame budget / 8": "p95 exceeds local 60Hz screening budget: 35.40 ms",
+        "performance: local 60Hz frame budget / 9": "p95 exceeds local 60Hz screening budget: 31.90 ms",
+        "performance: local 60Hz frame budget / 10": "p95 exceeds local 60Hz screening budget: 54.00 ms",
+        "performance: local 60Hz frame budget / procedural-24": "p95 exceeds local 60Hz screening budget: 46.80 ms"
+      },
+      "executedUTC": "2026-11-06T00:25:23.590763+00:00"
+    },
+    "gameplay-demo": {
+      "passed": 3,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:28:46.697798+00:00"
+    },
+    "procedural-demo": {
+      "passed": 4,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:29:19.295171+00:00"
+    },
+    "environment-art": {
+      "passed": 43,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:24:50.328492+00:00"
+    },
+    "final-phase-01": {
+      "passed": 7,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:27:03.923560+00:00"
+    },
+    "final-phase-02": {
+      "passed": 7,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:26:52.352198+00:00"
+    },
+    "final-phase-03": {
+      "passed": 7,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:27:55.146054+00:00"
+    },
+    "final-phase-04": {
+      "passed": 7,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:28:31.118948+00:00"
+    },
+    "final-phase-05": {
+      "passed": 7,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:28:49.216236+00:00"
+    },
+    "final-phase-06": {
+      "passed": 7,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:29:32.728832+00:00"
+    },
+    "final-phase-07": {
+      "passed": 7,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:30:02.608294+00:00"
+    },
+    "final-phase-08": {
+      "passed": 7,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:30:42.394125+00:00"
+    },
+    "final-phase-09": {
+      "passed": 7,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:30:58.261355+00:00"
+    },
+    "final-phase-10": {
+      "passed": 7,
+      "failed": 0,
+      "failures": {},
+      "executedUTC": "2026-11-06T00:31:20.764859+00:00"
+    }
+  },
+  "browser": {
+    "viewports": 7,
+    "scenarios": 70,
+    "captures": 70,
+    "input": {
+      "keyboard": {
+        "before": {
+          "x": 70,
+          "y": 802,
+          "running": true,
+          "keys": [],
+          "repair": false
+        },
+        "after": {
+          "x": 303.75,
+          "y": 802,
+          "running": true,
+          "keys": [],
+          "repair": false
+        },
+        "passed": true
+      },
+      "touch": {
+        "before": {
+          "x": 70,
+          "y": 802,
+          "running": true,
+          "keys": [],
+          "repair": false
+        },
+        "after": {
+          "x": 167.75,
+          "y": 802,
+          "running": true,
+          "keys": [],
+          "repair": false
+        },
+        "passed": true
+      }
+    },
+    "reload": {
+      "before": {
+        "phase": 2,
+        "x": 1000,
+        "y": 992,
+        "xp": 37,
+        "components": [
+          true,
+          false,
+          false
+        ],
+        "enemies": [
+          false,
+          true,
+          true
+        ],
+        "skills": [
+          [
+            "armor",
+            2
+          ]
+        ],
+        "flag": true
+      },
+      "after": {
+        "phase": 2,
+        "x": 1000,
+        "y": 992,
+        "xp": 37,
+        "components": [
+          true,
+          false,
+          false
+        ],
+        "enemies": [
+          false,
+          true,
+          true
+        ],
+        "skills": [
+          [
+            "armor",
+            2
+          ]
+        ],
+        "flag": true
+      },
+      "passed": true
+    },
+    "failures": []
+  },
+  "performance": [
+    {
+      "phase": 1,
+      "width": 905,
+      "height": 644,
+      "worldWidth": 2800,
+      "worldHeight": 1000,
+      "samples": 60,
+      "meanMs": 30.383333333333333,
+      "p50Ms": 29.5,
+      "p95Ms": 53.399999998509884,
+      "maxMs": 69.69999999925494,
+      "cacheSize": 32,
+      "shapes": 24,
+      "loadedAssets": 12
+    },
+    {
+      "phase": 2,
+      "width": 905,
+      "height": 644,
+      "worldWidth": 1900,
+      "worldHeight": 1400,
+      "samples": 60,
+      "meanMs": 29.328333333383004,
+      "p50Ms": 29.199999999254942,
+      "p95Ms": 56.19999999925494,
+      "maxMs": 73.79999999701977,
+      "cacheSize": 26,
+      "shapes": 26,
+      "loadedAssets": 13
+    },
+    {
+      "phase": 3,
+      "width": 905,
+      "height": 644,
+      "worldWidth": 2200,
+      "worldHeight": 1200,
+      "samples": 60,
+      "meanMs": 17.791666666604577,
+      "p50Ms": 14.800000000745058,
+      "p95Ms": 38.30000000074506,
+      "maxMs": 50.30000000074506,
+      "cacheSize": 39,
+      "shapes": 32,
+      "loadedAssets": 14
+    },
+    {
+      "phase": 4,
+      "width": 905,
+      "height": 644,
+      "worldWidth": 2200,
+      "worldHeight": 1500,
+      "samples": 60,
+      "meanMs": 14.71166666665425,
+      "p50Ms": 13.599999997764826,
+      "p95Ms": 28.800000000745058,
+      "maxMs": 32.69999999925494,
+      "cacheSize": 41,
+      "shapes": 24,
+      "loadedAssets": 12
+    },
+    {
+      "phase": 5,
+      "width": 905,
+      "height": 644,
+      "worldWidth": 1550,
+      "worldHeight": 2400,
+      "samples": 60,
+      "meanMs": 16.826666666629414,
+      "p50Ms": 14.099999997764826,
+      "p95Ms": 38.70000000298023,
+      "maxMs": 49.899999998509884,
+      "cacheSize": 39,
+      "shapes": 34,
+      "loadedAssets": 13
+    },
+    {
+      "phase": 6,
+      "width": 905,
+      "height": 644,
+      "worldWidth": 1600,
+      "worldHeight": 3000,
+      "samples": 60,
+      "meanMs": 34.3016666666915,
+      "p50Ms": 32.30000000074506,
+      "p95Ms": 54.400000002235174,
+      "maxMs": 81.19999999925494,
+      "cacheSize": 62,
+      "shapes": 54,
+      "loadedAssets": 13
+    },
+    {
+      "phase": 7,
+      "width": 905,
+      "height": 644,
+      "worldWidth": 2800,
+      "worldHeight": 1700,
+      "samples": 60,
+      "meanMs": 21.06833333329608,
+      "p50Ms": 19,
+      "p95Ms": 40.5,
+      "maxMs": 47,
+      "cacheSize": 36,
+      "shapes": 26,
+      "loadedAssets": 13
+    },
+    {
+      "phase": 8,
+      "width": 905,
+      "height": 644,
+      "worldWidth": 3400,
+      "worldHeight": 2100,
+      "samples": 60,
+      "meanMs": 15.513333333283663,
+      "p50Ms": 13.600000001490116,
+      "p95Ms": 35.399999998509884,
+      "maxMs": 37.600000001490116,
+      "cacheSize": 60,
+      "shapes": 44,
+      "loadedAssets": 15
+    },
+    {
+      "phase": 9,
+      "width": 905,
+      "height": 644,
+      "worldWidth": 3600,
+      "worldHeight": 1800,
+      "samples": 60,
+      "meanMs": 16.73833333334575,
+      "p50Ms": 13.5,
+      "p95Ms": 31.900000002235174,
+      "maxMs": 70.10000000149012,
+      "cacheSize": 43,
+      "shapes": 28,
+      "loadedAssets": 14
+    },
+    {
+      "phase": 10,
+      "width": 905,
+      "height": 644,
+      "worldWidth": 6800,
+      "worldHeight": 2000,
+      "samples": 60,
+      "meanMs": 19.04666666674117,
+      "p50Ms": 15.200000002980232,
+      "p95Ms": 54,
+      "maxMs": 57,
+      "cacheSize": 32,
+      "shapes": 62,
+      "loadedAssets": 16
+    },
+    {
+      "phase": "procedural-24",
+      "width": 905,
+      "height": 644,
+      "worldWidth": 14592,
+      "worldHeight": 2304,
+      "samples": 60,
+      "meanMs": 23.68166666664183,
+      "p50Ms": 16.900000002235174,
+      "p95Ms": 46.80000000074506,
+      "maxMs": 126.19999999925494,
+      "cacheSize": 59,
+      "shapes": 305,
+      "loadedAssets": 11
+    }
+  ],
+  "largeMapGenerationAndLoadMs": 52,
+  "performanceConditions": {
+    "headlessChrome": true,
+    "gpuDisabled": true,
+    "warmupFrames": 24,
+    "samplesPerMap": 60,
+    "damageProtection": true,
+    "optionalSkills": false,
+    "scope": "update+draw; 9 camera regions; does not certify FPS on other devices"
+  },
+  "initialFailures": [
+    "final-audit-initial-failures.json",
+    "final-audit-initial-harness.json",
+    "final-audit-initial-performance.json",
+    "final-audit-initial-phase-05.json",
+    "final-audit-initial-phase-06.json",
+    "final-audit-initial-phase-07.json",
+    "final-audit-initial-phase-08.json",
+    "final-audit-initial-phase-09.json",
+    "final-audit-initial-phase-10.json",
+    "final-audit-initial-return.json",
+    "final-validator-initial-failures.json"
+  ],
+  "limitations": [
+    "Finite seeds; not a proof for every possible seed.",
+    "Frozen debug model excludes moving-platform timing, environmental modifiers and damage.",
+    "Actual traversal probes relocate between physically proven edges; no optional skills; damage protection during traversal.",
+    "Headless local timing does not certify FPS on other hardware.",
+    "Human survival balance and a continuous manual campaign playthrough remain unverified."
+  ],
+  "overallStatus": "functional-checks-pass; performance-budget-not-met",
+  "remainingIssues": [
+    "p95 exceeds local 60Hz screening budget: 53.40 ms",
+    "p95 exceeds local 60Hz screening budget: 56.20 ms",
+    "p95 exceeds local 60Hz screening budget: 38.30 ms",
+    "p95 exceeds local 60Hz screening budget: 28.80 ms",
+    "p95 exceeds local 60Hz screening budget: 38.70 ms",
+    "p95 exceeds local 60Hz screening budget: 54.40 ms",
+    "p95 exceeds local 60Hz screening budget: 40.50 ms",
+    "p95 exceeds local 60Hz screening budget: 35.40 ms",
+    "p95 exceeds local 60Hz screening budget: 31.90 ms",
+    "p95 exceeds local 60Hz screening budget: 54.00 ms",
+    "p95 exceeds local 60Hz screening budget: 46.80 ms"
+  ]
+}

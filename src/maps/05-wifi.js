@@ -1,5 +1,5 @@
 // Rebuilt layout, revision 2. Authored by tools/build_first_five.py.
-ByteRunner.maps.register({
+ByteRunner.maps.register(ByteRunner.campaignGeneration.build({
   "schemaVersion": 2,
   "revision": 2,
   "id": "phase-05",
@@ -459,7 +459,7 @@ ByteRunner.maps.register({
       {
         "id": "e02",
         "type": "flyer",
-        "x": 500,
+        "x": 650,
         "y": 1438,
         "groundY": 1530,
         "navigationBounds": {
@@ -712,4 +712,4 @@ ByteRunner.maps.register({
       ]
     }
   ]
-});
+}));

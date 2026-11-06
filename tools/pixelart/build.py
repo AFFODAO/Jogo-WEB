@@ -56,7 +56,10 @@ def main():
     for variant,kind in [('file','basic'),('packet','shooter'),('wifi','flyer'),('dns','shooter'),('firewall','armored')]:sheet('virus-'+variant,'enemies',32,32,ENEMY_STATES,lambda p,s,f,k=kind,v=variant:enemy(p,s,f,k,v),aliases)
     sheet('component','objects',32,48,['idle','repaired'],device);sheet('terminal','objects',32,48,['idle','active'],device)
     sheet('portal','objects',48,64,['idle','active'],portal);sheet('fx','effects',32,32,['bolt','enemy','explosion','shield','repair','pulse'],fx)
-    directory=ROOT/'assets/pixelart';directory.mkdir(exist_ok=True);(directory/'manifest.json').write_text(json.dumps(MANIFEST,indent=2),encoding='utf-8')
+    directory=ROOT/'assets/pixelart';directory.mkdir(exist_ok=True)
+    if (directory/'manifest.json').exists():
+        MANIFEST.extend(a for a in json.loads((directory/'manifest.json').read_text(encoding='utf-8')) if a['id'].startswith(('terrain-','structure-','vista-')) and (ROOT/a['src']).exists())
+    (directory/'manifest.json').write_text(json.dumps(MANIFEST,indent=2),encoding='utf-8')
     (ROOT/'src/engine/art-manifest.js').write_text('ByteRunner.artAssets = '+json.dumps(MANIFEST)+';\n',encoding='utf-8')
     preview=Raster(640,720);preview.rect(0,0,640,720,'#0c1424')
     for row,state in enumerate(ROBOT_STATES):

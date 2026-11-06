@@ -7,15 +7,16 @@
     const {type,ports,tier=1,rest=false,variant=0}=config;
     const layouts={initial:'open',final:'open',exploration:'multi-floor',parkour:'precision',combat:'deep-pit',repair:'narrow-tunnel',reward:'tower',secret:'irregular'};
     const layout=variant>0&&type==='exploration'?'suspended':layouts[type];
-    const result={id:'playable-hardware-room',version:2,width,height,ground:[],entities:{platforms:[],obstacles:[],collectibles:[]},anchors:{entry:{x:96,y:floor-48},exit:{x:624,y:floor-48}},sockets:[],checkpoints:[{x:96,y:floor}],layers:[{id:'label',type:'computer-world',theme:'hardware',pass:'midground',items:[{kind:'cpu',label:labels[type],x:32,y:floor-240,width:160,height:96}]}],mechanics:[]};
+    const result={id:'playable-hardware-room',version:3,width,height,ground:[],entities:{platforms:[],obstacles:[],collectibles:[]},anchors:{entry:{x:96,y:floor-48},exit:{x:624,y:floor-48}},sockets:[],checkpoints:[{x:96,y:floor}],layers:[{id:'label',type:'computer-world',theme:'hardware',pass:'midground',items:[{kind:'cpu',label:labels[type],x:32,y:floor-240,width:160,height:96}]}],mechanics:[]};
     const rect=(id,x,y,w,h)=>({id,x,y,width:w,height:h});
     const fixed=(id,x,y,w=128)=>result.entities.platforms.push({...rect(id,x,y,w,16),type:'fixed',collision:'one-way'});
     const left=ports.west==='bridge'?144:0,right=ports.east==='bridge'?624:768;
     const gap=Boolean(ports.south)||(!rest&&type!=='initial'&&type!=='final'&&type!=='repair');
     const gapLeft=ports.south?288:272,gapRight=ports.south?480:496;
+    const stepX=ports.north?416:(tier>=3?348:336);
     if(gap){
       result.ground.push(rect('floor-left',left,floor,gapLeft-left,48),rect('floor-right',gapRight,floor,right-gapRight,48));
-      fixed('required-step',tier>=3?348:336,floor-64,tier>=3?72:96);
+      fixed('required-step',stepX,floor-64,tier>=3?72:96);
       if(!ports.south)result.ground.push(rect('catch-floor',gapLeft,height-16,gapRight-gapLeft,16));
     }else result.ground.push(rect('floor',left,floor,right-left,48));
     for(const side of ['west','east']){
@@ -36,8 +37,8 @@
     }
     if(!['initial','final'].includes(type)){
       if(layout==='suspended')for(let i=0;i<4;i++)fixed('upper-'+i,i%2?448:224,floor-96*(i+1),160);
-      else if(layout==='narrow-tunnel')fixed('upper-0',80,floor-80,96);
-      else for(let i=0;i<(['tower','deep-pit'].includes(layout)?5:3);i++)fixed('upper-'+i,160+i*88,floor-96*(i+1),tier>=3?104:128);
+      else if(layout==='narrow-tunnel')fixed('upper-0',144,floor-80,96);
+      else for(let i=0;i<(['tower','deep-pit'].includes(layout)?5:3);i++)fixed('upper-'+i,i===0?192:160+i*88,floor-96*(i+1),tier>=3?104:128);
       if(layout==='irregular')result.entities.obstacles.push(rect('silhouette',624,96,80,240));
       if(layout==='narrow-tunnel'){
         if(ports.south||ports.north)result.entities.obstacles.push(rect('roof-left',192,floor-128,80,32),rect('roof-right',496,floor-128,96,32));
@@ -56,11 +57,11 @@
     if(type==='reward'||type==='secret')result.entities.collectibles.push({id:'reward',x:560,y:floor-320,radius:10});
     result.layers[0].items.push({kind:'cable',label:rest?'REPOUSO / PISO SEGURO':'ROTA FIXA / SALTO',x:224,y:floor-176,width:256,height:32});
     if(ports.south)result.layers[0].items.push({kind:'port',label:'DESCE / SOBE',x:320,y:floor-144,width:128,height:48});
-    result.quality={layout,tier,rest,route:gap?[{x:160,y:floor,width:112},{x:tier>=3?348:336,y:floor-64,width:tier>=3?72:96},{x:496,y:floor,width:112}]:[{x:160,y:floor,width:448}],fixedClimb:ports.north?7:0};
+    result.quality={layout,tier,rest,route:gap?[{x:160,y:floor,width:112},...(ports.north?[{x:256,y:floor-96,width:144}]:[]),{x:stepX,y:floor-64,width:tier>=3?72:96},{x:496,y:floor,width:112}]:[{x:160,y:floor,width:448}],fixedClimb:ports.north?7:0};
     return result;
   }
   let installed=false;
-  service.installRooms=()=>{if(!installed){ByteRunner.mapGeneration.registerGenerator({id:'playable-hardware-v2',version:2,generate:room});installed=true;}};
+  service.installRooms=()=>{if(!installed){ByteRunner.mapGeneration.registerGenerator({id:'playable-hardware-v2',version:3,generate:room});installed=true;}};
   service.roomGeometry=config=>room({config});
   service.metrics=Object.freeze({width,height,floor});
 })();

@@ -1,0 +1,45 @@
+{
+  "phases": [
+    {
+      "phase": 1,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 25,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "armored",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {},
+  "errors": [],
+  "snapshots": []
+}

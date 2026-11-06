@@ -1,0 +1,565 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / servers / phase-10-review-alpha": "PASS",
+    "final audit: campaign / servers / phase-10-review-beta": "PASS",
+    "final audit: campaign / servers / phase-10-review-gamma": "PASS",
+    "final audit: procedural / servers / phase-10-review-alpha": "PASS",
+    "final audit: procedural / servers / phase-10-review-beta": "PASS",
+    "final audit: procedural / servers / phase-10-review-gamma": "PASS",
+    "final audit: compare structures and identity / servers": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-10-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 39,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 43,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 46,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 48,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03",
+            "world:c04"
+          ],
+          "surfaces": 63,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 10.100000001490116,
+      "signature": "95086459",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 4,
+      "checkpoints": 5,
+      "surfaces": 63
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-10-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 39,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 43,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 46,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 48,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03",
+            "world:c04"
+          ],
+          "surfaces": 63,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 7.5,
+      "signature": "ba71628c",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 4,
+      "checkpoints": 5,
+      "surfaces": 63
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-10-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 39,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c01",
+              "accessible": true
+            },
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 43,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c02",
+              "accessible": true
+            },
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 46,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c03",
+              "accessible": true
+            },
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03"
+          ],
+          "surfaces": 48,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "world:c04",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c03",
+            "world:c04"
+          ],
+          "surfaces": 63,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": []
+        }
+      ],
+      "generationAndReplayMs": 8,
+      "signature": "4c32f537",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 4,
+      "checkpoints": 5,
+      "surfaces": 63
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-10-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 121,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 60.80000000074506,
+      "signature": "f610ec4f",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 121
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-10-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r5:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r5:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 121,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 37.100000001490116,
+      "signature": "9b186397",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 121
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-10-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r5:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 123,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r5:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 124,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 125,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 40.80000000074506,
+      "signature": "ff13c133",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 125
+    }
+  ],
+  "phase": 10,
+  "theme": "servers",
+  "seeds": [
+    "phase-10-review-alpha",
+    "phase-10-review-beta",
+    "phase-10-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+    "atUTC": "2026-11-06T00:31:20.764859+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

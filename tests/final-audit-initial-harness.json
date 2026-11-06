@@ -1,0 +1,24 @@
+{
+  "runs": [
+    {
+      "command": "python tests/run_review.py --final-phase 1",
+      "result": "interrupted before completion",
+      "reason": "Unindexed traversal rebuilt and scanned every collision shape on every simulated frame.",
+      "classification": "harness performance; no map pass claimed"
+    },
+    {
+      "command": "python tests/run_review.py",
+      "sourceSha256": "43ee9c0c8e4957236993ec503c3740c4e8cf68fe727d6c516bf266da1d1a0da9",
+      "result": "TimeoutError: Review page did not finish",
+      "reason": "240-second browser deadline reached while the original full traversal still scanned all collision shapes.",
+      "classification": "incomplete harness execution; no complete-suite pass claimed"
+    },
+    {
+      "command": "python tests/run_review.py --profile-render",
+      "sourceSha256": "bd77a87fed00f9213b831f249d0a3ba038a5784f217177e2e9f022e4e9847749",
+      "result": "ReferenceError: updateHUD is not defined",
+      "classification": "profiling instrument typo, corrected to updateHud and rerun; no game defect inferred"
+    }
+  ],
+  "fix": "Shared reachability harness uses a frozen collider snapshot and spatial broad phase, preserving collider order and the real movement kernel. Equivalence is exercised by the debug regression suite."
+}

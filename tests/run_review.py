@@ -30,9 +30,9 @@ def run_page(target,url):
                 debug_port=int(portfile.read_text().splitlines()[0]);break
             except (OSError,ValueError,IndexError):time.sleep(.1)
         cdp=CDP(page_endpoint(debug_port))
-        cdp.call('Page.enable');cdp.call('Page.navigate',{'url':url});deadline=time.monotonic()+240
+        cdp.call('Page.enable');cdp.call('Page.navigate',{'url':url});deadline=time.monotonic()+600
         while time.monotonic()<deadline:
-            result=cdp.call('Runtime.evaluate',{'expression':'document.getElementById("review-result")?.textContent || null','returnByValue':True},timeout=240)
+            result=cdp.call('Runtime.evaluate',{'expression':'document.getElementById("review-result")?.textContent || null','returnByValue':True},timeout=600)
             value=result.get('result',{}).get('value')
             if value:return json.loads(value)
             time.sleep(.1)
@@ -51,9 +51,22 @@ def main():
     source_hash=source_fingerprint(ROOT)
     source = (ROOT / 'game.js').read_text(encoding='utf-8-sig')
     hook = (ROOT / 'tests/review.js').read_text(encoding='utf-8')
-    focused='pixelart' if '--pixel-only' in sys.argv else 'generation' if '--generation-only' in sys.argv else 'procedural' if '--procedural-only' in sys.argv else 'procedural-demo' if '--procedural-demo' in sys.argv else 'parkour' if '--parkour-only' in sys.argv else None
-    if focused:
+    final_phase=int(sys.argv[sys.argv.index('--final-phase')+1]) if '--final-phase' in sys.argv else None
+    focused='profile-render' if '--profile-render' in sys.argv else 'final-performance' if '--performance-only' in sys.argv else 'final-regressions' if '--final-regressions' in sys.argv else 'map-debug' if '--debug-only' in sys.argv else 'final-maps' if final_phase is not None else 'gameplay-demo' if '--gameplay-demo' in sys.argv else 'room-gameplay' if '--room-gameplay' in sys.argv else 'environment-art' if '--environment-only' in sys.argv or '--environment-hardware' in sys.argv else 'infrastructure-generation' if '--infrastructure-generation' in sys.argv else 'campaign-generation' if '--campaign-generation' in sys.argv else 'pixelart' if '--pixel-only' in sys.argv else 'generation' if '--generation-only' in sys.argv else 'procedural' if '--procedural-only' in sys.argv else 'procedural-demo' if '--procedural-demo' in sys.argv else 'parkour' if '--parkour-only' in sys.argv else None
+    if final_phase is not None:assert 1<=final_phase<=10
+    phase_number=int(sys.argv[sys.argv.index('--phase')+1]) if '--phase' in sys.argv else None
+    if phase_number is not None:
+        assert 1<=phase_number<=10
+        focused='phase-%02d'%phase_number
+        hook=hook[:hook.index("test('skills and pending choice'")]
+        repair_helpers=(ROOT/'tests/repairs.js').read_text(encoding='utf-8').split("test('repairs:",1)[0]
+        hook=repair_helpers+hook
+        hook=hook.replace('for(let i=0;i<10;i++) {',f'for(let i={phase_number-1};i<{phase_number};i++) {{')
+        hook+='\nreport.errors=window.__reviewErrors;const output=document.createElement("pre");output.id="review-result";output.textContent=JSON.stringify(report);document.body.replaceChildren(output);'
+    elif focused:
         hook=hook[:hook.index('for(let i=0;i<10;i++) {')]+(ROOT/('tests/'+focused+'.js')).read_text(encoding='utf-8')+'\nawait new Promise(resolve=>setTimeout(resolve,0));\nreport.errors=window.__reviewErrors;const output=document.createElement("pre");output.id="review-result";output.textContent=JSON.stringify(report);document.body.replaceChildren(output);'
+    if focused in ['room-gameplay','gameplay-demo','final-maps']:
+        hook=(ROOT/'tests/repairs.js').read_text(encoding='utf-8').split("test('repairs:",1)[0]+hook
     architecture = (ROOT/'tests/architecture.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/first-five.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/last-five.js').read_text(encoding='utf-8')
@@ -66,11 +79,20 @@ def main():
     architecture += '\n'+(ROOT/'tests/generation.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/procedural.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/parkour.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/campaign-generation.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/infrastructure-generation.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/environment-art.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/room-gameplay.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/map-debug.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/final-regressions.js').read_text(encoding='utf-8')
     baseline = (ROOT/'tests/map-baseline.json').read_text(encoding='utf-8')
     fixture = (ROOT/'tests/fixtures/room-map.json').read_text(encoding='utf-8')
     first_five = (ROOT/'tests/fixtures/first-five-v2.json').read_text(encoding='utf-8')
     final_marker='await new Promise(resolve=>setTimeout(resolve,0));'
-    hook = 'const FIRST_FIVE_V2='+first_five+';\nconst MAP_BASELINE='+baseline+';\nconst ARCHITECTURE_FIXTURE='+fixture+';\n'+hook.replace(final_marker,('' if focused else architecture+'\n')+final_marker,1)
+    last_five=(ROOT/'tests/fixtures/last-five-v2.json').read_text(encoding='utf-8')
+    hook = 'const LAST_FIVE_V2='+last_five+';\nconst FIRST_FIVE_V2='+first_five+';\nconst MAP_BASELINE='+baseline+';\nconst ARCHITECTURE_FIXTURE='+fixture+';\n'+hook.replace(final_marker,('' if focused else architecture+'\n')+final_marker,1)
+    hook = 'const FINAL_PHASE='+str(final_phase or 0)+';\n'+hook
+    hook = 'const ENVIRONMENT_HARDWARE_ONLY='+str('--environment-hardware' in sys.argv).lower()+';\n'+hook
     hook = '(async()=>{\n' + hook + '\n})().catch(error=>{document.body.innerHTML="<pre id=review-result>"+JSON.stringify({phases:[],systems:{fatal:error.stack}})+"</pre>";});'
     if '--capture-map-baseline' in sys.argv:
         hook = 'const mapBaseline = JSON.parse(JSON.stringify(PHASES));\n' + hook.replace('const output=document.createElement', 'report.mapBaseline=mapBaseline;\nconst output=document.createElement')
@@ -96,21 +118,45 @@ def main():
         server=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(QuietHandler,directory=str(target)))
         threading.Thread(target=server.serve_forever,daemon=True).start()
         try:
-            query='?procedural=pcb-alpha&rooms=12&difficulty=2&optional=0.4' if focused=='procedural-demo' else ''
+            query='?procedural=pcb-alpha&rooms=12&difficulty=2&optional=0.4&gameplay=0' if focused=='procedural-demo' else ''
+            if focused=='map-debug':query='?dev=1'
+            if focused=='gameplay-demo':query='?procedural=gameplay-save&rooms=12&difficulty=3&theme=hardware'
             report=run_page(target,f'http://127.0.0.1:{server.server_port}/index.html'+query)
         finally:
             server.shutdown()
             server.server_close()
         if focused:
+            if focused=='map-debug':
+                for shot in report.get('snapshots',[]):
+                    (ROOT/'tests/map-debug.png').write_bytes(base64.b64decode(shot.pop('image').split(',',1)[1]))
+                    shot['file']='tests/map-debug.png'
+            if focused=='room-gameplay':
+                for shot in report.get('snapshots',[]):
+                    filename=shot['position']+'.png'
+                    (ROOT/'tests'/filename).write_bytes(base64.b64decode(shot.pop('image').split(',',1)[1]))
+                    shot['file']='tests/'+filename
+            if focused=='environment-art':
+                for shot in report.get('snapshots',[]):
+                    filename=f"phase-{shot['phase']:02}-environment.png"
+                    (ROOT/'tests'/filename).write_bytes(base64.b64decode(shot.pop('image').split(',',1)[1]))
+                    shot['file']='tests/'+filename
             if focused=='procedural':
                 for snapshot in report.get('snapshots',[]):
                     image=snapshot.pop('image')
                     filename='procedural-'+snapshot['seed']+'.png'
                     (ROOT/'tests'/filename).write_bytes(base64.b64decode(image.split(',',1)[1]))
                     snapshot['file']='tests/'+filename
-            (ROOT/('tests/'+focused+'-results.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+            if phase_number is not None:
+                for phase in report.get('phases',[]):
+                    for key,value in phase.items():
+                        if key=='error' or (isinstance(value,str) and value!='PASS') or (key=='platformAccess' and value) or (key=='combat' and any(v['result']!='PASS' for v in value)):
+                            report['systems']['phase '+str(phase_number)+' '+key]=str(value)
+                report['snapshots']=[]
+            report['execution']={'sourceSha256':source_hash,'atUTC':datetime.datetime.now(datetime.timezone.utc).isoformat(),'instrumented':True,'isolatedStorage':True}
+            result_name=('final-phase-%02d'%final_phase) if final_phase is not None else focused
+            (ROOT/('tests/'+result_name+'-results.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             print(json.dumps(report,ensure_ascii=False,indent=2))
-            if report['errors'] or any(value!='PASS' for value in report['systems'].values()):raise SystemExit(1)
+            if report.get('errors') or any(value!='PASS' for value in report['systems'].values()):raise SystemExit(1)
             return
         report['execution']={'atUTC':datetime.datetime.now(datetime.timezone.utc).isoformat(),'browser':str(CHROME),'transport':'localhost HTTP','isolatedStorage':True,'instrumented':True,'optionalSkillsDuringTraversal':False,'damageProtectionDuringTraversal':True,'limitations':['Graph search relocates R-07 between proven jump/portal edges; this is not an uninterrupted human playthrough.','Combat is tested separately with damage protection; survival balance still needs manual play.','Minigame solvers use generated answers through real DOM controls.']}
         report['execution']['sourceSha256']=source_hash

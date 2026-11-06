@@ -1,5 +1,5 @@
 // Rebuilt layout, revision 2. Authored by tools/build_last_five.py.
-ByteRunner.maps.register({
+ByteRunner.maps.register(ByteRunner.campaignGeneration.build({
   "schemaVersion": 2,
   "revision": 2,
   "id": "phase-10",
@@ -1014,4 +1014,4 @@ ByteRunner.maps.register({
     "type": "boss-question",
     "enemyId": "e08"
   }
-});
+}));

@@ -17,7 +17,7 @@
       configs.set(n.id,config);Object.assign(n,service.roomGeometry(config).quality);
     }
     const final=byId.get(graph.mainPath.at(-1));
-    const recipe={id:'procedural-hardware',name:'Hardware // parkour procedural',theme:'hardware',seed:graph.options.seed,revision:2,layout:'multi-route',
+    const recipe={id:'procedural-hardware',name:'Hardware // parkour procedural',theme:'hardware',seed:graph.options.seed,revision:3,layout:'multi-route',
       objective:'Explore os andares, observe os avisos eletricos e alcance a saida pela rota fixa ou pelos elevadores.',
       size:{width:(Math.max(...graph.nodes.map(n=>n.x))+1)*width,height:(Math.max(...graph.nodes.map(n=>n.y))+1)*height},
       rooms:graph.nodes.map(n=>({id:n.id,generator:'playable-hardware-v2',x:n.x*width,y:n.y*height,config:configs.get(n.id)})),links,

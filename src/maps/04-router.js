@@ -1,5 +1,5 @@
 // Rebuilt layout, revision 2. Authored by tools/build_first_five.py.
-ByteRunner.maps.register({
+ByteRunner.maps.register(ByteRunner.campaignGeneration.build({
   "schemaVersion": 2,
   "revision": 2,
   "id": "phase-04",
@@ -561,4 +561,4 @@ ByteRunner.maps.register({
       "pass": "midground"
     }
   ]
-});
+}));

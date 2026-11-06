@@ -15,8 +15,8 @@ const generationPlan={id:'hybrid-fixture',name:'Hybrid fixture',theme:'hardware'
   objectives:{repairAllComponents:true,defeatAllViruses:false}
 };
 function generationReject(fn,match){let error;try{fn();}catch(e){error=e;}assert(error&&(!match||error.message.includes(match)),'expected rejection '+match);}
-test('generation: optional architecture leaves authored campaign untouched',()=>{
-  assert(generation.list().templates.length===0&&generation.list().generators.length===0,'production generator/template unexpectedly active');
+test('generation: campaign generators coexist with optional composition',()=>{
+  assert(generation.list().templates.length===0&&generation.list().generators.filter(id=>id.startsWith('campaign-')).length===10,'campaign generators missing');
   assert(PHASES.length===10&&ByteRunner.campaign.length===10,'campaign replaced');
   PHASES.forEach(phase=>assert(generation.authored(phase.id)===phase&&Object.isFrozen(phase),'authored map copied or changed'));
 });

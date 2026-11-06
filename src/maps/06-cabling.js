@@ -1,5 +1,5 @@
 // Rebuilt layout, revision 2. Authored by tools/build_last_five.py.
-ByteRunner.maps.register({
+ByteRunner.maps.register(ByteRunner.campaignGeneration.build({
   "schemaVersion": 2,
   "revision": 2,
   "id": "phase-06",
@@ -348,7 +348,7 @@ ByteRunner.maps.register({
         "id": "reconnected-tray-a",
         "x": 620,
         "y": 2200,
-        "width": 360,
+        "width": 144,
         "height": 18,
         "type": "fixed",
         "collision": "one-way",
@@ -359,7 +359,7 @@ ByteRunner.maps.register({
         "id": "reconnected-tray-b",
         "x": 620,
         "y": 1600,
-        "width": 360,
+        "width": 144,
         "height": 18,
         "type": "fixed",
         "collision": "one-way",
@@ -370,7 +370,7 @@ ByteRunner.maps.register({
         "id": "reconnected-tray-c",
         "x": 620,
         "y": 1000,
-        "width": 360,
+        "width": 144,
         "height": 18,
         "type": "fixed",
         "collision": "one-way",
@@ -497,6 +497,39 @@ ByteRunner.maps.register({
         "type": "fixed",
         "collision": "one-way",
         "style": "cable"
+      },
+      {
+        "id": "reconnected-tray-a-return",
+        "x": 836,
+        "y": 2200,
+        "width": 144,
+        "height": 18,
+        "type": "fixed",
+        "collision": "one-way",
+        "style": "cable",
+        "requiresComponentId": "c01"
+      },
+      {
+        "id": "reconnected-tray-b-return",
+        "x": 836,
+        "y": 1600,
+        "width": 144,
+        "height": 18,
+        "type": "fixed",
+        "collision": "one-way",
+        "style": "cable",
+        "requiresComponentId": "c02"
+      },
+      {
+        "id": "reconnected-tray-c-return",
+        "x": 836,
+        "y": 1000,
+        "width": 144,
+        "height": 18,
+        "type": "fixed",
+        "collision": "one-way",
+        "style": "cable",
+        "requiresComponentId": "c03"
       }
     ],
     "obstacles": [
@@ -766,4 +799,4 @@ ByteRunner.maps.register({
       "pass": "midground"
     }
   ]
-});
+}));

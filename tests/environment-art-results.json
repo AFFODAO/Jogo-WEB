@@ -1,0 +1,107 @@
+{
+  "phases": [],
+  "systems": {
+    "environment: autotiling connects surfaces, preserves gaps and detects concave corners": "PASS",
+    "environment: cached parallax preserves pixels and reuses pre-scaled strips // phase 1": "PASS",
+    "environment: complete original tileset and three depth planes // phase 1": "PASS",
+    "environment: only current theme and required actors are loaded // phase 1": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 1": "PASS",
+    "environment: cached parallax preserves pixels and reuses pre-scaled strips // phase 2": "PASS",
+    "environment: complete original tileset and three depth planes // phase 2": "PASS",
+    "environment: only current theme and required actors are loaded // phase 2": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 2": "PASS",
+    "environment: cached parallax preserves pixels and reuses pre-scaled strips // phase 3": "PASS",
+    "environment: complete original tileset and three depth planes // phase 3": "PASS",
+    "environment: only current theme and required actors are loaded // phase 3": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 3": "PASS",
+    "environment: cached parallax preserves pixels and reuses pre-scaled strips // phase 4": "PASS",
+    "environment: complete original tileset and three depth planes // phase 4": "PASS",
+    "environment: only current theme and required actors are loaded // phase 4": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 4": "PASS",
+    "environment: cached parallax preserves pixels and reuses pre-scaled strips // phase 5": "PASS",
+    "environment: complete original tileset and three depth planes // phase 5": "PASS",
+    "environment: only current theme and required actors are loaded // phase 5": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 5": "PASS",
+    "environment: cached parallax preserves pixels and reuses pre-scaled strips // phase 6": "PASS",
+    "environment: complete original tileset and three depth planes // phase 6": "PASS",
+    "environment: only current theme and required actors are loaded // phase 6": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 6": "PASS",
+    "environment: cached parallax preserves pixels and reuses pre-scaled strips // phase 7": "PASS",
+    "environment: complete original tileset and three depth planes // phase 7": "PASS",
+    "environment: only current theme and required actors are loaded // phase 7": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 7": "PASS",
+    "environment: cached parallax preserves pixels and reuses pre-scaled strips // phase 8": "PASS",
+    "environment: complete original tileset and three depth planes // phase 8": "PASS",
+    "environment: only current theme and required actors are loaded // phase 8": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 8": "PASS",
+    "environment: cached parallax preserves pixels and reuses pre-scaled strips // phase 9": "PASS",
+    "environment: complete original tileset and three depth planes // phase 9": "PASS",
+    "environment: only current theme and required actors are loaded // phase 9": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 9": "PASS",
+    "environment: cached parallax preserves pixels and reuses pre-scaled strips // phase 10": "PASS",
+    "environment: complete original tileset and three depth planes // phase 10": "PASS",
+    "environment: only current theme and required actors are loaded // phase 10": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 10": "PASS",
+    "environment: themes differ structurally after removing palette colors": "PASS",
+    "environment: visible-only chunks are reused and memory stays bounded": "PASS"
+  },
+  "errors": [],
+  "snapshots": [
+    {
+      "phase": 1,
+      "position": "environment",
+      "file": "tests/phase-01-environment.png"
+    },
+    {
+      "phase": 2,
+      "position": "environment",
+      "file": "tests/phase-02-environment.png"
+    },
+    {
+      "phase": 3,
+      "position": "environment",
+      "file": "tests/phase-03-environment.png"
+    },
+    {
+      "phase": 4,
+      "position": "environment",
+      "file": "tests/phase-04-environment.png"
+    },
+    {
+      "phase": 5,
+      "position": "environment",
+      "file": "tests/phase-05-environment.png"
+    },
+    {
+      "phase": 6,
+      "position": "environment",
+      "file": "tests/phase-06-environment.png"
+    },
+    {
+      "phase": 7,
+      "position": "environment",
+      "file": "tests/phase-07-environment.png"
+    },
+    {
+      "phase": 8,
+      "position": "environment",
+      "file": "tests/phase-08-environment.png"
+    },
+    {
+      "phase": 9,
+      "position": "environment",
+      "file": "tests/phase-09-environment.png"
+    },
+    {
+      "phase": 10,
+      "position": "environment",
+      "file": "tests/phase-10-environment.png"
+    }
+  ],
+  "execution": {
+    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+    "atUTC": "2026-11-06T00:24:50.328492+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

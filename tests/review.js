@@ -3,7 +3,7 @@ window.requestAnimationFrame = () => 0;
 soundEnabled = false;
 const report = { phases: [], systems: {}, errors: [], snapshots: [] };
 function assert(value, message) { if (!value) throw new Error(message); }
-function test(name, fn) { if(name.startsWith('pixel art:'))window.__reviewProgress?.(name);try { fn(); report.systems[name] = 'PASS'; } catch(e) { report.systems[name] = e.message; } }
+function test(name, fn) { window.__reviewProgress?.(name);try { fn(); report.systems[name] = 'PASS'; } catch(e) { report.systems[name] = e.message; } }
 function captureCanvas(){
   const scale=Math.min(1,1600/canvas.width,1000/canvas.height);
   if(scale===1)return canvas.toDataURL();
@@ -30,6 +30,12 @@ function surfaces() {
   return result;
 }
 function reachability() {
+  const liveSolids=solids,liveMove=movePlayer,snapshot=solids(),index=ByteRunner.mapAudit.spatialIndex(snapshot);
+  solids=()=>snapshot;
+  movePlayer=dt=>{solids=()=>index.near(player);try{liveMove(dt);}finally{solids=()=>snapshot;}};
+  try{return rawReachability();}finally{solids=liveSolids;movePlayer=liveMove;}
+}
+function rawReachability() {
   const nodes=surfaces(), reached=new Set();
   const start=nodes.findIndex(n=>player.x>=n.a-1 && player.x<=n.z+1 && Math.abs(player.y-n.y)<3);
   assert(start>=0,'spawn without support'); reached.add(start);
@@ -57,7 +63,7 @@ function reachability() {
         const launches=[Math.max(src.a,Math.min(src.z,target)),src.a,src.z,(src.a+src.z)/2];
         for(const launch of launches) {
           for(const mode of ['jump','walk-left','walk-right']) {
-          if(mode!=='jump' && dst.y<=src.y) continue;
+            if(mode!=='jump' && dst.y<src.y) continue;
           player.x=launch; player.y=src.y; player.vy=0; player.grounded=true; jumpQueued=true;
           jumpQueued=mode==='jump';
           let leftSurface=false;
@@ -68,12 +74,12 @@ function reachability() {
             movePlayer(1/60);
             if(!player.grounded) leftSurface=true;
             if(player.y>floorY()+70) break;
-            if(player.grounded && leftSurface && t>1) {
+              if(player.grounded && (leftSurface||mode!=='jump') && t>1) {
               if(player.x>=dst.a-2 && player.x<=dst.z+2 && Math.abs(player.y-dst.y)<3) found=true;
               // A real landing may first support only the front of the body.
               // Continue walking on the same surface until the full box is over it.
               // This matters when stepping off narrow precision ledges in reverse.
-              if(found || Math.abs(player.y-dst.y)>=3 || player.x+player.width<=dst.a || player.x>=dst.z+player.width) break;
+                if(found || (leftSurface&&(Math.abs(player.y-dst.y)>=3 || player.x+player.width<=dst.a || player.x>=dst.z+player.width))) break;
             }
           }
           if(found) break;

@@ -9,7 +9,7 @@ def main():
     paths = sorted((ROOT/'src/maps').glob('[0-9][0-9]-*.js'))
     for path in paths:
         source = path.read_text(encoding='utf-8')
-        definition, _ = json.JSONDecoder().raw_decode(source.split('ByteRunner.maps.register(',1)[1])
+        definition, _ = json.JSONDecoder().raw_decode(source[source.index('{',source.index('ByteRunner.maps.register(')):])
         if definition['id'] in maps:
             raise ValueError(f'Duplicate map {definition["id"]}')
         maps[definition['id']] = definition

@@ -1,0 +1,1484 @@
+{
+  "05-wifi.js": {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-05",
+    "name": "Rede Wi-Fi",
+    "theme": "wifi",
+    "objective": "Suba pelos sinais, repare os três pontos de acesso e elimine a interferência até alcançar a antena de uplink.",
+    "palette": [
+      "#08162c",
+      "#143951",
+      "#81ecff",
+      "#386c91",
+      "#e4bc6f"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 1550,
+      "height": 2400,
+      "layout": "vertical",
+      "start": {
+        "x": 160,
+        "y": 2192
+      },
+      "exit": {
+        "mode": "region",
+        "x": 740,
+        "y": 286,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "wifi-start",
+            "x": 70,
+            "y": 2240,
+            "width": 500,
+            "height": 80
+          },
+          {
+            "id": "antenna-a",
+            "x": 950,
+            "y": 1880,
+            "width": 300,
+            "height": 90
+          },
+          {
+            "id": "repeater",
+            "x": 140,
+            "y": 1520,
+            "width": 290,
+            "height": 90
+          },
+          {
+            "id": "antenna-b",
+            "x": 1060,
+            "y": 1160,
+            "width": 310,
+            "height": 90
+          },
+          {
+            "id": "uplink-antenna",
+            "x": 620,
+            "y": 350,
+            "width": 300,
+            "height": 90
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 1040,
+          "y": 1880
+        },
+        {
+          "x": 240,
+          "y": 1520
+        },
+        {
+          "x": 1160,
+          "y": 1160
+        },
+        {
+          "x": 720,
+          "y": 620
+        }
+      ],
+      "checkpointMode": "proximity",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "canal principal em zigue-zague",
+        "canal limpo após reparo",
+        "cache abaixo da entrada",
+        "antena lateral secreta"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "signal-01",
+          "x": 350,
+          "y": 2150,
+          "width": 180,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.4,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "signal-02",
+          "x": 560,
+          "y": 2060,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-03",
+          "x": 760,
+          "y": 1970,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "signal",
+          "motion": {
+            "axis": "x",
+            "range": 20,
+            "speed": 0.65
+          }
+        },
+        {
+          "id": "signal-05",
+          "x": 780,
+          "y": 1790,
+          "width": 170,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.4,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "signal-06",
+          "x": 580,
+          "y": 1700,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-07",
+          "x": 380,
+          "y": 1610,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "signal",
+          "motion": {
+            "axis": "y",
+            "range": 12,
+            "speed": 0.65
+          }
+        },
+        {
+          "id": "signal-09",
+          "x": 400,
+          "y": 1430,
+          "width": 180,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.4,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "signal-10",
+          "x": 620,
+          "y": 1340,
+          "width": 190,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-11",
+          "x": 840,
+          "y": 1250,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-13",
+          "x": 880,
+          "y": 1070,
+          "width": 180,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.4,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "signal-14",
+          "x": 680,
+          "y": 980,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-15",
+          "x": 480,
+          "y": 890,
+          "width": 180,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "signal",
+          "motion": {
+            "axis": "x",
+            "range": 20,
+            "speed": 0.65
+          }
+        },
+        {
+          "id": "signal-16",
+          "x": 260,
+          "y": 800,
+          "width": 210,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-17",
+          "x": 430,
+          "y": 710,
+          "width": 180,
+          "height": 18,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.4,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "signal-18",
+          "x": 640,
+          "y": 620,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-19",
+          "x": 840,
+          "y": 530,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "signal-20",
+          "x": 980,
+          "y": 440,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "entry-cache",
+          "x": 650,
+          "y": 2280,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "antenna-cache-step",
+          "x": 1300,
+          "y": 1070,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "antenna-cache-top",
+          "x": 1320,
+          "y": 980,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal"
+        },
+        {
+          "id": "clean-01",
+          "x": 80,
+          "y": 1430,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "clean-02",
+          "x": 180,
+          "y": 1340,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "clean-03",
+          "x": 60,
+          "y": 1250,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "clean-04",
+          "x": 220,
+          "y": 1160,
+          "width": 180,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "clean-05",
+          "x": 400,
+          "y": 1070,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "clean-06",
+          "x": 530,
+          "y": 1020,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "signal",
+          "requiresComponentId": "c02"
+        }
+      ],
+      "obstacles": [],
+      "gates": [],
+      "components": [
+        {
+          "id": "c01",
+          "x": 1070,
+          "y": 1836,
+          "width": 34,
+          "height": 44,
+          "label": "PONTO DE ACESSO A"
+        },
+        {
+          "id": "c02",
+          "x": 240,
+          "y": 1476,
+          "width": 34,
+          "height": 44,
+          "label": "REPETIDOR"
+        },
+        {
+          "id": "c03",
+          "x": 1190,
+          "y": 1116,
+          "width": 34,
+          "height": 44,
+          "label": "PONTO DE ACESSO B"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "shooter",
+          "x": 1180,
+          "y": 1856,
+          "groundY": 1880,
+          "navigationBounds": {
+            "left": 1020,
+            "right": 1210
+          },
+          "patrolMin": 1020,
+          "patrolMax": 1210,
+          "activationRegion": {
+            "x": 850,
+            "y": 1650,
+            "width": 650,
+            "height": 350
+          }
+        },
+        {
+          "id": "e02",
+          "type": "flyer",
+          "x": 500,
+          "y": 1438,
+          "groundY": 1530,
+          "navigationBounds": {
+            "left": 180,
+            "right": 800
+          },
+          "patrolMin": 180,
+          "patrolMax": 800,
+          "activationRegion": {
+            "x": 100,
+            "y": 1300,
+            "width": 800,
+            "height": 400
+          }
+        },
+        {
+          "id": "e03",
+          "type": "basic",
+          "x": 1280,
+          "y": 1136,
+          "groundY": 1160,
+          "navigationBounds": {
+            "left": 1100,
+            "right": 1330
+          },
+          "patrolMin": 1100,
+          "patrolMax": 1330,
+          "activationRegion": {
+            "x": 800,
+            "y": 940,
+            "width": 700,
+            "height": 330
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 720,
+          "y": 2250,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 1390,
+          "y": 950,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 120,
+          "y": 1220,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 320,
+          "y": 770,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i05",
+          "x": 740,
+          "y": 320,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": []
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [],
+      "componentsToRepair": 3,
+      "enemiesToDefeat": 3
+    },
+    "mechanics": [
+      {
+        "id": "radio-spectrum",
+        "type": "environment",
+        "zones": [
+          {
+            "id": "weak-lower",
+            "x": 650,
+            "y": 1740,
+            "width": 630,
+            "height": 390,
+            "speedMultiplier": 0.84,
+            "fireIntervalMultiplier": 1.45,
+            "projectileSpeedMultiplier": 0.8,
+            "label": "INTERFERÊNCIA / SINAL 35%",
+            "disabledWhen": {
+              "component": "c01"
+            }
+          },
+          {
+            "id": "weak-middle",
+            "x": 400,
+            "y": 1190,
+            "width": 570,
+            "height": 380,
+            "speedMultiplier": 0.88,
+            "fireIntervalMultiplier": 1.4,
+            "projectileSpeedMultiplier": 0.82,
+            "label": "CANAL CONGESTIONADO",
+            "disabledWhen": {
+              "component": "c02"
+            }
+          },
+          {
+            "id": "weak-upper",
+            "x": 420,
+            "y": 880,
+            "width": 680,
+            "height": 340,
+            "speedMultiplier": 0.9,
+            "fireIntervalMultiplier": 1.35,
+            "projectileSpeedMultiplier": 0.85,
+            "label": "SINAL FRACO",
+            "disabledWhen": {
+              "component": "c03"
+            }
+          },
+          {
+            "id": "clean-channel",
+            "x": 40,
+            "y": 1000,
+            "width": 350,
+            "height": 530,
+            "speedMultiplier": 1.05,
+            "label": "CANAL LIMPO / SINAL 100%",
+            "requires": {
+              "component": "c02"
+            }
+          }
+        ]
+      }
+    ],
+    "assets": [],
+    "layers": [
+      {
+        "id": "authored-scenery",
+        "type": "computer-world",
+        "theme": "wifi",
+        "items": [
+          {
+            "kind": "antenna",
+            "x": 70,
+            "y": 2240,
+            "width": 500,
+            "height": 100,
+            "label": "ASSOCIAÇÃO / ENTRADA"
+          },
+          {
+            "kind": "antenna",
+            "x": 950,
+            "y": 1880,
+            "width": 300,
+            "height": 100,
+            "label": "AP A"
+          },
+          {
+            "kind": "antenna",
+            "x": 140,
+            "y": 1520,
+            "width": 290,
+            "height": 100,
+            "label": "REPETIDOR"
+          },
+          {
+            "kind": "antenna",
+            "x": 1060,
+            "y": 1160,
+            "width": 310,
+            "height": 100,
+            "label": "AP B"
+          },
+          {
+            "kind": "antenna",
+            "x": 620,
+            "y": 350,
+            "width": 300,
+            "height": 130,
+            "label": "UPLINK / INTERNET"
+          },
+          {
+            "kind": "cache",
+            "x": 1320,
+            "y": 940,
+            "width": 160,
+            "height": 40,
+            "label": "ANTENA AUXILIAR"
+          }
+        ],
+        "pass": "midground"
+      },
+      {
+        "id": "hardware-faces",
+        "type": "computer-world",
+        "theme": "wifi",
+        "pass": "foreground",
+        "items": [
+          {
+            "kind": "antenna",
+            "x": 70,
+            "y": 2240,
+            "width": 500,
+            "height": 100,
+            "label": "ASSOCIAÇÃO / ENTRADA"
+          },
+          {
+            "kind": "antenna",
+            "x": 950,
+            "y": 1880,
+            "width": 300,
+            "height": 100,
+            "label": "AP A"
+          },
+          {
+            "kind": "antenna",
+            "x": 140,
+            "y": 1520,
+            "width": 290,
+            "height": 100,
+            "label": "REPETIDOR"
+          },
+          {
+            "kind": "antenna",
+            "x": 1060,
+            "y": 1160,
+            "width": 310,
+            "height": 100,
+            "label": "AP B"
+          },
+          {
+            "kind": "antenna",
+            "x": 620,
+            "y": 350,
+            "width": 300,
+            "height": 130,
+            "label": "UPLINK / INTERNET"
+          }
+        ]
+      }
+    ]
+  },
+  "06-cabling.js": {
+    "schemaVersion": 2,
+    "revision": 2,
+    "id": "phase-06",
+    "name": "Cabeamento e infraestrutura",
+    "theme": "cabling",
+    "objective": "Escale os dutos do prédio: restaure os três quadros de conexão para liberar travessias e elevadores.",
+    "palette": [
+      "#171b20",
+      "#283842",
+      "#f3c57f",
+      "#6b7167",
+      "#b9885c"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 1600,
+      "height": 3000,
+      "layout": "vertical",
+      "start": {
+        "x": 200,
+        "y": 2752
+      },
+      "exit": {
+        "mode": "region",
+        "x": 1280,
+        "y": 336,
+        "width": 90,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "building-basement",
+            "x": 100,
+            "y": 2800,
+            "width": 1400,
+            "height": 80
+          },
+          {
+            "id": "left-floor-1",
+            "x": 100,
+            "y": 2200,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "right-floor-1",
+            "x": 980,
+            "y": 2200,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "left-floor-2",
+            "x": 100,
+            "y": 1600,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "right-floor-2",
+            "x": 980,
+            "y": 1600,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "left-floor-3",
+            "x": 100,
+            "y": 1000,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "right-floor-3",
+            "x": 980,
+            "y": 1000,
+            "width": 520,
+            "height": 18,
+            "collision": "one-way"
+          },
+          {
+            "id": "building-roof",
+            "x": 100,
+            "y": 400,
+            "width": 1400,
+            "height": 18,
+            "collision": "one-way"
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 260,
+          "y": 2200
+        },
+        {
+          "x": 1190,
+          "y": 1600
+        },
+        {
+          "x": 260,
+          "y": 1000
+        },
+        {
+          "x": 1200,
+          "y": 400
+        }
+      ],
+      "checkpointMode": "proximity",
+      "progress": {
+        "axis": "objectives"
+      },
+      "routes": [
+        "shaft oeste",
+        "shaft leste",
+        "poço de elevadores",
+        "passagens de manutenção"
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "basement-duct-1",
+          "x": 260,
+          "y": 2700,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "basement-duct-2",
+          "x": 450,
+          "y": 2600,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "basement-duct-3",
+          "x": 270,
+          "y": 2500,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "basement-duct-4",
+          "x": 450,
+          "y": 2400,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "basement-duct-5",
+          "x": 270,
+          "y": 2300,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "east-duct-1",
+          "x": 1050,
+          "y": 2100,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "east-duct-2",
+          "x": 1240,
+          "y": 2000,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "east-duct-3",
+          "x": 1060,
+          "y": 1900,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "east-duct-4",
+          "x": 1240,
+          "y": 1800,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "east-duct-5",
+          "x": 1060,
+          "y": 1700,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "west-duct-1",
+          "x": 440,
+          "y": 1500,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "west-duct-2",
+          "x": 250,
+          "y": 1400,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "west-duct-3",
+          "x": 430,
+          "y": 1300,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "west-duct-4",
+          "x": 250,
+          "y": 1200,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "west-duct-5",
+          "x": 430,
+          "y": 1100,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-duct-1",
+          "x": 1080,
+          "y": 900,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-duct-2",
+          "x": 1260,
+          "y": 800,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-duct-3",
+          "x": 1080,
+          "y": 700,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-duct-4",
+          "x": 1260,
+          "y": 600,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-duct-5",
+          "x": 1080,
+          "y": 500,
+          "width": 170,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "reconnected-tray-a",
+          "x": 620,
+          "y": 2200,
+          "width": 360,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "reconnected-tray-b",
+          "x": 620,
+          "y": 1600,
+          "width": 360,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "reconnected-tray-c",
+          "x": 620,
+          "y": 1000,
+          "width": 360,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c03"
+        },
+        {
+          "id": "lift-dock-a",
+          "x": 560,
+          "y": 2500,
+          "width": 140,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "lift-dock-b",
+          "x": 920,
+          "y": 1900,
+          "width": 100,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "lift-dock-c",
+          "x": 920,
+          "y": 700,
+          "width": 100,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c03"
+        },
+        {
+          "id": "elevator-a",
+          "x": 720,
+          "y": 2500,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c01",
+          "motion": {
+            "axis": "y",
+            "range": 210,
+            "speed": 0.45
+          }
+        },
+        {
+          "id": "elevator-b",
+          "x": 720,
+          "y": 1900,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c02",
+          "motion": {
+            "axis": "y",
+            "range": 200,
+            "speed": 0.45
+          }
+        },
+        {
+          "id": "elevator-c",
+          "x": 720,
+          "y": 700,
+          "width": 160,
+          "height": 18,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "cable",
+          "requiresComponentId": "c03",
+          "motion": {
+            "axis": "y",
+            "range": 200,
+            "speed": 0.45
+          }
+        },
+        {
+          "id": "basement-cache",
+          "x": 1310,
+          "y": 2710,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "floor1-cache",
+          "x": 120,
+          "y": 2110,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "floor2-cache",
+          "x": 1340,
+          "y": 1510,
+          "width": 150,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        },
+        {
+          "id": "roof-cache",
+          "x": 180,
+          "y": 310,
+          "width": 160,
+          "height": 18,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "cable"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "building-west-wall",
+          "x": 50,
+          "y": 80,
+          "width": 24,
+          "height": 2800,
+          "collision": "solid",
+          "type": "rack-wall"
+        },
+        {
+          "id": "building-east-wall",
+          "x": 1520,
+          "y": 80,
+          "width": 24,
+          "height": 2800,
+          "collision": "solid",
+          "type": "rack-wall"
+        },
+        {
+          "id": "live-cable-a",
+          "x": 500,
+          "y": 2130,
+          "width": 28,
+          "height": 70,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c01"
+        },
+        {
+          "id": "live-cable-b",
+          "x": 1400,
+          "y": 1520,
+          "width": 28,
+          "height": 80,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c02"
+        },
+        {
+          "id": "live-cable-c",
+          "x": 490,
+          "y": 930,
+          "width": 28,
+          "height": 70,
+          "type": "interference",
+          "collision": "dangerous",
+          "damage": 12,
+          "requiresComponentId": "c03"
+        }
+      ],
+      "gates": [],
+      "components": [
+        {
+          "id": "c01",
+          "x": 300,
+          "y": 2156,
+          "width": 34,
+          "height": 44,
+          "label": "QUADRO DO SHAFT A"
+        },
+        {
+          "id": "c02",
+          "x": 1160,
+          "y": 1556,
+          "width": 34,
+          "height": 44,
+          "label": "PATCH PANEL B"
+        },
+        {
+          "id": "c03",
+          "x": 330,
+          "y": 956,
+          "width": 34,
+          "height": 44,
+          "label": "DISTRIBUIDOR DO TOPO"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "x": 800,
+          "y": 2776,
+          "groundY": 2800,
+          "navigationBounds": {
+            "left": 400,
+            "right": 1100
+          },
+          "patrolMin": 400,
+          "patrolMax": 1100,
+          "activationRegion": {
+            "x": 100,
+            "y": 2550,
+            "width": 1400,
+            "height": 300
+          }
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "x": 540,
+          "y": 2176,
+          "groundY": 2200,
+          "navigationBounds": {
+            "left": 210,
+            "right": 590
+          },
+          "patrolMin": 210,
+          "patrolMax": 590,
+          "activationRegion": {
+            "x": 100,
+            "y": 1940,
+            "width": 520,
+            "height": 300
+          }
+        },
+        {
+          "id": "e03",
+          "type": "parasite",
+          "x": 1320,
+          "y": 1576,
+          "groundY": 1600,
+          "navigationBounds": {
+            "left": 1040,
+            "right": 1460
+          },
+          "patrolMin": 1040,
+          "patrolMax": 1460,
+          "activationRegion": {
+            "x": 980,
+            "y": 1350,
+            "width": 520,
+            "height": 300
+          }
+        },
+        {
+          "id": "e04",
+          "type": "shooter",
+          "x": 550,
+          "y": 976,
+          "groundY": 1000,
+          "navigationBounds": {
+            "left": 180,
+            "right": 580
+          },
+          "patrolMin": 180,
+          "patrolMax": 580,
+          "activationRegion": {
+            "x": 100,
+            "y": 740,
+            "width": 520,
+            "height": 300
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "i01",
+          "x": 1380,
+          "y": 2680,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i02",
+          "x": 180,
+          "y": 2080,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i03",
+          "x": 1400,
+          "y": 1480,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "i04",
+          "x": 230,
+          "y": 280,
+          "radius": 10,
+          "secret": true
+        }
+      ],
+      "features": [],
+      "interactives": []
+    },
+    "objectives": {
+      "repairAllComponents": true,
+      "defeatAllViruses": true,
+      "requireExitQuestion": true,
+      "goals": [],
+      "componentsToRepair": 3,
+      "enemiesToDefeat": 4
+    },
+    "mechanics": [],
+    "assets": [],
+    "layers": [
+      {
+        "id": "new-infrastructure",
+        "type": "infrastructure-world",
+        "theme": "cabling",
+        "items": [
+          {
+            "kind": "building",
+            "x": 80,
+            "y": 180,
+            "width": 1440,
+            "height": 2670,
+            "label": "PRÉDIO TECNOLÓGICO / SHAFTS A–B"
+          },
+          {
+            "kind": "duct",
+            "x": 100,
+            "y": 450,
+            "width": 520,
+            "height": 2280,
+            "label": "ELETROCALHA OESTE"
+          },
+          {
+            "kind": "duct",
+            "x": 980,
+            "y": 450,
+            "width": 520,
+            "height": 2280,
+            "label": "ELETROCALHA LESTE"
+          },
+          {
+            "kind": "lift-shaft",
+            "x": 690,
+            "y": 410,
+            "width": 220,
+            "height": 2380,
+            "label": "ELEVADORES"
+          },
+          {
+            "kind": "rack",
+            "x": 130,
+            "y": 2200,
+            "width": 220,
+            "height": 100,
+            "label": "RACK A"
+          },
+          {
+            "kind": "rack",
+            "x": 1160,
+            "y": 1600,
+            "width": 250,
+            "height": 100,
+            "label": "RACK B"
+          },
+          {
+            "kind": "rack",
+            "x": 160,
+            "y": 1000,
+            "width": 220,
+            "height": 100,
+            "label": "PATCH / CORE"
+          }
+        ],
+        "pass": "midground"
+      }
+    ]
+  }
+}

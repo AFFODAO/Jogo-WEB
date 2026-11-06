@@ -3,6 +3,7 @@
   const api=window.ByteRunner;
   api.art = {
     background(ctx,view,time,index,palette,visuals) {
+      if(visuals?.themeIndex>=0)index=visuals.themeIndex;
       if(api.pixelArt&&visuals){api.pixelArt.background(ctx,view,time,index,visuals);return;}
       const reduced=api.experience?.settings.reducedEffects;
       const accent=palette[2];
@@ -39,6 +40,7 @@
       ctx.restore();
     },
     platform(ctx,visuals,object,time,index,view) {
+      if(visuals?.themeIndex>=0)index=visuals.themeIndex;
       if(api.pixelArt?.platform(ctx,visuals,object,time,index,view))return true;
       if(!['floor','platform'].includes(object.kind) || object.type==='dangerous')return false;
       // Bound work to visible tiles, even on extremely large floor segments.

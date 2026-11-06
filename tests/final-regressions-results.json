@@ -1,0 +1,25 @@
+{
+  "phases": [],
+  "systems": {
+    "final regression: narrow-tunnel head clearance / corridor": "PASS",
+    "final regression: narrow-tunnel head clearance / door": "PASS",
+    "final regression: narrow-tunnel head clearance / tunnel": "PASS",
+    "final regression: narrow-tunnel head clearance / bridge": "PASS",
+    "final regression: north shaft leaves required step clear / tier 1": "PASS",
+    "final regression: north shaft leaves required step clear / tier 2": "PASS",
+    "final regression: north shaft leaves required step clear / tier 3": "PASS",
+    "final regression: return from right through north room / door": "PASS",
+    "final regression: return from right through north room / tunnel": "PASS",
+    "final regression: dependency validator honors runtime condition precedence": "PASS",
+    "final regression: encounter validator recomputes actual entity cost": "PASS",
+    "final regression: respawn cannot depend on an undiscovered secret platform": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef",
+    "atUTC": "2026-11-06T00:27:56.326322+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -2746,7 +2746,7 @@
         {
           "id": "e02",
           "type": "flyer",
-          "x": 500,
+          "x": 650,
           "y": 1438,
           "groundY": 1530,
           "navigationBounds": {
