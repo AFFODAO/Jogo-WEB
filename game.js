@@ -1,9 +1,9 @@
 (() => {
   const canvas = document.getElementById('game');
-  const displayContext = canvas.getContext('2d');
+  const displayContext = canvas.getContext('2d', {alpha:false});
   let ctx = displayContext;
   const pixelScene=document.createElement('canvas');
-  const pixelContext=pixelScene.getContext('2d');
+  const pixelContext=pixelScene.getContext('2d', {alpha:false});
   const overlay = document.getElementById('overlay');
   const startButton = document.getElementById('startButton');
   const continueButton = document.createElement('button');
@@ -2706,8 +2706,11 @@
     const activeBoss=viruses.find(v=>v.multiStage&&v.alive&&player.x+17>=v.bossBounds.left-120&&(!v.activationRegion || (player.y+24>=v.activationRegion.y && player.y+24<=v.activationRegion.y+v.activationRegion.height)));
     experience.audio(audioContext,phaseIndex,soundEnabled&&running&&!repairSession?.blocksWorld&&!document.getElementById('settingsDialog').open,activeBoss?.bossStage || 0);
     const outputContext=ctx;
-    if(pixelScene.width!==Math.ceil(width)||pixelScene.height!==Math.ceil(height)){pixelScene.width=Math.ceil(width);pixelScene.height=Math.ceil(height);}
-    ctx=pixelContext;ctx.setTransform(1,0,0,1,0,0);ctx.imageSmoothingEnabled=false;
+    const directPresentation=pixelRatio===1&&Number.isInteger(width)&&Number.isInteger(height);
+    if(directPresentation){if(pixelScene.width){pixelScene.width=0;pixelScene.height=0;}pixelContext.imageSmoothingEnabled=false;}
+    else if(pixelScene.width!==Math.ceil(width)||pixelScene.height!==Math.ceil(height)){pixelScene.width=Math.ceil(width);pixelScene.height=Math.ceil(height);}
+    ctx=directPresentation?outputContext:pixelContext;ctx.setTransform(1,0,0,1,0,0);ctx.imageSmoothingEnabled=false;
+    ctx.font='10px sans-serif';ctx.textAlign='start';ctx.textBaseline='alphabetic';ctx.lineWidth=1;
     const shake=experience.offset();
     ctx.save();ctx.translate(shake.x,shake.y);
     drawBackground();
@@ -2750,7 +2753,7 @@
     ByteRunner.art.atmosphere(ctx,view,animationTime,phaseData.palette[2]);
     if(ByteRunner.mapDebug?.enabled)ByteRunner.mapDebug.frame({phase:phaseData,shapes:solids(),links:levelRuntime.connections(),player:{x:player.x,y:player.y},repaired:components.filter(c=>c.repaired).map(c=>c.id),cacheSize:levelVisuals.terrain?.cacheSize||0});
     ctx.restore();
-    ctx=outputContext;ctx.imageSmoothingEnabled=false;ctx.save();ctx.drawImage(pixelScene,0,0,width,height);ctx.restore();
+    ctx=outputContext;ctx.imageSmoothingEnabled=false;if(!directPresentation){ctx.save();ctx.drawImage(pixelScene,0,0,width,height);ctx.restore();}
     if(animationTime<.65 && phaseIntroTime===0) {ctx.fillStyle='rgba(7,11,29,'+(.7*(1-animationTime/.65))+')';ctx.fillRect(0,0,width,height);}
     const environment=levelRuntime.modifiers();
     if (environment.label) {ctx.fillStyle='#d5c5ff';ctx.font='bold 11px monospace';ctx.fillText(environment.label,12,height-28);}

@@ -1,0 +1,21 @@
+{
+  "sourceSha256": "f6a2bac4e9cae7df4dbfa0a366faa38716fa2a407023c508a31efd05dd5c78f6",
+  "ambientChecks": 61,
+  "regressionChecks": 209,
+  "visibilitySamples": 30,
+  "minDistinctBrightFraction": 0.8921052631578947,
+  "peakChangedPixelFraction": 0.0019113963144710203,
+  "peakLargeLuminanceChangeFraction": 0.000984866682680759,
+  "observedMeanBackgroundDeltaMs": 0.5184166666368644,
+  "backgroundMeanMs": [
+    2.3508333332836626,
+    5.060833333308498
+  ],
+  "reducedBackgroundMeanMs": [
+    1.3733333334326745,
+    2.361666666592161
+  ],
+  "fullFrameBudgetFailuresBefore": 11,
+  "fullFrameBudgetFailuresAfter": 11,
+  "certifies60FPS": false
+}

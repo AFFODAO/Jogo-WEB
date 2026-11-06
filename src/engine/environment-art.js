@@ -105,32 +105,22 @@
   function feature(ctx,item,view,time,visuals,index) {
     const suffix=String(index+1).padStart(2,'0'),id='structure-'+suffix;
     if(!visuals?.hasAsset(id))return false;
-    const {x,y,width:w,height:h,kind,label}=item,palette=colors[index],reduced=api.experience?.settings.reducedEffects;
+    // The motherboard is already expressed by the parallax modules. Repeating
+    // authored circuit bays over them creates a second, competing screen grid.
+    if(item.kind==='board')return true;
+    const {x,y,width:w,height:h,kind,label}=item,palette=colors[index],reduced=api.experience?.settings.reducedEffects||api.parallaxLife?.settings.reduceAnimations;
     ctx.save();ctx.imageSmoothingEnabled=false;ctx.beginPath();ctx.rect(Math.round(x),Math.round(y),w,h);ctx.clip();
-    if(architectureKinds.has(kind)) {
-      ctx.fillStyle=palette[0];
-      if(index===0&&kind==='board')ctx.globalAlpha*=.5;
-      else ctx.fillRect(x,y,w,h);
-      // Visible-only architectural bays, not a stretched sprite or a world-size canvas.
-      const spacing=kind==='board'?256:192;
-      for(let xx=x+Math.max(0,Math.floor((view.x-x)/spacing))*spacing;xx<Math.min(x+w,view.x+view.width+spacing);xx+=spacing) {
-        ctx.fillStyle=palette[1];ctx.fillRect(Math.round(xx),y,4,h);
-        for(let yy=y+Math.max(0,Math.floor((view.y-y)/160))*160;yy<Math.min(y+h,view.y+view.height+160);yy+=160) {
-          ctx.fillStyle=palette[1];ctx.fillRect(Math.round(xx+12),Math.round(yy+18),spacing-24,2);
-          if(kind==='board') {
-            ctx.fillRect(Math.round(xx+28),Math.round(yy+18),2,104);ctx.fillRect(Math.round(xx+28),Math.round(yy+120),spacing-56,2);
-            ctx.fillStyle=palette[2];ctx.fillRect(Math.round(xx+26),Math.round(yy+116),6,6);
-          } else visuals.sprite(ctx,{asset:id,animation:'structure'},{x:xx+24,y:yy+26,width:128,height:128},reduced?0:time);
-          if(!reduced){ctx.fillStyle=palette[2];ctx.fillRect(Math.round(xx+20+mod(Math.floor(time*16),spacing-40)),Math.round(yy+18),5,2);}
-        }
+    if(architectureKinds.has(kind)){
+      // Preserve each authored room's location and label without covering its
+      // themed parallax with an opaque repeated panel grid.
+      ctx.fillStyle=palette[1];
+      for(const [xx,yy,sx,sy] of [[x,y,1,1],[x+w,y,-1,1],[x,y+h,1,-1],[x+w,y+h,-1,-1]]){
+        ctx.fillRect(Math.round(xx+(sx<0?-28:0)),Math.round(yy+(sy<0?-2:0)),28,2);
+        ctx.fillRect(Math.round(xx+(sx<0?-2:0)),Math.round(yy+(sy<0?-24:0)),2,24);
       }
-      ctx.fillStyle=palette[2];ctx.fillRect(x,y,w,2);ctx.fillStyle=palette[1];ctx.fillRect(x,y+h-3,w,3);
-      if(kind==='boss-arena') {
-        const size=256,cx=Math.round(x+w/2-size/2),cy=Math.round(y+40);
-        visuals.sprite(ctx,{asset:'decor-'+suffix,animation:'core'},{x:cx,y:cy,width:size,height:size},reduced?0:time);
-        ctx.fillStyle='#f66caa';for(let i=0;i<5;i++)ctx.fillRect(cx-32+i*76,cy+size+12,32,3);
-      }
-    } else {
+      ctx.restore();if(label)api.pixelArt.text(ctx,label,x+8,y+9,'#d2e7e4',w-16);return true;
+    }
+    {
       const animation={ethernet:'port',cache:'terminal',process:'terminal'}[kind]||kind;
       if(kind==='cpu')visuals.sprite(ctx,{asset:id,animation:'structure'},{x:Math.round(x+(w-128)/2),y:Math.round(y+(h-128)/2),width:128,height:128},reduced?0:time);
       else {

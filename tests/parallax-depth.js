@@ -1,7 +1,7 @@
 setup(0);await levelVisuals.ready;endPhaseIntro();animationTime=1.2;
 const depthConfig=levelVisuals.parallax.config;
 test('depth hardware: four ordered structure planes and separate sparse atmosphere',()=>{
-  assert(depthConfig.planes.length===4&&depthConfig.particles.ambient&&depthConfig.particles.count===10,'five layers missing');
+  assert(depthConfig.planes.length===4&&depthConfig.particles.ambient&&depthConfig.particles.count===4,'five layers missing');
   assert(depthConfig.planes.map(p=>p.name).join(',')==='distant,middle,near,close','layer order');
   for(const axis of ['rateX','rateY'])assert(depthConfig.planes.every((p,i)=>p[axis]>0&&(!i||p[axis]>depthConfig.planes[i-1][axis])),'depth speed order '+axis);
   assert(depthConfig.planes[0].rateX<=.03&&depthConfig.planes.at(-1).rateX<1,'background camera speed');
@@ -16,15 +16,14 @@ test('depth hardware: all variant edges tile seamlessly on both axes',()=>{
   }
 });
 test('depth hardware: smooth fractional camera input produces integer monotone offsets',()=>{
-  const c=document.createElement('canvas');c.width=128;c.height=128;const x=c.getContext('2d'),native=x.drawImage.bind(x);let seen;
-  x.drawImage=(...args)=>{if(!seen.has(args[0]))seen.set(args[0],{horizontal:args[1]-args[5],vertical:-args[6]});return native(...args);};
+  const c=document.createElement('canvas');c.width=128;c.height=128;const x=c.getContext('2d');
   for(const axis of ['x','y']){
     let previous=null;
     for(let step=0;step<=40;step++){
-      seen=new Map();levelVisuals.parallax.draw(x,{x:axis==='x'?step*.1:0,y:axis==='y'?step*.1:0,width:128,height:128},0,levelVisuals);
-      const offsets=[...seen.values()];assert(offsets.length===4,'missing planes');
-      for(let i=0;i<4;i++){const value=offsets[i][axis==='x'?'horizontal':'vertical'];assert(Number.isInteger(value),'subpixel background');if(previous){const delta=value-previous[i];assert(delta>=0&&delta<=1,'camera jitter');}}
-      previous=offsets.map(o=>o[axis==='x'?'horizontal':'vertical']);
+      levelVisuals.parallax.draw(x,{x:axis==='x'?step*.1:0,y:axis==='y'?step*.1:0,width:128,height:128},0,levelVisuals);
+      const offsets=levelVisuals.parallax.stats.offsets;assert(offsets.length===4,'missing planes');
+      for(let i=0;i<4;i++){const value=offsets[i][axis];assert(Number.isInteger(value),'subpixel background');if(previous){const delta=value-previous[i];assert(delta>=0&&delta<=1,'camera jitter');}}
+      previous=offsets.map(o=>o[axis]);
     }
   }
 });

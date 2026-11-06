@@ -1,0 +1,38 @@
+{
+  "phases": [],
+  "systems": {
+    "identity: native raster, empty margins, quiet variants and distinct plane silhouettes": "PASS",
+    "identity: camera X/Y, negative coordinates, determinism, cache and canvas state": "PASS",
+    "identity: reduced effects are static and retain authored scenery": "PASS",
+    "identity: full scene preserves actors, collision shapes, objectives and nearest-neighbor": "PASS"
+  },
+  "errors": [],
+  "snapshots": [
+    {
+      "phase": 9,
+      "position": "start",
+      "file": "tests/identity-phase-09-start.png"
+    },
+    {
+      "phase": 9,
+      "position": "horizontal",
+      "file": "tests/identity-phase-09-horizontal.png"
+    },
+    {
+      "phase": 9,
+      "position": "vertical",
+      "file": "tests/identity-phase-09-vertical.png"
+    },
+    {
+      "phase": 9,
+      "position": "layers",
+      "file": "tests/identity-phase-09-layers.png"
+    }
+  ],
+  "execution": {
+    "sourceSha256": "f8811113c246ef523a68b256ae232860fb32d8ba0a967fdc263b7ca36f8c8be2",
+    "atUTC": "2026-11-06T22:08:13.686378+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

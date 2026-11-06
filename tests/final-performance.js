@@ -10,8 +10,11 @@ for(let phase=0;phase<=10;phase++) {
   for(let i=0;i<24;i++)perfFrame(i);
   const values=[];for(let i=0;i<60;i++){const t=performance.now();perfFrame(i);values.push(performance.now()-t);}
   const row={phase:phase<10?phase+1:'procedural-24',width,height,worldWidth:worldWidth(),worldHeight:worldHeight(),samples:values.length,meanMs:values.reduce((a,b)=>a+b,0)/values.length,p50Ms:perfPercentile(values,.5),p95Ms:perfPercentile(values,.95),maxMs:Math.max(...values),cacheSize:levelVisuals.terrain.cacheSize,shapes:solids().length,loadedAssets:levelVisuals.loadedAssets().length};report.performance.push(row);
+  row.pixelRatio=pixelRatio;row.presentation=pixelRatio===1&&Number.isInteger(width)&&Number.isInteger(height)?'direct':'buffered';
+  row.parallaxTextureBytes=levelVisuals.parallax.stats.totalBytes;row.framebufferBytes=(canvas.width*canvas.height+pixelScene.width*pixelScene.height)*4;
   test('performance: bounded terrain cache / '+row.phase,()=>assert(row.cacheSize<=96,'unbounded terrain memory'));
   test('performance: local 60Hz frame budget / '+row.phase,()=>assert(row.p95Ms<=16.7,'p95 exceeds local 60Hz screening budget: '+row.p95Ms.toFixed(2)+' ms'));
 }
 report.performanceConditions={headlessChrome:true,gpuDisabled:true,warmupFrames:24,samplesPerMap:60,damageProtection:true,optionalSkills:false,scope:'update+draw; 9 camera regions; does not certify FPS on other devices'};
+report.performanceConditions.viewport=[innerWidth,innerHeight];report.performanceConditions.dpr=devicePixelRatio;
 running=false;

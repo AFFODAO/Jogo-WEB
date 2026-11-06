@@ -11,4 +11,4 @@ html=(ROOT/'index.html').read_text(encoding='utf-8')
 scripts=['src/content/parallax.js','src/engine/parallax.js','src/engine/art.js','src/engine/background-scene.js','src/engine/visuals.js','game.js']
 positions=[html.index('src="'+name+'"') for name in scripts]
 assert positions==sorted(positions),'parallax dependency order'
-print('PASS: all ten maps and campaign manifest byte-identical; camera, runtime and physics byte-identical; game.js changes limited to scenery delegation; script order valid')
+print('PASS: all ten maps and campaign manifest byte-identical; camera, runtime and physics preserved; game.js changes limited to scenery delegation and exact opaque/direct presentation edits; script order valid')

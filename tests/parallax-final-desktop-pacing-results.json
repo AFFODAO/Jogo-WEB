@@ -1,0 +1,93 @@
+{
+  "phases": [],
+  "systems": {
+    "frame pacing: complete native RAF samples and bounded cache / 0": "PASS",
+    "frame pacing: complete native RAF samples and bounded cache / 1": "PASS",
+    "frame pacing: complete native RAF samples and bounded cache / 9": "PASS",
+    "frame pacing: complete native RAF samples and bounded cache / 10": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "framePacing": [
+    {
+      "phase": 1,
+      "width": 905,
+      "height": 644,
+      "pixelRatio": 1,
+      "frames": 90,
+      "meanIntervalMs": 16.85111111111111,
+      "p95IntervalMs": 16.700000000000273,
+      "maxIntervalMs": 33.40000000000009,
+      "observedFPS": 59.343267835948836,
+      "intervalsAbove25Ms": 1,
+      "meanUpdateDrawMs": 3.7544444448418086,
+      "parallaxBytes": 4200704,
+      "visibilityState": "visible"
+    },
+    {
+      "phase": 2,
+      "width": 905,
+      "height": 644,
+      "pixelRatio": 1,
+      "frames": 90,
+      "meanIntervalMs": 17.96222222222222,
+      "p95IntervalMs": 33.30000000000018,
+      "maxIntervalMs": 33.400000000000546,
+      "observedFPS": 55.672398861808745,
+      "intervalsAbove25Ms": 7,
+      "meanUpdateDrawMs": 4.405555555389987,
+      "parallaxBytes": 3407872,
+      "visibilityState": "visible"
+    },
+    {
+      "phase": 10,
+      "width": 905,
+      "height": 644,
+      "pixelRatio": 1,
+      "frames": 90,
+      "meanIntervalMs": 16.851111111111116,
+      "p95IntervalMs": 16.699999999999818,
+      "maxIntervalMs": 33.399999999999636,
+      "observedFPS": 59.343267835948815,
+      "intervalsAbove25Ms": 1,
+      "meanUpdateDrawMs": 4.482222222619587,
+      "parallaxBytes": 3414272,
+      "visibilityState": "visible"
+    },
+    {
+      "phase": "procedural-24",
+      "width": 905,
+      "height": 644,
+      "pixelRatio": 1,
+      "frames": 90,
+      "meanIntervalMs": 17.22222222222222,
+      "p95IntervalMs": 16.700000000000728,
+      "maxIntervalMs": 33.399999999999636,
+      "observedFPS": 58.06451612903226,
+      "intervalsAbove25Ms": 3,
+      "meanUpdateDrawMs": 7.7044444440139666,
+      "parallaxBytes": 3414272,
+      "visibilityState": "visible"
+    }
+  ],
+  "conditions": {
+    "viewport": [
+      1424,
+      905
+    ],
+    "dpr": 1,
+    "headlessChrome": true,
+    "gpuDisabled": true,
+    "menuOverlayHidden": true,
+    "warmupFrames": 12,
+    "samplesPerMap": 90,
+    "scope": "Native requestAnimationFrame intervals including browser presentation in launched gameplay, four workloads; fixed 1/60 simulation step; synthetic diagonal camera travel",
+    "certifies60FPS": false
+  },
+  "execution": {
+    "sourceSha256": "ddf1cacc2559935f83f9194b2f29951effe78bca08ec7a1b268b511dd0b246da",
+    "atUTC": "2026-11-06T22:55:28.066910+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

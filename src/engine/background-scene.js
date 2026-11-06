@@ -2,12 +2,14 @@
 (() => {
   function base(ctx,view,time,index,phase,visuals) {
     const {x:cameraX,y:cameraY,width,height}=view;
-    const gradient = ctx.createLinearGradient(0, 0, 0, height);
-    gradient.addColorStop(0, phase.palette[1]);
-    gradient.addColorStop(1, phase.palette[0]);
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, width, height);
-    ByteRunner.art.background(ctx,{x:cameraX,y:cameraY,width,height},time,index,phase.palette,visuals);
+    // The native parallax covers the complete viewport with an opaque base.
+    // Keep the gradient only for the legacy/missing-image fallback.
+    if(!visuals?.parallax?.config||!visuals.source(visuals.parallax.config.asset)){
+      const gradient = ctx.createLinearGradient(0, 0, 0, height);
+      gradient.addColorStop(0, phase.palette[1]);gradient.addColorStop(1, phase.palette[0]);
+      ctx.fillStyle=gradient;ctx.fillRect(0,0,width,height);
+    }
+    ByteRunner.art.background(ctx,view,time,index,phase.palette,visuals);
     if (phase.presentation?.procedural === false) return;
 
     // Distant circuit paths move slower than the level for a subtle parallax effect.

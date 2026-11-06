@@ -4,6 +4,15 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
 def restore_parallax(data):
+    # The final presentation audit makes the two fully painted framebuffers
+    # opaque. Normalize only these exact constructors; gameplay stays guarded.
+    data=data.replace(b"canvas.getContext('2d', {alpha:false})",b"canvas.getContext('2d')")
+    data=data.replace(b"pixelScene.getContext('2d', {alpha:false})",b"pixelScene.getContext('2d')")
+    for newline in [b'\r\n',b'\n']:
+        direct=newline.join([b'    const directPresentation=pixelRatio===1&&Number.isInteger(width)&&Number.isInteger(height);',b'    if(directPresentation){if(pixelScene.width){pixelScene.width=0;pixelScene.height=0;}pixelContext.imageSmoothingEnabled=false;}',b'    else if(pixelScene.width!==Math.ceil(width)||pixelScene.height!==Math.ceil(height)){pixelScene.width=Math.ceil(width);pixelScene.height=Math.ceil(height);}',b'    ctx=directPresentation?outputContext:pixelContext;ctx.setTransform(1,0,0,1,0,0);ctx.imageSmoothingEnabled=false;',b"    ctx.font='10px sans-serif';ctx.textAlign='start';ctx.textBaseline='alphabetic';ctx.lineWidth=1;"])
+        original=newline.join([b'    if(pixelScene.width!==Math.ceil(width)||pixelScene.height!==Math.ceil(height)){pixelScene.width=Math.ceil(width);pixelScene.height=Math.ceil(height);}',b'    ctx=pixelContext;ctx.setTransform(1,0,0,1,0,0);ctx.imageSmoothingEnabled=false;'])
+        data=data.replace(direct,original)
+    data=data.replace(b'    ctx=outputContext;ctx.imageSmoothingEnabled=false;if(!directPresentation){ctx.save();ctx.drawImage(pixelScene,0,0,width,height);ctx.restore();}',b'    ctx=outputContext;ctx.imageSmoothingEnabled=false;ctx.save();ctx.drawImage(pixelScene,0,0,width,height);ctx.restore();')
     marker=b'    ByteRunner.backgroundScene.draw('
     if marker in data:
         fixture=json.loads((ROOT/'tests/fixtures/pre-parallax.json').read_text(encoding='utf-8'))

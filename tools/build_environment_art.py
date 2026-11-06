@@ -7,6 +7,7 @@ import argparse,json
 from pathlib import Path
 from pixelart.raster import Raster,panel,circuit
 from pixelart.environment import PALETTES as ORIGINAL,decor
+from pixelart.identities import paint as identity_vista
 
 ROOT=Path(__file__).resolve().parents[1]
 PALETTES=[*ORIGINAL[:9],('#071525','#16354b','#32627e','#61d8ff','#c9f5ff')]
@@ -112,82 +113,115 @@ def structure(p,state,f,n):
             for x in [18,25,32]:p.rect(x,y+5,3,3,neon if (x+f)%3 else '#ffb581')
             for x in range(49,109,5):p.rect(x,y+4,2,8,mid)
 
+def hardware_vista(p,state,f):
+    """Authored hardware bays: restrained solid colors, two-pixel material marks.
+
+    Empty variants are deliberate breathing room. No luminous circuits or grid.
+    All shapes stay inside their cell so both camera axes remain seamless.
+    """
+    if state=='distant':
+        if f not in [0,3,6]:return
+        p.rect(12,24,92,88,'#0b1d20')
+        p.rect(20,16,60,8,'#0b1d20')
+        p.rect(16,28,84,4,'#102528')
+        p.rect(24,42,60,60,'#0d2124')
+        p.rect(92,40,8,64,'#08191c')
+        if f==3:
+            p.rect(34,40,48,46,'#102528');p.rect(40,46,36,34,'#0b1d20')
+            for x in [38,50,62,74]:
+                p.rect(x,34,4,6,'#203932');p.rect(x,86,4,6,'#203932')
+            # Two bounded traces, with a small muted luminous contact.
+            p.line(20,66,30,66,'#18352e',2);p.line(88,58,104,58,'#18352e',2)
+            p.rect(100,56,4,4,'#294d3f')
+        elif f==6:
+            p.line(26,38,26,88,'#122c28',2);p.line(26,88,70,88,'#122c28',2)
+            p.rect(68,86,4,4,'#254334')
+        return
+    if state=='close':
+        if f!=5:return
+        p.rect(94,12,12,100,'#0b1d21')
+        p.rect(94,12,2,100,'#20383d')
+        for y in [24,92]:
+            p.rect(90,y,20,8,'#142b30');p.rect(92,y,16,2,'#294146')
+        return
+    if state=='middle':
+        if f not in [0,4]:return
+        # A recessed memory bank, with broad sockets and grouped gold contacts.
+        p.rect(14,24,100,84,'#09191c')
+        p.rect(14,24,100,2,'#284045');p.rect(14,26,2,80,'#1e3439')
+        p.rect(18,104,92,4,'#071719')
+        for y in [36,66]:
+            p.rect(24,y,78,24,'#183136')
+            p.rect(24,y,78,2,'#30494d')
+            for x in [32,54,76]:
+                p.rect(x,y+6,16,10,'#0c2025');p.rect(x,y+6,16,2,'#223c42')
+                p.rect(x+2,y+20,10,2,'#4c4b3a')
+            p.rect(20,y+4,4,16,'#2b4246');p.rect(102,y+4,4,16,'#2b4246')
+        p.rect(26,96,14,2,'#3c5555')
+        return
+    if f not in [2,6]:return
+    # One heatsink or a pair of stepped capacitors, never a field of tiny chips.
+    if f==2:
+        p.rect(16,26,96,80,'#08191d')
+        p.rect(20,30,88,72,'#20373d')
+        p.rect(20,30,88,2,'#3e5559')
+        for x in [28,44,60,76,92]:
+            p.rect(x,38,8,52,'#0d232a');p.rect(x,38,2,50,'#314b52')
+        p.rect(24,96,80,4,'#11282e')
+        for x in [24,100]:p.rect(x,34,4,4,'#4a5d5c')
+    else:
+        for x,y,h in [(24,40,58),(66,26,72)]:
+            p.rect(x,y+6,28,h-6,'#11262c')
+            p.rect(x+4,y,20,6,'#354b50')
+            p.rect(x,y+6,28,4,'#2b434a')
+            p.rect(x+4,y+12,4,h-20,'#243e46')
+            p.rect(x+24,y+10,4,h-10,'#091b20')
+            p.rect(x+8,y+2,12,2,'#52615b')
+        p.rect(18,100,84,6,'#0b1e23')
+
 def vista(p,state,f,n):
     if n==0:
-        return hardware_vista(p,state,f)
-    dark,base,mid,neon,light=PALETTES[n]
-    if state=='distant':
-        for x in [0,40,88]:
-            top=14+(x*7+f*11+n*13)%55;p.rect(x,top,32,128-top,dark);p.rect(x+2,top+2,28,2,base)
-            for y in range(top+10,128,13):p.rect(x+5,y,21,1,mid)
-    elif state=='middle':
-        for x in [6,72]:
-            p.rect(x,18,44,110,base);p.rect(x+2,20,40,2,mid)
-            for y in range(29,128,17):
-                p.rect(x+4,y,36,10,dark);p.rect(x+7,y+3,3,2,neon)
-                if n in [0,5]:p.rect(x+17,y+2,2,7,mid)
-                elif n in [1,7]:p.rect(x+15,y+3,17,1,mid)
-                elif n in [2,9]:
-                    for xx in range(x+15,x+33,4):p.rect(xx,y+2,1,5,mid)
-        p.rect(0,116,128,5,mid)
-    else:
-        for x in [0,96]:p.rect(x,0,10,128,dark);p.rect(x+2,0,2,128,mid)
-        p.rect(0,10,128,7,base);p.rect(0,12,128,1,neon)
-        circuit(p,16,28,78,90,base,f)
+        hardware_vista(p,state,f);return
+    identity_vista(p,state,f,n)
 
-def hardware_vista(p,state,f):
-    # Borders are identical for every variant, including the two vertical edges.
-    # Silhouettes stay inside the cell; traces/pipes cross only at fixed offsets.
-    if state=='distant':
-        if f%2:
-            p.rect(80,100,24,10,'#0a201e');return
-        x=12+(f%3)*4
-        p.rect(x,20,64,84,'#0c2422');p.rect(x+64,44,28,60,'#0c2422')
-        p.rect(x+12,10,34,10,'#0c2422')
-    elif state=='middle':
-        p.rect(0,96,128,2,'#1e3b33')
-        if f%4:return
-        p.rect(28,24,2,72,'#1e3b33')
-        panel(p,46,24,54,56,'#0b201e','#244b3e','#142e28')
-        for y in [34,48,62]:p.rect(52,y,42,6,'#0a1c1b');p.pixel(56,y+2,'#3a6651')
-        p.rect(90,82,22,4,'#234739')
-    elif state=='near':
-        if f%3:
-            p.rect(52,62,8,14,'#183329');return
-        p.rect(8,112,104,4,'#29483e');p.rect(8,113,104,1,'#405b47')
-        panel(p,18,28,70,48,'#102823','#365142','#1d3930')
-        p.rect(28,38,26,26,'#0c201e')
-        for x in [25,33,41,49]:p.rect(x,24,2,4,'#625c3c');p.rect(x,76,2,4,'#625c3c')
-        for x in [98,108]:p.rect(x,42,6,24,'#2c4a3b');p.rect(x,43,2,20,'#45614a')
-        if f%2:p.rect(62,42,16,2,'#486646')
-    else:
-        p.rect(0,88,128,4,'#253a33');p.rect(0,89,128,1,'#52634e')
-        if f%4!=1:return
-        p.rect(12,12,6,76,'#294139');p.rect(13,12,1,76,'#4b5d4b')
-        p.rect(72,16,8,58,'#30483b');p.rect(73,17,2,56,'#4b5d49')
-        for y in [30,62]:p.rect(68,y,16,4,'#485541')
-        for x in [22,110]:p.rect(x,90,2,2,'#718063')
+def vista_states(n):
+    return ['distant','middle','near']+(['close'] if n==0 else ['arena'] if n==9 else [])
 
 def atlas(name,cell,states,painter,n):
-    image=Raster(cell*8,cell*len(states));animations={}
+    image=Raster(cell*8,cell*len(states));animations={};empty_frames=[];frame_bounds=[]
     for row,state in enumerate(states):
         for f in range(8):
             frame=Raster(cell,cell);painter(frame,state,f,n);image.blit(frame,f*cell,row*cell)
+            if not any(frame.data[3::4]):empty_frames.append(row*8+f)
+            if name=='vista':
+                occupied=[i//4 for i in range(0,len(frame.data),4) if frame.data[i+3]]
+                if occupied:
+                    left=min(i%cell for i in occupied);right=max(i%cell for i in occupied)
+                    top=min(i//cell for i in occupied);bottom=max(i//cell for i in occupied)
+                    frame_bounds.append([left,top,right-left+1,bottom-top+1])
+                else:frame_bounds.append(None)
         animations[state]={'frames':list(range(row*8,row*8+8)),'fps':4,'loop':True}
     path=ROOT/'assets/pixelart/environments'/f'{name}-{n+1:02}.png';image.png(path)
-    return {'id':f'{name}-{n+1:02}','src':path.relative_to(ROOT).as_posix(),'frameWidth':cell,'frameHeight':cell,'columns':8,'pixelArt':True,'animations':animations}
+    return {'id':f'{name}-{n+1:02}','src':path.relative_to(ROOT).as_posix(),'frameWidth':cell,'frameHeight':cell,'columns':8,'pixelArt':True,'animations':animations,**({'spatialVariants':True,'emptyFrames':empty_frames,'frameBounds':frame_bounds} if name=='vista' else {})}
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--phase',type=int,choices=range(1,11));parser.add_argument('--all',action='store_true');parser.add_argument('--parallax-hardware',action='store_true');args=parser.parse_args()
-    if not args.all and args.phase is None and not args.parallax_hardware:parser.error('choose --phase N, --all or --parallax-hardware')
+    parser=argparse.ArgumentParser();parser.add_argument('--phase',type=int,choices=range(1,11));parser.add_argument('--all',action='store_true');parser.add_argument('--parallax-all',action='store_true');parser.add_argument('--parallax-hardware',action='store_true');parser.add_argument('--parallax-phase',type=int,choices=range(1,11));args=parser.parse_args()
+    if not args.all and args.phase is None and not args.parallax_hardware and not args.parallax_all and args.parallax_phase is None:parser.error('choose --phase N, --all or --parallax-phase N')
     manifest_path=ROOT/'assets/pixelart/manifest.json';manifest=json.loads(manifest_path.read_text(encoding='utf-8'));by_id={a['id']:a for a in manifest}
-    if args.parallax_hardware:
-        asset=atlas('vista',128,['distant','middle','near','close'],vista,0);by_id[asset['id']]=asset
+    if args.parallax_all:
+        for n in range(10):
+            asset=atlas('vista',128,vista_states(n),vista,n);by_id[asset['id']]=asset
         manifest=list(by_id.values());manifest_path.write_text(json.dumps(manifest,indent=2),encoding='utf-8');(ROOT/'src/engine/art-manifest.js').write_text('ByteRunner.artAssets = '+json.dumps(manifest)+';\n',encoding='utf-8')
-        print('Hardware: four original seamless pixel-art planes; other assets unchanged');return
+        print('Rebuilt ten background atlases and their metadata only; terrain and structures unchanged');return
+    if args.parallax_hardware or args.parallax_phase is not None:
+        n=0 if args.parallax_hardware else args.parallax_phase-1
+        states=vista_states(n)
+        asset=atlas('vista',128,states,vista,n);by_id[asset['id']]=asset
+        manifest=list(by_id.values());manifest_path.write_text(json.dumps(manifest,indent=2),encoding='utf-8');(ROOT/'src/engine/art-manifest.js').write_text('ByteRunner.artAssets = '+json.dumps(manifest)+';\n',encoding='utf-8')
+        print(f'Phase {n+1}: authored parallax only; terrain, actors and other phase atlases unchanged');return
     phases=range(10) if args.all else [args.phase-1]
     for n in phases:
-        for asset in [atlas('terrain',32,[f'mask-{i}' for i in range(16)]+[f'inner-{i}' for i in range(4)],terrain,n),atlas('structure',128,['structure'],structure,n),atlas('vista',128,['distant','middle','near','close'] if n==0 else ['distant','middle','near'],vista,n)]:by_id[asset['id']]=asset
+        for asset in [atlas('terrain',32,[f'mask-{i}' for i in range(16)]+[f'inner-{i}' for i in range(4)],terrain,n),atlas('structure',128,['structure'],structure,n),atlas('vista',128,vista_states(n),vista,n)]:by_id[asset['id']]=asset
         print(f'Phase {n+1}: terrain (16 masks + 4 inner corners), animated structures, {4 if n==0 else 3} parallax planes')
     manifest=list(by_id.values());manifest_path.write_text(json.dumps(manifest,indent=2),encoding='utf-8');(ROOT/'src/engine/art-manifest.js').write_text('ByteRunner.artAssets = '+json.dumps(manifest)+';\n',encoding='utf-8')
     # Native-pixel Hardware reference: all connection masks and the hero structure.

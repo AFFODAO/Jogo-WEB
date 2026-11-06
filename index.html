@@ -74,7 +74,17 @@
     </section>
     <footer class="bottom-bar"><span>BYTE RUNNER <i>© 2025</i></span><span>FEITO PARA PROTEGER. PROGRAMADO PARA SOBREVIVER.</span><span>BUILD <b>R-07.042</b></span></footer>
   </main>
-  <dialog id="settingsDialog" class="settings-dialog" aria-labelledby="settingsTitle"><h2 id="settingsTitle">ÁUDIO E CONFORTO</h2><p>Ajustes salvos neste navegador. Feche e continue pelo menu de pausa.</p><label>Volume geral <output></output><input type="range" min="0" max="100" data-setting="volume" aria-label="Volume geral"></label><label>Efeitos sonoros <output></output><input type="range" min="0" max="100" data-setting="sfx" aria-label="Volume dos efeitos"></label><label>Ambientação original <output></output><input type="range" min="0" max="100" data-setting="music" aria-label="Volume da ambientação"></label><label class="setting-check"><input type="checkbox" data-setting="reducedEffects"> Reduzir partículas, brilhos e animações decorativas</label><label class="setting-check"><input type="checkbox" data-setting="shake"> Pequeno tremor em impactos fortes</label><small>Os avisos de perigo, escudos e pontos fracos continuam visíveis.</small><button id="closeSettings" type="button">FECHAR OPÇÕES</button></dialog>
+  <dialog id="settingsDialog" class="settings-dialog" aria-labelledby="settingsTitle">
+    <h2 id="settingsTitle">ÁUDIO E CONFORTO</h2><p>Ajustes salvos neste navegador. Feche e continue pelo menu de pausa.</p>
+    <label>Volume geral <output></output><input type="range" min="0" max="100" data-setting="volume" aria-label="Volume geral"></label>
+    <label>Efeitos sonoros <output></output><input type="range" min="0" max="100" data-setting="sfx" aria-label="Volume dos efeitos"></label>
+    <label>Ambientação original <output></output><input type="range" min="0" max="100" data-setting="music" aria-label="Volume da ambientação"></label>
+    <label class="setting-check"><input type="checkbox" data-setting="reducedEffects"> Reduzir partículas, brilhos e animações decorativas</label>
+    <label class="setting-check"><input type="checkbox" data-scenery-setting="reduceParticles"> Reduzir partículas do cenário</label>
+    <label class="setting-check"><input type="checkbox" data-scenery-setting="reduceAnimations"> Congelar animações decorativas do cenário</label>
+    <label class="setting-check"><input type="checkbox" data-setting="shake"> Pequeno tremor em impactos fortes</label>
+    <small>Os avisos de perigo, escudos e pontos fracos continuam visíveis.</small><button id="closeSettings" type="button">FECHAR OPÇÕES</button>
+  </dialog>
   <script src="src/engine/maps.js"></script>
   <script src="src/engine/platform-physics.js"></script>
   <script src="src/engine/map-audit.js"></script>
@@ -96,6 +106,7 @@
   <script src="src/engine/pixel-art.js"></script>
   <script src="src/engine/environment-art.js"></script>
   <script src="src/content/parallax.js"></script>
+  <script src="src/engine/parallax-life.js"></script>
   <script src="src/engine/parallax.js"></script>
   <script src="src/engine/art.js"></script>
   <script src="src/engine/background-scene.js"></script>

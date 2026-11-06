@@ -30,7 +30,13 @@ def run_page(target,url):
                 debug_port=int(portfile.read_text().splitlines()[0]);break
             except (OSError,ValueError,IndexError):time.sleep(.1)
         cdp=CDP(page_endpoint(debug_port))
-        cdp.call('Page.enable');cdp.call('Page.navigate',{'url':url});deadline=time.monotonic()+600
+        cdp.call('Page.enable')
+        if '--viewport' in sys.argv or '--dpr' in sys.argv:
+            size=sys.argv[sys.argv.index('--viewport')+1] if '--viewport' in sys.argv else '1440x1000'
+            viewport_width,viewport_height=map(int,size.lower().split('x'))
+            dpr=float(sys.argv[sys.argv.index('--dpr')+1]) if '--dpr' in sys.argv else 1
+            cdp.call('Emulation.setDeviceMetricsOverride',{'width':viewport_width,'height':viewport_height,'deviceScaleFactor':dpr,'mobile':False})
+        cdp.call('Page.navigate',{'url':url});deadline=time.monotonic()+600
         while time.monotonic()<deadline:
             result=cdp.call('Runtime.evaluate',{'expression':'document.getElementById("review-result")?.textContent || null','returnByValue':True},timeout=600)
             value=result.get('result',{}).get('value')
@@ -53,10 +59,17 @@ def main():
     hook = (ROOT / 'tests/review.js').read_text(encoding='utf-8')
     final_phase=int(sys.argv[sys.argv.index('--final-phase')+1]) if '--final-phase' in sys.argv else None
     parallax_only='--parallax-only' in sys.argv
+    identity_phase=int(sys.argv[sys.argv.index('--identity-phase')+1]) if '--identity-phase' in sys.argv else None
+    if identity_phase is not None:assert 1<=identity_phase<=10
     focused='profile-render' if '--profile-render' in sys.argv else 'final-performance' if '--performance-only' in sys.argv else 'final-regressions' if '--final-regressions' in sys.argv else 'map-debug' if '--debug-only' in sys.argv else 'final-maps' if final_phase is not None else 'gameplay-demo' if '--gameplay-demo' in sys.argv else 'room-gameplay' if '--room-gameplay' in sys.argv else 'environment-art' if '--environment-only' in sys.argv or '--environment-hardware' in sys.argv else 'infrastructure-generation' if '--infrastructure-generation' in sys.argv else 'campaign-generation' if '--campaign-generation' in sys.argv else 'pixelart' if '--pixel-only' in sys.argv else 'generation' if '--generation-only' in sys.argv else 'procedural' if '--procedural-only' in sys.argv else 'procedural-demo' if '--procedural-demo' in sys.argv else 'parkour' if '--parkour-only' in sys.argv else None
     if final_phase is not None:assert 1<=final_phase<=10
     if parallax_only:focused='parallax'
     if '--depth-only' in sys.argv:focused='parallax-depth'
+    if identity_phase is not None:focused='parallax-identity'
+    if '--ambient-only' in sys.argv:focused='parallax-ambient'
+    if '--ambient-performance' in sys.argv:focused='ambient-performance'
+    if '--parallax-final' in sys.argv:focused='parallax-final'
+    if '--frame-pacing' in sys.argv:focused='parallax-frame-pacing'
     phase_number=int(sys.argv[sys.argv.index('--phase')+1]) if '--phase' in sys.argv else None
     if phase_number is not None:
         assert 1<=phase_number<=10
@@ -97,6 +110,10 @@ def main():
     last_five=(ROOT/'tests/fixtures/last-five-v2.json').read_text(encoding='utf-8')
     hook = 'const LAST_FIVE_V2='+last_five+';\nconst FIRST_FIVE_V2='+first_five+';\nconst MAP_BASELINE='+baseline+';\nconst ARCHITECTURE_FIXTURE='+fixture+';\n'+hook.replace(final_marker,('' if focused else architecture+'\n')+final_marker,1)
     hook = 'const FINAL_PHASE='+str(final_phase or 0)+';\n'+hook
+    hook = 'const IDENTITY_PHASE='+str(identity_phase or 0)+';\n'+hook
+    if focused=='parallax-final':
+        baseline={name:(ROOT/f'tests/fixtures/{name}-before-final.js').read_text(encoding='utf-8') for name in ['parallax','parallax-life']}
+        hook='const PARALLAX_FINAL_REFERENCE='+json.dumps(baseline)+';\n'+hook
     hook = 'const ENVIRONMENT_HARDWARE_ONLY='+str('--environment-hardware' in sys.argv).lower()+';\n'+hook
     hook = '(async()=>{\n' + hook + '\n})().catch(error=>{document.body.innerHTML="<pre id=review-result>"+JSON.stringify({phases:[],systems:{fatal:error.stack}})+"</pre>";});'
     if '--capture-map-baseline' in sys.argv:
@@ -105,6 +122,7 @@ def main():
         target = Path(folder)
         (target / 'game.js').write_text(source[:source.rindex('})();')] + hook + '\n})();', encoding='utf-8')
         bootstrap=(ROOT/'tests/audit-bootstrap.js').read_text(encoding='utf-8')
+        if focused=='parallax-frame-pacing':bootstrap+='\nwindow.__reviewNativeRAF=window.requestAnimationFrame.bind(window);\n'
         page=(ROOT/'index.html').read_text(encoding='utf-8').replace('<head>','<head><script>'+bootstrap+'</script>')
         (target / 'index.html').write_text(page,encoding='utf-8')
         (target / 'style.css').write_text((ROOT/'style.css').read_text(encoding='utf-8'),encoding='utf-8')
@@ -131,6 +149,20 @@ def main():
             server.shutdown()
             server.server_close()
         if focused:
+            if focused=='parallax-final':
+                for shot in report.get('snapshots',[]):
+                    prefix=sys.argv[sys.argv.index('--result-label')+1] if '--result-label' in sys.argv else 'parallax-final'
+                    assert re.fullmatch(r'[a-z0-9-]+',prefix),'invalid result label'
+                    path=ROOT/f'tests/{prefix}-{shot["phase"]:02}-{shot["position"]}.png'
+                    path.write_bytes(base64.b64decode(shot.pop('image').split(',',1)[1]));shot['file']=path.relative_to(ROOT).as_posix()
+            if focused=='parallax-ambient':
+                for shot in report.get('snapshots',[]):
+                    path=ROOT/f'tests/ambient-{shot["phase"]:02}-{shot["position"]}.png'
+                    path.write_bytes(base64.b64decode(shot.pop('image').split(',',1)[1]));shot['file']=path.relative_to(ROOT).as_posix()
+            if focused=='parallax-identity':
+                for shot in report.get('snapshots',[]):
+                    path=ROOT/f'tests/identity-phase-{identity_phase:02}-{shot["position"]}.png'
+                    path.write_bytes(base64.b64decode(shot.pop('image').split(',',1)[1]));shot['file']=path.relative_to(ROOT).as_posix()
             if focused=='parallax-depth':
                 for shot in report.get('snapshots',[]):
                     path=ROOT/('tests/phase-01-'+shot['position']+'.png')
@@ -163,6 +195,10 @@ def main():
                 report['snapshots']=[]
             report['execution']={'sourceSha256':source_hash,'atUTC':datetime.datetime.now(datetime.timezone.utc).isoformat(),'instrumented':True,'isolatedStorage':True}
             result_name=('final-phase-%02d'%final_phase) if final_phase is not None else focused
+            if identity_phase is not None:result_name=f'identity-phase-{identity_phase:02}'
+            if '--result-label' in sys.argv:
+                result_name=sys.argv[sys.argv.index('--result-label')+1]
+                assert re.fullmatch(r'[a-z0-9-]+',result_name),'invalid result label'
             (ROOT/('tests/'+result_name+'-results.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
             print(json.dumps(report,ensure_ascii=False,indent=2))
             if report.get('errors') or any(value!='PASS' for value in report['systems'].values()):raise SystemExit(1)

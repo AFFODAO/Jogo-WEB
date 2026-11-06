@@ -1,0 +1,68 @@
+{
+  "phases": [],
+  "systems": {},
+  "errors": [],
+  "snapshots": [],
+  "profile": {
+    "total": 1920.5999999940395,
+    "perFrame": {
+      "hud": 0.6333333333333333,
+      "layers": 0.32500000049670535,
+      "background": 0.7300000001986822,
+      "solids": 0.28499999915560087,
+      "runtimeDraw": 0.01666666641831398,
+      "components": 0.07500000149011612,
+      "collectibles": 0.023333333432674408,
+      "viruses": 0.08666666646798452,
+      "projectiles": 0,
+      "effects": 0.0066666667660077415,
+      "robot": 0.026666666815678277,
+      "atmosphere": 0.01999999980131785,
+      "present": 27.408333333581687,
+      "update": 0.9566666662693024,
+      "draw": 31.041666667163373
+    }
+  },
+  "contexts": [
+    {
+      "shadowBlur": 0,
+      "filter": "none",
+      "alpha": 1,
+      "composite": "source-over",
+      "attributes": {
+        "alpha": true,
+        "colorSpace": "srgb",
+        "colorType": "unorm8",
+        "desynchronized": false,
+        "toneMapping": {
+          "mode": "standard"
+        },
+        "willReadFrequently": false
+      },
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    },
+    {
+      "shadowBlur": 0,
+      "filter": "none",
+      "alpha": 1,
+      "composite": "source-over",
+      "attributes": {
+        "alpha": true,
+        "colorSpace": "srgb",
+        "colorType": "unorm8",
+        "desynchronized": false,
+        "toneMapping": {
+          "mode": "standard"
+        },
+        "willReadFrequently": false
+      },
+      "transform": "matrix(1, 0, 0, 1, 0, 0)"
+    }
+  ],
+  "execution": {
+    "sourceSha256": "f6a2bac4e9cae7df4dbfa0a366faa38716fa2a407023c508a31efd05dd5c78f6",
+    "atUTC": "2026-11-06T22:33:13.130095+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -1,6 +1,6 @@
 ﻿setup(0);await levelVisuals.ready;endPhaseIntro();running=true;xpRequired=999999;damageCooldown=99999;components.forEach(c=>c.repaired=true);
 const timings={};
-const present=displayContext.drawImage.bind(displayContext);displayContext.drawImage=(...args)=>{const t=performance.now();try{return present(...args);}finally{timings.present=(timings.present||0)+performance.now()-t;}};
+const present=displayContext.drawImage.bind(displayContext);displayContext.drawImage=(...args)=>{const t=performance.now(),key=args[0]===pixelScene?'present':'displaySprite';try{return present(...args);}finally{timings[key]=(timings[key]||0)+performance.now()-t;}};
 function profileWrap(name,fn){return (...args)=>{const begin=performance.now();try{return fn(...args);}finally{timings[name]=(timings[name]||0)+performance.now()-begin;}};}
 drawBackground=profileWrap('background',drawBackground);drawSolids=profileWrap('solids',drawSolids);drawComponents=profileWrap('components',drawComponents);drawCollectibles=profileWrap('collectibles',drawCollectibles);drawViruses=profileWrap('viruses',drawViruses);drawRobot=profileWrap('robot',drawRobot);drawEffects=profileWrap('effects',drawEffects);drawProjectiles=profileWrap('projectiles',drawProjectiles);updateHud=profileWrap('hud',updateHud);
 levelVisuals.layers=profileWrap('layers',levelVisuals.layers);levelRuntime.draw=profileWrap('runtimeDraw',levelRuntime.draw);ByteRunner.art.atmosphere=profileWrap('atmosphere',ByteRunner.art.atmosphere);

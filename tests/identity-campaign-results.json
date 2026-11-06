@@ -1,0 +1,20 @@
+{
+  "sourceSha256": "f8811113c246ef523a68b256ae232860fb32d8ba0a967fdc263b7ca36f8c8be2",
+  "phases": 10,
+  "checks": 41,
+  "captures": 41,
+  "runtimeErrors": 0,
+  "reports": [
+    "identity-phase-01-results.json",
+    "identity-phase-02-results.json",
+    "identity-phase-03-results.json",
+    "identity-phase-04-results.json",
+    "identity-phase-05-results.json",
+    "identity-phase-06-results.json",
+    "identity-phase-07-results.json",
+    "identity-phase-08-results.json",
+    "identity-phase-09-results.json",
+    "identity-phase-10-results.json"
+  ],
+  "gallery": "tests/identity-gallery.html"
+}

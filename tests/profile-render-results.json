@@ -4,23 +4,23 @@
   "errors": [],
   "snapshots": [],
   "profile": {
-    "total": 1884.300000000745,
+    "total": 585.0999999940395,
     "perFrame": {
-      "hud": 0.5166666666045785,
-      "background": 0.2583333333954215,
-      "layers": 0.49666666655490793,
-      "solids": 0.26999999961505333,
-      "runtimeDraw": 0.011666666840513547,
-      "components": 0.07166666674117247,
-      "collectibles": 0.023333333246409894,
-      "viruses": 0.08500000021109978,
-      "projectiles": 0.003333333320915699,
-      "effects": 0.006666666579743226,
-      "robot": 0.043333333420256775,
-      "atmosphere": 0.011666666592160861,
-      "present": 27.091666666728756,
-      "update": 0.8000000002483527,
-      "draw": 30.58999999972681
+      "hud": 0.5416666661699613,
+      "present": 4.790000000596047,
+      "layers": 0.38166666924953463,
+      "background": 8.00500000094374,
+      "solids": 0.3016666668156783,
+      "runtimeDraw": 0.018333332737286885,
+      "components": 0.12999999995032946,
+      "collectibles": 0.033333332588275276,
+      "viruses": 0.08166666527589163,
+      "projectiles": 0.0016666665673255921,
+      "effects": 0.0033333333830038708,
+      "robot": 0.021666666865348815,
+      "atmosphere": 0.0066666667660077415,
+      "update": 0.8533333328862985,
+      "draw": 8.888333333532016
     }
   },
   "contexts": [
@@ -30,7 +30,7 @@
       "alpha": 1,
       "composite": "source-over",
       "attributes": {
-        "alpha": true,
+        "alpha": false,
         "colorSpace": "srgb",
         "colorType": "unorm8",
         "desynchronized": false,
@@ -47,7 +47,7 @@
       "alpha": 1,
       "composite": "source-over",
       "attributes": {
-        "alpha": true,
+        "alpha": false,
         "colorSpace": "srgb",
         "colorType": "unorm8",
         "desynchronized": false,
@@ -60,8 +60,8 @@
     }
   ],
   "execution": {
-    "sourceSha256": "3d4cd9d274317091e4b166cc3fbc9292adfac61d47452852cca158bf70ba6dbd",
-    "atUTC": "2026-11-06T00:23:21.177761+00:00",
+    "sourceSha256": "9b257c1ecd3871686e6868a55bd3f7c192e3614b4af879f825b6b174272734e5",
+    "atUTC": "2026-11-06T22:41:56.122367+00:00",
     "instrumented": true,
     "isolatedStorage": true
   }

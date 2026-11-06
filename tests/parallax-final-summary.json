@@ -1,0 +1,57 @@
+{
+  "sourceSha256": "ddf1cacc2559935f83f9194b2f29951effe78bca08ec7a1b268b511dd0b246da",
+  "regression": {
+    "phases": 10,
+    "systems": 209,
+    "passedSystems": 209,
+    "captures": 92,
+    "runtimeErrors": 0,
+    "failures": []
+  },
+  "auditChecks": 43,
+  "retinaAuditChecks": 43,
+  "ambientChecks": 61,
+  "referenceSamplesPerConfiguration": 394,
+  "maxReferenceChannelDelta": 2,
+  "maxFullSceneDeltaRetina": 0,
+  "visibilitySamples": 30,
+  "minDistinctCharacterFraction": 0.8921052631578947,
+  "peakParallaxBytes": 4200704,
+  "disposedParallaxBytes": 0,
+  "backgroundMeanBeforeMs": 3.664416666664183,
+  "backgroundMeanAfterMs": 2.7090833333755535,
+  "backgroundObservedReductionPercent": 26.070543286724412,
+  "framePacing": [
+    {
+      "case": "desktop",
+      "fps": [
+        59.343267835948836,
+        55.672398861808745,
+        59.343267835948815,
+        58.06451612903226
+      ],
+      "budgetPasses": 10
+    },
+    {
+      "case": "mobile",
+      "fps": [
+        59.99999999999999,
+        60.008001066808916,
+        60.00400026668446,
+        60.00400026668446
+      ],
+      "budgetPasses": 11
+    },
+    {
+      "case": "retina",
+      "fps": [
+        41.86241220521885,
+        38.85171595078783,
+        42.192114762552166,
+        36.73619331401282
+      ],
+      "budgetPasses": 0
+    }
+  ],
+  "certifiesUniversal60FPS": false
+}
