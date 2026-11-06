@@ -3,7 +3,19 @@ import hashlib,json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
+def restore_parallax(data):
+    marker=b'    ByteRunner.backgroundScene.draw('
+    if marker in data:
+        fixture=json.loads((ROOT/'tests/fixtures/pre-parallax.json').read_text(encoding='utf-8'))
+        newline=b'\r\n' if b'\r\n' in data else b'\n'
+        wrapper="  function drawBackground() {\n    ByteRunner.backgroundScene.draw(ctx,{x:cameraX,y:cameraY,width,height,runtime:levelRuntime},animationTime,phaseIndex,phaseData,levelVisuals,drawThemeStructures);\n  }\n\n"
+        data=data.replace(wrapper.replace('\n',newline.decode()).encode(),fixture['background'].replace('\n',newline.decode()).encode())
+        line=b'    const view={x:cameraX,y:cameraY,width,height,runtime:levelRuntime};'+newline
+        data=data.replace(line,line+fixture['scene'].replace('\n',newline.decode()).encode(),1)
+    return data
+
 def normalized_game(data):
+    data=restore_parallax(data)
     for newline in [b'\r\n',b'\n']:
         hook=newline.join([b'    const terrainShapes=solids();',b'    levelVisuals.prepareTerrain(terrainShapes);',b'    for (const object of terrainShapes) {'])
         data=data.replace(hook,b'    for (const object of solids()) {')

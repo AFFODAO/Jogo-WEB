@@ -4,7 +4,6 @@
   const api=ByteRunner,TILE=32,CHUNK=256,LIMIT=96;
   const colors=[['#071719','#153b32','#60eab4'],['#100e22','#30234b','#bc9afa'],['#061923','#153b50','#62d9ed'],['#091626','#203b58','#7bbfff'],['#071b2a','#184454','#83e8f5'],['#141c23','#353e46','#e5b675'],['#081e1a','#254e40','#96e5ad'],['#141329','#3c3159','#c8b0f5'],['#200c15','#502030','#ff736d'],['#061522','#15374d','#67dbff']];
   const themes=['hardware','software','switch','router','wifi','cabling','dhcp','dns','firewall','servers'];
-  const vistas=new WeakMap();
   const mod=(a,b)=>(a%b+b)%b;
   const dynamic=o=>['moving','temporary','falling','dangerous'].includes(o.type)||o.collision==='dangerous'||o.kind==='gate';
   const compatible=(a,b)=>(a.collision==='one-way')===(b.collision==='one-way')&&!dynamic(b);
@@ -109,7 +108,9 @@
     const {x,y,width:w,height:h,kind,label}=item,palette=colors[index],reduced=api.experience?.settings.reducedEffects;
     ctx.save();ctx.imageSmoothingEnabled=false;ctx.beginPath();ctx.rect(Math.round(x),Math.round(y),w,h);ctx.clip();
     if(architectureKinds.has(kind)) {
-      ctx.fillStyle=palette[0];ctx.fillRect(x,y,w,h);
+      ctx.fillStyle=palette[0];
+      if(index===0&&kind==='board')ctx.globalAlpha*=.5;
+      else ctx.fillRect(x,y,w,h);
       // Visible-only architectural bays, not a stretched sprite or a world-size canvas.
       const spacing=kind==='board'?256:192;
       for(let xx=x+Math.max(0,Math.floor((view.x-x)/spacing))*spacing;xx<Math.min(x+w,view.x+view.width+spacing);xx+=spacing) {
@@ -140,37 +141,7 @@
     ctx.restore();if(label)api.pixelArt.text(ctx,label,x+8,y+9,'#d2e7e4',w-16);return true;
   }
   function background(ctx,view,time,index,visuals) {
-    const id='vista-'+String(index+1).padStart(2,'0');if(!visuals?.hasAsset(id))return false;
-    const palette=colors[index],reduced=api.experience?.settings.reducedEffects;
-    ctx.save();ctx.imageSmoothingEnabled=false;ctx.fillStyle=palette[0];ctx.fillRect(0,0,view.width,view.height);
-    const planes=[{name:'distant',rate:.08,scale:2,alpha:.5},{name:'middle',rate:.22,scale:2,alpha:.48},{name:'near',rate:.4,scale:1,alpha:.32}];
-    for(const p of planes.slice(0,reduced?2:3)) {
-      const size=128*p.scale,ox=Math.floor(view.x*p.rate),oy=Math.floor(view.y*p.rate*.45);
-      // Pre-scale the eight repeating variants once, including their opacity.
-      // Each row then needs only unscaled strip copies, rather than resampling
-      // dozens of translucent atlas regions on every frame in software Canvas.
-      let cache=vistas.get(visuals);if(!cache){cache=new Map();vistas.set(visuals,cache);}
-      const image=visuals.source(id),key=id+':'+p.name;let entry=cache.get(key);
-      if(image&&entry?.image!==image){
-        const strip=document.createElement('canvas');strip.width=size*8;strip.height=size;
-        const c=strip.getContext('2d',{alpha:p.name!=='distant',willReadFrequently:true});c.imageSmoothingEnabled=false;
-        if(p.name==='distant'){c.fillStyle=palette[0];c.fillRect(0,0,strip.width,strip.height);}c.globalAlpha=p.alpha;
-        for(let x=0;x<8;x++)visuals.sprite(c,{asset:id,animation:p.name,frame:({distant:0,middle:8,near:16}[p.name])+x},{x:x*size,y:0,width:size,height:size},0);
-        entry={image,strip};cache.set(key,entry);
-      }
-      if(!entry)continue;
-      ctx.globalAlpha=1;
-      for(let y=Math.floor(oy/size);y<Math.ceil((oy+view.height)/size);y++){
-        let dx=0,sx=mod(ox+y*size,size*8);
-        while(dx<view.width){const take=Math.min(size*8-sx,view.width-dx);ctx.drawImage(entry.strip,sx,0,take,size,dx,y*size-oy,take,size);dx+=take;sx=0;}
-      }
-    }
-    if(!reduced)for(let i=0;i<24;i++) {
-      const x=Math.floor(mod(i*137-view.x*.13+time*(4+i%4),view.width)),y=Math.floor(mod(i*71-view.y*.11+time*(i%3-1)*2,view.height));
-      // Stepped light clusters, never blurred shadows or filtered gradients.
-      ctx.globalAlpha=.08;ctx.fillStyle=palette[2];ctx.fillRect(x-3,y-3,8,8);ctx.globalAlpha=.22;ctx.fillRect(x-1,y-1,4,4);ctx.globalAlpha=.75;ctx.fillRect(x,y,2,2);
-    }
-    ctx.restore();return true;
+    return visuals?.parallax?.draw(ctx,view,time,visuals) || false;
   }
   api.environmentArt=Object.freeze({terrain,platform,feature,background,colors,themes});
 })();

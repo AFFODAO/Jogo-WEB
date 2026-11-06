@@ -1,0 +1,36 @@
+{
+  "phases": [],
+  "systems": {
+    "depth hardware: four ordered structure planes and separate sparse atmosphere": "PASS",
+    "depth hardware: all variant edges tile seamlessly on both axes": "PASS",
+    "depth hardware: smooth fractional camera input produces integer monotone offsets": "PASS",
+    "depth hardware: actual horizontal and vertical camera follow remains bounded": "PASS",
+    "depth hardware: atmosphere animates occasionally and reduced effects retain silhouettes": "PASS",
+    "depth hardware: scenery is drawn before solid platforms, enemies and robot": "PASS",
+    "depth hardware: motherboard decoration no longer masks the parallax": "PASS"
+  },
+  "errors": [],
+  "snapshots": [
+    {
+      "phase": 1,
+      "position": "depth-start",
+      "file": "tests/phase-01-depth-start.png"
+    },
+    {
+      "phase": 1,
+      "position": "depth-horizontal",
+      "file": "tests/phase-01-depth-horizontal.png"
+    },
+    {
+      "phase": 1,
+      "position": "depth-vertical",
+      "file": "tests/phase-01-depth-vertical.png"
+    }
+  ],
+  "execution": {
+    "sourceSha256": "4fa23ad91c72918f5ae977f733d1cc874be758da3beee3462048b26fc29ac907",
+    "atUTC": "2026-11-06T00:56:00.600092+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

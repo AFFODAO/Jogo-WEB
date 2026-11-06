@@ -113,6 +113,8 @@ def structure(p,state,f,n):
             for x in range(49,109,5):p.rect(x,y+4,2,8,mid)
 
 def vista(p,state,f,n):
+    if n==0:
+        return hardware_vista(p,state,f)
     dark,base,mid,neon,light=PALETTES[n]
     if state=='distant':
         for x in [0,40,88]:
@@ -133,6 +135,39 @@ def vista(p,state,f,n):
         p.rect(0,10,128,7,base);p.rect(0,12,128,1,neon)
         circuit(p,16,28,78,90,base,f)
 
+def hardware_vista(p,state,f):
+    # Borders are identical for every variant, including the two vertical edges.
+    # Silhouettes stay inside the cell; traces/pipes cross only at fixed offsets.
+    if state=='distant':
+        if f%2:
+            p.rect(80,100,24,10,'#0a201e');return
+        x=12+(f%3)*4
+        p.rect(x,20,64,84,'#0c2422');p.rect(x+64,44,28,60,'#0c2422')
+        p.rect(x+12,10,34,10,'#0c2422')
+    elif state=='middle':
+        p.rect(0,96,128,2,'#1e3b33')
+        if f%4:return
+        p.rect(28,24,2,72,'#1e3b33')
+        panel(p,46,24,54,56,'#0b201e','#244b3e','#142e28')
+        for y in [34,48,62]:p.rect(52,y,42,6,'#0a1c1b');p.pixel(56,y+2,'#3a6651')
+        p.rect(90,82,22,4,'#234739')
+    elif state=='near':
+        if f%3:
+            p.rect(52,62,8,14,'#183329');return
+        p.rect(8,112,104,4,'#29483e');p.rect(8,113,104,1,'#405b47')
+        panel(p,18,28,70,48,'#102823','#365142','#1d3930')
+        p.rect(28,38,26,26,'#0c201e')
+        for x in [25,33,41,49]:p.rect(x,24,2,4,'#625c3c');p.rect(x,76,2,4,'#625c3c')
+        for x in [98,108]:p.rect(x,42,6,24,'#2c4a3b');p.rect(x,43,2,20,'#45614a')
+        if f%2:p.rect(62,42,16,2,'#486646')
+    else:
+        p.rect(0,88,128,4,'#253a33');p.rect(0,89,128,1,'#52634e')
+        if f%4!=1:return
+        p.rect(12,12,6,76,'#294139');p.rect(13,12,1,76,'#4b5d4b')
+        p.rect(72,16,8,58,'#30483b');p.rect(73,17,2,56,'#4b5d49')
+        for y in [30,62]:p.rect(68,y,16,4,'#485541')
+        for x in [22,110]:p.rect(x,90,2,2,'#718063')
+
 def atlas(name,cell,states,painter,n):
     image=Raster(cell*8,cell*len(states));animations={}
     for row,state in enumerate(states):
@@ -143,13 +178,17 @@ def atlas(name,cell,states,painter,n):
     return {'id':f'{name}-{n+1:02}','src':path.relative_to(ROOT).as_posix(),'frameWidth':cell,'frameHeight':cell,'columns':8,'pixelArt':True,'animations':animations}
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--phase',type=int,choices=range(1,11));parser.add_argument('--all',action='store_true');args=parser.parse_args()
-    if not args.all and args.phase is None:parser.error('choose --phase N or --all')
+    parser=argparse.ArgumentParser();parser.add_argument('--phase',type=int,choices=range(1,11));parser.add_argument('--all',action='store_true');parser.add_argument('--parallax-hardware',action='store_true');args=parser.parse_args()
+    if not args.all and args.phase is None and not args.parallax_hardware:parser.error('choose --phase N, --all or --parallax-hardware')
     manifest_path=ROOT/'assets/pixelart/manifest.json';manifest=json.loads(manifest_path.read_text(encoding='utf-8'));by_id={a['id']:a for a in manifest}
+    if args.parallax_hardware:
+        asset=atlas('vista',128,['distant','middle','near','close'],vista,0);by_id[asset['id']]=asset
+        manifest=list(by_id.values());manifest_path.write_text(json.dumps(manifest,indent=2),encoding='utf-8');(ROOT/'src/engine/art-manifest.js').write_text('ByteRunner.artAssets = '+json.dumps(manifest)+';\n',encoding='utf-8')
+        print('Hardware: four original seamless pixel-art planes; other assets unchanged');return
     phases=range(10) if args.all else [args.phase-1]
     for n in phases:
-        for asset in [atlas('terrain',32,[f'mask-{i}' for i in range(16)]+[f'inner-{i}' for i in range(4)],terrain,n),atlas('structure',128,['structure'],structure,n),atlas('vista',128,['distant','middle','near'],vista,n)]:by_id[asset['id']]=asset
-        print(f'Phase {n+1}: terrain (16 masks + 4 inner corners), animated structures, 3 parallax planes')
+        for asset in [atlas('terrain',32,[f'mask-{i}' for i in range(16)]+[f'inner-{i}' for i in range(4)],terrain,n),atlas('structure',128,['structure'],structure,n),atlas('vista',128,['distant','middle','near','close'] if n==0 else ['distant','middle','near'],vista,n)]:by_id[asset['id']]=asset
+        print(f'Phase {n+1}: terrain (16 masks + 4 inner corners), animated structures, {4 if n==0 else 3} parallax planes')
     manifest=list(by_id.values());manifest_path.write_text(json.dumps(manifest,indent=2),encoding='utf-8');(ROOT/'src/engine/art-manifest.js').write_text('ByteRunner.artAssets = '+json.dumps(manifest)+';\n',encoding='utf-8')
     # Native-pixel Hardware reference: all connection masks and the hero structure.
     preview=Raster(512,320);preview.rect(0,0,512,320,'#07151c')

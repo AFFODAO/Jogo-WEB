@@ -644,6 +644,25 @@
     "environment: rendering leaves geometry, actors and progress unchanged // phase 10": "PASS",
     "environment: themes differ structurally after removing palette colors": "PASS",
     "environment: visible-only chunks are reused and memory stays bounded": "PASS",
+    "parallax: independent immutable profiles for all ten themes": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 1": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 2": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 3": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 4": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 5": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 6": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 7": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 8": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 9": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 10": "PASS",
+    "parallax: scenery pass ordering and legacy procedural decorations preserved": "PASS",
+    "depth hardware: four ordered structure planes and separate sparse atmosphere": "PASS",
+    "depth hardware: all variant edges tile seamlessly on both axes": "PASS",
+    "depth hardware: smooth fractional camera input produces integer monotone offsets": "PASS",
+    "depth hardware: actual horizontal and vertical camera follow remains bounded": "PASS",
+    "depth hardware: atmosphere animates occasionally and reduced effects retain silhouettes": "PASS",
+    "depth hardware: scenery is drawn before solid platforms, enemies and robot": "PASS",
+    "depth hardware: motherboard decoration no longer masks the parallax": "PASS",
     "room gameplay: deterministic population across ten themes and three difficulties": "PASS",
     "room gameplay: generated relays run each of the ten existing minigame types": "PASS",
     "room gameplay: mandatory self-dependencies and unsafe enemy placement are rejected": "PASS",
@@ -1640,7 +1659,7 @@
     }
   ],
   "execution": {
-    "atUTC": "2026-11-06T00:27:57.090850+00:00",
+    "atUTC": "2026-11-06T00:55:36.131719+00:00",
     "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
     "transport": "localhost HTTP",
     "isolatedStorage": true,
@@ -1652,7 +1671,7 @@
       "Combat is tested separately with damage protection; survival balance still needs manual play.",
       "Minigame solvers use generated answers through real DOM controls."
     ],
-    "sourceSha256": "e83024099d896e1297f9f0fcb57373d97592e5e778aa346c4b2d8e01307814ef"
+    "sourceSha256": "4fa23ad91c72918f5ae977f733d1cc874be758da3beee3462048b26fc29ac907"
   },
   "captures": [
     "snapshots/phase-01-overview.png",
@@ -1736,6 +1755,9 @@
     "snapshots/phase-08-environment.png",
     "snapshots/phase-09-environment.png",
     "snapshots/phase-10-environment.png",
+    "snapshots/phase-01-depth-start.png",
+    "snapshots/phase-01-depth-horizontal.png",
+    "snapshots/phase-01-depth-vertical.png",
     "snapshots/phase-01-room-gameplay-initial.png",
     "snapshots/phase-01-room-gameplay-exploration.png",
     "snapshots/phase-01-room-gameplay-parkour.png",
@@ -1747,9 +1769,9 @@
   ],
   "summary": {
     "phases": 10,
-    "systems": 190,
-    "passedSystems": 190,
-    "captures": 89,
+    "systems": 209,
+    "passedSystems": 209,
+    "captures": 92,
     "runtimeErrors": 0,
     "failures": []
   }

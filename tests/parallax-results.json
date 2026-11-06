@@ -1,0 +1,25 @@
+{
+  "phases": [],
+  "systems": {
+    "parallax: independent immutable profiles for all ten themes": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 1": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 2": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 3": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 4": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 5": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 6": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 7": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 8": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 9": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 10": "PASS",
+    "parallax: scenery pass ordering and legacy procedural decorations preserved": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "4fa23ad91c72918f5ae977f733d1cc874be758da3beee3462048b26fc29ac907",
+    "atUTC": "2026-11-06T00:54:53.910385+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

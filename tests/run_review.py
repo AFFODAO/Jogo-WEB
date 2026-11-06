@@ -52,8 +52,11 @@ def main():
     source = (ROOT / 'game.js').read_text(encoding='utf-8-sig')
     hook = (ROOT / 'tests/review.js').read_text(encoding='utf-8')
     final_phase=int(sys.argv[sys.argv.index('--final-phase')+1]) if '--final-phase' in sys.argv else None
+    parallax_only='--parallax-only' in sys.argv
     focused='profile-render' if '--profile-render' in sys.argv else 'final-performance' if '--performance-only' in sys.argv else 'final-regressions' if '--final-regressions' in sys.argv else 'map-debug' if '--debug-only' in sys.argv else 'final-maps' if final_phase is not None else 'gameplay-demo' if '--gameplay-demo' in sys.argv else 'room-gameplay' if '--room-gameplay' in sys.argv else 'environment-art' if '--environment-only' in sys.argv or '--environment-hardware' in sys.argv else 'infrastructure-generation' if '--infrastructure-generation' in sys.argv else 'campaign-generation' if '--campaign-generation' in sys.argv else 'pixelart' if '--pixel-only' in sys.argv else 'generation' if '--generation-only' in sys.argv else 'procedural' if '--procedural-only' in sys.argv else 'procedural-demo' if '--procedural-demo' in sys.argv else 'parkour' if '--parkour-only' in sys.argv else None
     if final_phase is not None:assert 1<=final_phase<=10
+    if parallax_only:focused='parallax'
+    if '--depth-only' in sys.argv:focused='parallax-depth'
     phase_number=int(sys.argv[sys.argv.index('--phase')+1]) if '--phase' in sys.argv else None
     if phase_number is not None:
         assert 1<=phase_number<=10
@@ -82,6 +85,8 @@ def main():
     architecture += '\n'+(ROOT/'tests/campaign-generation.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/infrastructure-generation.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/environment-art.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/parallax.js').read_text(encoding='utf-8')
+    architecture += '\n'+(ROOT/'tests/parallax-depth.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/room-gameplay.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/map-debug.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/final-regressions.js').read_text(encoding='utf-8')
@@ -126,6 +131,10 @@ def main():
             server.shutdown()
             server.server_close()
         if focused:
+            if focused=='parallax-depth':
+                for shot in report.get('snapshots',[]):
+                    path=ROOT/('tests/phase-01-'+shot['position']+'.png')
+                    path.write_bytes(base64.b64decode(shot.pop('image').split(',',1)[1]));shot['file']=path.relative_to(ROOT).as_posix()
             if focused=='map-debug':
                 for shot in report.get('snapshots',[]):
                     (ROOT/'tests/map-debug.png').write_bytes(base64.b64decode(shot.pop('image').split(',',1)[1]))

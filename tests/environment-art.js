@@ -20,11 +20,12 @@ for(const index of environmentIndices) {
     try{
       ByteRunner.environmentArt.background(actual.getContext('2d'),view,time,index,levelVisuals);
       const c=expected.getContext('2d'),palette=ByteRunner.environmentArt.colors[index],id='vista-'+String(index+1).padStart(2,'0');c.imageSmoothingEnabled=false;c.fillStyle=palette[0];c.fillRect(0,0,256,192);
-      for(const [name,rate,scale,alpha,base] of [['distant',.08,2,.5,0],['middle',.22,2,.48,8],['near',.4,1,.32,16]]){
-        const size=128*scale,ox=Math.floor(view.x*rate),oy=Math.floor(view.y*rate*.45);c.globalAlpha=alpha;
+      const planes=index===0?[['distant',.025,2,.55,0,.02],['middle',.08,1,.42,8,.065],['near',.22,1,.34,16,.17],['close',.6,1,.24,24,.48]]:[['distant',.08,2,.5,0],['middle',.22,2,.48,8],['near',.4,1,.32,16]];
+      for(const [name,rate,scale,alpha,base,vertical] of planes){
+        const size=128*scale,ox=Math.floor(view.x*rate),oy=Math.floor(index===0?view.y*vertical:view.y*rate*.45);c.globalAlpha=alpha;
         for(let y=Math.floor(oy/size)-1;y<Math.ceil((oy+view.height)/size);y++)for(let x=Math.floor(ox/size)-1;x<Math.ceil((ox+view.width)/size);x++)levelVisuals.sprite(c,{asset:id,animation:name,frame:base+mod(x+y,8)},{x:x*size-ox,y:y*size-oy,width:size,height:size},0);
       }
-      for(let i=0;i<24;i++){const x=Math.floor(mod(i*137-view.x*.13+time*(4+i%4),view.width)),y=Math.floor(mod(i*71-view.y*.11+time*(i%3-1)*2,view.height));c.fillStyle=palette[2];c.globalAlpha=.08;c.fillRect(x-3,y-3,8,8);c.globalAlpha=.22;c.fillRect(x-1,y-1,4,4);c.globalAlpha=.75;c.fillRect(x,y,2,2);}
+      for(let i=0;i<(index===0?10:24);i++){const x=Math.floor(mod(i*137-view.x*(index===0?.32:.13)+time*(index===0?1+i%3:4+i%4),view.width)),y=Math.floor(mod(i*71-view.y*(index===0?.25:.11)+time*(i%3-1)*(index===0?.4:2),view.height));c.fillStyle=palette[2];c.globalAlpha=index===0?.035:.08;c.fillRect(x-3,y-3,8,8);c.globalAlpha=index===0?.09:.22;c.fillRect(x-1,y-1,4,4);c.globalAlpha=index===0?.32:.75;c.fillRect(x,y,2,2);if(index===0&&mod(time+i*1.7,8)<.6){c.globalAlpha=.18;c.fillRect(x-4,y+1,10,1);}}
       const a=actual.getContext('2d').getImageData(0,0,256,192).data,b=c.getImageData(0,0,256,192).data;let max=0;for(let p=0;p<a.length;p++)max=Math.max(max,Math.abs(a[p]-b[p]));assert(max<=3,'cached parallax changed pixel composition: '+max);
       let calls=0;const original=levelVisuals.sprite;levelVisuals.sprite=(...args)=>{calls++;return original(...args);};try{ByteRunner.environmentArt.background(actual.getContext('2d'),view,time,index,levelVisuals);assert(calls===0,'parallax atlas rescaled every frame');}finally{levelVisuals.sprite=original;}
     }finally{ByteRunner.experience.settings.reducedEffects=reduced;}

@@ -13,7 +13,8 @@
       const themeIndex=api.environmentArt?.themes.indexOf(phase.theme)??-1;
       if(themeIndex>=0) {
         const suffix=String(themeIndex+1).padStart(2,'0'),modern=library.some(a=>a.id==='terrain-'+suffix);
-        for(const name of modern?['terrain','structure','vista','decor']:['tiles','decor','sky'])required.add(name+'-'+suffix);
+        for(const name of modern?['terrain','structure','decor']:['tiles','decor','sky'])required.add(name+'-'+suffix);
+        if(modern)required.add(api.parallaxProfiles?.resolve(phase)?.asset||'vista-'+suffix);
       }
       for(const enemy of phase.entities?.enemies || []) {
         required.add('virus-'+(enemy.type || 'basic'));
@@ -31,6 +32,7 @@
       const images = new Map(), assets = new Map(definitions.map(asset => [asset.id,asset]));
       const clocks = new Map();
       const terrain=api.environmentArt?.terrain();
+      const parallax=api.parallax?.create(phase);
       let disposed = false;
       const errors = [];
       const ready = Promise.all([...assets.values()].map(async asset => {
@@ -43,7 +45,7 @@
         if(!img)errors.push(asset.id);else if(!disposed)images.set(asset.id,img);
       }));
       const service = {
-        ready, errors,terrain,themeIndex,
+        ready, errors,terrain,themeIndex,parallax,
         hasAsset(id){return assets.has(id);},
         loadedAssets(){return [...images.keys()];},
         prepareTerrain(shapes){terrain?.sync(shapes);},
@@ -88,7 +90,7 @@
             ctx.restore();
           }
         },
-        dispose() { disposed=true; images.clear();clocks.clear();terrain?.dispose(); }
+        dispose() { disposed=true; images.clear();clocks.clear();terrain?.dispose();parallax?.dispose(); }
       };
       return service;
     }

@@ -1,0 +1,23 @@
+{
+  "gameSha256": "834bb4331a5bbeef232d9367d094a946c0e4280265bab4e45df0d41764faf0a7",
+  "background": "  function drawBackground() {\n    const gradient = ctx.createLinearGradient(0, 0, 0, height);\n    gradient.addColorStop(0, phaseData.palette[1]);\n    gradient.addColorStop(1, phaseData.palette[0]);\n    ctx.fillStyle = gradient;\n    ctx.fillRect(0, 0, width, height);\n    ByteRunner.art.background(ctx,{x:cameraX,y:cameraY,width,height},animationTime,phaseIndex,phaseData.palette,levelVisuals);\n    if (phaseData.presentation?.procedural === false) return;\n\n    // Distant circuit paths move slower than the level for a subtle parallax effect.\n    ctx.save();\n    ctx.translate(-(cameraX * .22) % 180, 0);\n    ctx.strokeStyle = phaseData.palette[3];\n    ctx.globalAlpha = .3;\n    ctx.lineWidth = 1;\n    for (let x = -180; x < width + 200; x += 180) {\n      const top = 55 + ((x * 7) % 105 + 105) % 105;\n      ctx.beginPath();\n      ctx.moveTo(x, top);\n      ctx.lineTo(x + 48, top);\n      ctx.lineTo(x + 48, top + 42);\n      ctx.lineTo(x + 124, top + 42);\n      ctx.stroke();\n      ctx.fillStyle = phaseData.palette[2];\n      ctx.fillRect(x + 44, top - 2, 5, 5);\n      ctx.fillRect(x + 120, top + 39, 5, 5);\n    }\n    ctx.restore();\n\n    ctx.save();\n    ctx.translate(-cameraX * .42, 0);\n    for (let i = 0; i < 13; i++) {\n      const x = 130 + i * 330;\n      ctx.fillStyle = phaseData.palette[3];\n      ctx.globalAlpha = .22;\n      ctx.fillRect(x, height - 190 - (i % 3) * 24, 74, 46);\n      ctx.strokeStyle = phaseData.palette[2];\n      ctx.globalAlpha = .3;\n      ctx.strokeRect(x + .5, height - 189.5 - (i % 3) * 24, 73, 45);\n      ctx.fillStyle = phaseData.palette[2];\n      ctx.globalAlpha = .42;\n      ctx.fillRect(x + 9, height - 179 - (i % 3) * 24, 22, 2);\n      ctx.fillStyle = phaseData.palette[4];\n      ctx.fillRect(x + 9, height - 170 - (i % 3) * 24, 43, 2);\n    }\n    ctx.restore();\n  }\n\n",
+  "scene": "    levelVisuals.layers(ctx,'background',view,animationTime);\n    ctx.save();\n    ctx.translate(-cameraX, -cameraY);\n    if (phaseData.presentation?.procedural !== false) drawThemeStructures();\n    ctx.restore();\n    levelVisuals.layers(ctx,'midground',view,animationTime);\n",
+  "maps": {
+    "src/maps/01-hardware.js": "67070c1619c3a9482d3e854be4c20b78e2a51b60786f3034b516eaf1571f7705",
+    "src/maps/02-software.js": "d3cc5e6a2fe7c31267e166584c16b3fd22c54f3c03546e4b869992871c70bf1f",
+    "src/maps/03-switch.js": "29ba87c9a2d947d7f66f67720e742ddcf6f2d3eca471735e0755bab668bd4b36",
+    "src/maps/04-router.js": "20c6b7d974ba939675e566cbae381caf20430329ee92ffac87b434e5c749f7e9",
+    "src/maps/05-wifi.js": "64a29b9792ee79b9e54fd5eba6680a6099c3c09210b152c16de0cbf2a50a9362",
+    "src/maps/06-cabling.js": "868adcfcbc130274ae41f82a412e0d6f0c1f376b955004a97c02123de139faf9",
+    "src/maps/07-dhcp.js": "48944b06092e2d699e9812f3538fc7c46d13be1b1d46769ce43a79d4d2311205",
+    "src/maps/08-dns.js": "910ba3e10b65927bf8244b99da119366b6b362f30e8542bba92509898024a02e",
+    "src/maps/09-firewall.js": "9e2831e65e2caccf69f3222531ee3b856057a712759f6d1fef69091fd3595ea2",
+    "src/maps/10-servers.js": "03fe8f3c064d215207a7b201a5164ff30122a42bb94d5fe1f5f4ea3695286885",
+    "src/maps/campaign.js": "722aa7a7ad49cb18c56da2da88978772548f224390d59e2227b12cfa137b8bc8"
+  },
+  "core": {
+    "src/engine/experience.js": "d14293d31ab6ff687fdcc899d2361feaa1a5a36e828142eb4b820603fa509a62",
+    "src/engine/platform-physics.js": "ac93fc4e7722f7410a115872b8ebcf04125c61ca7f052b8a21fc061620ef71bf",
+    "src/engine/level-runtime.js": "c338134ef524f961a0cbde38baabe095a08784aa3ba8d1bb3d56fc458e0069e2"
+  }
+}
