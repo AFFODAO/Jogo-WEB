@@ -44,6 +44,12 @@
       for(const endpoint of [link.from,link.to]){const key=endpoint.room+':'+endpoint.socket;if(used.has(key))throw new Error('Socket linked more than once');used.add(key);}
       adjacency.get(a.id).add(b.id);adjacency.get(b.id).add(a.id);
     }
+    // Opt-in digital room networks: portals are directed graph edges, not sockets.
+    if(plan.connectivity!==undefined&&plan.connectivity!=='portal-network')throw new Error('Unknown connectivity mode');
+    if(plan.connectivity==='portal-network')for(const placed of resolved.values())for(const mechanic of placed.room.mechanics || [])if(mechanic.type==='portals')for(const link of mechanic.links || []){
+      if(!link.to?.room)throw new Error('Portal network needs room/anchor destinations');
+      anchor(link.to);adjacency.get(placed.id).add(link.to.room);
+    }
     const visited=new Set([plan.start.room]),queue=[plan.start.room];
     for(const room of queue)for(const next of adjacency.get(room))if(!visited.has(next)){visited.add(next);queue.push(next);}
     if(visited.size!==resolved.size||!visited.has(plan.exit.room))throw new Error('Disconnected room graph');
@@ -107,6 +113,13 @@
         phase.mechanics.push(result);
       }
       phase.generation.rooms.push({id,source:placed.source,x,y,width:room.width,height:room.height});
+    }
+    if(plan.connectivity==='portal-network'){
+      // One controller owns the E edge/cooldown across the entire digital network.
+      // Separate bidirectional controllers could immediately teleport back in one update.
+      const links=phase.mechanics.filter(m=>m.type==='portals').flatMap(m=>m.links);
+      phase.mechanics=phase.mechanics.filter(m=>m.type!=='portals');
+      phase.mechanics.push({id:'system-directory-network',type:'portals',links});
     }
     phase.assets=[...assets.values()];
     phase.objectives.componentsToRepair??=phase.entities.components.length;phase.objectives.enemiesToDefeat??=phase.entities.enemies.length;

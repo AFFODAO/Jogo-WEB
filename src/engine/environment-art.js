@@ -9,12 +9,15 @@
   const compatible=(a,b)=>(a.collision==='one-way')===(b.collision==='one-way')&&!dynamic(b);
   function terrain() {
     let signature='',version=0,rects=[],buckets=new Map(),large=[];
-    const chunks=new Map(),stats={builds:0,hits:0,draws:0,cells:0};
+    const chunks=new Map(),stats={builds:0,hits:0,draws:0,cells:0,releases:0};
+    // Large-map streaming must release raster storage at eviction, not wait for GC.
+    const release=canvas=>{canvas.width=0;canvas.height=0;stats.releases++;};
+    const clearChunks=()=>{for(const canvas of chunks.values())release(canvas);chunks.clear();};
     const state={stats,
       sync(shapes) {
         const next=shapes.filter(o=>!dynamic(o));
         const key=next.map(o=>[o.id,o.x,o.y,o.w,o.h,o.collision].join(',')).join('|');
-        if(key===signature)return;signature=key;version++;rects=next.map(o=>({...o}));buckets=new Map();large=[];chunks.clear();
+        if(key===signature)return;signature=key;version++;rects=next.map(o=>({...o}));buckets=new Map();large=[];clearChunks();
         for(const r of rects) {
           const left=Math.floor(r.x/128),right=Math.floor((r.x+r.w)/128),top=Math.floor(r.y/128),bottom=Math.floor((r.y+r.h)/128);
           if((right-left+1)*(bottom-top+1)>4096){large.push(r);continue;}
@@ -76,9 +79,9 @@
           }
           stats.cells++;
         }
-        chunks.set(key,canvas);stats.builds++;while(chunks.size>LIMIT)chunks.delete(chunks.keys().next().value);return canvas;
+        chunks.set(key,canvas);stats.builds++;while(chunks.size>LIMIT){const oldest=chunks.keys().next().value;release(chunks.get(oldest));chunks.delete(oldest);}return canvas;
       },
-      get cacheSize(){return chunks.size;},dispose(){chunks.clear();buckets.clear();rects=[];large=[];}
+      get cacheSize(){return chunks.size;},get cacheBytes(){let bytes=0;for(const canvas of chunks.values())bytes+=canvas.width*canvas.height*4;return bytes;},dispose(){clearChunks();buckets.clear();rects=[];large=[];}
     };
     return state;
   }

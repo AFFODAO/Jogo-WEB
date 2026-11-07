@@ -16,7 +16,7 @@ const generationPlan={id:'hybrid-fixture',name:'Hybrid fixture',theme:'hardware'
 };
 function generationReject(fn,match){let error;try{fn();}catch(e){error=e;}assert(error&&(!match||error.message.includes(match)),'expected rejection '+match);}
 test('generation: campaign generators coexist with optional composition',()=>{
-  assert(generation.list().templates.length===0&&generation.list().generators.filter(id=>id.startsWith('campaign-')).length===10,'campaign generators missing');
+  assert(generation.list().templates.filter(id=>id.startsWith('hw-')).length===18&&generation.list().generators.includes('hardware-v3-vault')&&generation.list().generators.filter(id=>id.startsWith('campaign-')).length===10,'campaign generators/templates missing');
   assert(PHASES.length===10&&ByteRunner.campaign.length===10,'campaign replaced');
   PHASES.forEach(phase=>assert(generation.authored(phase.id)===phase&&Object.isFrozen(phase),'authored map copied or changed'));
 });

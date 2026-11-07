@@ -1,5 +1,7 @@
 """Audit the explicit map modules and their campaign/script manifest using only Python."""
 import json
+from hardware_v3_contract import hardware_definition
+from software_v3_contract import software_definition
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -9,7 +11,13 @@ def main():
     paths = sorted((ROOT/'src/maps').glob('[0-9][0-9]-*.js'))
     for path in paths:
         source = path.read_text(encoding='utf-8')
-        definition, _ = json.JSONDecoder().raw_decode(source[source.index('{',source.index('ByteRunner.maps.register(')):])
+        if path.name=='01-hardware.js':
+            # Executable hybrid module: compare its source to the explicit browser export.
+            definition=hardware_definition()
+        elif path.name=='02-software.js':
+            definition=software_definition()
+        else:
+            definition, _ = json.JSONDecoder().raw_decode(source[source.index('{',source.index('ByteRunner.maps.register(')):])
         if definition['id'] in maps:
             raise ValueError(f'Duplicate map {definition["id"]}')
         maps[definition['id']] = definition

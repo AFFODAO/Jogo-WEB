@@ -1,5 +1,7 @@
 """Guard preserved systems around explicit audited geometry fixes and render hooks."""
 import hashlib,json
+from hardware_v3_contract import approved_hardware
+from software_v3_contract import approved_software
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -57,6 +59,7 @@ def normalized_campaign_file(data, relative):
 def main():
     expected=json.loads((ROOT/'tests/fixtures/pre-environment-hashes.json').read_text(encoding='utf-8'))
     for relative,digest in expected.items():
+        if approved_hardware(relative) or approved_software(relative):continue
         # The subsequent gameplay stage extends preview activation explicitly.
         if relative=='src/generation/demo.js':continue
         data=(ROOT/relative).read_bytes()
@@ -76,6 +79,6 @@ def main():
     manifest=json.loads((ROOT/'assets/pixelart/manifest.json').read_text(encoding='utf-8'))
     for asset in manifest:
         assert (ROOT/asset['src']).is_file(),asset['id']
-    print('PASS: campaign, core physics, boss and repair systems preserved around explicit audited geometry fixes and readonly debug; original PNG assets present')
+    print('PASS: Hardware/Software V3 match reviewed snapshots; phases 3..10, physics, boss, repairs and original assets preserved')
 
 if __name__=='__main__':main()

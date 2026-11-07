@@ -65,17 +65,26 @@
     const horizontal=phase?.map?.layout!=='vertical'&&(phase?.map?.width||0)>=(Number(phase?.map?.height)||0);
     const startsHigh=(phase?.map?.start?.y||0)<(Number(phase?.map?.height)||0)/2;
     let disposed=false;
-    const zone={axis:'x',progress:0,from:0,to:0,blend:0};
+    const zone={axis:'x',progress:0,from:0,to:0,blend:0},districts=phase?.map?.regions;
     function computeRegion(view,result){
+      // Rebuilt maps can place districts vertically as well as horizontally.
+      // Legacy phases keep the original progress profile below.
+      if(districts?.length){
+        const x=view.x+view.width/2,y=view.y+view.height/2;
+        let first=districts[0],second=first,da=Infinity,db=Infinity;
+        for(const r of districts){let distance=Infinity;for(const a of r.areas)distance=Math.min(distance,Math.hypot(Math.max(a.x-x,0,x-a.x-a.width),Math.max(a.y-y,0,y-a.y-a.height)));if(distance<da){second=first;db=da;first=r;da=distance;}else if(distance<db){second=r;db=distance;}}
+        const wa=Math.max(0,256-da),wb=Math.max(0,256-db),blend=wa+wb>0?wb/(wa+wb):0;
+        result.axis='district';result.progress=0;result.from=first.state;result.to=second.state;result.blend=blend;result.labelA=first.name;result.labelB=second.name;return result;
+      }
       const w=phase?.map?.width||view.width,h=Number(phase?.map?.height)||view.height;
       const axis=horizontal||h<=view.height?'x':'y',extent=Math.max(1,(axis==='x'?w-view.width:h-view.height));
       let progress=clamp(view[axis]/extent);if(axis==='y'&&!startsHigh)progress=1-progress;
       const position=progress*3,from=Math.min(3,Math.floor(position)),to=Math.min(3,from+1),t=position-from,blend=t*t*(3-2*t);
       result.axis=axis;result.progress=progress;result.from=from;result.to=to;result.blend=blend;return result;
     }
-    function region(view){const result=computeRegion(view,{});result.labels=[labels[result.from],labels[result.to]];return result;}
+    function region(view){const result=computeRegion(view,{});result.labels=[result.labelA||labels[result.from],result.labelB||labels[result.to]];return result;}
     function prepareRegion(visuals){
-      const image=bank||visuals.source(config.asset),blend=Math.round(zone.blend*64),key=zone.from*128+blend;
+      const image=bank||visuals.source(config.asset),blend=Math.round(zone.blend*64),key=zone.from*512+zone.to*128+blend;
       if(mixedKey===key&&mixedImage===image){mixHits++;return;}
       mixedContext.clearRect(0,0,256,256);
       for(let side=0;side<2;side++){

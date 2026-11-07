@@ -1,0 +1,5896 @@
+{
+  "phases": [],
+  "systems": {
+    "v3: opt-in compile leaves ten campaign maps unchanged": "PASS",
+    "v3: hybrid recipe deterministic and independent of placement order": "PASS",
+    "v3: ten distinct plans preserve unmeasured targets": "PASS",
+    "v3: ten planning graphs include main routes, branches and repair shortcuts": "PASS",
+    "v3: useful area excludes empty growth and duplicate bands": "PASS",
+    "v3: rejects room overlap": "PASS",
+    "v3: rejects disconnected rooms": "PASS",
+    "v3: rejects unknown prerequisite": "PASS",
+    "v3: rejects self locking repair": "PASS",
+    "v3: rejects circular repairs": "PASS",
+    "v3: rejects mandatory objective locked": "PASS",
+    "v3: alternate route opens repair and return shortcut": "PASS",
+    "v3: recipe bounds and contract cannot silently differ": "PASS",
+    "v3: jump physics and impossible height": "PASS",
+    "v3: actual collision blocks otherwise reachable jump": "PASS",
+    "v3: respawn offset requires permanent support": "PASS",
+    "v3: moving support cannot certify a checkpoint": "PASS",
+    "v3: landing must be in supplied camera view": "PASS",
+    "v3: hazards cannot cover respawn": "PASS",
+    "v3: returning platforms need sufficient timing": "PASS",
+    "v3: elevator envelope respects walls and speed": "PASS",
+    "v3: real discrete base physics reaches exit and checkpoints": "PASS",
+    "v3: geometry audit rejects graph-connected but blocked exit": "PASS",
+    "v3: reachable repair opens physical door in successive probes": "PASS",
+    "v3: physical repair behind own door is rejected": "PASS",
+    "v3: asynchronous prepare requires successful traversal proof": "PASS",
+    "v3: broad phase culls distant geometry": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "architecture": {
+    "physics": {
+      "jumpHeight": 128.67567567567568,
+      "flightSeconds": 0.745945945945946,
+      "horizontalAtEqualHeight": 190.21621621621622,
+      "landingMargin": 6,
+      "reachSafetyFactor": 0.82
+    },
+    "plans": [
+      {
+        "phase": 1,
+        "theme": "hardware",
+        "seed": "byte-runner-v3-hardware",
+        "minimumRevision": 5,
+        "silhouette": "espinha com quatro braços escalonados",
+        "regions": [
+          "CPU",
+          "RAM",
+          "GPU",
+          "barramentos"
+        ],
+        "floors": 4,
+        "area": {
+          "baselineCandidatePixels": 874140.81,
+          "targetCandidatePixels": [
+            2622423,
+            4370705
+          ],
+          "status": "planning-proxy-not-reachable-area"
+        },
+        "duration": {
+          "targetMinutes": [
+            15,
+            25
+          ],
+          "measuredMinutes": null
+        },
+        "roomBudget": [
+          24,
+          40
+        ],
+        "requiredRoles": [
+          "entry",
+          "exploration",
+          "combat",
+          "parkour",
+          "repair",
+          "checkpoint",
+          "alternative",
+          "shortcut",
+          "secret",
+          "optional",
+          "exit"
+        ],
+        "presentation": {
+          "tileSize": 32,
+          "tileset": "tiles-01",
+          "scenery": "decor-01",
+          "background": "sky-01",
+          "palette": [
+            "#06191b",
+            "#143b35",
+            "#63f3bb",
+            "#286453",
+            "#d6ac64"
+          ],
+          "pixelScale": 2,
+          "parallax": "existing-multilayer",
+          "lighting": "discreet",
+          "regionBlendPixels": 512
+        }
+      },
+      {
+        "phase": 2,
+        "theme": "software",
+        "seed": "byte-runner-v3-software",
+        "minimumRevision": 5,
+        "silhouette": "janelas encaixadas ao redor de um núcleo vazio",
+        "regions": [
+          "desktop",
+          "processos",
+          "arquivos",
+          "scheduler"
+        ],
+        "floors": 5,
+        "area": {
+          "baselineCandidatePixels": 752881.57,
+          "targetCandidatePixels": [
+            2258645,
+            3764408
+          ],
+          "status": "planning-proxy-not-reachable-area"
+        },
+        "duration": {
+          "targetMinutes": [
+            15,
+            25
+          ],
+          "measuredMinutes": null
+        },
+        "roomBudget": [
+          24,
+          40
+        ],
+        "requiredRoles": [
+          "entry",
+          "exploration",
+          "combat",
+          "parkour",
+          "repair",
+          "checkpoint",
+          "alternative",
+          "shortcut",
+          "secret",
+          "optional",
+          "exit"
+        ],
+        "presentation": {
+          "tileSize": 32,
+          "tileset": "tiles-02",
+          "scenery": "decor-02",
+          "background": "sky-02",
+          "palette": [
+            "#11172b",
+            "#292c50",
+            "#a99be9",
+            "#535980",
+            "#e4d8fa"
+          ],
+          "pixelScale": 2,
+          "parallax": "existing-multilayer",
+          "lighting": "discreet",
+          "regionBlendPixels": 512
+        }
+      },
+      {
+        "phase": 3,
+        "theme": "switch",
+        "seed": "byte-runner-v3-switch",
+        "minimumRevision": 5,
+        "silhouette": "backplane central com galerias de portas paralelas",
+        "regions": [
+          "backplane",
+          "portas A",
+          "portas B",
+          "uplink"
+        ],
+        "floors": 4,
+        "area": {
+          "baselineCandidatePixels": 902666.32,
+          "targetCandidatePixels": [
+            2707999,
+            4513332
+          ],
+          "status": "planning-proxy-not-reachable-area"
+        },
+        "duration": {
+          "targetMinutes": [
+            15,
+            25
+          ],
+          "measuredMinutes": null
+        },
+        "roomBudget": [
+          24,
+          40
+        ],
+        "requiredRoles": [
+          "entry",
+          "exploration",
+          "combat",
+          "parkour",
+          "repair",
+          "checkpoint",
+          "alternative",
+          "shortcut",
+          "secret",
+          "optional",
+          "exit"
+        ],
+        "presentation": {
+          "tileSize": 32,
+          "tileset": "tiles-03",
+          "scenery": "decor-03",
+          "background": "sky-03",
+          "palette": [
+            "#0b192a",
+            "#203c4e",
+            "#71cde3",
+            "#44647a",
+            "#dbefda"
+          ],
+          "pixelScale": 2,
+          "parallax": "existing-multilayer",
+          "lighting": "discreet",
+          "regionBlendPixels": 512
+        }
+      },
+      {
+        "phase": 4,
+        "theme": "router",
+        "seed": "byte-runner-v3-router",
+        "minimumRevision": 5,
+        "silhouette": "duas malhas laterais ligadas por anéis de trânsito",
+        "regions": [
+          "LAN",
+          "trânsito",
+          "WAN",
+          "redundância"
+        ],
+        "floors": 5,
+        "area": {
+          "baselineCandidatePixels": 1204002.43,
+          "targetCandidatePixels": [
+            3612008,
+            6020013
+          ],
+          "status": "planning-proxy-not-reachable-area"
+        },
+        "duration": {
+          "targetMinutes": [
+            15,
+            25
+          ],
+          "measuredMinutes": null
+        },
+        "roomBudget": [
+          24,
+          40
+        ],
+        "requiredRoles": [
+          "entry",
+          "exploration",
+          "combat",
+          "parkour",
+          "repair",
+          "checkpoint",
+          "alternative",
+          "shortcut",
+          "secret",
+          "optional",
+          "exit"
+        ],
+        "presentation": {
+          "tileSize": 32,
+          "tileset": "tiles-04",
+          "scenery": "decor-04",
+          "background": "sky-04",
+          "palette": [
+            "#101b30",
+            "#273b5c",
+            "#7cb4ed",
+            "#4a6581",
+            "#d9e6fa"
+          ],
+          "pixelScale": 2,
+          "parallax": "existing-multilayer",
+          "lighting": "discreet",
+          "regionBlendPixels": 512
+        }
+      },
+      {
+        "phase": 5,
+        "theme": "wifi",
+        "seed": "byte-runner-v3-wifi",
+        "minimumRevision": 5,
+        "silhouette": "arquipélago vertical com duas torres assimétricas",
+        "regions": [
+          "associação",
+          "antenas",
+          "repetidores",
+          "uplink"
+        ],
+        "floors": 7,
+        "area": {
+          "baselineCandidatePixels": 1000871.19,
+          "targetCandidatePixels": [
+            3002614,
+            5004356
+          ],
+          "status": "planning-proxy-not-reachable-area"
+        },
+        "duration": {
+          "targetMinutes": [
+            15,
+            25
+          ],
+          "measuredMinutes": null
+        },
+        "roomBudget": [
+          24,
+          40
+        ],
+        "requiredRoles": [
+          "entry",
+          "exploration",
+          "combat",
+          "parkour",
+          "repair",
+          "checkpoint",
+          "alternative",
+          "shortcut",
+          "secret",
+          "optional",
+          "exit"
+        ],
+        "presentation": {
+          "tileSize": 32,
+          "tileset": "tiles-05",
+          "scenery": "decor-05",
+          "background": "sky-05",
+          "palette": [
+            "#0c192c",
+            "#21445c",
+            "#7cdae6",
+            "#40748c",
+            "#d1f9e7"
+          ],
+          "pixelScale": 2,
+          "parallax": "existing-multilayer",
+          "lighting": "discreet",
+          "regionBlendPixels": 512
+        }
+      },
+      {
+        "phase": 6,
+        "theme": "cabling",
+        "seed": "byte-runner-v3-cabling",
+        "minimumRevision": 5,
+        "silhouette": "três shafts com travessias em alturas alternadas",
+        "regions": [
+          "subsolo",
+          "dutos",
+          "manutenção",
+          "cobertura"
+        ],
+        "floors": 8,
+        "area": {
+          "baselineCandidatePixels": 1972902,
+          "targetCandidatePixels": [
+            5918706,
+            9864510
+          ],
+          "status": "planning-proxy-not-reachable-area"
+        },
+        "duration": {
+          "targetMinutes": [
+            15,
+            25
+          ],
+          "measuredMinutes": null
+        },
+        "roomBudget": [
+          24,
+          40
+        ],
+        "requiredRoles": [
+          "entry",
+          "exploration",
+          "combat",
+          "parkour",
+          "repair",
+          "checkpoint",
+          "alternative",
+          "shortcut",
+          "secret",
+          "optional",
+          "exit"
+        ],
+        "presentation": {
+          "tileSize": 32,
+          "tileset": "tiles-06",
+          "scenery": "decor-06",
+          "background": "sky-06",
+          "palette": [
+            "#131b28",
+            "#343a43",
+            "#dab47a",
+            "#68685f",
+            "#ece0b0"
+          ],
+          "pixelScale": 2,
+          "parallax": "existing-multilayer",
+          "lighting": "discreet",
+          "regionBlendPixels": 512
+        }
+      },
+      {
+        "phase": 7,
+        "theme": "dhcp",
+        "seed": "byte-runner-v3-dhcp",
+        "minimumRevision": 5,
+        "silhouette": "hub distribuidor e três bairros em terraços",
+        "regions": [
+          "distribuidor",
+          "reservas",
+          "APIPA",
+          "relay"
+        ],
+        "floors": 5,
+        "area": {
+          "baselineCandidatePixels": 948567.68,
+          "targetCandidatePixels": [
+            2845704,
+            4742839
+          ],
+          "status": "planning-proxy-not-reachable-area"
+        },
+        "duration": {
+          "targetMinutes": [
+            15,
+            25
+          ],
+          "measuredMinutes": null
+        },
+        "roomBudget": [
+          24,
+          40
+        ],
+        "requiredRoles": [
+          "entry",
+          "exploration",
+          "combat",
+          "parkour",
+          "repair",
+          "checkpoint",
+          "alternative",
+          "shortcut",
+          "secret",
+          "optional",
+          "exit"
+        ],
+        "presentation": {
+          "tileSize": 32,
+          "tileset": "tiles-07",
+          "scenery": "decor-07",
+          "background": "sky-07",
+          "palette": [
+            "#101f2a",
+            "#254b43",
+            "#a5d78f",
+            "#567e65",
+            "#e0edb7"
+          ],
+          "pixelScale": 2,
+          "parallax": "existing-multilayer",
+          "lighting": "discreet",
+          "regionBlendPixels": 512
+        }
+      },
+      {
+        "phase": 8,
+        "theme": "dns",
+        "seed": "byte-runner-v3-dns",
+        "minimumRevision": 5,
+        "silhouette": "árvore de domínios com retorno recursivo lateral",
+        "regions": [
+          "raiz",
+          "domínios",
+          "subdomínios",
+          "cache"
+        ],
+        "floors": 6,
+        "area": {
+          "baselineCandidatePixels": 2000615.62,
+          "targetCandidatePixels": [
+            6001847,
+            10003079
+          ],
+          "status": "planning-proxy-not-reachable-area"
+        },
+        "duration": {
+          "targetMinutes": [
+            15,
+            25
+          ],
+          "measuredMinutes": null
+        },
+        "roomBudget": [
+          24,
+          40
+        ],
+        "requiredRoles": [
+          "entry",
+          "exploration",
+          "combat",
+          "parkour",
+          "repair",
+          "checkpoint",
+          "alternative",
+          "shortcut",
+          "secret",
+          "optional",
+          "exit"
+        ],
+        "presentation": {
+          "tileSize": 32,
+          "tileset": "tiles-08",
+          "scenery": "decor-08",
+          "background": "sky-08",
+          "palette": [
+            "#16182f",
+            "#373354",
+            "#b7a1e2",
+            "#6b648f",
+            "#f0d7ed"
+          ],
+          "pixelScale": 2,
+          "parallax": "existing-multilayer",
+          "lighting": "discreet",
+          "regionBlendPixels": 512
+        }
+      },
+      {
+        "phase": 9,
+        "theme": "firewall",
+        "seed": "byte-runner-v3-firewall",
+        "minimumRevision": 5,
+        "silhouette": "fortaleza em muralhas concêntricas abertas",
+        "regions": [
+          "perímetro",
+          "bastiões",
+          "anel interno",
+          "cidadela"
+        ],
+        "floors": 6,
+        "area": {
+          "baselineCandidatePixels": 1576519.62,
+          "targetCandidatePixels": [
+            4729559,
+            7882599
+          ],
+          "status": "planning-proxy-not-reachable-area"
+        },
+        "duration": {
+          "targetMinutes": [
+            15,
+            25
+          ],
+          "measuredMinutes": null
+        },
+        "roomBudget": [
+          24,
+          40
+        ],
+        "requiredRoles": [
+          "entry",
+          "exploration",
+          "combat",
+          "parkour",
+          "repair",
+          "checkpoint",
+          "alternative",
+          "shortcut",
+          "secret",
+          "optional",
+          "exit"
+        ],
+        "presentation": {
+          "tileSize": 32,
+          "tileset": "tiles-09",
+          "scenery": "decor-09",
+          "background": "sky-09",
+          "palette": [
+            "#201827",
+            "#482f43",
+            "#eb887e",
+            "#7b4b60",
+            "#ffd9aa"
+          ],
+          "pixelScale": 2,
+          "parallax": "existing-multilayer",
+          "lighting": "discreet",
+          "regionBlendPixels": 512
+        }
+      },
+      {
+        "phase": 10,
+        "theme": "servers",
+        "seed": "byte-runner-v3-servers",
+        "minimumRevision": 5,
+        "silhouette": "racks bifurcados e backbone até arena isolada",
+        "regions": [
+          "racks",
+          "fibra",
+          "backbone",
+          "airlock",
+          "VIRUS ZERO"
+        ],
+        "floors": 6,
+        "area": {
+          "baselineCandidatePixels": 2315941.73,
+          "targetCandidatePixels": [
+            6947826,
+            11579709
+          ],
+          "status": "planning-proxy-not-reachable-area"
+        },
+        "duration": {
+          "targetMinutes": [
+            15,
+            25
+          ],
+          "measuredMinutes": null
+        },
+        "roomBudget": [
+          24,
+          40
+        ],
+        "requiredRoles": [
+          "entry",
+          "exploration",
+          "combat",
+          "parkour",
+          "repair",
+          "checkpoint",
+          "alternative",
+          "shortcut",
+          "secret",
+          "optional",
+          "exit"
+        ],
+        "presentation": {
+          "tileSize": 32,
+          "tileset": "tiles-10",
+          "scenery": "decor-10",
+          "background": "sky-10",
+          "palette": [
+            "#121a2e",
+            "#2c354f",
+            "#df83b3",
+            "#5b5d80",
+            "#eddded"
+          ],
+          "pixelScale": 2,
+          "parallax": "existing-multilayer",
+          "lighting": "discreet",
+          "regionBlendPixels": 512
+        }
+      }
+    ],
+    "blueprints": [
+      {
+        "theme": "hardware",
+        "seed": "byte-runner-v3-hardware",
+        "planningOnly": true,
+        "silhouette": "espinha com quatro braços escalonados",
+        "plannedFloors": 4,
+        "rooms": [
+          {
+            "id": "hardware-0-checkpoint",
+            "region": "CPU",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-0-exploration",
+            "region": "CPU",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "hardware-0-combat",
+            "region": "CPU",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-0-repair",
+            "region": "CPU",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-0-parkour",
+            "region": "CPU",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-0-junction",
+            "region": "CPU",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-0-secret",
+            "region": "CPU",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "hardware-0-optional",
+            "region": "CPU",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "hardware-1-checkpoint",
+            "region": "RAM",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-1-exploration",
+            "region": "RAM",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "hardware-1-combat",
+            "region": "RAM",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-1-repair",
+            "region": "RAM",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-1-parkour",
+            "region": "RAM",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-1-junction",
+            "region": "RAM",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-1-secret",
+            "region": "RAM",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "hardware-1-optional",
+            "region": "RAM",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "hardware-2-checkpoint",
+            "region": "GPU",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-2-exploration",
+            "region": "GPU",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "hardware-2-combat",
+            "region": "GPU",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-2-repair",
+            "region": "GPU",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-2-parkour",
+            "region": "GPU",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-2-junction",
+            "region": "GPU",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-2-secret",
+            "region": "GPU",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "hardware-2-optional",
+            "region": "GPU",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "hardware-3-checkpoint",
+            "region": "barramentos",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-3-exploration",
+            "region": "barramentos",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "hardware-3-combat",
+            "region": "barramentos",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-3-repair",
+            "region": "barramentos",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-3-parkour",
+            "region": "barramentos",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-3-junction",
+            "region": "barramentos",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "hardware-3-secret",
+            "region": "barramentos",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "hardware-3-optional",
+            "region": "barramentos",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          }
+        ],
+        "links": [
+          {
+            "from": "hardware-0-checkpoint",
+            "to": "hardware-0-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-0-exploration",
+            "to": "hardware-0-combat",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-0-combat",
+            "to": "hardware-0-repair",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-0-repair",
+            "to": "hardware-0-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-0-parkour",
+            "to": "hardware-0-junction",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-0-exploration",
+            "to": "hardware-0-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "hardware-0-junction",
+            "to": "hardware-0-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "hardware-0-exploration",
+            "to": "hardware-0-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "hardware-0-junction",
+            "to": "hardware-0-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "hardware-0-relay"
+            ]
+          },
+          {
+            "from": "hardware-1-checkpoint",
+            "to": "hardware-1-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-1-exploration",
+            "to": "hardware-1-combat",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-1-combat",
+            "to": "hardware-1-repair",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-1-repair",
+            "to": "hardware-1-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-1-parkour",
+            "to": "hardware-1-junction",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-1-exploration",
+            "to": "hardware-1-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "hardware-1-junction",
+            "to": "hardware-1-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "hardware-1-exploration",
+            "to": "hardware-1-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "hardware-1-junction",
+            "to": "hardware-1-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "hardware-1-relay"
+            ]
+          },
+          {
+            "from": "hardware-0-junction",
+            "to": "hardware-1-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-2-checkpoint",
+            "to": "hardware-2-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-2-exploration",
+            "to": "hardware-2-combat",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-2-combat",
+            "to": "hardware-2-repair",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-2-repair",
+            "to": "hardware-2-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-2-parkour",
+            "to": "hardware-2-junction",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-2-exploration",
+            "to": "hardware-2-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "hardware-2-junction",
+            "to": "hardware-2-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "hardware-2-exploration",
+            "to": "hardware-2-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "hardware-2-junction",
+            "to": "hardware-2-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "hardware-2-relay"
+            ]
+          },
+          {
+            "from": "hardware-1-junction",
+            "to": "hardware-2-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-3-checkpoint",
+            "to": "hardware-3-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-3-exploration",
+            "to": "hardware-3-combat",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-3-combat",
+            "to": "hardware-3-repair",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-3-repair",
+            "to": "hardware-3-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-3-parkour",
+            "to": "hardware-3-junction",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-3-exploration",
+            "to": "hardware-3-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "hardware-3-junction",
+            "to": "hardware-3-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "hardware-3-exploration",
+            "to": "hardware-3-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "hardware-3-junction",
+            "to": "hardware-3-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "hardware-3-relay"
+            ]
+          },
+          {
+            "from": "hardware-2-junction",
+            "to": "hardware-3-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "hardware-0-junction",
+            "to": "hardware-2-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "hardware-0-junction",
+            "to": "hardware-3-exploration",
+            "kind": "regional-alternative"
+          }
+        ],
+        "repairs": [
+          {
+            "id": "hardware-0-relay",
+            "room": "hardware-0-repair",
+            "requires": []
+          },
+          {
+            "id": "hardware-1-relay",
+            "room": "hardware-1-repair",
+            "requires": []
+          },
+          {
+            "id": "hardware-2-relay",
+            "room": "hardware-2-repair",
+            "requires": []
+          },
+          {
+            "id": "hardware-3-relay",
+            "room": "hardware-3-repair",
+            "requires": []
+          }
+        ],
+        "mainPath": [
+          "hardware-0-checkpoint",
+          "hardware-0-exploration",
+          "hardware-0-combat",
+          "hardware-0-repair",
+          "hardware-0-parkour",
+          "hardware-0-junction",
+          "hardware-1-checkpoint",
+          "hardware-1-exploration",
+          "hardware-1-combat",
+          "hardware-1-repair",
+          "hardware-1-parkour",
+          "hardware-1-junction",
+          "hardware-2-checkpoint",
+          "hardware-2-exploration",
+          "hardware-2-combat",
+          "hardware-2-repair",
+          "hardware-2-parkour",
+          "hardware-2-junction",
+          "hardware-3-checkpoint",
+          "hardware-3-exploration",
+          "hardware-3-combat",
+          "hardware-3-repair",
+          "hardware-3-parkour",
+          "hardware-3-junction"
+        ],
+        "start": "hardware-0-checkpoint",
+        "exit": "hardware-3-junction",
+        "placementStatus": "manual thematic footprint required; no geometry or duration claim"
+      },
+      {
+        "theme": "software",
+        "seed": "byte-runner-v3-software",
+        "planningOnly": true,
+        "silhouette": "janelas encaixadas ao redor de um núcleo vazio",
+        "plannedFloors": 5,
+        "rooms": [
+          {
+            "id": "software-0-checkpoint",
+            "region": "desktop",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-0-exploration",
+            "region": "desktop",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "software-0-combat",
+            "region": "desktop",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-0-repair",
+            "region": "desktop",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-0-parkour",
+            "region": "desktop",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-0-junction",
+            "region": "desktop",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-0-secret",
+            "region": "desktop",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "software-0-optional",
+            "region": "desktop",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "software-1-checkpoint",
+            "region": "processos",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-1-exploration",
+            "region": "processos",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "software-1-combat",
+            "region": "processos",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-1-repair",
+            "region": "processos",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-1-parkour",
+            "region": "processos",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-1-junction",
+            "region": "processos",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-1-secret",
+            "region": "processos",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "software-1-optional",
+            "region": "processos",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "software-2-checkpoint",
+            "region": "arquivos",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-2-exploration",
+            "region": "arquivos",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "software-2-combat",
+            "region": "arquivos",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-2-repair",
+            "region": "arquivos",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-2-parkour",
+            "region": "arquivos",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-2-junction",
+            "region": "arquivos",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-2-secret",
+            "region": "arquivos",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "software-2-optional",
+            "region": "arquivos",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "software-3-checkpoint",
+            "region": "scheduler",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-3-exploration",
+            "region": "scheduler",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "software-3-combat",
+            "region": "scheduler",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-3-repair",
+            "region": "scheduler",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-3-parkour",
+            "region": "scheduler",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-3-junction",
+            "region": "scheduler",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "software-3-secret",
+            "region": "scheduler",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "software-3-optional",
+            "region": "scheduler",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          }
+        ],
+        "links": [
+          {
+            "from": "software-0-checkpoint",
+            "to": "software-0-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "software-0-exploration",
+            "to": "software-0-combat",
+            "kind": "main"
+          },
+          {
+            "from": "software-0-combat",
+            "to": "software-0-repair",
+            "kind": "main"
+          },
+          {
+            "from": "software-0-repair",
+            "to": "software-0-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "software-0-parkour",
+            "to": "software-0-junction",
+            "kind": "main"
+          },
+          {
+            "from": "software-0-exploration",
+            "to": "software-0-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "software-0-junction",
+            "to": "software-0-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "software-0-exploration",
+            "to": "software-0-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "software-0-junction",
+            "to": "software-0-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "software-0-relay"
+            ]
+          },
+          {
+            "from": "software-1-checkpoint",
+            "to": "software-1-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "software-1-exploration",
+            "to": "software-1-combat",
+            "kind": "main"
+          },
+          {
+            "from": "software-1-combat",
+            "to": "software-1-repair",
+            "kind": "main"
+          },
+          {
+            "from": "software-1-repair",
+            "to": "software-1-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "software-1-parkour",
+            "to": "software-1-junction",
+            "kind": "main"
+          },
+          {
+            "from": "software-1-exploration",
+            "to": "software-1-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "software-1-junction",
+            "to": "software-1-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "software-1-exploration",
+            "to": "software-1-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "software-1-junction",
+            "to": "software-1-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "software-1-relay"
+            ]
+          },
+          {
+            "from": "software-0-junction",
+            "to": "software-1-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "software-2-checkpoint",
+            "to": "software-2-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "software-2-exploration",
+            "to": "software-2-combat",
+            "kind": "main"
+          },
+          {
+            "from": "software-2-combat",
+            "to": "software-2-repair",
+            "kind": "main"
+          },
+          {
+            "from": "software-2-repair",
+            "to": "software-2-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "software-2-parkour",
+            "to": "software-2-junction",
+            "kind": "main"
+          },
+          {
+            "from": "software-2-exploration",
+            "to": "software-2-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "software-2-junction",
+            "to": "software-2-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "software-2-exploration",
+            "to": "software-2-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "software-2-junction",
+            "to": "software-2-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "software-2-relay"
+            ]
+          },
+          {
+            "from": "software-1-junction",
+            "to": "software-2-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "software-3-checkpoint",
+            "to": "software-3-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "software-3-exploration",
+            "to": "software-3-combat",
+            "kind": "main"
+          },
+          {
+            "from": "software-3-combat",
+            "to": "software-3-repair",
+            "kind": "main"
+          },
+          {
+            "from": "software-3-repair",
+            "to": "software-3-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "software-3-parkour",
+            "to": "software-3-junction",
+            "kind": "main"
+          },
+          {
+            "from": "software-3-exploration",
+            "to": "software-3-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "software-3-junction",
+            "to": "software-3-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "software-3-exploration",
+            "to": "software-3-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "software-3-junction",
+            "to": "software-3-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "software-3-relay"
+            ]
+          },
+          {
+            "from": "software-2-junction",
+            "to": "software-3-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "software-0-junction",
+            "to": "software-2-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "software-1-junction",
+            "to": "software-3-exploration",
+            "kind": "regional-alternative"
+          }
+        ],
+        "repairs": [
+          {
+            "id": "software-0-relay",
+            "room": "software-0-repair",
+            "requires": []
+          },
+          {
+            "id": "software-1-relay",
+            "room": "software-1-repair",
+            "requires": []
+          },
+          {
+            "id": "software-2-relay",
+            "room": "software-2-repair",
+            "requires": []
+          },
+          {
+            "id": "software-3-relay",
+            "room": "software-3-repair",
+            "requires": []
+          }
+        ],
+        "mainPath": [
+          "software-0-checkpoint",
+          "software-0-exploration",
+          "software-0-combat",
+          "software-0-repair",
+          "software-0-parkour",
+          "software-0-junction",
+          "software-1-checkpoint",
+          "software-1-exploration",
+          "software-1-combat",
+          "software-1-repair",
+          "software-1-parkour",
+          "software-1-junction",
+          "software-2-checkpoint",
+          "software-2-exploration",
+          "software-2-combat",
+          "software-2-repair",
+          "software-2-parkour",
+          "software-2-junction",
+          "software-3-checkpoint",
+          "software-3-exploration",
+          "software-3-combat",
+          "software-3-repair",
+          "software-3-parkour",
+          "software-3-junction"
+        ],
+        "start": "software-0-checkpoint",
+        "exit": "software-3-junction",
+        "placementStatus": "manual thematic footprint required; no geometry or duration claim"
+      },
+      {
+        "theme": "switch",
+        "seed": "byte-runner-v3-switch",
+        "planningOnly": true,
+        "silhouette": "backplane central com galerias de portas paralelas",
+        "plannedFloors": 4,
+        "rooms": [
+          {
+            "id": "switch-0-checkpoint",
+            "region": "backplane",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-0-exploration",
+            "region": "backplane",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "switch-0-combat",
+            "region": "backplane",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-0-repair",
+            "region": "backplane",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-0-parkour",
+            "region": "backplane",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-0-junction",
+            "region": "backplane",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-0-secret",
+            "region": "backplane",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "switch-0-optional",
+            "region": "backplane",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "switch-1-checkpoint",
+            "region": "portas A",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-1-exploration",
+            "region": "portas A",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "switch-1-combat",
+            "region": "portas A",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-1-repair",
+            "region": "portas A",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-1-parkour",
+            "region": "portas A",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-1-junction",
+            "region": "portas A",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-1-secret",
+            "region": "portas A",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "switch-1-optional",
+            "region": "portas A",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "switch-2-checkpoint",
+            "region": "portas B",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-2-exploration",
+            "region": "portas B",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "switch-2-combat",
+            "region": "portas B",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-2-repair",
+            "region": "portas B",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-2-parkour",
+            "region": "portas B",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-2-junction",
+            "region": "portas B",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-2-secret",
+            "region": "portas B",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "switch-2-optional",
+            "region": "portas B",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "switch-3-checkpoint",
+            "region": "uplink",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-3-exploration",
+            "region": "uplink",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "switch-3-combat",
+            "region": "uplink",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-3-repair",
+            "region": "uplink",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-3-parkour",
+            "region": "uplink",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-3-junction",
+            "region": "uplink",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "switch-3-secret",
+            "region": "uplink",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "switch-3-optional",
+            "region": "uplink",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          }
+        ],
+        "links": [
+          {
+            "from": "switch-0-checkpoint",
+            "to": "switch-0-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "switch-0-exploration",
+            "to": "switch-0-combat",
+            "kind": "main"
+          },
+          {
+            "from": "switch-0-combat",
+            "to": "switch-0-repair",
+            "kind": "main"
+          },
+          {
+            "from": "switch-0-repair",
+            "to": "switch-0-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "switch-0-parkour",
+            "to": "switch-0-junction",
+            "kind": "main"
+          },
+          {
+            "from": "switch-0-exploration",
+            "to": "switch-0-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "switch-0-junction",
+            "to": "switch-0-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "switch-0-exploration",
+            "to": "switch-0-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "switch-0-junction",
+            "to": "switch-0-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "switch-0-relay"
+            ]
+          },
+          {
+            "from": "switch-1-checkpoint",
+            "to": "switch-1-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "switch-1-exploration",
+            "to": "switch-1-combat",
+            "kind": "main"
+          },
+          {
+            "from": "switch-1-combat",
+            "to": "switch-1-repair",
+            "kind": "main"
+          },
+          {
+            "from": "switch-1-repair",
+            "to": "switch-1-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "switch-1-parkour",
+            "to": "switch-1-junction",
+            "kind": "main"
+          },
+          {
+            "from": "switch-1-exploration",
+            "to": "switch-1-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "switch-1-junction",
+            "to": "switch-1-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "switch-1-exploration",
+            "to": "switch-1-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "switch-1-junction",
+            "to": "switch-1-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "switch-1-relay"
+            ]
+          },
+          {
+            "from": "switch-0-junction",
+            "to": "switch-1-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "switch-2-checkpoint",
+            "to": "switch-2-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "switch-2-exploration",
+            "to": "switch-2-combat",
+            "kind": "main"
+          },
+          {
+            "from": "switch-2-combat",
+            "to": "switch-2-repair",
+            "kind": "main"
+          },
+          {
+            "from": "switch-2-repair",
+            "to": "switch-2-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "switch-2-parkour",
+            "to": "switch-2-junction",
+            "kind": "main"
+          },
+          {
+            "from": "switch-2-exploration",
+            "to": "switch-2-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "switch-2-junction",
+            "to": "switch-2-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "switch-2-exploration",
+            "to": "switch-2-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "switch-2-junction",
+            "to": "switch-2-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "switch-2-relay"
+            ]
+          },
+          {
+            "from": "switch-1-junction",
+            "to": "switch-2-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "switch-3-checkpoint",
+            "to": "switch-3-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "switch-3-exploration",
+            "to": "switch-3-combat",
+            "kind": "main"
+          },
+          {
+            "from": "switch-3-combat",
+            "to": "switch-3-repair",
+            "kind": "main"
+          },
+          {
+            "from": "switch-3-repair",
+            "to": "switch-3-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "switch-3-parkour",
+            "to": "switch-3-junction",
+            "kind": "main"
+          },
+          {
+            "from": "switch-3-exploration",
+            "to": "switch-3-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "switch-3-junction",
+            "to": "switch-3-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "switch-3-exploration",
+            "to": "switch-3-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "switch-3-junction",
+            "to": "switch-3-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "switch-3-relay"
+            ]
+          },
+          {
+            "from": "switch-2-junction",
+            "to": "switch-3-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "switch-0-junction",
+            "to": "switch-2-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "switch-0-junction",
+            "to": "switch-3-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "switch-1-junction",
+            "to": "switch-3-exploration",
+            "kind": "regional-alternative"
+          }
+        ],
+        "repairs": [
+          {
+            "id": "switch-0-relay",
+            "room": "switch-0-repair",
+            "requires": []
+          },
+          {
+            "id": "switch-1-relay",
+            "room": "switch-1-repair",
+            "requires": []
+          },
+          {
+            "id": "switch-2-relay",
+            "room": "switch-2-repair",
+            "requires": []
+          },
+          {
+            "id": "switch-3-relay",
+            "room": "switch-3-repair",
+            "requires": []
+          }
+        ],
+        "mainPath": [
+          "switch-0-checkpoint",
+          "switch-0-exploration",
+          "switch-0-combat",
+          "switch-0-repair",
+          "switch-0-parkour",
+          "switch-0-junction",
+          "switch-1-checkpoint",
+          "switch-1-exploration",
+          "switch-1-combat",
+          "switch-1-repair",
+          "switch-1-parkour",
+          "switch-1-junction",
+          "switch-2-checkpoint",
+          "switch-2-exploration",
+          "switch-2-combat",
+          "switch-2-repair",
+          "switch-2-parkour",
+          "switch-2-junction",
+          "switch-3-checkpoint",
+          "switch-3-exploration",
+          "switch-3-combat",
+          "switch-3-repair",
+          "switch-3-parkour",
+          "switch-3-junction"
+        ],
+        "start": "switch-0-checkpoint",
+        "exit": "switch-3-junction",
+        "placementStatus": "manual thematic footprint required; no geometry or duration claim"
+      },
+      {
+        "theme": "router",
+        "seed": "byte-runner-v3-router",
+        "planningOnly": true,
+        "silhouette": "duas malhas laterais ligadas por anéis de trânsito",
+        "plannedFloors": 5,
+        "rooms": [
+          {
+            "id": "router-0-checkpoint",
+            "region": "LAN",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-0-exploration",
+            "region": "LAN",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "router-0-combat",
+            "region": "LAN",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-0-repair",
+            "region": "LAN",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-0-parkour",
+            "region": "LAN",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-0-junction",
+            "region": "LAN",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-0-secret",
+            "region": "LAN",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "router-0-optional",
+            "region": "LAN",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "router-1-checkpoint",
+            "region": "trânsito",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-1-exploration",
+            "region": "trânsito",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "router-1-combat",
+            "region": "trânsito",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-1-repair",
+            "region": "trânsito",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-1-parkour",
+            "region": "trânsito",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-1-junction",
+            "region": "trânsito",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-1-secret",
+            "region": "trânsito",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "router-1-optional",
+            "region": "trânsito",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "router-2-checkpoint",
+            "region": "WAN",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-2-exploration",
+            "region": "WAN",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "router-2-combat",
+            "region": "WAN",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-2-repair",
+            "region": "WAN",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-2-parkour",
+            "region": "WAN",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-2-junction",
+            "region": "WAN",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-2-secret",
+            "region": "WAN",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "router-2-optional",
+            "region": "WAN",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "router-3-checkpoint",
+            "region": "redundância",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-3-exploration",
+            "region": "redundância",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "router-3-combat",
+            "region": "redundância",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-3-repair",
+            "region": "redundância",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-3-parkour",
+            "region": "redundância",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-3-junction",
+            "region": "redundância",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "router-3-secret",
+            "region": "redundância",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "router-3-optional",
+            "region": "redundância",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          }
+        ],
+        "links": [
+          {
+            "from": "router-0-checkpoint",
+            "to": "router-0-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "router-0-exploration",
+            "to": "router-0-combat",
+            "kind": "main"
+          },
+          {
+            "from": "router-0-combat",
+            "to": "router-0-repair",
+            "kind": "main"
+          },
+          {
+            "from": "router-0-repair",
+            "to": "router-0-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "router-0-parkour",
+            "to": "router-0-junction",
+            "kind": "main"
+          },
+          {
+            "from": "router-0-exploration",
+            "to": "router-0-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "router-0-junction",
+            "to": "router-0-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "router-0-exploration",
+            "to": "router-0-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "router-0-junction",
+            "to": "router-0-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "router-0-relay"
+            ]
+          },
+          {
+            "from": "router-1-checkpoint",
+            "to": "router-1-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "router-1-exploration",
+            "to": "router-1-combat",
+            "kind": "main"
+          },
+          {
+            "from": "router-1-combat",
+            "to": "router-1-repair",
+            "kind": "main"
+          },
+          {
+            "from": "router-1-repair",
+            "to": "router-1-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "router-1-parkour",
+            "to": "router-1-junction",
+            "kind": "main"
+          },
+          {
+            "from": "router-1-exploration",
+            "to": "router-1-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "router-1-junction",
+            "to": "router-1-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "router-1-exploration",
+            "to": "router-1-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "router-1-junction",
+            "to": "router-1-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "router-1-relay"
+            ]
+          },
+          {
+            "from": "router-0-junction",
+            "to": "router-1-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "router-2-checkpoint",
+            "to": "router-2-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "router-2-exploration",
+            "to": "router-2-combat",
+            "kind": "main"
+          },
+          {
+            "from": "router-2-combat",
+            "to": "router-2-repair",
+            "kind": "main"
+          },
+          {
+            "from": "router-2-repair",
+            "to": "router-2-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "router-2-parkour",
+            "to": "router-2-junction",
+            "kind": "main"
+          },
+          {
+            "from": "router-2-exploration",
+            "to": "router-2-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "router-2-junction",
+            "to": "router-2-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "router-2-exploration",
+            "to": "router-2-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "router-2-junction",
+            "to": "router-2-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "router-2-relay"
+            ]
+          },
+          {
+            "from": "router-1-junction",
+            "to": "router-2-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "router-3-checkpoint",
+            "to": "router-3-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "router-3-exploration",
+            "to": "router-3-combat",
+            "kind": "main"
+          },
+          {
+            "from": "router-3-combat",
+            "to": "router-3-repair",
+            "kind": "main"
+          },
+          {
+            "from": "router-3-repair",
+            "to": "router-3-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "router-3-parkour",
+            "to": "router-3-junction",
+            "kind": "main"
+          },
+          {
+            "from": "router-3-exploration",
+            "to": "router-3-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "router-3-junction",
+            "to": "router-3-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "router-3-exploration",
+            "to": "router-3-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "router-3-junction",
+            "to": "router-3-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "router-3-relay"
+            ]
+          },
+          {
+            "from": "router-2-junction",
+            "to": "router-3-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "router-0-junction",
+            "to": "router-3-exploration",
+            "kind": "regional-alternative"
+          }
+        ],
+        "repairs": [
+          {
+            "id": "router-0-relay",
+            "room": "router-0-repair",
+            "requires": []
+          },
+          {
+            "id": "router-1-relay",
+            "room": "router-1-repair",
+            "requires": []
+          },
+          {
+            "id": "router-2-relay",
+            "room": "router-2-repair",
+            "requires": []
+          },
+          {
+            "id": "router-3-relay",
+            "room": "router-3-repair",
+            "requires": []
+          }
+        ],
+        "mainPath": [
+          "router-0-checkpoint",
+          "router-0-exploration",
+          "router-0-combat",
+          "router-0-repair",
+          "router-0-parkour",
+          "router-0-junction",
+          "router-1-checkpoint",
+          "router-1-exploration",
+          "router-1-combat",
+          "router-1-repair",
+          "router-1-parkour",
+          "router-1-junction",
+          "router-2-checkpoint",
+          "router-2-exploration",
+          "router-2-combat",
+          "router-2-repair",
+          "router-2-parkour",
+          "router-2-junction",
+          "router-3-checkpoint",
+          "router-3-exploration",
+          "router-3-combat",
+          "router-3-repair",
+          "router-3-parkour",
+          "router-3-junction"
+        ],
+        "start": "router-0-checkpoint",
+        "exit": "router-3-junction",
+        "placementStatus": "manual thematic footprint required; no geometry or duration claim"
+      },
+      {
+        "theme": "wifi",
+        "seed": "byte-runner-v3-wifi",
+        "planningOnly": true,
+        "silhouette": "arquipélago vertical com duas torres assimétricas",
+        "plannedFloors": 7,
+        "rooms": [
+          {
+            "id": "wifi-0-checkpoint",
+            "region": "associação",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-0-exploration",
+            "region": "associação",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "wifi-0-combat",
+            "region": "associação",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-0-repair",
+            "region": "associação",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-0-parkour",
+            "region": "associação",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-0-junction",
+            "region": "associação",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-0-secret",
+            "region": "associação",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "wifi-0-optional",
+            "region": "associação",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "wifi-1-checkpoint",
+            "region": "antenas",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-1-exploration",
+            "region": "antenas",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "wifi-1-combat",
+            "region": "antenas",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-1-repair",
+            "region": "antenas",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-1-parkour",
+            "region": "antenas",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-1-junction",
+            "region": "antenas",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-1-secret",
+            "region": "antenas",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "wifi-1-optional",
+            "region": "antenas",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "wifi-2-checkpoint",
+            "region": "repetidores",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-2-exploration",
+            "region": "repetidores",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "wifi-2-combat",
+            "region": "repetidores",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-2-repair",
+            "region": "repetidores",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-2-parkour",
+            "region": "repetidores",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-2-junction",
+            "region": "repetidores",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-2-secret",
+            "region": "repetidores",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "wifi-2-optional",
+            "region": "repetidores",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "wifi-3-checkpoint",
+            "region": "uplink",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-3-exploration",
+            "region": "uplink",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "wifi-3-combat",
+            "region": "uplink",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-3-repair",
+            "region": "uplink",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-3-parkour",
+            "region": "uplink",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-3-junction",
+            "region": "uplink",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "wifi-3-secret",
+            "region": "uplink",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "wifi-3-optional",
+            "region": "uplink",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          }
+        ],
+        "links": [
+          {
+            "from": "wifi-0-checkpoint",
+            "to": "wifi-0-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-0-exploration",
+            "to": "wifi-0-combat",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-0-combat",
+            "to": "wifi-0-repair",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-0-repair",
+            "to": "wifi-0-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-0-parkour",
+            "to": "wifi-0-junction",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-0-exploration",
+            "to": "wifi-0-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "wifi-0-junction",
+            "to": "wifi-0-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "wifi-0-exploration",
+            "to": "wifi-0-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "wifi-0-junction",
+            "to": "wifi-0-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "wifi-0-relay"
+            ]
+          },
+          {
+            "from": "wifi-1-checkpoint",
+            "to": "wifi-1-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-1-exploration",
+            "to": "wifi-1-combat",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-1-combat",
+            "to": "wifi-1-repair",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-1-repair",
+            "to": "wifi-1-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-1-parkour",
+            "to": "wifi-1-junction",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-1-exploration",
+            "to": "wifi-1-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "wifi-1-junction",
+            "to": "wifi-1-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "wifi-1-exploration",
+            "to": "wifi-1-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "wifi-1-junction",
+            "to": "wifi-1-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "wifi-1-relay"
+            ]
+          },
+          {
+            "from": "wifi-0-junction",
+            "to": "wifi-1-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-2-checkpoint",
+            "to": "wifi-2-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-2-exploration",
+            "to": "wifi-2-combat",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-2-combat",
+            "to": "wifi-2-repair",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-2-repair",
+            "to": "wifi-2-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-2-parkour",
+            "to": "wifi-2-junction",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-2-exploration",
+            "to": "wifi-2-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "wifi-2-junction",
+            "to": "wifi-2-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "wifi-2-exploration",
+            "to": "wifi-2-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "wifi-2-junction",
+            "to": "wifi-2-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "wifi-2-relay"
+            ]
+          },
+          {
+            "from": "wifi-1-junction",
+            "to": "wifi-2-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-3-checkpoint",
+            "to": "wifi-3-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-3-exploration",
+            "to": "wifi-3-combat",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-3-combat",
+            "to": "wifi-3-repair",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-3-repair",
+            "to": "wifi-3-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-3-parkour",
+            "to": "wifi-3-junction",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-3-exploration",
+            "to": "wifi-3-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "wifi-3-junction",
+            "to": "wifi-3-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "wifi-3-exploration",
+            "to": "wifi-3-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "wifi-3-junction",
+            "to": "wifi-3-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "wifi-3-relay"
+            ]
+          },
+          {
+            "from": "wifi-2-junction",
+            "to": "wifi-3-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "wifi-1-junction",
+            "to": "wifi-3-exploration",
+            "kind": "regional-alternative"
+          }
+        ],
+        "repairs": [
+          {
+            "id": "wifi-0-relay",
+            "room": "wifi-0-repair",
+            "requires": []
+          },
+          {
+            "id": "wifi-1-relay",
+            "room": "wifi-1-repair",
+            "requires": []
+          },
+          {
+            "id": "wifi-2-relay",
+            "room": "wifi-2-repair",
+            "requires": []
+          },
+          {
+            "id": "wifi-3-relay",
+            "room": "wifi-3-repair",
+            "requires": []
+          }
+        ],
+        "mainPath": [
+          "wifi-0-checkpoint",
+          "wifi-0-exploration",
+          "wifi-0-combat",
+          "wifi-0-repair",
+          "wifi-0-parkour",
+          "wifi-0-junction",
+          "wifi-1-checkpoint",
+          "wifi-1-exploration",
+          "wifi-1-combat",
+          "wifi-1-repair",
+          "wifi-1-parkour",
+          "wifi-1-junction",
+          "wifi-2-checkpoint",
+          "wifi-2-exploration",
+          "wifi-2-combat",
+          "wifi-2-repair",
+          "wifi-2-parkour",
+          "wifi-2-junction",
+          "wifi-3-checkpoint",
+          "wifi-3-exploration",
+          "wifi-3-combat",
+          "wifi-3-repair",
+          "wifi-3-parkour",
+          "wifi-3-junction"
+        ],
+        "start": "wifi-0-checkpoint",
+        "exit": "wifi-3-junction",
+        "placementStatus": "manual thematic footprint required; no geometry or duration claim"
+      },
+      {
+        "theme": "cabling",
+        "seed": "byte-runner-v3-cabling",
+        "planningOnly": true,
+        "silhouette": "três shafts com travessias em alturas alternadas",
+        "plannedFloors": 8,
+        "rooms": [
+          {
+            "id": "cabling-0-checkpoint",
+            "region": "subsolo",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-0-exploration",
+            "region": "subsolo",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "cabling-0-combat",
+            "region": "subsolo",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-0-repair",
+            "region": "subsolo",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-0-parkour",
+            "region": "subsolo",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-0-junction",
+            "region": "subsolo",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-0-secret",
+            "region": "subsolo",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "cabling-0-optional",
+            "region": "subsolo",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "cabling-1-checkpoint",
+            "region": "dutos",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-1-exploration",
+            "region": "dutos",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "cabling-1-combat",
+            "region": "dutos",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-1-repair",
+            "region": "dutos",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-1-parkour",
+            "region": "dutos",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-1-junction",
+            "region": "dutos",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-1-secret",
+            "region": "dutos",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "cabling-1-optional",
+            "region": "dutos",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "cabling-2-checkpoint",
+            "region": "manutenção",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-2-exploration",
+            "region": "manutenção",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "cabling-2-combat",
+            "region": "manutenção",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-2-repair",
+            "region": "manutenção",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-2-parkour",
+            "region": "manutenção",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-2-junction",
+            "region": "manutenção",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-2-secret",
+            "region": "manutenção",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "cabling-2-optional",
+            "region": "manutenção",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "cabling-3-checkpoint",
+            "region": "cobertura",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-3-exploration",
+            "region": "cobertura",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "cabling-3-combat",
+            "region": "cobertura",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-3-repair",
+            "region": "cobertura",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-3-parkour",
+            "region": "cobertura",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-3-junction",
+            "region": "cobertura",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "cabling-3-secret",
+            "region": "cobertura",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "cabling-3-optional",
+            "region": "cobertura",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          }
+        ],
+        "links": [
+          {
+            "from": "cabling-0-checkpoint",
+            "to": "cabling-0-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-0-exploration",
+            "to": "cabling-0-combat",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-0-combat",
+            "to": "cabling-0-repair",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-0-repair",
+            "to": "cabling-0-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-0-parkour",
+            "to": "cabling-0-junction",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-0-exploration",
+            "to": "cabling-0-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "cabling-0-junction",
+            "to": "cabling-0-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "cabling-0-exploration",
+            "to": "cabling-0-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "cabling-0-junction",
+            "to": "cabling-0-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "cabling-0-relay"
+            ]
+          },
+          {
+            "from": "cabling-1-checkpoint",
+            "to": "cabling-1-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-1-exploration",
+            "to": "cabling-1-combat",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-1-combat",
+            "to": "cabling-1-repair",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-1-repair",
+            "to": "cabling-1-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-1-parkour",
+            "to": "cabling-1-junction",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-1-exploration",
+            "to": "cabling-1-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "cabling-1-junction",
+            "to": "cabling-1-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "cabling-1-exploration",
+            "to": "cabling-1-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "cabling-1-junction",
+            "to": "cabling-1-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "cabling-1-relay"
+            ]
+          },
+          {
+            "from": "cabling-0-junction",
+            "to": "cabling-1-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-2-checkpoint",
+            "to": "cabling-2-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-2-exploration",
+            "to": "cabling-2-combat",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-2-combat",
+            "to": "cabling-2-repair",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-2-repair",
+            "to": "cabling-2-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-2-parkour",
+            "to": "cabling-2-junction",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-2-exploration",
+            "to": "cabling-2-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "cabling-2-junction",
+            "to": "cabling-2-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "cabling-2-exploration",
+            "to": "cabling-2-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "cabling-2-junction",
+            "to": "cabling-2-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "cabling-2-relay"
+            ]
+          },
+          {
+            "from": "cabling-1-junction",
+            "to": "cabling-2-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-3-checkpoint",
+            "to": "cabling-3-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-3-exploration",
+            "to": "cabling-3-combat",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-3-combat",
+            "to": "cabling-3-repair",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-3-repair",
+            "to": "cabling-3-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-3-parkour",
+            "to": "cabling-3-junction",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-3-exploration",
+            "to": "cabling-3-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "cabling-3-junction",
+            "to": "cabling-3-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "cabling-3-exploration",
+            "to": "cabling-3-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "cabling-3-junction",
+            "to": "cabling-3-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "cabling-3-relay"
+            ]
+          },
+          {
+            "from": "cabling-2-junction",
+            "to": "cabling-3-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "cabling-0-junction",
+            "to": "cabling-2-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "cabling-1-junction",
+            "to": "cabling-3-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "cabling-0-junction",
+            "to": "cabling-3-exploration",
+            "kind": "regional-alternative"
+          }
+        ],
+        "repairs": [
+          {
+            "id": "cabling-0-relay",
+            "room": "cabling-0-repair",
+            "requires": []
+          },
+          {
+            "id": "cabling-1-relay",
+            "room": "cabling-1-repair",
+            "requires": []
+          },
+          {
+            "id": "cabling-2-relay",
+            "room": "cabling-2-repair",
+            "requires": []
+          },
+          {
+            "id": "cabling-3-relay",
+            "room": "cabling-3-repair",
+            "requires": []
+          }
+        ],
+        "mainPath": [
+          "cabling-0-checkpoint",
+          "cabling-0-exploration",
+          "cabling-0-combat",
+          "cabling-0-repair",
+          "cabling-0-parkour",
+          "cabling-0-junction",
+          "cabling-1-checkpoint",
+          "cabling-1-exploration",
+          "cabling-1-combat",
+          "cabling-1-repair",
+          "cabling-1-parkour",
+          "cabling-1-junction",
+          "cabling-2-checkpoint",
+          "cabling-2-exploration",
+          "cabling-2-combat",
+          "cabling-2-repair",
+          "cabling-2-parkour",
+          "cabling-2-junction",
+          "cabling-3-checkpoint",
+          "cabling-3-exploration",
+          "cabling-3-combat",
+          "cabling-3-repair",
+          "cabling-3-parkour",
+          "cabling-3-junction"
+        ],
+        "start": "cabling-0-checkpoint",
+        "exit": "cabling-3-junction",
+        "placementStatus": "manual thematic footprint required; no geometry or duration claim"
+      },
+      {
+        "theme": "dhcp",
+        "seed": "byte-runner-v3-dhcp",
+        "planningOnly": true,
+        "silhouette": "hub distribuidor e três bairros em terraços",
+        "plannedFloors": 5,
+        "rooms": [
+          {
+            "id": "dhcp-0-checkpoint",
+            "region": "distribuidor",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-0-exploration",
+            "region": "distribuidor",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "dhcp-0-combat",
+            "region": "distribuidor",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-0-repair",
+            "region": "distribuidor",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-0-parkour",
+            "region": "distribuidor",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-0-junction",
+            "region": "distribuidor",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-0-secret",
+            "region": "distribuidor",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dhcp-0-optional",
+            "region": "distribuidor",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dhcp-1-checkpoint",
+            "region": "reservas",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-1-exploration",
+            "region": "reservas",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "dhcp-1-combat",
+            "region": "reservas",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-1-repair",
+            "region": "reservas",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-1-parkour",
+            "region": "reservas",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-1-junction",
+            "region": "reservas",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-1-secret",
+            "region": "reservas",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dhcp-1-optional",
+            "region": "reservas",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dhcp-2-checkpoint",
+            "region": "APIPA",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-2-exploration",
+            "region": "APIPA",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "dhcp-2-combat",
+            "region": "APIPA",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-2-repair",
+            "region": "APIPA",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-2-parkour",
+            "region": "APIPA",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-2-junction",
+            "region": "APIPA",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-2-secret",
+            "region": "APIPA",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dhcp-2-optional",
+            "region": "APIPA",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dhcp-3-checkpoint",
+            "region": "relay",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-3-exploration",
+            "region": "relay",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "dhcp-3-combat",
+            "region": "relay",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-3-repair",
+            "region": "relay",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-3-parkour",
+            "region": "relay",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-3-junction",
+            "region": "relay",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dhcp-3-secret",
+            "region": "relay",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dhcp-3-optional",
+            "region": "relay",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          }
+        ],
+        "links": [
+          {
+            "from": "dhcp-0-checkpoint",
+            "to": "dhcp-0-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-0-exploration",
+            "to": "dhcp-0-combat",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-0-combat",
+            "to": "dhcp-0-repair",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-0-repair",
+            "to": "dhcp-0-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-0-parkour",
+            "to": "dhcp-0-junction",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-0-exploration",
+            "to": "dhcp-0-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "dhcp-0-junction",
+            "to": "dhcp-0-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "dhcp-0-exploration",
+            "to": "dhcp-0-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "dhcp-0-junction",
+            "to": "dhcp-0-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "dhcp-0-relay"
+            ]
+          },
+          {
+            "from": "dhcp-1-checkpoint",
+            "to": "dhcp-1-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-1-exploration",
+            "to": "dhcp-1-combat",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-1-combat",
+            "to": "dhcp-1-repair",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-1-repair",
+            "to": "dhcp-1-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-1-parkour",
+            "to": "dhcp-1-junction",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-1-exploration",
+            "to": "dhcp-1-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "dhcp-1-junction",
+            "to": "dhcp-1-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "dhcp-1-exploration",
+            "to": "dhcp-1-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "dhcp-1-junction",
+            "to": "dhcp-1-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "dhcp-1-relay"
+            ]
+          },
+          {
+            "from": "dhcp-0-junction",
+            "to": "dhcp-1-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-2-checkpoint",
+            "to": "dhcp-2-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-2-exploration",
+            "to": "dhcp-2-combat",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-2-combat",
+            "to": "dhcp-2-repair",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-2-repair",
+            "to": "dhcp-2-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-2-parkour",
+            "to": "dhcp-2-junction",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-2-exploration",
+            "to": "dhcp-2-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "dhcp-2-junction",
+            "to": "dhcp-2-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "dhcp-2-exploration",
+            "to": "dhcp-2-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "dhcp-2-junction",
+            "to": "dhcp-2-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "dhcp-2-relay"
+            ]
+          },
+          {
+            "from": "dhcp-1-junction",
+            "to": "dhcp-2-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-3-checkpoint",
+            "to": "dhcp-3-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-3-exploration",
+            "to": "dhcp-3-combat",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-3-combat",
+            "to": "dhcp-3-repair",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-3-repair",
+            "to": "dhcp-3-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-3-parkour",
+            "to": "dhcp-3-junction",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-3-exploration",
+            "to": "dhcp-3-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "dhcp-3-junction",
+            "to": "dhcp-3-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "dhcp-3-exploration",
+            "to": "dhcp-3-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "dhcp-3-junction",
+            "to": "dhcp-3-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "dhcp-3-relay"
+            ]
+          },
+          {
+            "from": "dhcp-2-junction",
+            "to": "dhcp-3-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "dhcp-0-junction",
+            "to": "dhcp-2-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "dhcp-0-junction",
+            "to": "dhcp-3-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "dhcp-0-junction",
+            "to": "dhcp-1-exploration",
+            "kind": "regional-alternative"
+          }
+        ],
+        "repairs": [
+          {
+            "id": "dhcp-0-relay",
+            "room": "dhcp-0-repair",
+            "requires": []
+          },
+          {
+            "id": "dhcp-1-relay",
+            "room": "dhcp-1-repair",
+            "requires": []
+          },
+          {
+            "id": "dhcp-2-relay",
+            "room": "dhcp-2-repair",
+            "requires": []
+          },
+          {
+            "id": "dhcp-3-relay",
+            "room": "dhcp-3-repair",
+            "requires": []
+          }
+        ],
+        "mainPath": [
+          "dhcp-0-checkpoint",
+          "dhcp-0-exploration",
+          "dhcp-0-combat",
+          "dhcp-0-repair",
+          "dhcp-0-parkour",
+          "dhcp-0-junction",
+          "dhcp-1-checkpoint",
+          "dhcp-1-exploration",
+          "dhcp-1-combat",
+          "dhcp-1-repair",
+          "dhcp-1-parkour",
+          "dhcp-1-junction",
+          "dhcp-2-checkpoint",
+          "dhcp-2-exploration",
+          "dhcp-2-combat",
+          "dhcp-2-repair",
+          "dhcp-2-parkour",
+          "dhcp-2-junction",
+          "dhcp-3-checkpoint",
+          "dhcp-3-exploration",
+          "dhcp-3-combat",
+          "dhcp-3-repair",
+          "dhcp-3-parkour",
+          "dhcp-3-junction"
+        ],
+        "start": "dhcp-0-checkpoint",
+        "exit": "dhcp-3-junction",
+        "placementStatus": "manual thematic footprint required; no geometry or duration claim"
+      },
+      {
+        "theme": "dns",
+        "seed": "byte-runner-v3-dns",
+        "planningOnly": true,
+        "silhouette": "árvore de domínios com retorno recursivo lateral",
+        "plannedFloors": 6,
+        "rooms": [
+          {
+            "id": "dns-0-checkpoint",
+            "region": "raiz",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-0-exploration",
+            "region": "raiz",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "dns-0-combat",
+            "region": "raiz",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-0-repair",
+            "region": "raiz",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-0-parkour",
+            "region": "raiz",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-0-junction",
+            "region": "raiz",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-0-secret",
+            "region": "raiz",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dns-0-optional",
+            "region": "raiz",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dns-1-checkpoint",
+            "region": "domínios",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-1-exploration",
+            "region": "domínios",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "dns-1-combat",
+            "region": "domínios",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-1-repair",
+            "region": "domínios",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-1-parkour",
+            "region": "domínios",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-1-junction",
+            "region": "domínios",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-1-secret",
+            "region": "domínios",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dns-1-optional",
+            "region": "domínios",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dns-2-checkpoint",
+            "region": "subdomínios",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-2-exploration",
+            "region": "subdomínios",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "dns-2-combat",
+            "region": "subdomínios",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-2-repair",
+            "region": "subdomínios",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-2-parkour",
+            "region": "subdomínios",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-2-junction",
+            "region": "subdomínios",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-2-secret",
+            "region": "subdomínios",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dns-2-optional",
+            "region": "subdomínios",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dns-3-checkpoint",
+            "region": "cache",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-3-exploration",
+            "region": "cache",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "dns-3-combat",
+            "region": "cache",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-3-repair",
+            "region": "cache",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-3-parkour",
+            "region": "cache",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-3-junction",
+            "region": "cache",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "dns-3-secret",
+            "region": "cache",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "dns-3-optional",
+            "region": "cache",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          }
+        ],
+        "links": [
+          {
+            "from": "dns-0-checkpoint",
+            "to": "dns-0-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "dns-0-exploration",
+            "to": "dns-0-combat",
+            "kind": "main"
+          },
+          {
+            "from": "dns-0-combat",
+            "to": "dns-0-repair",
+            "kind": "main"
+          },
+          {
+            "from": "dns-0-repair",
+            "to": "dns-0-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "dns-0-parkour",
+            "to": "dns-0-junction",
+            "kind": "main"
+          },
+          {
+            "from": "dns-0-exploration",
+            "to": "dns-0-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "dns-0-junction",
+            "to": "dns-0-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "dns-0-exploration",
+            "to": "dns-0-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "dns-0-junction",
+            "to": "dns-0-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "dns-0-relay"
+            ]
+          },
+          {
+            "from": "dns-1-checkpoint",
+            "to": "dns-1-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "dns-1-exploration",
+            "to": "dns-1-combat",
+            "kind": "main"
+          },
+          {
+            "from": "dns-1-combat",
+            "to": "dns-1-repair",
+            "kind": "main"
+          },
+          {
+            "from": "dns-1-repair",
+            "to": "dns-1-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "dns-1-parkour",
+            "to": "dns-1-junction",
+            "kind": "main"
+          },
+          {
+            "from": "dns-1-exploration",
+            "to": "dns-1-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "dns-1-junction",
+            "to": "dns-1-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "dns-1-exploration",
+            "to": "dns-1-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "dns-1-junction",
+            "to": "dns-1-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "dns-1-relay"
+            ]
+          },
+          {
+            "from": "dns-0-junction",
+            "to": "dns-1-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "dns-2-checkpoint",
+            "to": "dns-2-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "dns-2-exploration",
+            "to": "dns-2-combat",
+            "kind": "main"
+          },
+          {
+            "from": "dns-2-combat",
+            "to": "dns-2-repair",
+            "kind": "main"
+          },
+          {
+            "from": "dns-2-repair",
+            "to": "dns-2-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "dns-2-parkour",
+            "to": "dns-2-junction",
+            "kind": "main"
+          },
+          {
+            "from": "dns-2-exploration",
+            "to": "dns-2-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "dns-2-junction",
+            "to": "dns-2-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "dns-2-exploration",
+            "to": "dns-2-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "dns-2-junction",
+            "to": "dns-2-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "dns-2-relay"
+            ]
+          },
+          {
+            "from": "dns-1-junction",
+            "to": "dns-2-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "dns-3-checkpoint",
+            "to": "dns-3-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "dns-3-exploration",
+            "to": "dns-3-combat",
+            "kind": "main"
+          },
+          {
+            "from": "dns-3-combat",
+            "to": "dns-3-repair",
+            "kind": "main"
+          },
+          {
+            "from": "dns-3-repair",
+            "to": "dns-3-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "dns-3-parkour",
+            "to": "dns-3-junction",
+            "kind": "main"
+          },
+          {
+            "from": "dns-3-exploration",
+            "to": "dns-3-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "dns-3-junction",
+            "to": "dns-3-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "dns-3-exploration",
+            "to": "dns-3-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "dns-3-junction",
+            "to": "dns-3-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "dns-3-relay"
+            ]
+          },
+          {
+            "from": "dns-2-junction",
+            "to": "dns-3-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "dns-0-junction",
+            "to": "dns-2-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "dns-0-junction",
+            "to": "dns-3-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "dns-1-junction",
+            "to": "dns-3-exploration",
+            "kind": "regional-alternative"
+          }
+        ],
+        "repairs": [
+          {
+            "id": "dns-0-relay",
+            "room": "dns-0-repair",
+            "requires": []
+          },
+          {
+            "id": "dns-1-relay",
+            "room": "dns-1-repair",
+            "requires": []
+          },
+          {
+            "id": "dns-2-relay",
+            "room": "dns-2-repair",
+            "requires": []
+          },
+          {
+            "id": "dns-3-relay",
+            "room": "dns-3-repair",
+            "requires": []
+          }
+        ],
+        "mainPath": [
+          "dns-0-checkpoint",
+          "dns-0-exploration",
+          "dns-0-combat",
+          "dns-0-repair",
+          "dns-0-parkour",
+          "dns-0-junction",
+          "dns-1-checkpoint",
+          "dns-1-exploration",
+          "dns-1-combat",
+          "dns-1-repair",
+          "dns-1-parkour",
+          "dns-1-junction",
+          "dns-2-checkpoint",
+          "dns-2-exploration",
+          "dns-2-combat",
+          "dns-2-repair",
+          "dns-2-parkour",
+          "dns-2-junction",
+          "dns-3-checkpoint",
+          "dns-3-exploration",
+          "dns-3-combat",
+          "dns-3-repair",
+          "dns-3-parkour",
+          "dns-3-junction"
+        ],
+        "start": "dns-0-checkpoint",
+        "exit": "dns-3-junction",
+        "placementStatus": "manual thematic footprint required; no geometry or duration claim"
+      },
+      {
+        "theme": "firewall",
+        "seed": "byte-runner-v3-firewall",
+        "planningOnly": true,
+        "silhouette": "fortaleza em muralhas concêntricas abertas",
+        "plannedFloors": 6,
+        "rooms": [
+          {
+            "id": "firewall-0-checkpoint",
+            "region": "perímetro",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-0-exploration",
+            "region": "perímetro",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "firewall-0-combat",
+            "region": "perímetro",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-0-repair",
+            "region": "perímetro",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-0-parkour",
+            "region": "perímetro",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-0-junction",
+            "region": "perímetro",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-0-secret",
+            "region": "perímetro",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "firewall-0-optional",
+            "region": "perímetro",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "firewall-1-checkpoint",
+            "region": "bastiões",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-1-exploration",
+            "region": "bastiões",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "firewall-1-combat",
+            "region": "bastiões",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-1-repair",
+            "region": "bastiões",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-1-parkour",
+            "region": "bastiões",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-1-junction",
+            "region": "bastiões",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-1-secret",
+            "region": "bastiões",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "firewall-1-optional",
+            "region": "bastiões",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "firewall-2-checkpoint",
+            "region": "anel interno",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-2-exploration",
+            "region": "anel interno",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "firewall-2-combat",
+            "region": "anel interno",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-2-repair",
+            "region": "anel interno",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-2-parkour",
+            "region": "anel interno",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-2-junction",
+            "region": "anel interno",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-2-secret",
+            "region": "anel interno",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "firewall-2-optional",
+            "region": "anel interno",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "firewall-3-checkpoint",
+            "region": "cidadela",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-3-exploration",
+            "region": "cidadela",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "firewall-3-combat",
+            "region": "cidadela",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-3-repair",
+            "region": "cidadela",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-3-parkour",
+            "region": "cidadela",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-3-junction",
+            "region": "cidadela",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "firewall-3-secret",
+            "region": "cidadela",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "firewall-3-optional",
+            "region": "cidadela",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          }
+        ],
+        "links": [
+          {
+            "from": "firewall-0-checkpoint",
+            "to": "firewall-0-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-0-exploration",
+            "to": "firewall-0-combat",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-0-combat",
+            "to": "firewall-0-repair",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-0-repair",
+            "to": "firewall-0-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-0-parkour",
+            "to": "firewall-0-junction",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-0-exploration",
+            "to": "firewall-0-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "firewall-0-junction",
+            "to": "firewall-0-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "firewall-0-exploration",
+            "to": "firewall-0-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "firewall-0-junction",
+            "to": "firewall-0-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "firewall-0-relay"
+            ]
+          },
+          {
+            "from": "firewall-1-checkpoint",
+            "to": "firewall-1-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-1-exploration",
+            "to": "firewall-1-combat",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-1-combat",
+            "to": "firewall-1-repair",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-1-repair",
+            "to": "firewall-1-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-1-parkour",
+            "to": "firewall-1-junction",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-1-exploration",
+            "to": "firewall-1-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "firewall-1-junction",
+            "to": "firewall-1-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "firewall-1-exploration",
+            "to": "firewall-1-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "firewall-1-junction",
+            "to": "firewall-1-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "firewall-1-relay"
+            ]
+          },
+          {
+            "from": "firewall-0-junction",
+            "to": "firewall-1-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-2-checkpoint",
+            "to": "firewall-2-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-2-exploration",
+            "to": "firewall-2-combat",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-2-combat",
+            "to": "firewall-2-repair",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-2-repair",
+            "to": "firewall-2-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-2-parkour",
+            "to": "firewall-2-junction",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-2-exploration",
+            "to": "firewall-2-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "firewall-2-junction",
+            "to": "firewall-2-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "firewall-2-exploration",
+            "to": "firewall-2-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "firewall-2-junction",
+            "to": "firewall-2-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "firewall-2-relay"
+            ]
+          },
+          {
+            "from": "firewall-1-junction",
+            "to": "firewall-2-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-3-checkpoint",
+            "to": "firewall-3-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-3-exploration",
+            "to": "firewall-3-combat",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-3-combat",
+            "to": "firewall-3-repair",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-3-repair",
+            "to": "firewall-3-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-3-parkour",
+            "to": "firewall-3-junction",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-3-exploration",
+            "to": "firewall-3-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "firewall-3-junction",
+            "to": "firewall-3-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "firewall-3-exploration",
+            "to": "firewall-3-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "firewall-3-junction",
+            "to": "firewall-3-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "firewall-3-relay"
+            ]
+          },
+          {
+            "from": "firewall-2-junction",
+            "to": "firewall-3-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "firewall-0-junction",
+            "to": "firewall-2-exploration",
+            "kind": "regional-alternative"
+          }
+        ],
+        "repairs": [
+          {
+            "id": "firewall-0-relay",
+            "room": "firewall-0-repair",
+            "requires": []
+          },
+          {
+            "id": "firewall-1-relay",
+            "room": "firewall-1-repair",
+            "requires": []
+          },
+          {
+            "id": "firewall-2-relay",
+            "room": "firewall-2-repair",
+            "requires": []
+          },
+          {
+            "id": "firewall-3-relay",
+            "room": "firewall-3-repair",
+            "requires": []
+          }
+        ],
+        "mainPath": [
+          "firewall-0-checkpoint",
+          "firewall-0-exploration",
+          "firewall-0-combat",
+          "firewall-0-repair",
+          "firewall-0-parkour",
+          "firewall-0-junction",
+          "firewall-1-checkpoint",
+          "firewall-1-exploration",
+          "firewall-1-combat",
+          "firewall-1-repair",
+          "firewall-1-parkour",
+          "firewall-1-junction",
+          "firewall-2-checkpoint",
+          "firewall-2-exploration",
+          "firewall-2-combat",
+          "firewall-2-repair",
+          "firewall-2-parkour",
+          "firewall-2-junction",
+          "firewall-3-checkpoint",
+          "firewall-3-exploration",
+          "firewall-3-combat",
+          "firewall-3-repair",
+          "firewall-3-parkour",
+          "firewall-3-junction"
+        ],
+        "start": "firewall-0-checkpoint",
+        "exit": "firewall-3-junction",
+        "placementStatus": "manual thematic footprint required; no geometry or duration claim"
+      },
+      {
+        "theme": "servers",
+        "seed": "byte-runner-v3-servers",
+        "planningOnly": true,
+        "silhouette": "racks bifurcados e backbone até arena isolada",
+        "plannedFloors": 6,
+        "rooms": [
+          {
+            "id": "servers-0-checkpoint",
+            "region": "racks",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-0-exploration",
+            "region": "racks",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "servers-0-combat",
+            "region": "racks",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-0-repair",
+            "region": "racks",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-0-parkour",
+            "region": "racks",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-0-junction",
+            "region": "racks",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-0-secret",
+            "region": "racks",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "servers-0-optional",
+            "region": "racks",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "servers-1-checkpoint",
+            "region": "fibra",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-1-exploration",
+            "region": "fibra",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "servers-1-combat",
+            "region": "fibra",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-1-repair",
+            "region": "fibra",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-1-parkour",
+            "region": "fibra",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-1-junction",
+            "region": "fibra",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-1-secret",
+            "region": "fibra",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "servers-1-optional",
+            "region": "fibra",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "servers-2-checkpoint",
+            "region": "backbone",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-2-exploration",
+            "region": "backbone",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "servers-2-combat",
+            "region": "backbone",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-2-repair",
+            "region": "backbone",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-2-parkour",
+            "region": "backbone",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-2-junction",
+            "region": "backbone",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-2-secret",
+            "region": "backbone",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "servers-2-optional",
+            "region": "backbone",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "servers-3-checkpoint",
+            "region": "airlock",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-3-exploration",
+            "region": "airlock",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "servers-3-combat",
+            "region": "airlock",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-3-repair",
+            "region": "airlock",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-3-parkour",
+            "region": "airlock",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-3-junction",
+            "region": "airlock",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-3-secret",
+            "region": "airlock",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "servers-3-optional",
+            "region": "airlock",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "servers-4-checkpoint",
+            "region": "VIRUS ZERO",
+            "role": "checkpoint",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-4-exploration",
+            "region": "VIRUS ZERO",
+            "role": "exploration",
+            "source": "procedural",
+            "required": true
+          },
+          {
+            "id": "servers-4-combat",
+            "region": "VIRUS ZERO",
+            "role": "combat",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-4-repair",
+            "region": "VIRUS ZERO",
+            "role": "repair",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-4-parkour",
+            "region": "VIRUS ZERO",
+            "role": "parkour",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-4-junction",
+            "region": "VIRUS ZERO",
+            "role": "junction",
+            "source": "manual",
+            "required": true
+          },
+          {
+            "id": "servers-4-secret",
+            "region": "VIRUS ZERO",
+            "role": "secret",
+            "source": "procedural",
+            "required": false
+          },
+          {
+            "id": "servers-4-optional",
+            "region": "VIRUS ZERO",
+            "role": "optional",
+            "source": "procedural",
+            "required": false
+          }
+        ],
+        "links": [
+          {
+            "from": "servers-0-checkpoint",
+            "to": "servers-0-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "servers-0-exploration",
+            "to": "servers-0-combat",
+            "kind": "main"
+          },
+          {
+            "from": "servers-0-combat",
+            "to": "servers-0-repair",
+            "kind": "main"
+          },
+          {
+            "from": "servers-0-repair",
+            "to": "servers-0-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "servers-0-parkour",
+            "to": "servers-0-junction",
+            "kind": "main"
+          },
+          {
+            "from": "servers-0-exploration",
+            "to": "servers-0-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "servers-0-junction",
+            "to": "servers-0-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "servers-0-exploration",
+            "to": "servers-0-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "servers-0-junction",
+            "to": "servers-0-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "servers-0-relay"
+            ]
+          },
+          {
+            "from": "servers-1-checkpoint",
+            "to": "servers-1-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "servers-1-exploration",
+            "to": "servers-1-combat",
+            "kind": "main"
+          },
+          {
+            "from": "servers-1-combat",
+            "to": "servers-1-repair",
+            "kind": "main"
+          },
+          {
+            "from": "servers-1-repair",
+            "to": "servers-1-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "servers-1-parkour",
+            "to": "servers-1-junction",
+            "kind": "main"
+          },
+          {
+            "from": "servers-1-exploration",
+            "to": "servers-1-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "servers-1-junction",
+            "to": "servers-1-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "servers-1-exploration",
+            "to": "servers-1-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "servers-1-junction",
+            "to": "servers-1-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "servers-1-relay"
+            ]
+          },
+          {
+            "from": "servers-0-junction",
+            "to": "servers-1-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "servers-2-checkpoint",
+            "to": "servers-2-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "servers-2-exploration",
+            "to": "servers-2-combat",
+            "kind": "main"
+          },
+          {
+            "from": "servers-2-combat",
+            "to": "servers-2-repair",
+            "kind": "main"
+          },
+          {
+            "from": "servers-2-repair",
+            "to": "servers-2-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "servers-2-parkour",
+            "to": "servers-2-junction",
+            "kind": "main"
+          },
+          {
+            "from": "servers-2-exploration",
+            "to": "servers-2-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "servers-2-junction",
+            "to": "servers-2-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "servers-2-exploration",
+            "to": "servers-2-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "servers-2-junction",
+            "to": "servers-2-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "servers-2-relay"
+            ]
+          },
+          {
+            "from": "servers-1-junction",
+            "to": "servers-2-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "servers-3-checkpoint",
+            "to": "servers-3-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "servers-3-exploration",
+            "to": "servers-3-combat",
+            "kind": "main"
+          },
+          {
+            "from": "servers-3-combat",
+            "to": "servers-3-repair",
+            "kind": "main"
+          },
+          {
+            "from": "servers-3-repair",
+            "to": "servers-3-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "servers-3-parkour",
+            "to": "servers-3-junction",
+            "kind": "main"
+          },
+          {
+            "from": "servers-3-exploration",
+            "to": "servers-3-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "servers-3-junction",
+            "to": "servers-3-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "servers-3-exploration",
+            "to": "servers-3-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "servers-3-junction",
+            "to": "servers-3-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "servers-3-relay"
+            ]
+          },
+          {
+            "from": "servers-2-junction",
+            "to": "servers-3-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "servers-4-checkpoint",
+            "to": "servers-4-exploration",
+            "kind": "main"
+          },
+          {
+            "from": "servers-4-exploration",
+            "to": "servers-4-combat",
+            "kind": "main"
+          },
+          {
+            "from": "servers-4-combat",
+            "to": "servers-4-repair",
+            "kind": "main"
+          },
+          {
+            "from": "servers-4-repair",
+            "to": "servers-4-parkour",
+            "kind": "main"
+          },
+          {
+            "from": "servers-4-parkour",
+            "to": "servers-4-junction",
+            "kind": "main"
+          },
+          {
+            "from": "servers-4-exploration",
+            "to": "servers-4-secret",
+            "kind": "secret"
+          },
+          {
+            "from": "servers-4-junction",
+            "to": "servers-4-optional",
+            "kind": "optional"
+          },
+          {
+            "from": "servers-4-exploration",
+            "to": "servers-4-parkour",
+            "kind": "alternative"
+          },
+          {
+            "from": "servers-4-junction",
+            "to": "servers-4-checkpoint",
+            "kind": "shortcut",
+            "requires": [
+              "servers-4-relay"
+            ]
+          },
+          {
+            "from": "servers-3-junction",
+            "to": "servers-4-checkpoint",
+            "kind": "main"
+          },
+          {
+            "from": "servers-0-junction",
+            "to": "servers-2-exploration",
+            "kind": "regional-alternative"
+          },
+          {
+            "from": "servers-1-junction",
+            "to": "servers-3-exploration",
+            "kind": "regional-alternative"
+          }
+        ],
+        "repairs": [
+          {
+            "id": "servers-0-relay",
+            "room": "servers-0-repair",
+            "requires": []
+          },
+          {
+            "id": "servers-1-relay",
+            "room": "servers-1-repair",
+            "requires": []
+          },
+          {
+            "id": "servers-2-relay",
+            "room": "servers-2-repair",
+            "requires": []
+          },
+          {
+            "id": "servers-3-relay",
+            "room": "servers-3-repair",
+            "requires": []
+          },
+          {
+            "id": "servers-4-relay",
+            "room": "servers-4-repair",
+            "requires": []
+          }
+        ],
+        "mainPath": [
+          "servers-0-checkpoint",
+          "servers-0-exploration",
+          "servers-0-combat",
+          "servers-0-repair",
+          "servers-0-parkour",
+          "servers-0-junction",
+          "servers-1-checkpoint",
+          "servers-1-exploration",
+          "servers-1-combat",
+          "servers-1-repair",
+          "servers-1-parkour",
+          "servers-1-junction",
+          "servers-2-checkpoint",
+          "servers-2-exploration",
+          "servers-2-combat",
+          "servers-2-repair",
+          "servers-2-parkour",
+          "servers-2-junction",
+          "servers-3-checkpoint",
+          "servers-3-exploration",
+          "servers-3-combat",
+          "servers-3-repair",
+          "servers-3-parkour",
+          "servers-3-junction",
+          "servers-4-checkpoint",
+          "servers-4-exploration",
+          "servers-4-combat",
+          "servers-4-repair",
+          "servers-4-parkour",
+          "servers-4-junction"
+        ],
+        "start": "servers-0-checkpoint",
+        "exit": "servers-4-junction",
+        "placementStatus": "manual thematic footprint required; no geometry or duration claim"
+      }
+    ],
+    "laboratory": {
+      "width": 768,
+      "height": 384,
+      "rooms": 2,
+      "audit": {
+        "ok": true,
+        "errors": [],
+        "passes": 1,
+        "repaired": [],
+        "traversal": {
+          "model": "discrete-base-physics/frozen-platforms",
+          "topology": {
+            "rooms": 2,
+            "isolated": []
+          },
+          "spawnSupported": true,
+          "exitReached": true,
+          "reached": [
+            {
+              "id": "a:floor",
+              "a": 0,
+              "z": 350,
+              "y": 288,
+              "dynamic": false
+            },
+            {
+              "id": "b:floor",
+              "a": 384,
+              "z": 734,
+              "y": 288,
+              "dynamic": false
+            },
+            {
+              "id": "b:optional-deck",
+              "a": 534,
+              "z": 596,
+              "y": 192,
+              "dynamic": false
+            }
+          ],
+          "unproven": [],
+          "unreachableRooms": [],
+          "repairs": []
+        },
+        "area": {
+          "model": "union of jump-height bands above proven standing spans minus frozen solids; not a trajectory area",
+          "reachableStaticBandPixels": 143366.91891891893,
+          "candidateStaticBandPixels": 143366.91891891893
+        },
+        "model": "conservative static base physics; no timed-platform/portal/combat proof"
+      }
+    },
+    "limitations": [
+      "Laboratory only; campaign maps not rebuilt.",
+      "Targets are planning proxies; duration has not been measured.",
+      "Static conservative audit does not prove timed hazards, combat or portals."
+    ]
+  },
+  "execution": {
+    "sourceSha256": "4f540b99b417b39255a110fecaa50ba3259f8d68f1c1a088d3b48a74687ce273",
+    "atUTC": "2026-11-06T23:43:49.707202+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}
