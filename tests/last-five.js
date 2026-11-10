@@ -25,7 +25,7 @@ test('last five: all checkpoint landings stable before repairs',()=>{
   }
 });
 test('last five: repaired elevators and IP leases transport the player',()=>{
-  for(const [index,id] of [[5,'elevator-a'],[5,'elevator-b'],[5,'elevator-c'],[6,'lease-right-b'],[9,'airlock-elevator']]) {
+  for(const [index,id] of [[5,'basement-power:service-lift'],[5,'central-main:service-lift'],[5,'shaft-west-mid:service-lift'],[6,'reserve-main:lease-platform'],[9,'airlock-elevator']]) {
     setup(index);const p=phaseData.entities.platforms.find(p=>p.id===id);assert(!platformShape(p),'service lift starts enabled '+id);
     components.forEach(c=>c.repaired=true);fulfilGoalsForQuestionTest();advancePlatformMotion(.01);const before=platformShape(p);
     player.x=before.x+30;player.y=before.y-player.height;player.grounded=true;advancePlatformMotion(.2);const after=platformShape(p);
@@ -36,7 +36,7 @@ test('last five: repaired elevators and IP leases transport the player',()=>{
 test('last five: IP services are mandatory and gateways never trap arrivals',()=>{
   setup(6);components.forEach(c=>c.repaired=true);viruses.forEach(v=>v.alive=false);checkObjectives();assert(!phaseExitUnlocked,'DHCP services skipped');
   for(const s of phaseData.entities.interactives){player.x=s.x;player.y=s.y-8;levelRuntime.update(.6,{keys:new Set(),repairNearby:false});levelRuntime.update(.016,{keys:new Set(['e']),repairNearby:Boolean(findNearbyComponent())});assert(levelRuntime.getFlag(s.flag),'service cannot activate '+s.id);}
-  checkObjectives();assert(phaseExitUnlocked,'gateway stays locked after services');saveCampaign();continueCampaign();assert(levelRuntime.getFlag('dhcp-on')&&levelRuntime.getFlag('reservation'),'DHCP services not saved');
+  checkObjectives();assert(phaseExitUnlocked,'gateway stays locked after services');saveCampaign();continueCampaign();assert(phaseData.entities.interactives.every(s=>levelRuntime.getFlag(s.flag)),'DHCP services not saved');
   for(const index of [6,7]) {
     setup(index);components.forEach(c=>c.repaired=true);fulfilGoalsForQuestionTest();
     for(const link of levelRuntime.connections()){

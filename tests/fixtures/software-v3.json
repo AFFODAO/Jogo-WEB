@@ -1,0 +1,5187 @@
+{
+  "sources": {
+    "src/maps/02-software.js": "7f1345f6204d212040a0831c64be4a4d4ef254bbc151faa55a539a8b29123b9b",
+    "src/generation/composer.js": "3dbf9bc42f8a7fb0ca0badaf75d909dced90f686474ca772945a58c529ead7d3"
+  },
+  "definition": {
+    "schemaVersion": 2,
+    "revision": 5,
+    "id": "phase-02",
+    "name": "Software — O sistema corrompido",
+    "theme": "software",
+    "palette": [
+      "#11172b",
+      "#292c50",
+      "#a99be9",
+      "#535980",
+      "#e4d8fa"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 5120,
+      "height": 4224,
+      "layout": "hub",
+      "start": {
+        "x": 1856,
+        "y": 2592
+      },
+      "exit": {
+        "mode": "region",
+        "x": 928,
+        "y": 208,
+        "width": 64,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "desktop:interface",
+            "x": 1792,
+            "y": 2640,
+            "width": 1024,
+            "height": 48
+          },
+          {
+            "id": "dock:interface",
+            "x": 2112,
+            "y": 3184,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "root:interface",
+            "x": 640,
+            "y": 2128,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "documents:interface",
+            "x": 0,
+            "y": 2832,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "archive:interface",
+            "x": 1024,
+            "y": 3536,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "recycle:interface",
+            "x": 0,
+            "y": 3536,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "scheduler:interface",
+            "x": 3136,
+            "y": 2128,
+            "width": 768,
+            "height": 48
+          },
+          {
+            "id": "worker:interface",
+            "x": 4224,
+            "y": 2448,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "clock:left-interface",
+            "x": 3392,
+            "y": 2768,
+            "width": 224,
+            "height": 48
+          },
+          {
+            "id": "clock:right-interface",
+            "x": 3840,
+            "y": 2768,
+            "width": 192,
+            "height": 48
+          },
+          {
+            "id": "clock:recovery-floor",
+            "x": 3616,
+            "y": 2800,
+            "width": 224,
+            "height": 16
+          },
+          {
+            "id": "swap:interface",
+            "x": 3328,
+            "y": 1360,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "pages:interface",
+            "x": 4224,
+            "y": 1616,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "swap-cache:interface",
+            "x": 3328,
+            "y": 464,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "quarantine:interface",
+            "x": 3072,
+            "y": 3600,
+            "width": 768,
+            "height": 48
+          },
+          {
+            "id": "recovery:interface",
+            "x": 4224,
+            "y": 3472,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "infected-vault:interface",
+            "x": 4224,
+            "y": 4112,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "kernel-gateway:interface",
+            "x": 1792,
+            "y": 1744,
+            "width": 768,
+            "height": 48
+          },
+          {
+            "id": "kernel-io:interface",
+            "x": 640,
+            "y": 1360,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "kernel-stack:interface",
+            "x": 1792,
+            "y": 848,
+            "width": 768,
+            "height": 48
+          },
+          {
+            "id": "kernel-exit:interface",
+            "x": 0,
+            "y": 464,
+            "width": 1024,
+            "height": 48
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 1856,
+          "y": 2640
+        },
+        {
+          "x": 704,
+          "y": 2128
+        },
+        {
+          "x": 64,
+          "y": 2832
+        },
+        {
+          "x": 3200,
+          "y": 2128
+        },
+        {
+          "x": 3392,
+          "y": 1360
+        },
+        {
+          "x": 4288,
+          "y": 3472
+        },
+        {
+          "x": 1856,
+          "y": 1744
+        },
+        {
+          "x": 1856,
+          "y": 848
+        },
+        {
+          "x": 64,
+          "y": 464
+        }
+      ],
+      "checkpointMode": "free",
+      "progress": {
+        "axis": "objectives"
+      },
+      "regions": [
+        {
+          "id": "desktop",
+          "name": "AREA DE TRABALHO",
+          "state": 0,
+          "areas": [
+            {
+              "x": 1792,
+              "y": 2048,
+              "width": 1024,
+              "height": 640
+            },
+            {
+              "x": 2112,
+              "y": 2720,
+              "width": 640,
+              "height": 512
+            }
+          ]
+        },
+        {
+          "id": "files",
+          "name": "SISTEMA DE ARQUIVOS",
+          "state": 1,
+          "areas": [
+            {
+              "x": 640,
+              "y": 1536,
+              "width": 640,
+              "height": 640
+            },
+            {
+              "x": 0,
+              "y": 2240,
+              "width": 640,
+              "height": 640
+            },
+            {
+              "x": 1024,
+              "y": 2944,
+              "width": 640,
+              "height": 640
+            },
+            {
+              "x": 0,
+              "y": 3008,
+              "width": 640,
+              "height": 576
+            }
+          ]
+        },
+        {
+          "id": "process",
+          "name": "GERENCIADOR DE PROCESSOS",
+          "state": 2,
+          "areas": [
+            {
+              "x": 3136,
+              "y": 1536,
+              "width": 768,
+              "height": 640
+            },
+            {
+              "x": 4224,
+              "y": 1856,
+              "width": 640,
+              "height": 640
+            },
+            {
+              "x": 3392,
+              "y": 2240,
+              "width": 640,
+              "height": 576
+            }
+          ]
+        },
+        {
+          "id": "virtual",
+          "name": "MEMORIA VIRTUAL",
+          "state": 1,
+          "areas": [
+            {
+              "x": 3328,
+              "y": 640,
+              "width": 640,
+              "height": 768
+            },
+            {
+              "x": 4224,
+              "y": 512,
+              "width": 640,
+              "height": 1152
+            },
+            {
+              "x": 3328,
+              "y": 0,
+              "width": 640,
+              "height": 512
+            }
+          ]
+        },
+        {
+          "id": "corrupt",
+          "name": "ARQUIVOS CORROMPIDOS",
+          "state": 2,
+          "areas": [
+            {
+              "x": 3072,
+              "y": 3008,
+              "width": 768,
+              "height": 640
+            },
+            {
+              "x": 4224,
+              "y": 2752,
+              "width": 640,
+              "height": 768
+            },
+            {
+              "x": 4224,
+              "y": 3648,
+              "width": 640,
+              "height": 512
+            }
+          ]
+        },
+        {
+          "id": "kernel",
+          "name": "NUCLEO DO SISTEMA",
+          "state": 3,
+          "areas": [
+            {
+              "x": 1792,
+              "y": 1024,
+              "width": 768,
+              "height": 768
+            },
+            {
+              "x": 640,
+              "y": 640,
+              "width": 640,
+              "height": 768
+            },
+            {
+              "x": 1792,
+              "y": 256,
+              "width": 768,
+              "height": 640
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "width": 1024,
+              "height": 512
+            }
+          ]
+        }
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "desktop:thread-1",
+          "x": 2096,
+          "y": 2544,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "desktop:thread-2",
+          "x": 2224,
+          "y": 2448,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "desktop:thread-3",
+          "x": 2096,
+          "y": 2352,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "desktop:thread-4",
+          "x": 2224,
+          "y": 2256,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "desktop:door-pad-2",
+          "x": 2208,
+          "y": 2448,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "desktop:door-pad-3",
+          "x": 1824,
+          "y": 2352,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "desktop:door-pad-4",
+          "x": 2560,
+          "y": 2352,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "desktop:door-pad-5",
+          "x": 2208,
+          "y": 2256,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "desktop:thread-east",
+          "x": 2320,
+          "y": 2352,
+          "width": 160,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "dock:thread-1",
+          "x": 2224,
+          "y": 3088,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "dock:hidden-shelf",
+          "x": 2208,
+          "y": 3088,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "root:thread-1",
+          "x": 752,
+          "y": 2032,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "root:thread-2",
+          "x": 880,
+          "y": 1936,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "root:door-pad-2",
+          "x": 864,
+          "y": 1936,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "root:restored-interface",
+          "x": 1024,
+          "y": 2032,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window",
+          "requires": {
+            "component": "root:index"
+          }
+        },
+        {
+          "id": "documents:thread-1",
+          "x": 112,
+          "y": 2736,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "documents:thread-2",
+          "x": 240,
+          "y": 2640,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "documents:door-pad-2",
+          "x": 224,
+          "y": 2640,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "archive:thread-1",
+          "x": 1136,
+          "y": 3440,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "archive:thread-2",
+          "x": 1264,
+          "y": 3344,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "archive:thread-3",
+          "x": 1136,
+          "y": 3248,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "archive:door-pad-2",
+          "x": 1248,
+          "y": 3344,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "archive:door-pad-3",
+          "x": 1056,
+          "y": 3248,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "recycle:thread-1",
+          "x": 112,
+          "y": 3440,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "recycle:hidden-shelf",
+          "x": 112,
+          "y": 3440,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "scheduler:thread-1",
+          "x": 3312,
+          "y": 2032,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "scheduler:thread-2",
+          "x": 3440,
+          "y": 1936,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "scheduler:thread-3",
+          "x": 3312,
+          "y": 1840,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "scheduler:door-pad-2",
+          "x": 3424,
+          "y": 1936,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "scheduler:door-pad-3",
+          "x": 3168,
+          "y": 1840,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "scheduler:restored-interface",
+          "x": 3648,
+          "y": 2032,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window",
+          "requires": {
+            "component": "scheduler:scheduler"
+          }
+        },
+        {
+          "id": "scheduler:moving-interface",
+          "x": 3216,
+          "y": 1920,
+          "width": 144,
+          "height": 16,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "window",
+          "motion": {
+            "axis": "x",
+            "range": 48,
+            "speed": 0.55,
+            "phase": 0
+          }
+        },
+        {
+          "id": "worker:thread-1",
+          "x": 4336,
+          "y": 2352,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "worker:moving-interface",
+          "x": 4304,
+          "y": 2240,
+          "width": 144,
+          "height": 16,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "window",
+          "motion": {
+            "axis": "x",
+            "range": 48,
+            "speed": 0.55,
+            "phase": 0
+          }
+        },
+        {
+          "id": "clock:safe-thread",
+          "x": 3680,
+          "y": 2704,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "clock:thread-1",
+          "x": 3504,
+          "y": 2672,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "clock:thread-2",
+          "x": 3632,
+          "y": 2576,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "clock:door-pad-2",
+          "x": 3616,
+          "y": 2576,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "clock:moving-interface",
+          "x": 3472,
+          "y": 2560,
+          "width": 144,
+          "height": 16,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "window",
+          "motion": {
+            "axis": "x",
+            "range": 48,
+            "speed": 0.55,
+            "phase": 0
+          }
+        },
+        {
+          "id": "clock:volatile-page",
+          "x": 3792,
+          "y": 2480,
+          "width": 128,
+          "height": 16,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "window",
+          "duration": 2.8,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "swap:thread-1",
+          "x": 3440,
+          "y": 1264,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "swap:thread-2",
+          "x": 3568,
+          "y": 1168,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "swap:door-pad-2",
+          "x": 3552,
+          "y": 1168,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "swap:restored-interface",
+          "x": 3712,
+          "y": 1264,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window",
+          "requires": {
+            "component": "swap:paging"
+          }
+        },
+        {
+          "id": "swap:moving-interface",
+          "x": 3408,
+          "y": 1152,
+          "width": 144,
+          "height": 16,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "window",
+          "motion": {
+            "axis": "y",
+            "range": 48,
+            "speed": 0.55,
+            "phase": 0
+          }
+        },
+        {
+          "id": "swap:volatile-page",
+          "x": 3728,
+          "y": 1072,
+          "width": 128,
+          "height": 16,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "window",
+          "duration": 2.8,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "pages:thread-1",
+          "x": 4336,
+          "y": 1520,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:thread-2",
+          "x": 4464,
+          "y": 1424,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:thread-3",
+          "x": 4336,
+          "y": 1328,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:thread-4",
+          "x": 4464,
+          "y": 1232,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:thread-5",
+          "x": 4336,
+          "y": 1136,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:thread-6",
+          "x": 4464,
+          "y": 1040,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:thread-7",
+          "x": 4336,
+          "y": 944,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:thread-8",
+          "x": 4464,
+          "y": 848,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:thread-9",
+          "x": 4336,
+          "y": 752,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:thread-10",
+          "x": 4464,
+          "y": 656,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:door-pad-1",
+          "x": 4448,
+          "y": 608,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:door-pad-2",
+          "x": 4448,
+          "y": 1232,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:upper-rest",
+          "x": 4432,
+          "y": 608,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "pages:moving-interface",
+          "x": 4304,
+          "y": 1408,
+          "width": 144,
+          "height": 16,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "window",
+          "motion": {
+            "axis": "y",
+            "range": 48,
+            "speed": 0.55,
+            "phase": 0
+          }
+        },
+        {
+          "id": "pages:volatile-page",
+          "x": 4624,
+          "y": 1328,
+          "width": 128,
+          "height": 16,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "window",
+          "duration": 2.8,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "swap-cache:thread-1",
+          "x": 3440,
+          "y": 368,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "swap-cache:hidden-shelf",
+          "x": 3408,
+          "y": 368,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "quarantine:thread-1",
+          "x": 3248,
+          "y": 3504,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "quarantine:thread-2",
+          "x": 3376,
+          "y": 3408,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "quarantine:thread-3",
+          "x": 3248,
+          "y": 3312,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "quarantine:door-pad-2",
+          "x": 3360,
+          "y": 3408,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "quarantine:door-pad-3",
+          "x": 3104,
+          "y": 3312,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "recovery:thread-1",
+          "x": 4336,
+          "y": 3376,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "recovery:restored-interface",
+          "x": 4608,
+          "y": 3376,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window",
+          "requires": {
+            "component": "recovery:recovery"
+          }
+        },
+        {
+          "id": "infected-vault:thread-1",
+          "x": 4336,
+          "y": 4016,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "infected-vault:hidden-shelf",
+          "x": 4352,
+          "y": 4016,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-gateway:thread-1",
+          "x": 1968,
+          "y": 1648,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-gateway:thread-2",
+          "x": 2096,
+          "y": 1552,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-gateway:door-pad-2",
+          "x": 2080,
+          "y": 1552,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-io:thread-1",
+          "x": 752,
+          "y": 1264,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-stack:thread-1",
+          "x": 1968,
+          "y": 752,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-stack:thread-2",
+          "x": 2096,
+          "y": 656,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-stack:thread-3",
+          "x": 1968,
+          "y": 560,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-stack:thread-4",
+          "x": 2096,
+          "y": 464,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-stack:door-pad-1",
+          "x": 2080,
+          "y": 384,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-stack:upper-rest",
+          "x": 2064,
+          "y": 384,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-stack:restored-interface",
+          "x": 2304,
+          "y": 752,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window",
+          "requires": {
+            "component": "kernel-stack:kernel"
+          }
+        },
+        {
+          "id": "kernel-stack:volatile-page",
+          "x": 2320,
+          "y": 560,
+          "width": 128,
+          "height": 16,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "window",
+          "duration": 2.8,
+          "respawnDelay": 2.2
+        },
+        {
+          "id": "kernel-exit:thread-1",
+          "x": 304,
+          "y": 368,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-exit:exit-step",
+          "x": 576,
+          "y": 368,
+          "width": 160,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-exit:exit-shelf",
+          "x": 720,
+          "y": 272,
+          "width": 160,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        },
+        {
+          "id": "kernel-exit:exit-dais",
+          "x": 896,
+          "y": 272,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "window"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "desktop:frame-left",
+          "x": 1792,
+          "y": 2048,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "desktop:frame-right",
+          "x": 2800,
+          "y": 2048,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "desktop:title-frame",
+          "x": 1808,
+          "y": 2048,
+          "width": 992,
+          "height": 16
+        },
+        {
+          "id": "dock:frame-left",
+          "x": 2112,
+          "y": 2720,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "dock:frame-right",
+          "x": 2736,
+          "y": 2720,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "dock:title-frame",
+          "x": 2128,
+          "y": 2720,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "root:frame-left",
+          "x": 640,
+          "y": 1536,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "root:frame-right",
+          "x": 1264,
+          "y": 1536,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "root:title-frame",
+          "x": 656,
+          "y": 1536,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "documents:frame-left",
+          "x": 0,
+          "y": 2240,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "documents:frame-right",
+          "x": 624,
+          "y": 2240,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "documents:title-frame",
+          "x": 16,
+          "y": 2240,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "archive:frame-left",
+          "x": 1024,
+          "y": 2944,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "archive:frame-right",
+          "x": 1648,
+          "y": 2944,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "archive:title-frame",
+          "x": 1040,
+          "y": 2944,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "recycle:frame-left",
+          "x": 0,
+          "y": 3008,
+          "width": 16,
+          "height": 528
+        },
+        {
+          "id": "recycle:frame-right",
+          "x": 624,
+          "y": 3008,
+          "width": 16,
+          "height": 528
+        },
+        {
+          "id": "recycle:title-frame",
+          "x": 16,
+          "y": 3008,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "scheduler:frame-left",
+          "x": 3136,
+          "y": 1536,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "scheduler:frame-right",
+          "x": 3888,
+          "y": 1536,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "scheduler:title-frame",
+          "x": 3152,
+          "y": 1536,
+          "width": 736,
+          "height": 16
+        },
+        {
+          "id": "worker:frame-left",
+          "x": 4224,
+          "y": 1856,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "worker:frame-right",
+          "x": 4848,
+          "y": 1856,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "worker:title-frame",
+          "x": 4240,
+          "y": 1856,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "clock:frame-left",
+          "x": 3392,
+          "y": 2240,
+          "width": 16,
+          "height": 528
+        },
+        {
+          "id": "clock:frame-right",
+          "x": 4016,
+          "y": 2240,
+          "width": 16,
+          "height": 528
+        },
+        {
+          "id": "clock:title-frame",
+          "x": 3408,
+          "y": 2240,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "swap:frame-left",
+          "x": 3328,
+          "y": 640,
+          "width": 16,
+          "height": 720
+        },
+        {
+          "id": "swap:frame-right",
+          "x": 3952,
+          "y": 640,
+          "width": 16,
+          "height": 720
+        },
+        {
+          "id": "swap:title-frame",
+          "x": 3344,
+          "y": 640,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "pages:frame-left",
+          "x": 4224,
+          "y": 512,
+          "width": 16,
+          "height": 1104
+        },
+        {
+          "id": "pages:frame-right",
+          "x": 4848,
+          "y": 512,
+          "width": 16,
+          "height": 1104
+        },
+        {
+          "id": "pages:title-frame",
+          "x": 4240,
+          "y": 512,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "swap-cache:frame-left",
+          "x": 3328,
+          "y": 0,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "swap-cache:frame-right",
+          "x": 3952,
+          "y": 0,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "swap-cache:title-frame",
+          "x": 3344,
+          "y": 0,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "quarantine:frame-left",
+          "x": 3072,
+          "y": 3008,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "quarantine:frame-right",
+          "x": 3824,
+          "y": 3008,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "quarantine:title-frame",
+          "x": 3088,
+          "y": 3008,
+          "width": 736,
+          "height": 16
+        },
+        {
+          "id": "recovery:frame-left",
+          "x": 4224,
+          "y": 2752,
+          "width": 16,
+          "height": 720
+        },
+        {
+          "id": "recovery:frame-right",
+          "x": 4848,
+          "y": 2752,
+          "width": 16,
+          "height": 720
+        },
+        {
+          "id": "recovery:title-frame",
+          "x": 4240,
+          "y": 2752,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "infected-vault:frame-left",
+          "x": 4224,
+          "y": 3648,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "infected-vault:frame-right",
+          "x": 4848,
+          "y": 3648,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "infected-vault:title-frame",
+          "x": 4240,
+          "y": 3648,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "kernel-gateway:frame-left",
+          "x": 1792,
+          "y": 1024,
+          "width": 16,
+          "height": 720
+        },
+        {
+          "id": "kernel-gateway:frame-right",
+          "x": 2544,
+          "y": 1024,
+          "width": 16,
+          "height": 720
+        },
+        {
+          "id": "kernel-gateway:title-frame",
+          "x": 1808,
+          "y": 1024,
+          "width": 736,
+          "height": 16
+        },
+        {
+          "id": "kernel-io:frame-left",
+          "x": 640,
+          "y": 640,
+          "width": 16,
+          "height": 720
+        },
+        {
+          "id": "kernel-io:frame-right",
+          "x": 1264,
+          "y": 640,
+          "width": 16,
+          "height": 720
+        },
+        {
+          "id": "kernel-io:title-frame",
+          "x": 656,
+          "y": 640,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "kernel-stack:frame-left",
+          "x": 1792,
+          "y": 256,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "kernel-stack:frame-right",
+          "x": 2544,
+          "y": 256,
+          "width": 16,
+          "height": 592
+        },
+        {
+          "id": "kernel-stack:title-frame",
+          "x": 1808,
+          "y": 256,
+          "width": 736,
+          "height": 16
+        },
+        {
+          "id": "kernel-exit:frame-left",
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "kernel-exit:frame-right",
+          "x": 1008,
+          "y": 0,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "kernel-exit:title-frame",
+          "x": 16,
+          "y": 0,
+          "width": 992,
+          "height": 16
+        }
+      ],
+      "components": [
+        {
+          "id": "root:index",
+          "x": 832,
+          "y": 2084,
+          "width": 34,
+          "height": 44,
+          "label": "RESTAURAR INDICE DE ARQUIVOS",
+          "repair": {
+            "type": "software",
+            "stage": 2,
+            "componentIndex": 0
+          }
+        },
+        {
+          "id": "scheduler:scheduler",
+          "x": 3328,
+          "y": 2084,
+          "width": 34,
+          "height": 44,
+          "label": "RESTAURAR ESCALONADOR",
+          "repair": {
+            "type": "software",
+            "stage": 2,
+            "componentIndex": 1
+          }
+        },
+        {
+          "id": "swap:paging",
+          "x": 3520,
+          "y": 1316,
+          "width": 34,
+          "height": 44,
+          "label": "RESTAURAR PAGINACAO",
+          "repair": {
+            "type": "software",
+            "stage": 2,
+            "componentIndex": 2
+          }
+        },
+        {
+          "id": "recovery:recovery",
+          "x": 4416,
+          "y": 3428,
+          "width": 34,
+          "height": 44,
+          "label": "RECONSTRUIR ARQUIVOS",
+          "repair": {
+            "type": "software",
+            "stage": 2,
+            "componentIndex": 3
+          }
+        },
+        {
+          "id": "kernel-stack:kernel",
+          "x": 1984,
+          "y": 804,
+          "width": 34,
+          "height": 44,
+          "label": "RESTAURAR PROCESSOS DO NUCLEO",
+          "repair": {
+            "type": "software",
+            "stage": 2,
+            "componentIndex": 4
+          }
+        }
+      ],
+      "enemies": [
+        {
+          "id": "root:process-0",
+          "type": "basic",
+          "x": 1104,
+          "y": 2104,
+          "groundY": 2128,
+          "patrolMin": 1056,
+          "patrolMax": 1152,
+          "navigationBounds": {
+            "left": 1056,
+            "right": 1152
+          },
+          "activationRegion": {
+            "x": 656,
+            "y": 1568,
+            "width": 608,
+            "height": 592
+          }
+        },
+        {
+          "id": "documents:process-0",
+          "type": "basic",
+          "x": 464,
+          "y": 2808,
+          "groundY": 2832,
+          "patrolMin": 416,
+          "patrolMax": 512,
+          "navigationBounds": {
+            "left": 416,
+            "right": 512
+          },
+          "activationRegion": {
+            "x": 16,
+            "y": 2272,
+            "width": 608,
+            "height": 592
+          }
+        },
+        {
+          "id": "documents:process-1",
+          "type": "shooter",
+          "x": 256,
+          "y": 2808,
+          "groundY": 2832,
+          "patrolMin": 208,
+          "patrolMax": 304,
+          "navigationBounds": {
+            "left": 208,
+            "right": 304
+          },
+          "activationRegion": {
+            "x": 16,
+            "y": 2272,
+            "width": 608,
+            "height": 592
+          }
+        },
+        {
+          "id": "scheduler:process-0",
+          "type": "fast",
+          "x": 3728,
+          "y": 2104,
+          "groundY": 2128,
+          "patrolMin": 3680,
+          "patrolMax": 3776,
+          "navigationBounds": {
+            "left": 3680,
+            "right": 3776
+          },
+          "activationRegion": {
+            "x": 3152,
+            "y": 1568,
+            "width": 736,
+            "height": 592
+          }
+        },
+        {
+          "id": "worker:process-0",
+          "type": "fast",
+          "x": 4688,
+          "y": 2424,
+          "groundY": 2448,
+          "patrolMin": 4640,
+          "patrolMax": 4736,
+          "navigationBounds": {
+            "left": 4640,
+            "right": 4736
+          },
+          "activationRegion": {
+            "x": 4240,
+            "y": 1888,
+            "width": 608,
+            "height": 592
+          }
+        },
+        {
+          "id": "worker:process-1",
+          "type": "shooter",
+          "x": 4480,
+          "y": 2424,
+          "groundY": 2448,
+          "patrolMin": 4432,
+          "patrolMax": 4528,
+          "navigationBounds": {
+            "left": 4432,
+            "right": 4528
+          },
+          "activationRegion": {
+            "x": 4240,
+            "y": 1888,
+            "width": 608,
+            "height": 592
+          }
+        },
+        {
+          "id": "clock:process-0",
+          "type": "fast",
+          "x": 3936,
+          "y": 2744,
+          "groundY": 2768,
+          "patrolMin": 3888,
+          "patrolMax": 3984,
+          "navigationBounds": {
+            "left": 3888,
+            "right": 3984
+          },
+          "activationRegion": {
+            "x": 3408,
+            "y": 2272,
+            "width": 608,
+            "height": 528
+          }
+        },
+        {
+          "id": "swap:process-0",
+          "type": "basic",
+          "x": 3792,
+          "y": 1336,
+          "groundY": 1360,
+          "patrolMin": 3744,
+          "patrolMax": 3840,
+          "navigationBounds": {
+            "left": 3744,
+            "right": 3840
+          },
+          "activationRegion": {
+            "x": 3344,
+            "y": 672,
+            "width": 608,
+            "height": 720
+          }
+        },
+        {
+          "id": "pages:process-0",
+          "type": "basic",
+          "x": 4688,
+          "y": 1592,
+          "groundY": 1616,
+          "patrolMin": 4640,
+          "patrolMax": 4736,
+          "navigationBounds": {
+            "left": 4640,
+            "right": 4736
+          },
+          "activationRegion": {
+            "x": 4240,
+            "y": 544,
+            "width": 608,
+            "height": 1104
+          }
+        },
+        {
+          "id": "quarantine:process-0",
+          "type": "armored",
+          "x": 3664,
+          "y": 3576,
+          "groundY": 3600,
+          "patrolMin": 3616,
+          "patrolMax": 3712,
+          "navigationBounds": {
+            "left": 3616,
+            "right": 3712
+          },
+          "activationRegion": {
+            "x": 3088,
+            "y": 3040,
+            "width": 736,
+            "height": 592
+          }
+        },
+        {
+          "id": "quarantine:process-1",
+          "type": "armored",
+          "x": 3392,
+          "y": 3576,
+          "groundY": 3600,
+          "patrolMin": 3344,
+          "patrolMax": 3440,
+          "navigationBounds": {
+            "left": 3344,
+            "right": 3440
+          },
+          "activationRegion": {
+            "x": 3088,
+            "y": 3040,
+            "width": 736,
+            "height": 592
+          }
+        },
+        {
+          "id": "recovery:process-0",
+          "type": "armored",
+          "x": 4688,
+          "y": 3448,
+          "groundY": 3472,
+          "patrolMin": 4640,
+          "patrolMax": 4736,
+          "navigationBounds": {
+            "left": 4640,
+            "right": 4736
+          },
+          "activationRegion": {
+            "x": 4240,
+            "y": 2784,
+            "width": 608,
+            "height": 720
+          }
+        },
+        {
+          "id": "kernel-io:process-0",
+          "type": "basic",
+          "x": 1104,
+          "y": 1336,
+          "groundY": 1360,
+          "patrolMin": 1056,
+          "patrolMax": 1152,
+          "navigationBounds": {
+            "left": 1056,
+            "right": 1152
+          },
+          "activationRegion": {
+            "x": 656,
+            "y": 672,
+            "width": 608,
+            "height": 720
+          }
+        },
+        {
+          "id": "kernel-io:process-1",
+          "type": "shooter",
+          "x": 896,
+          "y": 1336,
+          "groundY": 1360,
+          "patrolMin": 848,
+          "patrolMax": 944,
+          "navigationBounds": {
+            "left": 848,
+            "right": 944
+          },
+          "activationRegion": {
+            "x": 656,
+            "y": 672,
+            "width": 608,
+            "height": 720
+          }
+        },
+        {
+          "id": "kernel-stack:process-0",
+          "type": "basic",
+          "x": 2384,
+          "y": 824,
+          "groundY": 848,
+          "patrolMin": 2336,
+          "patrolMax": 2432,
+          "navigationBounds": {
+            "left": 2336,
+            "right": 2432
+          },
+          "activationRegion": {
+            "x": 1808,
+            "y": 288,
+            "width": 736,
+            "height": 592
+          }
+        },
+        {
+          "id": "kernel-exit:process-0",
+          "type": "basic",
+          "x": 848,
+          "y": 440,
+          "groundY": 464,
+          "patrolMin": 800,
+          "patrolMax": 896,
+          "navigationBounds": {
+            "left": 800,
+            "right": 896
+          },
+          "activationRegion": {
+            "x": 16,
+            "y": 32,
+            "width": 992,
+            "height": 464
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "desktop:file",
+          "x": 1904,
+          "y": 2610,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "dock:hidden-file",
+          "x": 2272,
+          "y": 3056,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "dock:backup",
+          "x": 2576,
+          "y": 3154,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "root:file",
+          "x": 752,
+          "y": 2098,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "documents:file",
+          "x": 112,
+          "y": 2802,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "archive:file",
+          "x": 1136,
+          "y": 3506,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "recycle:hidden-file",
+          "x": 176,
+          "y": 3408,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "recycle:backup",
+          "x": 464,
+          "y": 3506,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "scheduler:file",
+          "x": 3248,
+          "y": 2098,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "worker:file",
+          "x": 4336,
+          "y": 2418,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "clock:file",
+          "x": 3504,
+          "y": 2738,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "swap:file",
+          "x": 3440,
+          "y": 1330,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "pages:file",
+          "x": 4336,
+          "y": 1586,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "pages:upper-file",
+          "x": 4544,
+          "y": 578,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "swap-cache:hidden-file",
+          "x": 3472,
+          "y": 336,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "swap-cache:backup",
+          "x": 3792,
+          "y": 434,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "quarantine:file",
+          "x": 3184,
+          "y": 3570,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "recovery:file",
+          "x": 4336,
+          "y": 3442,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "infected-vault:hidden-file",
+          "x": 4416,
+          "y": 3984,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "infected-vault:backup",
+          "x": 4688,
+          "y": 4082,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "kernel-gateway:file",
+          "x": 1904,
+          "y": 1714,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "kernel-io:file",
+          "x": 752,
+          "y": 1330,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "kernel-stack:file",
+          "x": 1904,
+          "y": 818,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "kernel-stack:upper-file",
+          "x": 2176,
+          "y": 354,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "kernel-exit:file",
+          "x": 112,
+          "y": 434,
+          "radius": 10,
+          "secret": false
+        }
+      ],
+      "features": [],
+      "gates": [
+        {
+          "id": "infected-vault:quarantine-door",
+          "x": 4576,
+          "y": 3680,
+          "width": 16,
+          "height": 432,
+          "opensWhen": {
+            "component": "recovery:recovery"
+          }
+        },
+        {
+          "id": "kernel-exit:system-lock",
+          "x": 880,
+          "y": 64,
+          "width": 16,
+          "height": 400,
+          "opensWhen": {
+            "component": "kernel-stack:kernel"
+          }
+        }
+      ],
+      "interactives": []
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 16,
+      "componentsToRepair": 5,
+      "goals": []
+    },
+    "assets": [],
+    "layers": [
+      {
+        "id": "desktop:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 1816,
+            "y": 2072,
+            "width": 976,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 2160,
+            "y": 2144,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "desktop:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 2664,
+            "y": 2080,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 2696,
+            "y": 2080,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 2728,
+            "y": 2080,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "desktop:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 1816,
+            "y": 2120,
+            "width": 976,
+            "height": 512,
+            "label": "AREA DE TRABALHO / DESKTOP"
+          },
+          {
+            "kind": "terminal",
+            "x": 2208,
+            "y": 2144,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "dock:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 2136,
+            "y": 2744,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 2288,
+            "y": 2816,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "dock:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 2600,
+            "y": 2752,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 2632,
+            "y": 2752,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 2664,
+            "y": 2752,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "dock:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 2136,
+            "y": 2792,
+            "width": 592,
+            "height": 384,
+            "label": "AREA DE TRABALHO / DOCK"
+          },
+          {
+            "kind": "terminal",
+            "x": 2336,
+            "y": 2816,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "root:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 664,
+            "y": 1560,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 816,
+            "y": 1632,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "root:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "folder-0",
+            "x": 704,
+            "y": 1640,
+            "width": 48,
+            "height": 32
+          },
+          {
+            "id": "folder-1",
+            "x": 784,
+            "y": 1640,
+            "width": 48,
+            "height": 32
+          },
+          {
+            "id": "folder-2",
+            "x": 864,
+            "y": 1640,
+            "width": 48,
+            "height": 32
+          }
+        ]
+      },
+      {
+        "id": "root:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 664,
+            "y": 1608,
+            "width": 592,
+            "height": 512,
+            "label": "SISTEMA DE ARQUIVOS / ROOT"
+          },
+          {
+            "kind": "folder",
+            "x": 864,
+            "y": 1632,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "documents:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 24,
+            "y": 2264,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 176,
+            "y": 2336,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "documents:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "folder-0",
+            "x": 64,
+            "y": 2344,
+            "width": 48,
+            "height": 32
+          },
+          {
+            "id": "folder-1",
+            "x": 144,
+            "y": 2344,
+            "width": 48,
+            "height": 32
+          },
+          {
+            "id": "folder-2",
+            "x": 224,
+            "y": 2344,
+            "width": 48,
+            "height": 32
+          }
+        ]
+      },
+      {
+        "id": "documents:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 24,
+            "y": 2312,
+            "width": 592,
+            "height": 512,
+            "label": "SISTEMA DE ARQUIVOS / DOCUMENTS"
+          },
+          {
+            "kind": "folder",
+            "x": 224,
+            "y": 2336,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "archive:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 1048,
+            "y": 2968,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 1200,
+            "y": 3040,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "archive:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "folder-0",
+            "x": 1088,
+            "y": 3048,
+            "width": 48,
+            "height": 32
+          },
+          {
+            "id": "folder-1",
+            "x": 1168,
+            "y": 3048,
+            "width": 48,
+            "height": 32
+          },
+          {
+            "id": "folder-2",
+            "x": 1248,
+            "y": 3048,
+            "width": 48,
+            "height": 32
+          }
+        ]
+      },
+      {
+        "id": "archive:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 1048,
+            "y": 3016,
+            "width": 592,
+            "height": 512,
+            "label": "SISTEMA DE ARQUIVOS / ARCHIVE"
+          },
+          {
+            "kind": "folder",
+            "x": 1248,
+            "y": 3040,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "recycle:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 24,
+            "y": 3032,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 176,
+            "y": 3104,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "recycle:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "folder-0",
+            "x": 64,
+            "y": 3112,
+            "width": 48,
+            "height": 32
+          },
+          {
+            "id": "folder-1",
+            "x": 144,
+            "y": 3112,
+            "width": 48,
+            "height": 32
+          },
+          {
+            "id": "folder-2",
+            "x": 224,
+            "y": 3112,
+            "width": 48,
+            "height": 32
+          }
+        ]
+      },
+      {
+        "id": "recycle:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 24,
+            "y": 3080,
+            "width": 592,
+            "height": 448,
+            "label": "SISTEMA DE ARQUIVOS / RECYCLE"
+          },
+          {
+            "kind": "folder",
+            "x": 224,
+            "y": 3104,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "scheduler:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 3160,
+            "y": 1560,
+            "width": 720,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 3376,
+            "y": 1632,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "scheduler:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 3752,
+            "y": 1568,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 3784,
+            "y": 1568,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 3816,
+            "y": 1568,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "scheduler:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 3160,
+            "y": 1608,
+            "width": 720,
+            "height": 512,
+            "label": "GERENCIADOR DE PROCESSOS / SCHEDULER"
+          },
+          {
+            "kind": "terminal",
+            "x": 3424,
+            "y": 1632,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "worker:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 4248,
+            "y": 1880,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 4400,
+            "y": 1952,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "worker:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 4712,
+            "y": 1888,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 4744,
+            "y": 1888,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 4776,
+            "y": 1888,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "worker:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 4248,
+            "y": 1928,
+            "width": 592,
+            "height": 512,
+            "label": "GERENCIADOR DE PROCESSOS / WORKER"
+          },
+          {
+            "kind": "terminal",
+            "x": 4448,
+            "y": 1952,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "clock:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 3416,
+            "y": 2264,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 3568,
+            "y": 2336,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "clock:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 3880,
+            "y": 2272,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 3912,
+            "y": 2272,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 3944,
+            "y": 2272,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "clock:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 3416,
+            "y": 2312,
+            "width": 592,
+            "height": 448,
+            "label": "GERENCIADOR DE PROCESSOS / CLOCK"
+          },
+          {
+            "kind": "terminal",
+            "x": 3616,
+            "y": 2336,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "swap:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 3352,
+            "y": 664,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 3504,
+            "y": 736,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "swap:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#37536c",
+        "rects": [
+          {
+            "id": "page-0",
+            "x": 3552,
+            "y": 768,
+            "width": 40,
+            "height": 64
+          },
+          {
+            "id": "page-1",
+            "x": 3616,
+            "y": 800,
+            "width": 40,
+            "height": 64
+          },
+          {
+            "id": "page-2",
+            "x": 3680,
+            "y": 832,
+            "width": 40,
+            "height": 64
+          }
+        ]
+      },
+      {
+        "id": "swap:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 3352,
+            "y": 712,
+            "width": 592,
+            "height": 640,
+            "label": "MEMORIA VIRTUAL / SWAP"
+          },
+          {
+            "kind": "terminal",
+            "x": 3552,
+            "y": 736,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "pages:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 4248,
+            "y": 536,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 4400,
+            "y": 608,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "pages:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#37536c",
+        "rects": [
+          {
+            "id": "page-0",
+            "x": 4448,
+            "y": 640,
+            "width": 40,
+            "height": 64
+          },
+          {
+            "id": "page-1",
+            "x": 4512,
+            "y": 672,
+            "width": 40,
+            "height": 64
+          },
+          {
+            "id": "page-2",
+            "x": 4576,
+            "y": 704,
+            "width": 40,
+            "height": 64
+          }
+        ]
+      },
+      {
+        "id": "pages:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 4248,
+            "y": 584,
+            "width": 592,
+            "height": 1024,
+            "label": "MEMORIA VIRTUAL / PAGES"
+          },
+          {
+            "kind": "terminal",
+            "x": 4448,
+            "y": 608,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "swap-cache:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 3352,
+            "y": 24,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 3504,
+            "y": 96,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "swap-cache:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#37536c",
+        "rects": [
+          {
+            "id": "page-0",
+            "x": 3552,
+            "y": 128,
+            "width": 40,
+            "height": 64
+          },
+          {
+            "id": "page-1",
+            "x": 3616,
+            "y": 160,
+            "width": 40,
+            "height": 64
+          },
+          {
+            "id": "page-2",
+            "x": 3680,
+            "y": 192,
+            "width": 40,
+            "height": 64
+          }
+        ]
+      },
+      {
+        "id": "swap-cache:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 3352,
+            "y": 72,
+            "width": 592,
+            "height": 384,
+            "label": "MEMORIA VIRTUAL / SWAP-CACHE"
+          },
+          {
+            "kind": "terminal",
+            "x": 3552,
+            "y": 96,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "quarantine:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 3096,
+            "y": 3032,
+            "width": 720,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 3312,
+            "y": 3104,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "quarantine:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 3688,
+            "y": 3040,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 3720,
+            "y": 3040,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 3752,
+            "y": 3040,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "quarantine:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 3096,
+            "y": 3080,
+            "width": 720,
+            "height": 512,
+            "label": "ARQUIVOS CORROMPIDOS / QUARANTINE"
+          },
+          {
+            "kind": "terminal",
+            "x": 3360,
+            "y": 3104,
+            "width": 192,
+            "height": 128,
+            "label": "ERRO / DADOS DANIFICADOS"
+          }
+        ]
+      },
+      {
+        "id": "recovery:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 4248,
+            "y": 2776,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 4400,
+            "y": 2848,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "recovery:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 4712,
+            "y": 2784,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 4744,
+            "y": 2784,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 4776,
+            "y": 2784,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "recovery:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 4248,
+            "y": 2824,
+            "width": 592,
+            "height": 640,
+            "label": "ARQUIVOS CORROMPIDOS / RECOVERY"
+          },
+          {
+            "kind": "terminal",
+            "x": 4448,
+            "y": 2848,
+            "width": 192,
+            "height": 128,
+            "label": "ERRO / DADOS DANIFICADOS"
+          }
+        ]
+      },
+      {
+        "id": "infected-vault:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 4248,
+            "y": 3672,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 4400,
+            "y": 3744,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "infected-vault:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 4712,
+            "y": 3680,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 4744,
+            "y": 3680,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 4776,
+            "y": 3680,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "infected-vault:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 4248,
+            "y": 3720,
+            "width": 592,
+            "height": 384,
+            "label": "ARQUIVOS CORROMPIDOS / INFECTED-VAULT"
+          },
+          {
+            "kind": "terminal",
+            "x": 4448,
+            "y": 3744,
+            "width": 192,
+            "height": 128,
+            "label": "ERRO / DADOS DANIFICADOS"
+          }
+        ]
+      },
+      {
+        "id": "kernel-gateway:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 1816,
+            "y": 1048,
+            "width": 720,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 2032,
+            "y": 1120,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "kernel-gateway:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 2408,
+            "y": 1056,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 2440,
+            "y": 1056,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 2472,
+            "y": 1056,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "kernel-gateway:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 1816,
+            "y": 1096,
+            "width": 720,
+            "height": 640,
+            "label": "NUCLEO DO SISTEMA / KERNEL-GATEWAY"
+          },
+          {
+            "kind": "core",
+            "x": 2080,
+            "y": 1120,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "kernel-io:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 664,
+            "y": 664,
+            "width": 592,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 816,
+            "y": 736,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "kernel-io:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 1128,
+            "y": 672,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 1160,
+            "y": 672,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 1192,
+            "y": 672,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "kernel-io:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 664,
+            "y": 712,
+            "width": 592,
+            "height": 640,
+            "label": "NUCLEO DO SISTEMA / KERNEL-IO"
+          },
+          {
+            "kind": "core",
+            "x": 864,
+            "y": 736,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "kernel-stack:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 1816,
+            "y": 280,
+            "width": 720,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 2032,
+            "y": 352,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "kernel-stack:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 2408,
+            "y": 288,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 2440,
+            "y": 288,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 2472,
+            "y": 288,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "kernel-stack:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 1816,
+            "y": 328,
+            "width": 720,
+            "height": 512,
+            "label": "NUCLEO DO SISTEMA / KERNEL-STACK"
+          },
+          {
+            "kind": "core",
+            "x": 2080,
+            "y": 352,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "kernel-exit:window-body",
+        "type": "rects",
+        "pass": "background",
+        "color": "#26223f",
+        "rects": [
+          {
+            "id": "header",
+            "x": 24,
+            "y": 24,
+            "width": 976,
+            "height": 32
+          },
+          {
+            "id": "pane-a",
+            "x": 368,
+            "y": 96,
+            "width": 288,
+            "height": 128
+          }
+        ]
+      },
+      {
+        "id": "kernel-exit:window-icons",
+        "type": "rects",
+        "pass": "background",
+        "color": "#785078",
+        "rects": [
+          {
+            "id": "status-0",
+            "x": 872,
+            "y": 32,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-1",
+            "x": 904,
+            "y": 32,
+            "width": 16,
+            "height": 16
+          },
+          {
+            "id": "status-2",
+            "x": 936,
+            "y": 32,
+            "width": 16,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "kernel-exit:window-content",
+        "type": "computer-world",
+        "theme": "software",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "window-room",
+            "x": 24,
+            "y": 72,
+            "width": 976,
+            "height": 384,
+            "label": "NUCLEO DO SISTEMA / KERNEL-EXIT"
+          },
+          {
+            "kind": "core",
+            "x": 416,
+            "y": 96,
+            "width": 192,
+            "height": 128,
+            "label": ""
+          }
+        ]
+      }
+    ],
+    "mechanics": [
+      {
+        "id": "worker:process-deadline",
+        "type": "parkour-hazards",
+        "hazards": [
+          {
+            "id": "worker:overload",
+            "kind": "laser",
+            "x": 4608,
+            "y": 2408,
+            "width": 24,
+            "height": 40,
+            "warning": 1.25,
+            "active": 0.7,
+            "period": 5.2,
+            "damage": 8
+          }
+        ]
+      },
+      {
+        "id": "clock:process-deadline",
+        "type": "parkour-hazards",
+        "hazards": [
+          {
+            "id": "clock:overload",
+            "kind": "laser",
+            "x": 3776,
+            "y": 2728,
+            "width": 24,
+            "height": 40,
+            "warning": 1.25,
+            "active": 0.7,
+            "period": 5.2,
+            "damage": 8
+          }
+        ]
+      },
+      {
+        "id": "quarantine:process-deadline",
+        "type": "parkour-hazards",
+        "hazards": [
+          {
+            "id": "quarantine:overload",
+            "kind": "laser",
+            "x": 3520,
+            "y": 3560,
+            "width": 24,
+            "height": 40,
+            "warning": 1.25,
+            "active": 0.7,
+            "period": 5.2,
+            "damage": 8
+          }
+        ]
+      },
+      {
+        "id": "kernel-stack:process-deadline",
+        "type": "parkour-hazards",
+        "hazards": [
+          {
+            "id": "kernel-stack:overload",
+            "kind": "laser",
+            "x": 2240,
+            "y": 808,
+            "width": 24,
+            "height": 40,
+            "warning": 1.25,
+            "active": 0.7,
+            "period": 5.2,
+            "damage": 8
+          }
+        ]
+      },
+      {
+        "id": "system-directory-network",
+        "type": "portals",
+        "links": [
+          {
+            "id": "desktop:to-dock",
+            "x": 1840,
+            "y": 2564,
+            "width": 40,
+            "height": 76,
+            "label": "DOCK",
+            "to": {
+              "x": 2164,
+              "y": 3136
+            }
+          },
+          {
+            "id": "desktop:to-root",
+            "x": 2720,
+            "y": 2564,
+            "width": 40,
+            "height": 76,
+            "label": "ROOT",
+            "to": {
+              "x": 692,
+              "y": 2080
+            }
+          },
+          {
+            "id": "desktop:to-scheduler",
+            "x": 2280,
+            "y": 2372,
+            "width": 40,
+            "height": 76,
+            "label": "SCHEDULER",
+            "to": {
+              "x": 3188,
+              "y": 2080
+            }
+          },
+          {
+            "id": "desktop:to-swap",
+            "x": 1888,
+            "y": 2276,
+            "width": 40,
+            "height": 76,
+            "label": "SWAP / REPARAR",
+            "requires": {
+              "component": "scheduler:scheduler"
+            },
+            "to": {
+              "x": 3380,
+              "y": 1312
+            }
+          },
+          {
+            "id": "desktop:to-quarantine",
+            "x": 2656,
+            "y": 2276,
+            "width": 40,
+            "height": 76,
+            "label": "QUARANTINE",
+            "to": {
+              "x": 3124,
+              "y": 3552
+            }
+          },
+          {
+            "id": "desktop:to-kernel-gateway",
+            "x": 2280,
+            "y": 2180,
+            "width": 40,
+            "height": 76,
+            "label": "KERNEL-GATEWAY / REPARAR",
+            "requires": {
+              "all": [
+                {
+                  "component": "root:index"
+                },
+                {
+                  "component": "scheduler:scheduler"
+                },
+                {
+                  "component": "swap:paging"
+                },
+                {
+                  "component": "recovery:recovery"
+                }
+              ]
+            },
+            "to": {
+              "x": 1844,
+              "y": 1696
+            }
+          },
+          {
+            "id": "dock:to-desktop",
+            "x": 2160,
+            "y": 3108,
+            "width": 40,
+            "height": 76,
+            "label": "DESKTOP",
+            "to": {
+              "x": 1844,
+              "y": 2592
+            }
+          },
+          {
+            "id": "root:to-desktop",
+            "x": 688,
+            "y": 2052,
+            "width": 40,
+            "height": 76,
+            "label": "DESKTOP",
+            "to": {
+              "x": 2724,
+              "y": 2592
+            }
+          },
+          {
+            "id": "root:to-documents",
+            "x": 1184,
+            "y": 2052,
+            "width": 40,
+            "height": 76,
+            "label": "DOCUMENTS",
+            "to": {
+              "x": 52,
+              "y": 2784
+            }
+          },
+          {
+            "id": "root:to-archive",
+            "x": 936,
+            "y": 1860,
+            "width": 40,
+            "height": 76,
+            "label": "ARCHIVE",
+            "to": {
+              "x": 1572,
+              "y": 3488
+            }
+          },
+          {
+            "id": "documents:to-root",
+            "x": 48,
+            "y": 2756,
+            "width": 40,
+            "height": 76,
+            "label": "ROOT",
+            "to": {
+              "x": 1188,
+              "y": 2080
+            }
+          },
+          {
+            "id": "documents:to-archive",
+            "x": 544,
+            "y": 2756,
+            "width": 40,
+            "height": 76,
+            "label": "ARCHIVE",
+            "to": {
+              "x": 1076,
+              "y": 3488
+            }
+          },
+          {
+            "id": "documents:to-recycle",
+            "x": 296,
+            "y": 2564,
+            "width": 40,
+            "height": 76,
+            "label": "RECYCLE",
+            "to": {
+              "x": 52,
+              "y": 3488
+            }
+          },
+          {
+            "id": "archive:to-documents",
+            "x": 1072,
+            "y": 3460,
+            "width": 40,
+            "height": 76,
+            "label": "DOCUMENTS",
+            "to": {
+              "x": 548,
+              "y": 2784
+            }
+          },
+          {
+            "id": "archive:to-root",
+            "x": 1568,
+            "y": 3460,
+            "width": 40,
+            "height": 76,
+            "label": "ROOT",
+            "to": {
+              "x": 940,
+              "y": 1888
+            }
+          },
+          {
+            "id": "archive:to-swap",
+            "x": 1320,
+            "y": 3268,
+            "width": 40,
+            "height": 76,
+            "label": "SWAP",
+            "to": {
+              "x": 3628,
+              "y": 1120
+            }
+          },
+          {
+            "id": "archive:to-quarantine",
+            "x": 1120,
+            "y": 3172,
+            "width": 40,
+            "height": 76,
+            "label": "QUARANTINE / REPARAR",
+            "requires": {
+              "component": "root:index"
+            },
+            "to": {
+              "x": 3172,
+              "y": 3264
+            }
+          },
+          {
+            "id": "recycle:to-documents",
+            "x": 48,
+            "y": 3460,
+            "width": 40,
+            "height": 76,
+            "label": "DOCUMENTS",
+            "to": {
+              "x": 300,
+              "y": 2592
+            }
+          },
+          {
+            "id": "scheduler:to-desktop",
+            "x": 3184,
+            "y": 2052,
+            "width": 40,
+            "height": 76,
+            "label": "DESKTOP",
+            "to": {
+              "x": 2284,
+              "y": 2400
+            }
+          },
+          {
+            "id": "scheduler:to-worker",
+            "x": 3808,
+            "y": 2052,
+            "width": 40,
+            "height": 76,
+            "label": "WORKER",
+            "to": {
+              "x": 4276,
+              "y": 2400
+            }
+          },
+          {
+            "id": "scheduler:to-clock",
+            "x": 3496,
+            "y": 1860,
+            "width": 40,
+            "height": 76,
+            "label": "CLOCK",
+            "to": {
+              "x": 3940,
+              "y": 2720
+            }
+          },
+          {
+            "id": "scheduler:to-pages",
+            "x": 3232,
+            "y": 1764,
+            "width": 40,
+            "height": 76,
+            "label": "PAGES",
+            "to": {
+              "x": 4524,
+              "y": 1184
+            }
+          },
+          {
+            "id": "worker:to-scheduler",
+            "x": 4272,
+            "y": 2372,
+            "width": 40,
+            "height": 76,
+            "label": "SCHEDULER",
+            "to": {
+              "x": 3812,
+              "y": 2080
+            }
+          },
+          {
+            "id": "worker:to-clock",
+            "x": 4768,
+            "y": 2372,
+            "width": 40,
+            "height": 76,
+            "label": "CLOCK",
+            "to": {
+              "x": 3444,
+              "y": 2720
+            }
+          },
+          {
+            "id": "clock:to-worker",
+            "x": 3440,
+            "y": 2692,
+            "width": 40,
+            "height": 76,
+            "label": "WORKER",
+            "to": {
+              "x": 4772,
+              "y": 2400
+            }
+          },
+          {
+            "id": "clock:to-scheduler",
+            "x": 3936,
+            "y": 2692,
+            "width": 40,
+            "height": 76,
+            "label": "SCHEDULER",
+            "to": {
+              "x": 3500,
+              "y": 1888
+            }
+          },
+          {
+            "id": "clock:to-quarantine",
+            "x": 3688,
+            "y": 2500,
+            "width": 40,
+            "height": 76,
+            "label": "QUARANTINE",
+            "to": {
+              "x": 3436,
+              "y": 3360
+            }
+          },
+          {
+            "id": "swap:to-desktop",
+            "x": 3376,
+            "y": 1284,
+            "width": 40,
+            "height": 76,
+            "label": "DESKTOP / REPARAR",
+            "requires": {
+              "component": "scheduler:scheduler"
+            },
+            "to": {
+              "x": 1892,
+              "y": 2304
+            }
+          },
+          {
+            "id": "swap:to-pages",
+            "x": 3872,
+            "y": 1284,
+            "width": 40,
+            "height": 76,
+            "label": "PAGES",
+            "to": {
+              "x": 4276,
+              "y": 1568
+            }
+          },
+          {
+            "id": "swap:to-archive",
+            "x": 3624,
+            "y": 1092,
+            "width": 40,
+            "height": 76,
+            "label": "ARCHIVE",
+            "to": {
+              "x": 1324,
+              "y": 3296
+            }
+          },
+          {
+            "id": "pages:to-swap",
+            "x": 4272,
+            "y": 1540,
+            "width": 40,
+            "height": 76,
+            "label": "SWAP",
+            "to": {
+              "x": 3876,
+              "y": 1312
+            }
+          },
+          {
+            "id": "pages:to-swap-cache",
+            "x": 4520,
+            "y": 532,
+            "width": 40,
+            "height": 76,
+            "label": "SWAP-CACHE",
+            "to": {
+              "x": 3380,
+              "y": 416
+            }
+          },
+          {
+            "id": "pages:to-scheduler",
+            "x": 4520,
+            "y": 1156,
+            "width": 40,
+            "height": 76,
+            "label": "SCHEDULER",
+            "to": {
+              "x": 3236,
+              "y": 1792
+            }
+          },
+          {
+            "id": "swap-cache:to-pages",
+            "x": 3376,
+            "y": 388,
+            "width": 40,
+            "height": 76,
+            "label": "PAGES",
+            "to": {
+              "x": 4524,
+              "y": 560
+            }
+          },
+          {
+            "id": "quarantine:to-desktop",
+            "x": 3120,
+            "y": 3524,
+            "width": 40,
+            "height": 76,
+            "label": "DESKTOP",
+            "to": {
+              "x": 2660,
+              "y": 2304
+            }
+          },
+          {
+            "id": "quarantine:to-recovery",
+            "x": 3744,
+            "y": 3524,
+            "width": 40,
+            "height": 76,
+            "label": "RECOVERY",
+            "to": {
+              "x": 4276,
+              "y": 3424
+            }
+          },
+          {
+            "id": "quarantine:to-clock",
+            "x": 3432,
+            "y": 3332,
+            "width": 40,
+            "height": 76,
+            "label": "CLOCK",
+            "to": {
+              "x": 3692,
+              "y": 2528
+            }
+          },
+          {
+            "id": "quarantine:to-archive",
+            "x": 3168,
+            "y": 3236,
+            "width": 40,
+            "height": 76,
+            "label": "ARCHIVE / REPARAR",
+            "requires": {
+              "component": "root:index"
+            },
+            "to": {
+              "x": 1124,
+              "y": 3200
+            }
+          },
+          {
+            "id": "recovery:to-quarantine",
+            "x": 4272,
+            "y": 3396,
+            "width": 40,
+            "height": 76,
+            "label": "QUARANTINE",
+            "to": {
+              "x": 3748,
+              "y": 3552
+            }
+          },
+          {
+            "id": "recovery:to-infected-vault",
+            "x": 4768,
+            "y": 3396,
+            "width": 40,
+            "height": 76,
+            "label": "INFECTED-VAULT / REPARAR",
+            "requires": {
+              "component": "recovery:recovery"
+            },
+            "to": {
+              "x": 4276,
+              "y": 4064
+            }
+          },
+          {
+            "id": "infected-vault:to-recovery",
+            "x": 4272,
+            "y": 4036,
+            "width": 40,
+            "height": 76,
+            "label": "RECOVERY / REPARAR",
+            "requires": {
+              "component": "recovery:recovery"
+            },
+            "to": {
+              "x": 4772,
+              "y": 3424
+            }
+          },
+          {
+            "id": "kernel-gateway:to-desktop",
+            "x": 1840,
+            "y": 1668,
+            "width": 40,
+            "height": 76,
+            "label": "DESKTOP / REPARAR",
+            "requires": {
+              "all": [
+                {
+                  "component": "root:index"
+                },
+                {
+                  "component": "scheduler:scheduler"
+                },
+                {
+                  "component": "swap:paging"
+                },
+                {
+                  "component": "recovery:recovery"
+                }
+              ]
+            },
+            "to": {
+              "x": 2284,
+              "y": 2208
+            }
+          },
+          {
+            "id": "kernel-gateway:to-kernel-io",
+            "x": 2464,
+            "y": 1668,
+            "width": 40,
+            "height": 76,
+            "label": "KERNEL-IO",
+            "to": {
+              "x": 692,
+              "y": 1312
+            }
+          },
+          {
+            "id": "kernel-gateway:to-kernel-exit",
+            "x": 2152,
+            "y": 1476,
+            "width": 40,
+            "height": 76,
+            "label": "KERNEL-EXIT / REPARAR",
+            "requires": {
+              "component": "kernel-stack:kernel"
+            },
+            "to": {
+              "x": 932,
+              "y": 416
+            }
+          },
+          {
+            "id": "kernel-io:to-kernel-gateway",
+            "x": 688,
+            "y": 1284,
+            "width": 40,
+            "height": 76,
+            "label": "KERNEL-GATEWAY",
+            "to": {
+              "x": 2468,
+              "y": 1696
+            }
+          },
+          {
+            "id": "kernel-io:to-kernel-stack",
+            "x": 1184,
+            "y": 1284,
+            "width": 40,
+            "height": 76,
+            "label": "KERNEL-STACK",
+            "to": {
+              "x": 1844,
+              "y": 800
+            }
+          },
+          {
+            "id": "kernel-stack:to-kernel-io",
+            "x": 1840,
+            "y": 772,
+            "width": 40,
+            "height": 76,
+            "label": "KERNEL-IO",
+            "to": {
+              "x": 1188,
+              "y": 1312
+            }
+          },
+          {
+            "id": "kernel-stack:to-kernel-exit",
+            "x": 2152,
+            "y": 308,
+            "width": 40,
+            "height": 76,
+            "label": "KERNEL-EXIT",
+            "to": {
+              "x": 52,
+              "y": 416
+            }
+          },
+          {
+            "id": "kernel-exit:to-kernel-stack",
+            "x": 48,
+            "y": 388,
+            "width": 40,
+            "height": 76,
+            "label": "KERNEL-STACK",
+            "to": {
+              "x": 2156,
+              "y": 336
+            }
+          },
+          {
+            "id": "kernel-exit:to-kernel-gateway",
+            "x": 928,
+            "y": 388,
+            "width": 40,
+            "height": 76,
+            "label": "KERNEL-GATEWAY / REPARAR",
+            "requires": {
+              "component": "kernel-stack:kernel"
+            },
+            "to": {
+              "x": 2156,
+              "y": 1504
+            }
+          }
+        ]
+      }
+    ],
+    "generation": {
+      "version": 1,
+      "seed": "byte-software-v3-2026",
+      "recipe": {
+        "id": "phase-02",
+        "name": "Software — O sistema corrompido",
+        "theme": "software",
+        "seed": "byte-software-v3-2026",
+        "revision": 5,
+        "layout": "hub",
+        "connectivity": "portal-network",
+        "objective": "Explore as janelas, restaure arquivos, processos e memoria virtual, remova a corrupcao e recupere o nucleo do sistema.",
+        "size": {
+          "width": 5120,
+          "height": 4224
+        },
+        "rooms": [
+          {
+            "id": "desktop",
+            "x": 1792,
+            "y": 2048,
+            "template": "sw-desktop"
+          },
+          {
+            "id": "dock",
+            "x": 2112,
+            "y": 2720,
+            "generator": "software-v3-vault",
+            "config": {
+              "id": "dock",
+              "x": 2112,
+              "y": 2720,
+              "width": 640,
+              "height": 512,
+              "region": "desktop",
+              "role": "secret",
+              "doors": [
+                {
+                  "to": "desktop"
+                }
+              ]
+            }
+          },
+          {
+            "id": "root",
+            "x": 640,
+            "y": 1536,
+            "template": "sw-root"
+          },
+          {
+            "id": "documents",
+            "x": 0,
+            "y": 2240,
+            "template": "sw-documents"
+          },
+          {
+            "id": "archive",
+            "x": 1024,
+            "y": 2944,
+            "template": "sw-archive"
+          },
+          {
+            "id": "recycle",
+            "x": 0,
+            "y": 3008,
+            "generator": "software-v3-vault",
+            "config": {
+              "id": "recycle",
+              "x": 0,
+              "y": 3008,
+              "width": 640,
+              "height": 576,
+              "region": "files",
+              "role": "secret",
+              "doors": [
+                {
+                  "to": "documents"
+                }
+              ]
+            }
+          },
+          {
+            "id": "scheduler",
+            "x": 3136,
+            "y": 1536,
+            "template": "sw-scheduler"
+          },
+          {
+            "id": "worker",
+            "x": 4224,
+            "y": 1856,
+            "template": "sw-worker"
+          },
+          {
+            "id": "clock",
+            "x": 3392,
+            "y": 2240,
+            "template": "sw-clock"
+          },
+          {
+            "id": "swap",
+            "x": 3328,
+            "y": 640,
+            "template": "sw-swap"
+          },
+          {
+            "id": "pages",
+            "x": 4224,
+            "y": 512,
+            "template": "sw-pages"
+          },
+          {
+            "id": "swap-cache",
+            "x": 3328,
+            "y": 0,
+            "generator": "software-v3-vault",
+            "config": {
+              "id": "swap-cache",
+              "x": 3328,
+              "y": 0,
+              "width": 640,
+              "height": 512,
+              "region": "virtual",
+              "role": "secret",
+              "doors": [
+                {
+                  "to": "pages"
+                }
+              ]
+            }
+          },
+          {
+            "id": "quarantine",
+            "x": 3072,
+            "y": 3008,
+            "template": "sw-quarantine"
+          },
+          {
+            "id": "recovery",
+            "x": 4224,
+            "y": 2752,
+            "template": "sw-recovery"
+          },
+          {
+            "id": "infected-vault",
+            "x": 4224,
+            "y": 3648,
+            "generator": "software-v3-vault",
+            "config": {
+              "id": "infected-vault",
+              "x": 4224,
+              "y": 3648,
+              "width": 640,
+              "height": 512,
+              "region": "corrupt",
+              "role": "secret",
+              "doors": [
+                {
+                  "to": "recovery",
+                  "requires": {
+                    "component": "recovery:recovery"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "kernel-gateway",
+            "x": 1792,
+            "y": 1024,
+            "template": "sw-kernel-gateway"
+          },
+          {
+            "id": "kernel-io",
+            "x": 640,
+            "y": 640,
+            "template": "sw-kernel-io"
+          },
+          {
+            "id": "kernel-stack",
+            "x": 1792,
+            "y": 256,
+            "template": "sw-kernel-stack"
+          },
+          {
+            "id": "kernel-exit",
+            "x": 0,
+            "y": 0,
+            "template": "sw-kernel-exit"
+          }
+        ],
+        "links": [],
+        "start": {
+          "room": "desktop",
+          "anchor": "entry"
+        },
+        "exit": {
+          "room": "kernel-exit",
+          "anchor": "exit",
+          "width": 64,
+          "height": 64
+        },
+        "objectives": {
+          "repairAllComponents": true,
+          "defeatAllViruses": true,
+          "requireExitQuestion": true
+        }
+      },
+      "presentation": {
+        "tileSize": 32,
+        "tileset": "tiles-02",
+        "scenery": "decor-02",
+        "background": "sky-02"
+      },
+      "rooms": [
+        {
+          "id": "desktop",
+          "source": {
+            "kind": "manual",
+            "id": "sw-desktop",
+            "version": 5
+          },
+          "x": 1792,
+          "y": 2048,
+          "width": 1024,
+          "height": 640
+        },
+        {
+          "id": "dock",
+          "source": {
+            "kind": "procedural",
+            "id": "software-v3-vault",
+            "version": 5
+          },
+          "x": 2112,
+          "y": 2720,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "root",
+          "source": {
+            "kind": "manual",
+            "id": "sw-root",
+            "version": 5
+          },
+          "x": 640,
+          "y": 1536,
+          "width": 640,
+          "height": 640
+        },
+        {
+          "id": "documents",
+          "source": {
+            "kind": "manual",
+            "id": "sw-documents",
+            "version": 5
+          },
+          "x": 0,
+          "y": 2240,
+          "width": 640,
+          "height": 640
+        },
+        {
+          "id": "archive",
+          "source": {
+            "kind": "manual",
+            "id": "sw-archive",
+            "version": 5
+          },
+          "x": 1024,
+          "y": 2944,
+          "width": 640,
+          "height": 640
+        },
+        {
+          "id": "recycle",
+          "source": {
+            "kind": "procedural",
+            "id": "software-v3-vault",
+            "version": 5
+          },
+          "x": 0,
+          "y": 3008,
+          "width": 640,
+          "height": 576
+        },
+        {
+          "id": "scheduler",
+          "source": {
+            "kind": "manual",
+            "id": "sw-scheduler",
+            "version": 5
+          },
+          "x": 3136,
+          "y": 1536,
+          "width": 768,
+          "height": 640
+        },
+        {
+          "id": "worker",
+          "source": {
+            "kind": "manual",
+            "id": "sw-worker",
+            "version": 5
+          },
+          "x": 4224,
+          "y": 1856,
+          "width": 640,
+          "height": 640
+        },
+        {
+          "id": "clock",
+          "source": {
+            "kind": "manual",
+            "id": "sw-clock",
+            "version": 5
+          },
+          "x": 3392,
+          "y": 2240,
+          "width": 640,
+          "height": 576
+        },
+        {
+          "id": "swap",
+          "source": {
+            "kind": "manual",
+            "id": "sw-swap",
+            "version": 5
+          },
+          "x": 3328,
+          "y": 640,
+          "width": 640,
+          "height": 768
+        },
+        {
+          "id": "pages",
+          "source": {
+            "kind": "manual",
+            "id": "sw-pages",
+            "version": 5
+          },
+          "x": 4224,
+          "y": 512,
+          "width": 640,
+          "height": 1152
+        },
+        {
+          "id": "swap-cache",
+          "source": {
+            "kind": "procedural",
+            "id": "software-v3-vault",
+            "version": 5
+          },
+          "x": 3328,
+          "y": 0,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "quarantine",
+          "source": {
+            "kind": "manual",
+            "id": "sw-quarantine",
+            "version": 5
+          },
+          "x": 3072,
+          "y": 3008,
+          "width": 768,
+          "height": 640
+        },
+        {
+          "id": "recovery",
+          "source": {
+            "kind": "manual",
+            "id": "sw-recovery",
+            "version": 5
+          },
+          "x": 4224,
+          "y": 2752,
+          "width": 640,
+          "height": 768
+        },
+        {
+          "id": "infected-vault",
+          "source": {
+            "kind": "procedural",
+            "id": "software-v3-vault",
+            "version": 5
+          },
+          "x": 4224,
+          "y": 3648,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "kernel-gateway",
+          "source": {
+            "kind": "manual",
+            "id": "sw-kernel-gateway",
+            "version": 5
+          },
+          "x": 1792,
+          "y": 1024,
+          "width": 768,
+          "height": 768
+        },
+        {
+          "id": "kernel-io",
+          "source": {
+            "kind": "manual",
+            "id": "sw-kernel-io",
+            "version": 5
+          },
+          "x": 640,
+          "y": 640,
+          "width": 640,
+          "height": 768
+        },
+        {
+          "id": "kernel-stack",
+          "source": {
+            "kind": "manual",
+            "id": "sw-kernel-stack",
+            "version": 5
+          },
+          "x": 1792,
+          "y": 256,
+          "width": 768,
+          "height": 640
+        },
+        {
+          "id": "kernel-exit",
+          "source": {
+            "kind": "manual",
+            "id": "sw-kernel-exit",
+            "version": 5
+          },
+          "x": 0,
+          "y": 0,
+          "width": 1024,
+          "height": 512
+        }
+      ],
+      "links": [],
+      "architecture": {
+        "version": 3,
+        "mode": "asymmetric-window-constellation",
+        "regions": [
+          "AREA DE TRABALHO",
+          "SISTEMA DE ARQUIVOS",
+          "GERENCIADOR DE PROCESSOS",
+          "MEMORIA VIRTUAL",
+          "ARQUIVOS CORROMPIDOS",
+          "NUCLEO DO SISTEMA"
+        ],
+        "rooms": [
+          {
+            "id": "desktop",
+            "region": "desktop",
+            "role": "hub"
+          },
+          {
+            "id": "dock",
+            "region": "desktop",
+            "role": "secret"
+          },
+          {
+            "id": "root",
+            "region": "files",
+            "role": "repair"
+          },
+          {
+            "id": "documents",
+            "region": "files",
+            "role": "combat"
+          },
+          {
+            "id": "archive",
+            "region": "files",
+            "role": "exploration"
+          },
+          {
+            "id": "recycle",
+            "region": "files",
+            "role": "secret"
+          },
+          {
+            "id": "scheduler",
+            "region": "process",
+            "role": "repair"
+          },
+          {
+            "id": "worker",
+            "region": "process",
+            "role": "combat"
+          },
+          {
+            "id": "clock",
+            "region": "process",
+            "role": "timing"
+          },
+          {
+            "id": "swap",
+            "region": "virtual",
+            "role": "repair"
+          },
+          {
+            "id": "pages",
+            "region": "virtual",
+            "role": "tower"
+          },
+          {
+            "id": "swap-cache",
+            "region": "virtual",
+            "role": "secret"
+          },
+          {
+            "id": "quarantine",
+            "region": "corrupt",
+            "role": "combat"
+          },
+          {
+            "id": "recovery",
+            "region": "corrupt",
+            "role": "repair"
+          },
+          {
+            "id": "infected-vault",
+            "region": "corrupt",
+            "role": "secret"
+          },
+          {
+            "id": "kernel-gateway",
+            "region": "kernel",
+            "role": "exploration"
+          },
+          {
+            "id": "kernel-io",
+            "region": "kernel",
+            "role": "combat"
+          },
+          {
+            "id": "kernel-stack",
+            "region": "kernel",
+            "role": "stack"
+          },
+          {
+            "id": "kernel-exit",
+            "region": "kernel",
+            "role": "exit"
+          }
+        ],
+        "optionalRooms": [
+          "dock",
+          "recycle",
+          "swap-cache",
+          "infected-vault"
+        ],
+        "portalEdges": [
+          {
+            "from": "desktop",
+            "to": "dock"
+          },
+          {
+            "from": "desktop",
+            "to": "root"
+          },
+          {
+            "from": "root",
+            "to": "documents"
+          },
+          {
+            "from": "documents",
+            "to": "archive"
+          },
+          {
+            "from": "archive",
+            "to": "root"
+          },
+          {
+            "from": "documents",
+            "to": "recycle"
+          },
+          {
+            "from": "desktop",
+            "to": "scheduler"
+          },
+          {
+            "from": "scheduler",
+            "to": "worker"
+          },
+          {
+            "from": "worker",
+            "to": "clock"
+          },
+          {
+            "from": "clock",
+            "to": "scheduler"
+          },
+          {
+            "from": "desktop",
+            "to": "swap",
+            "requires": {
+              "component": "scheduler:scheduler"
+            }
+          },
+          {
+            "from": "swap",
+            "to": "pages"
+          },
+          {
+            "from": "pages",
+            "to": "swap-cache"
+          },
+          {
+            "from": "pages",
+            "to": "scheduler"
+          },
+          {
+            "from": "archive",
+            "to": "swap"
+          },
+          {
+            "from": "desktop",
+            "to": "quarantine"
+          },
+          {
+            "from": "quarantine",
+            "to": "recovery"
+          },
+          {
+            "from": "recovery",
+            "to": "infected-vault",
+            "requires": {
+              "component": "recovery:recovery"
+            }
+          },
+          {
+            "from": "clock",
+            "to": "quarantine"
+          },
+          {
+            "from": "archive",
+            "to": "quarantine",
+            "requires": {
+              "component": "root:index"
+            }
+          },
+          {
+            "from": "desktop",
+            "to": "kernel-gateway",
+            "requires": {
+              "all": [
+                {
+                  "component": "root:index"
+                },
+                {
+                  "component": "scheduler:scheduler"
+                },
+                {
+                  "component": "swap:paging"
+                },
+                {
+                  "component": "recovery:recovery"
+                }
+              ]
+            }
+          },
+          {
+            "from": "kernel-gateway",
+            "to": "kernel-io"
+          },
+          {
+            "from": "kernel-io",
+            "to": "kernel-stack"
+          },
+          {
+            "from": "kernel-stack",
+            "to": "kernel-exit"
+          },
+          {
+            "from": "kernel-exit",
+            "to": "kernel-gateway",
+            "requires": {
+              "component": "kernel-stack:kernel"
+            }
+          }
+        ],
+        "durationMinutes": null,
+        "targetMinutes": [
+          15,
+          25
+        ]
+      }
+    },
+    "objective": "Explore as janelas, restaure arquivos, processos e memoria virtual, remova a corrupcao e recupere o nucleo do sistema."
+  },
+  "note": "Explicit Software V3 browser export; historical fixtures and Hardware unchanged."
+}

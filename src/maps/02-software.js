@@ -1,628 +1,92 @@
-// Rebuilt layout, revision 2. Authored by tools/build_first_five.py.
-ByteRunner.maps.register(ByteRunner.campaignGeneration.build({
-  "schemaVersion": 2,
-  "revision": 2,
-  "id": "phase-02",
-  "name": "Software do computador",
-  "theme": "software",
-  "objective": "Navegue pelos diretórios, restaure processos e arquivos e recupere o escalonador nas quatro salas do sistema.",
-  "palette": [
-    "#111025",
-    "#302756",
-    "#b6a0ff",
-    "#575187",
-    "#f297c7"
-  ],
-  "presentation": {
-    "procedural": false
-  },
-  "map": {
-    "width": 1900,
-    "height": 1400,
-    "layout": "hub",
-    "start": {
-      "x": 280,
-      "y": 1202
-    },
-    "exit": {
-      "mode": "region",
-      "x": 1660,
-      "y": 1186,
-      "width": 90,
-      "height": 64
-    },
-    "bounds": {
-      "left": true,
-      "right": true,
-      "ceiling": true,
-      "floor": true
-    },
-    "camera": {
-      "axes": [
-        "x",
-        "y"
-      ],
-      "followOffsetX": 0.44,
-      "followOffsetY": 0.55
-    },
-    "ground": {
-      "mode": "explicit",
-      "segments": [
-        {
-          "id": "desktop-floor",
-          "x": 80,
-          "y": 1250,
-          "width": 660,
-          "height": 28
-        },
-        {
-          "id": "process-floor",
-          "x": 80,
-          "y": 650,
-          "width": 660,
-          "height": 28
-        },
-        {
-          "id": "filesystem-floor",
-          "x": 1150,
-          "y": 650,
-          "width": 660,
-          "height": 28
-        },
-        {
-          "id": "scheduler-floor",
-          "x": 1150,
-          "y": 1250,
-          "width": 660,
-          "height": 28
-        }
-      ]
-    },
-    "checkpoints": [
-      {
-        "x": 180,
-        "y": 650
-      },
-      {
-        "x": 1250,
-        "y": 650
-      },
-      {
-        "x": 1300,
-        "y": 1250
-      }
-    ],
-    "checkpointMode": "free",
-    "progress": {
-      "axis": "objectives"
-    },
-    "routes": [
-      "Desktop → Processos → Arquivos",
-      "Desktop → Escalonador → Arquivos"
-    ]
-  },
-  "entities": {
-    "platforms": [
-      {
-        "id": "desktop-window",
-        "x": 300,
-        "y": 1150,
-        "width": 180,
-        "height": 18,
-        "type": "moving",
-        "collision": "one-way",
-        "style": "window",
-        "motion": {
-          "axis": "x",
-          "range": 28,
-          "speed": 0.6
-        }
-      },
-      {
-        "id": "desktop-cache",
-        "x": 510,
-        "y": 1060,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "process-window",
-        "x": 250,
-        "y": 550,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "process-monitor",
-        "x": 440,
-        "y": 470,
-        "width": 160,
-        "height": 18,
-        "type": "moving",
-        "collision": "one-way",
-        "style": "window",
-        "motion": {
-          "axis": "y",
-          "range": 12,
-          "speed": 0.7
-        }
-      },
-      {
-        "id": "filesystem-step",
-        "x": 1220,
-        "y": 560,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "restored-file-window",
-        "x": 1430,
-        "y": 480,
-        "width": 200,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window",
-        "requiresComponentId": "c02"
-      },
-      {
-        "id": "scheduler-step",
-        "x": 1270,
-        "y": 1170,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "scheduler-platform",
-        "x": 1450,
-        "y": 1090,
-        "width": 230,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "restored-process-link",
-        "x": 520,
-        "y": 550,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window",
-        "requiresComponentId": "c01"
-      },
-      {
-        "id": "scheduler-secret",
-        "x": 1650,
-        "y": 1000,
-        "width": 140,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "restored-scheduler-window",
-        "x": 1230,
-        "y": 1010,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window",
-        "requiresComponentId": "c03"
-      }
-    ],
-    "obstacles": [
-      {
-        "id": "desktop-wall-left",
-        "x": 60,
-        "y": 920,
-        "width": 20,
-        "height": 354,
-        "collision": "solid",
-        "type": "corrupt"
-      },
-      {
-        "id": "desktop-wall-right",
-        "x": 740,
-        "y": 920,
-        "width": 20,
-        "height": 354,
-        "collision": "solid",
-        "type": "corrupt"
-      },
-      {
-        "id": "process-wall-left",
-        "x": 60,
-        "y": 320,
-        "width": 20,
-        "height": 354,
-        "collision": "solid",
-        "type": "corrupt"
-      },
-      {
-        "id": "process-wall-right",
-        "x": 740,
-        "y": 320,
-        "width": 20,
-        "height": 354,
-        "collision": "solid",
-        "type": "corrupt"
-      },
-      {
-        "id": "files-wall-left",
-        "x": 1130,
-        "y": 320,
-        "width": 20,
-        "height": 354,
-        "collision": "solid",
-        "type": "corrupt"
-      },
-      {
-        "id": "files-wall-right",
-        "x": 1810,
-        "y": 320,
-        "width": 20,
-        "height": 354,
-        "collision": "solid",
-        "type": "corrupt"
-      },
-      {
-        "id": "scheduler-wall-left",
-        "x": 1130,
-        "y": 920,
-        "width": 20,
-        "height": 354,
-        "collision": "solid",
-        "type": "corrupt"
-      },
-      {
-        "id": "scheduler-wall-right",
-        "x": 1810,
-        "y": 920,
-        "width": 20,
-        "height": 354,
-        "collision": "solid",
-        "type": "corrupt"
-      },
-      {
-        "id": "corrupt-file",
-        "x": 1390,
-        "y": 554,
-        "width": 46,
-        "height": 96,
-        "type": "corrupt",
-        "collision": "solid",
-        "requiresComponentId": "c02"
-      },
-      {
-        "id": "hung-process",
-        "x": 540,
-        "y": 570,
-        "width": 38,
-        "height": 80,
-        "type": "corrupt",
-        "collision": "solid",
-        "requiresComponentId": "c01"
-      }
-    ],
-    "gates": [],
-    "components": [
-      {
-        "id": "c01",
-        "x": 420,
-        "y": 606,
-        "width": 34,
-        "height": 44,
-        "label": "PROCESSO DO SISTEMA"
-      },
-      {
-        "id": "c02",
-        "x": 1510,
-        "y": 606,
-        "width": 34,
-        "height": 44,
-        "label": "ÍNDICE DE ARQUIVOS"
-      },
-      {
-        "id": "c03",
-        "x": 1510,
-        "y": 1046,
-        "width": 34,
-        "height": 44,
-        "label": "ESCALONADOR"
-      }
-    ],
-    "enemies": [
-      {
-        "id": "e01",
-        "type": "fast",
-        "x": 550,
-        "y": 1226,
-        "groundY": 1250,
-        "navigationBounds": {
-          "left": 220,
-          "right": 650
-        },
-        "patrolMin": 220,
-        "patrolMax": 650,
-        "activationRegion": {
-          "x": 80,
-          "y": 900,
-          "width": 660,
-          "height": 400
-        }
-      },
-      {
-        "id": "e02",
-        "type": "basic",
-        "x": 570,
-        "y": 626,
-        "groundY": 650,
-        "navigationBounds": {
-          "left": 300,
-          "right": 680
-        },
-        "patrolMin": 300,
-        "patrolMax": 680,
-        "activationRegion": {
-          "x": 80,
-          "y": 300,
-          "width": 660,
-          "height": 400
-        }
-      },
-      {
-        "id": "e03",
-        "type": "shooter",
-        "x": 1690,
-        "y": 1066,
-        "groundY": 1090,
-        "navigationBounds": {
-          "left": 1490,
-          "right": 1650
-        },
-        "patrolMin": 1490,
-        "patrolMax": 1650,
-        "activationRegion": {
-          "x": 1150,
-          "y": 900,
-          "width": 660,
-          "height": 400
-        }
-      }
-    ],
-    "collectibles": [
-      {
-        "id": "i01",
-        "x": 565,
-        "y": 1030,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i02",
-        "x": 510,
-        "y": 435,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i03",
-        "x": 1530,
-        "y": 450,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i04",
-        "x": 1720,
-        "y": 970,
-        "radius": 10,
-        "secret": true
-      }
-    ],
-    "features": [],
-    "interactives": []
-  },
-  "objectives": {
-    "repairAllComponents": true,
-    "defeatAllViruses": true,
-    "requireExitQuestion": true,
-    "goals": [],
-    "componentsToRepair": 3,
-    "enemiesToDefeat": 3
-  },
-  "mechanics": [
-    {
-      "id": "directories",
-      "type": "portals",
-      "links": [
-        {
-          "id": "desktop-to-process",
-          "x": 610,
-          "y": 1174,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 150,
-            "y": 602
-          },
-          "label": "/PROCESSOS"
-        },
-        {
-          "id": "process-to-desktop",
-          "x": 110,
-          "y": 574,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 500,
-            "y": 1202
-          },
-          "label": "/DESKTOP"
-        },
-        {
-          "id": "process-to-files",
-          "x": 650,
-          "y": 574,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 1240,
-            "y": 602
-          },
-          "label": "/ARQUIVOS",
-          "requires": {
-            "component": "c01"
-          }
-        },
-        {
-          "id": "files-to-process",
-          "x": 1170,
-          "y": 574,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 530,
-            "y": 602
-          },
-          "label": "/PROCESSOS"
-        },
-        {
-          "id": "desktop-to-scheduler",
-          "x": 120,
-          "y": 1174,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 1240,
-            "y": 1202
-          },
-          "label": "/TAREFAS",
-          "requires": {
-            "component": "c01"
-          }
-        },
-        {
-          "id": "scheduler-to-desktop",
-          "x": 1180,
-          "y": 1174,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 240,
-            "y": 1202
-          },
-          "label": "/DESKTOP"
-        },
-        {
-          "id": "scheduler-to-files",
-          "x": 1740,
-          "y": 1174,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 1680,
-            "y": 602
-          },
-          "label": "/ARQUIVOS"
-        },
-        {
-          "id": "files-to-scheduler",
-          "x": 1740,
-          "y": 574,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 1270,
-            "y": 1202
-          },
-          "label": "/TAREFAS"
-        }
-      ]
+﻿// Software V3: an asymmetric constellation of OS windows, not a physical room grid.
+(() => {
+  'use strict';
+  const api=ByteRunner,g=api.mapGeneration,copy=api.maps.clone;
+  const regions=[{id:'desktop',name:'AREA DE TRABALHO',state:0},{id:'files',name:'SISTEMA DE ARQUIVOS',state:1},{id:'process',name:'GERENCIADOR DE PROCESSOS',state:2},{id:'virtual',name:'MEMORIA VIRTUAL',state:1},{id:'corrupt',name:'ARQUIVOS CORROMPIDOS',state:2},{id:'kernel',name:'NUCLEO DO SISTEMA',state:3}];
+  const rooms=[
+    ['desktop',1792,2048,1024,640,'desktop','hub'],['dock',2112,2720,640,512,'desktop','secret'],
+    ['root',640,1536,640,640,'files','repair'],['documents',0,2240,640,640,'files','combat'],['archive',1024,2944,640,640,'files','exploration'],['recycle',0,3008,640,576,'files','secret'],
+    ['scheduler',3136,1536,768,640,'process','repair'],['worker',4224,1856,640,640,'process','combat'],['clock',3392,2240,640,576,'process','timing'],
+    ['swap',3328,640,640,768,'virtual','repair'],['pages',4224,512,640,1152,'virtual','tower'],['swap-cache',3328,0,640,512,'virtual','secret'],
+    ['quarantine',3072,3008,768,640,'corrupt','combat'],['recovery',4224,2752,640,768,'corrupt','repair'],['infected-vault',4224,3648,640,512,'corrupt','secret'],
+    ['kernel-gateway',1792,1024,768,768,'kernel','exploration'],['kernel-io',640,640,640,768,'kernel','combat'],['kernel-stack',1792,256,768,640,'kernel','stack'],['kernel-exit',0,0,1024,512,'kernel','exit']
+  ].map(([id,x,y,width,height,region,role])=>({id,x,y,width,height,region,role,doors:[]}));
+  const byId=new Map(rooms.map(r=>[r.id,r]));
+  const repairs={root:['index','RESTAURAR INDICE DE ARQUIVOS'],scheduler:['scheduler','RESTAURAR ESCALONADOR'],swap:['paging','RESTAURAR PAGINACAO'],recovery:['recovery','RECONSTRUIR ARQUIVOS'],'kernel-stack':['kernel','RESTAURAR PROCESSOS DO NUCLEO']};
+  const restored={all:Object.entries(repairs).slice(0,4).map(([room,[id]])=>({component:room+':'+id}))};
+  const edges=[
+    ['desktop','dock'],['desktop','root'],['root','documents'],['documents','archive'],['archive','root'],['documents','recycle'],
+    ['desktop','scheduler'],['scheduler','worker'],['worker','clock'],['clock','scheduler'],
+    ['desktop','swap',{component:'scheduler:scheduler'}],['swap','pages'],['pages','swap-cache'],['pages','scheduler'],['archive','swap'],
+    ['desktop','quarantine'],['quarantine','recovery'],['recovery','infected-vault',{component:'recovery:recovery'}],['clock','quarantine'],['archive','quarantine',{component:'root:index'}],
+    ['desktop','kernel-gateway',restored],['kernel-gateway','kernel-io'],['kernel-io','kernel-stack'],['kernel-stack','kernel-exit'],['kernel-exit','kernel-gateway',{component:'kernel-stack:kernel'}]
+  ];
+  for(const [a,b,requires] of edges){byId.get(a).doors.push({to:b,requires});byId.get(b).doors.push({to:a,requires});}
+  function build(c,random){
+    const w=c.width,h=c.height,f=h-48,mid=w/2,r={id:'sw-'+c.id,version:5,width:w,height:h,ground:[],entities:Object.fromEntries(g.config.groups.map(k=>[k,[]])),anchors:{entry:{x:64,y:f-48}},sockets:[],checkpoints:[],layers:[],mechanics:[]};
+    const box=(id,x,y,width,height)=>({id,x,y,width,height});
+    const fixed=(id,x,y,width=144)=>r.entities.platforms.push({...box(id,x,y,width,16),type:'fixed',collision:'one-way',style:'window'});
+    const gap=c.role==='timing';
+    if(gap){r.ground.push(box('left-interface',0,f,mid-96,48),box('right-interface',mid+128,f,w-mid-128,48),box('recovery-floor',mid-96,h-16,224,16));fixed('safe-thread',mid-32,f-64,112);}
+    else r.ground.push(box('interface',0,f,w,48));
+    r.entities.obstacles.push(box('frame-left',0,0,16,f),box('frame-right',w-16,0,16,f),box('title-frame',16,0,w-32,16));
+    // Portals land only on permanent supports. Tall windows have genuine vertical courses.
+    const slots=c.doors.map((door,i)=>{
+      if(c.role==='tower'&&i===1)return {x:mid-24,y:96};
+      if(c.role==='tower'&&i===2)return {x:mid-24,y:f-384};
+      if(c.role==='stack'&&i>0)return {x:mid-24,y:128};
+      return [{x:48,y:f},{x:w-96,y:f},{x:mid-24,y:f-192},{x:96,y:f-288},{x:w-160,y:f-288},{x:mid-24,y:f-384}][i];
+    });
+    const highest=Math.min(f-96,...slots.map(s=>s.y));
+    const steps=Math.floor((f-highest)/96),tread=c.role==='stack'?96:c.role==='tower'?112:128;
+    for(let i=1;i<=steps;i++)fixed('thread-'+i,mid+(i%2?-208:-80),f-i*96,tread);
+    for(let i=0;i<slots.length;i++)if(slots[i].y!==f)fixed('door-pad-'+i,Math.max(32,Math.min(w-256,slots[i].x-72)),slots[i].y,224);
+    if(slots.some(s=>s.x>w-200&&s.y<f))fixed('thread-east',mid+16,f-288,160);
+    if(c.role==='tower'||c.role==='stack')fixed('upper-rest',mid-112,highest,224);
+    if(c.role==='secret'){
+      const x=random.int(5,8)*16;fixed('hidden-shelf',x,f-96,144);
+      r.entities.collectibles.push({id:'hidden-file',x:x+64,y:f-128,radius:10,secret:true},{id:'backup',x:w-176,y:f-30,radius:10,secret:true});
+    }else r.entities.collectibles.push({id:'file',x:112,y:f-30,radius:10,secret:false});
+    if(['tower','stack'].includes(c.role))r.entities.collectibles.push({id:'upper-file',x:mid,y:highest-30,radius:10,secret:false});
+    if(repairs[c.id]){
+      const [id,label]=repairs[c.id];r.entities.components.push({id,x:192,y:f-44,width:34,height:44,label,repair:api.repairChallenges.forPhase(1,Object.keys(repairs).indexOf(c.id))});
+      r.entities.platforms.push({...box('restored-interface',w-256,f-96,192,16),type:'fixed',collision:'one-way',style:'window',requires:{component:id}});
     }
-  ],
-  "assets": [],
-  "layers": [
-    {
-      "id": "authored-scenery",
-      "type": "computer-world",
-      "theme": "software",
-      "items": [
-        {
-          "kind": "window-room",
-          "x": 80,
-          "y": 920,
-          "width": 660,
-          "height": 330,
-          "label": "DESKTOP / ENTRADA"
-        },
-        {
-          "kind": "window-room",
-          "x": 80,
-          "y": 320,
-          "width": 660,
-          "height": 330,
-          "label": "PROCESSOS"
-        },
-        {
-          "kind": "window-room",
-          "x": 1150,
-          "y": 320,
-          "width": 660,
-          "height": 330,
-          "label": "SISTEMA DE ARQUIVOS"
-        },
-        {
-          "kind": "window-room",
-          "x": 1150,
-          "y": 920,
-          "width": 660,
-          "height": 330,
-          "label": "ESCALONADOR"
-        },
-        {
-          "kind": "folder",
-          "x": 510,
-          "y": 1020,
-          "width": 150,
-          "height": 40,
-          "label": "CACHE"
-        },
-        {
-          "kind": "process",
-          "x": 250,
-          "y": 520,
-          "width": 150,
-          "height": 30,
-          "label": "PID 014"
-        },
-        {
-          "kind": "process",
-          "x": 1450,
-          "y": 1060,
-          "width": 230,
-          "height": 30,
-          "label": "TASK MANAGER"
-        }
-      ],
-      "pass": "midground"
+    if(['desktop','root','scheduler','swap','recovery','kernel-gateway','kernel-stack','kernel-exit','documents'].includes(c.id))r.checkpoints.push({x:64,y:f});
+    const enemies=c.role==='combat'?2:['repair','tower','timing','stack','exit'].includes(c.role)?1:0;
+    for(let i=0;i<enemies;i++){
+      const x=i?mid-64:c.role==='timing'?w-96:w-176,type=c.region==='corrupt'?'armored':i?'shooter':c.region==='process'?'fast':'basic';
+      r.entities.enemies.push({id:'process-'+i,type,x,y:f-24,groundY:f,patrolMin:x-48,patrolMax:x+48,navigationBounds:{left:x-48,right:x+48},activationRegion:{x:16,y:32,width:w-32,height:h-48}});
     }
-  ]
-}));
+    if(['scheduler','worker','clock','swap','pages'].includes(c.id))r.entities.platforms.push({...box('moving-interface',80,f-208,144,16),type:'moving',collision:'one-way',style:'window',motion:{axis:c.region==='process'?'x':'y',range:48,speed:.55,phase:0}});
+    if(['swap','pages','clock','kernel-stack'].includes(c.id))r.entities.platforms.push({...box('volatile-page',w-240,f-288,128,16),type:'temporary',collision:'one-way',style:'window',duration:2.8,respawnDelay:2.2});
+    if(['clock','worker','quarantine','kernel-stack'].includes(c.id))r.mechanics.push({id:'process-deadline',type:'parkour-hazards',hazards:[{id:'overload',kind:'laser',x:mid+64,y:f-40,width:24,height:40,warning:1.25,active:.7,period:5.2,damage:8}]});
+    const links=c.doors.map((door,i)=>{
+      const s=slots[i],target=byId.get(door.to),targetIndex=target.doors.findIndex(d=>d.to===c.id);
+      r.anchors['port-'+i]={x:s.x+4,y:s.y-48};
+      return {id:'to-'+door.to,x:s.x,y:s.y-76,width:40,height:76,label:target.id.toUpperCase()+(door.requires?' / REPARAR':''),...(door.requires?{requires:door.requires}:{}),to:{room:door.to,anchor:'port-'+targetIndex}};
+    });
+    r.mechanics.push({id:'directories',type:'portals',links});
+    if(c.id==='infected-vault')r.entities.gates.push({...box('quarantine-door',352,32,16,f-32),opensWhen:{component:'recovery:recovery'}});
+    if(c.role==='exit'){
+      fixed('exit-step',w-448,f-96,160);fixed('exit-shelf',w-304,f-192,160);fixed('exit-dais',w-128,f-192,112);
+      r.entities.gates.push({...box('system-lock',w-144,64,16,f-64),opensWhen:{component:'kernel-stack:kernel'}});
+      r.anchors.exit={x:w-96,y:f-256};
+    }
+    const region=regions.find(d=>d.id===c.region),frames=[box('header',24,24,w-48,32),box('pane-a',mid-144,96,288,128)],icons=[];
+    if(c.region==='files')for(let i=0;i<3;i++)icons.push(box('folder-'+i,64+i*80,104,48,32));
+    else if(c.region==='virtual')for(let i=0;i<3;i++)icons.push(box('page-'+i,mid-96+i*64,128+i*32,40,64));
+    else for(let i=0;i<3;i++)icons.push(box('status-'+i,w-152+i*32,32,16,16));
+    r.layers.push({id:'window-body',type:'rects',pass:'background',color:'#26223f',rects:frames},{id:'window-icons',type:'rects',pass:'background',color:c.region==='virtual'?'#37536c':'#785078',rects:icons},
+      {id:'window-content',type:'computer-world',theme:'software',pass:'midground',items:[{kind:'window-room',x:24,y:72,width:w-48,height:h-128,label:region.name+' / '+c.id.toUpperCase()},{kind:c.region==='files'?'folder':c.region==='kernel'?'core':'terminal',x:mid-96,y:96,width:192,height:128,label:c.region==='corrupt'?'ERRO / DADOS DANIFICADOS':''}]});
+    return r;
+  }
+  g.registerGenerator({id:'software-v3-vault',version:5,generate({config,random}){return build(config,random);}});
+  const placements=rooms.map(c=>{if(c.role==='secret')return {id:c.id,x:c.x,y:c.y,generator:'software-v3-vault',config:c};const room=build(c);g.registerRoom(room);return {id:c.id,x:c.x,y:c.y,template:room.id};});
+  const plan={id:'phase-02',name:'Software — O sistema corrompido',theme:'software',seed:'byte-software-v3-2026',revision:5,layout:'hub',connectivity:'portal-network',
+    objective:'Explore as janelas, restaure arquivos, processos e memoria virtual, remova a corrupcao e recupere o nucleo do sistema.',size:{width:5120,height:4224},rooms:placements,links:[],start:{room:'desktop',anchor:'entry'},exit:{room:'kernel-exit',anchor:'exit',width:64,height:64},objectives:{repairAllComponents:true,defeatAllViruses:true,requireExitQuestion:true}};
+  const phase=copy(g.compile(plan));phase.map.checkpointMode='free';
+  phase.map.regions=regions.map(r=>({...r,areas:rooms.filter(c=>c.region===r.id).map(c=>({x:c.x,y:c.y,width:c.width,height:c.height}))}));
+  phase.generation.architecture={version:3,mode:'asymmetric-window-constellation',regions:regions.map(r=>r.name),rooms:rooms.map(c=>({id:c.id,region:c.region,role:c.role})),optionalRooms:rooms.filter(c=>c.role==='secret').map(c=>c.id),portalEdges:edges.map(([from,to,requires])=>({from,to,requires})),durationMinutes:null,targetMinutes:[15,25]};
+  api.maps.register(phase);
+})();

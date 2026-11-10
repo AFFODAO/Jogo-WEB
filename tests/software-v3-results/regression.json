@@ -1,0 +1,1997 @@
+{
+  "phases": [
+    {
+      "phase": 1,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 152,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "bus-west:return",
+        "socket:return",
+        "gpu-east:return",
+        "ram-base:return"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "thermal:guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "socket:guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "heatsink:guard",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "heatsink:sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "ram-base:guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "bus-cross:guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "bus-west:guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "bus-east:guard",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "bus-east:sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "gpu-west:guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "gpu-west:sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "gpu-east:guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "core-test:guard",
+          "type": "basic",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 2,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 109,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "desktop:to-dock",
+        "desktop:to-root",
+        "dock:to-desktop",
+        "root:to-desktop",
+        "root:to-documents",
+        "documents:to-root",
+        "documents:to-archive",
+        "desktop:to-scheduler",
+        "archive:to-documents",
+        "archive:to-root",
+        "root:to-archive",
+        "scheduler:to-desktop",
+        "scheduler:to-worker",
+        "desktop:to-quarantine",
+        "documents:to-recycle",
+        "worker:to-scheduler",
+        "worker:to-clock",
+        "quarantine:to-desktop",
+        "quarantine:to-recovery",
+        "archive:to-swap",
+        "recycle:to-documents",
+        "clock:to-worker",
+        "scheduler:to-clock",
+        "recovery:to-quarantine",
+        "swap:to-archive",
+        "clock:to-scheduler",
+        "scheduler:to-pages",
+        "quarantine:to-clock",
+        "clock:to-quarantine",
+        "pages:to-scheduler",
+        "swap:to-pages",
+        "pages:to-swap",
+        "pages:to-swap-cache",
+        "swap-cache:to-pages",
+        "desktop:to-kernel-gateway",
+        "desktop:to-swap",
+        "kernel-gateway:to-desktop",
+        "kernel-gateway:to-kernel-io",
+        "swap:to-desktop",
+        "recovery:to-infected-vault",
+        "archive:to-quarantine",
+        "kernel-io:to-kernel-gateway",
+        "kernel-io:to-kernel-stack",
+        "infected-vault:to-recovery",
+        "quarantine:to-archive",
+        "kernel-stack:to-kernel-io",
+        "kernel-stack:to-kernel-exit",
+        "kernel-exit:to-kernel-stack",
+        "kernel-gateway:to-kernel-exit",
+        "kernel-exit:to-kernel-gateway"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "root:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "documents:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "documents:process-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "scheduler:process-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "worker:process-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "worker:process-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "clock:process-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "swap:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "pages:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "quarantine:process-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "quarantine:process-1",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "recovery:process-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "kernel-io:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "kernel-io:process-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "kernel-stack:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "kernel-exit:process-0",
+          "type": "basic",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 3,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 32,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "parasite",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "shooter",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 4,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 24,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "lan-return",
+        "lan-interface",
+        "route-backup",
+        "wan-interface",
+        "wan-return"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "armored",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 5,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 34,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "basic",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 6,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 52,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "parasite",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "shooter",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 7,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 26,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "dhcp-diagnostic",
+        "diagnostic-dhcp",
+        "dhcp-scope-a",
+        "dhcp-relay",
+        "scope-a-dhcp",
+        "relay-dhcp",
+        "gateway-relay",
+        "relay-gateway"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "basic",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 8,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 44,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "root-com",
+        "com-root",
+        "com-mail",
+        "root-org",
+        "mail-return",
+        "org-root",
+        "org-api",
+        "nxdomain-return",
+        "com-nxdomain",
+        "api-return",
+        "archive-return",
+        "root-archive-secret",
+        "archive-root-secret",
+        "cname-com-org",
+        "api-cache",
+        "cache-root"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "parasite",
+          "result": "PASS"
+        },
+        {
+          "id": "e05",
+          "type": "armored",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 9,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 29,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "e05",
+          "type": "armored",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    },
+    {
+      "phase": 10,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 63,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "e01",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "e02",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e03",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "e04",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e05",
+          "type": "parasite",
+          "result": "PASS"
+        },
+        {
+          "id": "e06",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "e07",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "e08",
+          "type": "boss",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {
+    "skills and pending choice": "PASS",
+    "enemy attacks": "PASS",
+    "boss stages, shield and projectile defeat": "PASS",
+    "temporary and moving platforms": "PASS",
+    "keyboard controls": "PASS",
+    "resize and particle budget": "PASS",
+    "frame rate independent jump": "PASS",
+    "damage, shield, healing and repair upgrades": "PASS",
+    "distinct layouts and themes": "PASS",
+    "final boss telegraphs, dodge and weak point": "PASS",
+    "boss activation, skills and final checkpoint": "PASS",
+    "boss visual states": "PASS",
+    "volley and final combo can be dodged": "PASS",
+    "boss defeat opens mandatory final question and victory": "PASS",
+    "architecture: all layouts distinct, hybrid campaign preserves authored content": "PASS",
+    "architecture: map validation rejects broken references and geometry": "PASS",
+    "architecture: arbitrary ground segments and room checkpoints": "PASS",
+    "architecture: switches, custom repair, objectives and persisted mechanics": "PASS",
+    "architecture: sprite frames, animation state, layers and fallback": "PASS",
+    "architecture: old saves remain compatible": "PASS",
+    "architecture: custom repair UI mounts, completes and disposes": "PASS",
+    "architecture: per-map enemy controller and state": "PASS",
+    "rebuilt maps: every repair changes scenery or mechanics": "PASS",
+    "rebuilt maps: fans and radio interference affect physics and weapons": "PASS",
+    "rebuilt maps: directories and interfaces have safe actual destinations": "PASS",
+    "rebuilt maps: active ports remain mandatory and saved": "PASS",
+    "rebuilt maps: free checkpoints and legacy map saves": "PASS",
+    "rebuilt maps: checkpoints are stable before any repairs": "PASS",
+    "rebuilt maps: unstable signals cycle and windows carry the player": "PASS",
+    "rebuilt maps: objectives reachable at opposite movement extremes": "PASS",
+    "last five: every repair restores an actual connection": "PASS",
+    "last five: objects remain clear of geometry after restoration": "PASS",
+    "last five: all checkpoint landings stable before repairs": "PASS",
+    "last five: repaired elevators and IP leases transport the player": "PASS",
+    "last five: IP services are mandatory and gateways never trap arrivals": "PASS",
+    "last five: security cameras warn, fire and shut down after repair": "PASS",
+    "last five: laser cycles are predictable and can be jumped normally": "PASS",
+    "last five: arena protection, phase grace and cover weak points": "PASS",
+    "last five: old map saves restart safely with progression intact": "PASS",
+    "enemies: patrol detects only reachable visible targets and avoids ledges": "PASS",
+    "enemies: fast dash has fixed direction, warning, dodge and retreat": "PASS",
+    "enemies: frontal armor, rear weakness and recovery remain killable": "PASS",
+    "enemies: shooters choose range, prepare and fire at a locked aim": "PASS",
+    "enemies: flyers avoid geometry and alternate approach heights": "PASS",
+    "enemies: parasite infection, support, warned capped reinforcements": "PASS",
+    "enemies: all five thematic variants are present and functional": "PASS",
+    "enemies: packet hijacker captures at most one shot per preparation": "PASS",
+    "enemies: defeats grant XP exactly once and minions have safe capped spawns": "PASS",
+    "enemies: moving supports carry enemies and disappearing floors cause a safe fall": "PASS",
+    "enemies: legacy hold infection slowdown and Wi-Fi hit interference remain supported": "PASS",
+    "enemies: summon limits and file fork survive campaign resume": "PASS",
+    "enemies: VIRUS ZERO interleaves final charges and warns before summoning": "PASS",
+    "enemies: synthesized attack sounds use distinct oscillator settings": "PASS",
+    "enemies: attack and death visual states render in the real canvas": "PASS",
+    "art: all 77 PNG atlases decode; sprites paint pixels and spatial gaps match declarations": "PASS",
+    "art: failed image returns fallback signal": "PASS",
+    "art: robot actions and shield draw without changing gameplay": "PASS",
+    "repairs: all campaign components have solvable modal challenges and persist once": "PASS",
+    "repairs: keyboard tap opens immediately and freezes movement, combat and timers": "PASS",
+    "repairs: failure penalizes once, retry varies, cancel does not repair": "PASS",
+    "repairs: skill supplies hints and tolerance without solving the challenge": "PASS",
+    "repairs: generated variations remain solvable across all ten types": "PASS",
+    "experience: reduced effects persist, bound particles and suppress shake": "PASS",
+    "experience: intro freezes the world, can be skipped and settings pause safely": "PASS",
+    "experience: camera anticipation and vertical safety stay inside all map bounds": "PASS",
+    "experience: fixed simulation gives consistent travel at 30, 60 and 144 Hz": "PASS",
+    "experience: optional caches have clear support, are reachable and save once": "PASS",
+    "experience: original ambience differs across phases and schedules bounded voices": "PASS",
+    "audit: respawn protection expires in all phases and skill combinations": "PASS",
+    "audit: stale shield without skill never blocks real damage": "PASS",
+    "audit: every temporary platform disappears, returns and waits for occupied space": "PASS",
+    "audit: actual minigame success changes world state for every component": "PASS",
+    "audit: holding E cannot complete any campaign minigame": "PASS",
+    "audit: physical exit opens mandatory question and wrong answer resets on reload": "PASS",
+    "audit: all 45 map pairs have different normalized collision structures": "PASS",
+    "audit: animated robot and enemy states change pixels over time": "PASS",
+    "pixel art: native PNG dimensions, opaque palette pixels and complete robot actions": "PASS",
+    "pixel art: tilesets differ structurally after removing palette colors": "PASS",
+    "pixel art: activating a real ability and respawning select the new animation rows": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 2": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 3": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 5": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 8": "PASS",
+    "pixel art: thematic enemy and death PNG are used in phase 9": "PASS",
+    "pixel art: repair frames advance while player and world stay frozen": "PASS",
+    "generation: campaign generators coexist with optional composition": "PASS",
+    "generation: seeded streams reproduce and forks ignore caller order": "PASS",
+    "generation: registries validate templates and reject duplicate plugins": "PASS",
+    "generation: hybrid compiler is deterministic, immutable and has no map-registry side effects": "PASS",
+    "generation: local names and repair dependencies are qualified without collisions": "PASS",
+    "generation: enemies, zones, cameras and portal destinations translate correctly": "PASS",
+    "generation: malformed rooms and invalid layouts fail before engine loading": "PASS",
+    "generation: cross-room repairs and explicitly global flags keep their scope": "PASS",
+    "generation: missing repair references and conflicting assets are rejected": "PASS",
+    "generation: compiled room runs with existing movement, repairs and conditional geometry": "PASS",
+    "procedural: deterministic topology and physical traversal // pcb-alpha": "PASS",
+    "procedural: deterministic topology and physical traversal // pcb-beta": "PASS",
+    "procedural: deterministic topology and physical traversal // pcb-gamma": "PASS",
+    "procedural: three seeds differ structurally": "PASS",
+    "procedural: configuration limits and varied sizes remain valid": "PASS",
+    "procedural: optional diagnostic portals work in both directions": "PASS",
+    "parkour: shared jump envelope agrees with real 30/60/144Hz movement": "PASS",
+    "parkour: varied interiors, difficulty rhythm and conservative safety certificates": "PASS",
+    "parkour: horizontal shuttles and vertical elevators carry and release the player safely": "PASS",
+    "parkour: temporary platforms disappear, wait for occupied space, return and reset on death": "PASS",
+    "parkour: falling platforms warn, fall, return offscreen and wait for occupied space": "PASS",
+    "parkour: lasers and electricity warn before real damage and leave safe crossing windows": "PASS",
+    "parkour: every checkpoint survives lethal damage and void falls, protection expires": "PASS",
+    "parkour: 60 seeded configurations pass bounds, movement envelopes and spawn safety": "PASS",
+    "parkour: advanced precision route is traversable both ways without transient platforms": "PASS",
+    "hybrid campaign: ten independent recipes reproduce without shared source state": "PASS",
+    "hybrid campaign: architectures carry different traversal mechanics": "PASS",
+    "hybrid campaign: transmission elevator carries R-07 with base attributes": "PASS",
+    "infrastructure generation: original content, checkpoints and completion survive compilation": "PASS",
+    "infrastructure generation: manual VIRUS ZERO arena is identical across seeds": "PASS",
+    "infrastructure generation: procedural additions cannot enter the boss arena": "PASS",
+    "infrastructure generation: DHCP conflict region responds to its repair": "PASS",
+    "infrastructure generation: all DNS portals land safely without chained activations": "PASS",
+    "environment: autotiling connects surfaces, preserves gaps and detects concave corners": "PASS",
+    "environment: cached reduced parallax matches independent tile reference and reuses strips // phase 1": "PASS",
+    "environment: complete original tileset and three depth planes // phase 1": "PASS",
+    "environment: only current theme and required actors are loaded // phase 1": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 1": "PASS",
+    "environment: cached reduced parallax matches independent tile reference and reuses strips // phase 2": "PASS",
+    "environment: complete original tileset and three depth planes // phase 2": "PASS",
+    "environment: only current theme and required actors are loaded // phase 2": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 2": "PASS",
+    "environment: cached reduced parallax matches independent tile reference and reuses strips // phase 3": "PASS",
+    "environment: complete original tileset and three depth planes // phase 3": "PASS",
+    "environment: only current theme and required actors are loaded // phase 3": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 3": "PASS",
+    "environment: cached reduced parallax matches independent tile reference and reuses strips // phase 4": "PASS",
+    "environment: complete original tileset and three depth planes // phase 4": "PASS",
+    "environment: only current theme and required actors are loaded // phase 4": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 4": "PASS",
+    "environment: cached reduced parallax matches independent tile reference and reuses strips // phase 5": "PASS",
+    "environment: complete original tileset and three depth planes // phase 5": "PASS",
+    "environment: only current theme and required actors are loaded // phase 5": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 5": "PASS",
+    "environment: cached reduced parallax matches independent tile reference and reuses strips // phase 6": "PASS",
+    "environment: complete original tileset and three depth planes // phase 6": "PASS",
+    "environment: only current theme and required actors are loaded // phase 6": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 6": "PASS",
+    "environment: cached reduced parallax matches independent tile reference and reuses strips // phase 7": "PASS",
+    "environment: complete original tileset and three depth planes // phase 7": "PASS",
+    "environment: only current theme and required actors are loaded // phase 7": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 7": "PASS",
+    "environment: cached reduced parallax matches independent tile reference and reuses strips // phase 8": "PASS",
+    "environment: complete original tileset and three depth planes // phase 8": "PASS",
+    "environment: only current theme and required actors are loaded // phase 8": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 8": "PASS",
+    "environment: cached reduced parallax matches independent tile reference and reuses strips // phase 9": "PASS",
+    "environment: complete original tileset and three depth planes // phase 9": "PASS",
+    "environment: only current theme and required actors are loaded // phase 9": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 9": "PASS",
+    "environment: cached reduced parallax matches independent tile reference and reuses strips // phase 10": "PASS",
+    "environment: complete original tileset and three depth planes // phase 10": "PASS",
+    "environment: only current theme and required actors are loaded // phase 10": "PASS",
+    "environment: rendering leaves geometry, actors and progress unchanged // phase 10": "PASS",
+    "environment: themes differ structurally after removing palette colors": "PASS",
+    "environment: visible-only chunks are reused and memory stays bounded": "PASS",
+    "parallax: independent immutable profiles for all ten themes": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 1": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 2": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 3": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 4": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 5": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 6": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 7": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 8": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 9": "PASS",
+    "parallax: camera axes, cache lifecycle and readonly scenery / phase 10": "PASS",
+    "parallax: scenery pass ordering and legacy procedural decorations preserved": "PASS",
+    "depth hardware: four ordered structure planes and separate sparse atmosphere": "PASS",
+    "depth hardware: all variant edges tile seamlessly on both axes": "PASS",
+    "depth hardware: smooth fractional camera input produces integer monotone offsets": "PASS",
+    "depth hardware: actual horizontal and vertical camera follow remains bounded": "PASS",
+    "depth hardware: atmosphere animates occasionally and reduced effects retain silhouettes": "PASS",
+    "depth hardware: scenery is drawn before solid platforms, enemies and robot": "PASS",
+    "depth hardware: motherboard decoration no longer masks the parallax": "PASS",
+    "room gameplay: deterministic population across ten themes and three difficulties": "PASS",
+    "room gameplay: generated relays run each of the ten existing minigame types": "PASS",
+    "room gameplay: mandatory self-dependencies and unsafe enemy placement are rejected": "PASS",
+    "room gameplay: seeded size extremes retain safe content and mandatory repair access": "PASS",
+    "room gameplay: required combat budgets rise with selected difficulty": "PASS",
+    "room gameplay: existing generator API supports content opt-in and theme progression": "PASS",
+    "room gameplay: all eight room roles and repairs are physically accessible with base abilities": "PASS",
+    "room gameplay: repairs restore decks/lifts, remove roofs and unlock optional cache doors": "PASS",
+    "room gameplay: generated enemies can be defeated by base projectiles": "PASS",
+    "room gameplay: secret and risk rewards are collectible without optional skills": "PASS",
+    "room gameplay: every checkpoint is stable before repairs and death preserves completed repairs": "PASS",
+    "debug audit: isolated topology and model parity with real base movement": "PASS",
+    "debug audit: walk between contiguous supports below a low ceiling": "PASS",
+    "debug audit: detect isolation, impossible ledge and missing exit without mutation": "PASS",
+    "debug audit: active conditional portal updates reachability": "PASS",
+    "debug audit: disabled in normal campaign": "PASS",
+    "final regression: narrow-tunnel head clearance / corridor": "PASS",
+    "final regression: narrow-tunnel head clearance / door": "PASS",
+    "final regression: narrow-tunnel head clearance / tunnel": "PASS",
+    "final regression: narrow-tunnel head clearance / bridge": "PASS",
+    "final regression: north shaft leaves required step clear / tier 1": "PASS",
+    "final regression: north shaft leaves required step clear / tier 2": "PASS",
+    "final regression: north shaft leaves required step clear / tier 3": "PASS",
+    "final regression: return from right through north room / door": "PASS",
+    "final regression: return from right through north room / tunnel": "PASS",
+    "final regression: dependency validator honors runtime condition precedence": "PASS",
+    "final regression: encounter validator recomputes actual entity cost": "PASS",
+    "final regression: respawn cannot depend on an undiscovered secret platform": "PASS",
+    "audit: no runtime errors, unhandled rejections or console.error": "PASS"
+  },
+  "errors": [],
+  "audit": {
+    "respawn": [
+      {
+        "phase": 1,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 1,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 1,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 1,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 2,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 2,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 2,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 2,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 3,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 3,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 3,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 3,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 4,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 4,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 4,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 4,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 5,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 5,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 5,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 5,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 6,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 6,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 6,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 6,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 7,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 7,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 7,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 7,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 8,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 8,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 8,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 8,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 9,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 9,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 9,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 9,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 10,
+        "mode": "base",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 10,
+        "mode": "armor",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 24,
+        "shieldActiveSamples": 0
+      },
+      {
+        "phase": 10,
+        "mode": "shield",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      },
+      {
+        "phase": 10,
+        "mode": "all",
+        "damageAfterProtection": true,
+        "vulnerableSamples": 17,
+        "shieldActiveSamples": 960
+      }
+    ],
+    "temporaryPlatforms": [
+      {
+        "phase": 1,
+        "id": "bus-return:temporary-cache",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 1,
+        "id": "gpu-under:temporary-cache",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 2,
+        "id": "clock:volatile-page",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 2,
+        "id": "swap:volatile-page",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 2,
+        "id": "pages:volatile-page",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 2,
+        "id": "kernel-stack:volatile-page",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 5,
+        "id": "signal-01",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 5,
+        "id": "signal-05",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 5,
+        "id": "signal-09",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 5,
+        "id": "signal-13",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 5,
+        "id": "signal-17",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 9,
+        "id": "inspection-breakaway",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      },
+      {
+        "phase": 10,
+        "id": "combat-bridge-a",
+        "disappeared": true,
+        "returned": true,
+        "occupancyGuard": true
+      }
+    ],
+    "repairConsequences": [
+      {
+        "phase": 1,
+        "id": "socket:cpu-relay",
+        "changed": true
+      },
+      {
+        "phase": 1,
+        "id": "ram-base:ram-relay",
+        "changed": true
+      },
+      {
+        "phase": 1,
+        "id": "bus-west:bus-relay",
+        "changed": true
+      },
+      {
+        "phase": 1,
+        "id": "gpu-east:gpu-relay",
+        "changed": true
+      },
+      {
+        "phase": 2,
+        "id": "root:index",
+        "changed": true
+      },
+      {
+        "phase": 2,
+        "id": "scheduler:scheduler",
+        "changed": true
+      },
+      {
+        "phase": 2,
+        "id": "swap:paging",
+        "changed": true
+      },
+      {
+        "phase": 2,
+        "id": "recovery:recovery",
+        "changed": true
+      },
+      {
+        "phase": 2,
+        "id": "kernel-stack:kernel",
+        "changed": true
+      },
+      {
+        "phase": 3,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 3,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 3,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 4,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 4,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 4,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 5,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 5,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 5,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 6,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 6,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 6,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 7,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 7,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 7,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 8,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 8,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 8,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 9,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 9,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 9,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 9,
+        "id": "c04",
+        "changed": true
+      },
+      {
+        "phase": 10,
+        "id": "c01",
+        "changed": true
+      },
+      {
+        "phase": 10,
+        "id": "c02",
+        "changed": true
+      },
+      {
+        "phase": 10,
+        "id": "c03",
+        "changed": true
+      },
+      {
+        "phase": 10,
+        "id": "c04",
+        "changed": true
+      }
+    ],
+    "geometry": [
+      {
+        "phase": 1,
+        "name": "Hardware — A placa-mae gigante",
+        "layout": "multi-route",
+        "width": 4480,
+        "height": 2560,
+        "ground": 41,
+        "platforms": 111,
+        "connections": 4,
+        "occupiedCells": 1200
+      },
+      {
+        "phase": 2,
+        "name": "Software — O sistema corrompido",
+        "layout": "hub",
+        "width": 5120,
+        "height": 4224,
+        "ground": 21,
+        "platforms": 88,
+        "connections": 50,
+        "occupiedCells": 810
+      },
+      {
+        "phase": 3,
+        "name": "Switch de rede",
+        "layout": "multi-route",
+        "width": 2200,
+        "height": 1200,
+        "ground": 5,
+        "platforms": 27,
+        "connections": 0,
+        "occupiedCells": 1196
+      },
+      {
+        "phase": 4,
+        "name": "Roteador",
+        "layout": "maze",
+        "width": 2200,
+        "height": 1500,
+        "ground": 4,
+        "platforms": 20,
+        "connections": 5,
+        "occupiedCells": 873
+      },
+      {
+        "phase": 5,
+        "name": "Rede Wi-Fi",
+        "layout": "vertical",
+        "width": 1550,
+        "height": 2400,
+        "ground": 5,
+        "platforms": 29,
+        "connections": 0,
+        "occupiedCells": 776
+      },
+      {
+        "phase": 6,
+        "name": "Cabeamento e infraestrutura",
+        "layout": "vertical",
+        "width": 1600,
+        "height": 3000,
+        "ground": 8,
+        "platforms": 44,
+        "connections": 0,
+        "occupiedCells": 1229
+      },
+      {
+        "phase": 7,
+        "name": "Endereçamento IP e DHCP",
+        "layout": "hub",
+        "width": 2800,
+        "height": 1700,
+        "ground": 5,
+        "platforms": 21,
+        "connections": 8,
+        "occupiedCells": 308
+      },
+      {
+        "phase": 8,
+        "name": "DNS",
+        "layout": "maze",
+        "width": 3400,
+        "height": 2100,
+        "ground": 8,
+        "platforms": 36,
+        "connections": 16,
+        "occupiedCells": 632
+      },
+      {
+        "phase": 9,
+        "name": "Firewall e segurança",
+        "layout": "multi-route",
+        "width": 3600,
+        "height": 1800,
+        "ground": 6,
+        "platforms": 21,
+        "connections": 0,
+        "occupiedCells": 564
+      },
+      {
+        "phase": 10,
+        "name": "Servidores e Internet",
+        "layout": "multi-route",
+        "width": 6800,
+        "height": 2000,
+        "ground": 8,
+        "platforms": 50,
+        "connections": 0,
+        "occupiedCells": 465
+      }
+    ],
+    "pairs": [
+      {
+        "phases": [
+          1,
+          2
+        ],
+        "normalizedIoU": 0.054
+      },
+      {
+        "phases": [
+          1,
+          3
+        ],
+        "normalizedIoU": 0.1052
+      },
+      {
+        "phases": [
+          1,
+          4
+        ],
+        "normalizedIoU": 0.0459
+      },
+      {
+        "phases": [
+          1,
+          5
+        ],
+        "normalizedIoU": 0.0395
+      },
+      {
+        "phases": [
+          1,
+          6
+        ],
+        "normalizedIoU": 0.0279
+      },
+      {
+        "phases": [
+          1,
+          7
+        ],
+        "normalizedIoU": 0.0371
+      },
+      {
+        "phases": [
+          1,
+          8
+        ],
+        "normalizedIoU": 0.0397
+      },
+      {
+        "phases": [
+          1,
+          9
+        ],
+        "normalizedIoU": 0.0226
+      },
+      {
+        "phases": [
+          1,
+          10
+        ],
+        "normalizedIoU": 0.0361
+      },
+      {
+        "phases": [
+          2,
+          3
+        ],
+        "normalizedIoU": 0.0448
+      },
+      {
+        "phases": [
+          2,
+          4
+        ],
+        "normalizedIoU": 0.0402
+      },
+      {
+        "phases": [
+          2,
+          5
+        ],
+        "normalizedIoU": 0.0115
+      },
+      {
+        "phases": [
+          2,
+          6
+        ],
+        "normalizedIoU": 0.0303
+      },
+      {
+        "phases": [
+          2,
+          7
+        ],
+        "normalizedIoU": 0.0229
+      },
+      {
+        "phases": [
+          2,
+          8
+        ],
+        "normalizedIoU": 0.0518
+      },
+      {
+        "phases": [
+          2,
+          9
+        ],
+        "normalizedIoU": 0.0354
+      },
+      {
+        "phases": [
+          2,
+          10
+        ],
+        "normalizedIoU": 0.0383
+      },
+      {
+        "phases": [
+          3,
+          4
+        ],
+        "normalizedIoU": 0.0821
+      },
+      {
+        "phases": [
+          3,
+          5
+        ],
+        "normalizedIoU": 0.0379
+      },
+      {
+        "phases": [
+          3,
+          6
+        ],
+        "normalizedIoU": 0.0337
+      },
+      {
+        "phases": [
+          3,
+          7
+        ],
+        "normalizedIoU": 0.0652
+      },
+      {
+        "phases": [
+          3,
+          8
+        ],
+        "normalizedIoU": 0.0778
+      },
+      {
+        "phases": [
+          3,
+          9
+        ],
+        "normalizedIoU": 0.0489
+      },
+      {
+        "phases": [
+          3,
+          10
+        ],
+        "normalizedIoU": 0.0317
+      },
+      {
+        "phases": [
+          4,
+          5
+        ],
+        "normalizedIoU": 0.0457
+      },
+      {
+        "phases": [
+          4,
+          6
+        ],
+        "normalizedIoU": 0.073
+      },
+      {
+        "phases": [
+          4,
+          7
+        ],
+        "normalizedIoU": 0.0129
+      },
+      {
+        "phases": [
+          4,
+          8
+        ],
+        "normalizedIoU": 0.0576
+      },
+      {
+        "phases": [
+          4,
+          9
+        ],
+        "normalizedIoU": 0.2627
+      },
+      {
+        "phases": [
+          4,
+          10
+        ],
+        "normalizedIoU": 0.0237
+      },
+      {
+        "phases": [
+          5,
+          6
+        ],
+        "normalizedIoU": 0.0826
+      },
+      {
+        "phases": [
+          5,
+          7
+        ],
+        "normalizedIoU": 0.0285
+      },
+      {
+        "phases": [
+          5,
+          8
+        ],
+        "normalizedIoU": 0.0247
+      },
+      {
+        "phases": [
+          5,
+          9
+        ],
+        "normalizedIoU": 0.019
+      },
+      {
+        "phases": [
+          5,
+          10
+        ],
+        "normalizedIoU": 0.0172
+      },
+      {
+        "phases": [
+          6,
+          7
+        ],
+        "normalizedIoU": 0.024
+      },
+      {
+        "phases": [
+          6,
+          8
+        ],
+        "normalizedIoU": 0.0043
+      },
+      {
+        "phases": [
+          6,
+          9
+        ],
+        "normalizedIoU": 0.0406
+      },
+      {
+        "phases": [
+          6,
+          10
+        ],
+        "normalizedIoU": 0.0248
+      },
+      {
+        "phases": [
+          7,
+          8
+        ],
+        "normalizedIoU": 0.0195
+      },
+      {
+        "phases": [
+          7,
+          9
+        ],
+        "normalizedIoU": 0.0046
+      },
+      {
+        "phases": [
+          7,
+          10
+        ],
+        "normalizedIoU": 0.0105
+      },
+      {
+        "phases": [
+          8,
+          9
+        ],
+        "normalizedIoU": 0.0076
+      },
+      {
+        "phases": [
+          8,
+          10
+        ],
+        "normalizedIoU": 0.0262
+      },
+      {
+        "phases": [
+          9,
+          10
+        ],
+        "normalizedIoU": 0.0158
+      }
+    ]
+  },
+  "seeds": [
+    {
+      "seed": "pcb-alpha",
+      "rooms": 12,
+      "edges": 12,
+      "cycles": 1,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 106,
+      "returnSurfaces": 106,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    },
+    {
+      "seed": "pcb-beta",
+      "rooms": 12,
+      "edges": 13,
+      "cycles": 2,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 104,
+      "returnSurfaces": 104,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    },
+    {
+      "seed": "pcb-gamma",
+      "rooms": 12,
+      "edges": 13,
+      "cycles": 2,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 126,
+      "returnSurfaces": 126,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    }
+  ],
+  "execution": {
+    "atUTC": "2026-11-09T21:55:35.878311+00:00",
+    "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "transport": "localhost HTTP",
+    "isolatedStorage": true,
+    "instrumented": true,
+    "optionalSkillsDuringTraversal": false,
+    "damageProtectionDuringTraversal": true,
+    "limitations": [
+      "Graph search relocates R-07 between proven jump/portal edges; this is not an uninterrupted human playthrough.",
+      "Combat is tested separately with damage protection; survival balance still needs manual play.",
+      "Minigame solvers use generated answers through real DOM controls."
+    ],
+    "sourceSha256": "4374275b255bda4cb7b8fb7194d1e127d86e6df92473c7d7068d656b84a823f7"
+  },
+  "captures": [
+    "snapshots/phase-01-overview.png",
+    "snapshots/phase-01-0.png",
+    "snapshots/phase-01-0.5.png",
+    "snapshots/phase-01-1.png",
+    "snapshots/phase-02-overview.png",
+    "snapshots/phase-02-0.png",
+    "snapshots/phase-02-0.5.png",
+    "snapshots/phase-02-1.png",
+    "snapshots/phase-03-overview.png",
+    "snapshots/phase-03-0.png",
+    "snapshots/phase-03-0.5.png",
+    "snapshots/phase-03-1.png",
+    "snapshots/phase-04-overview.png",
+    "snapshots/phase-04-0.png",
+    "snapshots/phase-04-0.5.png",
+    "snapshots/phase-04-1.png",
+    "snapshots/phase-05-overview.png",
+    "snapshots/phase-05-0.png",
+    "snapshots/phase-05-0.5.png",
+    "snapshots/phase-05-1.png",
+    "snapshots/phase-06-overview.png",
+    "snapshots/phase-06-0.png",
+    "snapshots/phase-06-0.5.png",
+    "snapshots/phase-06-1.png",
+    "snapshots/phase-07-overview.png",
+    "snapshots/phase-07-0.png",
+    "snapshots/phase-07-0.5.png",
+    "snapshots/phase-07-1.png",
+    "snapshots/phase-08-overview.png",
+    "snapshots/phase-08-0.png",
+    "snapshots/phase-08-0.5.png",
+    "snapshots/phase-08-1.png",
+    "snapshots/phase-09-overview.png",
+    "snapshots/phase-09-0.png",
+    "snapshots/phase-09-0.5.png",
+    "snapshots/phase-09-1.png",
+    "snapshots/phase-10-overview.png",
+    "snapshots/phase-10-0.png",
+    "snapshots/phase-10-0.5.png",
+    "snapshots/phase-10-1.png",
+    "snapshots/phase-10-boss-protected.png",
+    "snapshots/phase-10-boss-charge.png",
+    "snapshots/phase-10-boss-surge.png",
+    "snapshots/phase-10-boss-combo.png",
+    "snapshots/phase-10-boss-weak-point.png",
+    "snapshots/phase-10-enemy-preparations.png",
+    "snapshots/phase-10-enemy-hit-recovery.png",
+    "snapshots/phase-10-enemy-deaths.png",
+    "snapshots/phase-01-art-start.png",
+    "snapshots/phase-02-art-start.png",
+    "snapshots/phase-03-art-start.png",
+    "snapshots/phase-04-art-start.png",
+    "snapshots/phase-05-art-start.png",
+    "snapshots/phase-06-art-start.png",
+    "snapshots/phase-07-art-start.png",
+    "snapshots/phase-08-art-start.png",
+    "snapshots/phase-09-art-start.png",
+    "snapshots/phase-10-art-start.png",
+    "snapshots/phase-01-structure.png",
+    "snapshots/phase-02-structure.png",
+    "snapshots/phase-03-structure.png",
+    "snapshots/phase-04-structure.png",
+    "snapshots/phase-05-structure.png",
+    "snapshots/phase-06-structure.png",
+    "snapshots/phase-07-structure.png",
+    "snapshots/phase-08-structure.png",
+    "snapshots/phase-09-structure.png",
+    "snapshots/phase-10-structure.png",
+    "snapshots/phase-01-procedural-pcb-alpha.png",
+    "snapshots/phase-01-procedural-pcb-beta.png",
+    "snapshots/phase-01-procedural-pcb-gamma.png",
+    "snapshots/phase-01-environment.png",
+    "snapshots/phase-02-environment.png",
+    "snapshots/phase-03-environment.png",
+    "snapshots/phase-04-environment.png",
+    "snapshots/phase-05-environment.png",
+    "snapshots/phase-06-environment.png",
+    "snapshots/phase-07-environment.png",
+    "snapshots/phase-08-environment.png",
+    "snapshots/phase-09-environment.png",
+    "snapshots/phase-10-environment.png",
+    "snapshots/phase-01-depth-start.png",
+    "snapshots/phase-01-depth-horizontal.png",
+    "snapshots/phase-01-depth-vertical.png",
+    "snapshots/phase-01-room-gameplay-initial.png",
+    "snapshots/phase-01-room-gameplay-exploration.png",
+    "snapshots/phase-01-room-gameplay-parkour.png",
+    "snapshots/phase-01-room-gameplay-combat.png",
+    "snapshots/phase-01-room-gameplay-repair.png",
+    "snapshots/phase-01-room-gameplay-reward.png",
+    "snapshots/phase-01-room-gameplay-secret.png",
+    "snapshots/phase-01-room-gameplay-final.png"
+  ],
+  "summary": {
+    "phases": 10,
+    "systems": 209,
+    "passedSystems": 209,
+    "captures": 92,
+    "runtimeErrors": 0,
+    "failures": []
+  }
+}

@@ -267,7 +267,8 @@ test('damage, shield, healing and repair upgrades',()=>{
 test('distinct layouts and themes',()=>{
   assert(PHASES.length===10&&new Set(PHASES.map(p=>p.theme)).size===10,'themes');
   assert(new Set(PHASES.map(p=>JSON.stringify(p.entities.platforms))).size===10,'duplicate geometry');
-  for(const type of ['horizontal','vertical','maze','multi-route'])assert(PHASES.some(p=>p.map.layout===type),'missing layout '+type);
+  for(const type of ['hub','vertical','maze','multi-route'])assert(PHASES.some(p=>p.map.layout===type),'missing layout '+type);
+  assert(PHASES[0].map.layout==='multi-route'&&PHASES[0].map.camera.axes.includes('y'),'Hardware must explore vertically as well as horizontally');
 });
 test('final boss telegraphs, dodge and weak point',()=>{
   const arena=()=>{setup(9);components.forEach(c=>c.repaired=true);const b=viruses.find(v=>v.multiStage);viruses=[b];b.x=5600;b.baseX=5600;b.speed=0;player.x=5730;player.y=bossGroundY(b)-48;damageCooldown=0;return b;};

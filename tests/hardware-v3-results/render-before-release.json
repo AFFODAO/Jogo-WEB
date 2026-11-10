@@ -1,0 +1,90 @@
+{
+  "sourceSha256": "239da831b948a4f17ba2e2fa574d0262384cbc29d7dec739e89064d4cba9054e",
+  "renderSamples": [
+    {
+      "logicalCanvas": [
+        640,
+        360
+      ],
+      "stress": {
+        "motion": "full-map diagonal scan in 60 frames, including abrupt reversals; exceeds player speed",
+        "samples": 120,
+        "medianDrawMs": 1,
+        "p95DrawMs": 3.5999999940395355
+      },
+      "normalMotion": {
+        "motion": "4.25 horizontal px/frame, subtle vertical drift, six districts, 15 warmup frames per district",
+        "samples": 270,
+        "medianDrawMs": 0.7000000029802322,
+        "p95DrawMs": 2.1000000089406967
+      },
+      "terrainChunks": 96,
+      "terrainBytes": 1681408,
+      "parallaxBytes": 4200704
+    },
+    {
+      "logicalCanvas": [
+        905,
+        644
+      ],
+      "stress": {
+        "motion": "full-map diagonal scan in 60 frames, including abrupt reversals; exceeds player speed",
+        "samples": 120,
+        "medianDrawMs": 1.199999988079071,
+        "p95DrawMs": 2.800000011920929
+      },
+      "normalMotion": {
+        "motion": "4.25 horizontal px/frame, subtle vertical drift, six districts, 15 warmup frames per district",
+        "samples": 270,
+        "medianDrawMs": 1.2000000029802322,
+        "p95DrawMs": 36.20000000298023
+      },
+      "terrainChunks": 96,
+      "terrainBytes": 1647616,
+      "parallaxBytes": 4200704
+    },
+    {
+      "logicalCanvas": [
+        1280,
+        720
+      ],
+      "stress": {
+        "motion": "full-map diagonal scan in 60 frames, including abrupt reversals; exceeds player speed",
+        "samples": 120,
+        "medianDrawMs": 2.2999999970197678,
+        "p95DrawMs": 54.30000001192093
+      },
+      "normalMotion": {
+        "motion": "4.25 horizontal px/frame, subtle vertical drift, six districts, 15 warmup frames per district",
+        "samples": 270,
+        "medianDrawMs": 1.7000000029802322,
+        "p95DrawMs": 56.69999998807907
+      },
+      "terrainChunks": 96,
+      "terrainBytes": 1607680,
+      "parallaxBytes": 4200704
+    },
+    {
+      "logicalCanvas": [
+        1920,
+        1080
+      ],
+      "stress": {
+        "motion": "full-map diagonal scan in 60 frames, including abrupt reversals; exceeds player speed",
+        "samples": 120,
+        "medianDrawMs": 5.100000008940697,
+        "p95DrawMs": 108.29999999701977
+      },
+      "normalMotion": {
+        "motion": "4.25 horizontal px/frame, subtle vertical drift, six districts, 15 warmup frames per district",
+        "samples": 270,
+        "medianDrawMs": 1.8999999910593033,
+        "p95DrawMs": 70.5
+      },
+      "terrainChunks": 96,
+      "terrainBytes": 1704960,
+      "parallaxBytes": 4200704
+    }
+  ],
+  "note": "Before explicit terrain bitmap release; headless Chrome, no GPU, draw-time sampling, not FPS."
+}

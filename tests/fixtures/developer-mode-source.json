@@ -1,0 +1,66 @@
+{
+  "gameEdits": [
+    {
+      "before": "  const SOUND_KEY = 'byteRunner.sound.v1';",
+      "after": "  const SOUND_KEY = 'byteRunner.sound.v1';\n  let developerSession = null;\n  let developerTools = null;\n  let frameRequest = null;"
+    },
+    {
+      "before": "  function readQuestionHistory() {\n    try {",
+      "after": "  function readQuestionHistory() {\n    if(developerSession)return ByteRunner.maps.clone(developerSession.testHistory);\n    try {"
+    },
+    {
+      "before": "  function saveQuestionHistory() {\n    try {",
+      "after": "  function saveQuestionHistory() {\n    if(developerSession){developerSession.testHistory=ByteRunner.maps.clone(questionHistory);return;}\n    try {"
+    },
+    {
+      "before": "  function saveCampaign() {\n    if (!campaignStarted || !player) return;\n    const saved = {",
+      "after": "  function createCampaignSnapshot() {\n    if (!campaignStarted || !player) return null;\n    return {"
+    },
+    {
+      "before": "      savedAt: Date.now()\n    };\n    try {",
+      "after": "      savedAt: Date.now()\n    };\n  }\n\n  function saveCampaign() {\n    if(developerSession)return;\n    const saved=createCampaignSnapshot();\n    if(!saved)return;\n    try {"
+    },
+    {
+      "before": "  function continueCampaign() {\n    const saved = getSavedCampaign();\n    if (!saved || saved.campaignComplete) return;",
+      "after": "  function continueCampaign() {\n    if(developerSession)return;\n    restoreCampaign(getSavedCampaign());\n  }\n\n  function restoreCampaign(saved) {\n    if (!saved || saved.campaignComplete) return;"
+    },
+    {
+      "before": "  function startNewCampaign() {\n",
+      "after": "  function startNewCampaign() {\n    if(developerSession){loadDeveloperPhase(0);return;}\n"
+    },
+    {
+      "before": "  function loadMap(definition, retry = false) {\n",
+      "after": "  function loadMap(definition, retry = false) {\n    cancelAnimationFrame(frameRequest);frameRequest=null;keys.clear();\n"
+    },
+    {
+      "before": "requestAnimationFrame(frame);",
+      "after": "scheduleFrame();",
+      "count": 4
+    },
+    {
+      "before": "  function frame(timestamp) {\n    if (!running) return;",
+      "after": "  function scheduleFrame() {\n    cancelAnimationFrame(frameRequest);\n    frameRequest=requestAnimationFrame(frame);\n  }\n\n  function frame(timestamp) {\n    frameRequest=null;\n    if (!running) return;"
+    },
+    {
+      "before": "  function pause() {\n    if (!running) return;",
+      "after": "  function pause() {\n    if (!running) return;\n    cancelAnimationFrame(frameRequest);frameRequest=null;"
+    },
+    {
+      "before": "    if(document.getElementById('settingsDialog').open)return;",
+      "after": "    if(document.getElementById('settingsDialog').open||document.getElementById('developerPhaseDialog').open)return;"
+    },
+    {
+      "before": "phaseIntroTime>0 || document.getElementById('settingsDialog').open) return;",
+      "after": "phaseIntroTime>0 || document.getElementById('settingsDialog').open || document.getElementById('developerPhaseDialog').open) return;"
+    },
+    {
+      "before": "  experience.mountSettings(()=>{if(running)pause();},resize);",
+      "after": "  experience.mountSettings(()=>{if(running)pause();},resize);\n  developerTools=ByteRunner.developerMode.mount({enabled:()=>Boolean(developerSession),enable:setDeveloperMode,load:loadDeveloperPhase,current:()=>phaseIndex,pause});"
+    },
+    {
+      "before": "  function setupMenu() {",
+      "after": "  // Test sessions never write a campaign or question-history record. The normal\n  // snapshot stays in memory; reload naturally returns to the untouched disk save.\n  function setDeveloperMode(enabled) {\n    if(enabled===Boolean(developerSession))return;\n    keys.clear();jumpQueued=false;\n    if(enabled){\n      if(running)pause();\n      developerSession={normal:createCampaignSnapshot(),testHistory:readQuestionHistory(),history:ByteRunner.maps.clone(questionHistory),\n        state:{campaignStarted,menuScreen,paused,gameOver,phaseTransition,campaignComplete,phaseQuestionOpen,currentQuestion,questionAnswered,questionRetryRequired,levelChoiceOpen},\n        questionNodes:[...ui.questionOverlay.childNodes],abilityNodes:[...ui.levelOverlay.childNodes],\n        overlayHidden:overlay.classList.contains('hidden'),title:ui.title.innerHTML,copy:ui.copy.textContent,button:startButton.innerHTML,stage:ui.stage.textContent,log:ui.log.innerHTML};\n      loadDeveloperPhase(phaseIndex);\n      if(document.getElementById('settingsDialog').open)pause();\n    }else{\n      const backup=developerSession;\n      running=false;cancelAnimationFrame(frameRequest);frameRequest=null;cancelRepair();endPhaseIntro();\n      if(backup.normal){\n        // Reuse the regular restore path, without its automatic next-phase/retry\n        // decisions: the parked normal session must return to the same screen.\n        restoreCampaign({...backup.normal,phaseTransition:false,campaignComplete:false,gameOver:false,questionRetryRequired:false,pendingAbility:false});\n        player.health=backup.normal.player.health;\n      }else resetCampaign();\n      running=false;cancelAnimationFrame(frameRequest);frameRequest=null;endPhaseIntro();\n      ({campaignStarted,menuScreen,paused,gameOver,phaseTransition,campaignComplete,phaseQuestionOpen,currentQuestion,questionAnswered,questionRetryRequired,levelChoiceOpen}=backup.state);\n      questionHistory=backup.history;\n      ui.questionOverlay.replaceChildren(...backup.questionNodes);ui.questionOverlay.classList.toggle('active',phaseQuestionOpen);\n      ui.levelOverlay.replaceChildren(...backup.abilityNodes);ui.levelOverlay.classList.toggle('active',levelChoiceOpen);\n      overlay.classList.toggle('hidden',backup.overlayHidden);ui.title.innerHTML=backup.title;ui.copy.textContent=backup.copy;startButton.innerHTML=backup.button;ui.stage.textContent=backup.stage;ui.log.innerHTML=backup.log;\n      document.querySelector('.game-shell').classList.remove('playing');\n      developerSession=null;renderSkills();updateHud();refreshContinueButton();draw();\n    }\n    developerTools?.refresh();\n  }\n\n  function loadDeveloperPhase(index) {\n    if(!developerSession||!Number.isInteger(index)||index<0||index>=PHASES.length)return;\n    running=false;cancelAnimationFrame(frameRequest);frameRequest=null;\n    // Fresh base attributes make repeats comparable and prevent test XP/skills\n    // and transient world state from leaking into another selected phase.\n    resetCampaign();campaignStarted=true;\n    loadPhase(index,true);launchLoadedPhase(false);\n    developerTools?.refresh();\n    notifyExperience('SESSÃO DE TESTE · '+PHASES[index].name);\n  }\n\n  function setupMenu() {"
+    }
+  ],
+  "note": "Exact reversible developer-mode integration; old engine guards run after reversing only these reviewed edits."
+}

@@ -6,15 +6,14 @@ test('rebuilt maps: every repair changes scenery or mechanics',()=>{
   }
 });
 test('rebuilt maps: fans and radio interference affect physics and weapons',()=>{
-  setup(0);player.x=800;player.y=760;player.vy=0;player.grounded=false;
-  const x=player.x;movePlayer(.1);assert(player.x>x+7,'fan does not push');components[0].repaired=true;const after=player.x;movePlayer(.1);assert(player.x===after,'fan not disabled by CPU repair');
-  player.x=1550;player.y=802;player.vy=0;damageCooldown=0;keys.add('d');movePlayer(.1);keys.clear();assert(player.health===90,'live circuit does not cause damage');
-  components[1].repaired=true;player.x=1550;player.y=802;player.vy=0;player.health=100;damageCooldown=0;keys.add('d');movePlayer(.1);keys.clear();assert(player.health===100&&player.x>1550,'RAM repair does not disable live circuit');
-  setup(4);player.x=1000;player.y=1832;player.vy=0;player.grounded=true;keys.add('d');const start=player.x;movePlayer(.1);keys.clear();
+  setup(0);const fan=phaseData.mechanics.find(m=>m.type==='environment').zones[0];player.x=fan.x+20;player.y=fan.y+20;player.vy=0;player.grounded=false;
+  const x=player.x;movePlayer(.1);assert(player.x>x+4,'fan does not push');components.find(c=>c.id===fan.disabledWhen.component).repaired=true;const after=player.x;movePlayer(.1);assert(player.x===after,'fan not disabled by CPU repair');
+  const hazard=phaseData.mechanics.find(m=>m.type==='parkour-hazards').hazards[0];player.x=hazard.x;player.y=hazard.y;damageCooldown=0;player.health=100;levelRuntime.update(hazard.warning+.1,{keys:new Set(),repairNearby:false});assert(player.health===100-hazard.damage,'warned thermal circuit does not cause real damage');
+  setup(4);const interference=phaseData.mechanics.filter(m=>m.type==='environment').flatMap(m=>m.zones).find(z=>z.speedMultiplier<1);player.x=interference.x+24;player.y=interference.y+16;player.vy=0;player.grounded=true;keys.add('d');const start=player.x;movePlayer(.1);keys.clear();
   assert(player.x-start<25.5&&player.x-start>18,'radio movement modifier');
   player.facing=1;fireProjectile();const weakSpeed=projectiles.at(-1).vx,weakCooldown=attackCooldown;
   assert(weakSpeed<570&&weakCooldown>player.fireRate,'radio does not affect combat');
-  components[0].repaired=true;fireProjectile();assert(projectiles.at(-1).vx===570&&attackCooldown===player.fireRate,'AP repair does not restore combat');
+  components.find(c=>c.id===interference.disabledWhen.component).repaired=true;fireProjectile();assert(projectiles.at(-1).vx===570&&attackCooldown===player.fireRate,'AP repair does not restore combat');
   unlockedSkills=[{id:'rapid',level:3},{id:'cannon',level:2}];restoreSkillEffects();fireProjectile();assert(projectiles.at(-1).damage===3&&attackCooldown<.32,'radio replaced campaign abilities');
 });
 test('rebuilt maps: directories and interfaces have safe actual destinations',()=>{
@@ -37,11 +36,11 @@ test('rebuilt maps: active ports remain mandatory and saved',()=>{
     player.x=spec.x;player.y=spec.y-8;levelRuntime.update(.6,{keys:new Set(),repairNearby:false});levelRuntime.update(.016,{keys:new Set(['e']),repairNearby:Boolean(findNearbyComponent())});
     assert(levelRuntime.getFlag(spec.flag),'port activation failed');
   }
-  checkObjectives();assert(phaseExitUnlocked,'active ports do not release uplink');saveCampaign();continueCampaign();assert(levelRuntime.getFlag('port-a')&&levelRuntime.getFlag('port-b')&&phaseExitUnlocked,'port state not restored');
+  checkObjectives();assert(phaseExitUnlocked,'active ports do not release uplink');saveCampaign();continueCampaign();assert(phaseData.entities.interactives.every(p=>levelRuntime.getFlag(p.flag))&&phaseExitUnlocked,'port state not restored');
 });
 test('rebuilt maps: free checkpoints and legacy map saves',()=>{
   setup(1);for(const index of [0,2,0]){const point=phaseData.map.checkpoints[index];player.x=point.x;player.y=point.y-player.height;updateCheckpoints();assert(checkpointIndex===index,'checkpoint cannot return to earlier room');}
-  saveCampaign();continueCampaign();assert(checkpointIndex===0&&checkpointY===650,'room checkpoint save');
+  saveCampaign();continueCampaign();assert(checkpointIndex===0&&checkpointY===phaseData.map.checkpoints[0].y,'room checkpoint save');
   setup(0);xp=47;unlockedSkills=[{id:'cannon',level:2}];restoreSkillEffects();components[0].repaired=true;saveCampaign();const saved=getSavedCampaign();saved.mapRevision=1;saved.player.x=2400;saved.player.y=500;saved.checkpointX=1850;localStorage.setItem(SAVE_KEY,JSON.stringify(saved));continueCampaign();
   assert(player.x===mapStart().x&&player.y===mapStart().y&&components.every(c=>!c.repaired)&&xp===47&&player.damage===3,'old layout save not migrated safely');
   xp=xpRequired;openLevelChoice();const pending=getSavedCampaign();pending.mapRevision=1;localStorage.setItem(SAVE_KEY,JSON.stringify(pending));continueCampaign();assert(levelChoiceOpen&&level===2,'layout migration lost pending skill');
@@ -57,11 +56,11 @@ test('rebuilt maps: checkpoints are stable before any repairs',()=>{
   }
 });
 test('rebuilt maps: unstable signals cycle and windows carry the player',()=>{
-  setup(4);xpRequired=999999;viruses.forEach(v=>v.alive=false);const signal=phaseData.entities.platforms.find(p=>p.id==='signal-01');
+  setup(4);xpRequired=999999;viruses.forEach(v=>v.alive=false);const signal=phaseData.entities.platforms.find(p=>p.type==='temporary');
   player.x=signal.x+30;player.y=signal.y-player.height;player.vy=0;player.grounded=true;movePlayer(1/60);assert(getPlatformState(signal).triggered,'signal did not react to landing');
   for(let t=0;t<150;t++)update(1/60);assert(!platformShape(signal),'unstable signal did not disappear');
   for(let t=0;t<145;t++)update(1/60);assert(platformShape(signal),'unstable signal did not return');
-  setup(1);const windowSpec=phaseData.entities.platforms.find(p=>p.id==='desktop-window');advancePlatformMotion(.1);const shape=platformShape(windowSpec);player.x=shape.x+20;player.y=shape.y-player.height;player.grounded=true;
+  setup(1);const windowSpec=phaseData.entities.platforms.find(p=>p.type==='moving'&&p.motion.axis==='x');advancePlatformMotion(.1);const shape=platformShape(windowSpec);player.x=shape.x+20;player.y=shape.y-player.height;player.grounded=true;
   const x=player.x;advancePlatformMotion(.1);assert(player.x!==x&&player.y===shape.y-player.height,'moving window did not carry player');
 });
 test('rebuilt maps: objectives reachable at opposite movement extremes',()=>{

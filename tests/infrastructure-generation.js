@@ -2,6 +2,9 @@ const infrastructureCanonical=value=>JSON.stringify(value,(_,v)=>v&&typeof v==='
 const infrastructureEqual=(a,b,label)=>assert(infrastructureCanonical(a)===infrastructureCanonical(b),label);
 test('infrastructure generation: original content, checkpoints and completion survive compilation',()=>{
   for(let i=5;i<10;i++) {
+    if(i===7){const phase=PHASES[i],replay=ByteRunner.mapGeneration.compile(phase.generation.recipe);infrastructureEqual(replay.entities,phase.entities,'DNS replay entities');infrastructureEqual(replay.objectives,phase.objectives,'DNS replay objectives');assert(phase.generation.rooms.length===33&&phase.entities.components.length===7,'DNS domain contract');continue;}
+    if(i===6){const phase=PHASES[i],replay=ByteRunner.mapGeneration.compile(phase.generation.recipe);infrastructureEqual(replay.entities,phase.entities,'DHCP replay entities');infrastructureEqual(replay.objectives,phase.objectives,'DHCP replay objectives');assert(phase.generation.rooms.length===25&&phase.entities.components.length===6,'DHCP city contract');continue;}
+    if(i===5){const phase=PHASES[i],replay=ByteRunner.mapGeneration.compile(phase.generation.recipe);infrastructureEqual(replay.entities,phase.entities,'Cabling replay entities');infrastructureEqual(replay.objectives,phase.objectives,'Cabling replay objectives');assert(phase.generation.rooms.length===41&&phase.entities.components.length===7,'Cabling replacement contract');continue;}
     const phase=PHASES[i],original=LAST_FIVE_V2[i-5],blueprint=phase.generation.recipe.rooms[0].config.blueprint;
     infrastructureEqual(blueprint,original,'authored blueprint changed '+phase.id);
     for(const group of ['components','enemies','collectibles','interactives','gates','obstacles'])infrastructureEqual(phase.entities[group],original.entities[group],'entity content/order changed '+phase.id+'/'+group);
@@ -50,13 +53,13 @@ test('infrastructure generation: procedural additions cannot enter the boss aren
   }
 });
 test('infrastructure generation: DHCP conflict region responds to its repair',()=>{
-  setup(6);player.x=460;player.y=590;
+  setup(6);const zone=phaseData.mechanics.filter(m=>m.type==='environment').flatMap(m=>m.zones).find(z=>z.speedMultiplier===.85);player.x=zone.x+24;player.y=zone.y+16;
   assert(levelRuntime.modifiers().speedMultiplier===.85,'duplicate addresses have no effect');
-  components.find(c=>c.id==='c02').repaired=true;
+  components.find(c=>c.id===zone.disabledWhen.component).repaired=true;
   assert(levelRuntime.modifiers().speedMultiplier===1,'repair did not resolve address conflict');
 });
 test('infrastructure generation: all DNS portals land safely without chained activations',()=>{
-  setup(7);const spec=phaseData.mechanics.find(m=>m.id==='ttl-root-shortcut');
+  setup(7);const spec={links:phaseData.mechanics.filter(m=>m.type==='portals').flatMap(m=>m.links).filter(l=>l.requires?.component==='cache-crown:ttl')};assert(spec.links.length>=2,'TTL shortcuts missing');
   assert(spec.links.every(l=>!levelRuntime.connections().some(active=>active.id===l.id)),'cache shortcut starts unlocked');
   components.forEach(c=>c.repaired=true);
   for(const link of levelRuntime.connections()) {

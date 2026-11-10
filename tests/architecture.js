@@ -9,12 +9,37 @@ test('architecture: all layouts distinct, hybrid campaign preserves authored con
     return current;
   }
   PHASES.forEach((phase,index)=>{
-    assert(phase.revision===(phase.theme==='cabling'?4:3)&&phase.map.ground.mode==='explicit'&&canonical(phase.entities.platforms)!==canonical(MAP_BASELINE[index].entities.platforms),'layout was not rebuilt: '+phase.id);
-    if(index<5) {
-      const authored=phase.generation.recipe.rooms[0].config.blueprint;
-      assert(canonical(project(authored,FIRST_FIVE_V2[index]))===canonical(FIRST_FIVE_V2[index]),'authored content changed: '+phase.id);
-      for(const group of ['components','enemies','collectibles','interactives'])assert(canonical(phase.entities[group])===canonical(authored.entities[group]),'content/order changed: '+group);
-      assert(canonical(phase.objectives)===canonical(authored.objectives),'objectives changed');
+    assert(phase.revision===(index<8?5:3)&&phase.map.ground.mode==='explicit'&&canonical(phase.entities.platforms)!==canonical(MAP_BASELINE[index].entities.platforms),'layout was not rebuilt: '+phase.id);
+    if(index===0){
+      assert(phase.generation.rooms.length===22&&phase.map.regions.length===6&&phase.entities.components.length===4&&phase.entities.enemies.length===13,'Hardware V3 content contract');
+      assert(phase.generation.rooms.some(r=>r.source.kind==='manual')&&phase.generation.rooms.some(r=>r.source.kind==='procedural'),'Hardware V3 hybrid sources');
+      assert(phase.map.width>FIRST_FIVE_V2[0].map.width&&phase.map.height>FIRST_FIVE_V2[0].map.height,'Hardware V3 did not expand both axes');
+    }else if(index===1){
+      assert(phase.generation.rooms.length===19&&phase.map.regions.length===6&&phase.entities.components.length===5,'Software V3 content contract');
+      assert(phase.generation.recipe.connectivity==='portal-network'&&phase.generation.architecture.portalEdges.length===25,'Software V3 portal architecture');
+      assert(phase.generation.rooms.some(r=>r.source.kind==='manual')&&phase.generation.rooms.some(r=>r.source.kind==='procedural'),'Software V3 hybrid sources');
+    }else if(index===2){
+      assert(phase.generation.rooms.length===25&&phase.map.regions.length===6&&phase.entities.components.length===6,'Switch V3 sector content');
+      assert(phase.generation.architecture.mode==='radial-physical-backplane'&&phase.generation.links.length===36,'Switch radial graph');
+      assert(phase.map.start.x>phase.map.width*.4&&phase.map.start.x<phase.map.width*.6,'Switch central spawn');
+    }else if(index===3){
+      assert(phase.generation.rooms.length===27&&phase.map.regions.length===6&&phase.entities.components.length===6,'Router V3 content');
+      assert(phase.generation.architecture.mode==='interlocked-multilevel-tunnel-maze'&&phase.generation.links.length===38,'Router maze graph');
+      assert(phase.map.width>FIRST_FIVE_V2[3].map.width&&phase.map.height>FIRST_FIVE_V2[3].map.height,'Router did not expand');
+    }else if(index===4){
+      assert(phase.generation.rooms.length===27&&phase.map.regions.length===6&&phase.entities.components.length===6,'Wifi V3 tower content');
+      assert(phase.map.layout==='vertical'&&phase.map.height>phase.map.width*2&&phase.generation.links.length===37,'Wifi vertical architecture');
+      assert(phase.generation.architecture.mode==='open-air-twin-mast-ascent','Wifi reuses tunnel architecture');
+    }else if(index===5){
+      assert(phase.generation.rooms.length===41&&phase.map.regions.length===6&&phase.entities.components.length===7,'Cabling V3 factory content');
+      assert(phase.generation.links.length===66&&phase.generation.architecture.mode==='industrial-floorplates-and-service-shafts','Cabling factory architecture');
+    }else if(index===6){
+      assert(phase.generation.rooms.length===25&&phase.map.regions.length===6&&phase.entities.components.length===6,'DHCP city content');
+      assert(phase.generation.links.length===35&&phase.generation.architecture.mode==='digital-city-districts-and-data-bridges','DHCP city architecture');
+    }else if(index===7){
+      assert(phase.generation.rooms.length===33&&phase.map.regions.length===6&&phase.entities.components.length===7,'DNS complex content');
+      assert(phase.generation.recipe.connectivity==='portal-network'&&phase.generation.architecture.portalEdges.length===24,'DNS portal architecture');
+      assert(phase.generation.architecture.optionalEnemies.length===4,'NXDOMAIN optional enemies');
     }
     assert(Object.isFrozen(phase)&&Object.isFrozen(phase.entities.platforms),'map definitions are mutable');
   });
@@ -123,7 +148,7 @@ test('architecture: custom repair UI mounts, completes and disposes',()=>{
 test('architecture: per-map enemy controller and state',()=>{
   let updates=0;
   ByteRunner.levels.registerEnemyBehavior('test-daemon',(enemy,state)=>{enemy.state.ticks=(enemy.state.ticks || 0)+1;updates++;assert(state.context.player()===player,'enemy context missing');});
-  setup(0);viruses[0].controller='test-daemon';updateEnemyBrain(viruses[0],.016,player.x,player.y);
+  setup(0);viruses[0].controller='test-daemon';player.x=viruses[0].x;player.y=viruses[0].y-24;updateEnemyBrain(viruses[0],.016,player.x,player.y);
   assert(updates===1&&viruses[0].state.ticks===1,'enemy controller not invoked');
   saveCampaign();assert(getSavedCampaign().viruses[0].state.ticks===1,'enemy state not saved');
   continueCampaign();assert(viruses[0].state.ticks===1,'enemy state not restored');

@@ -18,6 +18,9 @@
   const experience = ByteRunner.experience;
   const SAVE_KEY = ByteRunner.proceduralDemo?.storageKey || 'byteRunner.campaign.v1';
   const SOUND_KEY = 'byteRunner.sound.v1';
+  let developerSession = null;
+  let developerTools = null;
+  let frameRequest = null;
   const keys = new Set();
   const ui = {
     title: document.getElementById('overlayTitle'),
@@ -289,6 +292,7 @@
   }
 
   function readQuestionHistory() {
+    if(developerSession)return ByteRunner.maps.clone(developerSession.testHistory);
     try {
       const parsed = JSON.parse(localStorage.getItem(QUESTION_HISTORY_KEY) || '{}');
       return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
@@ -298,6 +302,7 @@
   }
 
   function saveQuestionHistory() {
+    if(developerSession){developerSession.testHistory=ByteRunner.maps.clone(questionHistory);return;}
     try {
       localStorage.setItem(QUESTION_HISTORY_KEY, JSON.stringify(questionHistory));
     } catch {
@@ -387,9 +392,9 @@
     }
   }
 
-  function saveCampaign() {
-    if (!campaignStarted || !player) return;
-    const saved = {
+  function createCampaignSnapshot() {
+    if (!campaignStarted || !player) return null;
+    return {
       version: 1, phaseIndex, phaseId:phaseData.id, mapRevision:phaseData.revision || 1, highestUnlockedPhase, level, xp, xpRequired,
       levelState:levelRuntime?.save(), checkpointIndex,
       unlockedSkills: unlockedSkills.map(skill => ({ id: skill.id, level: skill.level })),
@@ -403,6 +408,12 @@
       pendingAbility: levelChoiceOpen,
       savedAt: Date.now()
     };
+  }
+
+  function saveCampaign() {
+    if(developerSession)return;
+    const saved=createCampaignSnapshot();
+    if(!saved)return;
     try {
       localStorage.setItem(SAVE_KEY, JSON.stringify(saved));
       refreshContinueButton();
@@ -430,7 +441,11 @@
   }
 
   function continueCampaign() {
-    const saved = getSavedCampaign();
+    if(developerSession)return;
+    restoreCampaign(getSavedCampaign());
+  }
+
+  function restoreCampaign(saved) {
     if (!saved || saved.campaignComplete) return;
     campaignStarted = true;
     resetCampaign();
@@ -507,6 +522,7 @@
   }
 
   function startNewCampaign() {
+    if(developerSession){loadDeveloperPhase(0);return;}
     if (getSavedCampaign() && !window.confirm('Iniciar uma nova campanha e substituir o progresso salvo?')) return;
     if (hasQuestionHistory() && window.confirm('Também deseja apagar o histórico de perguntas já utilizadas?')) resetQuestionHistory();
     campaignStarted = true;
@@ -514,6 +530,51 @@
     resetCampaign();
     launchLoadedPhase();
     saveCampaign();
+  }
+
+  // Test sessions never write a campaign or question-history record. The normal
+  // snapshot stays in memory; reload naturally returns to the untouched disk save.
+  function setDeveloperMode(enabled) {
+    if(enabled===Boolean(developerSession))return;
+    keys.clear();jumpQueued=false;
+    if(enabled){
+      if(running)pause();
+      developerSession={normal:createCampaignSnapshot(),testHistory:readQuestionHistory(),history:ByteRunner.maps.clone(questionHistory),
+        state:{campaignStarted,menuScreen,paused,gameOver,phaseTransition,campaignComplete,phaseQuestionOpen,currentQuestion,questionAnswered,questionRetryRequired,levelChoiceOpen},
+        questionNodes:[...ui.questionOverlay.childNodes],abilityNodes:[...ui.levelOverlay.childNodes],
+        overlayHidden:overlay.classList.contains('hidden'),title:ui.title.innerHTML,copy:ui.copy.textContent,button:startButton.innerHTML,stage:ui.stage.textContent,log:ui.log.innerHTML};
+      loadDeveloperPhase(phaseIndex);
+      if(document.getElementById('settingsDialog').open)pause();
+    }else{
+      const backup=developerSession;
+      running=false;cancelAnimationFrame(frameRequest);frameRequest=null;cancelRepair();endPhaseIntro();
+      if(backup.normal){
+        // Reuse the regular restore path, without its automatic next-phase/retry
+        // decisions: the parked normal session must return to the same screen.
+        restoreCampaign({...backup.normal,phaseTransition:false,campaignComplete:false,gameOver:false,questionRetryRequired:false,pendingAbility:false});
+        player.health=backup.normal.player.health;
+      }else resetCampaign();
+      running=false;cancelAnimationFrame(frameRequest);frameRequest=null;endPhaseIntro();
+      ({campaignStarted,menuScreen,paused,gameOver,phaseTransition,campaignComplete,phaseQuestionOpen,currentQuestion,questionAnswered,questionRetryRequired,levelChoiceOpen}=backup.state);
+      questionHistory=backup.history;
+      ui.questionOverlay.replaceChildren(...backup.questionNodes);ui.questionOverlay.classList.toggle('active',phaseQuestionOpen);
+      ui.levelOverlay.replaceChildren(...backup.abilityNodes);ui.levelOverlay.classList.toggle('active',levelChoiceOpen);
+      overlay.classList.toggle('hidden',backup.overlayHidden);ui.title.innerHTML=backup.title;ui.copy.textContent=backup.copy;startButton.innerHTML=backup.button;ui.stage.textContent=backup.stage;ui.log.innerHTML=backup.log;
+      document.querySelector('.game-shell').classList.remove('playing');
+      developerSession=null;renderSkills();updateHud();refreshContinueButton();draw();
+    }
+    developerTools?.refresh();
+  }
+
+  function loadDeveloperPhase(index) {
+    if(!developerSession||!Number.isInteger(index)||index<0||index>=PHASES.length)return;
+    running=false;cancelAnimationFrame(frameRequest);frameRequest=null;
+    // Fresh base attributes make repeats comparable and prevent test XP/skills
+    // and transient world state from leaking into another selected phase.
+    resetCampaign();campaignStarted=true;
+    loadPhase(index,true);launchLoadedPhase(false);
+    developerTools?.refresh();
+    notifyExperience('SESSÃO DE TESTE · '+PHASES[index].name);
   }
 
   function setupMenu() {
@@ -534,7 +595,7 @@
       };
       button.addEventListener('pointerdown', event => {
         event.preventDefault();
-        if (!running || repairSession?.blocksWorld || phaseIntroTime>0 || document.getElementById('settingsDialog').open) return;
+        if (!running || repairSession?.blocksWorld || phaseIntroTime>0 || document.getElementById('settingsDialog').open || document.getElementById('developerPhaseDialog').open) return;
         try { if (event.pointerId !== undefined) button.setPointerCapture?.(event.pointerId); } catch {}
         if (key === 'w' && !keys.has(key)) jumpQueued = true;
         if (key === 'e' && !findNearbyComponent()) {
@@ -732,6 +793,7 @@
   }
 
   function loadMap(definition, retry = false) {
+    cancelAnimationFrame(frameRequest);frameRequest=null;keys.clear();
     endPhaseIntro();experience.reset();pacing=null;previousRenderPlayer=null;landingSpring=0;shotPose=0;abilityPose=0;actorAnimationTime=0;frameAccumulator=0;
     document.getElementById('experienceNotice').classList.remove('visible');noticeTime=0;
     levelRuntime?.dispose();
@@ -1212,7 +1274,7 @@
     running = true;
     document.querySelector('.game-shell').classList.add('playing');
     lastFrame = performance.now();
-    requestAnimationFrame(frame);
+    scheduleFrame();
   }
 
   function renderSkills() {
@@ -2793,7 +2855,13 @@
     }
   }
 
+  function scheduleFrame() {
+    cancelAnimationFrame(frameRequest);
+    frameRequest=requestAnimationFrame(frame);
+  }
+
   function frame(timestamp) {
+    frameRequest=null;
     if (!running) return;
     const dt = Math.min(Math.max(0,(timestamp - lastFrame) / 1000 || 0), 1 / 15);
     lastFrame = timestamp;
@@ -2804,7 +2872,7 @@
     }
     renderAlpha=Math.min(1,frameAccumulator*120);
     draw();
-    if (running) requestAnimationFrame(frame);
+    if (running) scheduleFrame();
   }
 
   function launchLoadedPhase(showIntro = true) {
@@ -2821,12 +2889,13 @@
     if(showIntro)beginPhaseIntro();
     playSound('start');frameAccumulator=0;previousRenderPlayer=null;
     lastFrame = performance.now();
-    requestAnimationFrame(frame);
+    scheduleFrame();
     saveCampaign();
   }
 
   function pause() {
     if (!running) return;
+    cancelAnimationFrame(frameRequest);frameRequest=null;
     keys.clear();
     running = false;
     frameAccumulator=0;previousRenderPlayer=null;
@@ -2851,7 +2920,7 @@
       overlay.classList.add('hidden');
       ui.stage.textContent = 'FASE ' + String(phaseIndex + 1).padStart(2, '0') + ' // EM ANDAMENTO';
       lastFrame = performance.now();
-      requestAnimationFrame(frame);
+      scheduleFrame();
     } else if (phaseTransition && !campaignComplete) {
       loadPhase(phaseIndex + 1);
       launchLoadedPhase();
@@ -2866,12 +2935,13 @@
   soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled));
   document.getElementById('skipIntro').addEventListener('click',endPhaseIntro);
   experience.mountSettings(()=>{if(running)pause();},resize);
+  developerTools=ByteRunner.developerMode.mount({enabled:()=>Boolean(developerSession),enable:setDeveloperMode,load:loadDeveloperPhase,current:()=>phaseIndex,pause});
   document.getElementById('cancelRepairButton').addEventListener('click', () => {cancelRepair();keys.clear();draw();});
   document.getElementById('repairPauseButton').addEventListener('click', pause);
 
   window.addEventListener('keydown', event => {
     const key = event.key.toLowerCase();
-    if(document.getElementById('settingsDialog').open)return;
+    if(document.getElementById('settingsDialog').open||document.getElementById('developerPhaseDialog').open)return;
     if(phaseIntroTime>0 && running) {
       if(key==='escape')pause();
       else if(key==='enter'||key===' '){event.preventDefault();endPhaseIntro();}

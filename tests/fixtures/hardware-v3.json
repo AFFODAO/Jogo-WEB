@@ -1,0 +1,5878 @@
+{
+  "sourceSha256": "996b933fc90f9564a2371b0b844727a4b6d0b8924491a197734507f7735fd116",
+  "definition": {
+    "schemaVersion": 2,
+    "revision": 5,
+    "id": "phase-01",
+    "name": "Hardware — A placa-mae gigante",
+    "theme": "hardware",
+    "palette": [
+      "#06191b",
+      "#143b35",
+      "#63f3bb",
+      "#286453",
+      "#d6ac64"
+    ],
+    "presentation": {
+      "procedural": false
+    },
+    "map": {
+      "width": 4480,
+      "height": 2560,
+      "layout": "multi-route",
+      "start": {
+        "x": 64,
+        "y": 1952
+      },
+      "exit": {
+        "mode": "region",
+        "x": 4360,
+        "y": 688,
+        "width": 80,
+        "height": 64
+      },
+      "bounds": {
+        "left": true,
+        "right": true,
+        "ceiling": true,
+        "floor": true
+      },
+      "camera": {
+        "axes": [
+          "x",
+          "y"
+        ],
+        "followOffsetX": 0.44,
+        "followOffsetY": 0.55
+      },
+      "ground": {
+        "mode": "explicit",
+        "segments": [
+          {
+            "id": "arrival:deck-west",
+            "x": 0,
+            "y": 2000,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "arrival:deck-east",
+            "x": 496,
+            "y": 2000,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "junction:deck",
+            "x": 640,
+            "y": 2000,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "l1-vault:deck",
+            "x": 0,
+            "y": 2512,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "thermal:deck-west",
+            "x": 0,
+            "y": 1488,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "thermal:deck-east",
+            "x": 496,
+            "y": 1488,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "socket:deck-west",
+            "x": 640,
+            "y": 1488,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "socket:deck-east",
+            "x": 1136,
+            "y": 1488,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "heatsink:deck-west",
+            "x": 640,
+            "y": 976,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "heatsink:deck-east",
+            "x": 1136,
+            "y": 976,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "ram-base:deck-west",
+            "x": 1280,
+            "y": 976,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "ram-base:deck-east",
+            "x": 1776,
+            "y": 976,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "ram-west:deck-west",
+            "x": 1280,
+            "y": 464,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "ram-west:deck-east",
+            "x": 1776,
+            "y": 464,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "ram-east:deck-west",
+            "x": 1920,
+            "y": 464,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "ram-east:deck-east",
+            "x": 2416,
+            "y": 464,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "ram-return:deck-west",
+            "x": 1920,
+            "y": 976,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "ram-return:deck-east",
+            "x": 2416,
+            "y": 976,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "bus-north:deck-west",
+            "x": 1280,
+            "y": 1488,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "bus-north:deck-east",
+            "x": 1776,
+            "y": 1488,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "bus-cross:deck-west",
+            "x": 1920,
+            "y": 1488,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "bus-cross:deck-east",
+            "x": 2416,
+            "y": 1488,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "bus-west:deck-west",
+            "x": 1280,
+            "y": 2000,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "bus-west:deck-east",
+            "x": 1776,
+            "y": 2000,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "bus-east:deck-west",
+            "x": 1920,
+            "y": 2000,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "bus-east:deck-east",
+            "x": 2416,
+            "y": 2000,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "bus-cache:deck",
+            "x": 1280,
+            "y": 2512,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "bus-return:deck-west",
+            "x": 1920,
+            "y": 2512,
+            "width": 224,
+            "height": 48
+          },
+          {
+            "id": "bus-return:deck-east",
+            "x": 2384,
+            "y": 2512,
+            "width": 176,
+            "height": 48
+          },
+          {
+            "id": "bus-return:catch-deck",
+            "x": 2144,
+            "y": 2544,
+            "width": 240,
+            "height": 16
+          },
+          {
+            "id": "gpu-west:deck-west",
+            "x": 2560,
+            "y": 1488,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "gpu-west:deck-east",
+            "x": 3056,
+            "y": 1488,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "gpu-east:deck-west",
+            "x": 3200,
+            "y": 1488,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "gpu-east:deck-east",
+            "x": 3696,
+            "y": 1488,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "gpu-under:deck-west",
+            "x": 2560,
+            "y": 2000,
+            "width": 224,
+            "height": 48
+          },
+          {
+            "id": "gpu-under:deck-east",
+            "x": 3024,
+            "y": 2000,
+            "width": 176,
+            "height": 48
+          },
+          {
+            "id": "gpu-under:catch-deck",
+            "x": 2784,
+            "y": 2032,
+            "width": 240,
+            "height": 16
+          },
+          {
+            "id": "gpu-cache:deck",
+            "x": 3200,
+            "y": 2000,
+            "width": 640,
+            "height": 48
+          },
+          {
+            "id": "core-test:deck-west",
+            "x": 3200,
+            "y": 976,
+            "width": 208,
+            "height": 48
+          },
+          {
+            "id": "core-test:deck-east",
+            "x": 3696,
+            "y": 976,
+            "width": 144,
+            "height": 48
+          },
+          {
+            "id": "core-exit:deck",
+            "x": 3840,
+            "y": 976,
+            "width": 640,
+            "height": 48
+          }
+        ]
+      },
+      "checkpoints": [
+        {
+          "x": 48,
+          "y": 2000
+        },
+        {
+          "x": 688,
+          "y": 2000
+        },
+        {
+          "x": 688,
+          "y": 1488
+        },
+        {
+          "x": 688,
+          "y": 976
+        },
+        {
+          "x": 1328,
+          "y": 976
+        },
+        {
+          "x": 1328,
+          "y": 2000
+        },
+        {
+          "x": 3248,
+          "y": 1488
+        },
+        {
+          "x": 3248,
+          "y": 976
+        }
+      ],
+      "checkpointMode": "free",
+      "progress": {
+        "axis": "objectives"
+      },
+      "regions": [
+        {
+          "id": "pcb",
+          "name": "PLACA-MAE CENTRAL",
+          "kind": "cpu",
+          "state": 0,
+          "areas": [
+            {
+              "x": 0,
+              "y": 1536,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 640,
+              "y": 1536,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 0,
+              "y": 2048,
+              "width": 640,
+              "height": 512
+            }
+          ]
+        },
+        {
+          "id": "cpu",
+          "name": "COMPLEXO DA CPU",
+          "kind": "cpu",
+          "state": 0,
+          "areas": [
+            {
+              "x": 0,
+              "y": 1024,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 640,
+              "y": 1024,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 640,
+              "y": 512,
+              "width": 640,
+              "height": 512
+            }
+          ]
+        },
+        {
+          "id": "ram",
+          "name": "TORRES DE MEMORIA RAM",
+          "kind": "ram",
+          "state": 1,
+          "areas": [
+            {
+              "x": 1280,
+              "y": 512,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 1280,
+              "y": 0,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 1920,
+              "y": 0,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 1920,
+              "y": 512,
+              "width": 640,
+              "height": 512
+            }
+          ]
+        },
+        {
+          "id": "bus",
+          "name": "BARRAMENTOS",
+          "kind": "cache",
+          "state": 2,
+          "areas": [
+            {
+              "x": 1280,
+              "y": 1024,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 1920,
+              "y": 1024,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 1280,
+              "y": 1536,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 1920,
+              "y": 1536,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 1280,
+              "y": 2048,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 1920,
+              "y": 2048,
+              "width": 640,
+              "height": 512
+            }
+          ]
+        },
+        {
+          "id": "gpu",
+          "name": "COMPLEXO DA GPU",
+          "kind": "gpu",
+          "state": 2,
+          "areas": [
+            {
+              "x": 2560,
+              "y": 1024,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 3200,
+              "y": 1024,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 2560,
+              "y": 1536,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 3200,
+              "y": 1536,
+              "width": 640,
+              "height": 512
+            }
+          ]
+        },
+        {
+          "id": "core",
+          "name": "NUCLEO FINAL",
+          "kind": "cpu",
+          "state": 3,
+          "areas": [
+            {
+              "x": 3200,
+              "y": 512,
+              "width": 640,
+              "height": 512
+            },
+            {
+              "x": 3840,
+              "y": 512,
+              "width": 640,
+              "height": 512
+            }
+          ]
+        }
+      ],
+      "routes": [
+        {
+          "id": "north-loop",
+          "label": "CPU / RAM / BARRAMENTOS"
+        },
+        {
+          "id": "lower-loop",
+          "label": "BARRAMENTOS / GPU"
+        },
+        {
+          "id": "vaults",
+          "label": "CACHES OPCIONAIS"
+        }
+      ]
+    },
+    "entities": {
+      "platforms": [
+        {
+          "id": "arrival:shaft-cap",
+          "x": 224,
+          "y": 1936,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "arrival:riser-1",
+          "x": 352,
+          "y": 1840,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "arrival:riser-2",
+          "x": 224,
+          "y": 1744,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "arrival:riser-3",
+          "x": 352,
+          "y": 1648,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "arrival:riser-4",
+          "x": 256,
+          "y": 1552,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "junction:riser-0",
+          "x": 864,
+          "y": 1936,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "junction:riser-1",
+          "x": 992,
+          "y": 1840,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "junction:riser-2",
+          "x": 864,
+          "y": 1744,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "junction:riser-3",
+          "x": 992,
+          "y": 1648,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "junction:riser-4",
+          "x": 896,
+          "y": 1552,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "l1-vault:riser-0",
+          "x": 224,
+          "y": 2448,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "l1-vault:riser-1",
+          "x": 352,
+          "y": 2352,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "l1-vault:riser-2",
+          "x": 224,
+          "y": 2256,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "l1-vault:riser-3",
+          "x": 352,
+          "y": 2160,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "l1-vault:riser-4",
+          "x": 256,
+          "y": 2064,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "l1-vault:cache-ledge",
+          "x": 64,
+          "y": 2416,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "thermal:shaft-cap",
+          "x": 224,
+          "y": 1424,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "thermal:service-step",
+          "x": 80,
+          "y": 1392,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "thermal:observation",
+          "x": 176,
+          "y": 1296,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "thermal:lift",
+          "x": 80,
+          "y": 1296,
+          "width": 128,
+          "height": 16,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "elevator",
+          "motion": {
+            "axis": "y",
+            "range": 64,
+            "speed": 0.45,
+            "phase": 0
+          }
+        },
+        {
+          "id": "socket:shaft-cap",
+          "x": 864,
+          "y": 1424,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "socket:riser-1",
+          "x": 992,
+          "y": 1328,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "socket:riser-2",
+          "x": 864,
+          "y": 1232,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "socket:riser-3",
+          "x": 992,
+          "y": 1136,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "socket:riser-4",
+          "x": 896,
+          "y": 1040,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "socket:powered-bridge",
+          "x": 1064,
+          "y": 1328,
+          "width": 176,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit",
+          "requires": {
+            "component": "socket:cpu-relay"
+          }
+        },
+        {
+          "id": "heatsink:shaft-cap",
+          "x": 864,
+          "y": 912,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "heatsink:service-step",
+          "x": 720,
+          "y": 880,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "heatsink:observation",
+          "x": 816,
+          "y": 784,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-base:shaft-cap",
+          "x": 1504,
+          "y": 912,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-base:riser-1",
+          "x": 1632,
+          "y": 816,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-base:riser-2",
+          "x": 1504,
+          "y": 720,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-base:riser-3",
+          "x": 1632,
+          "y": 624,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-base:riser-4",
+          "x": 1536,
+          "y": 528,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-base:powered-bridge",
+          "x": 1704,
+          "y": 816,
+          "width": 176,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit",
+          "requires": {
+            "component": "ram-base:ram-relay"
+          }
+        },
+        {
+          "id": "ram-west:shaft-cap",
+          "x": 1504,
+          "y": 400,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-west:service-step",
+          "x": 1360,
+          "y": 368,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-west:observation",
+          "x": 1456,
+          "y": 272,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-east:shaft-cap",
+          "x": 2144,
+          "y": 400,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-east:service-step",
+          "x": 2000,
+          "y": 368,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-east:observation",
+          "x": 2096,
+          "y": 272,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-return:shaft-cap",
+          "x": 2144,
+          "y": 912,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-return:riser-1",
+          "x": 2272,
+          "y": 816,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-return:riser-2",
+          "x": 2144,
+          "y": 720,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-return:riser-3",
+          "x": 2272,
+          "y": 624,
+          "width": 112,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-return:riser-4",
+          "x": 2176,
+          "y": 528,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "ram-return:lift",
+          "x": 2000,
+          "y": 784,
+          "width": 128,
+          "height": 16,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "elevator",
+          "motion": {
+            "axis": "y",
+            "range": 64,
+            "speed": 0.45,
+            "phase": 0
+          }
+        },
+        {
+          "id": "bus-north:shaft-cap",
+          "x": 1504,
+          "y": 1424,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-north:riser-1",
+          "x": 1632,
+          "y": 1328,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-north:riser-2",
+          "x": 1504,
+          "y": 1232,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-north:riser-3",
+          "x": 1632,
+          "y": 1136,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-north:riser-4",
+          "x": 1536,
+          "y": 1040,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cross:shaft-cap",
+          "x": 2144,
+          "y": 1424,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cross:riser-1",
+          "x": 2272,
+          "y": 1328,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cross:riser-2",
+          "x": 2144,
+          "y": 1232,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cross:riser-3",
+          "x": 2272,
+          "y": 1136,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cross:riser-4",
+          "x": 2176,
+          "y": 1040,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-west:shaft-cap",
+          "x": 1504,
+          "y": 1936,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-west:riser-1",
+          "x": 1632,
+          "y": 1840,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-west:riser-2",
+          "x": 1504,
+          "y": 1744,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-west:riser-3",
+          "x": 1632,
+          "y": 1648,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-west:riser-4",
+          "x": 1536,
+          "y": 1552,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-west:powered-bridge",
+          "x": 1704,
+          "y": 1840,
+          "width": 176,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit",
+          "requires": {
+            "component": "bus-west:bus-relay"
+          }
+        },
+        {
+          "id": "bus-east:shaft-cap",
+          "x": 2144,
+          "y": 1936,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-east:riser-1",
+          "x": 2272,
+          "y": 1840,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-east:riser-2",
+          "x": 2144,
+          "y": 1744,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-east:riser-3",
+          "x": 2272,
+          "y": 1648,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-east:riser-4",
+          "x": 2176,
+          "y": 1552,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cache:riser-0",
+          "x": 1504,
+          "y": 2448,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cache:riser-1",
+          "x": 1632,
+          "y": 2352,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cache:riser-2",
+          "x": 1504,
+          "y": 2256,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cache:riser-3",
+          "x": 1632,
+          "y": 2160,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cache:riser-4",
+          "x": 1536,
+          "y": 2064,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-cache:cache-ledge",
+          "x": 1360,
+          "y": 2416,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-return:gap-step",
+          "x": 2200,
+          "y": 2448,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-return:riser-0",
+          "x": 2144,
+          "y": 2448,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-return:riser-1",
+          "x": 2272,
+          "y": 2352,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-return:riser-2",
+          "x": 2144,
+          "y": 2256,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-return:riser-3",
+          "x": 2272,
+          "y": 2160,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-return:riser-4",
+          "x": 2176,
+          "y": 2064,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "bus-return:temporary-cache",
+          "x": 2368,
+          "y": 2320,
+          "width": 112,
+          "height": 16,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.6,
+          "respawnDelay": 2.4
+        },
+        {
+          "id": "gpu-west:shaft-cap",
+          "x": 2784,
+          "y": 1424,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-west:service-step",
+          "x": 2640,
+          "y": 1392,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-west:observation",
+          "x": 2736,
+          "y": 1296,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-east:shaft-cap",
+          "x": 3424,
+          "y": 1424,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-east:riser-1",
+          "x": 3552,
+          "y": 1328,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-east:riser-2",
+          "x": 3424,
+          "y": 1232,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-east:riser-3",
+          "x": 3552,
+          "y": 1136,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-east:riser-4",
+          "x": 3456,
+          "y": 1040,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-east:powered-bridge",
+          "x": 3624,
+          "y": 1328,
+          "width": 176,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit",
+          "requires": {
+            "component": "gpu-east:gpu-relay"
+          }
+        },
+        {
+          "id": "gpu-under:gap-step",
+          "x": 2840,
+          "y": 1936,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-under:riser-0",
+          "x": 2784,
+          "y": 1936,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-under:riser-1",
+          "x": 2912,
+          "y": 1840,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-under:riser-2",
+          "x": 2784,
+          "y": 1744,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-under:riser-3",
+          "x": 2912,
+          "y": 1648,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-under:riser-4",
+          "x": 2816,
+          "y": 1552,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-under:lift",
+          "x": 2640,
+          "y": 1808,
+          "width": 128,
+          "height": 16,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "elevator",
+          "motion": {
+            "axis": "y",
+            "range": 64,
+            "speed": 0.45,
+            "phase": 0
+          }
+        },
+        {
+          "id": "gpu-under:temporary-cache",
+          "x": 3008,
+          "y": 1808,
+          "width": 112,
+          "height": 16,
+          "type": "temporary",
+          "collision": "one-way",
+          "style": "signal",
+          "duration": 2.6,
+          "respawnDelay": 2.4
+        },
+        {
+          "id": "gpu-cache:riser-0",
+          "x": 3424,
+          "y": 1936,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-cache:riser-1",
+          "x": 3552,
+          "y": 1840,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-cache:riser-2",
+          "x": 3424,
+          "y": 1744,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-cache:riser-3",
+          "x": 3552,
+          "y": 1648,
+          "width": 96,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-cache:riser-4",
+          "x": 3456,
+          "y": 1552,
+          "width": 192,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "gpu-cache:cache-ledge",
+          "x": 3264,
+          "y": 1904,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "core-test:shaft-cap",
+          "x": 3424,
+          "y": 912,
+          "width": 256,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "core-test:service-step",
+          "x": 3280,
+          "y": 880,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "core-test:observation",
+          "x": 3376,
+          "y": 784,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "core-test:lift",
+          "x": 3280,
+          "y": 784,
+          "width": 128,
+          "height": 16,
+          "type": "moving",
+          "collision": "one-way",
+          "style": "elevator",
+          "motion": {
+            "axis": "y",
+            "range": 64,
+            "speed": 0.45,
+            "phase": 0
+          }
+        },
+        {
+          "id": "core-exit:service-step",
+          "x": 3920,
+          "y": 880,
+          "width": 128,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "core-exit:observation",
+          "x": 4016,
+          "y": 784,
+          "width": 144,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        },
+        {
+          "id": "core-exit:core-dais",
+          "x": 4240,
+          "y": 752,
+          "width": 224,
+          "height": 16,
+          "type": "fixed",
+          "collision": "one-way",
+          "style": "circuit"
+        }
+      ],
+      "obstacles": [
+        {
+          "id": "arrival:wall-west",
+          "x": 0,
+          "y": 1536,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "arrival:wall-east",
+          "x": 624,
+          "y": 1536,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "arrival:roof-west",
+          "x": 16,
+          "y": 1536,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "arrival:roof-east",
+          "x": 496,
+          "y": 1536,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "junction:wall-west",
+          "x": 640,
+          "y": 1536,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "junction:wall-east",
+          "x": 1264,
+          "y": 1536,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "junction:roof-west",
+          "x": 656,
+          "y": 1536,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "junction:roof-east",
+          "x": 1136,
+          "y": 1536,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "l1-vault:wall-west",
+          "x": 0,
+          "y": 2048,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "l1-vault:wall-east",
+          "x": 624,
+          "y": 2048,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "l1-vault:roof-west",
+          "x": 16,
+          "y": 2048,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "l1-vault:roof-east",
+          "x": 496,
+          "y": 2048,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "thermal:wall-west",
+          "x": 0,
+          "y": 1024,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "thermal:wall-east",
+          "x": 624,
+          "y": 1024,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "thermal:roof",
+          "x": 16,
+          "y": 1024,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "socket:wall-west",
+          "x": 640,
+          "y": 1024,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "socket:wall-east",
+          "x": 1264,
+          "y": 1024,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "socket:roof-west",
+          "x": 656,
+          "y": 1024,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "socket:roof-east",
+          "x": 1136,
+          "y": 1024,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "heatsink:wall-west",
+          "x": 640,
+          "y": 512,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "heatsink:wall-east",
+          "x": 1264,
+          "y": 512,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "heatsink:roof",
+          "x": 656,
+          "y": 512,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "ram-base:wall-west",
+          "x": 1280,
+          "y": 512,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "ram-base:wall-east",
+          "x": 1904,
+          "y": 512,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "ram-base:roof-west",
+          "x": 1296,
+          "y": 512,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "ram-base:roof-east",
+          "x": 1776,
+          "y": 512,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "ram-west:wall-west",
+          "x": 1280,
+          "y": 0,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "ram-west:wall-east",
+          "x": 1904,
+          "y": 0,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "ram-west:roof",
+          "x": 1296,
+          "y": 0,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "ram-east:wall-west",
+          "x": 1920,
+          "y": 0,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "ram-east:wall-east",
+          "x": 2544,
+          "y": 0,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "ram-east:roof",
+          "x": 1936,
+          "y": 0,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "ram-return:wall-west",
+          "x": 1920,
+          "y": 512,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "ram-return:wall-east",
+          "x": 2544,
+          "y": 512,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "ram-return:roof-west",
+          "x": 1936,
+          "y": 512,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "ram-return:roof-east",
+          "x": 2416,
+          "y": 512,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "bus-north:wall-west",
+          "x": 1280,
+          "y": 1024,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "bus-north:wall-east",
+          "x": 1904,
+          "y": 1024,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "bus-north:roof-west",
+          "x": 1296,
+          "y": 1024,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "bus-north:roof-east",
+          "x": 1776,
+          "y": 1024,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "bus-cross:wall-west",
+          "x": 1920,
+          "y": 1024,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "bus-cross:wall-east",
+          "x": 2544,
+          "y": 1024,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "bus-cross:roof-west",
+          "x": 1936,
+          "y": 1024,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "bus-cross:roof-east",
+          "x": 2416,
+          "y": 1024,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "bus-west:wall-west",
+          "x": 1280,
+          "y": 1536,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "bus-west:wall-east",
+          "x": 1904,
+          "y": 1536,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "bus-west:roof-west",
+          "x": 1296,
+          "y": 1536,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "bus-west:roof-east",
+          "x": 1776,
+          "y": 1536,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "bus-east:wall-west",
+          "x": 1920,
+          "y": 1536,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "bus-east:wall-east",
+          "x": 2544,
+          "y": 1536,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "bus-east:roof-west",
+          "x": 1936,
+          "y": 1536,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "bus-east:roof-east",
+          "x": 2416,
+          "y": 1536,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "bus-cache:wall-west",
+          "x": 1280,
+          "y": 2048,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "bus-cache:wall-east",
+          "x": 1904,
+          "y": 2048,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "bus-cache:roof-west",
+          "x": 1296,
+          "y": 2048,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "bus-cache:roof-east",
+          "x": 1776,
+          "y": 2048,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "bus-return:wall-west",
+          "x": 1920,
+          "y": 2048,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "bus-return:wall-east",
+          "x": 2544,
+          "y": 2048,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "bus-return:roof-west",
+          "x": 1936,
+          "y": 2048,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "bus-return:roof-east",
+          "x": 2416,
+          "y": 2048,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "gpu-west:wall-west",
+          "x": 2560,
+          "y": 1024,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "gpu-west:wall-east",
+          "x": 3184,
+          "y": 1024,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "gpu-west:roof",
+          "x": 2576,
+          "y": 1024,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "gpu-east:wall-west",
+          "x": 3200,
+          "y": 1024,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "gpu-east:wall-east",
+          "x": 3824,
+          "y": 1024,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "gpu-east:roof-west",
+          "x": 3216,
+          "y": 1024,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "gpu-east:roof-east",
+          "x": 3696,
+          "y": 1024,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "gpu-under:wall-west",
+          "x": 2560,
+          "y": 1536,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "gpu-under:wall-east",
+          "x": 3184,
+          "y": 1536,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "gpu-under:roof-west",
+          "x": 2576,
+          "y": 1536,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "gpu-under:roof-east",
+          "x": 3056,
+          "y": 1536,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "gpu-cache:wall-west",
+          "x": 3200,
+          "y": 1536,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "gpu-cache:wall-east",
+          "x": 3824,
+          "y": 1536,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "gpu-cache:roof-west",
+          "x": 3216,
+          "y": 1536,
+          "width": 192,
+          "height": 16
+        },
+        {
+          "id": "gpu-cache:roof-east",
+          "x": 3696,
+          "y": 1536,
+          "width": 128,
+          "height": 16
+        },
+        {
+          "id": "core-test:wall-west",
+          "x": 3200,
+          "y": 512,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "core-test:wall-east",
+          "x": 3824,
+          "y": 512,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "core-test:roof",
+          "x": 3216,
+          "y": 512,
+          "width": 608,
+          "height": 16
+        },
+        {
+          "id": "core-exit:wall-west",
+          "x": 3840,
+          "y": 512,
+          "width": 16,
+          "height": 336
+        },
+        {
+          "id": "core-exit:wall-east",
+          "x": 4464,
+          "y": 512,
+          "width": 16,
+          "height": 464
+        },
+        {
+          "id": "core-exit:roof",
+          "x": 3856,
+          "y": 512,
+          "width": 608,
+          "height": 16
+        }
+      ],
+      "components": [
+        {
+          "id": "socket:cpu-relay",
+          "x": 752,
+          "y": 1444,
+          "width": 34,
+          "height": 44,
+          "label": "REFRIGERACAO DA CPU",
+          "repair": {
+            "type": "circuit",
+            "stage": 1,
+            "componentIndex": 0
+          }
+        },
+        {
+          "id": "ram-base:ram-relay",
+          "x": 1392,
+          "y": 932,
+          "width": 34,
+          "height": 44,
+          "label": "BANCO DE MEMORIA",
+          "repair": {
+            "type": "circuit",
+            "stage": 1,
+            "componentIndex": 1
+          }
+        },
+        {
+          "id": "bus-west:bus-relay",
+          "x": 1392,
+          "y": 1956,
+          "width": 34,
+          "height": 44,
+          "label": "MALHA DOS BARRAMENTOS",
+          "repair": {
+            "type": "circuit",
+            "stage": 1,
+            "componentIndex": 2
+          }
+        },
+        {
+          "id": "gpu-east:gpu-relay",
+          "x": 3312,
+          "y": 1444,
+          "width": 34,
+          "height": 44,
+          "label": "ALIMENTACAO PRINCIPAL DA GPU",
+          "repair": {
+            "type": "circuit",
+            "stage": 1,
+            "componentIndex": 3
+          }
+        }
+      ],
+      "enemies": [
+        {
+          "id": "thermal:guard",
+          "type": "basic",
+          "x": 552,
+          "y": 1464,
+          "groundY": 1488,
+          "patrolMin": 504,
+          "patrolMax": 600,
+          "navigationBounds": {
+            "left": 504,
+            "right": 600
+          },
+          "activationRegion": {
+            "x": 16,
+            "y": 1088,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "socket:guard",
+          "type": "basic",
+          "x": 1192,
+          "y": 1464,
+          "groundY": 1488,
+          "patrolMin": 1144,
+          "patrolMax": 1240,
+          "navigationBounds": {
+            "left": 1144,
+            "right": 1240
+          },
+          "activationRegion": {
+            "x": 656,
+            "y": 1088,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "heatsink:guard",
+          "type": "fast",
+          "x": 1192,
+          "y": 952,
+          "groundY": 976,
+          "patrolMin": 1144,
+          "patrolMax": 1240,
+          "navigationBounds": {
+            "left": 1144,
+            "right": 1240
+          },
+          "activationRegion": {
+            "x": 656,
+            "y": 576,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "heatsink:sentry",
+          "type": "shooter",
+          "x": 776,
+          "y": 952,
+          "groundY": 976,
+          "patrolMin": 736,
+          "patrolMax": 816,
+          "navigationBounds": {
+            "left": 736,
+            "right": 816
+          },
+          "activationRegion": {
+            "x": 656,
+            "y": 576,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "ram-base:guard",
+          "type": "basic",
+          "x": 1832,
+          "y": 952,
+          "groundY": 976,
+          "patrolMin": 1784,
+          "patrolMax": 1880,
+          "navigationBounds": {
+            "left": 1784,
+            "right": 1880
+          },
+          "activationRegion": {
+            "x": 1296,
+            "y": 576,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "bus-cross:guard",
+          "type": "basic",
+          "x": 2472,
+          "y": 1464,
+          "groundY": 1488,
+          "patrolMin": 2424,
+          "patrolMax": 2520,
+          "navigationBounds": {
+            "left": 2424,
+            "right": 2520
+          },
+          "activationRegion": {
+            "x": 1936,
+            "y": 1088,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "bus-west:guard",
+          "type": "basic",
+          "x": 1832,
+          "y": 1976,
+          "groundY": 2000,
+          "patrolMin": 1784,
+          "patrolMax": 1880,
+          "navigationBounds": {
+            "left": 1784,
+            "right": 1880
+          },
+          "activationRegion": {
+            "x": 1296,
+            "y": 1600,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "bus-east:guard",
+          "type": "fast",
+          "x": 2472,
+          "y": 1976,
+          "groundY": 2000,
+          "patrolMin": 2424,
+          "patrolMax": 2520,
+          "navigationBounds": {
+            "left": 2424,
+            "right": 2520
+          },
+          "activationRegion": {
+            "x": 1936,
+            "y": 1600,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "bus-east:sentry",
+          "type": "shooter",
+          "x": 2056,
+          "y": 1976,
+          "groundY": 2000,
+          "patrolMin": 2016,
+          "patrolMax": 2096,
+          "navigationBounds": {
+            "left": 2016,
+            "right": 2096
+          },
+          "activationRegion": {
+            "x": 1936,
+            "y": 1600,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "gpu-west:guard",
+          "type": "armored",
+          "x": 3112,
+          "y": 1464,
+          "groundY": 1488,
+          "patrolMin": 3064,
+          "patrolMax": 3160,
+          "navigationBounds": {
+            "left": 3064,
+            "right": 3160
+          },
+          "activationRegion": {
+            "x": 2576,
+            "y": 1088,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "gpu-west:sentry",
+          "type": "shooter",
+          "x": 2696,
+          "y": 1464,
+          "groundY": 1488,
+          "patrolMin": 2656,
+          "patrolMax": 2736,
+          "navigationBounds": {
+            "left": 2656,
+            "right": 2736
+          },
+          "activationRegion": {
+            "x": 2576,
+            "y": 1088,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "gpu-east:guard",
+          "type": "armored",
+          "x": 3752,
+          "y": 1464,
+          "groundY": 1488,
+          "patrolMin": 3704,
+          "patrolMax": 3800,
+          "navigationBounds": {
+            "left": 3704,
+            "right": 3800
+          },
+          "activationRegion": {
+            "x": 3216,
+            "y": 1088,
+            "width": 608,
+            "height": 400
+          }
+        },
+        {
+          "id": "core-test:guard",
+          "type": "basic",
+          "x": 3752,
+          "y": 952,
+          "groundY": 976,
+          "patrolMin": 3704,
+          "patrolMax": 3800,
+          "navigationBounds": {
+            "left": 3704,
+            "right": 3800
+          },
+          "activationRegion": {
+            "x": 3216,
+            "y": 576,
+            "width": 608,
+            "height": 400
+          }
+        }
+      ],
+      "collectibles": [
+        {
+          "id": "arrival:data",
+          "x": 112,
+          "y": 1970,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "junction:data",
+          "x": 752,
+          "y": 1970,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "l1-vault:secret-cache",
+          "x": 128,
+          "y": 2384,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "l1-vault:cache-bonus",
+          "x": 560,
+          "y": 2482,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "thermal:data",
+          "x": 112,
+          "y": 1458,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "socket:data",
+          "x": 752,
+          "y": 1458,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "heatsink:data",
+          "x": 752,
+          "y": 946,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "ram-base:data",
+          "x": 1392,
+          "y": 946,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "ram-west:data",
+          "x": 1392,
+          "y": 434,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "ram-east:secret-cache",
+          "x": 2064,
+          "y": 336,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "ram-east:cache-bonus",
+          "x": 2480,
+          "y": 434,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "ram-return:data",
+          "x": 2032,
+          "y": 946,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "bus-north:data",
+          "x": 1392,
+          "y": 1458,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "bus-cross:data",
+          "x": 2032,
+          "y": 1458,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "bus-west:data",
+          "x": 1392,
+          "y": 1970,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "bus-east:data",
+          "x": 2032,
+          "y": 1970,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "bus-cache:secret-cache",
+          "x": 1424,
+          "y": 2384,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "bus-cache:cache-bonus",
+          "x": 1840,
+          "y": 2482,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "bus-return:data",
+          "x": 2032,
+          "y": 2482,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "gpu-west:data",
+          "x": 2672,
+          "y": 1458,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "gpu-east:data",
+          "x": 3312,
+          "y": 1458,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "gpu-under:data",
+          "x": 2672,
+          "y": 1970,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "gpu-cache:secret-cache",
+          "x": 3328,
+          "y": 1872,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "gpu-cache:cache-bonus",
+          "x": 3760,
+          "y": 1970,
+          "radius": 10,
+          "secret": true
+        },
+        {
+          "id": "core-test:data",
+          "x": 3312,
+          "y": 946,
+          "radius": 10,
+          "secret": false
+        },
+        {
+          "id": "core-exit:data",
+          "x": 3952,
+          "y": 946,
+          "radius": 10,
+          "secret": false
+        }
+      ],
+      "features": [],
+      "gates": [],
+      "interactives": []
+    },
+    "objectives": {
+      "defeatAllViruses": true,
+      "repairAllComponents": true,
+      "requireExitQuestion": true,
+      "enemiesToDefeat": 13,
+      "componentsToRepair": 4,
+      "goals": []
+    },
+    "assets": [],
+    "layers": [
+      {
+        "id": "arrival:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "control-board",
+            "x": 240,
+            "y": 1664,
+            "width": 256,
+            "height": 192
+          }
+        ]
+      },
+      {
+        "id": "arrival:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "arrival:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cpu",
+            "x": 240,
+            "y": 1664,
+            "width": 256,
+            "height": 160,
+            "label": "PLACA-MAE CENTRAL"
+          },
+          {
+            "kind": "cache",
+            "x": 480,
+            "y": 1600,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "junction:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "control-board",
+            "x": 880,
+            "y": 1664,
+            "width": 256,
+            "height": 192
+          }
+        ]
+      },
+      {
+        "id": "junction:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "junction:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cpu",
+            "x": 880,
+            "y": 1664,
+            "width": 256,
+            "height": 160,
+            "label": "PLACA-MAE CENTRAL"
+          },
+          {
+            "kind": "cache",
+            "x": 1120,
+            "y": 1600,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "l1-vault:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "control-board",
+            "x": 240,
+            "y": 2176,
+            "width": 256,
+            "height": 192
+          }
+        ]
+      },
+      {
+        "id": "l1-vault:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "l1-vault:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cpu",
+            "x": 240,
+            "y": 2176,
+            "width": 256,
+            "height": 160,
+            "label": "PLACA-MAE CENTRAL"
+          },
+          {
+            "kind": "cache",
+            "x": 480,
+            "y": 2112,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          },
+          {
+            "kind": "cache",
+            "x": 64,
+            "y": 2272,
+            "width": 128,
+            "height": 64,
+            "label": "CACHE / ROTA OPCIONAL"
+          }
+        ]
+      },
+      {
+        "id": "thermal:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "socket-body",
+            "x": 248,
+            "y": 1136,
+            "width": 256,
+            "height": 224
+          }
+        ]
+      },
+      {
+        "id": "thermal:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "pin-w-0",
+            "x": 232,
+            "y": 1152,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-0",
+            "x": 504,
+            "y": 1152,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-1",
+            "x": 232,
+            "y": 1184,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-1",
+            "x": 504,
+            "y": 1184,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-2",
+            "x": 232,
+            "y": 1216,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-2",
+            "x": 504,
+            "y": 1216,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-3",
+            "x": 232,
+            "y": 1248,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-3",
+            "x": 504,
+            "y": 1248,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-4",
+            "x": 232,
+            "y": 1280,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-4",
+            "x": 504,
+            "y": 1280,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-5",
+            "x": 232,
+            "y": 1312,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-5",
+            "x": 504,
+            "y": 1312,
+            "width": 16,
+            "height": 8
+          }
+        ]
+      },
+      {
+        "id": "thermal:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cpu",
+            "x": 240,
+            "y": 1152,
+            "width": 256,
+            "height": 160,
+            "label": "COMPLEXO DA CPU"
+          },
+          {
+            "kind": "fan",
+            "x": 480,
+            "y": 1088,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "socket:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "socket-body",
+            "x": 888,
+            "y": 1136,
+            "width": 256,
+            "height": 224
+          }
+        ]
+      },
+      {
+        "id": "socket:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "pin-w-0",
+            "x": 872,
+            "y": 1152,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-0",
+            "x": 1144,
+            "y": 1152,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-1",
+            "x": 872,
+            "y": 1184,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-1",
+            "x": 1144,
+            "y": 1184,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-2",
+            "x": 872,
+            "y": 1216,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-2",
+            "x": 1144,
+            "y": 1216,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-3",
+            "x": 872,
+            "y": 1248,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-3",
+            "x": 1144,
+            "y": 1248,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-4",
+            "x": 872,
+            "y": 1280,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-4",
+            "x": 1144,
+            "y": 1280,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-5",
+            "x": 872,
+            "y": 1312,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-5",
+            "x": 1144,
+            "y": 1312,
+            "width": 16,
+            "height": 8
+          }
+        ]
+      },
+      {
+        "id": "socket:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cpu",
+            "x": 880,
+            "y": 1152,
+            "width": 256,
+            "height": 160,
+            "label": "COMPLEXO DA CPU"
+          },
+          {
+            "kind": "fan",
+            "x": 1120,
+            "y": 1088,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "heatsink:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "socket-body",
+            "x": 888,
+            "y": 624,
+            "width": 256,
+            "height": 224
+          }
+        ]
+      },
+      {
+        "id": "heatsink:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "pin-w-0",
+            "x": 872,
+            "y": 640,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-0",
+            "x": 1144,
+            "y": 640,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-1",
+            "x": 872,
+            "y": 672,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-1",
+            "x": 1144,
+            "y": 672,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-2",
+            "x": 872,
+            "y": 704,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-2",
+            "x": 1144,
+            "y": 704,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-3",
+            "x": 872,
+            "y": 736,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-3",
+            "x": 1144,
+            "y": 736,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-4",
+            "x": 872,
+            "y": 768,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-4",
+            "x": 1144,
+            "y": 768,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-w-5",
+            "x": 872,
+            "y": 800,
+            "width": 16,
+            "height": 8
+          },
+          {
+            "id": "pin-e-5",
+            "x": 1144,
+            "y": 800,
+            "width": 16,
+            "height": 8
+          }
+        ]
+      },
+      {
+        "id": "heatsink:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cpu",
+            "x": 880,
+            "y": 640,
+            "width": 256,
+            "height": 160,
+            "label": "COMPLEXO DA CPU"
+          },
+          {
+            "kind": "fan",
+            "x": 1120,
+            "y": 576,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "ram-base:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "module-0",
+            "x": 1504,
+            "y": 592,
+            "width": 64,
+            "height": 288
+          },
+          {
+            "id": "module-1",
+            "x": 1592,
+            "y": 592,
+            "width": 64,
+            "height": 288
+          },
+          {
+            "id": "module-2",
+            "x": 1680,
+            "y": 592,
+            "width": 64,
+            "height": 288
+          }
+        ]
+      },
+      {
+        "id": "ram-base:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "contact-0",
+            "x": 1512,
+            "y": 856,
+            "width": 48,
+            "height": 16
+          },
+          {
+            "id": "contact-1",
+            "x": 1600,
+            "y": 856,
+            "width": 48,
+            "height": 16
+          },
+          {
+            "id": "contact-2",
+            "x": 1688,
+            "y": 856,
+            "width": 48,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "ram-base:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "ram",
+            "x": 1520,
+            "y": 640,
+            "width": 256,
+            "height": 160,
+            "label": "TORRES DE MEMORIA RAM"
+          },
+          {
+            "kind": "cache",
+            "x": 1760,
+            "y": 576,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "ram-west:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "module-0",
+            "x": 1504,
+            "y": 80,
+            "width": 64,
+            "height": 288
+          },
+          {
+            "id": "module-1",
+            "x": 1592,
+            "y": 80,
+            "width": 64,
+            "height": 288
+          },
+          {
+            "id": "module-2",
+            "x": 1680,
+            "y": 80,
+            "width": 64,
+            "height": 288
+          }
+        ]
+      },
+      {
+        "id": "ram-west:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "contact-0",
+            "x": 1512,
+            "y": 344,
+            "width": 48,
+            "height": 16
+          },
+          {
+            "id": "contact-1",
+            "x": 1600,
+            "y": 344,
+            "width": 48,
+            "height": 16
+          },
+          {
+            "id": "contact-2",
+            "x": 1688,
+            "y": 344,
+            "width": 48,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "ram-west:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "ram",
+            "x": 1520,
+            "y": 128,
+            "width": 256,
+            "height": 160,
+            "label": "TORRES DE MEMORIA RAM"
+          },
+          {
+            "kind": "cache",
+            "x": 1760,
+            "y": 64,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "ram-east:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "module-0",
+            "x": 2144,
+            "y": 80,
+            "width": 64,
+            "height": 288
+          },
+          {
+            "id": "module-1",
+            "x": 2232,
+            "y": 80,
+            "width": 64,
+            "height": 288
+          },
+          {
+            "id": "module-2",
+            "x": 2320,
+            "y": 80,
+            "width": 64,
+            "height": 288
+          }
+        ]
+      },
+      {
+        "id": "ram-east:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "contact-0",
+            "x": 2152,
+            "y": 344,
+            "width": 48,
+            "height": 16
+          },
+          {
+            "id": "contact-1",
+            "x": 2240,
+            "y": 344,
+            "width": 48,
+            "height": 16
+          },
+          {
+            "id": "contact-2",
+            "x": 2328,
+            "y": 344,
+            "width": 48,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "ram-east:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "ram",
+            "x": 2160,
+            "y": 128,
+            "width": 256,
+            "height": 160,
+            "label": "TORRES DE MEMORIA RAM"
+          },
+          {
+            "kind": "cache",
+            "x": 2400,
+            "y": 64,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          },
+          {
+            "kind": "cache",
+            "x": 1984,
+            "y": 224,
+            "width": 128,
+            "height": 64,
+            "label": "CACHE / ROTA OPCIONAL"
+          }
+        ]
+      },
+      {
+        "id": "ram-return:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "module-0",
+            "x": 2144,
+            "y": 592,
+            "width": 64,
+            "height": 288
+          },
+          {
+            "id": "module-1",
+            "x": 2232,
+            "y": 592,
+            "width": 64,
+            "height": 288
+          },
+          {
+            "id": "module-2",
+            "x": 2320,
+            "y": 592,
+            "width": 64,
+            "height": 288
+          }
+        ]
+      },
+      {
+        "id": "ram-return:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "contact-0",
+            "x": 2152,
+            "y": 856,
+            "width": 48,
+            "height": 16
+          },
+          {
+            "id": "contact-1",
+            "x": 2240,
+            "y": 856,
+            "width": 48,
+            "height": 16
+          },
+          {
+            "id": "contact-2",
+            "x": 2328,
+            "y": 856,
+            "width": 48,
+            "height": 16
+          }
+        ]
+      },
+      {
+        "id": "ram-return:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "ram",
+            "x": 2160,
+            "y": 640,
+            "width": 256,
+            "height": 160,
+            "label": "TORRES DE MEMORIA RAM"
+          },
+          {
+            "kind": "cache",
+            "x": 2400,
+            "y": 576,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "bus-north:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "lane-0",
+            "x": 1488,
+            "y": 1168,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-1",
+            "x": 1488,
+            "y": 1216,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-2",
+            "x": 1488,
+            "y": 1264,
+            "width": 336,
+            "height": 24
+          }
+        ]
+      },
+      {
+        "id": "bus-north:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "bus-north:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cache",
+            "x": 1520,
+            "y": 1152,
+            "width": 256,
+            "height": 160,
+            "label": "BARRAMENTOS"
+          },
+          {
+            "kind": "cache",
+            "x": 1760,
+            "y": 1088,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "bus-cross:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "lane-0",
+            "x": 2128,
+            "y": 1168,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-1",
+            "x": 2128,
+            "y": 1216,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-2",
+            "x": 2128,
+            "y": 1264,
+            "width": 336,
+            "height": 24
+          }
+        ]
+      },
+      {
+        "id": "bus-cross:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "bus-cross:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cache",
+            "x": 2160,
+            "y": 1152,
+            "width": 256,
+            "height": 160,
+            "label": "BARRAMENTOS"
+          },
+          {
+            "kind": "cache",
+            "x": 2400,
+            "y": 1088,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "bus-west:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "lane-0",
+            "x": 1488,
+            "y": 1680,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-1",
+            "x": 1488,
+            "y": 1728,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-2",
+            "x": 1488,
+            "y": 1776,
+            "width": 336,
+            "height": 24
+          }
+        ]
+      },
+      {
+        "id": "bus-west:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "bus-west:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cache",
+            "x": 1520,
+            "y": 1664,
+            "width": 256,
+            "height": 160,
+            "label": "BARRAMENTOS"
+          },
+          {
+            "kind": "cache",
+            "x": 1760,
+            "y": 1600,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "bus-east:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "lane-0",
+            "x": 2128,
+            "y": 1680,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-1",
+            "x": 2128,
+            "y": 1728,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-2",
+            "x": 2128,
+            "y": 1776,
+            "width": 336,
+            "height": 24
+          }
+        ]
+      },
+      {
+        "id": "bus-east:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "bus-east:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cache",
+            "x": 2160,
+            "y": 1664,
+            "width": 256,
+            "height": 160,
+            "label": "BARRAMENTOS"
+          },
+          {
+            "kind": "cache",
+            "x": 2400,
+            "y": 1600,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "bus-cache:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "lane-0",
+            "x": 1488,
+            "y": 2192,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-1",
+            "x": 1488,
+            "y": 2240,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-2",
+            "x": 1488,
+            "y": 2288,
+            "width": 336,
+            "height": 24
+          }
+        ]
+      },
+      {
+        "id": "bus-cache:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "bus-cache:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cache",
+            "x": 1520,
+            "y": 2176,
+            "width": 256,
+            "height": 160,
+            "label": "BARRAMENTOS"
+          },
+          {
+            "kind": "cache",
+            "x": 1760,
+            "y": 2112,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          },
+          {
+            "kind": "cache",
+            "x": 1344,
+            "y": 2272,
+            "width": 128,
+            "height": 64,
+            "label": "CACHE / ROTA OPCIONAL"
+          }
+        ]
+      },
+      {
+        "id": "bus-return:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "lane-0",
+            "x": 2128,
+            "y": 2192,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-1",
+            "x": 2128,
+            "y": 2240,
+            "width": 336,
+            "height": 24
+          },
+          {
+            "id": "lane-2",
+            "x": 2128,
+            "y": 2288,
+            "width": 336,
+            "height": 24
+          }
+        ]
+      },
+      {
+        "id": "bus-return:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "bus-return:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cache",
+            "x": 2160,
+            "y": 2176,
+            "width": 256,
+            "height": 160,
+            "label": "BARRAMENTOS"
+          },
+          {
+            "kind": "cache",
+            "x": 2400,
+            "y": 2112,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "gpu-west:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "gpu-board",
+            "x": 2768,
+            "y": 1152,
+            "width": 352,
+            "height": 192
+          }
+        ]
+      },
+      {
+        "id": "gpu-west:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "gpu-contact-0",
+            "x": 2800,
+            "y": 1344,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-1",
+            "x": 2848,
+            "y": 1344,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-2",
+            "x": 2896,
+            "y": 1344,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-3",
+            "x": 2944,
+            "y": 1344,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-4",
+            "x": 2992,
+            "y": 1344,
+            "width": 32,
+            "height": 8
+          }
+        ]
+      },
+      {
+        "id": "gpu-west:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "gpu",
+            "x": 2800,
+            "y": 1152,
+            "width": 256,
+            "height": 160,
+            "label": "COMPLEXO DA GPU"
+          },
+          {
+            "kind": "fan",
+            "x": 3040,
+            "y": 1088,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "gpu-east:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "gpu-board",
+            "x": 3408,
+            "y": 1152,
+            "width": 352,
+            "height": 192
+          }
+        ]
+      },
+      {
+        "id": "gpu-east:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "gpu-contact-0",
+            "x": 3440,
+            "y": 1344,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-1",
+            "x": 3488,
+            "y": 1344,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-2",
+            "x": 3536,
+            "y": 1344,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-3",
+            "x": 3584,
+            "y": 1344,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-4",
+            "x": 3632,
+            "y": 1344,
+            "width": 32,
+            "height": 8
+          }
+        ]
+      },
+      {
+        "id": "gpu-east:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "gpu",
+            "x": 3440,
+            "y": 1152,
+            "width": 256,
+            "height": 160,
+            "label": "COMPLEXO DA GPU"
+          },
+          {
+            "kind": "fan",
+            "x": 3680,
+            "y": 1088,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "gpu-under:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "gpu-board",
+            "x": 2768,
+            "y": 1664,
+            "width": 352,
+            "height": 192
+          }
+        ]
+      },
+      {
+        "id": "gpu-under:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "gpu-contact-0",
+            "x": 2800,
+            "y": 1856,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-1",
+            "x": 2848,
+            "y": 1856,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-2",
+            "x": 2896,
+            "y": 1856,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-3",
+            "x": 2944,
+            "y": 1856,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-4",
+            "x": 2992,
+            "y": 1856,
+            "width": 32,
+            "height": 8
+          }
+        ]
+      },
+      {
+        "id": "gpu-under:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "gpu",
+            "x": 2800,
+            "y": 1664,
+            "width": 256,
+            "height": 160,
+            "label": "COMPLEXO DA GPU"
+          },
+          {
+            "kind": "fan",
+            "x": 3040,
+            "y": 1600,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "gpu-cache:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "gpu-board",
+            "x": 3408,
+            "y": 1664,
+            "width": 352,
+            "height": 192
+          }
+        ]
+      },
+      {
+        "id": "gpu-cache:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": [
+          {
+            "id": "gpu-contact-0",
+            "x": 3440,
+            "y": 1856,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-1",
+            "x": 3488,
+            "y": 1856,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-2",
+            "x": 3536,
+            "y": 1856,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-3",
+            "x": 3584,
+            "y": 1856,
+            "width": 32,
+            "height": 8
+          },
+          {
+            "id": "gpu-contact-4",
+            "x": 3632,
+            "y": 1856,
+            "width": 32,
+            "height": 8
+          }
+        ]
+      },
+      {
+        "id": "gpu-cache:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "gpu",
+            "x": 3440,
+            "y": 1664,
+            "width": 256,
+            "height": 160,
+            "label": "COMPLEXO DA GPU"
+          },
+          {
+            "kind": "fan",
+            "x": 3680,
+            "y": 1600,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          },
+          {
+            "kind": "cache",
+            "x": 3264,
+            "y": 1760,
+            "width": 128,
+            "height": 64,
+            "label": "CACHE / ROTA OPCIONAL"
+          }
+        ]
+      },
+      {
+        "id": "core-test:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "control-board",
+            "x": 3440,
+            "y": 640,
+            "width": 256,
+            "height": 192
+          }
+        ]
+      },
+      {
+        "id": "core-test:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "core-test:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cpu",
+            "x": 3440,
+            "y": 640,
+            "width": 256,
+            "height": 160,
+            "label": "NUCLEO FINAL"
+          },
+          {
+            "kind": "cache",
+            "x": 3680,
+            "y": 576,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      },
+      {
+        "id": "core-exit:equipment-chassis",
+        "type": "rects",
+        "pass": "background",
+        "color": "#12372f",
+        "rects": [
+          {
+            "id": "control-board",
+            "x": 4080,
+            "y": 640,
+            "width": 256,
+            "height": 192
+          }
+        ]
+      },
+      {
+        "id": "core-exit:equipment-contacts",
+        "type": "rects",
+        "pass": "background",
+        "color": "#76633c",
+        "rects": []
+      },
+      {
+        "id": "core-exit:equipment",
+        "type": "computer-world",
+        "theme": "hardware",
+        "pass": "midground",
+        "items": [
+          {
+            "kind": "cpu",
+            "x": 4080,
+            "y": 640,
+            "width": 256,
+            "height": 160,
+            "label": "NUCLEO FINAL"
+          },
+          {
+            "kind": "cache",
+            "x": 4320,
+            "y": 576,
+            "width": 96,
+            "height": 96,
+            "label": ""
+          }
+        ]
+      }
+    ],
+    "mechanics": [
+      {
+        "id": "thermal:telegraphed-current",
+        "type": "parkour-hazards",
+        "hazards": [
+          {
+            "id": "thermal:current",
+            "kind": "laser",
+            "x": 408,
+            "y": 1456,
+            "width": 24,
+            "height": 32,
+            "warning": 1.2,
+            "active": 0.65,
+            "period": 4.8,
+            "phase": 0,
+            "damage": 8
+          }
+        ]
+      },
+      {
+        "id": "thermal:cooling",
+        "type": "environment",
+        "zones": [
+          {
+            "id": "thermal:fan",
+            "x": 224,
+            "y": 1264,
+            "width": 160,
+            "height": 100,
+            "forceX": 45,
+            "label": "CALOR / REFRIGERAR CPU",
+            "disabledWhen": {
+              "component": "socket:cpu-relay"
+            }
+          }
+        ]
+      },
+      {
+        "id": "socket:maintenance-return",
+        "type": "portals",
+        "links": [
+          {
+            "id": "socket:return",
+            "x": 816,
+            "y": 1412,
+            "width": 40,
+            "height": 76,
+            "label": "RETORNO / PLACA-MAE",
+            "requires": {
+              "component": "socket:cpu-relay"
+            },
+            "to": {
+              "x": 64,
+              "y": 1952
+            }
+          }
+        ]
+      },
+      {
+        "id": "ram-base:maintenance-return",
+        "type": "portals",
+        "links": [
+          {
+            "id": "ram-base:return",
+            "x": 1456,
+            "y": 900,
+            "width": 40,
+            "height": 76,
+            "label": "RETORNO / PLACA-MAE",
+            "requires": {
+              "component": "ram-base:ram-relay"
+            },
+            "to": {
+              "x": 64,
+              "y": 1952
+            }
+          }
+        ]
+      },
+      {
+        "id": "bus-cross:telegraphed-current",
+        "type": "parkour-hazards",
+        "hazards": [
+          {
+            "id": "bus-cross:current",
+            "kind": "electric",
+            "x": 2328,
+            "y": 1456,
+            "width": 24,
+            "height": 32,
+            "warning": 1.2,
+            "active": 0.65,
+            "period": 4.8,
+            "phase": 0,
+            "damage": 8
+          }
+        ]
+      },
+      {
+        "id": "bus-west:maintenance-return",
+        "type": "portals",
+        "links": [
+          {
+            "id": "bus-west:return",
+            "x": 1456,
+            "y": 1924,
+            "width": 40,
+            "height": 76,
+            "label": "RETORNO / PLACA-MAE",
+            "requires": {
+              "component": "bus-west:bus-relay"
+            },
+            "to": {
+              "x": 64,
+              "y": 1952
+            }
+          }
+        ]
+      },
+      {
+        "id": "gpu-east:maintenance-return",
+        "type": "portals",
+        "links": [
+          {
+            "id": "gpu-east:return",
+            "x": 3376,
+            "y": 1412,
+            "width": 40,
+            "height": 76,
+            "label": "RETORNO / PLACA-MAE",
+            "requires": {
+              "component": "gpu-east:gpu-relay"
+            },
+            "to": {
+              "x": 64,
+              "y": 1952
+            }
+          }
+        ]
+      },
+      {
+        "id": "gpu-under:telegraphed-current",
+        "type": "parkour-hazards",
+        "hazards": [
+          {
+            "id": "gpu-under:current",
+            "kind": "electric",
+            "x": 2968,
+            "y": 1968,
+            "width": 24,
+            "height": 32,
+            "warning": 1.2,
+            "active": 0.65,
+            "period": 4.8,
+            "phase": 0,
+            "damage": 8
+          }
+        ]
+      },
+      {
+        "id": "core-test:telegraphed-current",
+        "type": "parkour-hazards",
+        "hazards": [
+          {
+            "id": "core-test:current",
+            "kind": "electric",
+            "x": 3608,
+            "y": 944,
+            "width": 24,
+            "height": 32,
+            "warning": 1.2,
+            "active": 0.65,
+            "period": 4.8,
+            "phase": 0,
+            "damage": 8
+          }
+        ]
+      }
+    ],
+    "generation": {
+      "version": 1,
+      "seed": "byte-hardware-v3-2026",
+      "recipe": {
+        "id": "phase-01",
+        "name": "Hardware — A placa-mae gigante",
+        "theme": "hardware",
+        "seed": "byte-hardware-v3-2026",
+        "revision": 5,
+        "layout": "multi-route",
+        "objective": "Explore os seis setores, restaure CPU, RAM, barramentos e GPU, elimine os virus e alcance o nucleo.",
+        "size": {
+          "width": 4480,
+          "height": 2560
+        },
+        "rooms": [
+          {
+            "id": "arrival",
+            "x": 0,
+            "y": 1536,
+            "template": "hw-arrival"
+          },
+          {
+            "id": "junction",
+            "x": 640,
+            "y": 1536,
+            "template": "hw-junction"
+          },
+          {
+            "id": "l1-vault",
+            "x": 0,
+            "y": 2048,
+            "generator": "hardware-v3-vault",
+            "config": {
+              "id": "l1-vault",
+              "col": 0,
+              "row": 4,
+              "district": "pcb",
+              "role": "secret",
+              "ports": {
+                "west": false,
+                "east": false,
+                "north": true,
+                "south": false
+              }
+            }
+          },
+          {
+            "id": "thermal",
+            "x": 0,
+            "y": 1024,
+            "template": "hw-thermal"
+          },
+          {
+            "id": "socket",
+            "x": 640,
+            "y": 1024,
+            "template": "hw-socket"
+          },
+          {
+            "id": "heatsink",
+            "x": 640,
+            "y": 512,
+            "template": "hw-heatsink"
+          },
+          {
+            "id": "ram-base",
+            "x": 1280,
+            "y": 512,
+            "template": "hw-ram-base"
+          },
+          {
+            "id": "ram-west",
+            "x": 1280,
+            "y": 0,
+            "template": "hw-ram-west"
+          },
+          {
+            "id": "ram-east",
+            "x": 1920,
+            "y": 0,
+            "generator": "hardware-v3-vault",
+            "config": {
+              "id": "ram-east",
+              "col": 3,
+              "row": 0,
+              "district": "ram",
+              "role": "secret",
+              "ports": {
+                "west": true,
+                "east": false,
+                "north": false,
+                "south": true
+              }
+            }
+          },
+          {
+            "id": "ram-return",
+            "x": 1920,
+            "y": 512,
+            "template": "hw-ram-return"
+          },
+          {
+            "id": "bus-north",
+            "x": 1280,
+            "y": 1024,
+            "template": "hw-bus-north"
+          },
+          {
+            "id": "bus-cross",
+            "x": 1920,
+            "y": 1024,
+            "template": "hw-bus-cross"
+          },
+          {
+            "id": "bus-west",
+            "x": 1280,
+            "y": 1536,
+            "template": "hw-bus-west"
+          },
+          {
+            "id": "bus-east",
+            "x": 1920,
+            "y": 1536,
+            "template": "hw-bus-east"
+          },
+          {
+            "id": "bus-cache",
+            "x": 1280,
+            "y": 2048,
+            "generator": "hardware-v3-vault",
+            "config": {
+              "id": "bus-cache",
+              "col": 2,
+              "row": 4,
+              "district": "bus",
+              "role": "secret",
+              "ports": {
+                "west": false,
+                "east": true,
+                "north": true,
+                "south": false
+              }
+            }
+          },
+          {
+            "id": "bus-return",
+            "x": 1920,
+            "y": 2048,
+            "template": "hw-bus-return"
+          },
+          {
+            "id": "gpu-west",
+            "x": 2560,
+            "y": 1024,
+            "template": "hw-gpu-west"
+          },
+          {
+            "id": "gpu-east",
+            "x": 3200,
+            "y": 1024,
+            "template": "hw-gpu-east"
+          },
+          {
+            "id": "gpu-under",
+            "x": 2560,
+            "y": 1536,
+            "template": "hw-gpu-under"
+          },
+          {
+            "id": "gpu-cache",
+            "x": 3200,
+            "y": 1536,
+            "generator": "hardware-v3-vault",
+            "config": {
+              "id": "gpu-cache",
+              "col": 5,
+              "row": 3,
+              "district": "gpu",
+              "role": "secret",
+              "ports": {
+                "west": true,
+                "east": false,
+                "north": true,
+                "south": false
+              }
+            }
+          },
+          {
+            "id": "core-test",
+            "x": 3200,
+            "y": 512,
+            "template": "hw-core-test"
+          },
+          {
+            "id": "core-exit",
+            "x": 3840,
+            "y": 512,
+            "template": "hw-core-exit"
+          }
+        ],
+        "links": [
+          {
+            "from": {
+              "room": "arrival",
+              "socket": "east"
+            },
+            "to": {
+              "room": "junction",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "arrival",
+              "socket": "south"
+            },
+            "to": {
+              "room": "l1-vault",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "junction",
+              "socket": "east"
+            },
+            "to": {
+              "room": "bus-west",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "thermal",
+              "socket": "east"
+            },
+            "to": {
+              "room": "socket",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "thermal",
+              "socket": "south"
+            },
+            "to": {
+              "room": "arrival",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "socket",
+              "socket": "east"
+            },
+            "to": {
+              "room": "bus-north",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "socket",
+              "socket": "south"
+            },
+            "to": {
+              "room": "junction",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "heatsink",
+              "socket": "east"
+            },
+            "to": {
+              "room": "ram-base",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "heatsink",
+              "socket": "south"
+            },
+            "to": {
+              "room": "socket",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "ram-base",
+              "socket": "east"
+            },
+            "to": {
+              "room": "ram-return",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "ram-base",
+              "socket": "south"
+            },
+            "to": {
+              "room": "bus-north",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "ram-west",
+              "socket": "east"
+            },
+            "to": {
+              "room": "ram-east",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "ram-west",
+              "socket": "south"
+            },
+            "to": {
+              "room": "ram-base",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "ram-east",
+              "socket": "south"
+            },
+            "to": {
+              "room": "ram-return",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "ram-return",
+              "socket": "south"
+            },
+            "to": {
+              "room": "bus-cross",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "bus-north",
+              "socket": "east"
+            },
+            "to": {
+              "room": "bus-cross",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "bus-north",
+              "socket": "south"
+            },
+            "to": {
+              "room": "bus-west",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "bus-cross",
+              "socket": "east"
+            },
+            "to": {
+              "room": "gpu-west",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "bus-cross",
+              "socket": "south"
+            },
+            "to": {
+              "room": "bus-east",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "bus-west",
+              "socket": "east"
+            },
+            "to": {
+              "room": "bus-east",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "bus-west",
+              "socket": "south"
+            },
+            "to": {
+              "room": "bus-cache",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "bus-east",
+              "socket": "east"
+            },
+            "to": {
+              "room": "gpu-under",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "bus-east",
+              "socket": "south"
+            },
+            "to": {
+              "room": "bus-return",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "bus-cache",
+              "socket": "east"
+            },
+            "to": {
+              "room": "bus-return",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "gpu-west",
+              "socket": "east"
+            },
+            "to": {
+              "room": "gpu-east",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "gpu-west",
+              "socket": "south"
+            },
+            "to": {
+              "room": "gpu-under",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "gpu-east",
+              "socket": "south"
+            },
+            "to": {
+              "room": "gpu-cache",
+              "socket": "north"
+            }
+          },
+          {
+            "from": {
+              "room": "gpu-under",
+              "socket": "east"
+            },
+            "to": {
+              "room": "gpu-cache",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "core-test",
+              "socket": "east"
+            },
+            "to": {
+              "room": "core-exit",
+              "socket": "west"
+            }
+          },
+          {
+            "from": {
+              "room": "core-test",
+              "socket": "south"
+            },
+            "to": {
+              "room": "gpu-east",
+              "socket": "north"
+            }
+          }
+        ],
+        "start": {
+          "room": "arrival",
+          "anchor": "entry"
+        },
+        "exit": {
+          "room": "core-exit",
+          "anchor": "exit",
+          "width": 80,
+          "height": 64
+        },
+        "objectives": {
+          "repairAllComponents": true,
+          "defeatAllViruses": true,
+          "requireExitQuestion": true
+        }
+      },
+      "presentation": {
+        "tileSize": 32,
+        "tileset": "tiles-01",
+        "scenery": "decor-01",
+        "background": "sky-01"
+      },
+      "rooms": [
+        {
+          "id": "arrival",
+          "source": {
+            "kind": "manual",
+            "id": "hw-arrival",
+            "version": 5
+          },
+          "x": 0,
+          "y": 1536,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "junction",
+          "source": {
+            "kind": "manual",
+            "id": "hw-junction",
+            "version": 5
+          },
+          "x": 640,
+          "y": 1536,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "l1-vault",
+          "source": {
+            "kind": "procedural",
+            "id": "hardware-v3-vault",
+            "version": 5
+          },
+          "x": 0,
+          "y": 2048,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "thermal",
+          "source": {
+            "kind": "manual",
+            "id": "hw-thermal",
+            "version": 5
+          },
+          "x": 0,
+          "y": 1024,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "socket",
+          "source": {
+            "kind": "manual",
+            "id": "hw-socket",
+            "version": 5
+          },
+          "x": 640,
+          "y": 1024,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "heatsink",
+          "source": {
+            "kind": "manual",
+            "id": "hw-heatsink",
+            "version": 5
+          },
+          "x": 640,
+          "y": 512,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "ram-base",
+          "source": {
+            "kind": "manual",
+            "id": "hw-ram-base",
+            "version": 5
+          },
+          "x": 1280,
+          "y": 512,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "ram-west",
+          "source": {
+            "kind": "manual",
+            "id": "hw-ram-west",
+            "version": 5
+          },
+          "x": 1280,
+          "y": 0,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "ram-east",
+          "source": {
+            "kind": "procedural",
+            "id": "hardware-v3-vault",
+            "version": 5
+          },
+          "x": 1920,
+          "y": 0,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "ram-return",
+          "source": {
+            "kind": "manual",
+            "id": "hw-ram-return",
+            "version": 5
+          },
+          "x": 1920,
+          "y": 512,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "bus-north",
+          "source": {
+            "kind": "manual",
+            "id": "hw-bus-north",
+            "version": 5
+          },
+          "x": 1280,
+          "y": 1024,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "bus-cross",
+          "source": {
+            "kind": "manual",
+            "id": "hw-bus-cross",
+            "version": 5
+          },
+          "x": 1920,
+          "y": 1024,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "bus-west",
+          "source": {
+            "kind": "manual",
+            "id": "hw-bus-west",
+            "version": 5
+          },
+          "x": 1280,
+          "y": 1536,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "bus-east",
+          "source": {
+            "kind": "manual",
+            "id": "hw-bus-east",
+            "version": 5
+          },
+          "x": 1920,
+          "y": 1536,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "bus-cache",
+          "source": {
+            "kind": "procedural",
+            "id": "hardware-v3-vault",
+            "version": 5
+          },
+          "x": 1280,
+          "y": 2048,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "bus-return",
+          "source": {
+            "kind": "manual",
+            "id": "hw-bus-return",
+            "version": 5
+          },
+          "x": 1920,
+          "y": 2048,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "gpu-west",
+          "source": {
+            "kind": "manual",
+            "id": "hw-gpu-west",
+            "version": 5
+          },
+          "x": 2560,
+          "y": 1024,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "gpu-east",
+          "source": {
+            "kind": "manual",
+            "id": "hw-gpu-east",
+            "version": 5
+          },
+          "x": 3200,
+          "y": 1024,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "gpu-under",
+          "source": {
+            "kind": "manual",
+            "id": "hw-gpu-under",
+            "version": 5
+          },
+          "x": 2560,
+          "y": 1536,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "gpu-cache",
+          "source": {
+            "kind": "procedural",
+            "id": "hardware-v3-vault",
+            "version": 5
+          },
+          "x": 3200,
+          "y": 1536,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "core-test",
+          "source": {
+            "kind": "manual",
+            "id": "hw-core-test",
+            "version": 5
+          },
+          "x": 3200,
+          "y": 512,
+          "width": 640,
+          "height": 512
+        },
+        {
+          "id": "core-exit",
+          "source": {
+            "kind": "manual",
+            "id": "hw-core-exit",
+            "version": 5
+          },
+          "x": 3840,
+          "y": 512,
+          "width": 640,
+          "height": 512
+        }
+      ],
+      "links": [
+        {
+          "from": {
+            "room": "arrival",
+            "socket": "east"
+          },
+          "to": {
+            "room": "junction",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "arrival",
+            "socket": "south"
+          },
+          "to": {
+            "room": "l1-vault",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "junction",
+            "socket": "east"
+          },
+          "to": {
+            "room": "bus-west",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "thermal",
+            "socket": "east"
+          },
+          "to": {
+            "room": "socket",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "thermal",
+            "socket": "south"
+          },
+          "to": {
+            "room": "arrival",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "socket",
+            "socket": "east"
+          },
+          "to": {
+            "room": "bus-north",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "socket",
+            "socket": "south"
+          },
+          "to": {
+            "room": "junction",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "heatsink",
+            "socket": "east"
+          },
+          "to": {
+            "room": "ram-base",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "heatsink",
+            "socket": "south"
+          },
+          "to": {
+            "room": "socket",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "ram-base",
+            "socket": "east"
+          },
+          "to": {
+            "room": "ram-return",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "ram-base",
+            "socket": "south"
+          },
+          "to": {
+            "room": "bus-north",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "ram-west",
+            "socket": "east"
+          },
+          "to": {
+            "room": "ram-east",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "ram-west",
+            "socket": "south"
+          },
+          "to": {
+            "room": "ram-base",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "ram-east",
+            "socket": "south"
+          },
+          "to": {
+            "room": "ram-return",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "ram-return",
+            "socket": "south"
+          },
+          "to": {
+            "room": "bus-cross",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "bus-north",
+            "socket": "east"
+          },
+          "to": {
+            "room": "bus-cross",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "bus-north",
+            "socket": "south"
+          },
+          "to": {
+            "room": "bus-west",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "bus-cross",
+            "socket": "east"
+          },
+          "to": {
+            "room": "gpu-west",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "bus-cross",
+            "socket": "south"
+          },
+          "to": {
+            "room": "bus-east",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "bus-west",
+            "socket": "east"
+          },
+          "to": {
+            "room": "bus-east",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "bus-west",
+            "socket": "south"
+          },
+          "to": {
+            "room": "bus-cache",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "bus-east",
+            "socket": "east"
+          },
+          "to": {
+            "room": "gpu-under",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "bus-east",
+            "socket": "south"
+          },
+          "to": {
+            "room": "bus-return",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "bus-cache",
+            "socket": "east"
+          },
+          "to": {
+            "room": "bus-return",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "gpu-west",
+            "socket": "east"
+          },
+          "to": {
+            "room": "gpu-east",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "gpu-west",
+            "socket": "south"
+          },
+          "to": {
+            "room": "gpu-under",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "gpu-east",
+            "socket": "south"
+          },
+          "to": {
+            "room": "gpu-cache",
+            "socket": "north"
+          }
+        },
+        {
+          "from": {
+            "room": "gpu-under",
+            "socket": "east"
+          },
+          "to": {
+            "room": "gpu-cache",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "core-test",
+            "socket": "east"
+          },
+          "to": {
+            "room": "core-exit",
+            "socket": "west"
+          }
+        },
+        {
+          "from": {
+            "room": "core-test",
+            "socket": "south"
+          },
+          "to": {
+            "room": "gpu-east",
+            "socket": "north"
+          }
+        }
+      ],
+      "architecture": {
+        "version": 3,
+        "mode": "manual-room-network-and-seeded-vaults",
+        "regions": [
+          "PLACA-MAE CENTRAL",
+          "COMPLEXO DA CPU",
+          "TORRES DE MEMORIA RAM",
+          "BARRAMENTOS",
+          "COMPLEXO DA GPU",
+          "NUCLEO FINAL"
+        ],
+        "rooms": [
+          {
+            "id": "arrival",
+            "region": "pcb",
+            "role": "entry"
+          },
+          {
+            "id": "junction",
+            "region": "pcb",
+            "role": "exploration"
+          },
+          {
+            "id": "l1-vault",
+            "region": "pcb",
+            "role": "secret"
+          },
+          {
+            "id": "thermal",
+            "region": "cpu",
+            "role": "parkour"
+          },
+          {
+            "id": "socket",
+            "region": "cpu",
+            "role": "repair"
+          },
+          {
+            "id": "heatsink",
+            "region": "cpu",
+            "role": "combat"
+          },
+          {
+            "id": "ram-base",
+            "region": "ram",
+            "role": "repair"
+          },
+          {
+            "id": "ram-west",
+            "region": "ram",
+            "role": "parkour"
+          },
+          {
+            "id": "ram-east",
+            "region": "ram",
+            "role": "secret"
+          },
+          {
+            "id": "ram-return",
+            "region": "ram",
+            "role": "exploration"
+          },
+          {
+            "id": "bus-north",
+            "region": "bus",
+            "role": "exploration"
+          },
+          {
+            "id": "bus-cross",
+            "region": "bus",
+            "role": "parkour"
+          },
+          {
+            "id": "bus-west",
+            "region": "bus",
+            "role": "repair"
+          },
+          {
+            "id": "bus-east",
+            "region": "bus",
+            "role": "combat"
+          },
+          {
+            "id": "bus-cache",
+            "region": "bus",
+            "role": "secret"
+          },
+          {
+            "id": "bus-return",
+            "region": "bus",
+            "role": "parkour"
+          },
+          {
+            "id": "gpu-west",
+            "region": "gpu",
+            "role": "combat"
+          },
+          {
+            "id": "gpu-east",
+            "region": "gpu",
+            "role": "repair"
+          },
+          {
+            "id": "gpu-under",
+            "region": "gpu",
+            "role": "parkour"
+          },
+          {
+            "id": "gpu-cache",
+            "region": "gpu",
+            "role": "secret"
+          },
+          {
+            "id": "core-test",
+            "region": "core",
+            "role": "parkour"
+          },
+          {
+            "id": "core-exit",
+            "region": "core",
+            "role": "exit"
+          }
+        ],
+        "optionalRooms": [
+          "l1-vault",
+          "ram-east",
+          "bus-cache",
+          "gpu-cache"
+        ],
+        "durationMinutes": null
+      }
+    },
+    "objective": "Explore os seis setores, restaure CPU, RAM, barramentos e GPU, elimine os virus e alcance o nucleo."
+  },
+  "note": "Explicit browser export after Hardware V3 checks. Historical fixtures unchanged."
+}
