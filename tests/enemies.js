@@ -72,8 +72,11 @@ test('enemies: all five thematic variants are present and functional',()=>{
 });
 test('enemies: packet hijacker captures at most one shot per preparation',()=>{
   setup(2);const v=viruses.find(e=>e.variant==='packet');viruses=[v];components.forEach(c=>c.repaired=true);
-  player.x=v.x-170;player.y=v.y-24;v.direction=-1;v.attackWindup=.7;v.windupTotal=.7;v.action='shot';v.aimX=player.x+17;v.aimY=player.y+24;v.attackCooldownTimer=3;
-  const shot=()=>({x:v.x-30,y:v.y,vx:100,life:1,radius:4,damage:1});projectiles=[shot(),shot()];const hp=v.hp;
+  // The radial Switch's first sentry is near the west edge of its activation sector.
+  // Exercise interception from the interior so the real enemy brain remains active.
+  player.x=v.x+170;player.y=v.y-24;v.direction=1;v.attackWindup=.7;v.windupTotal=.7;v.action='shot';v.aimX=player.x+17;v.aimY=player.y+24;v.attackCooldownTimer=3;
+  assert(!v.activationRegion||(v.aimX>=v.activationRegion.x&&v.aimX<=v.activationRegion.x+v.activationRegion.width),'test outside active sector');
+  const shot=()=>({x:v.x+30,y:v.y,vx:-100,life:1,radius:4,damage:1});projectiles=[shot(),shot()];const hp=v.hp;
   updateCombat(1/60);assert(v.intercepted&&v.stolenShot&&projectiles.length===1&&v.hp===hp,'did not capture exactly one shot');
   projectiles=[];enemyProjectiles=[];for(let i=0;i<45;i++)updateCombat(1/60);assert(enemyProjectiles.some(s=>s.damage===v.damage+2),'stolen shot not returned after warning');
 });

@@ -1,0 +1,302 @@
+[
+  {
+    "viewport": [
+      1440,
+      1000
+    ],
+    "screen": "settings",
+    "geometry": {
+      "x": 492.5,
+      "y": 62.125,
+      "right": 932.5,
+      "bottom": 937.875,
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1425,
+      "modal": "settingsDialog",
+      "buttons": [
+        {
+          "text": "Selecionar fase",
+          "height": 44
+        },
+        {
+          "text": "Reiniciar fase",
+          "height": 44
+        },
+        {
+          "text": "FECHAR OPÇÕES",
+          "height": 44
+        }
+      ]
+    },
+    "capture": "ui-1440x1000-settings.png"
+  },
+  {
+    "viewport": [
+      1440,
+      1000
+    ],
+    "screen": "selector",
+    "geometry": {
+      "x": 492.5,
+      "y": 216.3125,
+      "right": 932.5,
+      "bottom": 783.6875,
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1425,
+      "modal": "developerPhaseDialog",
+      "buttons": [
+        {
+          "text": "01 · Hardware",
+          "height": 52
+        },
+        {
+          "text": "02 · Software",
+          "height": 52
+        },
+        {
+          "text": "03 · Switch",
+          "height": 52
+        },
+        {
+          "text": "04 · Roteador",
+          "height": 52
+        },
+        {
+          "text": "05 · Wi-Fi",
+          "height": 52
+        },
+        {
+          "text": "06 · Cabeamento",
+          "height": 52
+        },
+        {
+          "text": "07 · DHCP",
+          "height": 52
+        },
+        {
+          "text": "08 · DNS",
+          "height": 52
+        },
+        {
+          "text": "09 · Firewall",
+          "height": 61
+        },
+        {
+          "text": "10 · Servidores — VIRUS ZERO",
+          "height": 61
+        },
+        {
+          "text": "Reiniciar fase",
+          "height": 44
+        },
+        {
+          "text": "Voltar",
+          "height": 44
+        }
+      ]
+    },
+    "capture": "ui-1440x1000-selector.png"
+  },
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "screen": "settings",
+    "geometry": {
+      "x": 19,
+      "y": 14,
+      "right": 371,
+      "bottom": 830,
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "modal": "settingsDialog",
+      "buttons": [
+        {
+          "text": "Selecionar fase",
+          "height": 44
+        },
+        {
+          "text": "Reiniciar fase",
+          "height": 44
+        },
+        {
+          "text": "FECHAR OPÇÕES",
+          "height": 44
+        }
+      ]
+    },
+    "capture": "ui-390x844-settings.png"
+  },
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "screen": "selector",
+    "geometry": {
+      "x": 19,
+      "y": 14,
+      "right": 371,
+      "bottom": 830,
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "modal": "developerPhaseDialog",
+      "buttons": [
+        {
+          "text": "01 · Hardware",
+          "height": 52
+        },
+        {
+          "text": "02 · Software",
+          "height": 52
+        },
+        {
+          "text": "03 · Switch",
+          "height": 52
+        },
+        {
+          "text": "04 · Roteador",
+          "height": 52
+        },
+        {
+          "text": "05 · Wi-Fi",
+          "height": 52
+        },
+        {
+          "text": "06 · Cabeamento",
+          "height": 52
+        },
+        {
+          "text": "07 · DHCP",
+          "height": 52
+        },
+        {
+          "text": "08 · DNS",
+          "height": 52
+        },
+        {
+          "text": "09 · Firewall",
+          "height": 52
+        },
+        {
+          "text": "10 · Servidores — VIRUS ZERO",
+          "height": 52
+        },
+        {
+          "text": "Reiniciar fase",
+          "height": 44
+        },
+        {
+          "text": "Voltar",
+          "height": 44
+        }
+      ]
+    },
+    "capture": "ui-390x844-selector.png"
+  },
+  {
+    "viewport": [
+      844,
+      390
+    ],
+    "screen": "settings",
+    "geometry": {
+      "x": 202,
+      "y": 14,
+      "right": 642,
+      "bottom": 376,
+      "width": 844,
+      "height": 390,
+      "documentWidth": 844,
+      "modal": "settingsDialog",
+      "buttons": [
+        {
+          "text": "Selecionar fase",
+          "height": 44
+        },
+        {
+          "text": "Reiniciar fase",
+          "height": 44
+        },
+        {
+          "text": "FECHAR OPÇÕES",
+          "height": 44
+        }
+      ]
+    },
+    "capture": "ui-844x390-settings.png"
+  },
+  {
+    "viewport": [
+      844,
+      390
+    ],
+    "screen": "selector",
+    "geometry": {
+      "x": 202,
+      "y": 14,
+      "right": 642,
+      "bottom": 376,
+      "width": 844,
+      "height": 390,
+      "documentWidth": 844,
+      "modal": "developerPhaseDialog",
+      "buttons": [
+        {
+          "text": "01 · Hardware",
+          "height": 52
+        },
+        {
+          "text": "02 · Software",
+          "height": 52
+        },
+        {
+          "text": "03 · Switch",
+          "height": 52
+        },
+        {
+          "text": "04 · Roteador",
+          "height": 52
+        },
+        {
+          "text": "05 · Wi-Fi",
+          "height": 52
+        },
+        {
+          "text": "06 · Cabeamento",
+          "height": 52
+        },
+        {
+          "text": "07 · DHCP",
+          "height": 52
+        },
+        {
+          "text": "08 · DNS",
+          "height": 52
+        },
+        {
+          "text": "09 · Firewall",
+          "height": 61
+        },
+        {
+          "text": "10 · Servidores — VIRUS ZERO",
+          "height": 61
+        },
+        {
+          "text": "Reiniciar fase",
+          "height": 44
+        },
+        {
+          "text": "Voltar",
+          "height": 44
+        }
+      ]
+    },
+    "capture": "ui-844x390-selector.png"
+  }
+]

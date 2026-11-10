@@ -2,6 +2,12 @@
 import json
 from hardware_v3_contract import hardware_definition
 from software_v3_contract import software_definition
+from switch_v3_contract import switch_definition
+from router_v3_contract import router_definition
+from wifi_v3_contract import wifi_definition
+from cabling_v3_contract import cabling_definition
+from dhcp_v3_contract import dhcp_definition
+from dns_v3_contract import dns_definition
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,6 +22,18 @@ def main():
             definition=hardware_definition()
         elif path.name=='02-software.js':
             definition=software_definition()
+        elif path.name=='03-switch.js':
+            definition=switch_definition()
+        elif path.name=='04-router.js':
+            definition=router_definition()
+        elif path.name=='05-wifi.js':
+            definition=wifi_definition()
+        elif path.name=='06-cabling.js':
+            definition=cabling_definition()
+        elif path.name=='07-dhcp.js':
+            definition=dhcp_definition()
+        elif path.name=='08-dns.js':
+            definition=dns_definition()
         else:
             definition, _ = json.JSONDecoder().raw_decode(source[source.index('{',source.index('ByteRunner.maps.register(')):])
         if definition['id'] in maps:

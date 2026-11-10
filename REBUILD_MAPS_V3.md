@@ -1,6 +1,8 @@
-# BYTE RUNNER — preparação da reconstrução dos mapas V3
+# BYTE RUNNER — reconstrução dos mapas V3
 
-**Estado:** análise e preparação técnica concluídas em 06/11/2026. **Nenhum mapa reconstruído ou modificado nesta etapa.** A expressão V3 identifica esta iniciativa; não corresponde à revisão numérica atual dos mapas.
+**Estado atual (09/11/2026):** fases 1–8 reconstruídas, incluindo DNS. As fases 3–8 estão nas seções 12 e 14–18. As seções 1–9 conservam o registro histórico da preparação de 06/11/2026; seus limites de escopo e inventários descrevem aquela etapa. V3 identifica esta iniciativa, não a revisão numérica dos mapas.
+
+O **Modo Desenvolvedor**, implementado sem reconstruir mapas, está documentado na seção 13.
 
 ## 1. Segurança, referência e limites da etapa
 
@@ -789,3 +791,665 @@ Ainda é necessário cronometrar uma partida humana, avaliar orientação/ritmo 
 - [ ] Reconstrução das fases 3–10 — não iniciada.
 
 **PARE AQUI:** etapa encerrada após a fase 2, sem push ou merge.
+
+### 11.9 Revalidação da solicitação — 2026-11-09
+
+A inspeção do checkout encontrou a reconstrução Software V3 já implementada e versionada. Esta execução preservou esse mapa e repetiu a validação, sem alterar fontes de produção nem reconstruir outras fases.
+
+- Seis regiões, 19 janelas em rede assimétrica, cinco reparos, quatro salas opcionais, 25 arquivos e 16 inimigos.
+- Área estimada por bandas estáticas alcançáveis: **5,0455×** o baseline anterior. Essa medida exclui a simples expansão do retângulo do mundo; é uma aproximação de navegação, não uma medição de tempo de jogo.
+- `python -X utf8 tools/test_software_v3.py --full`: nova execução com relatórios em `tests/software-v3-results/`.
+- Resultado: **40/40** testes específicos e **209/209** verificações da regressão geral; zero erros de runtime. Os quatro verificadores estruturais passaram, e os hashes dos 11 arquivos protegidos permaneceram iguais. `git diff --check` passou.
+- Meta de 15–25 minutos mantida; duração e dificuldade ainda dependem de uma partida humana contínua.
+
+Ponto de parada mantido na fase 2, após validação e documentação.
+
+## 12. Fase 3 — Switch radial reconstruído (09/11/2026)
+
+### 12.1 Implementação e comparação com a referência
+
+`src/maps/03-switch.js` foi substituído integralmente por uma receita própria, revisão efetiva **5**, carregada como `phase-03` na campanha existente. O adaptador antigo de uma sala não participa da nova geometria. A definição usa o compositor existente, sem alterar física, renderizadores, XP, habilidades, perguntas ou armazenamento.
+
+O mapa tem uma silhueta de losango, com um backplane em cruz central e ramais que se reencontram em circuitos laterais e inferiores. Os interiores não têm paredes laterais entre áreas adjacentes: os percursos são físicos, por decks, cabos e recortes verticais. As paredes externas desenham o chassi. Isso difere da planta anterior de quatro portas em torno de uma espinha e da constelação de portais do Software. Também difere do contorno assimétrico 7×5 da Hardware: são sete faixas de larguras 1/3/5/7/5/3/1.
+
+| Medida | Switch anterior, baseline preservado | Switch radial |
+| --- | ---: | ---: |
+| Dimensões | 2200×1200 | 4480×3584 |
+| Regiões | Sem distritos espaciais | 6 |
+| Áreas autorais | Adaptador de uma planta | 25: 21 manuais e 4 opcionais determinísticas |
+| Conexões físicas de áreas | Planta anterior | 36, bidirecionais |
+| Plataformas | 27 | 200: 189 fixas, 6 móveis, 5 temporárias |
+| Reparos | 3 | 6 |
+| Inimigos | 3 | 18 |
+| Coletáveis | 4 | 53 |
+| Portas Ethernet interativas | 2 | 2, ainda obrigatórias |
+| Checkpoints | 3 | 14, com retorno livre |
+| Banda estática navegável alcançável | 886.714 px² | 5.000.740 px² |
+
+A comparação de área usa a união de bandas da altura do salto sobre apoios realmente alcançados, descontando sólidos, com o mesmo auditor e atributos básicos nos dois mapas. O resultado é **5,64×**, acima da faixa desejada de 3–5×. Não é a razão dos retângulos do mundo nem uma medição exata da área de trajetórias; não inclui depender de elevadores ou apoios temporários. O crescimento contém andares, objetivos, combate e recompensas, não apenas corredores alongados.
+
+### 12.2 Regiões, rotas e progressão
+
+| Região | Áreas e conteúdo |
+| --- | --- |
+| Backplane central | `backplane`, `hub-west`, `hub-east`, `hub-north`, `hub-south`: distribuição em quatro direções, elevadores e ligações entre os circuitos |
+| Portas Ethernet | Portas 01–04, galerias leste/oeste e duas salas de manutenção: RJ45 gigantes com oito contatos, cabos, combates, varandas e controles 01/04 |
+| Canais de transmissão | Ramos oeste/leste, canal central, relé e dois caches: pontes de pacotes, apoios temporários, correntes elétricas e retorno inferior |
+| Central de comutação | Cruzamento e andar norte: exploração vertical, tabela MAC, ligação com porta 03, backplane e núcleo |
+| Região de uplink | Base e coroa: plataformas mais estreitas, apoios temporários de menor duração, elevador e inimigos blindados |
+| Núcleo final | Câmara de comutação e saída: entrada condicionada aos cinco circuitos externos, reparo final e trava de conectividade |
+
+Os cinco reparos externos podem ser feitos em ordens diferentes: RJ45 da porta 01, RJ45 da porta 04, tabela MAC, sincronização dos canais e uplink. Cada reparo energiza uma ponte e habilita um retorno de manutenção ao hub. Esses seis retornos usam o controlador de portais existente; **não são necessários para a prova de conectividade**, que desconsidera todos eles.
+
+Os reparos Ethernet também abrem as duas entradas das respectivas salas de manutenção, revelando recompensas opcionais. `channel-cache` e `packet-vault` são desvios adicionais no circuito inferior. Nenhuma sala opcional contém reparo ou inimigo obrigatório.
+
+Depois dos cinco serviços externos, as três travas físicas da câmara do núcleo abrem. O reparo `core-guard:fabric` restaura a conectividade. A última barreira exige os seis reparos e as flags reais `port01:port-a` / `port04:port-b`. A conclusão ainda exige os 18 inimigos e a pergunta educativa. As duas portas usam o sistema existente de interativos e salvamento; o teste de regressão foi atualizado para verificar suas referências locais, em vez das antigas flags sem namespace.
+
+### 12.3 Mecânicas, visual e ritmo planejado
+
+- Seis plataformas móveis: cinco elevadores verticais e uma ponte horizontal de pacotes, amplitude 64 px e velocidade 0,5.
+- Cinco apoios temporários: duração 2,8 s nos canais e 2,2 s no uplink, retorno em 2,4 s. O percurso obrigatório permanece demonstrável sobre apoios fixos.
+- Sete correntes elétricas com aviso de 1,25 s, atividade de 0,7 s, período de 5,2 s e dano 8; os ciclos de aviso, dano e segurança foram exercitados no runtime.
+- Degraus verticais regulares de 96 px, abaixo do salto básico de 128,6757 px. O uplink usa patamares menores, sem exigir habilidades opcionais.
+- Pixel art azul/ciano, bocas RJ45 com oito contatos, gaiolas SFP no uplink, trilhas, pentes de cabos e chassi delimitado. Cenário decorativo não adiciona colisões invisíveis.
+- Parallax existente em três profundidades, com acompanhamento regional em x/y; nearest-neighbor preservado. Nenhuma alteração global de renderer ou atlas.
+
+Planejamento de primeira exploração: orientação 2–3 min, portas Ethernet 4–6 min, canais 3–4 min, comutação/uplink 4–7 min e núcleo 2–5 min; total pretendido **15–25 min**. São faixas de planejamento registradas no mapa, não um cronômetro de partida. O tempo real e a dificuldade de sobrevivência ainda precisam de uma partida humana contínua.
+
+### 12.4 Validação executada
+
+Comando: `python -X utf8 tools/test_switch_v3.py --full --write-fixture`. O executor usa cópia descartável, perfil isolado do Chrome e exportação da fixture somente após aprovação dos testes específicos. Os verificadores de integridade reconhecem exclusivamente o hash dessa exportação da fase 3; não foi removida a proteção das demais fases.
+
+**46/46 testes específicos passaram, sem erros de runtime.** A prova física parte do spawn central, não usa habilidades nem os atalhos de retorno e repete a expansão após cada reparo. A câmara final estava inacessível inicialmente; tornou-se acessível depois dos cinco serviços externos. Foram alcançadas 232 superfícies estáticas após a restauração. Somente seis topos externos de chassi (`:rim`) ficaram fora do percurso.
+
+| Verificação | Evidência |
+| --- | --- |
+| Conectividade física | Todas as 25 áreas e os objetivos alcançados; 36 emendas exercitadas nos dois sentidos pelo `movePlayer` real |
+| Reparos | Seis minigames resolvidos por controles DOM reais; geometria e atalhos restaurados |
+| Portas | Ativações com E em apoios alcançáveis, persistência e obrigatoriedade na conclusão |
+| Retornos | Seis viagens executadas; destino com apoio permanente, corpo fora de sólidos e ausência de repetição ao segurar E |
+| Checkpoints | 14 respawns estáveis após um segundo de física |
+| Recompensas | 53 itens coletados por movimento/salto básicos |
+| Combate | 18 inimigos derrotados por projéteis básicos; a proteção de dano usada pelo auditor não demonstra dificuldade de sobrevivência |
+| Conclusão | Condições de reparos, portas e combate, pergunta real e transição verificadas |
+| Save | Migração da revisão 3 com XP/habilidades intactos; retomada de reparo e checkpoint da revisão 5 |
+| Negativos | Receita com ramal desconectado rejeitada; portas ausentes impedem conclusão; travas iniciais verificadas |
+| Seeds | Três adicionais recompiladas duas vezes, com prova física dos objetivos e geometria |
+| Verificadores Python | `check_maps`, `check_environment`, `check_parallax`, `check_generation`: PASS |
+| Regressão geral das dez fases | **209/209**, zero erros de runtime, incluindo o teste ajustado do interceptor |
+| Integridade | 11 arquivos protegidos por SHA-256 preservados: `game.js`, Hardware, Software, fases 4–10 e manifesto da campanha |
+
+Execução final concluída com sucesso: os seis comandos do executor retornaram código 0. Checkout, teste específico e regressão geral compartilham o fingerprint de produção `a44595c68138d71261d33684cdf63856c338eee42dd43a6fc79a43032cfb12bb`. `git diff --check` passou. Evidência da campanha completa: [regression.json](tests/switch-v3-results/regression.json).
+
+Amostragem do `draw()` no Chrome headless sem GPU: 270 amostras por resolução, seis regiões, 15 desenhos de aquecimento por região e deslocamento de câmera. Não equivale a FPS em jogo ou benchmark em celular.
+
+| Canvas lógico | Mediana (ms) | P95 (ms) |
+| --- | ---: | ---: |
+| 640×360 | 2,4 | 5,5 |
+| 905×644 | 2,6 | 42,4 |
+| 1280×720 | 2,2 | 56,5 |
+| 1920×1080 | 3,0 | 149,5 |
+
+Os caches ficaram dentro dos limites existentes: 96 blocos de terreno e 3,25 MiB de parallax. **Há picos de desenho nas resoluções maiores**; não foi declarado 60 FPS nem alterado o motor para esconder essa limitação.
+
+Capturas inspecionadas: [panorama radial](tests/switch-v3-results/identity-phase-03-switch-v3-overview.png) e [Ethernet](tests/switch-v3-results/identity-phase-03-switch-v3-ethernet.png). Também foram preservadas capturas das outras cinco regiões. Relatório específico: [switch.json](tests/switch-v3-results/switch.json); comandos e integridade: [execution.json](tests/switch-v3-results/execution.json).
+
+### 12.5 Arquivos e ponto de parada
+
+Produção: somente `src/maps/03-switch.js`. Validação: `tests/switch-v3.js`, `tools/test_switch_v3.py`, `tools/switch_v3_contract.py`, fixture e relatórios específicos. Os contratos de arquitetura/campanha, flags Ethernet e quatro verificadores foram adaptados à reconstrução explícita. Baselines históricos não foram regravados. As alterações anteriores da etapa Software foram preservadas.
+
+Problemas encontrados e corrigidos: uma varanda reduzia o espaço para ficar em pé sobre o terceiro patamar do uplink. O apoio lateral foi deslocado, e a prova de todas as superfícies permanentes passou. Foram acrescentadas travas externas do núcleo e testes que confirmam a ordem de desbloqueio. O teste legado do interceptor colocava o jogador fora da região de ativação da primeira sentinela da nova planta: `tests/enemies.js` passou a testar a aproximação pelo interior, mantendo as exigências de capturar exatamente um tiro e devolvê-lo após o aviso. Nenhuma IA de produção foi alterada.
+
+**PARE AQUI:** fase 3 implementada, testada e documentada. Fases 4–10 não reconstruídas nesta etapa; sem push ou merge. Permanecem pendentes a cronometragem humana, o balanceamento de sobrevivência e a avaliação em dispositivo móvel físico.
+
+## 13. Modo Desenvolvedor — navegação isolada nas dez fases
+
+### 13.1 Como usar
+
+1. Abra **OPÇÕES** e ative **Modo Desenvolvedor**. O interruptor mostra ON; a interface identifica a sessão de teste.
+2. Clique em **Selecionar fase**. As dez fases ficam disponíveis, de Hardware a **Servidores — VIRUS ZERO**, com destaque da fase atual. A seleção carrega o mapa imediatamente, sem introdução ou exigências das fases anteriores.
+3. Durante a partida, pressione Esc ou o botão de pausa no celular. Use **Trocar de fase** ou **Reiniciar fase**. As mesmas ações estão disponíveis nas opções/seletor.
+4. **Voltar** fecha o seletor e retorna à origem: configurações ou pausa.
+5. Desative o interruptor em OPÇÕES para restaurar a campanha normal. O jogo retorna à tela que estava aberta, com o progresso preservado; se estava pausado, use **CONTINUAR**.
+
+O modo começa **OFF em toda abertura/recarregamento da página**. Nenhuma preferência de desenvolvedor ou fase de teste é gravada em produção. Recarregar encerra a sessão temporária e apresenta o menu normal, de onde CONTINUAR CAMPANHA lê o salvamento principal intacto.
+
+### 13.2 Implementação e limites do isolamento
+
+- `src/engine/developer-mode.js` contém somente a interface e chamadas para o jogo: interruptor, seletor das dez fases, destaque atual, ações de pausa, reinício, retorno e identificação de teste. Não implementa física, colisões, inimigos ou carregamento alternativo.
+- `game.js` reutiliza `resetCampaign()`, `loadPhase()`, `loadMap()` e `launchLoadedPhase(false)`. Selecionar ou reiniciar começa com atributos básicos, XP zero e sem habilidades de teste anteriores. O carregador existente descarta os controladores e recursos visuais antigos, limpa projéteis, inimigos, flags, checkpoints e plataformas temporárias e inicializa os recursos/parallax da fase escolhida.
+- Ao ativar, o estado persistível da campanha normal fica em um snapshot **em memória**, junto à tela e aos diálogos normais. Ao desativar, o caminho existente de restauração reconstitui o jogador, XP/nível/habilidades, componentes, inimigos, itens, flags e checkpoint. Perguntas e escolhas de habilidade pendentes mantêm seus nós DOM e callbacks. Uma tentativa de diagnóstico em andamento é cancelada ao trocar de mundo; reparos já concluídos permanecem preservados no snapshot normal.
+- `saveCampaign()` retorna sem gravar enquanto a sessão de teste existe. Isso cobre autosave, reparos, checkpoints, vitórias, pausa, mudança de visibilidade, teleporte e `pagehide`, sem substituir ou interceptar globalmente o `localStorage`.
+- O histórico de perguntas possui cópia temporária própria; leitura/escrita durante testes usa essa cópia, sem consumir perguntas da campanha normal. OFF restaura o histórico normal em memória. As preferências comuns de áudio/conforto continuam funcionando normalmente.
+- `continueCampaign()` não troca silenciosamente para o save normal enquanto o teste está ativo. O botão de nova campanha, se acionado após uma vitória de teste, inicia outro teste sem pedir substituição do save principal.
+- Acesso livre **não** marca objetivos como cumpridos: vírus, minigames, reparos, perguntas, travas locais e os relés/estágios do VIRUS ZERO continuam ativos. Somente o acesso inicial às fases ignora o avanço da campanha.
+- A requisição de animação é rastreada e cancelada antes de trocar mundos ou pausar, evitando acumular loops após seleções rápidas. Teclado e toque não movimentam o personagem com os painéis de configurações/seletor abertos.
+
+### 13.3 Interface e compatibilidade
+
+Os novos controles usam tipografia monoespaçada, bordas e cores do jogo, interruptor com `role="switch"`, destaque com `aria-current`, foco visível e botões de pelo menos 44 px. O seletor usa duas colunas no computador e uma em telas estreitas. Configurações e seletor têm altura limitada à tela e rolagem, incluindo celular horizontal.
+
+Capturas reais do Chrome, sem instrumentação do motor:
+
+- [Configurações desktop](tests/developer-mode-results/ui-1440x1000-settings.png) e [seletor desktop](tests/developer-mode-results/ui-1440x1000-selector.png).
+- [Configurações em celular vertical](tests/developer-mode-results/ui-390x844-settings.png) e [seletor vertical](tests/developer-mode-results/ui-390x844-selector.png).
+- [Configurações em celular horizontal](tests/developer-mode-results/ui-844x390-settings.png) e [seletor horizontal](tests/developer-mode-results/ui-844x390-selector.png).
+
+As seis capturas foram inspecionadas; o executor verifica limites dos diálogos, ausência de overflow horizontal, tamanho dos botões e retorno às configurações. Medições: [ui.json](tests/developer-mode-results/ui.json).
+
+### 13.4 Testes e preservação
+
+Comando reproduzível: `python -X utf8 tools/test_developer_mode.py --full`. O projeto é copiado para uma pasta descartável; Chrome usa perfil isolado. O teste inclui um **reload real**, armazenando o controle do teste em `sessionStorage` somente na instrumentação descartável. Não existe esse controle no jogo distribuído.
+
+Cobertura executada: OFF inicial; ativação; abertura do seletor; acesso direto à fase 10; troca 10→1; dez carregamentos com recursos, parallax, física e câmera; minigame e respawn em cada fase; relés e estágios do chefe; reinício com estados contaminados; vitória/pergunta de teste sem gravação normal; OFF com retomada de XP, habilidades, inimigos, reparos, itens, flags e checkpoint; reload com modo OFF e campanha retomável. O conteúdo das chaves de campanha e perguntas é comparado como texto, antes/depois das operações de teste.
+
+Os quatro verificadores de mapas, ambiente, parallax e geração passaram. As proteções antigas do motor não foram desativadas: `tools/developer_mode_contract.py` reverte somente as alterações explícitas descritas em `tests/fixtures/developer-mode-source.json`, antes das verificações anteriores. Assim, a física e os demais sistemas continuam comparados à referência protegida.
+
+Resultado final executado: **21/21 testes específicos**, incluindo restauração de perguntas/escolhas pendentes e reload real; **209/209 verificações da regressão geral das dez fases**, sem erros de runtime. As seis verificações visuais passaram em 1440×1000, 390×844 e 844×390. Os **11 arquivos de `src/maps/`**, incluindo o manifesto, mantiveram os mesmos SHA-256 durante esta funcionalidade. Os seis comandos de teste/verificação retornaram código 0, e `git diff --check` passou.
+
+Checkout e relatórios finais compartilham o fingerprint de produção `13fa260c8a69230ed7625427c430d07008f9179912c859c572629597a593fb64`. Evidências: [testes específicos](tests/developer-mode-results/developer.json), [regressão geral](tests/developer-mode-results/regression.json) e [comandos/hashes dos mapas](tests/developer-mode-results/execution.json).
+
+Problemas de validação resolvidos: a conexão CDP precisa tolerar a invalidação de contexto causada pelo reload real; o evento nativo de fechar `<dialog>` é assíncrono; o cache de plataformas é preenchido legitimamente pelo desenho, portanto o teste verifica IDs/estados novos em vez de exigir um cache vazio. Também foi ajustada a altura das configurações em telas baixas.
+
+### 13.5 Arquivos e ponto de parada
+
+Produção modificada nesta funcionalidade: `game.js`, `index.html`, `style.css` e o novo `src/engine/developer-mode.js`. Testes/contratos: `tests/developer-mode.js`, `tools/test_developer_mode.py`, `tools/developer_mode_contract.py`, `tests/fixtures/developer-mode-source.json`, `tools/check_environment.py`, `tools/check_parallax.py` e `tests/developer-mode-results/`. Documentação: este arquivo.
+
+Nenhum arquivo de mapa, manifesto de campanha, pergunta, habilidade ou IA foi reconstruído nesta etapa. As alterações das reconstruções anteriores permanecem no checkout.
+
+**PARE AQUI:** somente Modo Desenvolvedor e navegação de testes. Não há publicação, push ou merge. A validação de interface em celular foi feita com viewports do Chrome desktop; permanece pendente a avaliação em aparelhos físicos e outros navegadores.
+
+## 14. Fase 4 — Roteador reconstruído
+
+### 14.1 Arquitetura e conteúdo real
+
+`src/maps/04-router.js` foi inteiramente substituído por **Roteador — O labirinto de rotas**, revisão efetiva 5. A campanha e o Modo Desenvolvedor carregam a mesma definição `phase-04`. O antigo adaptador da planta compacta não é usado nesta fase.
+
+A nova silhueta possui galerias interligadas em cinco níveis, um vazio estrutural entre o núcleo e a WAN e uma extensão elevada para o gateway, no extremo direito. Há **27 salas e 38 conexões físicas bidirecionais**, com 12 ciclos independentes na malha conectada. As conexões são escolhidas individualmente: duas salas vizinhas podem continuar separadas por uma parede. Isso cria escolhas entre andares e desvios, em vez de uma grade totalmente aberta ou do hub radial do Switch.
+
+| Medida | Roteador anterior, baseline preservado | Novo labirinto |
+| --- | ---: | ---: |
+| Dimensões | 2200×1500 | 5120×2560 |
+| Regiões espaciais | Sem distritos regionais | 6 |
+| Salas da receita | Planta compacta em adaptador | 27: 24 manuais e 3 caches opcionais determinísticos |
+| Plataformas | 20 | 162: 152 fixas, 6 móveis e 4 temporárias |
+| Reparos | 3 | 6 |
+| Inimigos | 3 | 21 |
+| Coletáveis | 4 | 40 |
+| Checkpoints | 3 | 15 |
+| Travamentos físicos condicionais | Sem portas dedicadas | 10 |
+| Área por bandas estáticas alcançáveis | 1.204.002 px² | 4.872.790 px² |
+
+A área navegável estimada cresceu **4,047×**, dentro da meta de 3–5×. A medida usa a união de bandas da altura do salto sobre apoios alcançados, descontando sólidos; não conta simplesmente o retângulo do mundo. O baseline foi auditado com seus atalhos reais disponíveis. A nova fase foi demonstrada **sem usar nenhum dos seis atalhos por teleporte**, nem depender das plataformas móveis/temporárias. A medida aproxima espaço navegável e não comprova duração de partida.
+
+### 14.2 Regiões e escolhas de exploração
+
+| Região | Implementação |
+| --- | --- |
+| Entrada LAN | `lan-entry`, `lan-rise`, `lan-fork`: chegada segura, túneis de introdução, primeira subida e bifurcação entre galeria superior e rota inferior |
+| Labirinto central | `maze-cross`, `maze-upper`, `maze-well`, `maze-lower` e dois caches: poço vertical, combate em dois andares, conexões de retorno e desvio inferior |
+| Interfaces de rede | `iface-lan`, `iface-console`, `iface-wan`, `iface-bypass`, `iface-cache`: consoles de configuração, reparos, portas de manutenção e caminhos liberados |
+| Túneis WAN | `wan-crown`, `wan-shaft`, `wan-relay`, `wan-under`, `wan-trench`, `wan-intake`: câmaras conectadas de até 1280 px de largura, elevadores, pontes móveis, armadilhas e combate vertical |
+| Núcleo de roteamento | `core-west`, `core-south`, `core-main`, `core-east`: hub em vários níveis, acesso por galerias LAN e WAN, reparo da tabela e saída para duas aproximações do gateway |
+| Gateway final | `gateway-approach`, `gateway-tower`, `gateway-exit`: setor elevado, parkour de precisão, restauração final e barreira de saída |
+
+O jogador pode abordar os quatro serviços externos em ordens diferentes. A galeria LAN superior se reconecta ao poço e ao núcleo; o circuito inferior liga trânsito, interface WAN e câmaras de transmissão. A ligação direta `maze-cross → maze-well` começa fechada, mas a interface LAN é alcançável pela galeria superior e pelo circuito inferior. Repará-la abre esse atalho e as duas entradas de `maze-vault`.
+
+O reparo de trânsito abre as duas entradas do cache de configuração. `maze-cache` é um desvio opcional adicional entre o labirinto e o bypass inferior. Nenhum dos três caches contém inimigo ou reparo obrigatório. Existem seis recompensas marcadas como secretas, além dos datagramas e demais itens de exploração.
+
+### 14.3 Progressão sem dependências circulares
+
+1. Restaurar **LAN** (`iface-lan:lan`), **trânsito** (`iface-console:transit`), **WAN** (`iface-wan:wan`) e **sincronização do túnel** (`wan-relay:link`). Todos os quatro são alcançáveis no estado inicial, com atributos básicos.
+2. Os quatro serviços abrem as duas entradas da sala `core-main`. Restaurar sua **tabela de roteamento** (`core-main:table`).
+3. A tabela libera as duas passagens verticais para o gateway, pelo núcleo leste e pela coroa WAN.
+4. Restaurar o **gateway padrão** (`gateway-tower:gateway`). A última barreira exige os seis reparos; a conclusão também exige os 21 inimigos e a pergunta educativa existente.
+
+Cada reparo energiza uma plataforma e habilita um atalho de manutenção com apoio permanente. Cinco retornam à bifurcação LAN; o do gateway retorna ao núcleo sul. Os destinos não contêm portais de retorno imediato. A conectividade obrigatória não depende desses atalhos.
+
+O auditor repete a expansão física a partir do spawn após cada reparo alcançável. A ordem registrada no teste é uma escolha do auditor, não uma sequência imposta aos quatro primeiros serviços. Um caso negativo coloca a interface LAN atrás de uma trava que só ela poderia abrir: o teste detecta LAN, núcleo e gateway inacessíveis e não aceita a saída como alcançada.
+
+### 14.4 Desafios, segurança e apresentação
+
+- Seis apoios móveis, com amplitude 64 px e velocidade 0,5: quatro verticais e duas pontes horizontais WAN.
+- Quatro apoios temporários: duração de 2,6 s e retorno em 2,4 s. Os percursos obrigatórios também têm apoios permanentes demonstrados.
+- Seis armadilhas elétricas/lasers: aviso de 1,3 s, atividade de 0,65 s, período de 5,4 s e dano 8. Aviso, janela ativa e janela segura foram exercitados no runtime.
+- Subidas regulares de 96 px, abaixo do salto básico de 128,6757 px. O gateway usa patamares menores, sem exigir habilidades opcionais.
+- Combates em dois andares: as sentinelas secundárias ficam em varandas permanentes 192 px acima do piso. Isso também afasta suas patrulhas dos pontos de respawn.
+- Checkpoints com apoio fixo e retorno livre. O teste considera os +38 px reais do respawn, todos os hazards e os envelopes completos de patrulha, exigindo distância mínima de 160 px entre centro do personagem e centro de patrulha.
+- Pixel art azul-escura, paredes tecnológicas, cabos, consoles LAN/WAN e indicadores discretos. O cenário decorativo não cria caixas de colisão invisíveis. O parallax existente acompanha os seis distritos em x/y, em três profundidades; nearest-neighbor preservado.
+
+Planejamento de ritmo: LAN 2–3 min, labirinto 4–6 min, interfaces 3–5 min, WAN/núcleo 4–7 min e gateway 2–4 min; total pretendido **15–25 min**. Ainda é necessário cronometrar uma partida humana e avaliar orientação, sobrevivência e exploração dos desvios. O tempo do auditor não foi tratado como duração de gameplay.
+
+### 14.5 Validação e evidências
+
+Comando reproduzível: `python -X utf8 tools/test_router_v3.py --full --write-fixture`. O executor usa cópia e perfil de Chrome descartáveis. A fixture da fase 4 é exportada somente depois da aprovação dos testes específicos. Os verificadores antigos reconhecem seu hash exato, sem liberar mudanças arbitrárias nos mapas ou no motor.
+
+| Verificação | Resultado específico |
+| --- | --- |
+| Progressão | Seis minigames resolvidos pelo DOM real; travas do núcleo/gateway respeitadas |
+| Física | Todas as 27 salas e 197 superfícies permanentes do percurso alcançadas com atributos básicos |
+| Conexões | As 38 emendas físicas foram executadas nos dois sentidos pelo `movePlayer` real |
+| Superfícies externas | Somente seis topos de teto externos (`:roof`) ficaram fora do percurso |
+| Atalhos | Seis viagens, corpo livre de sólidos, apoio permanente e tecla E segurada sem repetição |
+| Checkpoints | 15 respawns estáveis, hazards excluídos e patrulhas afastadas |
+| Recompensas | 40 itens coletados por movimento e salto básicos |
+| Combate | 21 inimigos derrotados por projéteis básicos; a proteção de dano do teste não demonstra balanceamento de sobrevivência |
+| Objetivos | Reparos, combate, pergunta educativa real e transição para a fase seguinte verificados |
+| Salvamento | Migração da revisão 3 com XP/habilidades preservados; retomada de reparo e checkpoint da revisão 5 |
+| Negativos | Ramal desconectado rejeitado; serviço atrás do próprio reparo detectado |
+| Seeds | Três adicionais recompiladas duas vezes e auditadas, com objetivos e apoios permanentes alcançáveis |
+| Modo Desenvolvedor | Acesso direto à fase 4, reinício dos objetivos e retorno à campanha normal sem alterar suas chaves de salvamento/perguntas |
+
+Execução final: **53/53 testes específicos** e **209/209 verificações da regressão geral**, zero erros de runtime. `check_maps`, `check_environment`, `check_parallax` e `check_generation` passaram; os seis comandos do executor retornaram código 0. Os 11 arquivos protegidos por SHA-256 permaneceram iguais: `game.js`, fases 1–3, fases 5–10 e manifesto da campanha. `git diff --check` passou. Checkout e relatórios finais correspondem ao fingerprint de produção `da495afb683d2588649ee3a7fc1d831f34b362ecdd7cd5b4aeba573f3e01be81`.
+
+Capturas inspecionadas: [panorama anterior](tests/rebuild-v3-baseline/captures/phase-04-overview.png), [panorama novo](tests/router-v3-results/identity-phase-04-router-v3-overview.png), [WAN](tests/router-v3-results/identity-phase-04-router-v3-wan.png) e [gateway](tests/router-v3-results/identity-phase-04-router-v3-gateway.png). Também foram preservadas capturas das quatro outras regiões.
+
+Relatórios: [fase Roteador](tests/router-v3-results/router.json), [regressão geral](tests/router-v3-results/regression.json) e [comandos/hashes](tests/router-v3-results/execution.json). A amostragem de custo de desenho está no relatório específico; não equivale a FPS nem a benchmark em celular. Persistem picos em resoluções maiores, sem alteração global do renderer ou dos limites de cache nesta etapa.
+
+Amostragem no Chrome headless sem GPU, 270 desenhos medidos por resolução após aquecimento e com deslocamento de câmera pelos seis setores:
+
+| Canvas lógico | Mediana de desenho (ms) | P95 (ms) |
+| --- | ---: | ---: |
+| 640×360 | 1,1 | 2,9 |
+| 905×644 | 2,0 | 5,7 |
+| 1280×720 | 1,7 | 54,2 |
+| 1920×1080 | 2,6 | 66,3 |
+
+Os caches respeitaram os limites existentes: até 96 blocos de terreno e 3,25 MiB de parallax. Não foi declarado 60 FPS garantido.
+
+### 14.6 Arquivos e ponto de parada
+
+Produção desta etapa: somente `src/maps/04-router.js`. Testes e referência: `tests/router-v3.js`, `tools/test_router_v3.py`, `tools/router_v3_contract.py`, `tests/fixtures/router-v3.json` e `tests/router-v3-results/`. Os contratos em `tests/architecture.js`, `tests/campaign-generation.js` e os quatro verificadores Python foram adaptados à receita da fase 4. Este documento registra a implementação; os baselines históricos não foram regravados.
+
+Correção de segurança durante a validação: as patrulhas secundárias foram elevadas para varandas e os checkpoints deslocados 16 px para dentro das salas, evitando proximidade excessiva com patrulhas de salas vizinhas. A revisão não mudou as regras de dano nem a proteção existente de respawn.
+
+**PARE AQUI:** fase 4 implementada, testada e documentada. Hardware, Software, Switch, Modo Desenvolvedor, motor e fases 5–10 preservados nesta etapa. Sem push ou merge. Pendentes: partida humana contínua para confirmar duração/dificuldade e teste em aparelhos físicos.
+
+## 15. Fase 5 — Wi-Fi: a torre de sinal
+
+### 15.1 Reconstrução e comparação
+
+`src/maps/05-wifi.js` foi substituído integralmente pela nova fase `phase-05`, revisão efetiva 5. A campanha e o seletor do Modo Desenvolvedor carregam a mesma torre, sem um segundo motor ou alterações na câmera global. O mapa agora possui **1920×5632 px**, 27 áreas de manutenção e **37 conexões físicas bidirecionais**, com 11 ciclos na rede de conexões.
+
+A arquitetura consiste em mastros abertos, ligados por travessas, plataformas e desvios laterais. Não há os tetos e paredes de salas que caracterizam o Roteador. As linhas de subida se cruzam nos repetidores e no campo de sinal; quedas podem ser recuperadas em apoios inferiores. A coroa superior abriga a antena principal e um compartimento de saída condicionado aos seis reparos.
+
+| Medida | Wi-Fi anterior, baseline preservado | Nova torre |
+| --- | ---: | ---: |
+| Dimensões | 1550×2400 | 1920×5632 |
+| Regiões espaciais | Sem distritos regionais | 6 |
+| Áreas da receita | Planta compacta em adaptador | 27: 23 manuais e 4 caches opcionais determinísticos |
+| Plataformas | 29 | 210: 191 fixas, 8 móveis e 11 temporárias |
+| Reparos | 3 | 6 |
+| Inimigos | 3 | 22, incluindo dois voadores Wi-Fi |
+| Coletáveis | 5 | 39 |
+| Checkpoints | 4 | 16 |
+| Banda alcançável no snapshot completo ativo | 1.000.871 px² | 5.519.125 px² |
+
+A estimativa comparável de área navegável é **5,514×**, um pouco acima da meta de 3–5×. Nos dois mapas, o auditor parte do spawn, com todos os reparos aplicados e os apoios móveis/temporários presentes no mesmo instante inicial. O cálculo usa a união de bandas da altura do salto sobre apoios alcançados, descontando sólidos. A saída da referência também foi alcançada nesse snapshot.
+
+Essa medida congela os apoios ativos: não equivale à união de todas as trajetórias possíveis ao longo do tempo. A referência depende de sinais temporários/móveis; ignorá-los reduz sua prova a 232.456 px². Por isso, a razão estática de 22,88× presente no relatório **não é usada como índice de expansão**. Na nova torre, a prova sem apoios móveis/temporários alcançou 5.318.235 px² e todos os objetivos: o percurso obrigatório não depende de acertar uma janela temporal ou de habilidades opcionais.
+
+### 15.2 Regiões, rotas e reparos
+
+| Região | Conteúdo implementado |
+| --- | --- |
+| Base da torre | `base-west`, `base-center`, `base-east`, `base-dock`: área larga de entrada, calibração de associação, primeiro combate e um desvio secreto inferior |
+| Estruturas de transmissão | `transmit-west`, `transmit-spine`, `transmit-east`: portadora, subida em zigue-zague, elevadores, rota lateral e ameaça aérea |
+| Zona de interferência | `noise-west`, `noise-center`, `noise-bypass`, `noise-east`, `noise-cache`: espectro congestionado, apoios temporários, pulsos elétricos, bypass e cache oculto |
+| Torres repetidoras | `repeater-west`, `repeater-east`, `repeater-bridge`, `repeater-base`, `repeater-cross`: dois reparos, elevadores, pontes horizontais e conexões entre as duas linhas de subida |
+| Campo de sinal | `signal-west`, `signal-cross`, `signal-crown`, `signal-drift`, `signal-cache`: estruturas suspensas, patamares menores, exploração lateral, voador, apoios móveis/temporários e desvio opcional |
+| Antena principal | `array-west`, `array-east`, `main-array`, `sky-exit`, `upper-cache`: grande setor superior, inimigos blindados, parkour de precisão, restauração do uplink e saída |
+
+Os seis reparos são: associação Wi-Fi, portadora, limpeza do espectro, repetidor oeste, repetidor leste e antena principal. Todos têm minigames Wi-Fi reais, ativam uma ponte de apoio e habilitam retorno seguro à base. Componentes ficam em apoios permanentes; nenhum reparo exige sua própria plataforma energizada para ser alcançado.
+
+O reparo da portadora remove uma zona de sinal fraco na transmissão. O do espectro remove as cinco zonas congestionadas da faixa de interferência. As zonas preservam os modificadores existentes de movimento, cadência e velocidade de projéteis; os testes verificam sua remoção pelo componente correspondente. A saída exige todos os reparos, os 22 inimigos e a pergunta educativa normal.
+
+Os quatro desvios opcionais não contêm reparo ou inimigo obrigatório. Seus oito bônus secretos ficam em plataformas de manutenção, além dos fragmentos e demais recompensas. A subida principal pode alternar entre mastros e retornar a andares já visitados. Os seis atalhos de retorno são conveniência após os reparos; não foram usados na prova física dos objetivos.
+
+### 15.3 Parkour, checkpoints, câmera e visual
+
+- Patamares de subida com desníveis regulares de 96 px, abaixo do salto básico de 128,6757 px. As larguras diminuem até 96 px na coroa, com locais permanentes de descanso e recuperação.
+- **Oito apoios móveis:** cinco verticais e três horizontais; amplitude 64 px e velocidade 0,5. Todos foram testados transportando o personagem nos dois eixos correspondentes.
+- **Onze sinais temporários:** duração 2,5 s nas faixas intermediárias e 2,2 s na antena, com reaparecimento após 2,4 s. Cada um foi acionado, desapareceu e reapareceu no runtime real.
+- Seis pulsos elétricos com aviso 1,3 s, atividade 0,65 s, período 5,4 s e dano 8; janelas de aviso, dano e segurança verificadas.
+- Dezesseis checkpoints livres em apoios fixos. A verificação inclui os +38 px reais do respawn, estabilidade após um segundo de física, ausência de sobreposição com hazards e distância mínima de 160 px dos envelopes de patrulha iniciais. Sentinelas secundárias ficam em varandas elevadas.
+- A câmera existente foi exercitada durante subida e descida contínuas por toda a altura, em 320×568, 844×390 e 1280×720: cabeça e pés permaneceram visíveis, o maior deslocamento vertical por passo simulado foi 3,214 px e a deriva estacionária foi zero. São provas do controlador a 120 passos/s, não medição de FPS.
+- Pixel art azul/ciano, mastros gigantes, antenas, travessas e LEDs discretos. Não há paredes invisíveis delimitando salas; somente o compartimento final possui teto/parede sólidos e trava. O parallax vertical existente acompanha os seis setores em três profundidades, com nearest-neighbor preservado.
+
+Planejamento de ritmo: base 2–3 min, transmissão 3–5 min, interferência 3–5 min, repetidores 3–5 min, campo de sinal 2–4 min e antena 2–3 min: total pretendido **15–25 minutos**. Ainda é necessário cronometrar uma partida humana contínua e avaliar dificuldade de sobrevivência, orientação e controles em aparelho físico.
+
+### 15.4 Validação executada
+
+Comando final: `python -X utf8 tools/test_wifi_v3.py --full --write-fixture`. O executor usa cópia e perfil de Chrome descartáveis. A fixture é exportada somente depois da aprovação dos testes específicos; as referências históricas não são regravadas.
+
+Resultado: **58/58 testes específicos**, **209/209 verificações da regressão geral das dez fases**, zero erros de runtime. Os quatro verificadores Python (`check_maps`, `check_environment`, `check_parallax`, `check_generation`) passaram. Os seis comandos do executor retornaram código 0. Foram preservados por SHA-256 os 11 arquivos protegidos: `game.js`, fases 1–4, fases 6–10 e manifesto da campanha.
+
+| Verificação | Evidência |
+| --- | --- |
+| Objetivos e conectividade | Seis minigames resolvidos por controles DOM reais; saída e todas as 27 áreas alcançadas sem poderes opcionais |
+| Apoios permanentes | 242 superfícies demonstradas; nenhuma superfície estática ficou sem prova de alcance |
+| Conexões entre andares | 37 emendas exercitadas nos dois sentidos pelo `movePlayer` real |
+| Recompensas | 39 itens coletados por movimento e salto básicos |
+| Combate | 22 inimigos derrotados por projéteis básicos; a proteção de dano usada pelo auditor não comprova balanceamento de sobrevivência |
+| Mecânicas temporais | Onze sinais desapareceram/reapareceram; oito apoios móveis transportaram o personagem |
+| Câmera | Três viewports, subida/descida integral e estabilidade estacionária |
+| Salvamento | Migração da revisão 3 com XP/habilidades preservados; retomada de reparo e checkpoint da revisão 5 |
+| Modo Desenvolvedor | Acesso direto à fase 5, reinício dos objetivos e retorno à campanha sem alterar suas chaves de salvamento/perguntas |
+| Negativo | Remoção das conexões da base central rejeitada como grafo desconectado |
+| Seeds | Três seeds adicionais recompiladas duas vezes e auditadas com os objetivos alcançáveis |
+
+Os testes legados de interferência passaram a localizar a zona e seu reparo por referência, em vez de coordenadas antigas. A seleção do sinal temporário também usa seu tipo, sem depender do antigo ID `signal-01`. Os testes de arquitetura/campanha verificam agora a torre efetiva, preservando replay determinístico e objetivos.
+
+Checkout e relatórios finais compartilham o fingerprint de produção `f40cf484752f668cc3111713446c243acc75022a39f664f24e9a2a4fa45939f9`. `git diff --check` passou. Evidências: [fase Wi-Fi](tests/wifi-v3-results/wifi.json), [regressão geral](tests/wifi-v3-results/regression.json) e [comandos/hashes](tests/wifi-v3-results/execution.json).
+
+Capturas inspecionadas: [panorama vertical](tests/wifi-v3-results/identity-phase-05-wifi-v3-overview.png), [base](tests/wifi-v3-results/identity-phase-05-wifi-v3-base.png) e [antena principal](tests/wifi-v3-results/identity-phase-05-wifi-v3-antenna.png). Também foram preservadas capturas de transmissão, interferência, repetidores e campo de sinal.
+
+Amostragem de `draw()` em Chrome headless sem GPU: 270 desenhos por resolução, após aquecimento e com deslocamento de câmera pelos seis setores. Não equivale a FPS com `requestAnimationFrame` nem a benchmark em celular.
+
+| Canvas lógico | Mediana de desenho (ms) | P95 (ms) |
+| --- | ---: | ---: |
+| 640×360 | 1,2 | 3,1 |
+| 905×644 | 1,8 | 40,4 |
+| 1280×720 | 2,1 | 49,8 |
+| 1920×1080 | 3,0 | 59,5 |
+
+Os caches respeitaram os limites existentes: até 96 blocos de terreno e 3,25 MiB de parallax. Persistem picos nas resoluções maiores; não foi declarado 60 FPS garantido nem alterado o motor para ocultar essa limitação.
+
+### 15.5 Arquivos e ponto de parada
+
+Produção desta etapa: somente `src/maps/05-wifi.js`. Validação: `tests/wifi-v3.js`, `tools/test_wifi_v3.py`, `tools/wifi_v3_contract.py`, `tests/fixtures/wifi-v3.json`, `tests/wifi-v3-results/`, contratos de arquitetura/campanha, testes legados das cinco primeiras fases e quatro verificadores Python. Documentação: este arquivo. As alterações das etapas anteriores foram preservadas.
+
+**PARE AQUI:** fase 5 implementada, testada e documentada. Sem reconstruir fases 6–10, sem alterações adicionais no motor/Modo Desenvolvedor e sem push ou merge. Pendentes: cronometragem e balanceamento por partida humana contínua, dispositivos físicos e avaliação dos picos de desenho já registrados.
+
+## 16. Fase 6 — Cabeamento: o complexo industrial
+
+### 16.1 Reconstrução e área explorável
+
+`src/maps/06-cabling.js` foi inteiramente substituído pela fase **Cabeamento — O complexo industrial**, revisão efetiva 5. A campanha e o Modo Desenvolvedor carregam a mesma definição `phase-06`. A antiga torre estreita de dutos deu lugar a um complexo largo de **3840×4096 px**, com oito níveis, blocos técnicos, três linhas principais de poços e um elevador no anexo.
+
+Há **41 salas e 66 conexões físicas bidirecionais**, formando 26 ciclos independentes na rede conectada. Os andares inferiores se estendem por toda a largura do prédio. Acima, os poços e passarelas conectam blocos separados; a cobertura recua para o centro. Galerias de manutenção/central adjacentes podem se abrir em salões maiores, enquanto portas estruturais e tetos delimitam os demais setores. A arquitetura difere da torre aberta Wi-Fi e da planta vertical anterior do Cabeamento.
+
+| Medida | Cabeamento anterior, baseline preservado | Novo complexo |
+| --- | ---: | ---: |
+| Dimensões | 1600×3000 | 3840×4096 |
+| Regiões espaciais | Sem distritos regionais | 6 |
+| Salas da receita | Planta compacta em adaptador | 41: 37 manuais e 4 caches opcionais determinísticos |
+| Plataformas | 44 | 293: 272 fixas, 15 móveis e 6 temporárias |
+| Reparos | 3 | 7 |
+| Inimigos | 4 | 30 |
+| Coletáveis | 4 | 54 |
+| Checkpoints | 4 | 22 |
+| Travas físicas | Sem portas dedicadas | 5 |
+| Banda alcançável no snapshot restaurado completo | 1.969.062 px² | 7.937.184 px² |
+
+A estimativa comparável de área navegável cresceu **4,031×**, dentro da meta de 3–5×. Os dois mapas foram auditados a partir do spawn, após os reparos, com seus apoios móveis/temporários presentes no mesmo instante inicial. A saída da referência foi alcançada. A medida é a união de bandas da altura do salto sobre apoios alcançados, descontando sólidos; congela o estado dos mecanismos e não representa toda a área de trajetórias ao longo do tempo.
+
+Na prova conservadora que exclui apoios móveis e temporários, a nova fase alcançou **7.835.034 px²**, contra 1.893.219 px² da referência: **4,138×**. Todos os reparos e a saída são alcançáveis nesse modelo. Assim, a progressão não depende de acertar o instante de um elevador nem de uma habilidade opcional. A expansão inclui salas, objetivos, combate, poços e recompensas, em vez de apenas aumentar o retângulo do mundo.
+
+### 16.2 Regiões e rotas
+
+| Região | Implementação |
+| --- | --- |
+| Subsolo | Seis áreas: chegada, alimentação, túneis de cabos, passagem inferior de combate, galeria leste e cache lateral |
+| Central de cabeamento | Seis salas: painel principal, tronco de cobre, hub, distribuição de patch cords e galerias técnicas interligadas |
+| Andares de manutenção | Nove salas: quadro de serviço, corredores de combate em dois níveis, passarelas, retornos, anexo e cofre de manutenção |
+| Poços de elevadores | Seis áreas: poço oeste em dois níveis, poço central de inspeção, poço leste em dois níveis e elevador do anexo |
+| Infraestrutura superior | Oito áreas: torres metálicas, oficina, hub de distribuição, passarela elevada, dutos laterais e dois caches |
+| Cobertura | Seis áreas: duas aproximações laterais, ponte, quadro de antenas, estruturas de combate/parkour e saída |
+
+O subsolo, a central e os corredores de manutenção oferecem vários retornos entre colunas e andares. O poço central permite inspeção e mudança de rota; as linhas oeste/leste e o anexo conectam os níveis superiores. As escadas técnicas permanecem disponíveis quando os elevadores de serviço estão desligados. O setor superior tem passarela entre blocos e conexões laterais à cobertura.
+
+Os quatro caches opcionais ficam no subsolo, no anexo de manutenção e nas duas extremidades superiores. Não contêm inimigo ou reparo obrigatório. Há oito recompensas marcadas como secretas, além dos demais dados e peças de exploração.
+
+### 16.3 Reparos integrados e progressão
+
+| Reparo | Efeito |
+| --- | --- |
+| `basement-power:power` | Restaura alimentação, elevador de serviço e bandeja de apoio do subsolo |
+| `central-main:patch` | Reconecta o painel principal, seu elevador e bandeja |
+| `central-east:trunk` | Repara o tronco de cobre e energiza seus acessos |
+| `maintenance-west:service` | Restaura o quadro técnico do andar de manutenção |
+| `shaft-west-mid:motor` | Repara o controle local de elevador do poço oeste |
+| `upper-hub:distribution` | Restaura distribuição superior e seu elevador de serviço |
+| `roof-controls:antenna` | Reconecta a cobertura e completa a condição de abertura da saída |
+
+Cada reparo tem um minigame de Cabeamento real, energiza uma ponte/bandeja e um elevador de serviço e habilita um retorno seguro. Seis retornos levam à chegada no subsolo; o da cobertura retorna ao hub central. Os destinos têm apoio permanente e não contêm portais que causem retorno imediato ao segurar E.
+
+Os **seis serviços inferiores são alcançáveis inicialmente**, em ordens diferentes. Eles liberam as quatro entradas verticais da faixa de cobertura. O quadro da cobertura não está incluído na condição que permite chegar a si próprio. A saída final exige os sete reparos, os 30 inimigos e a pergunta educativa normal.
+
+O auditor repete a expansão física após cada reparo. Uma cópia negativa encerra o painel principal atrás de uma trava que somente seu próprio reparo abriria: o teste detecta o painel e o quadro da cobertura inacessíveis, com saída não alcançada. Os atalhos de retorno não foram usados na prova dos caminhos obrigatórios.
+
+### 16.4 Elevadores, desafios e segurança
+
+- **Quinze apoios móveis:** sete elevadores de serviço inicialmente desligados, cinco elevadores operacionais e três pontes/guindastes horizontais. Os verticais têm amplitude 112 px, cobrindo 224 px entre extremos; os horizontais têm amplitude 64 px. Todos foram exercitados transportando o personagem.
+- Os sete elevadores de serviço usam a condição do próprio quadro de reparo. Seus componentes ficam no piso permanente, sem depender do elevador que precisam energizar.
+- Seis andaimes temporários, com apoio fixo de preparação: duração 2,8 s e reaparecimento em 2,4 s. Todos foram acionados, desapareceram e reapareceram no runtime.
+- Treze riscos elétricos, com aviso 1,3 s, atividade 0,65 s, período 5,4 s e dano 8. As janelas de aviso, dano e segurança foram verificadas.
+- Escadas técnicas com subidas de 96 px, abaixo do salto básico de 128,6757 px. A cobertura usa patamares menores e rotas de preparação para o parkour final.
+- Vinte e dois checkpoints livres em piso permanente. O ensaio considera os +38 px reais do respawn, estabilidade após um segundo de física, ausência de sobreposição com hazards e distância mínima de 160 px dos envelopes iniciais de patrulha.
+- Sentinelas secundárias ficam em varandas elevadas, separando combate de piso e combate de andar. Ameaças rápidas aparecem nos corredores; blindados ocupam infraestrutura superior e cobertura.
+- A câmera existente foi exercitada em subida/descida integral, em 320×568, 844×390 e 1280×720: personagem sempre visível e deriva estacionária zero. A inicialização do ensaio foi corrigida para começar dentro dos limites reais da câmera, sem alterar o controlador do jogo.
+
+Pixel art de metal e cobre, bandejas organizadas de cabos, trilhos de elevadores, dutos, painéis e pequenas luzes amarelas. O cenário decorativo não acrescenta colisões invisíveis. O parallax industrial existente acompanha as seis regiões em x/y, com nearest-neighbor preservado.
+
+Planejamento de ritmo: subsolo 2–3 min, central 3–5 min, manutenção 3–5 min, poços 3–5 min, infraestrutura superior 2–4 min e cobertura 2–3 min; total pretendido **15–25 minutos**. A duração e o balanceamento de sobrevivência ainda precisam de uma partida humana contínua. O tempo do teste automatizado não foi usado como duração de gameplay.
+
+### 16.5 Validação executada e evidências
+
+Comando final: `python -X utf8 tools/test_cabling_v3.py --full --write-fixture`. O projeto e o perfil do Chrome são descartáveis. A fixture da fase 6 é exportada somente após a aprovação dos testes específicos; referências históricas não foram regravadas.
+
+Resultado: **69/69 testes específicos**, **209/209 verificações da regressão geral das dez fases**, zero erros de runtime. Os quatro verificadores Python (`check_maps`, `check_environment`, `check_parallax`, `check_generation`) passaram. Os seis comandos do executor retornaram código 0. Os 11 arquivos protegidos por SHA-256 permaneceram iguais: `game.js`, fases 1–5, fases 7–10 e manifesto da campanha.
+
+| Verificação | Evidência |
+| --- | --- |
+| Conectividade e objetivos | 41 salas, sete minigames resolvidos pelo DOM real, seis quadros iniciais acessíveis e cobertura liberada depois deles |
+| Geometria | 351 superfícies permanentes alcançadas; somente cinco topos externos de teto ficaram fora do percurso |
+| Conexões | 66 emendas exercitadas nos dois sentidos pelo `movePlayer` real |
+| Apoios móveis | Todos os 15 transportaram o personagem; sete elevadores de serviço confirmados desligados antes dos reparos |
+| Andaimes | Seis ciclos de ativação, desaparecimento e retorno no runtime |
+| Checkpoints | 22 respawns estáveis e afastados dos hazards/patrulhas iniciais |
+| Recompensas | 54 itens coletados com movimento e salto básicos |
+| Combate | 30 inimigos derrotados por projéteis básicos; a proteção de dano do auditor não comprova dificuldade de sobrevivência |
+| Conclusão | Reparos, combate, pergunta real e transição verificados |
+| Salvamento | Migração de revisão anterior com XP/habilidades preservados; retomada de reparo e checkpoint da revisão 5 |
+| Modo Desenvolvedor | Acesso direto à fase 6, reinício de objetivos e retorno à campanha sem alterar suas chaves de salvamento/perguntas |
+| Negativos | Entrada desconectada rejeitada; painel atrás do próprio reparo detectado |
+| Seeds | Três adicionais recompiladas duas vezes e auditadas, com objetivos e apoios permanentes alcançáveis |
+
+Os contratos de infraestrutura/campanha foram atualizados para verificar a receita e o replay do novo Cabeamento. Os testes dos elevadores legados apontam agora para os novos IDs de serviço. As fases 7–10 continuam comparadas às suas referências originais, incluindo a arena manual de VIRUS ZERO. As proteções do motor/Modo Desenvolvedor não foram removidas.
+
+Checkout e relatórios finais compartilham o fingerprint de produção `30d520f307d4a706f57a7bdd3ea76a7534e24b3aa4b7a73b6bca4daab8650ac3`. `git diff --check` passou. Evidências: [fase Cabeamento](tests/cabling-v3-results/cabling.json), [regressão geral](tests/cabling-v3-results/regression.json) e [comandos/hashes](tests/cabling-v3-results/execution.json).
+
+Capturas inspecionadas: [panorama industrial](tests/cabling-v3-results/identity-phase-06-cabling-v3-overview.png) e [poços](tests/cabling-v3-results/identity-phase-06-cabling-v3-shafts.png). Também foram preservadas capturas de subsolo, central, manutenção, infraestrutura superior e cobertura.
+
+Amostragem de `draw()` em Chrome headless sem GPU: 270 desenhos por resolução, após aquecimento e com câmera em deslocamento pelos seis setores. Não representa FPS com `requestAnimationFrame` nem benchmark em celular.
+
+| Canvas lógico | Mediana de desenho (ms) | P95 (ms) |
+| --- | ---: | ---: |
+| 640×360 | 1,4 | 3,0 |
+| 905×644 | 1,6 | 4,0 |
+| 1280×720 | 2,0 | 4,6 |
+| 1920×1080 | 2,6 | 105,0 |
+
+Os caches respeitaram os limites existentes: até 96 blocos de terreno e aproximadamente 3,26 MiB de parallax. Persistem picos em 1920×1080; não foi declarado 60 FPS garantido nem alterado o renderer para ocultar essa limitação.
+
+### 16.6 Arquivos e ponto de parada
+
+Produção desta etapa: somente `src/maps/06-cabling.js`. Validação: `tests/cabling-v3.js`, `tools/test_cabling_v3.py`, `tools/cabling_v3_contract.py`, `tests/fixtures/cabling-v3.json`, `tests/cabling-v3-results/`, contratos de arquitetura/campanha/infraestrutura, testes dos elevadores e quatro verificadores Python. Documentação: este arquivo. As alterações anteriores do projeto foram preservadas.
+
+**PARE AQUI:** fase 6 implementada, testada e documentada. Sem reconstruir fases 7–10, sem alterações adicionais no motor/Modo Desenvolvedor e sem push ou merge. Pendentes: cronometragem e balanceamento por partida humana contínua, aparelhos físicos e avaliação dos picos de desenho registrados.
+
+## 17. Fase 7 — DHCP: a cidade dos endereços
+
+### 17.1 Reconstrução e área explorável
+
+`src/maps/07-dhcp.js` foi substituído integralmente pela nova definição `phase-07`, revisão efetiva 5, usada pela campanha e pelo Modo Desenvolvedor. A antiga planta de escopos ligados principalmente por portais deu lugar a uma **cidade de 3840×3072 px**, com torres de servidores, praças, passarelas em vários níveis e distritos conectados fisicamente.
+
+São **25 áreas e 35 conexões físicas bidirecionais**, com 11 ciclos independentes na rede conectada. A Central DHCP conecta os distritos de endereçamento, reservas e conflitos; o circuito inferior de distribuição se reencontra com as rotas laterais. O gateway ocupa um bloco elevado próprio. A cidade não reutiliza o contorno do complexo industrial ou da torre Wi-Fi.
+
+| Medida | DHCP anterior, baseline preservado | Nova cidade |
+| --- | ---: | ---: |
+| Dimensões | 2800×1700 | 3840×3072 |
+| Distritos espaciais | Sem distritos regionais | 6 |
+| Áreas da receita | Planta compacta em adaptador | 25: 21 manuais e 4 caches opcionais determinísticos |
+| Plataformas | 21 | 173: 163 fixas, 6 móveis e 4 temporárias |
+| Reparos | 3 | 6 |
+| Terminais de serviço obrigatórios | 2 | 2, preservados e integrados aos novos reparos |
+| Inimigos | 4 | 22 |
+| Coletáveis | 4 | 38 |
+| Checkpoints | 4 | 15 |
+| Travas físicas | 1 | 4 |
+| Banda alcançável no snapshot restaurado completo | 1.004.264 px² | 4.888.224 px² |
+
+A estimativa comparável de área navegável cresceu **4,867×**, dentro da meta de 3–5×. Ambos os mapas foram medidos após os reparos e a habilitação dos serviços de IP, com apoios móveis/temporários presentes no mesmo instante inicial. A saída da referência foi alcançada. A medida usa a união de bandas da altura do salto sobre apoios alcançados, descontando sólidos; não é simplesmente a razão entre retângulos do mundo nem a área exata de todas as trajetórias temporais.
+
+Separadamente, a prova conservadora da nova cidade, sem usar plataformas móveis/temporárias nem atalhos por teleporte, alcançou **4.799.363 px²** e todos os objetivos. A referência depende mais desses mecanismos: sua comparação somente estática resulta em 5,47×. O índice principal acima usa o cenário completo restaurado para incluir de maneira equivalente o conteúdo ativo das duas versões.
+
+### 17.2 Distritos, hubs e rotas alternativas
+
+| Distrito | Conteúdo implementado |
+| --- | --- |
+| Central DHCP | `central-core`, `central-north`, `central-east`: hub inicial, servidor, terminal de ativação, elevador e combate em dois níveis |
+| Endereçamento | Cinco áreas: escritório de escopo, galeria superior, praça oeste, conexão leste e cache lateral |
+| Conflitos | Cinco áreas: núcleo de correção, praças corrompidas oeste/leste, passagem inferior e cache; zonas de IP duplicado, inimigos e atalho bloqueado |
+| Reservas | `reserve-main`, `reserve-upper`, `reserve-cache`: tabela de reservas, terminal obrigatório, plataformas móveis e desvio opcional |
+| Distribuição | Cinco áreas: pontes leste/oeste, cruzamento, reparo de relay e cache; parkour, ligação inferior entre distritos e rotas em vários níveis |
+| Gateway | `gateway-plaza`, `gateway-guard`, `gateway-upper`, `gateway-exit`: praça de reparo, guardas blindados, patamares de precisão e saída |
+
+Os quatro caches não contêm inimigo ou reparo obrigatório. Há oito recompensas marcadas como secretas, além dos demais tokens e cópias de concessão. Os caminhos de retorno e cruzamentos permitem alternar entre os distritos; a central funciona como ponto de recepção dos seis atalhos habilitados pelos reparos.
+
+As recepções ficam em apoio permanente, afastadas de inimigos e da interação do próprio servidor, e não coincidem com portais de retorno. A conectividade obrigatória foi demonstrada sem esses atalhos. O gateway tem duas aproximações, pela galeria de reservas e pela passagem vertical do cache de reservas.
+
+### 17.3 Reparos e serviços DHCP continuam obrigatórios
+
+1. Restaurar servidor DHCP (`central-core:server`), escopo (`address-office:scope`), conflitos (`conflict-core:conflict`), reservas (`reserve-main:reservation`) e relay de distribuição (`distribution-south:relay`). Os cinco reparos são alcançáveis no estado inicial, em ordens diferentes.
+2. Ativar por E o terminal DHCP e o terminal de reservas, após o reparo correspondente. As flags são `central-core:dhcp-on` e `reserve-main:reservation`; reparar o componente não ativa automaticamente o terminal.
+3. Os cinco reparos e as duas ativações liberam as duas entradas do gateway. Restaurar o sexto componente, `gateway-plaza:gateway`.
+4. A barreira final exige os seis reparos e as duas flags. A conclusão também exige os 22 inimigos e a pergunta educativa normal.
+
+Cada reparo tem um minigame DHCP real, energiza uma ponte de dados e habilita um retorno à central. O reparo de reservas também habilita sua plataforma móvel. Resolver o núcleo de conflitos remove as cinco zonas de IP duplicado, que reduzem a velocidade para 85%, e abre a passagem vertical leste.
+
+O auditor ativa os terminais com E em apoios fisicamente alcançados, respeitando seus requisitos, e repete a expansão após cada reparo/ativação. Não injeta flags de conclusão na prova principal. Um caso negativo encerra o escritório de escopo atrás do próprio reparo: o auditor detecta escopo e gateway inacessíveis e saída não alcançada.
+
+Os dois serviços mantêm o funcionamento e o salvamento existentes. Os testes legados passaram a consultar as flags dos terminais por suas referências locais, em vez dos antigos nomes sem namespace. Os rótulos visuais usam prefixos IPv4 completos (`10.0.0.0/24`, `10.0.10.0/24`, `10.0.20.0/24`, `10.0.30.0/24`); o distrito corrompido é identificado como IP duplicado.
+
+### 17.4 Desafios, checkpoints e apresentação
+
+- Seis apoios móveis: três verticais e três horizontais, amplitude 64 px e velocidade 0,5; todos transportaram o personagem no runtime.
+- Quatro pontes temporárias com preparação em apoio fixo: duração 2,6 s e reaparecimento em 2,4 s. Todos os ciclos foram executados.
+- Seis pulsos elétricos/lasers com aviso 1,3 s, atividade 0,65 s, período 5,4 s e dano 8; janelas de aviso, dano e segurança verificadas.
+- Patamares regulares de 96 px, abaixo do salto básico de 128,6757 px. O gateway usa apoios menores e guardas blindados; as sentinelas secundárias ficam em terraços elevados.
+- Quinze checkpoints livres em apoio fixo. O ensaio considera os +38 px reais do respawn, estabilidade após um segundo de física, ausência de sobreposição com hazards e distância mínima de 160 px dos envelopes iniciais de patrulha.
+- Câmera existente verificada em subida/descida, nos viewports 320×568, 844×390 e 1280×720: corpo sempre visível, limites respeitados e deriva estacionária zero. O ensaio não mede FPS.
+- Pixel art verde/azul, torres de servidores, janelas discretas e pontes digitais. O distrito de conflitos usa pequenos acentos de corrupção. O cenário não adiciona colisões invisíveis; o bloco do gateway tem paredes e travas explícitas. O parallax existente acompanha os seis distritos em x/y, com nearest-neighbor preservado.
+
+Planejamento de ritmo: central 2–3 min, endereçamento 3–5 min, conflitos 3–5 min, reservas 2–4 min, distribuição 3–5 min e gateway 2–3 min; total pretendido **15–25 minutos**. Duração, orientação e dificuldade de sobrevivência ainda precisam de uma partida humana contínua e testes em aparelho físico.
+
+### 17.5 Validação e evidências
+
+Comando reproduzível: `python -X utf8 tools/test_dhcp_v3.py --full --write-fixture`. O executor usa cópia e perfil de Chrome descartáveis. A fixture é exportada somente após a aprovação dos testes específicos; os baselines históricos não são regravados.
+
+| Verificação | Evidência |
+| --- | --- |
+| Objetivos e serviços | Seis minigames resolvidos pelo DOM real e duas ativações reais, com desbloqueio progressivo do gateway |
+| Conectividade | Todas as 25 áreas e 209 superfícies permanentes alcançadas, sem superfícies estáticas sem prova |
+| Conexões físicas | 35 emendas exercitadas nos dois sentidos pelo `movePlayer` real |
+| Retornos | Seis destinos com apoio permanente, corpo fora de sólidos e tecla E segurada sem repetição de viagem |
+| Mecânicas temporais | Seis apoios móveis transportaram o personagem; quatro pontes desapareceram e reapareceram |
+| Checkpoints | 15 respawns estáveis, fora de hazards e afastados das patrulhas iniciais |
+| Recompensas | 38 itens coletados por movimento/salto básicos |
+| Combate | 22 inimigos derrotados por projéteis básicos; a proteção de dano do auditor não comprova balanceamento de sobrevivência |
+| Conclusão | Reparos, flags, combate, pergunta real e transição verificados |
+| Salvamento | Migração da revisão 3 com XP/habilidades preservados; retomada de reparo/checkpoint e persistência das flags de serviço |
+| Modo Desenvolvedor | Acesso direto à fase 7, reinício dos objetivos e retorno à campanha sem alterar suas chaves de salvamento/perguntas |
+| Negativos | Hub desconectado rejeitado; escopo atrás do próprio reparo detectado |
+| Seeds | Três adicionais recompiladas duas vezes e auditadas com objetivos alcançáveis |
+
+Resultado final da etapa DHCP: **62/62 testes específicos** e **209/209 verificações da regressão geral das dez fases**, zero erros de runtime. `check_maps`, `check_environment`, `check_parallax` e `check_generation` passaram. Os seis comandos do executor retornaram código 0; os 11 arquivos protegidos por SHA-256 permaneceram iguais (`game.js`, fases 1–6, fases 8–10 e manifesto da campanha). `git diff --check` passou. Checkout e relatórios finais compartilham o fingerprint de produção `724857045022b712366a68434a9c74a6a19f5bd57f5213f14f8aa0cffb33956d`.
+
+As referências de arquitetura/campanha/infraestrutura foram atualizadas para a receita da cidade. O teste de conflito localiza a zona e seu componente, sem coordenadas antigas; o teste de concessão móvel usa a nova plataforma de reservas. As fases 8–10 permanecem comparadas às referências originais, incluindo a arena manual de VIRUS ZERO. O motor e o Modo Desenvolvedor não foram alterados nesta etapa.
+
+Capturas inspecionadas: [panorama da cidade](tests/dhcp-v3-results/identity-phase-07-dhcp-v3-overview.png), [central](tests/dhcp-v3-results/identity-phase-07-dhcp-v3-central.png) e [conflitos](tests/dhcp-v3-results/identity-phase-07-dhcp-v3-conflicts.png). Também foram preservadas capturas de endereçamento, reservas, distribuição e gateway. Relatórios: [fase DHCP](tests/dhcp-v3-results/dhcp.json), [regressão geral](tests/dhcp-v3-results/regression.json) e [comandos/hashes](tests/dhcp-v3-results/execution.json).
+
+Amostragem de `draw()` em Chrome headless sem GPU: 270 desenhos por resolução, após aquecimento e com câmera em deslocamento pelos seis distritos. Não representa FPS com `requestAnimationFrame` ou benchmark em celular.
+
+| Canvas lógico | Mediana de desenho (ms) | P95 (ms) |
+| --- | ---: | ---: |
+| 640×360 | 1,8 | 3,6 |
+| 905×644 | 1,8 | 4,4 |
+| 1280×720 | 2,2 | 5,3 |
+| 1920×1080 | 3,0 | 165,6 |
+
+Os caches respeitaram os limites existentes: até 96 blocos de terreno e 3,25 MiB de parallax. Persistem picos em 1920×1080; não foi declarado 60 FPS garantido nem alterado o renderer para ocultar essa limitação.
+
+### 17.6 Arquivos e ponto de parada
+
+Produção desta etapa: somente `src/maps/07-dhcp.js`. Validação: `tests/dhcp-v3.js`, `tools/test_dhcp_v3.py`, `tools/dhcp_v3_contract.py`, `tests/fixtures/dhcp-v3.json`, `tests/dhcp-v3-results/`, contratos de arquitetura/campanha/infraestrutura, testes legados dos serviços e quatro verificadores Python. Documentação: este arquivo. As alterações anteriores do projeto foram preservadas.
+
+**PARE AQUI:** fase 7 implementada, testada e documentada. Sem reconstruir fases 8–10, sem alterações adicionais no motor/Modo Desenvolvedor e sem push ou merge. Pendentes: cronometragem e balanceamento por partida humana contínua, aparelhos físicos e avaliação dos picos de desenho registrados.
+
+## 18. Fase 8 — DNS: complexo dos domínios
+
+### 18.1 Arquitetura e conteúdo
+
+Reconstrução integral de `src/maps/08-dns.js`, revisão 5: mundo de **7040×5120**, 33 salas, 36 conexões físicas bidirecionais e 24 ligações direcionadas por portais. São 28 salas manuais e cinco cofres determinísticos gerados. Os grandes espaços entre conjuntos representam domínios separados, acessados por portais; não são contabilizados como corredores exploráveis.
+
+| Região | Salas | Conteúdo |
+| --- | ---: | --- |
+| Servidor Raiz | 4 | Hub, consultas aos domínios, referências e atalhos de retorno |
+| .COM | 7 | Torres de arquivos, delegação, registros A/AAAA, combates e dois cofres |
+| .ORG | 6 | Terraços abertos, registros, parkour, sentinelas e cofre |
+| Cache Recursivo | 8 | Labirinto de quatro níveis, resolvedor, TTL, elevadores e passagem lateral desbloqueável |
+| NXDOMAIN | 4 | Desvio opcional, corrupção, quatro inimigos reforçados e recompensas |
+| Resolução Final | 4 | Entrada após seis serviços, combate, navegação avançada, sétimo reparo e saída |
+
+O conjunto tem 24 inimigos, 56 itens, sete reparos/minigames, 21 checkpoints, seis plataformas móveis, quatro temporárias e oito zonas de perigo temporizado. Oito salas são opcionais: quatro de NXDOMAIN e quatro cofres nos demais domínios. Cada sala contém plataformas, objetivos, encontros, recompensas ou conexões úteis.
+
+A estimativa de área útil compara a união das faixas de navegação em apoios permanentes realmente alcançados, no mapa anterior e no novo, com serviços restaurados e portais disponíveis. Não usa o retângulo vazio do mundo. O crescimento medido é aproximadamente **3,18×**. A prova usa a física básica do motor, sem habilidades opcionais; os topos exteriores de paredes e tetos estruturais não são rotas jogáveis.
+
+### 18.2 Progressão e portais
+
+Os seis serviços exteriores são alcançáveis sem dependências circulares: referências da raiz, registros .COM, delegação .COM, registros .ORG, resolvedor recursivo e TTL. Sua restauração habilita a consulta para Resolução Final. O sétimo reparo conclui a resolução; a barreira de saída exige os sete serviços.
+
+O motor mantém os minigames, perguntas, combate, XP e salvamento existentes. A conclusão exige os **20 guardiões obrigatórios**, identificados por uma meta nativa de derrota com IDs explícitos. Os quatro inimigos de NXDOMAIN não são requisitos nem substituem guardiões obrigatórios. O teste libera a saída com os quatro opcionais vivos e depois também exercita seus combates.
+
+Referências da raiz abrem um atalho ao resolvedor; delegação liga .COM a .ORG; registros .ORG conectam os terraços ao cache; TTL libera atalhos e a passagem lateral do labirinto. Seis serviços fora da raiz ganham retornos após reparo. Os 24 portais usam o controlador compartilhado existente, com recepção em apoio permanente e afastada da origem: segurar E não dispara viagens em cascata. Nenhum teleporte paralelo ou segundo motor foi criado.
+
+### 18.3 Física, apresentação e ritmo
+
+As plataformas móveis incluem quatro elevadores verticais e duas travessias horizontais, amplitude 64 px. As quatro temporárias duram 2,7 s e reaparecem em 2,4 s; apoios fixos permitem preparar os saltos. Degraus regulares de 96 px respeitam o salto básico de aproximadamente 128,68 px. O setor final recebeu um degrau adicional de aproximação após a regressão apontar acesso insuficiente ao apoio de uma ponte temporária.
+
+Os checkpoints usam apoios fixos, respawn real e afastamento mínimo de 160 px dos envelopes iniciais de patrulha. Perigos têm aviso de 1,3 s, atividade de 0,65 s e período de 5,4 s. O desenho roxo/azul usa servidores, arquivos, portais e parallax existente; .ORG apresenta terraços e NXDOMAIN acentos de corrupção. O cenário decorativo não cria colisões invisíveis. Foram inspecionadas as capturas de panorama, raiz e .ORG.
+
+Planejamento de ritmo: raiz 2–3 min, .COM 3–5 min, .ORG 3–5 min, cache 4–7 min e resolução 3–5 min, com sobreposição de trajetos e atalhos para buscar **15–25 minutos**. NXDOMAIN acrescenta um desvio de risco previsto em 2–5 min. Esses valores são planejamento: duração e balanceamento precisam de partida humana contínua; a automação não comprova tempo de gameplay ou dificuldade de sobrevivência.
+
+### 18.4 Validação reproduzível
+
+Comando: `python -X utf8 tools/test_dns_v3.py --full --write-fixture`. Execução em cópia e perfil de Chrome descartáveis, sem usar o salvamento do jogador. A fixture só é exportada após aprovação específica; seu contrato verifica o SHA-256 normalizado do código. As referências históricas permanecem preservadas e as fases 9–10 continuam comparadas aos mapas originais.
+
+O ensaio cobre sete minigames pelo DOM real; expansão da conectividade após reparos; todas as salas e superfícies permanentes de rota; 36 emendas nos dois sentidos com `movePlayer`; 24 portais por E, destinos apoiados e ausência de repetição com E segurado; 21 respawns; 56 coletas; 24 combates com projéteis básicos; saída e pergunta educativa. A proteção de dano do auditor não comprova balanceamento de sobrevivência.
+
+Também executa desaparecimento/reaparecimento das quatro pontes; transporte pelas seis plataformas móveis; janelas de dano dos oito perigos; três seeds adicionais; rejeição de raiz isolada e destino inexistente; detecção de reparo bloqueado por si próprio; migração de save da revisão 3, preservação de XP/habilidades, retomada de checkpoint/reparos; acesso direto à fase 8, reinício e retorno pelo Modo Desenvolvedor sem escrita nas chaves normais. A câmera é exercitada em 320×568, 844×390 e 1280×720.
+
+Relatórios: [DNS](tests/dns-v3-results/dns.json), [regressão geral](tests/dns-v3-results/regression.json), [comandos e hashes](tests/dns-v3-results/execution.json). Capturas: [panorama](tests/dns-v3-results/identity-phase-08-dns-v3-overview.png), [raiz](tests/dns-v3-results/identity-phase-08-dns-v3-root.png), [.ORG](tests/dns-v3-results/identity-phase-08-dns-v3-org.png), [.COM](tests/dns-v3-results/identity-phase-08-dns-v3-com.png), [cache](tests/dns-v3-results/identity-phase-08-dns-v3-cache.png), [NXDOMAIN](tests/dns-v3-results/identity-phase-08-dns-v3-nx.png) e [resolução](tests/dns-v3-results/identity-phase-08-dns-v3-resolution.png).
+
+A versão final passou **63/63 testes específicos**, com área útil relativa de **3,1824×**, 254 superfícies alcançadas e nenhuma sala inacessível. As exclusões da prova são somente topos estruturais de paredes/tetos. `check_maps`, `check_environment`, `check_parallax` e `check_generation` passaram.
+
+A regressão final das dez fases passou **209/209 verificações**, com 92 capturas, zero erros de runtime e nenhuma falha. Os seis comandos da última execução retornaram código 0; os 11 arquivos protegidos por SHA-256 ficaram idênticos. Checkout, relatório específico e regressão compartilham o fingerprint `3ee0fdfca39f6437770c458c0ff739fb1c9d8df2c8e0c66e08468606d048eac5`. `git diff --check` passou. As tentativas anteriores permanecem no histórico: corrigiu-se o apoio final apontado pela regressão e ampliou-se somente o timeout de diagnóstico do executor, após uma interrupção da comunicação com Chrome. Não foram declaradas aprovadas as execuções interrompidas.
+
+Amostragem de `draw()` em Chrome headless sem GPU, 270 desenhos por resolução após aquecimento:
+
+| Canvas lógico | Mediana (ms) | P95 (ms) |
+| --- | ---: | ---: |
+| 640×360 | 2,1 | 4,0 |
+| 905×644 | 2,3 | 5,7 |
+| 1280×720 | 2,4 | 5,4 |
+| 1920×1080 | 1,4 | 3,8 |
+
+Os caches permaneceram nos limites existentes: até 96 blocos de terreno e 3,25 MiB de parallax. Isso mede custo de desenho, não FPS de uma partida nem desempenho garantido em celular.
+
+### 18.5 Arquivos e ponto de parada
+
+Produção desta etapa: somente `src/maps/08-dns.js`. Validação: `tests/dns-v3.js`, `tools/test_dns_v3.py`, `tools/dns_v3_contract.py`, fixture e relatórios DNS, contratos de arquitetura/campanha/infraestrutura e quatro verificadores Python. Documentação: este arquivo. Alterações anteriores foram preservadas; o motor, o Modo Desenvolvedor, as demais fases e o manifesto não foram alterados nesta etapa.
+
+**PARE AQUI:** fase 8. Sem reconstruir fases 9–10 e sem push ou merge. Pendentes: duração e balanceamento em partida humana contínua e teste em aparelhos físicos.

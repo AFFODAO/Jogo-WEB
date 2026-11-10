@@ -83,7 +83,18 @@
     <label class="setting-check"><input type="checkbox" data-scenery-setting="reduceParticles"> Reduzir partículas do cenário</label>
     <label class="setting-check"><input type="checkbox" data-scenery-setting="reduceAnimations"> Congelar animações decorativas do cenário</label>
     <label class="setting-check"><input type="checkbox" data-setting="shake"> Pequeno tremor em impactos fortes</label>
-    <small>Os avisos de perigo, escudos e pontos fracos continuam visíveis.</small><button id="closeSettings" type="button">FECHAR OPÇÕES</button>
+    <small>Os avisos de perigo, escudos e pontos fracos continuam visíveis.</small>
+    <section class="developer-settings" aria-label="Ferramentas de teste">
+      <label class="developer-toggle" for="developerModeToggle"><span>Modo Desenvolvedor</span><input id="developerModeToggle" type="checkbox" role="switch" aria-controls="developerTools"><span id="developerModeState" aria-hidden="true">OFF</span></label>
+      <p id="developerModeHelp">Sessão temporária de teste. A campanha normal é preservada. Ao recarregar a página, o modo volta a OFF.</p>
+      <div id="developerTools" hidden><button id="developerSelectPhase" type="button">Selecionar fase</button><button id="developerRestartPhase" type="button">Reiniciar fase</button></div>
+    </section>
+    <button id="closeSettings" type="button">FECHAR OPÇÕES</button>
+  </dialog>
+  <dialog id="developerPhaseDialog" class="settings-dialog developer-dialog" aria-labelledby="developerPhaseTitle" aria-describedby="developerPhaseHelp">
+    <h2 id="developerPhaseTitle">Selecionar fase</h2><p id="developerPhaseHelp">SESSÃO DE TESTE // Todas as fases disponíveis. Objetivos e desafios continuam ativos.</p>
+    <div id="developerPhaseList" class="developer-phase-list"></div>
+    <button id="developerPanelRestart" type="button">Reiniciar fase</button><button id="developerPanelBack" type="button">Voltar</button>
   </dialog>
   <script src="src/engine/maps.js"></script>
   <script src="src/engine/platform-physics.js"></script>
@@ -131,6 +142,7 @@
   <script src="src/maps/campaign.js"></script>
   <script src="src/generation/demo.js"></script>
   <script src="src/engine/map-debug.js"></script>
+  <script src="src/engine/developer-mode.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

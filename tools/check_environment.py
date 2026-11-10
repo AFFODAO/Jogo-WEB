@@ -2,6 +2,13 @@
 import hashlib,json
 from hardware_v3_contract import approved_hardware
 from software_v3_contract import approved_software
+from switch_v3_contract import approved_switch
+from router_v3_contract import approved_router
+from wifi_v3_contract import approved_wifi
+from cabling_v3_contract import approved_cabling
+from dhcp_v3_contract import approved_dhcp
+from dns_v3_contract import approved_dns
+from developer_mode_contract import without_developer_mode
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -26,7 +33,7 @@ def restore_parallax(data):
     return data
 
 def normalized_game(data):
-    data=restore_parallax(data)
+    data=restore_parallax(without_developer_mode(data))
     for newline in [b'\r\n',b'\n']:
         hook=newline.join([b'    const terrainShapes=solids();',b'    levelVisuals.prepareTerrain(terrainShapes);',b'    for (const object of terrainShapes) {'])
         data=data.replace(hook,b'    for (const object of solids()) {')
@@ -59,7 +66,7 @@ def normalized_campaign_file(data, relative):
 def main():
     expected=json.loads((ROOT/'tests/fixtures/pre-environment-hashes.json').read_text(encoding='utf-8'))
     for relative,digest in expected.items():
-        if approved_hardware(relative) or approved_software(relative):continue
+        if approved_hardware(relative) or approved_software(relative) or approved_switch(relative) or approved_router(relative) or approved_wifi(relative) or approved_cabling(relative) or approved_dhcp(relative) or approved_dns(relative):continue
         # The subsequent gameplay stage extends preview activation explicitly.
         if relative=='src/generation/demo.js':continue
         data=(ROOT/relative).read_bytes()
@@ -79,6 +86,6 @@ def main():
     manifest=json.loads((ROOT/'assets/pixelart/manifest.json').read_text(encoding='utf-8'))
     for asset in manifest:
         assert (ROOT/asset['src']).is_file(),asset['id']
-    print('PASS: Hardware/Software V3 match reviewed snapshots; phases 3..10, physics, boss, repairs and original assets preserved')
+    print('PASS: Hardware/Software/Switch/Router/Wifi/Cabling/DHCP/DNS V3 match reviewed snapshots; phases 9..10, physics, boss, repairs and original assets preserved')
 
 if __name__=='__main__':main()

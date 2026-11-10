@@ -1,976 +1,109 @@
-// Rebuilt layout, revision 2. Authored by tools/build_last_five.py.
-ByteRunner.maps.register(ByteRunner.campaignGeneration.build({
-  "schemaVersion": 2,
-  "revision": 2,
-  "id": "phase-08",
-  "name": "DNS",
-  "theme": "dns",
-  "objective": "Reconstrua os registros de .com, .org e do cache recursivo; encontre a resolução de retorno à raiz.",
-  "palette": [
-    "#101529",
-    "#302952",
-    "#d2b0ff",
-    "#7d68a1",
-    "#83c8e7"
-  ],
-  "presentation": {
-    "procedural": false
-  },
-  "map": {
-    "width": 3400,
-    "height": 2100,
-    "layout": "maze",
-    "start": {
-      "x": 1600,
-      "y": 352
-    },
-    "exit": {
-      "mode": "region",
-      "x": 1940,
-      "y": 336,
-      "width": 90,
-      "height": 64
-    },
-    "bounds": {
-      "left": true,
-      "right": true,
-      "ceiling": true,
-      "floor": true
-    },
-    "camera": {
-      "axes": [
-        "x",
-        "y"
-      ],
-      "followOffsetX": 0.44,
-      "followOffsetY": 0.55
-    },
-    "ground": {
-      "mode": "explicit",
-      "segments": [
-        {
-          "id": "dns-root",
-          "x": 1350,
-          "y": 400,
-          "width": 700,
-          "height": 28
-        },
-        {
-          "id": "com-domain",
-          "x": 200,
-          "y": 750,
-          "width": 850,
-          "height": 28
-        },
-        {
-          "id": "org-domain",
-          "x": 2350,
-          "y": 750,
-          "width": 850,
-          "height": 28
-        },
-        {
-          "id": "mail-com",
-          "x": 200,
-          "y": 1200,
-          "width": 850,
-          "height": 28
-        },
-        {
-          "id": "api-org",
-          "x": 2350,
-          "y": 1200,
-          "width": 850,
-          "height": 28
-        },
-        {
-          "id": "recursive-cache",
-          "x": 1320,
-          "y": 1550,
-          "width": 760,
-          "height": 28
-        },
-        {
-          "id": "nxdomain-room",
-          "x": 80,
-          "y": 1700,
-          "width": 420,
-          "height": 28
-        },
-        {
-          "id": "archive-cache",
-          "x": 900,
-          "y": 1900,
-          "width": 1600,
-          "height": 28
-        }
-      ]
-    },
-    "checkpoints": [
-      {
-        "x": 1580,
-        "y": 400
-      },
-      {
-        "x": 400,
-        "y": 1200
-      },
-      {
-        "x": 2900,
-        "y": 1200
-      },
-      {
-        "x": 1510,
-        "y": 1550
-      }
-    ],
-    "checkpointMode": "free",
-    "progress": {
-      "axis": "objectives"
-    },
-    "routes": [
-      "raiz DNS",
-      "domínio .com e mail.com",
-      "domínio .org e api.org",
-      "cache recursivo",
-      "NXDOMAIN e arquivo"
-    ]
-  },
-  "entities": {
-    "platforms": [
-      {
-        "id": "root-com-a",
-        "x": 1160,
-        "y": 490,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "root-com-b",
-        "x": 970,
-        "y": 580,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "root-com-c",
-        "x": 780,
-        "y": 670,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "root-org-a",
-        "x": 2080,
-        "y": 490,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "root-org-b",
-        "x": 2250,
-        "y": 580,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "root-org-c",
-        "x": 2440,
-        "y": 670,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "com-shaft-a",
-        "x": 1020,
-        "y": 840,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "com-shaft-b",
-        "x": 850,
-        "y": 930,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "com-shaft-c",
-        "x": 1020,
-        "y": 1020,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "com-shaft-d",
-        "x": 850,
-        "y": 1110,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "org-shaft-a",
-        "x": 3050,
-        "y": 840,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "org-shaft-b",
-        "x": 2860,
-        "y": 930,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "org-shaft-c",
-        "x": 3050,
-        "y": 1020,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "org-shaft-d",
-        "x": 2860,
-        "y": 1110,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "cache-west-a",
-        "x": 1100,
-        "y": 1290,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "cache-west-b",
-        "x": 1290,
-        "y": 1380,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "cache-west-c",
-        "x": 1480,
-        "y": 1470,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "cache-east-a",
-        "x": 2180,
-        "y": 1290,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "cache-east-b",
-        "x": 1990,
-        "y": 1380,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "cache-east-c",
-        "x": 1800,
-        "y": 1470,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "archive-a",
-        "x": 1100,
-        "y": 1810,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "archive-b",
-        "x": 1270,
-        "y": 1720,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "archive-c",
-        "x": 1440,
-        "y": 1630,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "com-divider-step",
-        "x": 520,
-        "y": 660,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "mail-divider-step",
-        "x": 540,
-        "y": 1110,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "org-divider-step",
-        "x": 2580,
-        "y": 660,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "api-divider-step",
-        "x": 2580,
-        "y": 1110,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "root-cache",
-        "x": 1480,
-        "y": 310,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "org-secret",
-        "x": 3020,
-        "y": 660,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "archive-secret",
-        "x": 2300,
-        "y": 1810,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "window"
-      },
-      {
-        "id": "cname-com-bridge",
-        "x": 1160,
-        "y": 1200,
-        "width": 520,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "packet",
-        "requiresComponentId": "c01"
-      },
-      {
-        "id": "cname-org-bridge",
-        "x": 1710,
-        "y": 1200,
-        "width": 600,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "packet",
-        "requiresComponentId": "c02"
-      },
-      {
-        "id": "cache-restored-step",
-        "x": 1690,
-        "y": 1340,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "packet",
-        "requiresComponentId": "c03"
-      }
-    ],
-    "obstacles": [
-      {
-        "id": "com-corrupt-wall",
-        "x": 680,
-        "y": 590,
-        "width": 35,
-        "height": 160,
-        "type": "corrupt",
-        "collision": "solid",
-        "requiresComponentId": "c01"
-      },
-      {
-        "id": "mail-corrupt-wall",
-        "x": 700,
-        "y": 1040,
-        "width": 35,
-        "height": 160,
-        "type": "corrupt",
-        "collision": "solid",
-        "requiresComponentId": "c01"
-      },
-      {
-        "id": "org-corrupt-wall",
-        "x": 2730,
-        "y": 600,
-        "width": 35,
-        "height": 150,
-        "type": "corrupt",
-        "collision": "solid",
-        "requiresComponentId": "c02"
-      },
-      {
-        "id": "api-corrupt-wall",
-        "x": 2730,
-        "y": 1040,
-        "width": 35,
-        "height": 160,
-        "type": "corrupt",
-        "collision": "solid",
-        "requiresComponentId": "c02"
-      },
-      {
-        "id": "root-corruption",
-        "x": 1850,
-        "y": 300,
-        "width": 30,
-        "height": 100,
-        "type": "interference",
-        "collision": "dangerous",
-        "damage": 12,
-        "requiresComponentId": "c03"
-      },
-      {
-        "id": "nxdomain-corruption",
-        "x": 350,
-        "y": 1630,
-        "width": 30,
-        "height": 70,
-        "type": "interference",
-        "collision": "dangerous",
-        "damage": 12,
-        "requiresComponentId": "c03",
-        "window": {
-          "period": 4,
-          "active": 1.4,
-          "phase": 0
-        }
-      }
-    ],
-    "gates": [],
-    "components": [
-      {
-        "id": "c01",
-        "x": 500,
-        "y": 1156,
-        "width": 34,
-        "height": 44,
-        "label": "REGISTRO MX / .COM"
-      },
-      {
-        "id": "c02",
-        "x": 2840,
-        "y": 1156,
-        "width": 34,
-        "height": 44,
-        "label": "REGISTRO A / .ORG"
-      },
-      {
-        "id": "c03",
-        "x": 1670,
-        "y": 1506,
-        "width": 34,
-        "height": 44,
-        "label": "CACHE RECURSIVO"
-      }
-    ],
-    "enemies": [
-      {
-        "id": "e01",
-        "type": "shooter",
-        "x": 1780,
-        "y": 376,
-        "groundY": 400,
-        "navigationBounds": {
-          "left": 1460,
-          "right": 1810
-        },
-        "patrolMin": 1460,
-        "patrolMax": 1810,
-        "activationRegion": {
-          "x": 1350,
-          "y": 150,
-          "width": 700,
-          "height": 310
-        }
-      },
-      {
-        "id": "e02",
-        "type": "fast",
-        "x": 930,
-        "y": 726,
-        "groundY": 750,
-        "navigationBounds": {
-          "left": 760,
-          "right": 1010
-        },
-        "patrolMin": 760,
-        "patrolMax": 1010,
-        "activationRegion": {
-          "x": 200,
-          "y": 480,
-          "width": 850,
-          "height": 330
-        }
-      },
-      {
-        "id": "e03",
-        "type": "basic",
-        "x": 3090,
-        "y": 726,
-        "groundY": 750,
-        "navigationBounds": {
-          "left": 2870,
-          "right": 3160
-        },
-        "patrolMin": 2870,
-        "patrolMax": 3160,
-        "activationRegion": {
-          "x": 2350,
-          "y": 480,
-          "width": 850,
-          "height": 330
-        }
-      },
-      {
-        "id": "e04",
-        "type": "parasite",
-        "x": 1940,
-        "y": 1526,
-        "groundY": 1550,
-        "navigationBounds": {
-          "left": 1400,
-          "right": 2020
-        },
-        "patrolMin": 1400,
-        "patrolMax": 2020,
-        "activationRegion": {
-          "x": 1320,
-          "y": 1260,
-          "width": 760,
-          "height": 350
-        }
-      },
-      {
-        "id": "e05",
-        "type": "armored",
-        "x": 3060,
-        "y": 1176,
-        "groundY": 1200,
-        "navigationBounds": {
-          "left": 2860,
-          "right": 3160
-        },
-        "patrolMin": 2860,
-        "patrolMax": 3160,
-        "activationRegion": {
-          "x": 2350,
-          "y": 940,
-          "width": 850,
-          "height": 320
-        }
-      }
-    ],
-    "collectibles": [
-      {
-        "id": "i01",
-        "x": 1540,
-        "y": 280,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i02",
-        "x": 3080,
-        "y": 630,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i03",
-        "x": 2370,
-        "y": 1780,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i04",
-        "x": 460,
-        "y": 1670,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i05",
-        "x": 980,
-        "y": 1870,
-        "radius": 10,
-        "secret": true
-      }
-    ],
-    "features": [],
-    "interactives": []
-  },
-  "objectives": {
-    "repairAllComponents": true,
-    "defeatAllViruses": true,
-    "requireExitQuestion": true,
-    "goals": [],
-    "componentsToRepair": 3,
-    "enemiesToDefeat": 5
-  },
-  "mechanics": [
-    {
-      "id": "name-resolution",
-      "type": "portals",
-      "links": [
-        {
-          "id": "root-com",
-          "x": 1410,
-          "y": 324,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 350,
-            "y": 702
-          },
-          "label": ".COM"
-        },
-        {
-          "id": "root-org",
-          "x": 1970,
-          "y": 324,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 2500,
-            "y": 702
-          },
-          "label": ".ORG"
-        },
-        {
-          "id": "com-root",
-          "x": 260,
-          "y": 674,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 1550,
-            "y": 352
-          },
-          "label": "RAIZ / VOLTAR"
-        },
-        {
-          "id": "org-root",
-          "x": 2410,
-          "y": 674,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 1750,
-            "y": 352
-          },
-          "label": "RAIZ / VOLTAR"
-        },
-        {
-          "id": "com-mail",
-          "x": 450,
-          "y": 674,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 350,
-            "y": 1152
-          },
-          "label": "MAIL.COM"
-        },
-        {
-          "id": "org-api",
-          "x": 2640,
-          "y": 674,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 2500,
-            "y": 1152
-          },
-          "label": "API.ORG"
-        },
-        {
-          "id": "mail-return",
-          "x": 230,
-          "y": 1124,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 450,
-            "y": 702
-          },
-          "label": ".COM / VOLTAR"
-        },
-        {
-          "id": "api-return",
-          "x": 2400,
-          "y": 1124,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 2500,
-            "y": 702
-          },
-          "label": ".ORG / VOLTAR"
-        },
-        {
-          "id": "cname-com-org",
-          "x": 940,
-          "y": 1124,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 2930,
-            "y": 1152
-          },
-          "label": "CNAME → API.ORG",
-          "requires": {
-            "component": "c01"
-          }
-        },
-        {
-          "id": "api-cache",
-          "x": 3100,
-          "y": 1124,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 1510,
-            "y": 1502
-          },
-          "label": "DNS RECURSIVO",
-          "requires": {
-            "component": "c02"
-          }
-        },
-        {
-          "id": "cache-root",
-          "x": 1950,
-          "y": 1474,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 1660,
-            "y": 352
-          },
-          "label": "RAIZ / RESOLVIDO",
-          "requires": {
-            "component": "c03"
-          }
-        },
-        {
-          "id": "com-nxdomain",
-          "x": 920,
-          "y": 674,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 150,
-            "y": 1652
-          },
-          "label": "WWW.INEXISTENTE"
-        },
-        {
-          "id": "nxdomain-return",
-          "x": 420,
-          "y": 1624,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 830,
-            "y": 702
-          },
-          "label": "NXDOMAIN / VOLTAR"
-        },
-        {
-          "id": "archive-return",
-          "x": 1800,
-          "y": 1824,
-          "width": 44,
-          "height": 76,
-          "to": {
-            "x": 1510,
-            "y": 1502
-          },
-          "label": "CACHE / VOLTAR"
-        }
-      ]
+﻿// DNS V3: physical domain campuses joined by one coherent portal network.
+(() => {
+  'use strict';
+  const api=ByteRunner,g=api.mapGeneration,W=640,H=512,F=464;
+  const regions=[['root','SERVIDOR RAIZ',0],['com','REGIAO .COM',0],['org','REGIAO .ORG',1],['cache','CACHE RECURSIVO',1],['nx','REGIAO NXDOMAIN / OPCIONAL',2],['resolution','RESOLUCAO FINAL',3]].map(([id,name,state])=>({id,name,state}));
+  const cells=[
+    ['root-core',4,3,'root','repair'],['root-east',5,3,'root','explore'],['root-lower',4,4,'root','explore'],['root-dock',5,4,'root','explore'],
+    ['com-crown',1,1,'com','secret'],['com-records',0,2,'com','repair'],['com-zone',1,2,'com','repair'],['com-files',2,2,'com','combat'],['com-base',0,3,'com','explore'],['com-stacks',1,3,'com','parkour'],['com-vault',2,3,'com','secret'],
+    ['org-archive',8,2,'org','combat'],['org-records',9,2,'org','repair'],['org-terrace',10,2,'org','parkour'],['org-entry',8,3,'org','explore'],['org-bridge',9,3,'org','parkour'],['org-vault',10,3,'org','secret'],
+    ['cache-crown',4,6,'cache','repair'],['cache-bypass',5,6,'cache','parkour'],['cache-loop',4,7,'cache','combat'],['cache-east',5,7,'cache','lift'],['cache-stairs',4,8,'cache','parkour'],['cache-terminal',5,8,'cache','repair'],['cache-vault',4,9,'cache','secret'],['cache-bottom',5,9,'cache','explore'],
+    ['nx-entry',0,6,'nx','explore'],['nx-breach',1,6,'nx','combat'],['nx-cavern',0,7,'nx','combat'],['nx-vault',1,7,'nx','secret'],
+    ['resolve-core',8,6,'resolution','repair'],['resolve-exit',9,6,'resolution','exit'],['resolve-entry',8,7,'resolution','parkour'],['resolve-stack',9,7,'resolution','combat']
+  ].map(([id,col,row,region,role])=>({id,col,row,region,role,portals:[]}));
+  const grid=new Map(cells.map(c=>[c.col+','+c.row,c])),byId=new Map(cells.map(c=>[c.id,c])),directions={west:[-1,0],east:[1,0],north:[0,-1],south:[0,1]};
+  const closed=(a,b)=>[a,b].sort().join('|')===['cache-loop','cache-east'].sort().join('|');
+  for(const c of cells)c.ports=Object.fromEntries(Object.entries(directions).map(([side,[dx,dy]])=>{const n=grid.get((c.col+dx)+','+(c.row+dy));return [side,Boolean(n&&!closed(c.id,n.id))];}));
+  const repairs={'root-core':['hints','RESTAURAR REFERENCIAS DA RAIZ'],'com-records':['records','RECONSTRUIR REGISTROS A / AAAA'],'com-zone':['delegation','RESTAURAR DELEGACAO .COM'],'org-records':['records','RECONSTRUIR REGISTROS .ORG'],'cache-terminal':['recursive','RESTAURAR RESOLVEDOR RECURSIVO'],'cache-crown':['ttl','RENOVAR CACHE / TTL'],'resolve-core':['resolution','CONCLUIR RESOLUCAO DNS']};
+  const outer={all:Object.entries(repairs).slice(0,6).map(([room,[id]])=>({component:room+':'+id}))};
+  const complete={all:Object.entries(repairs).map(([room,[id]])=>({component:room+':'+id}))};
+  const portalEdges=[];
+  function portal(from,to,id,label,requires){byId.get(from).portals.push({id,to,label,requires});portalEdges.push({from,to,id,label,...(requires?{requires}:{} )});}
+  portal('root-core','com-base','query-com','CONSULTAR .COM');portal('com-base','root-core','root-return','SERVIDOR RAIZ');
+  portal('root-core','org-entry','query-org','CONSULTAR .ORG');portal('org-entry','root-core','root-return','SERVIDOR RAIZ');
+  portal('root-east','cache-bottom','query-cache','CACHE RECURSIVO');portal('cache-bottom','root-core','root-return','SERVIDOR RAIZ');
+  portal('root-east','nx-entry','query-nx','NXDOMAIN / RISCO OPCIONAL');portal('nx-entry','root-east','safe-return','RAIZ / RETORNO SEGURO');
+  portal('root-lower','resolve-entry','final-query','RESOLUCAO FINAL',outer);portal('resolve-entry','root-lower','root-return','SERVIDOR RAIZ');
+  portal('root-core','cache-terminal','hints-shortcut','ATALHO / RESOLVEDOR',{component:'root-core:hints'});
+  portal('root-dock','cache-crown','ttl-shortcut','CACHE TTL / ATALHO',{component:'cache-crown:ttl'});
+  for(const [room,[id]] of Object.entries(repairs))if(room!=='root-core')portal(room,'root-core','restored-return','RAIZ / SERVICO RESTAURADO',{component:room+':'+id});
+  portal('com-files','org-archive','delegation-org','.ORG / DELEGACAO',{component:'com-zone:delegation'});portal('org-archive','com-files','delegation-com','.COM / DELEGACAO',{component:'com-zone:delegation'});
+  portal('org-terrace','cache-bypass','cache-route','CACHE / ROTA ALTERNATIVA',{component:'org-records:records'});portal('cache-bypass','org-terrace','org-route','.ORG / ROTA ALTERNATIVA',{component:'org-records:records'});
+  portal('cache-vault','com-vault','vault-shortcut','ARQUIVOS .COM / ATALHO',{component:'cache-crown:ttl'});
+  portal('nx-vault','cache-vault','risk-reward-return','CACHE / RECOMPENSA OPCIONAL',{component:'cache-crown:ttl'});
+  const enemyCount=c=>c.region==='root'?0:c.role==='combat'?2:['repair','parkour'].includes(c.role)?1:0;
+  function build(c,random){
+    const r={id:'dns-'+c.id,version:5,width:W,height:H,ground:[],entities:Object.fromEntries(g.config.groups.map(k=>[k,[]])),anchors:{entry:{x:64,y:F-48},reception:{x:16,y:F-48},exit:{x:544,y:F-64}},sockets:[],checkpoints:[],layers:[],mechanics:[]};
+    const box=(id,x,y,width,height)=>({id,x,y,width,height});
+    const fixed=(id,x,y,width=144)=>r.entities.platforms.push({...box(id,x,y,width,16),type:'fixed',collision:'one-way',style:'packet'});
+    if(c.ports.south){r.ground.push(box('floor-west',0,F,208,48),box('floor-east',496,F,144,48));fixed('directory-crossbar',224,F-64,256);}
+    else if(c.role==='parkour'){
+      r.ground.push(box('floor-west',0,F,224,48),box('floor-east',464,F,176,48),box('recovery-layer',224,H-16,240,16));fixed('record-island',280,F-64,c.region==='resolution'?96:128);
+    }else r.ground.push(box('server-deck',0,F,W,48));
+    for(const side of ['west','east']){
+      if(c.ports[side])r.sockets.push({id:side,direction:side,x:side==='west'?0:W,y:F-48});
+      if(c.region!=='org')r.entities.obstacles.push(box('wall-'+side,side==='west'?0:W-16,0,16,c.ports[side]?F-128:F));
     }
-  ],
-  "assets": [],
-  "layers": [
-    {
-      "id": "new-infrastructure",
-      "type": "infrastructure-world",
-      "theme": "dns",
-      "items": [
-        {
-          "kind": "domain-root",
-          "x": 1350,
-          "y": 170,
-          "width": 700,
-          "height": 230,
-          "label": ". / RAIZ"
-        },
-        {
-          "kind": "domain-room",
-          "x": 200,
-          "y": 470,
-          "width": 850,
-          "height": 280,
-          "label": ".COM"
-        },
-        {
-          "kind": "domain-room",
-          "x": 2350,
-          "y": 470,
-          "width": 850,
-          "height": 280,
-          "label": ".ORG"
-        },
-        {
-          "kind": "domain-room",
-          "x": 200,
-          "y": 930,
-          "width": 850,
-          "height": 270,
-          "label": "MAIL.COM / MX"
-        },
-        {
-          "kind": "domain-room",
-          "x": 2350,
-          "y": 930,
-          "width": 850,
-          "height": 270,
-          "label": "API.ORG / A"
-        },
-        {
-          "kind": "domain-room",
-          "x": 1320,
-          "y": 1260,
-          "width": 760,
-          "height": 290,
-          "label": "RESOLVEDOR RECURSIVO"
-        },
-        {
-          "kind": "domain-false",
-          "x": 80,
-          "y": 1450,
-          "width": 420,
-          "height": 250,
-          "label": "NXDOMAIN / SEM REGISTRO"
-        },
-        {
-          "kind": "domain-room",
-          "x": 900,
-          "y": 1680,
-          "width": 1600,
-          "height": 220,
-          "label": "ARQUIVO / CACHE TTL"
-        }
-      ],
-      "pass": "midground"
+    if(c.ports.north){
+      r.sockets.push({id:'north',direction:'north',x:320,y:0});
+      for(let i=0;i<5;i++)if(i!==0||!c.ports.south)fixed('index-step-'+i,i===4?256:i%2?352:224,400-i*96,i===4?192:c.region==='resolution'?96:128);
     }
-  ]
-}));
+    if(c.region!=='org')r.entities.obstacles.push(...(c.ports.north?[box('roof-west',16,0,192,16),box('roof-east',496,0,128,16)]:[box('roof',16,0,W-32,16)]));
+    if(c.ports.south)r.sockets.push({id:'south',direction:'south',x:320,y:H});
+    if(!c.ports.north){fixed('archive-step',80,F-96);fixed('archive-balcony',184,F-192,160);}
+    else if(['repair','combat','secret','lift'].includes(c.role)){fixed('service-step',64,F-96,128);fixed('archive-balcony',48,F-192);fixed('balcony-link',80,F-288,128);}
+    if(c.role==='combat'&&!c.ports.north)fixed('sentry-deck',64,F-192);
+    const secret=c.role==='secret',cacheX=secret&&random?random.int(5,7)*16:112;
+    r.entities.collectibles.push({id:'record-fragment',x:112,y:F-30,radius:10,secret:c.region==='nx'});
+    if(secret||!c.ports.north)r.entities.collectibles.push({id:'record-cache',x:secret&&c.ports.north?cacheX:224,y:F-224,radius:10,secret:secret||c.region==='nx'});
+    if(secret)r.entities.collectibles.push({id:'zone-backup',x:560,y:F-30,radius:10,secret:true});
+    if(repairs[c.id]){
+      const [id,label]=repairs[c.id];r.entities.components.push({id,x:112,y:F-44,width:34,height:44,label,repair:api.repairChallenges.forPhase(7,Object.keys(repairs).indexOf(c.id))});
+      fixed('restored-access',448,F-96);
+      r.entities.platforms.push({...box('restored-index',424,F-192,176,16),type:'fixed',collision:'one-way',style:'packet',requires:{component:id}});
+    }
+    const slots=[{x:544,y:F},{x:336,y:F-64},{x:80,y:F-192}];
+    for(const [i,p] of c.portals.entries()){
+      const s=slots[i];if(!s)throw new Error('Too many DNS portal slots');
+      if(i===1&&!c.ports.south)fixed('portal-reception-'+i,304,s.y,144);
+      if(i===2){fixed('portal-step',64,F-96,128);fixed('portal-balcony',48,s.y,144);}
+    }
+    if(c.portals.length)r.mechanics.push({id:'dns-links',type:'portals',links:c.portals.map((p,i)=>({...box(p.id,slots[i].x,slots[i].y-76,40,76),label:p.label,...(p.requires?{requires:p.requires}:{}),to:{room:p.to,anchor:'reception'}}))});
+    if(c.role==='lift'||['com-stacks','org-bridge','cache-stairs','cache-terminal','cache-bypass'].includes(c.id))r.entities.platforms.push({...box('recursive-platform',80,272,128,16),type:'moving',collision:'one-way',style:'elevator',motion:{axis:c.region==='org'||c.id==='cache-bypass'?'x':'y',range:64,speed:.5,phase:0}});
+    if(['org-terrace','cache-bypass','cache-stairs','resolve-entry'].includes(c.id)){
+      if(c.id==='resolve-entry')fixed('temporary-approach',480,F-96,128);
+      fixed('temporary-rest',432,F-192);
+      r.entities.platforms.push({...box('temporary-record',448,F-288,112,16),type:'temporary',collision:'one-way',style:'signal',duration:2.7,respawnDelay:2.4});
+    }
+    for(let i=0;i<enemyCount(c);i++){
+      const left=i?80:504,right=i?176:592,groundY=i?F-192:F,type=i?'shooter':c.region==='resolution'||c.id==='org-archive'||c.id==='nx-breach'?'armored':c.region==='nx'||c.id==='cache-loop'?'fast':'basic';
+      const bonus=c.region==='nx';
+      r.entities.enemies.push({id:'domain-virus-'+i,type,x:(left+right)/2,y:groundY-24,groundY,patrolMin:left,patrolMax:right,navigationBounds:{left,right},activationRegion:{x:16,y:48,width:608,height:416},...(bonus?{hp:i?4:type==='armored'?11:3,xp:i?80:110}:{} )});
+    }
+    if(['repair','lift','combat'].includes(c.role)||['root-east','root-lower','com-base','org-entry','cache-bottom','nx-entry','resolve-entry'].includes(c.id))r.checkpoints.push({x:64,y:F});
+    if(['org-terrace','org-bridge','cache-loop','cache-stairs','nx-breach','nx-cavern','resolve-entry','resolve-stack'].includes(c.id))r.mechanics.push({id:'query-overload',type:'parkour-hazards',hazards:[{id:'pulse',kind:c.region==='nx'?'laser':'electric',x:408,y:F-36,width:24,height:36,warning:1.3,active:.65,period:5.4,damage:8}]});
+    if(c.id==='cache-stairs')r.entities.gates.push({...box('ttl-shortcut',624,F-128,16,128),opensWhen:{component:'cache-crown:ttl'}});
+    if(c.id==='resolve-exit')r.entities.gates.push({...box('resolution-lock',464,16,16,F-16),opensWhen:complete});
+    const blocks=[],traces=[],lights=[];
+    if(c.region==='com')for(let i=0;i<3;i++){blocks.push(box('file-tower-'+i,80+i*176,64,112,288));for(let j=0;j<4;j++)traces.push(box('file-slot-'+i+'-'+j,96+i*176,96+j*56,80,8));}
+    else if(c.region==='org')for(let i=0;i<4;i++){blocks.push(box('org-terrace-'+i,48+i*144,208-i*32,112,32));traces.push(box('org-column-'+i,88+i*144,96,16,240));}
+    else if(c.region==='cache')for(let i=0;i<4;i++){blocks.push(box('cache-bank-'+i,96,80+i*64,448,32));traces.push(box('recursive-path-'+i,160+i*96,64,8,288));}
+    else {blocks.push(box('resolver-server',224,96,256,240));for(let i=0;i<4;i++)traces.push(box('resolver-path-'+i,48,128+i*48,544,8));}
+    for(let i=0;i<4;i++)lights.push(box('query-led-'+i,112+i*128,64,16,8));
+    const region=regions.find(r=>r.id===c.region);
+    r.layers.push({id:'domain-architecture',type:'rects',pass:'background',color:c.region==='nx'?'#302038':'#20243c',rects:blocks},{id:'dns-traces',type:'rects',pass:'background',color:'#3c395c',rects:traces},{id:'quiet-query-lights',type:'rects',pass:'background',color:c.region==='nx'?'#79566c':'#5a648b',rects:lights},
+      {id:'dns-landmarks',type:'computer-world',theme:'dns',pass:'midground',items:[{kind:c.region==='root'?'domain-root':c.region==='nx'?'domain-false':c.region==='cache'?'terminal':c.region==='resolution'?'gateway':'domain-room',x:240,y:112,width:192,height:176,label:region.name+' / '+c.id.toUpperCase()},{kind:'rack',x:480,y:80,width:80,height:128,label:''}]});
+    return r;
+  }
+  g.registerGenerator({id:'dns-domain-vault',version:5,generate({config,random}){return build(config,random);}});
+  const placements=cells.map(c=>{if(c.role==='secret')return {id:c.id,x:c.col*W,y:c.row*H,generator:'dns-domain-vault',config:c};const room=build(c);g.registerRoom(room);return {id:c.id,x:c.col*W,y:c.row*H,template:room.id};});
+  const links=[];
+  for(const c of cells)for(const side of ['east','south'])if(c.ports[side]){const [dx,dy]=directions[side],other=grid.get((c.col+dx)+','+(c.row+dy));links.push({from:{room:c.id,socket:side},to:{room:other.id,socket:side==='east'?'west':'north'}});}
+  const requiredGuardians=cells.filter(c=>c.region!=='nx').flatMap(c=>Array.from({length:enemyCount(c)},(_,i)=>c.id+':domain-virus-'+i));
+  const plan={id:'phase-08',name:'DNS - O complexo dos dominios',theme:'dns',seed:'byte-dns-domains-v3-2026',revision:5,layout:'maze',connectivity:'portal-network',objective:'Restaure sete servicos DNS, navegue entre dominios e elimine os guardioes obrigatorios. NXDOMAIN e um desvio opcional de risco.',size:{width:11*W,height:10*H},rooms:placements,links,start:{room:'root-core',anchor:'entry'},exit:{room:'resolve-exit',anchor:'exit',width:64,height:64},objectives:{repairAllComponents:true,defeatAllViruses:false,enemiesToDefeat:requiredGuardians.length,requireExitQuestion:true,goals:[{id:'required-guardians',type:'defeat',ids:requiredGuardians}]}};
+  const phase=api.maps.clone(g.compile(plan));phase.map.checkpointMode='free';phase.palette=['#101329','#2d2a4a','#c6afff','#70648f','#8accea'];
+  phase.map.regions=regions.map(region=>({...region,areas:cells.filter(c=>c.region===region.id).map(c=>({x:c.col*W,y:c.row*H,width:W,height:H}))}));
+  phase.map.routes=[{id:'root-queries',label:'RAIZ / .COM / .ORG / CACHE'},{id:'delegations',label:'DELEGACOES ENTRE DOMINIOS'},{id:'recursive-loop',label:'CACHE VERTICAL / TTL / ATALHOS'},{id:'nxdomain',label:'RISCO OPCIONAL / RECOMPENSAS'},{id:'resolution',label:'RESOLUCAO / RETORNO / SAIDA'}];
+  phase.generation.architecture={version:3,mode:'domain-campuses-and-recursive-portals',regions:regions.map(r=>r.name),rooms:cells.map(c=>({id:c.id,region:c.region,role:c.role})),optionalRooms:cells.filter(c=>c.region==='nx'||c.role==='secret').map(c=>c.id),optionalEnemies:cells.filter(c=>c.region==='nx').flatMap(c=>Array.from({length:enemyCount(c)},(_,i)=>c.id+':domain-virus-'+i)),portalEdges,targetMinutes:[15,25],durationMinutes:null,pacing:{root:[2,3],com:[3,5],org:[3,5],cache:[4,7],resolution:[3,5]},optionalRiskMinutes:[2,5]};
+  const errors=g.validation.definition(phase);if(errors.length)throw new Error(errors.join('; '));api.maps.register(phase);
+})();

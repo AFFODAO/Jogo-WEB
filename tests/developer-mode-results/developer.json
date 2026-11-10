@@ -1,0 +1,34 @@
+{
+  "phases": [],
+  "systems": {
+    "developer: default OFF and no tools in normal menu": "PASS",
+    "developer: toggle ON starts a separate base-attribute test session": "PASS",
+    "developer: selector exposes all ten phases and keyboard input stays modal": "PASS",
+    "developer: direct phase 10 has live boss, locked internal objectives and valid spawn": "PASS",
+    "developer: pause navigation returns from phase 10 to phase 1": "PASS",
+    "developer: live engine and visuals / phase 1": "PASS",
+    "developer: live engine and visuals / phase 2": "PASS",
+    "developer: live engine and visuals / phase 3": "PASS",
+    "developer: live engine and visuals / phase 4": "PASS",
+    "developer: live engine and visuals / phase 5": "PASS",
+    "developer: live engine and visuals / phase 6": "PASS",
+    "developer: live engine and visuals / phase 7": "PASS",
+    "developer: live engine and visuals / phase 8": "PASS",
+    "developer: live engine and visuals / phase 9": "PASS",
+    "developer: live engine and visuals / phase 10": "PASS",
+    "developer: boss shield and stage transitions still run in direct-access session": "PASS",
+    "developer: restart clears XP, abilities, enemies, checkpoints, flags and projectiles": "PASS",
+    "developer: questions and test victory cannot alter normal campaign/history": "PASS",
+    "developer: disabling restores normal live progress and hides every tool": "PASS",
+    "developer: pending normal question and ability dialogs survive test sessions": "PASS",
+    "developer: reload starts OFF with untouched campaign and question history": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "13fa260c8a69230ed7625427c430d07008f9179912c859c572629597a593fb64",
+    "atUTC": "2026-11-09T22:27:00.911850+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}
