@@ -1,0 +1,489 @@
+{
+  "phases": [],
+  "systems": {
+    "ambient: independent comfort controls persist without changing global settings": "PASS",
+    "ambient: progressive regions and bounded cache // phase 1": "PASS",
+    "ambient: sparse local animation, no large bright frame changes // phase 1": "PASS",
+    "ambient: animation freeze and particle reduction are independent // phase 1": "PASS",
+    "ambient: damage feedback follows readonly repair state // phase 1": "PASS",
+    "ambient: character remains readable at three map positions // phase 1": "PASS",
+    "ambient: visual pass preserves gameplay and Canvas state // phase 1": "PASS",
+    "ambient: progressive regions and bounded cache // phase 2": "PASS",
+    "ambient: sparse local animation, no large bright frame changes // phase 2": "PASS",
+    "ambient: animation freeze and particle reduction are independent // phase 2": "PASS",
+    "ambient: damage feedback follows readonly repair state // phase 2": "PASS",
+    "ambient: character remains readable at three map positions // phase 2": "PASS",
+    "ambient: visual pass preserves gameplay and Canvas state // phase 2": "PASS",
+    "ambient: progressive regions and bounded cache // phase 3": "PASS",
+    "ambient: sparse local animation, no large bright frame changes // phase 3": "PASS",
+    "ambient: animation freeze and particle reduction are independent // phase 3": "PASS",
+    "ambient: damage feedback follows readonly repair state // phase 3": "PASS",
+    "ambient: character remains readable at three map positions // phase 3": "PASS",
+    "ambient: visual pass preserves gameplay and Canvas state // phase 3": "PASS",
+    "ambient: progressive regions and bounded cache // phase 4": "PASS",
+    "ambient: sparse local animation, no large bright frame changes // phase 4": "PASS",
+    "ambient: animation freeze and particle reduction are independent // phase 4": "PASS",
+    "ambient: damage feedback follows readonly repair state // phase 4": "PASS",
+    "ambient: character remains readable at three map positions // phase 4": "PASS",
+    "ambient: visual pass preserves gameplay and Canvas state // phase 4": "PASS",
+    "ambient: progressive regions and bounded cache // phase 5": "PASS",
+    "ambient: sparse local animation, no large bright frame changes // phase 5": "PASS",
+    "ambient: animation freeze and particle reduction are independent // phase 5": "PASS",
+    "ambient: damage feedback follows readonly repair state // phase 5": "PASS",
+    "ambient: character remains readable at three map positions // phase 5": "PASS",
+    "ambient: visual pass preserves gameplay and Canvas state // phase 5": "PASS",
+    "ambient: progressive regions and bounded cache // phase 6": "PASS",
+    "ambient: sparse local animation, no large bright frame changes // phase 6": "PASS",
+    "ambient: animation freeze and particle reduction are independent // phase 6": "PASS",
+    "ambient: damage feedback follows readonly repair state // phase 6": "PASS",
+    "ambient: character remains readable at three map positions // phase 6": "PASS",
+    "ambient: visual pass preserves gameplay and Canvas state // phase 6": "PASS",
+    "ambient: progressive regions and bounded cache // phase 7": "PASS",
+    "ambient: sparse local animation, no large bright frame changes // phase 7": "PASS",
+    "ambient: animation freeze and particle reduction are independent // phase 7": "PASS",
+    "ambient: damage feedback follows readonly repair state // phase 7": "PASS",
+    "ambient: character remains readable at three map positions // phase 7": "PASS",
+    "ambient: visual pass preserves gameplay and Canvas state // phase 7": "PASS",
+    "ambient: progressive regions and bounded cache // phase 8": "PASS",
+    "ambient: sparse local animation, no large bright frame changes // phase 8": "PASS",
+    "ambient: animation freeze and particle reduction are independent // phase 8": "PASS",
+    "ambient: damage feedback follows readonly repair state // phase 8": "PASS",
+    "ambient: character remains readable at three map positions // phase 8": "PASS",
+    "ambient: visual pass preserves gameplay and Canvas state // phase 8": "PASS",
+    "ambient: progressive regions and bounded cache // phase 9": "PASS",
+    "ambient: sparse local animation, no large bright frame changes // phase 9": "PASS",
+    "ambient: animation freeze and particle reduction are independent // phase 9": "PASS",
+    "ambient: damage feedback follows readonly repair state // phase 9": "PASS",
+    "ambient: character remains readable at three map positions // phase 9": "PASS",
+    "ambient: visual pass preserves gameplay and Canvas state // phase 9": "PASS",
+    "ambient: progressive regions and bounded cache // phase 10": "PASS",
+    "ambient: sparse local animation, no large bright frame changes // phase 10": "PASS",
+    "ambient: animation freeze and particle reduction are independent // phase 10": "PASS",
+    "ambient: damage feedback follows readonly repair state // phase 10": "PASS",
+    "ambient: character remains readable at three map positions // phase 10": "PASS",
+    "ambient: visual pass preserves gameplay and Canvas state // phase 10": "PASS"
+  },
+  "errors": [],
+  "snapshots": [
+    {
+      "phase": 1,
+      "position": "visibility",
+      "file": "tests/ambient-01-visibility.png"
+    },
+    {
+      "phase": 1,
+      "position": "board",
+      "file": "tests/ambient-01-board.png"
+    },
+    {
+      "phase": 1,
+      "position": "ram",
+      "file": "tests/ambient-01-ram.png"
+    },
+    {
+      "phase": 1,
+      "position": "gpu",
+      "file": "tests/ambient-01-gpu.png"
+    },
+    {
+      "phase": 1,
+      "position": "power",
+      "file": "tests/ambient-01-power.png"
+    },
+    {
+      "phase": 1,
+      "position": "motion-0",
+      "file": "tests/ambient-01-motion-0.png"
+    },
+    {
+      "phase": 1,
+      "position": "motion-1",
+      "file": "tests/ambient-01-motion-1.png"
+    },
+    {
+      "phase": 1,
+      "position": "motion-2",
+      "file": "tests/ambient-01-motion-2.png"
+    },
+    {
+      "phase": 1,
+      "position": "motion-3",
+      "file": "tests/ambient-01-motion-3.png"
+    },
+    {
+      "phase": 2,
+      "position": "visibility",
+      "file": "tests/ambient-02-visibility.png"
+    },
+    {
+      "phase": 3,
+      "position": "visibility",
+      "file": "tests/ambient-03-visibility.png"
+    },
+    {
+      "phase": 4,
+      "position": "visibility",
+      "file": "tests/ambient-04-visibility.png"
+    },
+    {
+      "phase": 5,
+      "position": "visibility",
+      "file": "tests/ambient-05-visibility.png"
+    },
+    {
+      "phase": 6,
+      "position": "visibility",
+      "file": "tests/ambient-06-visibility.png"
+    },
+    {
+      "phase": 7,
+      "position": "visibility",
+      "file": "tests/ambient-07-visibility.png"
+    },
+    {
+      "phase": 8,
+      "position": "visibility",
+      "file": "tests/ambient-08-visibility.png"
+    },
+    {
+      "phase": 9,
+      "position": "visibility",
+      "file": "tests/ambient-09-visibility.png"
+    },
+    {
+      "phase": 10,
+      "position": "visibility",
+      "file": "tests/ambient-10-visibility.png"
+    }
+  ],
+  "visibility": [
+    {
+      "phase": 1,
+      "sample": 0,
+      "x": 1543,
+      "y": 672,
+      "brightPixels": 380,
+      "distinctFraction": 0.9552631578947368
+    },
+    {
+      "phase": 1,
+      "sample": 1,
+      "x": 1039,
+      "y": 1280,
+      "brightPixels": 380,
+      "distinctFraction": 0.9289473684210526
+    },
+    {
+      "phase": 1,
+      "sample": 2,
+      "x": 95,
+      "y": 1952,
+      "brightPixels": 380,
+      "distinctFraction": 0.9131578947368421
+    },
+    {
+      "phase": 2,
+      "sample": 0,
+      "x": 3775,
+      "y": 1024,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 2,
+      "sample": 1,
+      "x": 943,
+      "y": 2080,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 2,
+      "sample": 2,
+      "x": 2415,
+      "y": 3136,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 3,
+      "sample": 0,
+      "x": 1375,
+      "y": 928,
+      "brightPixels": 380,
+      "distinctFraction": 0.85
+    },
+    {
+      "phase": 3,
+      "sample": 1,
+      "x": 1039,
+      "y": 1792,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 3,
+      "sample": 2,
+      "x": 1407,
+      "y": 2688,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 4,
+      "sample": 0,
+      "x": 3687,
+      "y": 640,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 4,
+      "sample": 1,
+      "x": 399,
+      "y": 1280,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 4,
+      "sample": 2,
+      "x": 311,
+      "y": 1952,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 5,
+      "sample": 0,
+      "x": 727,
+      "y": 1440,
+      "brightPixels": 380,
+      "distinctFraction": 0.9052631578947369
+    },
+    {
+      "phase": 5,
+      "sample": 1,
+      "x": 399,
+      "y": 2816,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 5,
+      "sample": 2,
+      "x": 1407,
+      "y": 4224,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 6,
+      "sample": 0,
+      "x": 975,
+      "y": 992,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 6,
+      "sample": 1,
+      "x": 335,
+      "y": 2016,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 6,
+      "sample": 2,
+      "x": 335,
+      "y": 3040,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 7,
+      "sample": 0,
+      "x": 2943,
+      "y": 768,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 7,
+      "sample": 1,
+      "x": 975,
+      "y": 1504,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 7,
+      "sample": 2,
+      "x": 1039,
+      "y": 2304,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 8,
+      "sample": 0,
+      "x": 1039,
+      "y": 1280,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 8,
+      "sample": 1,
+      "x": 2871,
+      "y": 2464,
+      "brightPixels": 380,
+      "distinctFraction": 0.9815789473684211
+    },
+    {
+      "phase": 8,
+      "sample": 2,
+      "x": 2959,
+      "y": 3840,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 9,
+      "sample": 0,
+      "x": 3379,
+      "y": 748.288168133322,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 9,
+      "sample": 1,
+      "x": 231,
+      "y": 1440,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 9,
+      "sample": 2,
+      "x": 547,
+      "y": 2304,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 10,
+      "sample": 0,
+      "x": 4718,
+      "y": 1032,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 10,
+      "sample": 1,
+      "x": 655,
+      "y": 2136,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    },
+    {
+      "phase": 10,
+      "sample": 2,
+      "x": 315,
+      "y": 3192,
+      "brightPixels": 380,
+      "distinctFraction": 1
+    }
+  ],
+  "flashScreening": [
+    {
+      "phase": 1,
+      "peakChangedFraction": 0.00047355958958168905,
+      "peakBrightFraction": 2.4021138601969734e-05,
+      "peakMeanLuminanceDelta": 0.005142163961428884,
+      "samples": 24,
+      "intervalSeconds": 0.16666666666666666
+    },
+    {
+      "phase": 2,
+      "peakChangedFraction": 0.00031570639305445933,
+      "peakBrightFraction": 0.00017157956144264096,
+      "peakMeanLuminanceDelta": 0.004998505198860701,
+      "samples": 24,
+      "intervalSeconds": 0.16666666666666666
+    },
+    {
+      "phase": 3,
+      "peakChangedFraction": 0.00038433821763151575,
+      "peakBrightFraction": 4.804227720393947e-05,
+      "peakMeanLuminanceDelta": 0.002102606636697436,
+      "samples": 24,
+      "intervalSeconds": 0.16666666666666666
+    },
+    {
+      "phase": 4,
+      "peakChangedFraction": 0.00029511684568134244,
+      "peakBrightFraction": 0.0001612847877560825,
+      "peakMeanLuminanceDelta": 0.0050519083078823515,
+      "samples": 24,
+      "intervalSeconds": 0.16666666666666666
+    },
+    {
+      "phase": 5,
+      "peakChangedFraction": 0.0004941491369548059,
+      "peakBrightFraction": 0.00013040046669640713,
+      "peakMeanLuminanceDelta": 0.005284317628084143,
+      "samples": 24,
+      "intervalSeconds": 0.16666666666666666
+    },
+    {
+      "phase": 6,
+      "peakChangedFraction": 0.0021207233794310423,
+      "peakBrightFraction": 0.0001098109193232902,
+      "peakMeanLuminanceDelta": 0.017486735527263982,
+      "samples": 24,
+      "intervalSeconds": 0.16666666666666666
+    },
+    {
+      "phase": 7,
+      "peakChangedFraction": 0.00031570639305445933,
+      "peakBrightFraction": 0.00017157956144264096,
+      "peakMeanLuminanceDelta": 0.005733297416011802,
+      "samples": 24,
+      "intervalSeconds": 0.16666666666666666
+    },
+    {
+      "phase": 8,
+      "peakChangedFraction": 0.00031570639305445933,
+      "peakBrightFraction": 0.00017157956144264096,
+      "peakMeanLuminanceDelta": 0.005526725918808538,
+      "samples": 24,
+      "intervalSeconds": 0.16666666666666666
+    },
+    {
+      "phase": 9,
+      "peakChangedFraction": 0.00024021138601969732,
+      "peakBrightFraction": 2.0589547373116914e-05,
+      "peakMeanLuminanceDelta": 0.0017435105178271113,
+      "samples": 24,
+      "intervalSeconds": 0.16666666666666666
+    },
+    {
+      "phase": 10,
+      "peakChangedFraction": 0.0017604063004014962,
+      "peakBrightFraction": 8.235818949246766e-05,
+      "peakMeanLuminanceDelta": 0.0158001496173776,
+      "samples": 24,
+      "intervalSeconds": 0.16666666666666666
+    }
+  ],
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:29:11.228180+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -3,7 +3,7 @@ test('hybrid campaign: ten independent recipes reproduce without shared source s
   const seeds=new Set(),generators=new Set();
   for(const phase of PHASES) {
     const metadata=phase.generation;
-    assert(metadata&&phase.revision===(['phase-01','phase-02','phase-03','phase-04','phase-05','phase-06','phase-07','phase-08'].includes(phase.id)?5:3),'hybrid generation not active '+phase.id);
+    assert(metadata&&phase.revision===5,'hybrid generation not active '+phase.id);
     seeds.add(metadata.seed);generators.add(metadata.recipe.rooms.find(r=>r.generator).generator);
     const recipe=ByteRunner.maps.clone(metadata.recipe),before=JSON.stringify(recipe);
     const a=ByteRunner.mapGeneration.compile(recipe),b=ByteRunner.mapGeneration.compile(JSON.parse(before));

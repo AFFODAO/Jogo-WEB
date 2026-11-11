@@ -1,0 +1,242 @@
+{
+  "phases": [
+    {
+      "phase": 10,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 222,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "vault-1-entry",
+        "vault-1-return",
+        "vault-2-entry",
+        "vault-2-return",
+        "service-to-transmission",
+        "transmission-to-service",
+        "tower-to-containment",
+        "containment-to-tower",
+        "vault-3-entry",
+        "vault-3-return"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "entry-2-patrol",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "entry-3-patrol",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "entry-3-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "entry-4-patrol",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "towers-1-patrol",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "towers-1-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "towers-2-patrol",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "towers-3-patrol",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "towers-3-sentry",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "towers-4-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "service-1-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "service-2-patrol",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "service-3-patrol",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "service-3-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "service-4-patrol",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "transmission-1-sentry",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "transmission-2-patrol",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "transmission-2-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "transmission-3-patrol",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "transmission-3-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "transmission-4-patrol",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "transmission-4-sentry",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "corruption-1-patrol",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "corruption-1-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "corruption-2-patrol",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "corruption-2-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "corruption-3-patrol",
+          "type": "parasite",
+          "result": "PASS"
+        },
+        {
+          "id": "corruption-3-sentry",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "corruption-4-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "antechamber-2-patrol",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "antechamber-2-sentry",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "antechamber-3-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "e08",
+          "type": "boss",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {
+    "Servers V3: mede área útil alcançável contra a revisão anterior": "PASS",
+    "Servers V3: escotilhas independentes e arena selada até o último reparo": "PASS",
+    "Servers V3: cofres, atalhos e recuperação da antecâmara": "PASS",
+    "Servers V3: VIRUS ZERO conserva proteção, limiares e vitória": "PASS",
+    "Servers V3: apoios temporários reaparecem e elevadores carregam o jogador": "PASS",
+    "Servers V3: custo local de update e draw e caches limitados": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "serversArea": {
+    "baseline": {
+      "surfaces": 63,
+      "areaPx2": 2315942
+    },
+    "rebuilt": {
+      "surfaces": 222,
+      "areaPx2": 8759237
+    },
+    "ratio": 3.7821486893885945
+  },
+  "serversPerformance": {
+    "viewport": [
+      905,
+      644
+    ],
+    "samples": 180,
+    "p50Ms": 2.100000023841858,
+    "p95Ms": 5.299999952316284,
+    "cacheSize": 48,
+    "parallaxBytes": 3414272
+  },
+  "execution": {
+    "sourceSha256": "2e68bb6787a941d8bfa10d14863615cc081249d6a257080b861526b0ea69d0ba",
+    "atUTC": "2026-11-11T00:53:12.773817+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

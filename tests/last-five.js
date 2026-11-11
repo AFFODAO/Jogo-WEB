@@ -48,16 +48,25 @@ test('last five: IP services are mandatory and gateways never trap arrivals',()=
   }
 });
 test('last five: security cameras warn, fire and shut down after repair',()=>{
-  setup(8);viruses=[];player.x=1400;player.y=1512;damageCooldown=0;
-  levelRuntime.update(.5,{keys:new Set(),repairNearby:false});assert(!enemyProjectiles.length,'camera fired without warning');
-  levelRuntime.update(.55,{keys:new Set(),repairNearby:false});assert(enemyProjectiles.length===1,'camera is not functional');
+  setup(8);viruses=[];const camera=phaseData.mechanics.find(m=>m.type==='security-grid').cameras[0];
+  player.x=camera.x-17;player.y=camera.region.y+camera.region.height-player.height;damageCooldown=0;
+  levelRuntime.update(camera.windup-.1,{keys:new Set(),repairNearby:false});assert(!enemyProjectiles.length,'camera fired without warning');
+  levelRuntime.update(.2,{keys:new Set(),repairNearby:false});assert(enemyProjectiles.length===1,'camera is not functional');
   for(let t=0;t<120;t++)updateHostileProjectiles(1/60);assert(player.health<100,'camera shot cannot hit');
-  components.find(c=>c.id==='c02').repaired=true;enemyProjectiles=[];for(let t=0;t<600;t++)levelRuntime.update(1/60,{keys:new Set(),repairNearby:false});assert(!enemyProjectiles.length,'restored policy did not disable camera');
+  components.find(c=>c.id===camera.disabledWhen.component).repaired=true;enemyProjectiles=[];for(let t=0;t<600;t++)levelRuntime.update(1/60,{keys:new Set(),repairNearby:false});assert(!enemyProjectiles.length,'restored policy did not disable camera');
 });
 test('last five: laser cycles are predictable and can be jumped normally',()=>{
-  setup(8);const id='inspection-laser';animationTime=0;assert(solids().some(s=>s.id===id),'laser active interval missing');animationTime=1.5;assert(!solids().some(s=>s.id===id),'laser never switches off');animationTime=3.8;assert(solids().some(s=>s.id===id),'laser cycle drift');
-  animationTime=0;player.x=1200;player.y=1512;player.vy=0;player.grounded=true;damageCooldown=0;jumpQueued=true;keys.add('d');for(let t=0;t<48;t++)movePlayer(1/60);keys.clear();assert(player.health===100&&player.x>1328,'laser cannot be avoided with normal jump');
-  components.find(c=>c.id==='c02').repaired=true;assert(!solids().some(s=>s.id===id),'policy repair leaves laser active');
+  setup(8);const laser=phaseData.mechanics.find(m=>m.type==='parkour-hazards').hazards.find(h=>h.kind==='laser');
+  const warningStart=laser.period-laser.phase, activeStart=warningStart+laser.warning;
+  const status=time=>ByteRunner.parkourHazards.status(laser,time);
+  assert(status(warningStart+.1)==='warning'&&status(activeStart+.1)==='active'&&status(activeStart+laser.active+.1)==='safe','laser cycle drift');
+  const tick=dt=>levelRuntime.update(dt,{keys:new Set(),repairNearby:false});
+  player.x=laser.x;player.y=laser.y;damageCooldown=0;tick(warningStart+.1);
+  assert(player.health===100,'laser damaged during warning');tick(laser.warning);
+  assert(player.health<100,'active laser caused no damage');
+  player.health=100;damageCooldown=0;player.x=laser.x-62;player.y=laser.y+laser.height-player.height;player.vy=0;player.grounded=true;jumpQueued=true;keys.add('d');
+  for(let t=0;t<36;t++){movePlayer(1/60);tick(1/60);}
+  keys.clear();assert(player.health===100&&player.x>laser.x+laser.width,'laser cannot be avoided with normal jump');
 });
 test('last five: arena protection, phase grace and cover weak points',()=>{
   setup(9);const boss=viruses.find(v=>v.multiStage);

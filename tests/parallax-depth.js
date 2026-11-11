@@ -1,7 +1,7 @@
 setup(0);await levelVisuals.ready;endPhaseIntro();animationTime=1.2;
 const depthConfig=levelVisuals.parallax.config;
 test('depth hardware: four ordered structure planes and separate sparse atmosphere',()=>{
-  assert(depthConfig.planes.length===4&&depthConfig.particles.ambient&&depthConfig.particles.count===4,'five layers missing');
+  assert(depthConfig.planes.length===4&&depthConfig.particles.ambient&&depthConfig.particles.count===2,'five layers or sparse atmosphere missing');
   assert(depthConfig.planes.map(p=>p.name).join(',')==='distant,middle,near,close','layer order');
   for(const axis of ['rateX','rateY'])assert(depthConfig.planes.every((p,i)=>p[axis]>0&&(!i||p[axis]>depthConfig.planes[i-1][axis])),'depth speed order '+axis);
   assert(depthConfig.planes[0].rateX<=.03&&depthConfig.planes.at(-1).rateX<1,'background camera speed');

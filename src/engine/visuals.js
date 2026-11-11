@@ -31,6 +31,12 @@
       const definitions = [...library.filter(asset=>required.has(asset.id)),...(phase.assets || [])];
       const images = new Map(), assets = new Map(definitions.map(asset => [asset.id,asset]));
       const clocks = new Map();
+      const layersByPass=new Map();
+      for(const layer of [...(phase.layers||[])].sort((a,b)=>(a.z||0)-(b.z||0))){
+        const pass=layer.pass||'background';
+        if(!layersByPass.has(pass))layersByPass.set(pass,[]);
+        layersByPass.get(pass).push(layer);
+      }
       const terrain=api.environmentArt?.terrain();
       const parallax=api.parallax?.create(phase);
       let disposed = false;
@@ -78,14 +84,22 @@
           return true;
         },
         layers(ctx, pass, view, time) {
-          for (const layer of (phase.layers || []).filter(layer => (layer.pass || 'background') === pass).sort((a,b)=>(a.z || 0)-(b.z || 0))) {
+          const layers=layersByPass.get(pass);
+          if(!layers)return;
+          for (const layer of layers) {
+            const screen=layer.space==='screen';
+            const left=screen?0:view.x*(layer.parallaxX??1),top=screen?0:view.y*(layer.parallaxY??1);
+            const right=left+view.width,bottom=top+view.height;
             ctx.save();
-            ctx.globalAlpha=layer.opacity ?? 1;
-            if (layer.space !== 'screen') ctx.translate(-view.x*(layer.parallaxX ?? 1),-view.y*(layer.parallaxY ?? 1));
+            ctx.globalAlpha=layer.opacity ?? (pass==='background'&&layer.type==='rects'?.68:1);
+            if (!screen) ctx.translate(-left,-top);
             if (layer.type === 'image') service.sprite(ctx,{asset:layer.asset,animation:layer.animation},{x:layer.x || 0,y:layer.y || 0,width:layer.width || view.width,height:layer.height || view.height},time);
             else if (layer.type === 'rects') {
               ctx.fillStyle=layer.color || '#12313a';
-              for (const rect of layer.rects || []) ctx.fillRect(rect.x,rect.y,rect.width,rect.height);
+              for (const rect of layer.rects || []) {
+                if(rect.x>=right||rect.y>=bottom||rect.x+rect.width<=left||rect.y+rect.height<=top)continue;
+                ctx.fillRect(rect.x,rect.y,rect.width,rect.height);
+              }
             } else if (renderers.has(layer.type)) renderers.get(layer.type)(ctx,layer,view,time,service);
             ctx.restore();
           }

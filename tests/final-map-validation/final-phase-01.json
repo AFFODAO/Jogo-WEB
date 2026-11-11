@@ -1,0 +1,582 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / hardware / phase-01-review-alpha": "PASS",
+    "final audit: campaign / hardware / phase-01-review-beta": "PASS",
+    "final audit: campaign / hardware / phase-01-review-gamma": "PASS",
+    "final audit: procedural / hardware / phase-01-review-alpha": "PASS",
+    "final audit: procedural / hardware / phase-01-review-beta": "PASS",
+    "final audit: procedural / hardware / phase-01-review-gamma": "PASS",
+    "final audit: compare structures and identity / hardware": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-01-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 148,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "socket:cpu-relay",
+              "accessible": true
+            },
+            {
+              "id": "ram-base:ram-relay",
+              "accessible": true
+            },
+            {
+              "id": "bus-west:bus-relay",
+              "accessible": true
+            },
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay"
+          ],
+          "surfaces": 149,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "ram-base:ram-relay",
+              "accessible": true
+            },
+            {
+              "id": "bus-west:bus-relay",
+              "accessible": true
+            },
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "socket:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay",
+            "ram-base:ram-relay"
+          ],
+          "surfaces": 150,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "bus-west:bus-relay",
+              "accessible": true
+            },
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "socket:return",
+            "ram-base:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay",
+            "ram-base:ram-relay",
+            "bus-west:bus-relay"
+          ],
+          "surfaces": 151,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "socket:return",
+            "ram-base:return",
+            "bus-west:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay",
+            "ram-base:ram-relay",
+            "bus-west:bus-relay",
+            "gpu-east:gpu-relay"
+          ],
+          "surfaces": 152,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "socket:return",
+            "ram-base:return",
+            "bus-west:return",
+            "gpu-east:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 21.399999976158142,
+      "signature": "a0f1a91d",
+      "rooms": 22,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 4,
+      "checkpoints": 8,
+      "surfaces": 152
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-01-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 148,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "socket:cpu-relay",
+              "accessible": true
+            },
+            {
+              "id": "ram-base:ram-relay",
+              "accessible": true
+            },
+            {
+              "id": "bus-west:bus-relay",
+              "accessible": true
+            },
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay"
+          ],
+          "surfaces": 149,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "ram-base:ram-relay",
+              "accessible": true
+            },
+            {
+              "id": "bus-west:bus-relay",
+              "accessible": true
+            },
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "socket:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay",
+            "ram-base:ram-relay"
+          ],
+          "surfaces": 150,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "bus-west:bus-relay",
+              "accessible": true
+            },
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "socket:return",
+            "ram-base:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay",
+            "ram-base:ram-relay",
+            "bus-west:bus-relay"
+          ],
+          "surfaces": 151,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "socket:return",
+            "ram-base:return",
+            "bus-west:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay",
+            "ram-base:ram-relay",
+            "bus-west:bus-relay",
+            "gpu-east:gpu-relay"
+          ],
+          "surfaces": 152,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "socket:return",
+            "ram-base:return",
+            "bus-west:return",
+            "gpu-east:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 19.099999964237213,
+      "signature": "e8cdf5f7",
+      "rooms": 22,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 4,
+      "checkpoints": 8,
+      "surfaces": 152
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-01-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 148,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "socket:cpu-relay",
+              "accessible": true
+            },
+            {
+              "id": "ram-base:ram-relay",
+              "accessible": true
+            },
+            {
+              "id": "bus-west:bus-relay",
+              "accessible": true
+            },
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay"
+          ],
+          "surfaces": 149,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "ram-base:ram-relay",
+              "accessible": true
+            },
+            {
+              "id": "bus-west:bus-relay",
+              "accessible": true
+            },
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "socket:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay",
+            "ram-base:ram-relay"
+          ],
+          "surfaces": 150,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "bus-west:bus-relay",
+              "accessible": true
+            },
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "socket:return",
+            "ram-base:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay",
+            "ram-base:ram-relay",
+            "bus-west:bus-relay"
+          ],
+          "surfaces": 151,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "gpu-east:gpu-relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "socket:return",
+            "ram-base:return",
+            "bus-west:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "socket:cpu-relay",
+            "ram-base:ram-relay",
+            "bus-west:bus-relay",
+            "gpu-east:gpu-relay"
+          ],
+          "surfaces": 152,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "socket:return",
+            "ram-base:return",
+            "bus-west:return",
+            "gpu-east:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 19.200000047683716,
+      "signature": "c7d34987",
+      "rooms": 22,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 4,
+      "checkpoints": 8,
+      "surfaces": 152
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-01-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 130,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 130,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 131,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 69.30000001192093,
+      "signature": "087527d1",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 131
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-01-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 119,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 35.40000003576279,
+      "signature": "7b6c470b",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 119
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-01-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 34.80000001192093,
+      "signature": "107e88c2",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 127
+    }
+  ],
+  "phase": 1,
+  "theme": "hardware",
+  "seeds": [
+    "phase-01-review-alpha",
+    "phase-01-review-beta",
+    "phase-01-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:30:35.759914+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

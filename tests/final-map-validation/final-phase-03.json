@@ -1,0 +1,982 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / switch / phase-03-review-alpha": "PASS",
+    "final audit: campaign / switch / phase-03-review-beta": "PASS",
+    "final audit: campaign / switch / phase-03-review-gamma": "PASS",
+    "final audit: procedural / switch / phase-03-review-alpha": "PASS",
+    "final audit: procedural / switch / phase-03-review-beta": "PASS",
+    "final audit: procedural / switch / phase-03-review-gamma": "PASS",
+    "final audit: compare structures and identity / switch": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-03-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 221,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "matrix-north:table",
+              "accessible": true
+            },
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "uplink-crown:uplink",
+              "accessible": true
+            },
+            {
+              "id": "port04:connector",
+              "accessible": true
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table"
+          ],
+          "surfaces": 222,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "uplink-crown:uplink",
+              "accessible": true
+            },
+            {
+              "id": "port04:connector",
+              "accessible": true
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink"
+          ],
+          "surfaces": 223,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "port04:connector",
+              "accessible": true
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink",
+            "port04:connector"
+          ],
+          "surfaces": 224,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return",
+            "port04:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector"
+          ],
+          "surfaces": 225,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector",
+            "channel-relay:bus"
+          ],
+          "surfaces": 241,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return",
+            "channel-relay:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "core-guard:fabric",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector",
+            "channel-relay:bus"
+          ],
+          "surfaces": 242,
+          "exit": false,
+          "remainingRepairs": [],
+          "activePortals": [
+            "matrix-north:return",
+            "core-guard:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return",
+            "channel-relay:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "core-guard:fabric",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector",
+            "channel-relay:bus"
+          ],
+          "surfaces": 243,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "matrix-north:return",
+            "core-guard:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return",
+            "channel-relay:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 27,
+      "signature": "6b585f1d",
+      "rooms": 25,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 14,
+      "surfaces": 243
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-03-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 221,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "matrix-north:table",
+              "accessible": true
+            },
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "uplink-crown:uplink",
+              "accessible": true
+            },
+            {
+              "id": "port04:connector",
+              "accessible": true
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table"
+          ],
+          "surfaces": 222,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "uplink-crown:uplink",
+              "accessible": true
+            },
+            {
+              "id": "port04:connector",
+              "accessible": true
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink"
+          ],
+          "surfaces": 223,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "port04:connector",
+              "accessible": true
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink",
+            "port04:connector"
+          ],
+          "surfaces": 224,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return",
+            "port04:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector"
+          ],
+          "surfaces": 225,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector",
+            "channel-relay:bus"
+          ],
+          "surfaces": 241,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return",
+            "channel-relay:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "core-guard:fabric",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector",
+            "channel-relay:bus"
+          ],
+          "surfaces": 242,
+          "exit": false,
+          "remainingRepairs": [],
+          "activePortals": [
+            "matrix-north:return",
+            "core-guard:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return",
+            "channel-relay:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "core-guard:fabric",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector",
+            "channel-relay:bus"
+          ],
+          "surfaces": 243,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "matrix-north:return",
+            "core-guard:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return",
+            "channel-relay:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 27.100000023841858,
+      "signature": "6b585f1d",
+      "rooms": 25,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 14,
+      "surfaces": 243
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-03-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 221,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "matrix-north:table",
+              "accessible": true
+            },
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "uplink-crown:uplink",
+              "accessible": true
+            },
+            {
+              "id": "port04:connector",
+              "accessible": true
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table"
+          ],
+          "surfaces": 222,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "uplink-crown:uplink",
+              "accessible": true
+            },
+            {
+              "id": "port04:connector",
+              "accessible": true
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink"
+          ],
+          "surfaces": 223,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "port04:connector",
+              "accessible": true
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink",
+            "port04:connector"
+          ],
+          "surfaces": 224,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "port01:connector",
+              "accessible": true
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return",
+            "port04:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector"
+          ],
+          "surfaces": 225,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": false
+            },
+            {
+              "id": "channel-relay:bus",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector",
+            "channel-relay:bus"
+          ],
+          "surfaces": 241,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "core-guard:fabric",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "matrix-north:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return",
+            "channel-relay:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "core-guard:fabric",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector",
+            "channel-relay:bus"
+          ],
+          "surfaces": 242,
+          "exit": false,
+          "remainingRepairs": [],
+          "activePortals": [
+            "matrix-north:return",
+            "core-guard:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return",
+            "channel-relay:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "matrix-north:table",
+            "core-guard:fabric",
+            "uplink-crown:uplink",
+            "port04:connector",
+            "port01:connector",
+            "channel-relay:bus"
+          ],
+          "surfaces": 243,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "matrix-north:return",
+            "core-guard:return",
+            "uplink-crown:return",
+            "port04:return",
+            "port01:return",
+            "channel-relay:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 31.30000001192093,
+      "signature": "6b585f1d",
+      "rooms": 25,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 14,
+      "surfaces": 243
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-03-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 115,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r5:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 116,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r5:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay",
+            "r11:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay",
+            "r11:relay"
+          ],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 48.59999996423721,
+      "signature": "081a39b6",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 12,
+      "surfaces": 118
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-03-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r5:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r5:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay",
+            "r11:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay",
+            "r11:relay"
+          ],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 34,
+      "signature": "183a3230",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 12,
+      "surfaces": 118
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-03-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 119,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 121,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 33.30000001192093,
+      "signature": "92b18cf5",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 121
+    }
+  ],
+  "phase": 3,
+  "theme": "switch",
+  "seeds": [
+    "phase-03-review-alpha",
+    "phase-03-review-beta",
+    "phase-03-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 1,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:38:10.676074+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

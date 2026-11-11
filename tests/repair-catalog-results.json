@@ -1,0 +1,21 @@
+{
+  "phases": [],
+  "systems": {
+    "repairs: campaign distributes distinct mechanics with a cap of two": "PASS",
+    "repairs: explicit specs reserve capacity and procedural repairs use the map theme and seed": "PASS",
+    "repairs: all campaign components have solvable modal challenges and persist once": "PASS",
+    "repairs: keyboard tap opens immediately and freezes movement, combat and timers": "PASS",
+    "repairs: failure penalizes once, retry varies, cancel does not repair": "PASS",
+    "repairs: skill supplies hints and tolerance without solving the challenge": "PASS",
+    "repairs: generated variations remain solvable across all ten types": "PASS",
+    "repairs: type-specific controls enforce different rules": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "de6e10f4fb451736de8573f4cc0498afaef4d1dbf869db9973a59504daf97a3f",
+    "atUTC": "2026-11-11T00:28:54.189738+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

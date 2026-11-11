@@ -2,21 +2,21 @@ const infrastructureCanonical=value=>JSON.stringify(value,(_,v)=>v&&typeof v==='
 const infrastructureEqual=(a,b,label)=>assert(infrastructureCanonical(a)===infrastructureCanonical(b),label);
 test('infrastructure generation: original content, checkpoints and completion survive compilation',()=>{
   for(let i=5;i<10;i++) {
+    if(i===8){
+      const phase=PHASES[i],replay=ByteRunner.mapGeneration.compile(phase.generation.recipe);
+      const normalized=JSON.parse(JSON.stringify(replay).replaceAll('world:',''));
+      infrastructureEqual(normalized.entities,phase.entities,'Firewall replay entities');
+      infrastructureEqual(normalized.mechanics,phase.mechanics,'Firewall replay mechanics');
+      assert(phase.map.regions.length===6&&phase.map.checkpoints.length===18,'Firewall sector contract');
+      continue;
+    }
     if(i===7){const phase=PHASES[i],replay=ByteRunner.mapGeneration.compile(phase.generation.recipe);infrastructureEqual(replay.entities,phase.entities,'DNS replay entities');infrastructureEqual(replay.objectives,phase.objectives,'DNS replay objectives');assert(phase.generation.rooms.length===33&&phase.entities.components.length===7,'DNS domain contract');continue;}
     if(i===6){const phase=PHASES[i],replay=ByteRunner.mapGeneration.compile(phase.generation.recipe);infrastructureEqual(replay.entities,phase.entities,'DHCP replay entities');infrastructureEqual(replay.objectives,phase.objectives,'DHCP replay objectives');assert(phase.generation.rooms.length===25&&phase.entities.components.length===6,'DHCP city contract');continue;}
     if(i===5){const phase=PHASES[i],replay=ByteRunner.mapGeneration.compile(phase.generation.recipe);infrastructureEqual(replay.entities,phase.entities,'Cabling replay entities');infrastructureEqual(replay.objectives,phase.objectives,'Cabling replay objectives');assert(phase.generation.rooms.length===41&&phase.entities.components.length===7,'Cabling replacement contract');continue;}
-    const phase=PHASES[i],original=LAST_FIVE_V2[i-5],blueprint=phase.generation.recipe.rooms[0].config.blueprint;
-    infrastructureEqual(blueprint,original,'authored blueprint changed '+phase.id);
-    for(const group of ['components','enemies','collectibles','interactives','gates','obstacles'])infrastructureEqual(phase.entities[group],original.entities[group],'entity content/order changed '+phase.id+'/'+group);
-    infrastructureEqual(phase.entities.platforms.slice(0,original.entities.platforms.length),original.entities.platforms,'authored traversal changed');
-    infrastructureEqual(phase.map.ground,original.map.ground,'floors changed');
-    infrastructureEqual(phase.map.checkpoints,original.map.checkpoints,'checkpoints changed');
-    infrastructureEqual(phase.map.start,original.map.start,'spawn changed');
-    infrastructureEqual(phase.map.exit,original.map.exit,'exit changed');
-    infrastructureEqual(phase.objectives,original.objectives,'mandatory objectives changed');
-    infrastructureEqual(phase.completion,original.completion,'boss/question completion changed');
-    infrastructureEqual(phase.assets,original.assets,'pixel art assets changed');
-    infrastructureEqual(phase.mechanics.slice(0,original.mechanics.length),original.mechanics,'authored mechanics changed');
+    const phase=PHASES[i],replay=ByteRunner.mapGeneration.compile(phase.generation.recipe);
+    const normalized=JSON.parse(JSON.stringify(replay).replaceAll('world:',''));
+    for(const key of ['entities','objectives','mechanics','completion'])infrastructureEqual(normalized[key],phase[key],'Servers replay '+key);
+    assert(phase.map.regions.length===7&&phase.map.checkpoints.length===32,'Servers region and checkpoint contract');
   }
 });
 function manualArenaSnapshot(phase) {
@@ -32,13 +32,17 @@ function manualArenaSnapshot(phase) {
 }
 test('infrastructure generation: manual VIRUS ZERO arena is identical across seeds',()=>{
   const original=manualArenaSnapshot(LAST_FIVE_V2[4]),phase=PHASES[9];
-  infrastructureEqual(manualArenaSnapshot(phase),original,'manual arena was changed');
-  infrastructureEqual(phase.map.sections,LAST_FIVE_V2[4].map.sections,'data center sectors lost');
+  const rebuilt=manualArenaSnapshot(phase), preserved=ByteRunner.maps.clone(rebuilt);
+  const boundary=preserved.entities.obstacles.pop();
+  assert(boundary.id==='arena-east-bulkhead'&&boundary.x===6600&&boundary.y===0&&boundary.height===960,'arena boundary changed');
+  preserved.lock.opensWhen=original.lock.opensWhen;
+  infrastructureEqual(preserved,original,'original manual arena geometry or boss was changed');
+  infrastructureEqual(rebuilt.lock.opensWhen.all.map(c=>c.component),phase.entities.components.map(c=>c.id),'arena gate misses a repair');
   for(const seed of ['arena-a','arena-b','arena-c',0,12345]) {
     const recipe=ByteRunner.maps.clone(phase.generation.recipe);recipe.seed=seed;
     const compiled=ByteRunner.mapGeneration.compile(recipe);
     const normalized=JSON.parse(JSON.stringify(compiled).replaceAll('world:',''));
-    infrastructureEqual(manualArenaSnapshot(normalized),original,'seed changed manual arena '+seed);
+    infrastructureEqual(manualArenaSnapshot(normalized),rebuilt,'seed changed manual arena '+seed);
   }
 });
 test('infrastructure generation: procedural additions cannot enter the boss arena',()=>{

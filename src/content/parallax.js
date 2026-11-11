@@ -4,10 +4,11 @@
   function profile(theme,number,background,accent,motifs){
     return freeze({theme,phaseId:'phase-'+String(number).padStart(2,'0'),asset:'vista-'+String(number).padStart(2,'0'),background,accent,motifs,
       tileSize:128,variants:8,reducedLayerCount:2,verticalMultiplier:1,rowSpacing:2,
-      planes:[{name:'distant',rateX:theme==='wifi'?.015:.03,rateY:theme==='wifi'?.012:.025,scale:2,opacity:1,frame:0},
-        {name:'middle',rateX:.10,rateY:.08,scale:1,opacity:1,frame:8},
-        {name:'near',rateX:.26,rateY:.20,scale:1,opacity:1,frame:16}],
-      particles:{count:4,rateX:.13,rateY:.11,ambient:true,pulsePeriod:12}});
+      planes:[{name:'distant',rateX:theme==='wifi'?.015:.03,rateY:theme==='wifi'?.012:.025,scale:2,opacity:.76,frame:0},
+        {name:'middle',rateX:.10,rateY:.08,scale:1,opacity:.83,frame:8},
+        {name:'near',rateX:.26,rateY:.20,scale:1,opacity:.88,frame:16}],
+      landmarks:{rateX:.49,rateY:.36,opacity:.50},
+      particles:{count:2,rateX:.15,rateY:.12,ambient:true,pulsePeriod:12}});
   }
   function hardwareProfile(){
     return freeze({...profile('hardware',1,'#071719','#60eab4',['memory','heatsinks','capacitors']),verticalMultiplier:1,rowSpacing:2,
@@ -15,7 +16,8 @@
         {name:'middle',rateX:.08,rateY:.065,scale:1,opacity:1,frame:8},
         {name:'near',rateX:.22,rateY:.17,scale:1,opacity:1,frame:16},
         {name:'close',rateX:.6,rateY:.48,scale:1,opacity:1,frame:24}],
-      particles:{count:4,rateX:.32,rateY:.25,ambient:true,pulsePeriod:8}});
+      landmarks:{rateX:.6,rateY:.48,opacity:.50},
+      particles:{count:2,rateX:.32,rateY:.25,ambient:true,pulsePeriod:8}});
   }
   const profiles=freeze({
     hardware:hardwareProfile(),

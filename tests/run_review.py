@@ -20,7 +20,8 @@ CHROME = Path('C:/Program Files/Google/Chrome/Application/chrome.exe')
 def run_page(target,url):
     """Use real browser time: virtual-time dump-dom can stall PNG image onload."""
     profile=target/'profile'
-    process=subprocess.Popen([str(CHROME),'--headless','--disable-gpu','--no-first-run','--no-default-browser-check','--remote-debugging-port=0',f'--user-data-dir={profile}','--window-size=1440,1000','about:blank'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+    memory_flags=['--enable-precise-memory-info'] if '--frame-pacing' in sys.argv else []
+    process=subprocess.Popen([str(CHROME),'--headless','--disable-gpu','--no-first-run','--no-default-browser-check','--remote-debugging-port=0',f'--user-data-dir={profile}','--window-size=1440,1000',*memory_flags,'about:blank'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     cdp=None
     try:
         deadline=time.monotonic()+20;portfile=profile/'DevToolsActivePort'
@@ -70,6 +71,10 @@ def main():
     if '--ambient-performance' in sys.argv:focused='ambient-performance'
     if '--parallax-final' in sys.argv:focused='parallax-final'
     if '--frame-pacing' in sys.argv:focused='parallax-frame-pacing'
+    if '--visual-finish' in sys.argv:focused='visual-finish'
+    if '--repairs-only' in sys.argv:focused='repairs'
+    if '--final-map-comparison' in sys.argv:focused='final-map-comparison'
+    if '--rebuild-v3-architecture' in sys.argv:focused='rebuild-v3-architecture'
     phase_number=int(sys.argv[sys.argv.index('--phase')+1]) if '--phase' in sys.argv else None
     if phase_number is not None:
         assert 1<=phase_number<=10
@@ -103,6 +108,15 @@ def main():
     architecture += '\n'+(ROOT/'tests/room-gameplay.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/map-debug.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/final-regressions.js').read_text(encoding='utf-8')
+    if phase_number in (9,10) or not focused:
+        inventory=json.loads((ROOT/'tests/rebuild-v3-baseline/inventory.json').read_text(encoding='utf-8'))['inventory']
+        for number,theme in [(9,'firewall'),(10,'servers')]:
+            extension='const '+theme.upper()+'_BASELINE='+json.dumps(inventory[number-1]['definition'])+';\n'
+            extension+=(ROOT/f'tests/{theme}-v3.js').read_text(encoding='utf-8')
+            if phase_number==number:
+                hook=hook.replace('report.errors=window.__reviewErrors;',extension+'\nreport.errors=window.__reviewErrors;',1)
+            elif not focused:
+                architecture+='\n'+extension
     baseline = (ROOT/'tests/map-baseline.json').read_text(encoding='utf-8')
     fixture = (ROOT/'tests/fixtures/room-map.json').read_text(encoding='utf-8')
     first_five = (ROOT/'tests/fixtures/first-five-v2.json').read_text(encoding='utf-8')
@@ -114,6 +128,9 @@ def main():
     if focused=='parallax-final':
         baseline={name:(ROOT/f'tests/fixtures/{name}-before-final.js').read_text(encoding='utf-8') for name in ['parallax','parallax-life']}
         hook='const PARALLAX_FINAL_REFERENCE='+json.dumps(baseline)+';\n'+hook
+    if focused=='final-map-comparison':
+        inventory=json.loads((ROOT/'tests/rebuild-v3-baseline/inventory.json').read_text(encoding='utf-8'))['inventory']
+        hook='const HISTORICAL_MAPS='+json.dumps([row['definition'] for row in inventory])+';\n'+hook
     hook = 'const ENVIRONMENT_HARDWARE_ONLY='+str('--environment-hardware' in sys.argv).lower()+';\n'+hook
     hook = '(async()=>{\n' + hook + '\n})().catch(error=>{document.body.innerHTML="<pre id=review-result>"+JSON.stringify({phases:[],systems:{fatal:error.stack}})+"</pre>";});'
     if '--capture-map-baseline' in sys.argv:
@@ -128,6 +145,9 @@ def main():
         (target / 'style.css').write_text((ROOT/'style.css').read_text(encoding='utf-8'),encoding='utf-8')
         shutil.copytree(ROOT/'src',target/'src')
         shutil.copytree(ROOT/'assets',target/'assets')
+        (target/'tests').mkdir()
+        for name in ('minigames.html','repair-lab.js'):
+            shutil.copy2(ROOT/'tests'/name,target/'tests'/name)
         class QuietHandler(http.server.SimpleHTTPRequestHandler):
             def log_message(self, *args): pass
             def do_POST(self):
@@ -149,6 +169,13 @@ def main():
             server.shutdown()
             server.server_close()
         if focused:
+            if focused=='visual-finish':
+                directory=ROOT/'tests/visual-finish'
+                directory.mkdir(exist_ok=True)
+                for shot in report.get('snapshots',[]):
+                    path=directory/f'{shot["phase"]:02}-{shot["position"]}.png'
+                    path.write_bytes(base64.b64decode(shot.pop('image').split(',',1)[1]))
+                    shot['file']=path.relative_to(ROOT).as_posix()
             if focused=='parallax-final':
                 for shot in report.get('snapshots',[]):
                     prefix=sys.argv[sys.argv.index('--result-label')+1] if '--result-label' in sys.argv else 'parallax-final'

@@ -1,701 +1,647 @@
-// Rebuilt layout, revision 2. Authored by tools/build_last_five.py.
+// Fortaleza Digital: seis setores físicos, do perímetro ao núcleo.
 ByteRunner.maps.register(ByteRunner.campaignGeneration.build({
   "schemaVersion": 2,
-  "revision": 2,
+  "revision": 5,
   "id": "phase-09",
-  "name": "Firewall e segurança",
+  "name": "Firewall — Fortaleza Digital",
   "theme": "firewall",
-  "objective": "Infiltre as quatro camadas da fortaleza, restaure regras e ative o terminal de segurança da cidadela.",
-  "palette": [
-    "#210e18",
-    "#472137",
-    "#ff937b",
-    "#96516b",
-    "#edc980"
-  ],
+  "objective": "Restaure oito terminais, derrote os guardiões e confirme a política no Núcleo de Segurança.",
+  "palette": ["#10090f", "#32151e", "#ff6a70", "#913742", "#ffc28e"],
   "presentation": {
     "procedural": false
   },
   "map": {
-    "width": 3600,
-    "height": 1800,
+    "width": 3520,
+    "height": 3008,
     "layout": "multi-route",
-    "start": {
-      "x": 120,
-      "y": 1512
-    },
-    "exit": {
-      "mode": "region",
-      "x": 2460,
-      "y": 476,
-      "width": 90,
-      "height": 64
-    },
-    "bounds": {
-      "left": true,
-      "right": true,
-      "ceiling": true,
-      "floor": true
-    },
+    "start": {"x": 120, "y": 2880},
+    "exit": {"mode": "region", "x": 3376, "y": 464, "width": 80, "height": 64},
+    "bounds": {"left": true, "right": true, "ceiling": true, "floor": true},
     "camera": {
-      "axes": [
-        "x",
-        "y"
-      ],
+      "axes": ["x", "y"],
       "followOffsetX": 0.44,
       "followOffsetY": 0.55
     },
     "ground": {
       "mode": "explicit",
       "segments": [
-        {
-          "id": "outer-west",
-          "x": 80,
-          "y": 1560,
-          "width": 820,
-          "height": 60
-        },
-        {
-          "id": "outer-middle",
-          "x": 1180,
-          "y": 1560,
-          "width": 670,
-          "height": 60
-        },
-        {
-          "id": "outer-east",
-          "x": 2110,
-          "y": 1560,
-          "width": 1410,
-          "height": 60
-        },
-        {
-          "id": "inner-east",
-          "x": 2000,
-          "y": 1140,
-          "width": 1500,
-          "height": 18,
-          "collision": "one-way"
-        },
-        {
-          "id": "inner-west",
-          "x": 850,
-          "y": 1140,
-          "width": 1000,
-          "height": 18,
-          "collision": "one-way"
-        },
-        {
-          "id": "citadel",
-          "x": 1500,
-          "y": 540,
-          "width": 1200,
-          "height": 18,
-          "collision": "one-way"
-        }
+        {"id": "sector-1-deck-0", "x": 0, "y": 2928, "width": 3520, "height": 80},
+        {"id": "sector-2-deck-0", "x": 0, "y": 2448, "width": 2800, "height": 80},
+        {"id": "sector-2-deck-1", "x": 3056, "y": 2448, "width": 464, "height": 80},
+        {"id": "sector-3-deck-0", "x": 0, "y": 1968, "width": 464, "height": 80},
+        {"id": "sector-3-deck-1", "x": 720, "y": 1968, "width": 1392, "height": 80},
+        {"id": "sector-3-deck-2", "x": 2368, "y": 1968, "width": 1152, "height": 80},
+        {"id": "sector-4-deck-0", "x": 0, "y": 1488, "width": 464, "height": 80},
+        {"id": "sector-4-deck-1", "x": 720, "y": 1488, "width": 2000, "height": 80},
+        {"id": "sector-4-deck-2", "x": 2976, "y": 1488, "width": 544, "height": 80},
+        {"id": "sector-5-deck-0", "x": 0, "y": 1008, "width": 2800, "height": 80},
+        {"id": "sector-5-deck-1", "x": 3056, "y": 1008, "width": 464, "height": 80},
+        {"id": "sector-6-deck-0", "x": 0, "y": 528, "width": 464, "height": 80},
+        {"id": "sector-6-deck-1", "x": 720, "y": 528, "width": 2800, "height": 80}
       ]
     },
     "checkpoints": [
-      {
-        "x": 1450,
-        "y": 1560
-      },
-      {
-        "x": 3200,
-        "y": 1560
-      },
-      {
-        "x": 2300,
-        "y": 1140
-      },
-      {
-        "x": 1050,
-        "y": 1140
-      },
-      {
-        "x": 2200,
-        "y": 540
-      }
+      {"x": 120, "y": 2928},
+      {"x": 1760, "y": 2928},
+      {"x": 3360, "y": 2928},
+      {"x": 120, "y": 2448},
+      {"x": 1760, "y": 2448},
+      {"x": 3360, "y": 2448},
+      {"x": 120, "y": 1968},
+      {"x": 1760, "y": 1968},
+      {"x": 3360, "y": 1968},
+      {"x": 120, "y": 1488},
+      {"x": 1760, "y": 1488},
+      {"x": 3360, "y": 1488},
+      {"x": 120, "y": 1008},
+      {"x": 1760, "y": 1008},
+      {"x": 3360, "y": 1008},
+      {"x": 120, "y": 528},
+      {"x": 1760, "y": 528},
+      {"x": 3072, "y": 528}
     ],
     "checkpointMode": "free",
-    "progress": {
-      "axis": "objectives"
-    },
-    "routes": [
-      "perímetro e inspeção",
-      "bastião leste",
-      "anel interno",
-      "escadaria da cidadela"
-    ]
+    "progress": {"axis": "objectives"},
+    "regions": [
+      {
+        "id": "sector-1",
+        "name": "Perímetro externo",
+        "state": 0,
+        "areas": [
+          {"x": 0, "y": 2528, "width": 3520, "height": 480}
+        ]
+      },
+      {
+        "id": "sector-2",
+        "name": "Sistemas de segurança",
+        "state": 1,
+        "areas": [
+          {"x": 0, "y": 2048, "width": 3520, "height": 480}
+        ]
+      },
+      {
+        "id": "sector-3",
+        "name": "Área de infiltração",
+        "state": 2,
+        "areas": [
+          {"x": 0, "y": 1568, "width": 3520, "height": 480}
+        ]
+      },
+      {
+        "id": "sector-4",
+        "name": "Anel interno",
+        "state": 3,
+        "areas": [
+          {"x": 0, "y": 1088, "width": 3520, "height": 480}
+        ]
+      },
+      {
+        "id": "sector-5",
+        "name": "Cidadela central",
+        "state": 4,
+        "areas": [
+          {"x": 0, "y": 608, "width": 3520, "height": 480}
+        ]
+      },
+      {
+        "id": "sector-6",
+        "name": "Núcleo de segurança",
+        "state": 5,
+        "areas": [
+          {"x": 0, "y": 128, "width": 3520, "height": 480}
+        ]
+      }
+    ],
+    "routes": ["Muralha e torres", "Eclusas de segurança", "Dutos e passagens de manutenção", "Arenas do anel", "Terraços da cidadela", "Contenção e saída"]
   },
   "entities": {
     "platforms": [
-      {
-        "id": "inspection-step-a",
-        "x": 940,
-        "y": 1500,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "inspection-step-b",
-        "x": 1120,
-        "y": 1420,
-        "width": 160,
-        "height": 18,
-        "type": "moving",
-        "collision": "one-way",
-        "style": "route",
-        "motion": {
-          "axis": "y",
-          "range": 10,
-          "speed": 0.7
-        }
-      },
-      {
-        "id": "bastion-step-a",
-        "x": 3150,
-        "y": 1470,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "bastion-step-b",
-        "x": 3320,
-        "y": 1380,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "bastion-step-c",
-        "x": 3140,
-        "y": 1290,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "bastion-step-d",
-        "x": 3310,
-        "y": 1200,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "citadel-step-b",
-        "x": 1190,
-        "y": 960,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "citadel-step-c",
-        "x": 1380,
-        "y": 870,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "citadel-step-d",
-        "x": 1570,
-        "y": 780,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "citadel-step-e",
-        "x": 1760,
-        "y": 690,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "citadel-step-f",
-        "x": 1950,
-        "y": 600,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "outer-cache",
-        "x": 250,
-        "y": 1470,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "inner-cache",
-        "x": 2870,
-        "y": 1050,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "citadel-cache",
-        "x": 2550,
-        "y": 450,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route"
-      },
-      {
-        "id": "inspection-breakaway",
-        "x": 1940,
-        "y": 1470,
-        "width": 170,
-        "height": 18,
-        "type": "temporary",
-        "collision": "one-way",
-        "style": "route",
-        "duration": 1.9,
-        "respawnDelay": 2.5
-      },
-      {
-        "id": "rules-bridge",
-        "x": 1840,
-        "y": 1140,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route",
-        "requiresComponentId": "c03"
-      },
-      {
-        "id": "citadel-step-a",
-        "x": 1000,
-        "y": 1050,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route",
-        "requiresComponentId": "c04"
-      }
+      {"id": "sector-1-shaft-0-step-0", "x": 2836, "y": 2832, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-1-shaft-0-step-1", "x": 2900, "y": 2736, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-1-shaft-0-step-2", "x": 2836, "y": 2640, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-1-shaft-0-step-3", "x": 2900, "y": 2544, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-1-shaft-0-step-4", "x": 2836, "y": 2448, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-1-court-1-west-step", "x": 170, "y": 2832, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-1-east-step", "x": 650, "y": 2832, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-1-catwalk", "x": 236, "y": 2736, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-1-court-1-tower", "x": 360, "y": 2640, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-2-west-step", "x": 1050, "y": 2832, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-2-east-step", "x": 1530, "y": 2832, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-2-catwalk", "x": 1116, "y": 2736, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-1-court-2-tower", "x": 1240, "y": 2640, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-3-west-step", "x": 1930, "y": 2832, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-3-east-step", "x": 2410, "y": 2832, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-3-catwalk", "x": 1996, "y": 2736, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-1-court-3-tower", "x": 2120, "y": 2640, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-4-west-step", "x": 2810, "y": 2832, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-4-east-step", "x": 3290, "y": 2832, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-1-court-4-catwalk", "x": 2876, "y": 2736, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-1-court-4-tower", "x": 3000, "y": 2640, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-2-shaft-0-step-0", "x": 500, "y": 2352, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-2-shaft-0-step-1", "x": 564, "y": 2256, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-2-shaft-0-step-2", "x": 500, "y": 2160, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-2-shaft-0-step-3", "x": 564, "y": 2064, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-2-shaft-0-step-4", "x": 500, "y": 1968, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-2-shaft-1-step-0", "x": 2148, "y": 2352, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-2-shaft-1-step-1", "x": 2212, "y": 2256, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-2-shaft-1-step-2", "x": 2148, "y": 2160, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-2-shaft-1-step-3", "x": 2212, "y": 2064, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-2-shaft-1-step-4", "x": 2148, "y": 1968, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-2-court-1-west-step", "x": 170, "y": 2352, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-2-court-1-east-step", "x": 650, "y": 2352, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-2-court-1-catwalk", "x": 236, "y": 2256, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-2-court-2-west-step", "x": 1050, "y": 2352, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-2-court-2-east-step", "x": 1530, "y": 2352, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-2-court-2-catwalk", "x": 1116, "y": 2256, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-2-court-3-west-step", "x": 1930, "y": 2352, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-2-court-3-east-step", "x": 2410, "y": 2352, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-2-court-3-catwalk", "x": 1996, "y": 2256, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-2-court-4-west-step", "x": 2810, "y": 2352, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-2-court-4-east-step", "x": 3290, "y": 2352, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-2-court-4-catwalk", "x": 2876, "y": 2256, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-3-shaft-0-step-0", "x": 500, "y": 1872, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-3-shaft-0-step-1", "x": 564, "y": 1776, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-3-shaft-0-step-2", "x": 500, "y": 1680, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-3-shaft-0-step-3", "x": 564, "y": 1584, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-3-shaft-0-step-4", "x": 500, "y": 1488, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-3-shaft-1-step-0", "x": 2756, "y": 1872, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-3-shaft-1-step-1", "x": 2820, "y": 1776, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-3-shaft-1-step-2", "x": 2756, "y": 1680, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-3-shaft-1-step-3", "x": 2820, "y": 1584, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-3-shaft-1-step-4", "x": 2756, "y": 1488, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-3-court-1-west-step", "x": 170, "y": 1872, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-1-east-step", "x": 650, "y": 1872, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-1-catwalk", "x": 236, "y": 1776, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-3-court-1-tower", "x": 360, "y": 1680, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-1-trap", "x": 408, "y": 1632, "width": 112, "height": 16, "type": "temporary", "collision": "one-way", "style": "signal", "duration": 2.2, "respawnDelay": 2.6},
+      {"id": "sector-3-court-2-west-step", "x": 1050, "y": 1872, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-2-east-step", "x": 1530, "y": 1872, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-2-catwalk", "x": 1116, "y": 1776, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-3-court-2-tower", "x": 1240, "y": 1680, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-2-lift", "x": 1588, "y": 1788, "width": 96, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "y", "range": 64, "speed": 0.55, "phase": 1}},
+      {"id": "sector-3-court-3-west-step", "x": 1930, "y": 1872, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-3-east-step", "x": 2410, "y": 1872, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-3-catwalk", "x": 1996, "y": 1776, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-3-court-3-tower", "x": 2120, "y": 1680, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-3-lift", "x": 2468, "y": 1788, "width": 96, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "x", "range": 64, "speed": 0.55, "phase": 2}},
+      {"id": "sector-3-court-3-trap", "x": 2168, "y": 1632, "width": 112, "height": 16, "type": "temporary", "collision": "one-way", "style": "signal", "duration": 2.2, "respawnDelay": 2.6},
+      {"id": "sector-3-court-4-west-step", "x": 2810, "y": 1872, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-4-east-step", "x": 3290, "y": 1872, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-4-catwalk", "x": 2876, "y": 1776, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-3-court-4-tower", "x": 3000, "y": 1680, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-3-court-4-lift", "x": 3348, "y": 1788, "width": 96, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "y", "range": 64, "speed": 0.55, "phase": 3}},
+      {"id": "sector-4-shaft-0-step-0", "x": 2836, "y": 1392, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-4-shaft-0-step-1", "x": 2900, "y": 1296, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-4-shaft-0-step-2", "x": 2836, "y": 1200, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-4-shaft-0-step-3", "x": 2900, "y": 1104, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-4-shaft-0-step-4", "x": 2836, "y": 1008, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-4-court-1-west-step", "x": 170, "y": 1392, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-4-court-1-east-step", "x": 650, "y": 1392, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-4-court-1-catwalk", "x": 236, "y": 1296, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-4-court-2-west-step", "x": 1050, "y": 1392, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-4-court-2-east-step", "x": 1530, "y": 1392, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-4-court-2-catwalk", "x": 1116, "y": 1296, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-4-court-3-west-step", "x": 1930, "y": 1392, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-4-court-3-east-step", "x": 2410, "y": 1392, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-4-court-3-catwalk", "x": 1996, "y": 1296, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-4-court-4-west-step", "x": 2810, "y": 1392, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-4-court-4-east-step", "x": 3290, "y": 1392, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-4-court-4-catwalk", "x": 2876, "y": 1296, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-5-shaft-0-step-0", "x": 500, "y": 912, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-5-shaft-0-step-1", "x": 564, "y": 816, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-5-shaft-0-step-2", "x": 500, "y": 720, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-5-shaft-0-step-3", "x": 564, "y": 624, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-5-shaft-0-step-4", "x": 500, "y": 528, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "sector-5-court-1-west-step", "x": 170, "y": 912, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-1-east-step", "x": 650, "y": 912, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-1-catwalk", "x": 236, "y": 816, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-5-court-1-tower", "x": 360, "y": 720, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-1-trap", "x": 408, "y": 672, "width": 112, "height": 16, "type": "temporary", "collision": "one-way", "style": "signal", "duration": 2.2, "respawnDelay": 2.6},
+      {"id": "sector-5-court-2-west-step", "x": 1050, "y": 912, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-2-east-step", "x": 1530, "y": 912, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-2-catwalk", "x": 1116, "y": 816, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-5-court-2-tower", "x": 1240, "y": 720, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-2-lift", "x": 1588, "y": 828, "width": 96, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "y", "range": 64, "speed": 0.55, "phase": 1}},
+      {"id": "sector-5-court-3-west-step", "x": 1930, "y": 912, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-3-east-step", "x": 2410, "y": 912, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-3-catwalk", "x": 1996, "y": 816, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-5-court-3-tower", "x": 2120, "y": 720, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-3-lift", "x": 2468, "y": 828, "width": 96, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "x", "range": 64, "speed": 0.55, "phase": 2}},
+      {"id": "sector-5-court-3-trap", "x": 2168, "y": 672, "width": 112, "height": 16, "type": "temporary", "collision": "one-way", "style": "signal", "duration": 2.2, "respawnDelay": 2.6},
+      {"id": "sector-5-court-4-west-step", "x": 2810, "y": 912, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-4-east-step", "x": 3290, "y": 912, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-4-catwalk", "x": 2876, "y": 816, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-5-court-4-tower", "x": 3000, "y": 720, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-5-court-4-lift", "x": 3348, "y": 828, "width": 96, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "y", "range": 64, "speed": 0.55, "phase": 3}},
+      {"id": "sector-6-court-1-west-step", "x": 170, "y": 432, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-1-east-step", "x": 650, "y": 432, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-1-catwalk", "x": 236, "y": 336, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-6-court-1-tower", "x": 360, "y": 240, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-2-west-step", "x": 1050, "y": 432, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-2-east-step", "x": 1530, "y": 432, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-2-catwalk", "x": 1116, "y": 336, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-6-court-2-tower", "x": 1240, "y": 240, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-3-west-step", "x": 1930, "y": 432, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-3-east-step", "x": 2410, "y": 432, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-3-catwalk", "x": 1996, "y": 336, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-6-court-3-tower", "x": 2120, "y": 240, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-4-west-step", "x": 2810, "y": 432, "width": 136, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-4-east-step", "x": 3290, "y": 432, "width": 124, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "sector-6-court-4-catwalk", "x": 2876, "y": 336, "width": 464, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "sector-6-court-4-tower", "x": 3000, "y": 240, "width": 204, "height": 16, "type": "fixed", "collision": "one-way", "style": "route"},
+      {"id": "core-restored-gallery", "x": 3104, "y": 336, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "route", "requires": {"component": "c08"}}
     ],
     "obstacles": [
-      {
-        "id": "perimeter-laser",
-        "x": 520,
-        "y": 1480,
-        "width": 28,
-        "height": 80,
-        "type": "interference",
-        "collision": "dangerous",
-        "damage": 12,
-        "requiresComponentId": "c01",
-        "window": {
-          "period": 3.8,
-          "active": 1.2,
-          "phase": 0
-        }
-      },
-      {
-        "id": "inspection-laser",
-        "x": 1300,
-        "y": 1480,
-        "width": 28,
-        "height": 80,
-        "type": "interference",
-        "collision": "dangerous",
-        "damage": 12,
-        "requiresComponentId": "c02",
-        "window": {
-          "period": 3.8,
-          "active": 1.3,
-          "phase": 1
-        }
-      },
-      {
-        "id": "inner-laser",
-        "x": 2600,
-        "y": 1060,
-        "width": 30,
-        "height": 80,
-        "type": "interference",
-        "collision": "dangerous",
-        "damage": 12,
-        "requiresComponentId": "c03",
-        "window": {
-          "period": 3.2,
-          "active": 1.25,
-          "phase": 0.5
-        }
-      },
-      {
-        "id": "citadel-cover",
-        "x": 2310,
-        "y": 474,
-        "width": 44,
-        "height": 66,
-        "type": "heatsink",
-        "collision": "solid"
-      }
-    ],
-    "gates": [
-      {
-        "id": "security-layer-1",
-        "x": 620,
-        "y": 1160,
-        "width": 28,
-        "height": 400,
-        "requiresComponentId": "c01"
-      },
-      {
-        "id": "security-layer-2",
-        "x": 1830,
-        "y": 1180,
-        "width": 28,
-        "height": 380,
-        "requiresComponentId": "c02"
-      },
-      {
-        "id": "security-layer-3",
-        "x": 1950,
-        "y": 900,
-        "width": 28,
-        "height": 240,
-        "requiresComponentId": "c03"
-      },
-      {
-        "id": "security-core-lock",
-        "x": 2380,
-        "y": 390,
-        "width": 26,
-        "height": 150,
-        "opensWhen": {
-          "flag": "rules-on"
-        }
-      }
+      {"id": "outer-wall-0", "x": 0, "y": 0, "width": 32, "height": 3008},
+      {"id": "outer-wall-3488", "x": 3488, "y": 0, "width": 32, "height": 3008},
+      {"id": "duct-ceiling-0", "x": 136, "y": 1882, "width": 136, "height": 16},
+      {"id": "duct-ceiling-1", "x": 1170, "y": 1882, "width": 136, "height": 16},
+      {"id": "duct-ceiling-2", "x": 2480, "y": 1882, "width": 136, "height": 16}
     ],
     "components": [
-      {
-        "id": "c01",
-        "x": 400,
-        "y": 1516,
-        "width": 34,
-        "height": 44,
-        "label": "REGRAS DO PERÍMETRO"
-      },
-      {
-        "id": "c02",
-        "x": 1450,
-        "y": 1516,
-        "width": 34,
-        "height": 44,
-        "label": "POLÍTICA DE INSPEÇÃO"
-      },
-      {
-        "id": "c03",
-        "x": 2350,
-        "y": 1096,
-        "width": 34,
-        "height": 44,
-        "label": "REGRAS DO ANEL INTERNO"
-      },
-      {
-        "id": "c04",
-        "x": 1050,
-        "y": 1096,
-        "width": 34,
-        "height": 44,
-        "label": "ACESSO À CIDADELA"
-      }
+      {"id": "c01", "x": 2520, "y": 2884, "width": 34, "height": 44, "label": "REGRAS DO PERÍMETRO"},
+      {"id": "c02", "x": 2552, "y": 2404, "width": 34, "height": 44, "label": "POLÍTICA DE INSPEÇÃO"},
+      {"id": "c05", "x": 988, "y": 2404, "width": 34, "height": 44, "label": "RESTAURAR TRAVAS DA ECLUSA"},
+      {"id": "c06", "x": 2040, "y": 1924, "width": 34, "height": 44, "label": "ENERGIZAR DUTOS"},
+      {"id": "c03", "x": 2460, "y": 1444, "width": 34, "height": 44, "label": "REGRAS DO ANEL INTERNO"},
+      {"id": "c07", "x": 896, "y": 1444, "width": 34, "height": 44, "label": "SINCRONIZAR DEFESA DO ANEL"},
+      {"id": "c04", "x": 1192, "y": 964, "width": 34, "height": 44, "label": "POLÍTICA DA CIDADELA"},
+      {"id": "c08", "x": 2984, "y": 484, "width": 34, "height": 44, "label": "RESTAURAR NÚCLEO DE SEGURANÇA"}
     ],
     "enemies": [
-      {
-        "id": "e01",
-        "type": "fast",
-        "x": 1620,
-        "y": 1536,
-        "groundY": 1560,
-        "navigationBounds": {
-          "left": 1230,
-          "right": 1760
-        },
-        "patrolMin": 1230,
-        "patrolMax": 1760,
-        "activationRegion": {
-          "x": 1180,
-          "y": 1290,
-          "width": 670,
-          "height": 330
-        }
-      },
-      {
-        "id": "e02",
-        "type": "shooter",
-        "x": 2850,
-        "y": 1536,
-        "groundY": 1560,
-        "navigationBounds": {
-          "left": 2400,
-          "right": 3370
-        },
-        "patrolMin": 2400,
-        "patrolMax": 3370,
-        "activationRegion": {
-          "x": 2110,
-          "y": 1290,
-          "width": 1410,
-          "height": 330
-        }
-      },
-      {
-        "id": "e03",
-        "type": "armored",
-        "x": 3050,
-        "y": 1116,
-        "groundY": 1140,
-        "navigationBounds": {
-          "left": 2750,
-          "right": 3380
-        },
-        "patrolMin": 2750,
-        "patrolMax": 3380,
-        "activationRegion": {
-          "x": 2000,
-          "y": 870,
-          "width": 1500,
-          "height": 330
-        }
-      },
-      {
-        "id": "e04",
-        "type": "flyer",
-        "x": 1360,
-        "y": 1048,
-        "groundY": 1140,
-        "navigationBounds": {
-          "left": 980,
-          "right": 1790
-        },
-        "patrolMin": 980,
-        "patrolMax": 1790,
-        "activationRegion": {
-          "x": 850,
-          "y": 840,
-          "width": 1000,
-          "height": 360
-        }
-      },
-      {
-        "id": "e05",
-        "type": "armored",
-        "x": 2540,
-        "y": 516,
-        "groundY": 540,
-        "navigationBounds": {
-          "left": 2440,
-          "right": 2640
-        },
-        "patrolMin": 2440,
-        "patrolMax": 2640,
-        "activationRegion": {
-          "x": 1500,
-          "y": 270,
-          "width": 1200,
-          "height": 330
-        }
-      }
+      {"id": "sector-1-court-2-guard", "type": "basic", "x": 1330, "y": 2904, "groundY": 2928, "patrolMin": 1252, "patrolMax": 1408, "navigationBounds": {"left": 1252, "right": 1408}, "activationRegion": {"x": 1140, "y": 2608, "width": 390, "height": 320}},
+      {"id": "sector-1-court-3-guard", "type": "basic", "x": 2210, "y": 2904, "groundY": 2928, "patrolMin": 2132, "patrolMax": 2288, "navigationBounds": {"left": 2132, "right": 2288}, "activationRegion": {"x": 2020, "y": 2608, "width": 390, "height": 320}},
+      {"id": "sector-1-court-3-sentry", "type": "shooter", "x": 2281, "y": 2712, "groundY": 2736, "patrolMin": 2194, "patrolMax": 2368, "navigationBounds": {"left": 2194, "right": 2368}, "activationRegion": {"x": 2020, "y": 2563, "width": 410, "height": 365}},
+      {"id": "sector-2-court-2-guard", "type": "fast", "x": 1330, "y": 2424, "groundY": 2448, "patrolMin": 1252, "patrolMax": 1408, "navigationBounds": {"left": 1252, "right": 1408}, "activationRegion": {"x": 1140, "y": 2128, "width": 390, "height": 320}},
+      {"id": "sector-2-court-2-sentry", "type": "flyer", "x": 1401, "y": 2232, "groundY": 2256, "patrolMin": 1314, "patrolMax": 1488, "navigationBounds": {"left": 1314, "right": 1488}, "activationRegion": {"x": 1140, "y": 2083, "width": 410, "height": 365}},
+      {"id": "sector-2-court-3-guard", "type": "fast", "x": 2210, "y": 2424, "groundY": 2448, "patrolMin": 2132, "patrolMax": 2288, "navigationBounds": {"left": 2132, "right": 2288}, "activationRegion": {"x": 2020, "y": 2128, "width": 390, "height": 320}},
+      {"id": "sector-2-court-3-sentry", "type": "shooter", "x": 2281, "y": 2232, "groundY": 2256, "patrolMin": 2194, "patrolMax": 2368, "navigationBounds": {"left": 2194, "right": 2368}, "activationRegion": {"x": 2020, "y": 2083, "width": 410, "height": 365}},
+      {"id": "sector-3-court-2-guard", "type": "fast", "x": 1330, "y": 1944, "groundY": 1968, "patrolMin": 1252, "patrolMax": 1408, "navigationBounds": {"left": 1252, "right": 1408}, "activationRegion": {"x": 1140, "y": 1648, "width": 390, "height": 320}},
+      {"id": "sector-3-court-2-sentry", "type": "flyer", "x": 1401, "y": 1752, "groundY": 1776, "patrolMin": 1314, "patrolMax": 1488, "navigationBounds": {"left": 1314, "right": 1488}, "activationRegion": {"x": 1140, "y": 1603, "width": 410, "height": 365}},
+      {"id": "sector-3-court-4-guard", "type": "fast", "x": 3090, "y": 1944, "groundY": 1968, "patrolMin": 3012, "patrolMax": 3168, "navigationBounds": {"left": 3012, "right": 3168}, "activationRegion": {"x": 2900, "y": 1648, "width": 390, "height": 320}},
+      {"id": "sector-4-court-1-sentry", "type": "shooter", "x": 521, "y": 1272, "groundY": 1296, "patrolMin": 434, "patrolMax": 608, "navigationBounds": {"left": 434, "right": 608}, "activationRegion": {"x": 260, "y": 1123, "width": 410, "height": 365}},
+      {"id": "sector-4-court-2-guard", "type": "armored", "x": 1330, "y": 1464, "groundY": 1488, "patrolMin": 1252, "patrolMax": 1408, "navigationBounds": {"left": 1252, "right": 1408}, "activationRegion": {"x": 1140, "y": 1168, "width": 390, "height": 320}},
+      {"id": "sector-4-court-3-guard", "type": "armored", "x": 2210, "y": 1464, "groundY": 1488, "patrolMin": 2132, "patrolMax": 2288, "navigationBounds": {"left": 2132, "right": 2288}, "activationRegion": {"x": 2020, "y": 1168, "width": 390, "height": 320}},
+      {"id": "sector-4-court-3-sentry", "type": "shooter", "x": 2281, "y": 1272, "groundY": 1296, "patrolMin": 2194, "patrolMax": 2368, "navigationBounds": {"left": 2194, "right": 2368}, "activationRegion": {"x": 2020, "y": 1123, "width": 410, "height": 365}},
+      {"id": "sector-4-court-4-guard", "type": "armored", "x": 3090, "y": 1464, "groundY": 1488, "patrolMin": 3012, "patrolMax": 3168, "navigationBounds": {"left": 3012, "right": 3168}, "activationRegion": {"x": 2900, "y": 1168, "width": 390, "height": 320}},
+      {"id": "sector-4-court-4-sentry", "type": "flyer", "x": 3161, "y": 1272, "groundY": 1296, "patrolMin": 3074, "patrolMax": 3248, "navigationBounds": {"left": 3074, "right": 3248}, "activationRegion": {"x": 2900, "y": 1123, "width": 410, "height": 365}},
+      {"id": "sector-5-court-1-guard", "type": "armored", "x": 450, "y": 984, "groundY": 1008, "patrolMin": 372, "patrolMax": 528, "navigationBounds": {"left": 372, "right": 528}, "activationRegion": {"x": 260, "y": 688, "width": 390, "height": 320}},
+      {"id": "sector-5-court-1-sentry", "type": "shooter", "x": 521, "y": 792, "groundY": 816, "patrolMin": 434, "patrolMax": 608, "navigationBounds": {"left": 434, "right": 608}, "activationRegion": {"x": 260, "y": 643, "width": 410, "height": 365}},
+      {"id": "sector-5-court-3-guard", "type": "armored", "x": 2210, "y": 984, "groundY": 1008, "patrolMin": 2132, "patrolMax": 2288, "navigationBounds": {"left": 2132, "right": 2288}, "activationRegion": {"x": 2020, "y": 688, "width": 390, "height": 320}},
+      {"id": "sector-5-court-3-sentry", "type": "shooter", "x": 2281, "y": 792, "groundY": 816, "patrolMin": 2194, "patrolMax": 2368, "navigationBounds": {"left": 2194, "right": 2368}, "activationRegion": {"x": 2020, "y": 643, "width": 410, "height": 365}},
+      {"id": "sector-5-court-4-sentry", "type": "flyer", "x": 3161, "y": 792, "groundY": 816, "patrolMin": 3074, "patrolMax": 3248, "navigationBounds": {"left": 3074, "right": 3248}, "activationRegion": {"x": 2900, "y": 643, "width": 410, "height": 365}},
+      {"id": "sector-6-court-2-guard", "type": "armored", "x": 1330, "y": 504, "groundY": 528, "patrolMin": 1252, "patrolMax": 1408, "navigationBounds": {"left": 1252, "right": 1408}, "activationRegion": {"x": 1140, "y": 208, "width": 390, "height": 320}},
+      {"id": "sector-6-court-2-sentry", "type": "shooter", "x": 1401, "y": 312, "groundY": 336, "patrolMin": 1314, "patrolMax": 1488, "navigationBounds": {"left": 1314, "right": 1488}, "activationRegion": {"x": 1140, "y": 163, "width": 410, "height": 365}},
+      {"id": "sector-6-court-3-guard", "type": "armored", "x": 2210, "y": 504, "groundY": 528, "patrolMin": 2132, "patrolMax": 2288, "navigationBounds": {"left": 2132, "right": 2288}, "activationRegion": {"x": 2020, "y": 208, "width": 390, "height": 320}},
+      {"id": "sector-6-court-3-sentry", "type": "shooter", "x": 2281, "y": 312, "groundY": 336, "patrolMin": 2194, "patrolMax": 2368, "navigationBounds": {"left": 2194, "right": 2368}, "activationRegion": {"x": 2020, "y": 163, "width": 410, "height": 365}}
     ],
     "collectibles": [
-      {
-        "id": "i01",
-        "x": 300,
-        "y": 1440,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i02",
-        "x": 2940,
-        "y": 1020,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i03",
-        "x": 2610,
-        "y": 420,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i04",
-        "x": 3440,
-        "y": 1530,
-        "radius": 10,
-        "secret": true
-      }
+      {"id": "sector-1-court-1-cache", "x": 380, "y": 2704, "radius": 10, "secret": false},
+      {"id": "sector-1-court-1-crest", "x": 488, "y": 2608, "radius": 10, "secret": false},
+      {"id": "sector-1-court-2-cache", "x": 1260, "y": 2704, "radius": 10, "secret": false},
+      {"id": "sector-1-court-2-crest", "x": 1368, "y": 2608, "radius": 10, "secret": false},
+      {"id": "sector-1-court-3-cache", "x": 2140, "y": 2704, "radius": 10, "secret": false},
+      {"id": "sector-1-court-3-crest", "x": 2248, "y": 2608, "radius": 10, "secret": false},
+      {"id": "sector-1-court-4-cache", "x": 3020, "y": 2704, "radius": 10, "secret": false},
+      {"id": "sector-1-court-4-crest", "x": 3128, "y": 2608, "radius": 10, "secret": false},
+      {"id": "sector-2-court-1-cache", "x": 380, "y": 2224, "radius": 10, "secret": false},
+      {"id": "sector-2-court-2-cache", "x": 1260, "y": 2224, "radius": 10, "secret": false},
+      {"id": "sector-2-court-3-cache", "x": 2140, "y": 2224, "radius": 10, "secret": false},
+      {"id": "sector-2-court-4-cache", "x": 3020, "y": 2224, "radius": 10, "secret": false},
+      {"id": "sector-3-court-1-cache", "x": 380, "y": 1744, "radius": 10, "secret": true},
+      {"id": "sector-3-court-1-crest", "x": 488, "y": 1600, "radius": 10, "secret": true},
+      {"id": "sector-3-court-2-cache", "x": 1260, "y": 1744, "radius": 10, "secret": true},
+      {"id": "sector-3-court-2-crest", "x": 1368, "y": 1648, "radius": 10, "secret": true},
+      {"id": "sector-3-court-3-cache", "x": 2140, "y": 1744, "radius": 10, "secret": true},
+      {"id": "sector-3-court-3-crest", "x": 2248, "y": 1600, "radius": 10, "secret": true},
+      {"id": "sector-3-court-4-cache", "x": 3020, "y": 1744, "radius": 10, "secret": true},
+      {"id": "sector-3-court-4-crest", "x": 3128, "y": 1648, "radius": 10, "secret": true},
+      {"id": "sector-4-court-1-cache", "x": 380, "y": 1264, "radius": 10, "secret": false},
+      {"id": "sector-4-court-2-cache", "x": 1260, "y": 1264, "radius": 10, "secret": false},
+      {"id": "sector-4-court-3-cache", "x": 2140, "y": 1264, "radius": 10, "secret": false},
+      {"id": "sector-4-court-4-cache", "x": 3020, "y": 1264, "radius": 10, "secret": false},
+      {"id": "sector-5-court-1-cache", "x": 380, "y": 784, "radius": 10, "secret": false},
+      {"id": "sector-5-court-1-crest", "x": 488, "y": 640, "radius": 10, "secret": true},
+      {"id": "sector-5-court-2-cache", "x": 1260, "y": 784, "radius": 10, "secret": false},
+      {"id": "sector-5-court-2-crest", "x": 1368, "y": 688, "radius": 10, "secret": true},
+      {"id": "sector-5-court-3-cache", "x": 2140, "y": 784, "radius": 10, "secret": false},
+      {"id": "sector-5-court-3-crest", "x": 2248, "y": 640, "radius": 10, "secret": true},
+      {"id": "sector-5-court-4-cache", "x": 3020, "y": 784, "radius": 10, "secret": false},
+      {"id": "sector-5-court-4-crest", "x": 3128, "y": 688, "radius": 10, "secret": true},
+      {"id": "sector-6-court-1-cache", "x": 380, "y": 304, "radius": 10, "secret": false},
+      {"id": "sector-6-court-1-crest", "x": 488, "y": 208, "radius": 10, "secret": false},
+      {"id": "sector-6-court-2-cache", "x": 1260, "y": 304, "radius": 10, "secret": false},
+      {"id": "sector-6-court-2-crest", "x": 1368, "y": 208, "radius": 10, "secret": false},
+      {"id": "sector-6-court-3-cache", "x": 2140, "y": 304, "radius": 10, "secret": false},
+      {"id": "sector-6-court-3-crest", "x": 2248, "y": 208, "radius": 10, "secret": false},
+      {"id": "sector-6-court-4-cache", "x": 3020, "y": 304, "radius": 10, "secret": false},
+      {"id": "sector-6-court-4-crest", "x": 3128, "y": 208, "radius": 10, "secret": false}
     ],
     "features": [],
+    "gates": [
+      {"id": "sector-1-hatch-0", "x": 2800, "y": 2448, "width": 256, "height": 80, "opensWhen": {"component": "c01"}},
+      {"id": "sector-2-hatch-0", "x": 464, "y": 1968, "width": 256, "height": 80, "opensWhen": {"component": "c02"}},
+      {"id": "sector-2-hatch-1", "x": 2112, "y": 1968, "width": 256, "height": 80, "opensWhen": {"component": "c05"}},
+      {"id": "sector-3-hatch-0", "x": 464, "y": 1488, "width": 256, "height": 80, "opensWhen": {"component": "c06"}},
+      {"id": "sector-3-hatch-1", "x": 2720, "y": 1488, "width": 256, "height": 80, "opensWhen": {"component": "c06"}},
+      {"id": "sector-4-hatch-0", "x": 2800, "y": 1008, "width": 256, "height": 80, "opensWhen": {"all": [{"component": "c03"}, {"component": "c07"}]}},
+      {"id": "sector-5-hatch-0", "x": 464, "y": 528, "width": 256, "height": 80, "opensWhen": {"component": "c04"}},
+      {"id": "security-core-lock", "x": 3264, "y": 0, "width": 24, "height": 528, "opensWhen": {"flag": "rules-on"}}
+    ],
     "interactives": [
-      {
-        "id": "citadel-console",
-        "type": "switch",
-        "x": 2190,
-        "y": 500,
-        "width": 40,
-        "height": 40,
-        "requires": {
-          "component": "c04"
-        },
-        "flag": "rules-on",
-        "once": true,
-        "label": "ACL",
-        "message": "REGRAS RESTAURADAS // CIDADELA LIBERADA"
-      }
+      {"id": "citadel-console", "x": 3140, "y": 488, "width": 40, "height": 40, "type": "switch", "requires": {"component": "c08"}, "flag": "rules-on", "once": true, "label": "ACL", "message": "NÚCLEO RESTAURADO // SAÍDA LIBERADA"}
     ]
   },
   "objectives": {
     "repairAllComponents": true,
     "defeatAllViruses": true,
     "requireExitQuestion": true,
+    "componentsToRepair": 8,
+    "enemiesToDefeat": 25,
     "goals": [
-      {
-        "id": "security-policy",
-        "type": "condition",
-        "condition": {
-          "flag": "rules-on"
-        }
-      }
-    ],
-    "componentsToRepair": 4,
-    "enemiesToDefeat": 5
+      {"id": "security-policy", "type": "condition", "condition": {"flag": "rules-on"}}
+    ]
   },
   "mechanics": [
     {
       "id": "surveillance",
       "type": "security-grid",
       "cameras": [
-        {
-          "id": "inspection-cam",
-          "x": 1110,
-          "y": 1300,
-          "period": 3.8,
-          "windup": 1.0,
-          "region": {
-            "x": 940,
-            "y": 1330,
-            "width": 560,
-            "height": 240
-          },
-          "disabledWhen": {
-            "component": "c02"
-          }
-        },
-        {
-          "id": "inner-cam",
-          "x": 2780,
-          "y": 900,
-          "period": 3.2,
-          "windup": 0.9,
-          "region": {
-            "x": 2510,
-            "y": 910,
-            "width": 700,
-            "height": 240
-          },
-          "disabledWhen": {
-            "component": "c03"
-          }
-        }
+        {"id": "sector-2-court-3-camera", "x": 2340, "y": 2130, "period": 5.6, "windup": 1.3, "region": {"x": 2070, "y": 2156, "width": 360, "height": 292}, "disabledWhen": {"component": "c02"}},
+        {"id": "sector-2-court-4-camera", "x": 3220, "y": 2130, "period": 5.9, "windup": 1.3, "region": {"x": 2950, "y": 2156, "width": 360, "height": 292}, "disabledWhen": {"component": "c02"}},
+        {"id": "sector-4-court-2-camera", "x": 1460, "y": 1170, "period": 5.3, "windup": 1.3, "region": {"x": 1190, "y": 1196, "width": 360, "height": 292}, "disabledWhen": {"component": "c07"}},
+        {"id": "sector-4-court-4-camera", "x": 3220, "y": 1170, "period": 5.9, "windup": 1.3, "region": {"x": 2950, "y": 1196, "width": 360, "height": 292}, "disabledWhen": {"component": "c03"}},
+        {"id": "sector-6-court-3-camera", "x": 2340, "y": 210, "period": 5.6, "windup": 1.3, "region": {"x": 2070, "y": 236, "width": 360, "height": 292}, "disabledWhen": {"component": "c08"}}
+      ]
+    },
+    {
+      "id": "security-pulses",
+      "type": "parkour-hazards",
+      "hazards": [
+        {"id": "sector-2-court-2-alarm", "x": 1190, "y": 2396, "width": 24, "height": 52, "kind": "electric", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 0.85, "damage": 9},
+        {"id": "sector-2-court-3-alarm", "x": 2070, "y": 2396, "width": 44, "height": 52, "kind": "laser", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 1.7, "damage": 9},
+        {"id": "sector-2-court-4-alarm", "x": 2950, "y": 2396, "width": 24, "height": 52, "kind": "electric", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 2.55, "damage": 9},
+        {"id": "sector-3-court-2-alarm", "x": 1190, "y": 1916, "width": 24, "height": 52, "kind": "laser", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 0.85, "damage": 9},
+        {"id": "sector-3-court-3-alarm", "x": 2070, "y": 1916, "width": 44, "height": 52, "kind": "electric", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 1.7, "damage": 9},
+        {"id": "sector-3-court-4-alarm", "x": 2950, "y": 1916, "width": 24, "height": 52, "kind": "laser", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 2.55, "damage": 9},
+        {"id": "sector-4-court-2-alarm", "x": 1190, "y": 1436, "width": 24, "height": 52, "kind": "electric", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 0.85, "damage": 9},
+        {"id": "sector-4-court-3-alarm", "x": 2070, "y": 1436, "width": 44, "height": 52, "kind": "laser", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 1.7, "damage": 9},
+        {"id": "sector-4-court-4-alarm", "x": 2950, "y": 1436, "width": 24, "height": 52, "kind": "electric", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 2.55, "damage": 9},
+        {"id": "sector-5-court-2-alarm", "x": 1190, "y": 956, "width": 24, "height": 52, "kind": "laser", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 0.85, "damage": 9},
+        {"id": "sector-5-court-3-alarm", "x": 2070, "y": 956, "width": 44, "height": 52, "kind": "electric", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 1.7, "damage": 9},
+        {"id": "sector-5-court-4-alarm", "x": 2950, "y": 956, "width": 24, "height": 52, "kind": "laser", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 2.55, "damage": 9},
+        {"id": "sector-6-court-2-alarm", "x": 1190, "y": 476, "width": 24, "height": 52, "kind": "electric", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 0.85, "damage": 9},
+        {"id": "sector-6-court-3-alarm", "x": 2070, "y": 476, "width": 44, "height": 52, "kind": "laser", "warning": 1.25, "active": 0.7, "period": 5.4, "phase": 1.7, "damage": 9}
+      ]
+    },
+    {
+      "id": "maintenance-tunnels",
+      "type": "portals",
+      "links": [
+        {"id": "maintenance-0", "x": 2850, "y": 1896, "width": 40, "height": 72, "label": "PASSAGEM DE MANUTENÇÃO", "requires": {"component": "c06"}, "to": {"x": 1096, "y": 1920}},
+        {"id": "maintenance-1", "x": 1336, "y": 1896, "width": 40, "height": 72, "label": "PASSAGEM DE MANUTENÇÃO", "requires": {"component": "c06"}, "to": {"x": 2700, "y": 1920}}
       ]
     }
   ],
   "assets": [],
   "layers": [
     {
-      "id": "new-infrastructure",
+      "id": "fortress-masonry",
+      "type": "rects",
+      "color": "#231017",
+      "rects": [
+        {"id": "sector-1-court-1-pier-0", "x": 48, "y": 2546, "width": 112, "height": 344},
+        {"id": "sector-1-court-1-pier-1", "x": 238, "y": 2594, "width": 112, "height": 296},
+        {"id": "sector-1-court-1-pier-2", "x": 428, "y": 2546, "width": 112, "height": 344},
+        {"id": "sector-1-court-1-pier-3", "x": 618, "y": 2594, "width": 112, "height": 296},
+        {"id": "sector-1-court-2-pier-0", "x": 928, "y": 2546, "width": 112, "height": 344},
+        {"id": "sector-1-court-2-pier-1", "x": 1118, "y": 2594, "width": 112, "height": 296},
+        {"id": "sector-1-court-2-pier-2", "x": 1308, "y": 2546, "width": 112, "height": 344},
+        {"id": "sector-1-court-2-pier-3", "x": 1498, "y": 2594, "width": 112, "height": 296},
+        {"id": "sector-1-court-3-pier-0", "x": 1808, "y": 2546, "width": 112, "height": 344},
+        {"id": "sector-1-court-3-pier-1", "x": 1998, "y": 2594, "width": 112, "height": 296},
+        {"id": "sector-1-court-3-pier-2", "x": 2188, "y": 2546, "width": 112, "height": 344},
+        {"id": "sector-1-court-3-pier-3", "x": 2378, "y": 2594, "width": 112, "height": 296},
+        {"id": "sector-1-court-4-pier-0", "x": 2688, "y": 2546, "width": 112, "height": 344},
+        {"id": "sector-1-court-4-pier-1", "x": 2878, "y": 2594, "width": 112, "height": 296},
+        {"id": "sector-1-court-4-pier-2", "x": 3068, "y": 2546, "width": 112, "height": 344},
+        {"id": "sector-1-court-4-pier-3", "x": 3258, "y": 2594, "width": 112, "height": 296},
+        {"id": "sector-2-court-1-pier-0", "x": 48, "y": 2066, "width": 112, "height": 344},
+        {"id": "sector-2-court-1-pier-1", "x": 238, "y": 2114, "width": 112, "height": 296},
+        {"id": "sector-2-court-1-pier-2", "x": 428, "y": 2066, "width": 112, "height": 344},
+        {"id": "sector-2-court-1-pier-3", "x": 618, "y": 2114, "width": 112, "height": 296},
+        {"id": "sector-2-court-2-pier-0", "x": 928, "y": 2066, "width": 112, "height": 344},
+        {"id": "sector-2-court-2-pier-1", "x": 1118, "y": 2114, "width": 112, "height": 296},
+        {"id": "sector-2-court-2-pier-2", "x": 1308, "y": 2066, "width": 112, "height": 344},
+        {"id": "sector-2-court-2-pier-3", "x": 1498, "y": 2114, "width": 112, "height": 296},
+        {"id": "sector-2-court-3-pier-0", "x": 1808, "y": 2066, "width": 112, "height": 344},
+        {"id": "sector-2-court-3-pier-1", "x": 1998, "y": 2114, "width": 112, "height": 296},
+        {"id": "sector-2-court-3-pier-2", "x": 2188, "y": 2066, "width": 112, "height": 344},
+        {"id": "sector-2-court-3-pier-3", "x": 2378, "y": 2114, "width": 112, "height": 296},
+        {"id": "sector-2-court-4-pier-0", "x": 2688, "y": 2066, "width": 112, "height": 344},
+        {"id": "sector-2-court-4-pier-1", "x": 2878, "y": 2114, "width": 112, "height": 296},
+        {"id": "sector-2-court-4-pier-2", "x": 3068, "y": 2066, "width": 112, "height": 344},
+        {"id": "sector-2-court-4-pier-3", "x": 3258, "y": 2114, "width": 112, "height": 296},
+        {"id": "sector-3-court-1-pier-0", "x": 48, "y": 1586, "width": 112, "height": 344},
+        {"id": "sector-3-court-1-pier-1", "x": 238, "y": 1634, "width": 112, "height": 296},
+        {"id": "sector-3-court-1-pier-2", "x": 428, "y": 1586, "width": 112, "height": 344},
+        {"id": "sector-3-court-1-pier-3", "x": 618, "y": 1634, "width": 112, "height": 296},
+        {"id": "sector-3-court-2-pier-0", "x": 928, "y": 1586, "width": 112, "height": 344},
+        {"id": "sector-3-court-2-pier-1", "x": 1118, "y": 1634, "width": 112, "height": 296},
+        {"id": "sector-3-court-2-pier-2", "x": 1308, "y": 1586, "width": 112, "height": 344},
+        {"id": "sector-3-court-2-pier-3", "x": 1498, "y": 1634, "width": 112, "height": 296},
+        {"id": "sector-3-court-3-pier-0", "x": 1808, "y": 1586, "width": 112, "height": 344},
+        {"id": "sector-3-court-3-pier-1", "x": 1998, "y": 1634, "width": 112, "height": 296},
+        {"id": "sector-3-court-3-pier-2", "x": 2188, "y": 1586, "width": 112, "height": 344},
+        {"id": "sector-3-court-3-pier-3", "x": 2378, "y": 1634, "width": 112, "height": 296},
+        {"id": "sector-3-court-4-pier-0", "x": 2688, "y": 1586, "width": 112, "height": 344},
+        {"id": "sector-3-court-4-pier-1", "x": 2878, "y": 1634, "width": 112, "height": 296},
+        {"id": "sector-3-court-4-pier-2", "x": 3068, "y": 1586, "width": 112, "height": 344},
+        {"id": "sector-3-court-4-pier-3", "x": 3258, "y": 1634, "width": 112, "height": 296},
+        {"id": "sector-4-court-1-pier-0", "x": 48, "y": 1106, "width": 112, "height": 344},
+        {"id": "sector-4-court-1-pier-1", "x": 238, "y": 1154, "width": 112, "height": 296},
+        {"id": "sector-4-court-1-pier-2", "x": 428, "y": 1106, "width": 112, "height": 344},
+        {"id": "sector-4-court-1-pier-3", "x": 618, "y": 1154, "width": 112, "height": 296},
+        {"id": "sector-4-court-2-pier-0", "x": 928, "y": 1106, "width": 112, "height": 344},
+        {"id": "sector-4-court-2-pier-1", "x": 1118, "y": 1154, "width": 112, "height": 296},
+        {"id": "sector-4-court-2-pier-2", "x": 1308, "y": 1106, "width": 112, "height": 344},
+        {"id": "sector-4-court-2-pier-3", "x": 1498, "y": 1154, "width": 112, "height": 296},
+        {"id": "sector-4-court-3-pier-0", "x": 1808, "y": 1106, "width": 112, "height": 344},
+        {"id": "sector-4-court-3-pier-1", "x": 1998, "y": 1154, "width": 112, "height": 296},
+        {"id": "sector-4-court-3-pier-2", "x": 2188, "y": 1106, "width": 112, "height": 344},
+        {"id": "sector-4-court-3-pier-3", "x": 2378, "y": 1154, "width": 112, "height": 296},
+        {"id": "sector-4-court-4-pier-0", "x": 2688, "y": 1106, "width": 112, "height": 344},
+        {"id": "sector-4-court-4-pier-1", "x": 2878, "y": 1154, "width": 112, "height": 296},
+        {"id": "sector-4-court-4-pier-2", "x": 3068, "y": 1106, "width": 112, "height": 344},
+        {"id": "sector-4-court-4-pier-3", "x": 3258, "y": 1154, "width": 112, "height": 296},
+        {"id": "sector-5-court-1-pier-0", "x": 48, "y": 626, "width": 112, "height": 344},
+        {"id": "sector-5-court-1-pier-1", "x": 238, "y": 674, "width": 112, "height": 296},
+        {"id": "sector-5-court-1-pier-2", "x": 428, "y": 626, "width": 112, "height": 344},
+        {"id": "sector-5-court-1-pier-3", "x": 618, "y": 674, "width": 112, "height": 296},
+        {"id": "sector-5-court-2-pier-0", "x": 928, "y": 626, "width": 112, "height": 344},
+        {"id": "sector-5-court-2-pier-1", "x": 1118, "y": 674, "width": 112, "height": 296},
+        {"id": "sector-5-court-2-pier-2", "x": 1308, "y": 626, "width": 112, "height": 344},
+        {"id": "sector-5-court-2-pier-3", "x": 1498, "y": 674, "width": 112, "height": 296},
+        {"id": "sector-5-court-3-pier-0", "x": 1808, "y": 626, "width": 112, "height": 344},
+        {"id": "sector-5-court-3-pier-1", "x": 1998, "y": 674, "width": 112, "height": 296},
+        {"id": "sector-5-court-3-pier-2", "x": 2188, "y": 626, "width": 112, "height": 344},
+        {"id": "sector-5-court-3-pier-3", "x": 2378, "y": 674, "width": 112, "height": 296},
+        {"id": "sector-5-court-4-pier-0", "x": 2688, "y": 626, "width": 112, "height": 344},
+        {"id": "sector-5-court-4-pier-1", "x": 2878, "y": 674, "width": 112, "height": 296},
+        {"id": "sector-5-court-4-pier-2", "x": 3068, "y": 626, "width": 112, "height": 344},
+        {"id": "sector-5-court-4-pier-3", "x": 3258, "y": 674, "width": 112, "height": 296},
+        {"id": "sector-6-court-1-pier-0", "x": 48, "y": 146, "width": 112, "height": 344},
+        {"id": "sector-6-court-1-pier-1", "x": 238, "y": 194, "width": 112, "height": 296},
+        {"id": "sector-6-court-1-pier-2", "x": 428, "y": 146, "width": 112, "height": 344},
+        {"id": "sector-6-court-1-pier-3", "x": 618, "y": 194, "width": 112, "height": 296},
+        {"id": "sector-6-court-2-pier-0", "x": 928, "y": 146, "width": 112, "height": 344},
+        {"id": "sector-6-court-2-pier-1", "x": 1118, "y": 194, "width": 112, "height": 296},
+        {"id": "sector-6-court-2-pier-2", "x": 1308, "y": 146, "width": 112, "height": 344},
+        {"id": "sector-6-court-2-pier-3", "x": 1498, "y": 194, "width": 112, "height": 296},
+        {"id": "sector-6-court-3-pier-0", "x": 1808, "y": 146, "width": 112, "height": 344},
+        {"id": "sector-6-court-3-pier-1", "x": 1998, "y": 194, "width": 112, "height": 296},
+        {"id": "sector-6-court-3-pier-2", "x": 2188, "y": 146, "width": 112, "height": 344},
+        {"id": "sector-6-court-3-pier-3", "x": 2378, "y": 194, "width": 112, "height": 296},
+        {"id": "sector-6-court-4-pier-0", "x": 2688, "y": 146, "width": 112, "height": 344},
+        {"id": "sector-6-court-4-pier-1", "x": 2878, "y": 194, "width": 112, "height": 296},
+        {"id": "sector-6-court-4-pier-2", "x": 3068, "y": 146, "width": 112, "height": 344},
+        {"id": "sector-6-court-4-pier-3", "x": 3258, "y": 194, "width": 112, "height": 296}
+      ],
+      "pass": "background"
+    },
+    {
+      "id": "fortress-alerts",
+      "type": "rects",
+      "color": "#74313c",
+      "rects": [
+        {"id": "sector-1-court-1-light-0", "x": 96, "y": 2578, "width": 16, "height": 8},
+        {"id": "sector-1-court-1-light-1", "x": 286, "y": 2626, "width": 16, "height": 8},
+        {"id": "sector-1-court-1-light-2", "x": 476, "y": 2578, "width": 16, "height": 8},
+        {"id": "sector-1-court-1-light-3", "x": 666, "y": 2626, "width": 16, "height": 8},
+        {"id": "sector-1-court-2-light-0", "x": 976, "y": 2578, "width": 16, "height": 8},
+        {"id": "sector-1-court-2-light-1", "x": 1166, "y": 2626, "width": 16, "height": 8},
+        {"id": "sector-1-court-2-light-2", "x": 1356, "y": 2578, "width": 16, "height": 8},
+        {"id": "sector-1-court-2-light-3", "x": 1546, "y": 2626, "width": 16, "height": 8},
+        {"id": "sector-1-court-3-light-0", "x": 1856, "y": 2578, "width": 16, "height": 8},
+        {"id": "sector-1-court-3-light-1", "x": 2046, "y": 2626, "width": 16, "height": 8},
+        {"id": "sector-1-court-3-light-2", "x": 2236, "y": 2578, "width": 16, "height": 8},
+        {"id": "sector-1-court-3-light-3", "x": 2426, "y": 2626, "width": 16, "height": 8},
+        {"id": "sector-1-court-4-light-0", "x": 2736, "y": 2578, "width": 16, "height": 8},
+        {"id": "sector-1-court-4-light-1", "x": 2926, "y": 2626, "width": 16, "height": 8},
+        {"id": "sector-1-court-4-light-2", "x": 3116, "y": 2578, "width": 16, "height": 8},
+        {"id": "sector-1-court-4-light-3", "x": 3306, "y": 2626, "width": 16, "height": 8},
+        {"id": "sector-2-court-1-light-0", "x": 96, "y": 2098, "width": 16, "height": 8},
+        {"id": "sector-2-court-1-light-1", "x": 286, "y": 2146, "width": 16, "height": 8},
+        {"id": "sector-2-court-1-light-2", "x": 476, "y": 2098, "width": 16, "height": 8},
+        {"id": "sector-2-court-1-light-3", "x": 666, "y": 2146, "width": 16, "height": 8},
+        {"id": "sector-2-court-2-light-0", "x": 976, "y": 2098, "width": 16, "height": 8},
+        {"id": "sector-2-court-2-light-1", "x": 1166, "y": 2146, "width": 16, "height": 8},
+        {"id": "sector-2-court-2-light-2", "x": 1356, "y": 2098, "width": 16, "height": 8},
+        {"id": "sector-2-court-2-light-3", "x": 1546, "y": 2146, "width": 16, "height": 8},
+        {"id": "sector-2-court-3-light-0", "x": 1856, "y": 2098, "width": 16, "height": 8},
+        {"id": "sector-2-court-3-light-1", "x": 2046, "y": 2146, "width": 16, "height": 8},
+        {"id": "sector-2-court-3-light-2", "x": 2236, "y": 2098, "width": 16, "height": 8},
+        {"id": "sector-2-court-3-light-3", "x": 2426, "y": 2146, "width": 16, "height": 8},
+        {"id": "sector-2-court-4-light-0", "x": 2736, "y": 2098, "width": 16, "height": 8},
+        {"id": "sector-2-court-4-light-1", "x": 2926, "y": 2146, "width": 16, "height": 8},
+        {"id": "sector-2-court-4-light-2", "x": 3116, "y": 2098, "width": 16, "height": 8},
+        {"id": "sector-2-court-4-light-3", "x": 3306, "y": 2146, "width": 16, "height": 8},
+        {"id": "sector-3-court-1-light-0", "x": 96, "y": 1618, "width": 16, "height": 8},
+        {"id": "sector-3-court-1-light-1", "x": 286, "y": 1666, "width": 16, "height": 8},
+        {"id": "sector-3-court-1-light-2", "x": 476, "y": 1618, "width": 16, "height": 8},
+        {"id": "sector-3-court-1-light-3", "x": 666, "y": 1666, "width": 16, "height": 8},
+        {"id": "sector-3-court-2-light-0", "x": 976, "y": 1618, "width": 16, "height": 8},
+        {"id": "sector-3-court-2-light-1", "x": 1166, "y": 1666, "width": 16, "height": 8},
+        {"id": "sector-3-court-2-light-2", "x": 1356, "y": 1618, "width": 16, "height": 8},
+        {"id": "sector-3-court-2-light-3", "x": 1546, "y": 1666, "width": 16, "height": 8},
+        {"id": "sector-3-court-3-light-0", "x": 1856, "y": 1618, "width": 16, "height": 8},
+        {"id": "sector-3-court-3-light-1", "x": 2046, "y": 1666, "width": 16, "height": 8},
+        {"id": "sector-3-court-3-light-2", "x": 2236, "y": 1618, "width": 16, "height": 8},
+        {"id": "sector-3-court-3-light-3", "x": 2426, "y": 1666, "width": 16, "height": 8},
+        {"id": "sector-3-court-4-light-0", "x": 2736, "y": 1618, "width": 16, "height": 8},
+        {"id": "sector-3-court-4-light-1", "x": 2926, "y": 1666, "width": 16, "height": 8},
+        {"id": "sector-3-court-4-light-2", "x": 3116, "y": 1618, "width": 16, "height": 8},
+        {"id": "sector-3-court-4-light-3", "x": 3306, "y": 1666, "width": 16, "height": 8},
+        {"id": "sector-4-court-1-light-0", "x": 96, "y": 1138, "width": 16, "height": 8},
+        {"id": "sector-4-court-1-light-1", "x": 286, "y": 1186, "width": 16, "height": 8},
+        {"id": "sector-4-court-1-light-2", "x": 476, "y": 1138, "width": 16, "height": 8},
+        {"id": "sector-4-court-1-light-3", "x": 666, "y": 1186, "width": 16, "height": 8},
+        {"id": "sector-4-court-2-light-0", "x": 976, "y": 1138, "width": 16, "height": 8},
+        {"id": "sector-4-court-2-light-1", "x": 1166, "y": 1186, "width": 16, "height": 8},
+        {"id": "sector-4-court-2-light-2", "x": 1356, "y": 1138, "width": 16, "height": 8},
+        {"id": "sector-4-court-2-light-3", "x": 1546, "y": 1186, "width": 16, "height": 8},
+        {"id": "sector-4-court-3-light-0", "x": 1856, "y": 1138, "width": 16, "height": 8},
+        {"id": "sector-4-court-3-light-1", "x": 2046, "y": 1186, "width": 16, "height": 8},
+        {"id": "sector-4-court-3-light-2", "x": 2236, "y": 1138, "width": 16, "height": 8},
+        {"id": "sector-4-court-3-light-3", "x": 2426, "y": 1186, "width": 16, "height": 8},
+        {"id": "sector-4-court-4-light-0", "x": 2736, "y": 1138, "width": 16, "height": 8},
+        {"id": "sector-4-court-4-light-1", "x": 2926, "y": 1186, "width": 16, "height": 8},
+        {"id": "sector-4-court-4-light-2", "x": 3116, "y": 1138, "width": 16, "height": 8},
+        {"id": "sector-4-court-4-light-3", "x": 3306, "y": 1186, "width": 16, "height": 8},
+        {"id": "sector-5-court-1-light-0", "x": 96, "y": 658, "width": 16, "height": 8},
+        {"id": "sector-5-court-1-light-1", "x": 286, "y": 706, "width": 16, "height": 8},
+        {"id": "sector-5-court-1-light-2", "x": 476, "y": 658, "width": 16, "height": 8},
+        {"id": "sector-5-court-1-light-3", "x": 666, "y": 706, "width": 16, "height": 8},
+        {"id": "sector-5-court-2-light-0", "x": 976, "y": 658, "width": 16, "height": 8},
+        {"id": "sector-5-court-2-light-1", "x": 1166, "y": 706, "width": 16, "height": 8},
+        {"id": "sector-5-court-2-light-2", "x": 1356, "y": 658, "width": 16, "height": 8},
+        {"id": "sector-5-court-2-light-3", "x": 1546, "y": 706, "width": 16, "height": 8},
+        {"id": "sector-5-court-3-light-0", "x": 1856, "y": 658, "width": 16, "height": 8},
+        {"id": "sector-5-court-3-light-1", "x": 2046, "y": 706, "width": 16, "height": 8},
+        {"id": "sector-5-court-3-light-2", "x": 2236, "y": 658, "width": 16, "height": 8},
+        {"id": "sector-5-court-3-light-3", "x": 2426, "y": 706, "width": 16, "height": 8},
+        {"id": "sector-5-court-4-light-0", "x": 2736, "y": 658, "width": 16, "height": 8},
+        {"id": "sector-5-court-4-light-1", "x": 2926, "y": 706, "width": 16, "height": 8},
+        {"id": "sector-5-court-4-light-2", "x": 3116, "y": 658, "width": 16, "height": 8},
+        {"id": "sector-5-court-4-light-3", "x": 3306, "y": 706, "width": 16, "height": 8},
+        {"id": "sector-6-court-1-light-0", "x": 96, "y": 178, "width": 16, "height": 8},
+        {"id": "sector-6-court-1-light-1", "x": 286, "y": 226, "width": 16, "height": 8},
+        {"id": "sector-6-court-1-light-2", "x": 476, "y": 178, "width": 16, "height": 8},
+        {"id": "sector-6-court-1-light-3", "x": 666, "y": 226, "width": 16, "height": 8},
+        {"id": "sector-6-court-2-light-0", "x": 976, "y": 178, "width": 16, "height": 8},
+        {"id": "sector-6-court-2-light-1", "x": 1166, "y": 226, "width": 16, "height": 8},
+        {"id": "sector-6-court-2-light-2", "x": 1356, "y": 178, "width": 16, "height": 8},
+        {"id": "sector-6-court-2-light-3", "x": 1546, "y": 226, "width": 16, "height": 8},
+        {"id": "sector-6-court-3-light-0", "x": 1856, "y": 178, "width": 16, "height": 8},
+        {"id": "sector-6-court-3-light-1", "x": 2046, "y": 226, "width": 16, "height": 8},
+        {"id": "sector-6-court-3-light-2", "x": 2236, "y": 178, "width": 16, "height": 8},
+        {"id": "sector-6-court-3-light-3", "x": 2426, "y": 226, "width": 16, "height": 8},
+        {"id": "sector-6-court-4-light-0", "x": 2736, "y": 178, "width": 16, "height": 8},
+        {"id": "sector-6-court-4-light-1", "x": 2926, "y": 226, "width": 16, "height": 8},
+        {"id": "sector-6-court-4-light-2", "x": 3116, "y": 178, "width": 16, "height": 8},
+        {"id": "sector-6-court-4-light-3", "x": 3306, "y": 226, "width": 16, "height": 8}
+      ],
+      "pass": "background"
+    },
+    {
+      "id": "fortress-courts",
       "type": "infrastructure-world",
       "theme": "firewall",
       "items": [
-        {
-          "kind": "fortress",
-          "x": 580,
-          "y": 270,
-          "width": 2480,
-          "height": 1320,
-          "label": "FORTALEZA / DEFESA EM PROFUNDIDADE"
-        },
-        {
-          "kind": "bastion",
-          "x": 620,
-          "y": 1160,
-          "width": 280,
-          "height": 400,
-          "label": "CAMADA 1"
-        },
-        {
-          "kind": "bastion",
-          "x": 1830,
-          "y": 1180,
-          "width": 280,
-          "height": 380,
-          "label": "CAMADA 2"
-        },
-        {
-          "kind": "security-hall",
-          "x": 2000,
-          "y": 870,
-          "width": 1500,
-          "height": 270,
-          "label": "BASTIÃO LESTE / INSPEÇÃO"
-        },
-        {
-          "kind": "security-hall",
-          "x": 850,
-          "y": 870,
-          "width": 1000,
-          "height": 270,
-          "label": "ANEL INTERNO / INFILTRAÇÃO"
-        },
-        {
-          "kind": "citadel",
-          "x": 1500,
-          "y": 270,
-          "width": 1200,
-          "height": 270,
-          "label": "CIDADELA / ACL"
-        }
+        {"id": "sector-1-court-1", "x": 70, "y": 2574, "width": 672, "height": 302, "kind": "bastion", "label": "PORTÃO OESTE"},
+        {"id": "sector-1-court-2", "x": 950, "y": 2574, "width": 672, "height": 302, "kind": "bastion", "label": "MURALHA DE RONDA"},
+        {"id": "sector-1-court-3", "x": 1830, "y": 2574, "width": 672, "height": 302, "kind": "bastion", "label": "TORRE SENTINELA"},
+        {"id": "sector-1-court-4", "x": 2710, "y": 2574, "width": 672, "height": 302, "kind": "bastion", "label": "GUARITA LESTE"},
+        {"id": "sector-2-court-1", "x": 70, "y": 2094, "width": 672, "height": 302, "kind": "security-hall", "label": "ECLUSA OESTE"},
+        {"id": "sector-2-court-2", "x": 950, "y": 2094, "width": 672, "height": 302, "kind": "security-hall", "label": "BANCOS ELÉTRICOS"},
+        {"id": "sector-2-court-3", "x": 1830, "y": 2094, "width": 672, "height": 302, "kind": "security-hall", "label": "GALERIA DE INSPEÇÃO"},
+        {"id": "sector-2-court-4", "x": 2710, "y": 2094, "width": 672, "height": 302, "kind": "security-hall", "label": "MATRIZ DE VIGILÂNCIA"},
+        {"id": "sector-3-court-1", "x": 70, "y": 1614, "width": 672, "height": 302, "kind": "duct", "label": "DUTO DE DRENAGEM"},
+        {"id": "sector-3-court-2", "x": 950, "y": 1614, "width": 672, "height": 302, "kind": "duct", "label": "TÚNEL DE MANUTENÇÃO"},
+        {"id": "sector-3-court-3", "x": 1830, "y": 1614, "width": 672, "height": 302, "kind": "duct", "label": "GALERIA DOS DESVIOS"},
+        {"id": "sector-3-court-4", "x": 2710, "y": 1614, "width": 672, "height": 302, "kind": "duct", "label": "POÇO DE SERVIÇO"},
+        {"id": "sector-4-court-1", "x": 70, "y": 1134, "width": 672, "height": 302, "kind": "security-hall", "label": "ARENA OESTE"},
+        {"id": "sector-4-court-2", "x": 950, "y": 1134, "width": 672, "height": 302, "kind": "security-hall", "label": "CONTROLE DE DEFESA"},
+        {"id": "sector-4-court-3", "x": 1830, "y": 1134, "width": 672, "height": 302, "kind": "security-hall", "label": "PÁTIO BLINDADO"},
+        {"id": "sector-4-court-4", "x": 2710, "y": 1134, "width": 672, "height": 302, "kind": "security-hall", "label": "BASTIÃO LESTE"},
+        {"id": "sector-5-court-1", "x": 70, "y": 654, "width": 672, "height": 302, "kind": "citadel", "label": "TERRAÇO OESTE"},
+        {"id": "sector-5-court-2", "x": 950, "y": 654, "width": 672, "height": 302, "kind": "citadel", "label": "ELEVADORES DE SERVIÇO"},
+        {"id": "sector-5-court-3", "x": 1830, "y": 654, "width": 672, "height": 302, "kind": "citadel", "label": "ARENA SUSPENSA"},
+        {"id": "sector-5-court-4", "x": 2710, "y": 654, "width": 672, "height": 302, "kind": "citadel", "label": "TORRE DA CIDADELA"},
+        {"id": "sector-6-court-1", "x": 70, "y": 174, "width": 672, "height": 302, "kind": "citadel", "label": "ANTEÂMARA"},
+        {"id": "sector-6-court-2", "x": 950, "y": 174, "width": 672, "height": 302, "kind": "citadel", "label": "BARREIRA DE CONTENÇÃO"},
+        {"id": "sector-6-court-3", "x": 1830, "y": 174, "width": 672, "height": 302, "kind": "citadel", "label": "ARENA DO NÚCLEO"},
+        {"id": "sector-6-court-4", "x": 2710, "y": 174, "width": 672, "height": 302, "kind": "citadel", "label": "TERMINAL DE RESTAURAÇÃO"}
       ],
       "pass": "midground"
     }

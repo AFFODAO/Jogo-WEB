@@ -5,6 +5,10 @@
   ByteRunner.developerMode=Object.freeze({mount(game){
     const byId=id=>document.getElementById(id),settings=byId('settingsDialog'),dialog=byId('developerPhaseDialog');
     const toggle=byId('developerModeToggle'),tools=byId('developerTools'),list=byId('developerPhaseList');
+    const laboratory=document.createElement('a');
+    laboratory.className='developer-laboratory';laboratory.target='_blank';laboratory.rel='noopener';
+    laboratory.textContent='Laboratório de reparos (nova aba)';
+    tools.append(laboratory);
     toggle.checked=false; // Deliberately never persisted, including browser form restoration.
     const badge=document.createElement('span');badge.className='developer-badge';badge.textContent='SESSÃO DE TESTE';badge.hidden=true;
     byId('sectorChip').insertAdjacentElement('beforebegin',badge);
@@ -16,6 +20,7 @@
     let origin='settings';
     function refresh(){
       const enabled=game.enabled();toggle.checked=enabled;tools.hidden=!enabled;actions.hidden=!enabled;badge.hidden=!enabled;
+      laboratory.href='tests/minigames.html?phase='+game.current();
       if(!enabled&&dialog.open)dialog.close('disabled');
       byId('developerModeState').textContent=enabled?'ON':'OFF';
       document.body.classList.toggle('developer-testing',enabled);

@@ -19,7 +19,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='byte-switch-v3-') as folder:
         target=Path(folder)
         for name in ['index.html','style.css','game.js','README.md']:shutil.copy2(ROOT/name,target/name)
-        for name in ['src','assets','tests','tools']:shutil.copytree(ROOT/name,target/name,ignore=shutil.ignore_patterns('__pycache__','rebuild-v3-baseline','rebuild-v3-architecture','hardware-v3-results','switch-v3-results','software-v3-results'))
+        for name in ['src','assets','tests','tools']:shutil.copytree(ROOT/name,target/name,ignore=shutil.ignore_patterns('__pycache__','rebuild-v3-architecture','hardware-v3-results','switch-v3-results','software-v3-results'))
         # Fail fast on startup errors; the normal hook cannot run if a map throws.
         runner=target/'tests/run_review.py';text=runner.read_text(encoding='utf-8')
         marker='            if value:return json.loads(value)'

@@ -613,7 +613,8 @@
   }
 
   function emitParticles(x, y, color, count = 9) {
-    const budget = Math.min(experience.settings.reducedEffects?Math.ceil(count*.25):count, Math.max(0, (experience.settings.reducedEffects?48:160) - effects.length));
+    const reduced=experience.settings.reducedEffects;
+    const budget=Math.min(Math.ceil(count*(reduced?.22:.58)),Math.max(0,(reduced?32:96)-effects.length));
     for (let index = 0; index < budget; index++) {
       const angle = Math.random() * Math.PI * 2;
       const speed = 35 + Math.random() * 125;
@@ -625,13 +626,16 @@
   }
 
   function updateEffects(dt) {
-    effects = effects.filter(particle => particle.life > 0);
+    let active=0;
     for (const particle of effects) {
+      if(particle.life<=0)continue;
+      effects[active++]=particle;
       particle.life -= dt;
       particle.x += particle.vx * dt;
       particle.y += particle.vy * dt;
       particle.vy += 210 * dt;
     }
+    effects.length=active;
   }
 
   function drawEffects() {
@@ -866,7 +870,8 @@
   }
 
   function createComponents() {
-    return phaseData.entities.components.map((spec, index) => ({ ...spec, repair:spec.repair && spec.repair.type!=='hold' ? spec.repair : ByteRunner.repairChallenges.forPhase(phaseIndex,index), id: spec.id, x: spec.x, y: entityY(spec, 44), width: spec.width || 34, height: spec.height || 44, repaired: false, integrity: 100, corruption: 0, phase: index * .9 }));
+    const repairs=ByteRunner.repairChallenges.assign(phaseData,phaseIndex);
+    return phaseData.entities.components.map((spec, index) => ({ ...spec, repair:repairs.get(spec.id), id: spec.id, x: spec.x, y: entityY(spec, 44), width: spec.width || 34, height: spec.height || 44, repaired: false, integrity: 100, corruption: 0, phase: index * .9 }));
   }
 
   function createCollectibles() {
@@ -2161,6 +2166,7 @@
     for (const object of terrainShapes) {
       const x = object.x;
       if (x + object.w - cameraX < 0 || x - cameraX > width) continue;
+      if(object.y+object.h<cameraY-8||object.y>cameraY+height+8)continue;
       if (ByteRunner.art.platform(ctx,levelVisuals,object,animationTime,phaseIndex,{x:cameraX,y:cameraY,width,height})) continue;
       if (object.kind === 'floor') {
         ctx.fillStyle = phaseData.palette[1];
@@ -2826,7 +2832,7 @@
       if (boss && player.x>=boss.bossBounds.left-140 && (!boss.activationRegion || (player.y+24>=boss.activationRegion.y-100&&player.y+24<=boss.activationRegion.y+boss.activationRegion.height+100))) {
         const barWidth=Math.min(360,width-32), x=(width-barWidth)/2;
         const protectedCore=components.some(component=>!component.repaired);
-        const state=protectedCore?'PROTEGIDO // '+components.filter(c=>c.repaired).length+'/4 RELAYS':boss.bossPhaseTransitionTime>0?'RECONFIGURAÇÃO // AGUARDE':boss.chargeTime>0?'INVESTIDA // PULE':boss.attackWindup>0?'ATAQUE EM PREPARAÇÃO':boss.vulnerableTime>0?'PONTO FRACO // DANO x2':'GUARDA';
+        const state=protectedCore?'PROTEGIDO // '+components.filter(c=>c.repaired).length+'/'+components.length+' RELAYS':boss.bossPhaseTransitionTime>0?'RECONFIGURAÇÃO // AGUARDE':boss.chargeTime>0?'INVESTIDA // PULE':boss.attackWindup>0?'ATAQUE EM PREPARAÇÃO':boss.vulnerableTime>0?'PONTO FRACO // DANO x2':'GUARDA';
         ctx.fillStyle='rgba(5,12,24,.88)';ctx.fillRect(x-8,40,barWidth+16,45);
         ctx.fillStyle=protectedCore?'#80dbff':boss.vulnerableTime>0?'#ffe27a':'#ff7197';
         ctx.font='bold 10px monospace';ctx.fillText('VIRUS ZERO // ETAPA '+(boss.bossStage||1)+' // '+state,x,54,barWidth);

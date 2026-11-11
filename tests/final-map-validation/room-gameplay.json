@@ -1,0 +1,65 @@
+{
+  "phases": [],
+  "systems": {
+    "room gameplay: deterministic population across ten themes and three difficulties": "PASS",
+    "room gameplay: generated relays run each of the ten existing minigame types": "PASS",
+    "room gameplay: mandatory self-dependencies and unsafe enemy placement are rejected": "PASS",
+    "room gameplay: seeded size extremes retain safe content and mandatory repair access": "PASS",
+    "room gameplay: required combat budgets rise with selected difficulty": "PASS",
+    "room gameplay: existing generator API supports content opt-in and theme progression": "PASS",
+    "room gameplay: all eight room roles and repairs are physically accessible with base abilities": "PASS",
+    "room gameplay: repairs restore decks/lifts, remove roofs and unlock optional cache doors": "PASS",
+    "room gameplay: generated enemies can be defeated by base projectiles": "PASS",
+    "room gameplay: secret and risk rewards are collectible without optional skills": "PASS",
+    "room gameplay: every checkpoint is stable before repairs and death preserves completed repairs": "PASS"
+  },
+  "errors": [],
+  "snapshots": [
+    {
+      "phase": 1,
+      "position": "room-gameplay-initial",
+      "file": "tests/room-gameplay-initial.png"
+    },
+    {
+      "phase": 1,
+      "position": "room-gameplay-exploration",
+      "file": "tests/room-gameplay-exploration.png"
+    },
+    {
+      "phase": 1,
+      "position": "room-gameplay-parkour",
+      "file": "tests/room-gameplay-parkour.png"
+    },
+    {
+      "phase": 1,
+      "position": "room-gameplay-combat",
+      "file": "tests/room-gameplay-combat.png"
+    },
+    {
+      "phase": 1,
+      "position": "room-gameplay-repair",
+      "file": "tests/room-gameplay-repair.png"
+    },
+    {
+      "phase": 1,
+      "position": "room-gameplay-reward",
+      "file": "tests/room-gameplay-reward.png"
+    },
+    {
+      "phase": 1,
+      "position": "room-gameplay-secret",
+      "file": "tests/room-gameplay-secret.png"
+    },
+    {
+      "phase": 1,
+      "position": "room-gameplay-final",
+      "file": "tests/room-gameplay-final.png"
+    }
+  ],
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:32:46.134709+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

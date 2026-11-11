@@ -93,7 +93,7 @@
             // Corruption grows spatially towards the core. Slow, small raster
             // fragments, no screen flashes; reduced mode retains the static core.
             if(!still&&!comfort.reduceParticles){
-              const count=Math.floor(progress*6)+(inArena?4:0),tick=Math.floor(time*.5);
+              const count=Math.floor(progress*3)+(inArena?2:0),tick=Math.floor(time*.5);
               ctx.fillStyle='#9a577e';ctx.globalAlpha=inArena?.25:.16;
               for(let i=0;i<count;i++){
                 const x=Math.floor(mod(i*173+tick*19-view.x*.12,view.width)),y=Math.floor(mod(i*97+tick*7-view.y*.1,view.height));

@@ -1,0 +1,384 @@
+{
+  "phases": [],
+  "systems": {
+    "final parallax: reference pixels, diagonal seams and reversals // 1": "PASS",
+    "final parallax: integer offsets, fast reversal, diagonal and negative camera // 1": "PASS",
+    "final parallax: static cache reuse, visible bounds and complete disposal // 1": "PASS",
+    "final parallax: direct and offscreen full scene pixels agree // 1": "PASS",
+    "final parallax: reference pixels, diagonal seams and reversals // 2": "PASS",
+    "final parallax: integer offsets, fast reversal, diagonal and negative camera // 2": "PASS",
+    "final parallax: static cache reuse, visible bounds and complete disposal // 2": "PASS",
+    "final parallax: direct and offscreen full scene pixels agree // 2": "PASS",
+    "final parallax: reference pixels, diagonal seams and reversals // 3": "PASS",
+    "final parallax: integer offsets, fast reversal, diagonal and negative camera // 3": "PASS",
+    "final parallax: static cache reuse, visible bounds and complete disposal // 3": "PASS",
+    "final parallax: direct and offscreen full scene pixels agree // 3": "PASS",
+    "final parallax: reference pixels, diagonal seams and reversals // 4": "PASS",
+    "final parallax: integer offsets, fast reversal, diagonal and negative camera // 4": "PASS",
+    "final parallax: static cache reuse, visible bounds and complete disposal // 4": "PASS",
+    "final parallax: direct and offscreen full scene pixels agree // 4": "PASS",
+    "final parallax: reference pixels, diagonal seams and reversals // 5": "PASS",
+    "final parallax: integer offsets, fast reversal, diagonal and negative camera // 5": "PASS",
+    "final parallax: static cache reuse, visible bounds and complete disposal // 5": "PASS",
+    "final parallax: direct and offscreen full scene pixels agree // 5": "PASS",
+    "final parallax: reference pixels, diagonal seams and reversals // 6": "PASS",
+    "final parallax: integer offsets, fast reversal, diagonal and negative camera // 6": "PASS",
+    "final parallax: static cache reuse, visible bounds and complete disposal // 6": "PASS",
+    "final parallax: direct and offscreen full scene pixels agree // 6": "PASS",
+    "final parallax: reference pixels, diagonal seams and reversals // 7": "PASS",
+    "final parallax: integer offsets, fast reversal, diagonal and negative camera // 7": "PASS",
+    "final parallax: static cache reuse, visible bounds and complete disposal // 7": "PASS",
+    "final parallax: direct and offscreen full scene pixels agree // 7": "PASS",
+    "final parallax: reference pixels, diagonal seams and reversals // 8": "PASS",
+    "final parallax: integer offsets, fast reversal, diagonal and negative camera // 8": "PASS",
+    "final parallax: static cache reuse, visible bounds and complete disposal // 8": "PASS",
+    "final parallax: direct and offscreen full scene pixels agree // 8": "PASS",
+    "final parallax: reference pixels, diagonal seams and reversals // 9": "PASS",
+    "final parallax: integer offsets, fast reversal, diagonal and negative camera // 9": "PASS",
+    "final parallax: static cache reuse, visible bounds and complete disposal // 9": "PASS",
+    "final parallax: direct and offscreen full scene pixels agree // 9": "PASS",
+    "final parallax: reference pixels, diagonal seams and reversals // 10": "PASS",
+    "final parallax: integer offsets, fast reversal, diagonal and negative camera // 10": "PASS",
+    "final parallax: static cache reuse, visible bounds and complete disposal // 10": "PASS",
+    "final parallax: direct and offscreen full scene pixels agree // 10": "PASS",
+    "final parallax: opaque framebuffers and nearest-neighbor survive real resize": "PASS",
+    "final parallax: real camera follows rapid direction changes on both axes": "PASS",
+    "final parallax: large map travel, reduced modes and bounded textures": "PASS"
+  },
+  "errors": [],
+  "snapshots": [
+    {
+      "phase": 1,
+      "position": "start",
+      "file": "tests/parallax-final-01-start.png"
+    },
+    {
+      "phase": 2,
+      "position": "start",
+      "file": "tests/parallax-final-02-start.png"
+    },
+    {
+      "phase": 3,
+      "position": "start",
+      "file": "tests/parallax-final-03-start.png"
+    },
+    {
+      "phase": 4,
+      "position": "start",
+      "file": "tests/parallax-final-04-start.png"
+    },
+    {
+      "phase": 5,
+      "position": "start",
+      "file": "tests/parallax-final-05-start.png"
+    },
+    {
+      "phase": 6,
+      "position": "start",
+      "file": "tests/parallax-final-06-start.png"
+    },
+    {
+      "phase": 7,
+      "position": "start",
+      "file": "tests/parallax-final-07-start.png"
+    },
+    {
+      "phase": 8,
+      "position": "start",
+      "file": "tests/parallax-final-08-start.png"
+    },
+    {
+      "phase": 9,
+      "position": "start",
+      "file": "tests/parallax-final-09-start.png"
+    },
+    {
+      "phase": 10,
+      "position": "start",
+      "file": "tests/parallax-final-10-start.png"
+    }
+  ],
+  "pixelComparisons": [
+    {
+      "phase": 1,
+      "samples": 43,
+      "totalPixels": 25347780,
+      "maximumChannelDelta": 0,
+      "pixelsDeltaAbove5": 0
+    },
+    {
+      "phase": 2,
+      "samples": 39,
+      "totalPixels": 25117380,
+      "maximumChannelDelta": 0,
+      "pixelsDeltaAbove5": 0
+    },
+    {
+      "phase": 3,
+      "samples": 39,
+      "totalPixels": 25117380,
+      "maximumChannelDelta": 0,
+      "pixelsDeltaAbove5": 0
+    },
+    {
+      "phase": 4,
+      "samples": 39,
+      "totalPixels": 25117380,
+      "maximumChannelDelta": 0,
+      "pixelsDeltaAbove5": 0
+    },
+    {
+      "phase": 5,
+      "samples": 39,
+      "totalPixels": 25117380,
+      "maximumChannelDelta": 0,
+      "pixelsDeltaAbove5": 0
+    },
+    {
+      "phase": 6,
+      "samples": 39,
+      "totalPixels": 25117380,
+      "maximumChannelDelta": 0,
+      "pixelsDeltaAbove5": 0
+    },
+    {
+      "phase": 7,
+      "samples": 39,
+      "totalPixels": 25117380,
+      "maximumChannelDelta": 0,
+      "pixelsDeltaAbove5": 0
+    },
+    {
+      "phase": 8,
+      "samples": 39,
+      "totalPixels": 25117380,
+      "maximumChannelDelta": 0,
+      "pixelsDeltaAbove5": 0
+    },
+    {
+      "phase": 9,
+      "samples": 39,
+      "totalPixels": 25117380,
+      "maximumChannelDelta": 0,
+      "pixelsDeltaAbove5": 0
+    },
+    {
+      "phase": 10,
+      "samples": 39,
+      "totalPixels": 25117380,
+      "maximumChannelDelta": 0,
+      "pixelsDeltaAbove5": 0
+    }
+  ],
+  "presentationComparisons": [
+    {
+      "phase": 1,
+      "maximumChannelDelta": 0,
+      "channelsDeltaAbove2": 0,
+      "examples": []
+    },
+    {
+      "phase": 2,
+      "maximumChannelDelta": 0,
+      "channelsDeltaAbove2": 0,
+      "examples": []
+    },
+    {
+      "phase": 3,
+      "maximumChannelDelta": 0,
+      "channelsDeltaAbove2": 0,
+      "examples": []
+    },
+    {
+      "phase": 4,
+      "maximumChannelDelta": 0,
+      "channelsDeltaAbove2": 0,
+      "examples": []
+    },
+    {
+      "phase": 5,
+      "maximumChannelDelta": 0,
+      "channelsDeltaAbove2": 0,
+      "examples": []
+    },
+    {
+      "phase": 6,
+      "maximumChannelDelta": 0,
+      "channelsDeltaAbove2": 0,
+      "examples": []
+    },
+    {
+      "phase": 7,
+      "maximumChannelDelta": 0,
+      "channelsDeltaAbove2": 0,
+      "examples": []
+    },
+    {
+      "phase": 8,
+      "maximumChannelDelta": 0,
+      "channelsDeltaAbove2": 0,
+      "examples": []
+    },
+    {
+      "phase": 9,
+      "maximumChannelDelta": 0,
+      "channelsDeltaAbove2": 0,
+      "examples": []
+    },
+    {
+      "phase": 10,
+      "maximumChannelDelta": 0,
+      "channelsDeltaAbove2": 0,
+      "examples": []
+    }
+  ],
+  "culling": [
+    {
+      "phase": 1,
+      "drawCalls": 18,
+      "planePixels": 163282,
+      "viewportPixels": 582820,
+      "allocatedCanvasesAfterWarmup": 0
+    },
+    {
+      "phase": 2,
+      "drawCalls": 15,
+      "planePixels": 155488,
+      "viewportPixels": 582820,
+      "allocatedCanvasesAfterWarmup": 0
+    },
+    {
+      "phase": 3,
+      "drawCalls": 15,
+      "planePixels": 142316,
+      "viewportPixels": 582820,
+      "allocatedCanvasesAfterWarmup": 0
+    },
+    {
+      "phase": 4,
+      "drawCalls": 15,
+      "planePixels": 170137,
+      "viewportPixels": 582820,
+      "allocatedCanvasesAfterWarmup": 0
+    },
+    {
+      "phase": 5,
+      "drawCalls": 15,
+      "planePixels": 147564,
+      "viewportPixels": 582820,
+      "allocatedCanvasesAfterWarmup": 0
+    },
+    {
+      "phase": 6,
+      "drawCalls": 15,
+      "planePixels": 161166,
+      "viewportPixels": 582820,
+      "allocatedCanvasesAfterWarmup": 0
+    },
+    {
+      "phase": 7,
+      "drawCalls": 15,
+      "planePixels": 180616,
+      "viewportPixels": 582820,
+      "allocatedCanvasesAfterWarmup": 0
+    },
+    {
+      "phase": 8,
+      "drawCalls": 15,
+      "planePixels": 177466,
+      "viewportPixels": 582820,
+      "allocatedCanvasesAfterWarmup": 0
+    },
+    {
+      "phase": 9,
+      "drawCalls": 15,
+      "planePixels": 149932,
+      "viewportPixels": 582820,
+      "allocatedCanvasesAfterWarmup": 0
+    },
+    {
+      "phase": 10,
+      "drawCalls": 15,
+      "planePixels": 191020,
+      "viewportPixels": 582820,
+      "allocatedCanvasesAfterWarmup": 0
+    }
+  ],
+  "memory": [
+    {
+      "phase": 1,
+      "peakTextureBytes": 4200704,
+      "afterDisposeBytes": 0
+    },
+    {
+      "phase": 2,
+      "peakTextureBytes": 3407872,
+      "afterDisposeBytes": 0
+    },
+    {
+      "phase": 3,
+      "peakTextureBytes": 3407872,
+      "afterDisposeBytes": 0
+    },
+    {
+      "phase": 4,
+      "peakTextureBytes": 3407872,
+      "afterDisposeBytes": 0
+    },
+    {
+      "phase": 5,
+      "peakTextureBytes": 3407872,
+      "afterDisposeBytes": 0
+    },
+    {
+      "phase": 6,
+      "peakTextureBytes": 3414272,
+      "afterDisposeBytes": 0
+    },
+    {
+      "phase": 7,
+      "peakTextureBytes": 3407872,
+      "afterDisposeBytes": 0
+    },
+    {
+      "phase": 8,
+      "peakTextureBytes": 3407872,
+      "afterDisposeBytes": 0
+    },
+    {
+      "phase": 9,
+      "peakTextureBytes": 3407872,
+      "afterDisposeBytes": 0
+    },
+    {
+      "phase": 10,
+      "peakTextureBytes": 3414272,
+      "afterDisposeBytes": 0
+    }
+  ],
+  "environment": {
+    "viewport": [
+      1424,
+      905
+    ],
+    "dpr": 1,
+    "canvas": [
+      905,
+      644
+    ],
+    "nearestNeighbor": true
+  },
+  "largeMap": {
+    "width": 14592,
+    "height": 2304,
+    "shapes": 316,
+    "cacheBytes": 3414272,
+    "frames": 120
+  },
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:28:52.319122+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -1453,3 +1453,215 @@ Os caches permaneceram nos limites existentes: até 96 blocos de terreno e 3,25 
 Produção desta etapa: somente `src/maps/08-dns.js`. Validação: `tests/dns-v3.js`, `tools/test_dns_v3.py`, `tools/dns_v3_contract.py`, fixture e relatórios DNS, contratos de arquitetura/campanha/infraestrutura e quatro verificadores Python. Documentação: este arquivo. Alterações anteriores foram preservadas; o motor, o Modo Desenvolvedor, as demais fases e o manifesto não foram alterados nesta etapa.
 
 **PARE AQUI:** fase 8. Sem reconstruir fases 9–10 e sem push ou merge. Pendentes: duração e balanceamento em partida humana contínua e teste em aparelhos físicos.
+
+## 19. Fase 9 — Firewall: Fortaleza Digital
+
+### 19.1 Arquitetura e ritmo
+
+A revisão 5 de `src/maps/09-firewall.js` constrói uma fortaleza de **3520 × 3008 px**, com seis níveis físicos e 24 pátios e galerias. A entrada fica no portão oeste do perímetro. Sete poços de serviço conectam os níveis e duas passagens de manutenção permitem encurtar a travessia da infiltração. Os pátios alternam corredores no piso e rotas elevadas sobre as patrulhas.
+
+| Região | Conteúdo e progressão | Tempo planejado |
+| --- | --- | ---: |
+| Perímetro externo | Muralhas, torres, sentinelas e terminal que abre a primeira escotilha | 2–3 min |
+| Sistemas de segurança | Lasers, barreiras elétricas e câmeras com aviso. Dois reparos abrem poços distintos | 3–5 min |
+| Área de infiltração | Dutos baixos, galerias elevadas, pontes temporárias e dois atalhos após restaurar os dutos | 2–4 min |
+| Anel interno | Pátios com blindados e atiradores. Dois reparos desativam a vigilância e liberam o acesso à cidadela | 3–5 min |
+| Cidadela central | Terraços, elevadores móveis, plataformas temporárias, combate em altura e reparo da política de acesso | 3–5 min |
+| Núcleo de segurança | Arena de contenção, terminal de restauração, console ACL e saída com pergunta educativa | 2–3 min |
+| **Total** | | **15–25 min** |
+
+O mapa tem **25 guardiões**, **oito terminais**, **40 fragmentos**, **18 checkpoints**, cinco câmeras e 14 perigos temporizados. Entre as 134 plataformas há seis móveis e quatro temporárias. Os poços usam degraus de 96 px e apoios de retorno. Os checkpoints ficam em piso permanente, fora das zonas iniciais de ativação dos guardiões e da vigilância. Lasers e barreiras elétricas sinalizam o disparo por 1,25 s e ficam ativos por 0,70 s em ciclos de 5,40 s. A saída exige todos os reparos, os 25 guardiões derrotados e a confirmação da ACL após restaurar o núcleo.
+
+A apresentação combina paleta preta e vermelha, alvenaria digital, luzes de alerta, bastiões e o perfil de parallax Firewall nos dois eixos. A revisão usa os controladores de combate, reparo, câmera, portais e salvamento da campanha. Ao carregar um save de uma revisão anterior do mapa, a campanha conserva XP e habilidades e reinicia a fase na nova entrada.
+
+### 19.2 Área útil e validação
+
+Após liberar portas e atalhos, o auditor encontrou **150 superfícies alcançáveis**, contra 29 na revisão 3. A união das faixas navegáveis sobre esses apoios, descontada a geometria ocupada, passou de **1.581.113 px² para 6.033.469 px²**, um fator de **3,82×**. A comparação usa o salto básico e a definição histórica em `tests/rebuild-v3-baseline/inventory.json`.
+
+- `python tests/run_review.py --phase 9 --result-label firewall-v3` passou no Chrome headless. O ensaio verificou a abertura progressiva dos seis setores, retorno pelos níveis, acesso a todas as plataformas, transporte pelas seis plataformas móveis, duas passagens, oito minigames pelo DOM, 40 coletas, 25 combates com equipamento básico, 18 checkpoints, respawn, salvamento, ACL, saída e transição. [Relatório focado](tests/firewall-v3-results.json)
+- `python tests/run_review.py` passou em cópia descartável com **213/213 verificações**, dez fases, 92 capturas e zero erros de runtime. Foram inspecionados o panorama e o enquadramento do portão oeste. A regressão também exercitou disparo e desativação das câmeras, dano e travessia do laser, reaparecimento das plataformas temporárias e migração de saves.
+- `check_maps.py`, `check_environment.py`, `check_parallax.py`, `check_generation.py` e `git diff --check` passaram.
+
+Os **15–25 minutos** são uma meta de ritmo. A automação testa segmentos de travessia e usa proteção contra dano no ensaio de combate. A duração e o balanceamento de sobrevivência seguem pendentes de uma partida humana contínua.
+
+**Ponto de parada** — Fase 9.
+
+## 20. Fase 10 — Servidores: Data Center Corrompido
+
+### 20.1 Três atos e sete regiões
+
+A revisão 5 de `src/maps/10-servers.js` amplia o mapa para **6800 × 4280 px**. A exploração ocupa seis níveis com 24 pátios e galerias, três cofres opcionais e nove escotilhas de serviço. Quatro das cinco transições entre níveis oferecem dois poços, cada qual liberado pelo seu terminal. As dez ligações direcionadas incluem os retornos dos cofres e atalhos entre manutenção e transmissão e entre a contenção e as torres.
+
+| Ato | Região | Conteúdo | Tempo planejado |
+| --- | --- | --- | ---: |
+| 1 | Entrada do data center | Recepção, corredores de racks, passarelas, primeiros combates e distribuição de entrada | 3–4 min |
+| 1 | Torres de servidores | Duas torres, elevadores, passarelas de fibra e cofre de backup | 4–6 min |
+| 1 | Salas de manutenção | Dutos, oficinas, reparos, escotilhas e retorno à transmissão | 3–5 min |
+| 2 | Central de transmissão | Multiplexadores, plataformas móveis, rotas elevadas, blindados e atiradores | 4–6 min |
+| 2 | Núcleo de corrupção | Lasers, eletricidade, travessias divididas, apoios temporários e inimigo parasita | 4–6 min |
+| 2 | Antecâmara | Três últimos reparos, subida ao núcleo e baia segura de respawn antes da escotilha final | 3–4 min |
+| 3 | Arena final | Três fases de VIRUS ZERO e pergunta obrigatória para concluir a campanha | 4–6 min |
+| | **Total** | | **25–37 min** |
+
+A fase tem **12 reparos, 32 inimigos antes de VIRUS ZERO, 57 fragmentos e 32 checkpoints**. Entre as 195 plataformas há 12 móveis e quatro temporárias. Os 19 perigos temporizados são dez lasers e nove barreiras elétricas, com aviso de 1,35 s, atividade de 0,70 s e ciclo de 5,60 s. A apresentação usa pixel art azul com alertas vermelhos, racks, cabos de dados, estruturas em profundidade e parallax de Servidores nos dois eixos.
+
+### 20.2 Arena manual e finalização
+
+O piso da arena continua em **y = 900**, com plataformas em diferentes alturas, coberturas, elevador aéreo e o fundo exclusivo. A reconstrução acrescenta luzes de corrupção e anteparos nas extremidades. O fechamento acima e abaixo da escotilha impede entrada antecipada com propulsores máximos. O anteparo leste impede a queda para fora do piso. A baia da antecâmara em **(4450, 1170)** está fora da região de ativação de VIRUS ZERO e preserva os reparos no respawn.
+
+A definição de VIRUS ZERO conserva posição, área de ativação, limites de combate, vida, armadura, velocidade e dano. A escotilha e o escudo continuam exigindo todos os reparos da fase, agora 12. O combate mantém as três etapas, suas transições, ataques e janelas de vulnerabilidade. A conclusão exige os objetivos da fase, a derrota do chefe e a resposta final. O teste confirmou que a vitória fica registrada no salvamento. Saves de uma revisão anterior reiniciam a fase na nova entrada e conservam a progressão de campanha, XP e habilidades.
+
+### 20.3 Área útil, desempenho e validação
+
+Com as rotas restauradas e o salto básico, o auditor passou de **63 para 222 superfícies alcançáveis**. A união das faixas navegáveis sobre esses apoios, descontada a geometria ocupada, cresceu de **2.315.942 px² para 8.759.237 px²**, um fator de **3,78×** em relação à revisão 3.
+
+- `python tests/run_review.py --phase 10 --result-label servers-v3` passou. A execução verificou todas as plataformas, dez ligações, 12 minigames, 57 coletas, 33 combates incluindo o chefe, respawn, portão final, limiares do chefe e a vitória persistida. Os testes de plataformas usaram a duração configurada de cada apoio. [Relatório focado](tests/servers-v3-results.json)
+- `python tests/run_review.py` passou em cópia descartável com **218/218 verificações**, dez fases, 92 capturas e zero erros de runtime. A suíte comparou a arena manual em cinco seeds, testou os ataques e as esquivas e confirmou a conclusão da campanha. Foram inspecionados o panorama e o enquadramento da entrada.
+- `check_maps.py`, `check_environment.py`, `check_parallax.py`, `check_generation.py` e `git diff --check` passaram.
+
+Em Chrome headless, no canvas lógico de **905 × 644**, 180 amostras de atualização e desenho na entrada, na corrupção e na arena registraram **3,0 ms de mediana** e **6,4 ms no p95**. A execução usou 57 blocos no cache de terreno e aproximadamente 3,26 MiB de texturas de parallax. O resultado mede custo local por quadro.
+
+Os **25–37 minutos** são o planejamento de ritmo. O auditor testa a travessia por segmentos e protege o jogador durante a prova de combate. A duração e o balanceamento de sobrevivência ainda precisam de uma partida humana contínua.
+
+**Ponto de parada** — Fase 10.
+
+## 21. Acabamento visual das dez fases
+
+### 21.1 Arte e leitura em movimento
+
+Os dez tilesets de terreno foram refeitos em PNG nativo com células de **32 × 32 px**, 16 máscaras de conexão e quatro cantos internos. As variantes incluem placas lisas, motivos temáticos e bordas com contraste concentrado na superfície de apoio. As paredes usam o material da fase e as portas mantêm marcas de bloqueio separadas. Sprites, texturas e framebuffers usam interpolação nearest-neighbor. Para regenerar os tilesets, execute `python tools/build_environment_art.py --terrain-all`.
+
+Cada cenário combina uma base distante, três profundidades estruturais adicionais e atmosfera discreta, com velocidades independentes nos dois eixos. O Hardware usa sua faixa raster próxima para compor os marcos regionais. Nas outras nove fases, os marcos usam uma profundidade própria. A ambientação distribui os pontos de interesse por distrito. Tons e silhuetas identificam circuitos, janelas, portas Ethernet, túneis, antenas, infraestrutura industrial, sub-redes, domínios, bastiões e racks de servidores. O bastião do Firewall usa placas de defesa e a eclusa de Servidores usa um painel de acesso.
+
+Pulsos de status, ventiladores, monitores e fluxos de dados animam áreas pequenas. A corrupção em Servidores se concentra perto do núcleo. A atmosfera usa dois pontos de poeira por fase. O orçamento de partículas de ação caiu de 160 para 96 no modo normal e de 48 para 32 no modo reduzido. Os controles de conforto continuam disponíveis. O HUD de VIRUS ZERO lê o total de relays da fase.
+
+### 21.2 Renderização e desempenho
+
+A preparação separa as camadas por passe uma vez por carregamento. Retângulos, marcos e terreno fora da câmera são descartados antes do desenho. O cache de terreno compara os apoios estáticos em uma passagem e refaz o índice apenas quando a lista muda. Tiles completos usam uma única cópia raster e tiles parciais preservam os aros com recorte por eixo. A atualização de partículas compacta a lista existente.
+
+No Chrome headless, com canvas lógico de **905 × 644**, foram medidas **60 amostras por fase** de atualização e desenho após aquecimento em três trechos de câmera com movimento contínuo. As medianas ficaram entre **1,9 e 3,2 ms** e os p95 entre **3,4 e 10,5 ms**. O maior primeiro quadro após reposicionar a câmera foi **44,6 ms**. O cache chegou a 96 blocos de terreno e 4,01 MiB de texturas de parallax. Os tempos são do ensaio local no navegador.
+
+### 21.3 Validação
+
+- `python tests/run_review.py --visual-finish` passou em **42/42 verificações**, com **21 capturas** das entradas, interiores e arena final. A inspeção visual percorreu as dez fases. A automação verificou contraste do personagem, material temático, escala raster, velocidades de camada, modo estático, culling e ausência de mudanças de estado durante o desenho. [Prancha das dez fases](tests/visual-finish/overview.png) · [Arena de VIRUS ZERO](tests/visual-finish/10-arena.png) · [Relatório por fase](tests/visual-finish-results.json)
+- Os ensaios `--ambient-only` e `--parallax-final` passaram. Eles exercitaram pulsos discretos, preferências de conforto, costuras, reversões de câmera, descarte do cache e equivalência entre os caminhos direto e com framebuffer intermediário.
+- A regressão completa `python tests/run_review.py` passou em **218/218 verificações**, com 92 capturas e zero erros de runtime. Os verificadores de mapas, ambiente, parallax, geração e atlas confirmaram a geometria e a física da reconstrução anterior.
+
+**Ponto de parada** — acabamento visual das dez fases.
+
+
+## 22. Validação final da reconstrução
+
+### 22.1 Comparação com o inventário histórico
+
+A referência é `tests/rebuild-v3-baseline/inventory.json`, com definições compiladas anteriores nas revisões 3 e 4. As dez fases atuais são revisão 5. Para cada par, o Chrome executou a mesma busca de travessia com a física do jogo e o salto básico, a partir da entrada, com reparos e condições de acesso restaurados. A área é a união das faixas navegáveis acima dos apoios alcançados, descontada a geometria ocupada. Vazios entre janelas, domínios ou setores do mundo ficam fora da conta. A medida representa o espaço de navegação, com movimentos simulados por trechos.
+
+| Fase | Dimensões (px) | Formato | Área útil (px²) | Fator | Regiões | Salas compiladas e setores manuais |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1. Hardware | 2800 × 1000 → 4480 × 2560 | horizontal → multirrota | 874.141 → 3.819.732 | 4,37× | 4 → 6 | 1 → 22 |
+| 2. Software | 1900 × 1400 → 5120 × 4224 | central (hub) → central (hub) | 724.613 → 3.638.562 | 5,02× | 4 → 6 | 1 → 19 |
+| 3. Switch | 2200 × 1200 → 4480 × 3584 | multirrota → central (hub) | 932.540 → 5.071.908 | 5,44× | 5 → 6 | 1 → 25 |
+| 4. Roteador | 2200 × 1500 → 5120 × 2560 | labirinto → labirinto | 1.204.002 → 5.028.075 | 4,18× | 4 → 6 | 1 → 27 |
+| 5. Wi-Fi | 1550 × 2400 → 1920 × 5632 | vertical → vertical | 1.000.871 → 5.519.125 | 5,51× | 4 → 6 | 1 → 27 |
+| 6. Cabeamento | 1600 × 3000 → 3840 × 4096 | vertical → multirrota | 1.969.062 → 7.937.184 | 4,03× | 5 → 6 | 1 → 41 |
+| 7. DHCP | 2800 × 1700 → 3840 × 3072 | central (hub) → central (hub) | 1.004.264 → 4.888.224 | 4,87× | 5 → 6 | 1 → 25 |
+| 8. DNS | 3400 × 2100 → 7040 × 5120 | labirinto → labirinto | 2.000.616 → 6.366.793 | 3,18× | 7 → 6 | 1 → 33 |
+| 9. Firewall | 3600 × 1800 → 3520 × 3008 | multirrota → multirrota | 1.581.113 → 6.033.469 | 3,82× | 5 → 6 | 1 → 1 (24 pátios e galerias) |
+| 10. Servidores | 6800 × 2000 → 6800 × 4280 | multirrota → multirrota | 2.315.942 → 8.759.237 | 3,78× | 6 → 7 | 1 → 1 (24 pátios e galerias, 3 cofres e arena) |
+
+As regiões antigas são as divisões registradas na arquitetura histórica. O compilador contava um macromapa em cada fase antiga. Firewall e Servidores ainda usam um macromapa por fase, com pátios, galerias e setores físicos internos. O DNS reorganiza sete regiões históricas em seis, com 33 salas. Firewall tem menor largura e maior altura, e Servidores amplia a altura com a mesma largura. A área útil aumentou nas dez fases.
+
+| Fase | Plataformas / móveis / temporárias | Obstáculos / portas | Perigos temporizados / câmeras / zonas | Rotas nomeadas / elos físicos / portais | Fragmentos / segredos | Checkpoints | Reparos / inimigos exigidos |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 1. Hardware | 20/0/0 → 111/4/2 | 2/0 → 81/0 | 0/0/1 → 4/0/1 | 4/0/0 → 3/30/4 | 5/3 → 26/8 | 3 → 8 | 3/3 → 4/13 |
+| 2. Software | 14/2/0 → 88/5/4 | 10/0 → 57/2 | 0/0/0 → 4/0/0 | 2/0/8 → 0/0/50 | 4/4 → 25/8 | 3 → 9 | 3/3 → 5/16 |
+| 3. Switch | 27/1/0 → 200/6/5 | 0/0 → 57/8 | 0/0/0 → 7/0/0 | 5/0/0 → 4/36/6 | 4/4 → 53/8 | 3 → 14 | 3/3 → 6/18 |
+| 4. Roteador | 20/0/0 → 162/6/4 | 2/0 → 93/10 | 0/0/0 → 6/0/0 | 4/0/5 → 4/38/6 | 4/4 → 40/6 | 3 → 15 | 3/3 → 6/21 |
+| 5. Wi-Fi | 29/3/5 → 210/8/11 | 0/0 → 2/1 | 0/0/4 → 6/0/6 | 4/0/0 → 4/37/6 | 5/5 → 39/8 | 4 → 16 | 3/3 → 6/22 |
+| 6. Cabeamento | 44/3/0 → 293/15/6 | 5/0 → 131/5 | 0/0/0 → 13/0/0 | 4/0/0 → 4/66/7 | 4/4 → 54/8 | 4 → 22 | 3/4 → 7/30 |
+| 7. DHCP | 21/5/0 → 173/6/4 | 1/1 → 14/4 | 0/0/1 → 6/0/5 | 5/0/8 → 4/35/6 | 4/4 → 38/8 | 4 → 15 | 3/4 → 6/22 |
+| 8. DNS | 36/0/0 → 204/6/4 | 6/0 → 97/2 | 0/0/0 → 8/0/0 | 5/0/16 → 5/36/24 | 5/5 → 56/16 | 4 → 21 | 3/5 → 7/20 |
+| 9. Firewall | 21/1/1 → 134/6/4 | 4/4 → 5/8 | 0/2/0 → 14/5/0 | 4/0/0 → 6/0/2 | 4/4 → 40/12 | 5 → 18 | 4/5 → 8/25 |
+| 10. Servidores | 50/3/1 → 195/12/4 | 4/1 → 17/10 | 0/0/0 → 19/0/0 | 5/0/0 → 7/0/10 | 6/6 → 57/21 | 5 → 32 | 4/8 → 12/33 |
+
+As colunas de plataformas móveis e temporárias são subconjuntos do total. Perigos temporizados são as zonas do controlador de parkour. Armadilhas históricas implementadas como obstáculos aparecem na coluna de obstáculos. Elos físicos são ligações explícitas entre salas. Nos macromapas, a geometria conecta os setores sem exigir esses elos na receita. Rotas nomeadas são etiquetas de design, especialmente no Software, onde os 50 portais representam as travessias. Os 103 segredos atuais são fragmentos marcados. Salas opcionais são contadas à parte no inventário por fase.
+
+No total, a campanha passou de **282 para 1.770 plataformas**, de **45 para 428 fragmentos**, de **43 para 103 fragmentos secretos**, de **38 para 170 checkpoints** e de **32 para 67 reparos**. Os inimigos colocados subiram de **41 para 224**. O DNS exige 20 dos seus 24 guardiões. A saída com pergunta continua nas dez fases. Switch exige a ativação das portas, DHCP exige os serviços de IP, Firewall exige a política de segurança e Servidores culmina em VIRUS ZERO e na pergunta final.
+
+| Fase | Regiões da reconstrução |
+| --- | --- |
+| 1. Hardware | PLACA-MAE CENTRAL, COMPLEXO DA CPU, TORRES DE MEMORIA RAM, BARRAMENTOS, COMPLEXO DA GPU, NUCLEO FINAL |
+| 2. Software | AREA DE TRABALHO, SISTEMA DE ARQUIVOS, GERENCIADOR DE PROCESSOS, MEMORIA VIRTUAL, ARQUIVOS CORROMPIDOS, NUCLEO DO SISTEMA |
+| 3. Switch | BACKPLANE CENTRAL, PORTAS ETHERNET, CANAIS DE TRANSMISSAO, CENTRAL DE COMUTACAO, REGIAO DE UPLINK, NUCLEO FINAL |
+| 4. Roteador | ENTRADA LAN, LABIRINTO CENTRAL, INTERFACES DE REDE, TUNEIS WAN, NUCLEO DE ROTEAMENTO, GATEWAY FINAL |
+| 5. Wi-Fi | BASE DA TORRE, ESTRUTURAS DE TRANSMISSAO, ZONA DE INTERFERENCIA, TORRES REPETIDORAS, CAMPO DE SINAL, ANTENA PRINCIPAL |
+| 6. Cabeamento | SUBSOLO, CENTRAL DE CABEAMENTO, ANDARES DE MANUTENCAO, POCOS DE ELEVADORES, INFRAESTRUTURA SUPERIOR, COBERTURA |
+| 7. DHCP | CENTRAL DHCP, DISTRITO DE ENDERECAMENTO, DISTRITO DE CONFLITOS, SETOR DE RESERVAS, REDE DE DISTRIBUICAO, GATEWAY FINAL |
+| 8. DNS | SERVIDOR RAIZ, REGIAO .COM, REGIAO .ORG, CACHE RECURSIVO, REGIAO NXDOMAIN / OPCIONAL, RESOLUCAO FINAL |
+| 9. Firewall | Perímetro externo, Sistemas de segurança, Área de infiltração, Anel interno, Cidadela central, Núcleo de segurança |
+| 10. Servidores | Entrada do data center, Torres de servidores, Salas de manutenção, Central de transmissão, Núcleo de corrupção, Antecâmara, Arena final |
+
+### 22.2 Jogabilidade, sistemas e seeds
+
+- A regressão da campanha executou **218/218 verificações**, testou as dez fases e registrou 0 erros de runtime. A busca abriu os reparos sucessivamente pelo DOM dos minigames. Todos os reparos, saídas, plataformas e itens passaram na travessia com habilidades básicas. Foram exercitados os 224 combates com equipamento básico, o reaparecimento dos apoios temporários, colisões, física, câmera, XP, habilidades, perguntas, salvamento, progressão e as três etapas de VIRUS ZERO.
+- Os 170 checkpoints atuais foram alcançados. O ponto real de respawn, com o deslocamento do motor, ficou livre de sobreposição com os perigos de mapa inventariados. A regressão verificou apoio e retomada do progresso após dano letal.
+- O laboratório de arquitetura passou em **27 verificações**, incluindo salto impossível, colisão bloqueante, apoio instável, sa?da bloqueada e reparo atrás da própria porta. A sequência de reparos concluída na campanha demonstra uma ordem praticável para os objetivos obrigatórios.
+- A auditoria ampliada concluiu **60 casos de seed**, com três recompilações de campanha e três mapas procedurais por tema. Ela exercitou determinismo, topologia física e por portais, minigames, reparos sucessivos, saída, plataformas e checkpoints. As suítes `--procedural-only`, `--room-gameplay` e `--gameplay-demo` também passaram, com três seeds do laboratório, 30 combinações de tema e dificuldade e retomada do mapa gerado.
+- O ensaio de interface verificou **70 estados** em sete viewports, com teclado e toque, e retornou 0 falhas. [Regressão de campanha](tests/final-map-validation/review.json) · [Interface](tests/final-map-validation/browser-audit.json) · [Inventário comparativo](tests/final-map-validation/final-map-comparison.json)
+
+### 22.3 Arte, FPS e memória
+
+As suítes de acabamento, atmosfera e parallax passaram em **42**, **61** e **43 verificações**, respectivamente. Elas cobriram as dez fases, com contraste de personagem, pixel art por tema, nearest-neighbor, costuras, câmera, descarte de texturas e efeitos reduzidos. A revisão de 21 capturas na etapa visual cobre entrada, interior e arena final. [Prancha visual](tests/visual-finish/overview.png) · [Relatório de acabamento](tests/final-map-validation/visual-finish.json)
+
+O Chrome headless coletou 90 intervalos nativos de `requestAnimationFrame` por cenário, em cada fase e em um mapa procedural de 24 salas. Os números são a cadência observada no ensaio com GPU desativada. O cenário contínuo usa deslocamentos pequenos. O estresse atravessa diagonais maiores e troca mais blocos do cache.
+
+| Ambiente | Câmera | Faixa de FPS observada | Maior p95 (ms) | FPS procedural 24 salas |
+| --- | --- | --- | --- | --- |
+| Desktop · 1424 × 905 · DPR 1 | Contínuo | 58,1–60,0 | 16,8 | 60,0 |
+| Desktop · 1424 × 905 · DPR 1 | Diagonal de estresse | 52,9–60,0 | 33,3 | 57,4 |
+| Compacto · 844 × 390 · DPR 2 | Contínuo | 59,3–60,0 | 16,8 | 60,0 |
+| Compacto · 844 × 390 · DPR 2 | Diagonal de estresse | 59,3–60,0 | 16,8 | 59,3 |
+
+Os máximos observados foram **4,01 MiB** no cache de parallax, **3,68 MiB** no cache de terreno e **2,73 MiB** nos framebuffers de apresentação. O heap JavaScript medido ao fim dos cenários chegou a **13,97 MiB**. Cada fase carregou até **16 assets** no serviço visual, e o terreno ficou limitado a **96 blocos**. Esses números não representam a memória total do processo nem VRAM. A avaliação confirmou o recorte de desenho, o reaproveitamento de texturas e o carregamento seletivo do acabamento anterior. [Desktop](tests/final-map-validation/parallax-frame-pacing.json) · [Compacto em DPR 2](tests/final-map-validation/parallax-frame-pacing-dpr2.json)
+
+### 22.4 Correções, arquivos e limites
+
+A primeira execução do wrapper de arquitetura perdeu o inventário histórico na cópia descartável e falhou com `FileNotFoundError`. As cópias agora incluem o inventário. O wrapper de arquitetura chama seu modo explícito e grava apenas relatórios gerados pela execução correspondente. As suítes de arquitetura e campanha passaram separadamente no checkout descartável.
+
+A primeira auditoria de seeds do Software marcou salas de portal como isoladas. O teste consultava apenas elos físicos. A auditoria agora informa ao grafo os portais compilados e preserva a exceção original quando uma checagem falha. O Software passou no reteste e o DNS foi executado com a mesma correção.
+
+Arquivos desta validação: `tests/final-map-comparison.js`, `tests/final-maps.js`, `tests/review.js`, `tests/parallax-frame-pacing.js`, `tests/run_review.py`, `tools/run_final_map_validation.py`, wrappers `tools/test_*_v3.py`, `tools/test_developer_mode.py` e relatórios em `tests/final-map-validation/`. A geometria, física, combate e conclusão da campanha continuam com as definições verificadas nas etapas de reconstrução. Os verificadores de mapas, ambiente, parallax, geração e atlas passaram.
+
+A campanha ganhou área alcançável e conteúdo em todas as fases. A duração real, o balanceamento em sobrevivência e a estabilidade em dispositivos físicos ainda dependem de partidas humanas contínuas. A automação resolve minigames, move o jogador entre saltos provados e usa proteção contra dano em provas de combate. Os dados não sustentam uma duração em minutos para nenhuma fase.
+
+**Ponto de parada** — validação final da reconstrução.
+
+## 23. Integração final dos minigames de conserto
+
+### 23.1 Distribuição e variedade
+
+A campanha carrega 67 componentes reparáveis, com 40 tipos de diagnóstico. As fases 1 a 9 usam quatro tipos cada e Servidores usa seis tipos para seus 12 componentes. O máximo observado é de duas ocorrências por tipo em cada fase. O inventário completo, com ID, função e tipo de todos os componentes, está em [docs/repair-minigames.md](docs/repair-minigames.md).
+
+O catálogo tem 43 tipos registrados, incluindo três diagnósticos originais disponíveis para extensões. Encaixes compartilham controles de arraste ou seleção por clique. Rotação, regulagem, filas, inspeção, sondagem, árvores, troca de políticas, cobertura, relays e distribuição de carga acrescentam regras e interações distintas.
+
+### 23.2 Laboratório e correções
+
+O Modo Desenvolvedor oferece um laboratório opcional em nova aba. O seletor usa as dez fases e os componentes reais de cada mapa, com a distribuição e as seeds da campanha. A bancada carrega o motor de reparos diretamente e mantém suas tentativas em memória. O teste compara o armazenamento local antes e depois.
+
+A revisão ajustou as pistas de paginação, gateway DHCP e redistribuição após corrupção de memória. Corrigiu textos com acentos e setas corrompidos, a instrução de pausa da bancada, a navegação de foco e o deslocamento das capturas estreitas. A paleta das etiquetas do equipamento acompanha a fase.
+
+### 23.3 Verificações executadas
+
+A suíte completa de mapas e sistemas passou em 224 verificações, percorreu as dez fases e registrou zero erros de runtime. A suíte do Modo Desenvolvedor passou em 21 verificações. Os testes de reparos passaram em 11 verificações, cobrindo os 67 componentes e 344 variantes com seeds. O dano de falha, o cancelamento sem XP, os 30 XP de reparo, o bônus separado de objetivo, o salvamento e Reparo Eficiente foram verificados.
+
+O laboratório foi exercitado em 1440 × 1000, 390 × 844 e 844 × 390. As provas usam eventos de entrada do Chrome para arraste por mouse, toque emulado e rotação por teclado. Os 67 painéis couberam sem rolagem horizontal e o armazenamento permaneceu igual. As capturas de circuitos, RAM, RJ45, Firewall e Servidores foram conferidas visualmente.
+
+Também passaram os verificadores de mapas, ambiente, parallax e geração. Os testes de integração cobrem portas, elevadores, plataformas condicionais, progressão e VIRUS ZERO.
+
+Houve falhas de permissão em diretórios temporários, uma falha de inicialização do debugger e uma emissão incompleta de Enter no teste CDP. As execuções afetadas foram repetidas com a emissão correta da tecla.
+
+### 23.4 Arquivos e limitações
+
+Arquivos de implementação e teste desta revisão incluem `src/engine/repair-games.js`, `src/engine/developer-mode.js`, `style.css`, `tests/minigames.html`, `tests/repair-lab.js`, `tests/repairs.js`, `tests/run_review.py`, `tests/capture_repairs.py`, `tools/test_developer_mode.py` e `tools/check_environment.py`. Os relatórios ficam em `tests/repair-integration*-results.json`, `tests/review-results.json` e `tests/developer-mode-results/`.
+
+A validação de toque ocorreu por emulação. Aparelhos físicos, leitores de tela e partidas humanas contínuas permanecem pendentes. A prova de acesso aos mapas usa simulação e deslocamentos entre apoios alcançáveis, e os resolvedores automatizados conhecem o modelo do diagnóstico. Os resultados não medem a dificuldade percebida pelo jogador.

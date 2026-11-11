@@ -3,9 +3,13 @@ const finalPhase=FINAL_PHASE,finalTheme=ByteRunner.environmentArt.themes[finalPh
 const finalSeeds=['review-alpha','review-beta','review-gamma'].map(s=>'phase-'+String(finalPhase).padStart(2,'0')+'-'+s);
 report.cases=[];report.phase=finalPhase;report.theme=finalTheme;report.seeds=finalSeeds;
 function finalAtStart(){const p=mapStart();player.x=p.x;player.y=p.y;player.vy=0;player.grounded=true;keys.clear();}
-function finalReach(){
+const finalEdges=new Map();
+let finalSignature;
+function finalReach(stopAt){
   const signature=JSON.stringify(solids());
-  try{return reachability();}finally{assert(JSON.stringify(solids())===signature,'collision state changed during frozen-clock probe');}
+  if(finalSignature!==signature){finalEdges.clear();finalSignature=signature;}
+  try{return reachability({stopAt,edges:finalEdges});}
+  finally{assert(JSON.stringify(solids())===signature,'collision state changed during frozen-clock probe');}
 }
 function finalExit(nodes){const e=phaseData.map.exit;return nodes.some(n=>n.z+34>e.x&&n.a<e.x+e.width&&n.y+48>e.y&&n.y<e.y+e.height);}
 function finalCanRepair(nodes,c){return nodes.find(n=>Math.abs(c.y+c.height/2-n.y-24)<=78&&n.z+17>=c.x+c.width/2-76&&n.a+17<=c.x+c.width/2+76);}
@@ -29,18 +33,25 @@ for(const scope of ['campaign','procedural'])for(const seed of finalSeeds) {
       const compare=ByteRunner.maps.clone(map);if(scope==='campaign')compare.map.checkpointMode=repeat.map.checkpointMode;
       assert(JSON.stringify(compare)===JSON.stringify(repeat),'same seed differs');
       row.signature=ByteRunner.mapAudit.signature(map);fingerprints[scope].add(row.signature);
-      assert(!ByteRunner.maps.validate(map).length,'invalid schema');assert(!ByteRunner.mapAudit.topology(map).isolated.length,'isolated graph rooms');
+      const portalLinks=(map.mechanics||[]).filter(m=>m.type==='portals').flatMap(m=>m.links);
+      assert(!ByteRunner.maps.validate(map).length,'invalid schema');
+      const topology=ByteRunner.mapAudit.topology(map,portalLinks);
+      assert(!topology.isolated.length,'isolated graph rooms: '+topology.isolated.join(','));
       setup(finalPhase-1);loadMap(map,true);campaignStarted=false;running=true;paused=false;xpRequired=999999;endPhaseIntro();
+      finalEdges.clear();finalSignature=undefined;
       assert(!unlockedSkills.length&&player.jumpPower===JUMP_SPEED,'optional abilities in audit');
       let nodes=[];
       for(let round=0;round<=components.length+phaseData.entities.interactives.length+2;round++) {
-        finalAtStart();nodes=finalReach();
-        row.states.push({afterRepairs:components.filter(c=>c.repaired).map(c=>c.id),surfaces:nodes.length,exit:finalExit(nodes),remainingRepairs:components.filter(c=>!c.repaired).map(c=>({id:c.id,accessible:Boolean(finalCanRepair(nodes,c))})),activePortals:levelRuntime.connections().map(l=>l.id)});
+        const remaining=components.filter(c=>!c.repaired);
+        finalAtStart();nodes=finalReach(remaining.length?n=>remaining.some(c=>finalCanRepair([n],c)):undefined);
+        row.states.push({afterRepairs:components.filter(c=>c.repaired).map(c=>c.id),surfaces:nodes.length,exit:finalExit(nodes),
+          repairsFound:remaining.filter(c=>finalCanRepair(nodes,c)).map(c=>c.id),activePortals:levelRuntime.connections().map(l=>l.id)});
         const c=components.find(c=>!c.repaired&&finalCanRepair(nodes,c));
         if(c) {
           const n=finalCanRepair(nodes,c);player.x=Math.max(n.a,Math.min(n.z,c.x));player.y=n.y;keys.add('e');updateRepair(0);keys.clear();
           assert(repairSession?.model,'minigame not opened '+c.id);solveRepairUI();updateRepair(.6);assert(c.repaired,'native repair failed '+c.id);
-          const returned=finalReach(),start=mapStart();assert(returned.some(s=>start.x>=s.a-1&&start.x<=s.z+1&&Math.abs(s.y-start.y)<3),'repair traps player away from start '+c.id);
+          const start=mapStart(),atStart=s=>start.x>=s.a-1&&start.x<=s.z+1&&Math.abs(s.y-start.y)<3;
+          assert(finalReach(atStart).some(atStart),'repair traps player away from start '+c.id);
           continue;
         }
         let changed=false;
@@ -82,7 +93,7 @@ for(const scope of ['campaign','procedural'])for(const seed of finalSeeds) {
       const temp=phaseData.entities.platforms.find(p=>p.type==='temporary');
       if(temp){finalAtStart();const state=getPlatformState(temp);state.active=true;state.triggered=true;state.elapsed=0;state.respawning=false;for(let t=0;t<Math.ceil(((temp.duration||1.8)+.2)*60);t++)update(1/60);assert(!state.active,'temporary platform never disappears');for(let t=0;t<Math.ceil(((temp.respawnDelay||3)+.2)*60);t++)update(1/60);assert(state.active,'temporary platform permanently disappeared');}
       row.status='PASS';row.repairs=components.length;row.checkpoints=phaseData.map.checkpoints.length;row.surfaces=nodes.length;
-    }catch(error){row.status='FAIL';row.error=error.stack;row.diagnostics={graph:phaseData.generation.graph,rooms:phaseData.generation.rooms,platforms:phaseData.entities.platforms,obstacles:phaseData.entities.obstacles,start:mapStart(),player:{x:player.x,y:player.y},reached:finalReach()};throw error;}
+    }catch(error){row.status='FAIL';row.error=error.stack;throw error;}
   });
   await new Promise(resolve=>setTimeout(resolve,0));
 }

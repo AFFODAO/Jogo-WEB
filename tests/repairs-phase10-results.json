@@ -1,0 +1,24 @@
+{
+  "phases": [],
+  "systems": {
+    "repairs: circuit panel tracks live power, focus and reset": "PASS",
+    "repairs: campaign distributes distinct mechanics with a cap of two": "PASS",
+    "repairs: themed equipment variants solve through the panel": "PASS",
+    "repairs: placement accepts touch drop and click selection": "PASS",
+    "repairs: explicit specs reserve capacity and procedural repairs use the map theme and seed": "PASS",
+    "repairs: all campaign components have solvable modal challenges and persist once": "PASS",
+    "repairs: keyboard tap opens immediately and freezes movement, combat and timers": "PASS",
+    "repairs: failure penalizes once, retry varies, cancel does not repair": "PASS",
+    "repairs: skill supplies hints and tolerance without solving the challenge": "PASS",
+    "repairs: generated variations remain solvable across all ten types": "PASS",
+    "repairs: type-specific controls enforce different rules": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "36144328ecd383f074d9089f15664109980e9947ab09f4f200869a8919507676",
+    "atUTC": "2026-11-11T00:50:30.891556+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

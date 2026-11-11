@@ -1,0 +1,865 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / router / phase-04-review-alpha": "PASS",
+    "final audit: campaign / router / phase-04-review-beta": "PASS",
+    "final audit: campaign / router / phase-04-review-gamma": "PASS",
+    "final audit: procedural / router / phase-04-review-alpha": "PASS",
+    "final audit: procedural / router / phase-04-review-beta": "PASS",
+    "final audit: procedural / router / phase-04-review-gamma": "PASS",
+    "final audit: compare structures and identity / router": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-04-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 170,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "iface-lan:lan",
+              "accessible": true
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "wan-relay:link",
+              "accessible": true
+            },
+            {
+              "id": "iface-console:transit",
+              "accessible": true
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan"
+          ],
+          "surfaces": 176,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "wan-relay:link",
+              "accessible": true
+            },
+            {
+              "id": "iface-console:transit",
+              "accessible": true
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "wan-relay:link"
+          ],
+          "surfaces": 177,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "iface-console:transit",
+              "accessible": true
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "wan-relay:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "wan-relay:link",
+            "iface-console:transit"
+          ],
+          "surfaces": 183,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "wan-relay:link",
+            "iface-console:transit",
+            "iface-wan:wan"
+          ],
+          "surfaces": 189,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut",
+            "iface-wan:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "core-main:table",
+            "wan-relay:link",
+            "iface-console:transit",
+            "iface-wan:wan"
+          ],
+          "surfaces": 206,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "core-main:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut",
+            "iface-wan:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "gateway-tower:gateway",
+            "iface-lan:lan",
+            "core-main:table",
+            "wan-relay:link",
+            "iface-console:transit",
+            "iface-wan:wan"
+          ],
+          "surfaces": 207,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "gateway-tower:shortcut",
+            "iface-lan:shortcut",
+            "core-main:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut",
+            "iface-wan:shortcut"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 23.80000001192093,
+      "signature": "e8386af5",
+      "rooms": 27,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 15,
+      "surfaces": 207
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-04-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 170,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "iface-lan:lan",
+              "accessible": true
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "wan-relay:link",
+              "accessible": true
+            },
+            {
+              "id": "iface-console:transit",
+              "accessible": true
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan"
+          ],
+          "surfaces": 176,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "wan-relay:link",
+              "accessible": true
+            },
+            {
+              "id": "iface-console:transit",
+              "accessible": true
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "wan-relay:link"
+          ],
+          "surfaces": 177,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "iface-console:transit",
+              "accessible": true
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "wan-relay:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "wan-relay:link",
+            "iface-console:transit"
+          ],
+          "surfaces": 183,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "wan-relay:link",
+            "iface-console:transit",
+            "iface-wan:wan"
+          ],
+          "surfaces": 189,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut",
+            "iface-wan:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "core-main:table",
+            "wan-relay:link",
+            "iface-console:transit",
+            "iface-wan:wan"
+          ],
+          "surfaces": 206,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "core-main:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut",
+            "iface-wan:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "gateway-tower:gateway",
+            "iface-lan:lan",
+            "core-main:table",
+            "wan-relay:link",
+            "iface-console:transit",
+            "iface-wan:wan"
+          ],
+          "surfaces": 207,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "gateway-tower:shortcut",
+            "iface-lan:shortcut",
+            "core-main:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut",
+            "iface-wan:shortcut"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 27.099999964237213,
+      "signature": "e8386af5",
+      "rooms": 27,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 15,
+      "surfaces": 207
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-04-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 170,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "iface-lan:lan",
+              "accessible": true
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "wan-relay:link",
+              "accessible": true
+            },
+            {
+              "id": "iface-console:transit",
+              "accessible": true
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan"
+          ],
+          "surfaces": 176,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "wan-relay:link",
+              "accessible": true
+            },
+            {
+              "id": "iface-console:transit",
+              "accessible": true
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "wan-relay:link"
+          ],
+          "surfaces": 177,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "iface-console:transit",
+              "accessible": true
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "wan-relay:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "wan-relay:link",
+            "iface-console:transit"
+          ],
+          "surfaces": 183,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": false
+            },
+            {
+              "id": "iface-wan:wan",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "wan-relay:link",
+            "iface-console:transit",
+            "iface-wan:wan"
+          ],
+          "surfaces": 189,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": false
+            },
+            {
+              "id": "core-main:table",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut",
+            "iface-wan:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "iface-lan:lan",
+            "core-main:table",
+            "wan-relay:link",
+            "iface-console:transit",
+            "iface-wan:wan"
+          ],
+          "surfaces": 206,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "gateway-tower:gateway",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "iface-lan:shortcut",
+            "core-main:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut",
+            "iface-wan:shortcut"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "gateway-tower:gateway",
+            "iface-lan:lan",
+            "core-main:table",
+            "wan-relay:link",
+            "iface-console:transit",
+            "iface-wan:wan"
+          ],
+          "surfaces": 207,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "gateway-tower:shortcut",
+            "iface-lan:shortcut",
+            "core-main:shortcut",
+            "wan-relay:shortcut",
+            "iface-console:shortcut",
+            "iface-wan:shortcut"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 24.30000001192093,
+      "signature": "e8386af5",
+      "rooms": 27,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 15,
+      "surfaces": 207
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-04-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 123,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 55.39999997615814,
+      "signature": "d69cbf89",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 123
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-04-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 126,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 128,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 37.19999998807907,
+      "signature": "b53861c3",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 128
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-04-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 114,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 114,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 114,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 115,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 35.59999996423721,
+      "signature": "a1edb3b1",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 115
+    }
+  ],
+  "phase": 4,
+  "theme": "router",
+  "seeds": [
+    "phase-04-review-alpha",
+    "phase-04-review-beta",
+    "phase-04-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 1,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:39:57.382917+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

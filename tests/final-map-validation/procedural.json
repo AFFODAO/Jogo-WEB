@@ -1,0 +1,76 @@
+{
+  "phases": [],
+  "systems": {
+    "procedural: deterministic topology and physical traversal // pcb-alpha": "PASS",
+    "procedural: deterministic topology and physical traversal // pcb-beta": "PASS",
+    "procedural: deterministic topology and physical traversal // pcb-gamma": "PASS",
+    "procedural: three seeds differ structurally": "PASS",
+    "procedural: configuration limits and varied sizes remain valid": "PASS",
+    "procedural: optional diagnostic portals work in both directions": "PASS"
+  },
+  "errors": [],
+  "snapshots": [
+    {
+      "phase": 1,
+      "position": "procedural-pcb-alpha",
+      "seed": "pcb-alpha",
+      "file": "tests/procedural-pcb-alpha.png"
+    },
+    {
+      "phase": 1,
+      "position": "procedural-pcb-beta",
+      "seed": "pcb-beta",
+      "file": "tests/procedural-pcb-beta.png"
+    },
+    {
+      "phase": 1,
+      "position": "procedural-pcb-gamma",
+      "seed": "pcb-gamma",
+      "file": "tests/procedural-pcb-gamma.png"
+    }
+  ],
+  "seeds": [
+    {
+      "seed": "pcb-alpha",
+      "rooms": 12,
+      "edges": 12,
+      "cycles": 1,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 106,
+      "returnSurfaces": 106,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    },
+    {
+      "seed": "pcb-beta",
+      "rooms": 12,
+      "edges": 13,
+      "cycles": 2,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 104,
+      "returnSurfaces": 104,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    },
+    {
+      "seed": "pcb-gamma",
+      "rooms": 12,
+      "edges": 13,
+      "cycles": 2,
+      "optionalRooms": 5,
+      "mainRooms": 7,
+      "reachableSurfaces": 126,
+      "returnSurfaces": 126,
+      "roomCheckpoints": 12,
+      "status": "PASS"
+    }
+  ],
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:32:36.507468+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

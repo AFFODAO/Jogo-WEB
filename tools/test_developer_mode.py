@@ -7,6 +7,69 @@ OUTPUT=ROOT/'tests/developer-mode-results'
 def map_hashes():
     return {p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in (ROOT/'src/maps').glob('*.js')}
 
+def exercise_repair_lab(cdp,evaluate,url,width,height):
+    evaluate("localStorage.setItem('repair-lab-test','preserved')")
+    storage=evaluate('JSON.stringify(Object.entries(localStorage).sort())')
+    link=evaluate("""(()=>{const link=document.querySelector('#developerTools .developer-laboratory');
+        return {href:link.href,target:link.target,rel:link.rel,hidden:link.closest('[hidden]')!==null};})()""")
+    assert link['href'].startswith(url+'/tests/minigames.html?phase=') and link['target']=='_blank' and link['rel']=='noopener' and not link['hidden'],link
+    cdp.call('Page.navigate',{'url':link['href']})
+    deadline=time.monotonic()+20
+    while not evaluate("Boolean(document.querySelector('#repairPanel[data-repair-type]'))"):
+        if time.monotonic()>deadline:raise AssertionError(evaluate("document.querySelector('#component')?.innerHTML"))
+        time.sleep(.05)
+    counts=evaluate("""(()=>{
+        const phase=document.getElementById('phase'), component=document.getElementById('component');
+        const choose=(picker,value)=>{picker.value=value;picker.dispatchEvent(new Event('change'));};
+        const counts=[];
+        for(let i=0;i<phase.length;i++){
+            choose(phase,String(i));
+            counts.push(component.length);
+            for(const option of component.options){
+                choose(component,option.value);
+                const panel=document.getElementById('repairPanel');
+                if(document.documentElement.scrollWidth>innerWidth+1||panel.scrollWidth>panel.clientWidth+1)
+                    throw new Error('Overflow: '+option.value+' at '+innerWidth);
+            }
+        }
+        choose(phase,'0');choose(component,'ram-base:ram-relay');
+        return counts;
+    })()""")
+    assert counts==[4,5,6,6,6,7,6,7,8,12],counts
+
+    def position(selector):
+        return evaluate(f"""(()=>{{const el=document.querySelector({json.dumps(selector)});
+            const r=el.getBoundingClientRect();return {{x:r.x+r.width/2,y:r.y+r.height/2}};}})()""")
+    def mouse(kind,point,button='none'):
+        cdp.call('Input.dispatchMouseEvent',{'type':kind,**point,'button':button,'clickCount':1})
+    def touch(kind,point=None):
+        cdp.call('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[] if point is None else [point]})
+
+    evaluate("document.querySelector('.repair-board').scrollIntoView({block:'center'})")
+    part=position('#repair-part-0');slot=position('#repair-slot-0')
+    assert all(0<=p['y']<height for p in (part,slot)),(part,slot,height)
+    mouse('mousePressed',part,'left');mouse('mouseMoved',slot,'left');mouse('mouseReleased',slot,'left')
+    assert evaluate("document.querySelector('#repair-slot-0').dataset.signal!==''"),'mouse drag did not place DIMM'
+    evaluate("document.querySelector('#repair-reset').click();document.querySelector('.repair-board').scrollIntoView({block:'center'})")
+    part=position('#repair-part-1');slot=position('#repair-slot-1')
+    touch('touchStart',part);touch('touchMove',slot);touch('touchEnd')
+    assert evaluate("document.querySelector('#repair-slot-1').dataset.signal!==''"),'touch drag did not place DIMM'
+    evaluate("""const picker=document.getElementById('component');picker.value='bus-west:bus-relay';
+        picker.dispatchEvent(new Event('change'));document.getElementById('repair-cell-0').focus()""")
+    before=evaluate("document.getElementById('repair-cell-0').getAttribute('aria-label')")
+    cdp.call('Input.dispatchKeyEvent',{'type':'keyDown','key':'Enter','code':'Enter','windowsVirtualKeyCode':13,'text':'\r'})
+    cdp.call('Input.dispatchKeyEvent',{'type':'keyUp','key':'Enter','code':'Enter','windowsVirtualKeyCode':13})
+    assert evaluate("document.getElementById('repair-cell-0').getAttribute('aria-label')")!=before,'Enter did not rotate circuit'
+    before=evaluate("document.getElementById('repair-cell-0').getAttribute('aria-label')")
+    for kind in ('keyDown','keyUp'):
+        cdp.call('Input.dispatchKeyEvent',{'type':kind,'key':' ','code':'Space','windowsVirtualKeyCode':32})
+    assert evaluate("document.getElementById('repair-cell-0').getAttribute('aria-label')")!=before,evaluate("""JSON.stringify({
+        error:'keyboard did not rotate circuit',focused:document.activeElement?.id,
+        cell:document.getElementById('repair-cell-0').outerHTML,focus:document.hasFocus()
+    })""")
+    assert evaluate('JSON.stringify(Object.entries(localStorage).sort())')==storage,'laboratory changed local storage'
+    return {'viewport':[width,height],'componentCounts':counts,'mouseDrag':True,'touchDragEmulated':True,'keyboardRotation':True,'storageUnchanged':True}
+
 def capture_ui(target):
     sys.path.insert(0,str(ROOT/'tests'))
     from chrome_cdp import CDP,page_endpoint,close_chrome
@@ -19,7 +82,7 @@ def capture_ui(target):
     threading.Thread(target=server.serve_forever,daemon=True).start()
     profile=target/'ui-profile'
     process=subprocess.Popen(['C:/Program Files/Google/Chrome/Application/chrome.exe','--headless','--disable-gpu','--no-first-run','--remote-debugging-port=0',f'--user-data-dir={profile}','about:blank'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
-    cdp=None;results=[]
+    cdp=None;results=[];lab_results=[]
     try:
         deadline=time.monotonic()+20
         while not (profile/'DevToolsActivePort').exists():
@@ -55,7 +118,9 @@ def capture_ui(target):
             while not evaluate("document.getElementById('settingsDialog').open"):
                 if time.monotonic()>deadline:raise AssertionError('back did not restore settings')
                 time.sleep(.05)
+            lab_results.append(exercise_repair_lab(cdp,evaluate,f'http://127.0.0.1:{server.server_port}',w,h))
         (OUTPUT/'ui.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf-8')
+        (OUTPUT/'repair-lab.json').write_text(json.dumps(lab_results,ensure_ascii=False,indent=2),encoding='utf-8')
     finally:
         close_chrome(process,cdp);server.shutdown();server.server_close()
 
@@ -64,7 +129,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='byte-developer-mode-') as folder:
         target=Path(folder)
         for name in ['index.html','style.css','game.js','README.md']:shutil.copy2(ROOT/name,target/name)
-        for name in ['src','assets','tests','tools']:shutil.copytree(ROOT/name,target/name,ignore=shutil.ignore_patterns('__pycache__','*-results','rebuild-v3-baseline','rebuild-v3-architecture'))
+        for name in ['src','assets','tests','tools']:shutil.copytree(ROOT/name,target/name,ignore=shutil.ignore_patterns('__pycache__','*-results','rebuild-v3-architecture'))
         helpers=(ROOT/'tests/repairs.js').read_text(encoding='utf-8').split("test('repairs:",1)[0]
         (target/'tests/parallax-identity.js').write_text(helpers+(ROOT/'tests/developer-mode.js').read_text(encoding='utf-8'),encoding='utf-8')
         # A real reload invalidates an in-flight evaluation; keep polling the new

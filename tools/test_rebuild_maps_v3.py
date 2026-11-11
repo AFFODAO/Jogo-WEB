@@ -23,20 +23,26 @@ def main():
         for filename in ['index.html', 'style.css', 'game.js', 'README.md']:
             shutil.copy2(ROOT/filename, target/filename)
         for directory in ['src', 'assets', 'tools', 'tests']:
-            shutil.copytree(ROOT/directory, target/directory, ignore=shutil.ignore_patterns('__pycache__','rebuild-v3-baseline','rebuild-v3-architecture'))
-        # Reuse the existing focused-hook transport only in the disposable copy.
-        shutil.copy2(ROOT/'tests/rebuild-v3-architecture.js', target/'tests/parallax-identity.js')
+            shutil.copytree(ROOT/directory, target/directory, ignore=shutil.ignore_patterns('__pycache__','rebuild-v3-architecture'))
         commands = [
             ['tools/check_maps.py'], ['tools/check_generation.py'], ['tools/check_parallax.py'], ['tools/check_environment.py'],
-            ['tests/run_review.py','--identity-phase','1','--result-label','rebuild-v3-architecture'],
+            ['tests/run_review.py','--rebuild-v3-architecture'],
             ['tests/run_review.py'],
         ]
+        outputs = {
+            ('tests/run_review.py','--rebuild-v3-architecture'): ('rebuild-v3-architecture-results.json','architecture-results.json'),
+            ('tests/run_review.py',): ('review-results.json','regression-results.json'),
+        }
         for args in commands:
+            artifact=outputs.get(tuple(args))
+            if artifact:
+                source=target/'tests'/artifact[0]
+                source.unlink(missing_ok=True)
             result = subprocess.run([sys.executable,'-X','utf8',*args],cwd=target,capture_output=True,text=True,encoding='utf-8')
             records.append({'command':['python',*args],'returncode':result.returncode,'stdout':result.stdout,'stderr':result.stderr})
             print('PASS' if result.returncode==0 else 'FAIL', ' '.join(args), flush=True)
-            for source, name in [('rebuild-v3-architecture-results.json','architecture-results.json'),('review-results.json','regression-results.json')]:
-                if (target/'tests'/source).exists(): shutil.copy2(target/'tests'/source,OUTPUT/name)
+            if artifact and source.is_file():
+                shutil.copy2(source,OUTPUT/artifact[1])
             (OUTPUT/'execution.json').write_text(json.dumps({'commands':records,'protectedBefore':before,'protectedAfter':protected(),'campaignUnchanged':before==protected()},ensure_ascii=False,indent=2),encoding='utf-8')
             if result.returncode:
                 print(result.stdout[-7000:],result.stderr[-3000:])

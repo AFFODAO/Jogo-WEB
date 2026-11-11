@@ -1,0 +1,1166 @@
+{
+  "phases": [],
+  "systems": {
+    "final comparison: historical and rebuilt traversal / 1": "PASS",
+    "final comparison: historical and rebuilt traversal / 2": "PASS",
+    "final comparison: historical and rebuilt traversal / 3": "PASS",
+    "final comparison: historical and rebuilt traversal / 4": "PASS",
+    "final comparison: historical and rebuilt traversal / 5": "PASS",
+    "final comparison: historical and rebuilt traversal / 6": "PASS",
+    "final comparison: historical and rebuilt traversal / 7": "PASS",
+    "final comparison: historical and rebuilt traversal / 8": "PASS",
+    "final comparison: historical and rebuilt traversal / 9": "PASS",
+    "final comparison: historical and rebuilt traversal / 10": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "comparison": [
+    {
+      "phase": 1,
+      "theme": "hardware",
+      "previous": {
+        "revision": 3,
+        "dimensions": [
+          2800,
+          1000
+        ],
+        "layout": "horizontal",
+        "regions": [
+          "CPU",
+          "RAM",
+          "GPU",
+          "BUS"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 874141,
+        "surfaces": 25,
+        "platforms": 20,
+        "moving": 0,
+        "temporary": 0,
+        "obstacles": 2,
+        "gates": 0,
+        "timedHazards": 0,
+        "cameras": 0,
+        "environmentZones": 1,
+        "routes": [
+          "trilha inferior da placa-mãe",
+          "barramento da CPU",
+          "torre de memória",
+          "passarela da GPU"
+        ],
+        "physicalLinks": 0,
+        "portals": 0,
+        "collectibles": 5,
+        "secrets": 3,
+        "checkpoints": 3,
+        "repairs": 3,
+        "enemies": 3,
+        "requiredEnemies": 3,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "rebuilt": {
+        "revision": 5,
+        "dimensions": [
+          4480,
+          2560
+        ],
+        "layout": "multi-route",
+        "regions": [
+          "PLACA-MAE CENTRAL",
+          "COMPLEXO DA CPU",
+          "TORRES DE MEMORIA RAM",
+          "BARRAMENTOS",
+          "COMPLEXO DA GPU",
+          "NUCLEO FINAL"
+        ],
+        "rooms": 22,
+        "optionalRooms": 4,
+        "areaPx2": 3819732,
+        "surfaces": 152,
+        "platforms": 111,
+        "moving": 4,
+        "temporary": 2,
+        "obstacles": 81,
+        "gates": 0,
+        "timedHazards": 4,
+        "cameras": 0,
+        "environmentZones": 1,
+        "routes": [
+          {
+            "id": "north-loop",
+            "label": "CPU / RAM / BARRAMENTOS"
+          },
+          {
+            "id": "lower-loop",
+            "label": "BARRAMENTOS / GPU"
+          },
+          {
+            "id": "vaults",
+            "label": "CACHES OPCIONAIS"
+          }
+        ],
+        "physicalLinks": 30,
+        "portals": 4,
+        "collectibles": 26,
+        "secrets": 8,
+        "checkpoints": 8,
+        "repairs": 4,
+        "enemies": 13,
+        "requiredEnemies": 13,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "areaRatio": 4.36969779474936
+    },
+    {
+      "phase": 2,
+      "theme": "software",
+      "previous": {
+        "revision": 3,
+        "dimensions": [
+          1900,
+          1400
+        ],
+        "layout": "hub",
+        "regions": [
+          "DESKTOP",
+          "PROCESSOS",
+          "ARQUIVOS",
+          "ESCALONADOR"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 724613,
+        "surfaces": 18,
+        "platforms": 14,
+        "moving": 2,
+        "temporary": 0,
+        "obstacles": 10,
+        "gates": 0,
+        "timedHazards": 0,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          "Desktop → Processos → Arquivos",
+          "Desktop → Escalonador → Arquivos"
+        ],
+        "physicalLinks": 0,
+        "portals": 8,
+        "collectibles": 4,
+        "secrets": 4,
+        "checkpoints": 3,
+        "repairs": 3,
+        "enemies": 3,
+        "requiredEnemies": 3,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "rebuilt": {
+        "revision": 5,
+        "dimensions": [
+          5120,
+          4224
+        ],
+        "layout": "hub",
+        "regions": [
+          "AREA DE TRABALHO",
+          "SISTEMA DE ARQUIVOS",
+          "GERENCIADOR DE PROCESSOS",
+          "MEMORIA VIRTUAL",
+          "ARQUIVOS CORROMPIDOS",
+          "NUCLEO DO SISTEMA"
+        ],
+        "rooms": 19,
+        "optionalRooms": 4,
+        "areaPx2": 3638562,
+        "surfaces": 109,
+        "platforms": 88,
+        "moving": 5,
+        "temporary": 4,
+        "obstacles": 57,
+        "gates": 2,
+        "timedHazards": 4,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [],
+        "physicalLinks": 0,
+        "portals": 50,
+        "collectibles": 25,
+        "secrets": 8,
+        "checkpoints": 9,
+        "repairs": 5,
+        "enemies": 16,
+        "requiredEnemies": 16,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "areaRatio": 5.021386588427202
+    },
+    {
+      "phase": 3,
+      "theme": "switch",
+      "previous": {
+        "revision": 3,
+        "dimensions": [
+          2200,
+          1200
+        ],
+        "layout": "multi-route",
+        "regions": [
+          "BACKPLANE",
+          "ETHERNET 01",
+          "ETHERNET 02",
+          "ETHERNET 03",
+          "ETHERNET 04"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 932540,
+        "surfaces": 32,
+        "platforms": 27,
+        "moving": 1,
+        "temporary": 0,
+        "obstacles": 0,
+        "gates": 0,
+        "timedHazards": 0,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          "ramal da porta 01",
+          "ramal da porta 02",
+          "ramal superior 03",
+          "ramal superior 04",
+          "backplane vertical"
+        ],
+        "physicalLinks": 0,
+        "portals": 0,
+        "collectibles": 4,
+        "secrets": 4,
+        "checkpoints": 3,
+        "repairs": 3,
+        "enemies": 3,
+        "requiredEnemies": 3,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [
+          {
+            "id": "active-ports",
+            "type": "condition"
+          }
+        ],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "rebuilt": {
+        "revision": 5,
+        "dimensions": [
+          4480,
+          3584
+        ],
+        "layout": "hub",
+        "regions": [
+          "BACKPLANE CENTRAL",
+          "PORTAS ETHERNET",
+          "CANAIS DE TRANSMISSAO",
+          "CENTRAL DE COMUTACAO",
+          "REGIAO DE UPLINK",
+          "NUCLEO FINAL"
+        ],
+        "rooms": 25,
+        "optionalRooms": 4,
+        "areaPx2": 5071908,
+        "surfaces": 243,
+        "platforms": 200,
+        "moving": 6,
+        "temporary": 5,
+        "obstacles": 57,
+        "gates": 8,
+        "timedHazards": 7,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          {
+            "id": "west-loop",
+            "label": "PORTAS 01 / 03 / COMUTACAO"
+          },
+          {
+            "id": "east-loop",
+            "label": "PORTAS 02 / 04 / UPLINK"
+          },
+          {
+            "id": "lower-loop",
+            "label": "CANAIS / RETORNO AO HUB"
+          },
+          {
+            "id": "core",
+            "label": "BACKPLANE / NUCLEO"
+          }
+        ],
+        "physicalLinks": 36,
+        "portals": 6,
+        "collectibles": 53,
+        "secrets": 8,
+        "checkpoints": 14,
+        "repairs": 6,
+        "enemies": 18,
+        "requiredEnemies": 18,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [
+          {
+            "id": "active-ports",
+            "type": "condition"
+          }
+        ],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "areaRatio": 5.438810131468891
+    },
+    {
+      "phase": 4,
+      "theme": "router",
+      "previous": {
+        "revision": 3,
+        "dimensions": [
+          2200,
+          1500
+        ],
+        "layout": "maze",
+        "regions": [
+          "LAN",
+          "TRANSITO",
+          "WAN",
+          "ROTA RESERVA"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 1204002,
+        "surfaces": 24,
+        "platforms": 20,
+        "moving": 0,
+        "temporary": 0,
+        "obstacles": 2,
+        "gates": 0,
+        "timedHazards": 0,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          "túnel LAN inferior",
+          "trânsito com bifurcação",
+          "WAN superior",
+          "interfaces de retorno"
+        ],
+        "physicalLinks": 0,
+        "portals": 5,
+        "collectibles": 4,
+        "secrets": 4,
+        "checkpoints": 3,
+        "repairs": 3,
+        "enemies": 3,
+        "requiredEnemies": 3,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "rebuilt": {
+        "revision": 5,
+        "dimensions": [
+          5120,
+          2560
+        ],
+        "layout": "maze",
+        "regions": [
+          "ENTRADA LAN",
+          "LABIRINTO CENTRAL",
+          "INTERFACES DE REDE",
+          "TUNEIS WAN",
+          "NUCLEO DE ROTEAMENTO",
+          "GATEWAY FINAL"
+        ],
+        "rooms": 27,
+        "optionalRooms": 3,
+        "areaPx2": 5028075,
+        "surfaces": 207,
+        "platforms": 162,
+        "moving": 6,
+        "temporary": 4,
+        "obstacles": 93,
+        "gates": 10,
+        "timedHazards": 6,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          {
+            "id": "upper-loop",
+            "label": "LAN / GALERIA SUPERIOR / INTERFACE LAN"
+          },
+          {
+            "id": "lower-loop",
+            "label": "LABIRINTO / TRANSITO / INTERFACE WAN"
+          },
+          {
+            "id": "wan-loop",
+            "label": "WAN / ELEVADORES / NUCLEO"
+          },
+          {
+            "id": "gateway",
+            "label": "DUAS APROXIMACOES / GATEWAY"
+          }
+        ],
+        "physicalLinks": 38,
+        "portals": 6,
+        "collectibles": 40,
+        "secrets": 6,
+        "checkpoints": 15,
+        "repairs": 6,
+        "enemies": 21,
+        "requiredEnemies": 21,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "areaRatio": 4.176135089476595
+    },
+    {
+      "phase": 5,
+      "theme": "wifi",
+      "previous": {
+        "revision": 3,
+        "dimensions": [
+          1550,
+          2400
+        ],
+        "layout": "vertical",
+        "regions": [
+          "ANTENA A",
+          "REPETIDOR",
+          "ANTENA B",
+          "UPLINK"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 1000871,
+        "surfaces": 34,
+        "platforms": 29,
+        "moving": 3,
+        "temporary": 5,
+        "obstacles": 0,
+        "gates": 0,
+        "timedHazards": 0,
+        "cameras": 0,
+        "environmentZones": 4,
+        "routes": [
+          "canal principal em zigue-zague",
+          "canal limpo após reparo",
+          "cache abaixo da entrada",
+          "antena lateral secreta"
+        ],
+        "physicalLinks": 0,
+        "portals": 0,
+        "collectibles": 5,
+        "secrets": 5,
+        "checkpoints": 4,
+        "repairs": 3,
+        "enemies": 3,
+        "requiredEnemies": 3,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "rebuilt": {
+        "revision": 5,
+        "dimensions": [
+          1920,
+          5632
+        ],
+        "layout": "vertical",
+        "regions": [
+          "BASE DA TORRE",
+          "ESTRUTURAS DE TRANSMISSAO",
+          "ZONA DE INTERFERENCIA",
+          "TORRES REPETIDORAS",
+          "CAMPO DE SINAL",
+          "ANTENA PRINCIPAL"
+        ],
+        "rooms": 27,
+        "optionalRooms": 4,
+        "areaPx2": 5519125,
+        "surfaces": 261,
+        "platforms": 210,
+        "moving": 8,
+        "temporary": 11,
+        "obstacles": 2,
+        "gates": 1,
+        "timedHazards": 6,
+        "cameras": 0,
+        "environmentZones": 6,
+        "routes": [
+          {
+            "id": "west-mast",
+            "label": "MASTRO OESTE / CALIBRACAO / REPETIDORES"
+          },
+          {
+            "id": "east-mast",
+            "label": "MASTRO LESTE / CANAIS / SINAL"
+          },
+          {
+            "id": "lateral-rings",
+            "label": "PASSARELAS / ROTAS LATERAIS / CACHES"
+          },
+          {
+            "id": "antenna",
+            "label": "COROA / ANTENA PRINCIPAL"
+          }
+        ],
+        "physicalLinks": 37,
+        "portals": 6,
+        "collectibles": 39,
+        "secrets": 8,
+        "checkpoints": 16,
+        "repairs": 6,
+        "enemies": 22,
+        "requiredEnemies": 22,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "areaRatio": 5.514322025515776
+    },
+    {
+      "phase": 6,
+      "theme": "cabling",
+      "previous": {
+        "revision": 4,
+        "dimensions": [
+          1600,
+          3000
+        ],
+        "layout": "vertical",
+        "regions": [
+          "SUBSOLO",
+          "SHAFT OESTE",
+          "SHAFT LESTE",
+          "MANUTENCAO",
+          "COBERTURA"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 1969062,
+        "surfaces": 52,
+        "platforms": 44,
+        "moving": 3,
+        "temporary": 0,
+        "obstacles": 5,
+        "gates": 0,
+        "timedHazards": 0,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          "shaft oeste",
+          "shaft leste",
+          "poço de elevadores",
+          "passagens de manutenção"
+        ],
+        "physicalLinks": 0,
+        "portals": 0,
+        "collectibles": 4,
+        "secrets": 4,
+        "checkpoints": 4,
+        "repairs": 3,
+        "enemies": 4,
+        "requiredEnemies": 4,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "rebuilt": {
+        "revision": 5,
+        "dimensions": [
+          3840,
+          4096
+        ],
+        "layout": "multi-route",
+        "regions": [
+          "SUBSOLO",
+          "CENTRAL DE CABEAMENTO",
+          "ANDARES DE MANUTENCAO",
+          "POCOS DE ELEVADORES",
+          "INFRAESTRUTURA SUPERIOR",
+          "COBERTURA"
+        ],
+        "rooms": 41,
+        "optionalRooms": 4,
+        "areaPx2": 7937184,
+        "surfaces": 372,
+        "platforms": 293,
+        "moving": 15,
+        "temporary": 6,
+        "obstacles": 131,
+        "gates": 5,
+        "timedHazards": 13,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          {
+            "id": "basement-loop",
+            "label": "SUBSOLO / PAINEIS / CENTRAL"
+          },
+          {
+            "id": "maintenance-loop",
+            "label": "ANDARES / ROTAS LATERAIS"
+          },
+          {
+            "id": "shaft-loop",
+            "label": "POCOS OESTE / CENTRAL / LESTE"
+          },
+          {
+            "id": "upper-loop",
+            "label": "DUTOS / PASSARELAS / COBERTURA"
+          }
+        ],
+        "physicalLinks": 66,
+        "portals": 7,
+        "collectibles": 54,
+        "secrets": 8,
+        "checkpoints": 22,
+        "repairs": 7,
+        "enemies": 30,
+        "requiredEnemies": 30,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "areaRatio": 4.0309467147301605
+    },
+    {
+      "phase": 7,
+      "theme": "dhcp",
+      "previous": {
+        "revision": 3,
+        "dimensions": [
+          2800,
+          1700
+        ],
+        "layout": "hub",
+        "regions": [
+          "DISTRIBUICAO",
+          "ESCOPO 10.0.10",
+          "DIAGNOSTICO",
+          "RELAY",
+          "GATEWAY"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 1004264,
+        "surfaces": 26,
+        "platforms": 21,
+        "moving": 5,
+        "temporary": 0,
+        "obstacles": 1,
+        "gates": 1,
+        "timedHazards": 0,
+        "cameras": 0,
+        "environmentZones": 1,
+        "routes": [
+          "núcleo DHCP",
+          "escopo 10.0.10/24",
+          "rede de diagnóstico",
+          "relay e reservas",
+          "gateway de saída"
+        ],
+        "physicalLinks": 0,
+        "portals": 8,
+        "collectibles": 4,
+        "secrets": 4,
+        "checkpoints": 4,
+        "repairs": 3,
+        "enemies": 4,
+        "requiredEnemies": 4,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [
+          {
+            "id": "ip-services",
+            "type": "condition"
+          }
+        ],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "rebuilt": {
+        "revision": 5,
+        "dimensions": [
+          3840,
+          3072
+        ],
+        "layout": "hub",
+        "regions": [
+          "CENTRAL DHCP",
+          "DISTRITO DE ENDERECAMENTO",
+          "DISTRITO DE CONFLITOS",
+          "SETOR DE RESERVAS",
+          "REDE DE DISTRIBUICAO",
+          "GATEWAY FINAL"
+        ],
+        "rooms": 25,
+        "optionalRooms": 4,
+        "areaPx2": 4888224,
+        "surfaces": 219,
+        "platforms": 173,
+        "moving": 6,
+        "temporary": 4,
+        "obstacles": 14,
+        "gates": 4,
+        "timedHazards": 6,
+        "cameras": 0,
+        "environmentZones": 5,
+        "routes": [
+          {
+            "id": "address-loop",
+            "label": "CENTRAL / ESCOPO / ENDERECAMENTO"
+          },
+          {
+            "id": "conflict-loop",
+            "label": "DUPLICADOS / REPAROS / RETORNO"
+          },
+          {
+            "id": "reservation-loop",
+            "label": "RESERVAS / TERMINAIS / GATEWAY"
+          },
+          {
+            "id": "distribution-loop",
+            "label": "PONTES / CONCESSOES / ROTAS LATERAIS"
+          }
+        ],
+        "physicalLinks": 35,
+        "portals": 6,
+        "collectibles": 38,
+        "secrets": 8,
+        "checkpoints": 15,
+        "repairs": 6,
+        "enemies": 22,
+        "requiredEnemies": 22,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [
+          {
+            "id": "ip-services",
+            "type": "condition"
+          }
+        ],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "areaRatio": 4.8674691117076785
+    },
+    {
+      "phase": 8,
+      "theme": "dns",
+      "previous": {
+        "revision": 3,
+        "dimensions": [
+          3400,
+          2100
+        ],
+        "layout": "maze",
+        "regions": [
+          "RAIZ",
+          ".COM",
+          "MAIL.COM",
+          ".ORG",
+          "API.ORG",
+          "CACHE TTL",
+          "NXDOMAIN"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 2000616,
+        "surfaces": 44,
+        "platforms": 36,
+        "moving": 0,
+        "temporary": 0,
+        "obstacles": 6,
+        "gates": 0,
+        "timedHazards": 0,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          "raiz DNS",
+          "domínio .com e mail.com",
+          "domínio .org e api.org",
+          "cache recursivo",
+          "NXDOMAIN e arquivo"
+        ],
+        "physicalLinks": 0,
+        "portals": 16,
+        "collectibles": 5,
+        "secrets": 5,
+        "checkpoints": 4,
+        "repairs": 3,
+        "enemies": 5,
+        "requiredEnemies": 5,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "rebuilt": {
+        "revision": 5,
+        "dimensions": [
+          7040,
+          5120
+        ],
+        "layout": "maze",
+        "regions": [
+          "SERVIDOR RAIZ",
+          "REGIAO .COM",
+          "REGIAO .ORG",
+          "CACHE RECURSIVO",
+          "REGIAO NXDOMAIN / OPCIONAL",
+          "RESOLUCAO FINAL"
+        ],
+        "rooms": 33,
+        "optionalRooms": 8,
+        "areaPx2": 6366793,
+        "surfaces": 264,
+        "platforms": 204,
+        "moving": 6,
+        "temporary": 4,
+        "obstacles": 97,
+        "gates": 2,
+        "timedHazards": 8,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          {
+            "id": "root-queries",
+            "label": "RAIZ / .COM / .ORG / CACHE"
+          },
+          {
+            "id": "delegations",
+            "label": "DELEGACOES ENTRE DOMINIOS"
+          },
+          {
+            "id": "recursive-loop",
+            "label": "CACHE VERTICAL / TTL / ATALHOS"
+          },
+          {
+            "id": "nxdomain",
+            "label": "RISCO OPCIONAL / RECOMPENSAS"
+          },
+          {
+            "id": "resolution",
+            "label": "RESOLUCAO / RETORNO / SAIDA"
+          }
+        ],
+        "physicalLinks": 36,
+        "portals": 24,
+        "collectibles": 56,
+        "secrets": 16,
+        "checkpoints": 21,
+        "repairs": 7,
+        "enemies": 24,
+        "requiredEnemies": 20,
+        "repairAll": true,
+        "defeatAll": false,
+        "question": true,
+        "goals": [
+          {
+            "id": "required-guardians",
+            "type": "defeat"
+          }
+        ],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "areaRatio": 3.1824163157747414
+    },
+    {
+      "phase": 9,
+      "theme": "firewall",
+      "previous": {
+        "revision": 3,
+        "dimensions": [
+          3600,
+          1800
+        ],
+        "layout": "multi-route",
+        "regions": [
+          "PERIMETRO",
+          "INFILTRACAO",
+          "BASTIAO",
+          "ANEL INTERNO",
+          "CIDADELA"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 1581113,
+        "surfaces": 29,
+        "platforms": 21,
+        "moving": 1,
+        "temporary": 1,
+        "obstacles": 4,
+        "gates": 4,
+        "timedHazards": 0,
+        "cameras": 2,
+        "environmentZones": 0,
+        "routes": [
+          "perímetro e inspeção",
+          "bastião leste",
+          "anel interno",
+          "escadaria da cidadela"
+        ],
+        "physicalLinks": 0,
+        "portals": 0,
+        "collectibles": 4,
+        "secrets": 4,
+        "checkpoints": 5,
+        "repairs": 4,
+        "enemies": 5,
+        "requiredEnemies": 5,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [
+          {
+            "id": "security-policy",
+            "type": "condition"
+          }
+        ],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "rebuilt": {
+        "revision": 5,
+        "dimensions": [
+          3520,
+          3008
+        ],
+        "layout": "multi-route",
+        "regions": [
+          "Perímetro externo",
+          "Sistemas de segurança",
+          "Área de infiltração",
+          "Anel interno",
+          "Cidadela central",
+          "Núcleo de segurança"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 6033469,
+        "surfaces": 150,
+        "platforms": 134,
+        "moving": 6,
+        "temporary": 4,
+        "obstacles": 5,
+        "gates": 8,
+        "timedHazards": 14,
+        "cameras": 5,
+        "environmentZones": 0,
+        "routes": [
+          "Muralha e torres",
+          "Eclusas de segurança",
+          "Dutos e passagens de manutenção",
+          "Arenas do anel",
+          "Terraços da cidadela",
+          "Contenção e saída"
+        ],
+        "physicalLinks": 0,
+        "portals": 2,
+        "collectibles": 40,
+        "secrets": 12,
+        "checkpoints": 18,
+        "repairs": 8,
+        "enemies": 25,
+        "requiredEnemies": 25,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [
+          {
+            "id": "security-policy",
+            "type": "condition"
+          }
+        ],
+        "completion": "exit",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "areaRatio": 3.8159631854269747
+    },
+    {
+      "phase": 10,
+      "theme": "servers",
+      "previous": {
+        "revision": 3,
+        "dimensions": [
+          6800,
+          2000
+        ],
+        "layout": "multi-route",
+        "regions": [
+          "TORRE A",
+          "TORRE B",
+          "FIBRA OPTICA",
+          "BACKBONE",
+          "AIRLOCK",
+          "ARENA MANUAL"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 2315942,
+        "surfaces": 63,
+        "platforms": 50,
+        "moving": 3,
+        "temporary": 1,
+        "obstacles": 4,
+        "gates": 1,
+        "timedHazards": 0,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          "data center inferior",
+          "torres e fibra superior",
+          "backbone sob ataque",
+          "airlock",
+          "arena exclusiva"
+        ],
+        "physicalLinks": 0,
+        "portals": 0,
+        "collectibles": 6,
+        "secrets": 6,
+        "checkpoints": 5,
+        "repairs": 4,
+        "enemies": 8,
+        "requiredEnemies": 8,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "boss-question",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "rebuilt": {
+        "revision": 5,
+        "dimensions": [
+          6800,
+          4280
+        ],
+        "layout": "multi-route",
+        "regions": [
+          "Entrada do data center",
+          "Torres de servidores",
+          "Salas de manutenção",
+          "Central de transmissão",
+          "Núcleo de corrupção",
+          "Antecâmara",
+          "Arena final"
+        ],
+        "rooms": 1,
+        "optionalRooms": null,
+        "areaPx2": 8759237,
+        "surfaces": 222,
+        "platforms": 195,
+        "moving": 12,
+        "temporary": 4,
+        "obstacles": 17,
+        "gates": 10,
+        "timedHazards": 19,
+        "cameras": 0,
+        "environmentZones": 0,
+        "routes": [
+          "Entrada do data center",
+          "Torres de servidores",
+          "Salas de manutenção",
+          "Central de transmissão",
+          "Núcleo de corrupção",
+          "Antecâmara",
+          "Arena final"
+        ],
+        "physicalLinks": 0,
+        "portals": 10,
+        "collectibles": 57,
+        "secrets": 21,
+        "checkpoints": 32,
+        "repairs": 12,
+        "enemies": 33,
+        "requiredEnemies": 33,
+        "repairAll": true,
+        "defeatAll": true,
+        "question": true,
+        "goals": [],
+        "completion": "boss-question",
+        "missedCheckpointCandidates": [],
+        "checkpointHazards": []
+      },
+      "areaRatio": 3.7821486893885945
+    }
+  ],
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:41:44.262058+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

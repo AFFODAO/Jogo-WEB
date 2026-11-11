@@ -1,0 +1,986 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / dns / phase-08-review-alpha": "PASS",
+    "final audit: campaign / dns / phase-08-review-beta": "PASS",
+    "final audit: campaign / dns / phase-08-review-gamma": "PASS",
+    "final audit: procedural / dns / phase-08-review-alpha": "PASS",
+    "final audit: procedural / dns / phase-08-review-beta": "PASS",
+    "final audit: procedural / dns / phase-08-review-gamma": "PASS",
+    "final audit: compare structures and identity / dns": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-08-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 1,
+          "exit": false,
+          "repairsFound": [
+            "root-core:hints"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-entry:root-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints"
+          ],
+          "surfaces": 24,
+          "exit": false,
+          "repairsFound": [
+            "cache-terminal:recursive"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-entry:root-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 119,
+          "exit": false,
+          "repairsFound": [
+            "org-records:records"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-entry:root-return",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "org-records:records",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 127,
+          "exit": false,
+          "repairsFound": [
+            "com-records:records"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "org-records:records",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 150,
+          "exit": false,
+          "repairsFound": [
+            "com-zone:delegation"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-records:restored-return",
+            "com-base:root-return",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "com-zone:delegation",
+            "org-records:records",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 206,
+          "exit": false,
+          "repairsFound": [
+            "cache-crown:ttl"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-records:restored-return",
+            "com-zone:restored-return",
+            "com-files:delegation-org",
+            "com-base:root-return",
+            "org-archive:delegation-com",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "com-zone:delegation",
+            "org-records:records",
+            "cache-crown:ttl",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 153,
+          "exit": false,
+          "repairsFound": [
+            "resolve-core:resolution"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "root-lower:final-query",
+            "root-dock:ttl-shortcut",
+            "com-records:restored-return",
+            "com-zone:restored-return",
+            "com-files:delegation-org",
+            "com-base:root-return",
+            "org-archive:delegation-com",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-crown:restored-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-vault:vault-shortcut",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "nx-vault:risk-reward-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "com-zone:delegation",
+            "org-records:records",
+            "cache-crown:ttl",
+            "cache-terminal:recursive",
+            "resolve-core:resolution"
+          ],
+          "surfaces": 264,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "root-lower:final-query",
+            "root-dock:ttl-shortcut",
+            "com-records:restored-return",
+            "com-zone:restored-return",
+            "com-files:delegation-org",
+            "com-base:root-return",
+            "org-archive:delegation-com",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-crown:restored-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-vault:vault-shortcut",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "nx-vault:risk-reward-return",
+            "resolve-core:restored-return",
+            "resolve-entry:root-return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 31.399999976158142,
+      "signature": "27888476",
+      "rooms": 33,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 7,
+      "checkpoints": 21,
+      "surfaces": 264
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-08-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 1,
+          "exit": false,
+          "repairsFound": [
+            "root-core:hints"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-entry:root-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints"
+          ],
+          "surfaces": 24,
+          "exit": false,
+          "repairsFound": [
+            "cache-terminal:recursive"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-entry:root-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 119,
+          "exit": false,
+          "repairsFound": [
+            "org-records:records"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-entry:root-return",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "org-records:records",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 127,
+          "exit": false,
+          "repairsFound": [
+            "com-records:records"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "org-records:records",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 150,
+          "exit": false,
+          "repairsFound": [
+            "com-zone:delegation"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-records:restored-return",
+            "com-base:root-return",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "com-zone:delegation",
+            "org-records:records",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 206,
+          "exit": false,
+          "repairsFound": [
+            "cache-crown:ttl"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-records:restored-return",
+            "com-zone:restored-return",
+            "com-files:delegation-org",
+            "com-base:root-return",
+            "org-archive:delegation-com",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "com-zone:delegation",
+            "org-records:records",
+            "cache-crown:ttl",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 153,
+          "exit": false,
+          "repairsFound": [
+            "resolve-core:resolution"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "root-lower:final-query",
+            "root-dock:ttl-shortcut",
+            "com-records:restored-return",
+            "com-zone:restored-return",
+            "com-files:delegation-org",
+            "com-base:root-return",
+            "org-archive:delegation-com",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-crown:restored-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-vault:vault-shortcut",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "nx-vault:risk-reward-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "com-zone:delegation",
+            "org-records:records",
+            "cache-crown:ttl",
+            "cache-terminal:recursive",
+            "resolve-core:resolution"
+          ],
+          "surfaces": 264,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "root-lower:final-query",
+            "root-dock:ttl-shortcut",
+            "com-records:restored-return",
+            "com-zone:restored-return",
+            "com-files:delegation-org",
+            "com-base:root-return",
+            "org-archive:delegation-com",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-crown:restored-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-vault:vault-shortcut",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "nx-vault:risk-reward-return",
+            "resolve-core:restored-return",
+            "resolve-entry:root-return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 37.89999997615814,
+      "signature": "27888476",
+      "rooms": 33,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 7,
+      "checkpoints": 21,
+      "surfaces": 264
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-08-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 1,
+          "exit": false,
+          "repairsFound": [
+            "root-core:hints"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-entry:root-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints"
+          ],
+          "surfaces": 24,
+          "exit": false,
+          "repairsFound": [
+            "cache-terminal:recursive"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-entry:root-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 119,
+          "exit": false,
+          "repairsFound": [
+            "org-records:records"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-entry:root-return",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "org-records:records",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 127,
+          "exit": false,
+          "repairsFound": [
+            "com-records:records"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-base:root-return",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "org-records:records",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 150,
+          "exit": false,
+          "repairsFound": [
+            "com-zone:delegation"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-records:restored-return",
+            "com-base:root-return",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "com-zone:delegation",
+            "org-records:records",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 206,
+          "exit": false,
+          "repairsFound": [
+            "cache-crown:ttl"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "com-records:restored-return",
+            "com-zone:restored-return",
+            "com-files:delegation-org",
+            "com-base:root-return",
+            "org-archive:delegation-com",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "com-zone:delegation",
+            "org-records:records",
+            "cache-crown:ttl",
+            "cache-terminal:recursive"
+          ],
+          "surfaces": 153,
+          "exit": false,
+          "repairsFound": [
+            "resolve-core:resolution"
+          ],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "root-lower:final-query",
+            "root-dock:ttl-shortcut",
+            "com-records:restored-return",
+            "com-zone:restored-return",
+            "com-files:delegation-org",
+            "com-base:root-return",
+            "org-archive:delegation-com",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-crown:restored-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-vault:vault-shortcut",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "nx-vault:risk-reward-return",
+            "resolve-entry:root-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root-core:hints",
+            "com-records:records",
+            "com-zone:delegation",
+            "org-records:records",
+            "cache-crown:ttl",
+            "cache-terminal:recursive",
+            "resolve-core:resolution"
+          ],
+          "surfaces": 264,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "root-core:query-com",
+            "root-core:query-org",
+            "root-core:hints-shortcut",
+            "root-east:query-cache",
+            "root-east:query-nx",
+            "root-lower:final-query",
+            "root-dock:ttl-shortcut",
+            "com-records:restored-return",
+            "com-zone:restored-return",
+            "com-files:delegation-org",
+            "com-base:root-return",
+            "org-archive:delegation-com",
+            "org-records:restored-return",
+            "org-terrace:cache-route",
+            "org-entry:root-return",
+            "cache-crown:restored-return",
+            "cache-bypass:org-route",
+            "cache-terminal:restored-return",
+            "cache-vault:vault-shortcut",
+            "cache-bottom:root-return",
+            "nx-entry:safe-return",
+            "nx-vault:risk-reward-return",
+            "resolve-core:restored-return",
+            "resolve-entry:root-return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 34.5,
+      "signature": "27888476",
+      "rooms": 33,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 7,
+      "checkpoints": 21,
+      "surfaces": 264
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-08-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 34,
+          "exit": false,
+          "repairsFound": [
+            "r10:relay"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r10:relay"
+          ],
+          "surfaces": 39,
+          "exit": false,
+          "repairsFound": [
+            "r4:relay"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r10:relay"
+          ],
+          "surfaces": 71,
+          "exit": false,
+          "repairsFound": [
+            "r5:relay"
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay",
+            "r10:relay"
+          ],
+          "surfaces": 114,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay",
+            "r10:relay"
+          ],
+          "surfaces": 115,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 46,
+      "signature": "6ae9fb9f",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 12,
+      "surfaces": 115
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-08-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 57,
+          "exit": false,
+          "repairsFound": [
+            "r4:relay"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 97,
+          "exit": false,
+          "repairsFound": [
+            "r5:relay"
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 125,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 126,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 46.69999998807907,
+      "signature": "ea004cb0",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 126
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-08-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 55,
+          "exit": false,
+          "repairsFound": [
+            "r4:relay"
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 128,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 129,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 36.69999998807907,
+      "signature": "0f49ad60",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 129
+    }
+  ],
+  "phase": 8,
+  "theme": "dns",
+  "seeds": [
+    "phase-08-review-alpha",
+    "phase-08-review-beta",
+    "phase-08-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 1,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:57:02.864006+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}
