@@ -1,0 +1,82 @@
+{
+  "checks": [
+    {
+      "width": 390,
+      "reducedMotion": false,
+      "cases": 41,
+      "result": "PASS"
+    },
+    {
+      "width": 1280,
+      "reducedMotion": false,
+      "cases": 41,
+      "result": "PASS"
+    },
+    {
+      "width": 390,
+      "reducedMotion": true,
+      "cases": 41,
+      "result": "PASS"
+    },
+    {
+      "input": "mouse",
+      "type": "interfaces",
+      "result": "PASS"
+    },
+    {
+      "input": "touch",
+      "type": "ip-distribution",
+      "result": "PASS"
+    },
+    {
+      "input": "mouse",
+      "type": "ethernet",
+      "result": "PASS"
+    },
+    {
+      "input": "touch",
+      "type": "cabling",
+      "result": "PASS"
+    },
+    {
+      "input": "keyboard",
+      "types": [
+        "files",
+        "fiber"
+      ],
+      "result": "PASS"
+    },
+    {
+      "polish": [
+        "opening",
+        "closing",
+        "error",
+        "rapid-reopen",
+        "cleanup"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "captures": [
+    "02-files-antes.png",
+    "02-files-depois.png",
+    "03-packets-antes.png",
+    "03-packets-depois.png",
+    "04-gateway-antes.png",
+    "04-gateway-depois.png",
+    "05-antenna-antes.png",
+    "05-antenna-depois.png",
+    "06-fiber-antes.png",
+    "06-fiber-depois.png",
+    "07-ip-conflicts-antes.png",
+    "07-ip-conflicts-depois.png",
+    "08-dns-query-antes.png",
+    "08-dns-query-depois.png",
+    "09-policy-order-antes.png",
+    "09-policy-order-depois.png",
+    "10-rack-load-antes.png",
+    "10-rack-load-depois.png"
+  ],
+  "sourceSha256": "b7039e82bec73c9b549943b6d645c6fff1933986c144f35e1afc4f7e208f36c2",
+  "errors": []
+}

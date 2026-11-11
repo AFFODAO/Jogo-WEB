@@ -3622,13 +3622,13 @@
       644
     ],
     "samples": 180,
-    "p50Ms": 2.300000011920929,
-    "p95Ms": 3.900000035762787,
+    "p50Ms": 2.400000035762787,
+    "p95Ms": 4.300000011920929,
     "cacheSize": 48,
     "parallaxBytes": 3414272
   },
   "execution": {
-    "atUTC": "2026-11-11T01:07:47.561439+00:00",
+    "atUTC": "2026-11-11T01:02:14.523902+00:00",
     "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
     "transport": "localhost HTTP",
     "isolatedStorage": true,
@@ -3640,7 +3640,7 @@
       "Combat is tested separately with damage protection; survival balance still needs manual play.",
       "Minigame solvers use generated answers through real DOM controls."
     ],
-    "sourceSha256": "618886fc32ae678e3676566af35b5885018112655b9538713f7ece5edbbf84f8"
+    "sourceSha256": "ac7f68792cbc4e2fbbff7be806fd8d9235e90cdc6ec0702a9d5a1b4286eb8f32"
   },
   "captures": [
     "snapshots/phase-01-overview.png",

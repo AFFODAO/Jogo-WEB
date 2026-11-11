@@ -22,7 +22,7 @@
       const enabled=game.enabled();toggle.checked=enabled;tools.hidden=!enabled;actions.hidden=!enabled;badge.hidden=!enabled;
       laboratory.href='tests/minigames.html?phase='+game.current();
       if(!enabled&&dialog.open)dialog.close('disabled');
-      byId('developerModeState').textContent=enabled?'ON':'OFF';
+      byId('developerModeState').textContent=enabled?'LIGADO':'DESLIGADO';
       document.body.classList.toggle('developer-testing',enabled);
       for(const [index,button] of [...list.children].entries()){
         const current=enabled&&game.current()===index;button.classList.toggle('current',current);

@@ -8,6 +8,31 @@
   const mechanics=['rotation','sequence','connection','path','tuning','swap','lease','lookup','policy','synchronization'];
   const difficulty=[2,1,1,3,1,3,2,3,2,4];
   const equipment=new Map(), campaignEquipment=new Map();
+  const motionReduced=()=>document.body.classList.contains('reduced-effects')||window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let exitPresentation=null;
+  function clearExitPresentation(){
+    if(!exitPresentation)return;
+    const previous=exitPresentation;exitPresentation=null;
+    previous.animation.cancel();previous.element.remove();
+  }
+  function presentExit(host){
+    clearExitPresentation();
+    const panel=host?.closest('.repair-panel');
+    if(!panel||panel.hidden||motionReduced())return;
+    const rect=panel.getBoundingClientRect();if(!rect.width||!rect.height)return;
+    const element=panel.cloneNode(true);
+    element.hidden=false;element.inert=true;element.setAttribute('aria-hidden','true');
+    element.removeAttribute('id');element.removeAttribute('role');element.removeAttribute('aria-modal');element.removeAttribute('aria-labelledby');
+    element.classList.add('repair-exit');
+    element.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+    element.querySelectorAll('.repair-connection-sparks').forEach(el=>el.remove());
+    Object.assign(element.style,{position:'fixed',inset:'auto',left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px',maxHeight:'none',margin:'0',pointerEvents:'none'});
+    document.body.append(element);
+    element.scrollTop=panel.scrollTop;element.scrollLeft=panel.scrollLeft;
+    const animation=element.animate([{opacity:1,transform:'translateY(0) scale(1)'},{opacity:0,transform:'translateY(8px) scale(.985)'}],{duration:160,easing:'ease-in',fill:'forwards'});
+    const presentation={element,animation};exitPresentation=presentation;
+    animation.finished.catch(()=>{}).finally(()=>{element.remove();if(exitPresentation===presentation)exitPresentation=null;});
+  }
   const catalog=types.map((id,i)=>Object.freeze({id,name:names[i],mechanic:mechanics[i],difficulty:difficulty[i]}));
   const byType=new Map(catalog.map(item=>[item.id,item]));
   const pools=[
@@ -138,8 +163,14 @@
           };
           const meter=ui.meter('Temperatura',84,reading(m.values[0]));
           const fan=ui.group('repair-fan','Ventoinha');
-          fan.style.setProperty('--fan-speed',m.values[0]?1/m.values[0]+'s':'0s');
-          ui.dial('ventoinha','Rotação',m.values[0],0,4,0,'% PWM',25,speed=>meter(reading(speed)));
+          const preview=speed=>{
+            fan.style.setProperty('--fan-speed',speed?1/speed+'s':'1s');
+            fan.dataset.spinning=String(speed>0);
+            fan.dataset.temperature=heat-speed*6===54?'ideal':heat-speed*6>54?'hot':'cold';
+            meter(reading(speed));
+          };
+          preview(m.values[0]);
+          ui.dial('ventoinha','Rotação',m.values[0],0,4,0,'% PWM',25,preview);
         },['dial-ventoinha:'+target],()=> 'Subir um nível reduz a temperatura em 6 °C.');
     });
     equipmentType(1,'gpu','Alimentação da GPU','power-interlock',()=>{
@@ -581,9 +612,9 @@
       const names=['Entrada','Resfriamento','Reserva','Distribuição','Núcleo'];
       const prerequisites=[[],[],[0],[0,1],[2,3]],answer=Array(5).fill(1);
       const order=shuffle([0,1,2,3,4],random);
-      return puzzle('Restaure os relays da matriz. Cada relé indica seus pré-requisitos. Desligar uma entrada derruba os relays dependentes.',
+      return puzzle('Restaure os relés da matriz. Cada relé indica seus pré-requisitos. Desligar uma entrada derruba os relés dependentes.',
         Array(5).fill(0),answer,(m,ui)=>{
-          const rack=ui.group('repair-rack','Matriz de relays');
+          const rack=ui.group('repair-rack','Matriz de relés');
           const available=i=>prerequisites[i].every(parent=>m.values[parent]);
           order.forEach(i=>{
             const needs=prerequisites[i].map(parent=>names[parent]).join(' + ');
@@ -593,7 +624,7 @@
             },Boolean(m.values[i]),!available(i));
           });
           const count=m.values.reduce((sum,value)=>sum+value,0);
-          ui.meter('Estabilidade',5,[count,count+'/5 relays',count===5]);
+          ui.meter('Estabilidade',5,[count,count+'/5 relés',count===5]);
         },names.map((_,i)=>'core-'+i),()=> 'Entrada e Resfriamento recebem alimentação direta.');
     });
   }
@@ -618,7 +649,7 @@
         return seen;
       };
       return {kind:'circuit',n,answer,values,path,source:0,target:path.at(-1),initial:[...values],trace,
-        instructions:'Gire as placas 90 graus para levar energia de IN a OUT. Verifique quando OUT acender.',
+        instructions:'Gire as placas 90 graus para levar energia da entrada à saída. Verifique quando a saída acender.',
         check:m=>trace(m).has(m.target)&&Boolean(m.values[m.target]&(n%2?2:8))};
 
     }
@@ -637,7 +668,7 @@
         instructions:'Monte a fila de execução na ordem carregar → verificar → isolar → iniciar. Remova a última ação para corrigir a fila.',check:exact};
     }
     if(type==='ethernet'){
-      const answer=shuffle(['PC de suporte','Impressora','Servidor','Access point'],random);
+      const answer=shuffle(['PC de suporte','Impressora','Servidor','Ponto de acesso'],random);
       return {kind:type,answer,values:answer.map(()=>''),labels:answer.map((v,i)=>`Porta ${i+1} → ${v}`),
         options:shuffle(answer,random),selected:0,instructions:'Selecione uma porta e encaixe seu destino. Cada destino aceita uma conexão.',
         check:m=>new Set(m.values).size===m.values.length&&exact(m)};
@@ -679,19 +710,451 @@
       check:m=>m.relay&&exact(m)};
   }
 
+  // Decorative equipment scenes read public puzzle state; controls own every mutation.
+  function equipmentVisual(type,m,board,recentAction){
+    if(['ram','cooling','gpu','circuit'].includes(type))return null;
+    const ns='http://www.w3.org/2000/svg';
+    const svg=document.createElementNS(ns,'svg');
+    svg.setAttribute('viewBox','0 0 320 148');svg.setAttribute('aria-hidden','true');
+    svg.classList.add('repair-equipment-scene');svg.dataset.mechanic=type;
+    board.prepend(svg);
+    const shape=(tag,attributes={},parent=svg)=>{
+      const el=document.createElementNS(ns,tag);
+      for(const [key,value] of Object.entries(attributes))el.setAttribute(key,value);
+      parent.append(el);return el;
+    };
+    const label=(x,y,text,parent=svg)=>{const el=shape('text',{x,y},parent);el.textContent=text;return el;};
+    const box=(x,y,w,h,cls,parent=svg)=>shape('rect',{x,y,width:w,height:h,class:cls},parent);
+    const wire=(d,active=false,cls='')=>shape('path',{d,class:'equipment-wire '+(active?'is-live ':'')+cls});
+    const packet=(d,blocked=false)=>{
+      const el=box(-3,-3,6,6,'equipment-packet'+(blocked?' is-blocked':''));
+      el.style.offsetPath=`path('${d}')`;return el;
+    };
+    const icon=(x,y,kind,text,state='idle')=>{
+      const g=shape('g',{transform:`translate(${x} ${y})`,class:'equipment-icon icon-'+kind,'data-state':state});
+      box(0,0,44,36,'equipment-case',g);
+      if(kind==='file'){box(9,6,23,26,'equipment-paper',g);shape('path',{d:'M 14 13 H 27 M 14 19 H 27 M 14 25 H 23',class:'equipment-engraving'},g);}
+      else if(kind==='folder'){box(5,10,34,20,'equipment-folder',g);box(5,6,15,7,'equipment-folder',g);}
+      else if(kind==='port'){box(6,8,32,21,'equipment-socket',g);for(let i=0;i<8;i++)box(9+i*3,9,2,7,'equipment-contact',g);}
+      else if(kind==='device'){box(6,5,32,21,'equipment-screen',g);box(19,27,7,5,'equipment-metal',g);}
+      else if(kind==='gate'){box(6,4,5,28,'equipment-metal',g);box(33,4,5,28,'equipment-metal',g);box(11,9,22,17,'equipment-gate',g);}
+      else if(kind==='server'){for(let i=0;i<3;i++){box(5,4+i*10,34,8,'equipment-drive',g);box(30,6+i*10,4,3,'equipment-led',g);}}
+      else if(kind==='tower'){shape('path',{d:'M 12 31 L 22 5 L 32 31 M 15 23 H 29 M 18 15 H 26',class:'equipment-antenna'},g);}
+      else{box(9,7,26,20,'equipment-chip',g);}
+      box(37,2,5,5,'equipment-led',g);
+      if(text!==undefined)label(22,49,text,g).setAttribute('text-anchor','middle');
+      return g;
+    };
+    const controls=(selector,cls)=>board.querySelectorAll(selector).forEach(el=>el.classList.add(cls));
+    const flash=selector=>{if(recentAction)board.querySelector(selector)?.classList.add('equipment-action');};
+    const state=value=>value?'live':'idle';
+    let update=()=>{};
+    if(['files','software','boot','quarantine'].includes(type)){
+      svg.classList.add('software-window');
+      box(4,4,312,137,'equipment-window');box(4,4,312,16,'equipment-titlebar');
+      for(let i=0;i<3;i++)box(12+i*9,9,4,4,'equipment-contact');
+      if(type==='files'){
+        for(let i=0;i<3;i++){
+          const x=30+i*106,assigned=m.values[i];
+          icon(x,80,'folder',String(i+1),state(assigned>=0));
+          const file=icon(x,28,'file',['TXT','PNG','ZIP'][i],state(m.values.includes(i)));
+          file.classList.add('visual-file');file.dataset.filed=String(m.values.includes(i));
+          if(assigned>=0){const d=`M ${30+assigned*106+22} 64 V 72 H ${x+22} V 80`;wire(d,true);packet(d);}
+        }
+        controls('.repair-part','equipment-file-control');controls('.repair-socket','equipment-folder-control');
+      }else if(type==='quarantine'){
+        m.values.forEach((isolated,i)=>{
+          const g=icon(12+i*61,50,'file',String(i+1),isolated?'blocked':'idle');g.classList.add('visual-quarantine');
+          if(isolated)box(3,2,38,32,'equipment-isolation',g);
+        });
+        controls('.repair-object','equipment-file-control');
+      }else{
+        const count=type==='boot'?4:m.answer.length;
+        for(let i=0;i<count;i++){
+          const live=type==='boot'?Boolean(m.values[i]):m.values.length>i;
+          if(i<count-1){const d=`M ${36+i*76} 70 H ${68+i*76}`;wire(d,live);if(live)packet(d);}
+          icon(8+i*76,52,'chip',String(i+1),state(live));
+        }
+        controls('button[id^="repair-boot-"]','equipment-process-control');
+      }
+      flash('.repair-equipment-scene');
+    }else if(['ethernet','packets','vlan','uplink'].includes(type)){
+      controls('button:not([id$="undo"])','equipment-port-control');
+      if(type==='ethernet'){
+        for(let i=0;i<4;i++){
+          const y=8+i*33,j=m.options.indexOf(m.values[i]);
+          icon(12,y,'port',undefined,state(Boolean(m.values[i])));
+          icon(262,y,'device',undefined,state(m.values.includes(m.options[i])));
+          label(64,y+21,String(i+1));label(247,y+21,String(i+1));
+          if(j>=0){const d=`M 56 ${y+18} C 130 ${y+18} 190 ${8+j*33+18} 262 ${8+j*33+18}`;wire(d,true);packet(d);}
+          const port=board.querySelector('#repair-port-'+i);if(port)port.dataset.link=String(Boolean(m.values[i]));
+        }
+      }else if(type==='packets'){
+        const queue=[...(board.querySelector('.repair-tray .repair-equipment-note')?.textContent||'').matchAll(/\[([ABC])\]/g)].map(match=>match[1]);
+        queue.forEach((name,i)=>{box(12+i*28,15,22,18,'equipment-screen');label(19+i*28,27,name);});
+        for(let i=0;i<3;i++){
+          const d=`M 150 32 V 65 H ${40+i*116} V 94`;
+          wire(d,m.values.at(-1)===i+1);icon(18+i*116,94,'port','P'+(i+1),state(m.values.includes(i+1)));
+          if(m.values.at(-1)===i+1)packet(d);
+        }
+        label(182,26,'Fila: '+queue.length);label(182,40,'Enviados: '+m.values.length);
+      }else if(type==='vlan'){
+        for(let i=0;i<4;i++){
+          const y=7+i*34;icon(10,y,'port',undefined,state(Boolean(m.values[i])));
+          [10,20].forEach((vlan,j)=>{
+            const d=`M 54 ${y+18} H ${170+j*100}`;wire(d,m.values[i]===vlan);
+            box(170+j*100,y+7,28,20,m.values[i]===vlan?'equipment-vlan is-live':'equipment-vlan');
+            label(179+j*100,y+21,String(vlan));
+          });
+        }
+      }else{
+        for(let i=0;i<2;i++){
+          const y=20+i*66,live=Boolean(m.values[i+2]);
+          const d=`M 70 ${y+18} H 250`;wire(d,live);if(live)packet(d);
+          icon(26,y,'port','Local',state(live));icon(250,y,'port',m.values[i]+' Gb/s',state(live));
+        }
+      }
+    }else if(['route','interfaces','gateway','route-table'].includes(type)){
+      controls('[id^="repair-exit-"],[id^="repair-entry-"],.repair-socket','equipment-port-control');
+      if(type==='route'){
+        const n=m.n,xy=i=>[34+(i%n)*76,12+Math.floor(i/n)*34];
+        for(let i=0;i<n*n;i++){
+          const [x,y]=xy(i);box(x,y,18,18,m.blocked.includes(i)?'route-node is-blocked':m.path.includes(i)?'route-node is-live':'route-node');
+          label(x+5,y+12,String(i+1));
+        }
+        if(m.path.length>1){const d=m.path.map((i,j)=>{const [x,y]=xy(i);return `${j?'L':'M'} ${x+9} ${y+9}`;}).join(' ');wire(d,true);packet(d);}
+      }else if(type==='interfaces'){
+        for(let i=0;i<3;i++){
+          const y=12+i*44,value=m.values[i];
+          icon(16,y,'port',['RJ45','SFP','USB'][i],state(m.values.includes(i)));
+          icon(262,y,'device',String(i+1),state(value>=0));
+          if(value>=0){const d=`M 60 ${30+value*44} C 120 ${30+value*44} 190 ${y+18} 262 ${y+18}`;wire(d,true);packet(d);}
+        }
+      }else if(type==='gateway'){
+        icon(20,55,'server','Roteador',state(m.values[0]>=0));
+        for(let i=0;i<3;i++){
+          const y=8+i*43,selected=m.values[0]===i,d=`M 64 73 H 160 V ${y+18} H 258`;
+          wire(d,selected);icon(258,y,'port',['A','B','C'][i],state(selected));
+          if(selected&&m.values[1])packet(d,m.values[1]<0);
+        }
+        label(83,127,m.values[1]>0?'Resposta recebida':m.values[1]<0?'Sem acesso externo':'Sonda em espera');
+      }else{
+        for(let i=0;i<3;i++){
+          const y=10+i*44,live=m.values[2*i]>0&&m.values[2*i+1]>0;
+          icon(12,y,'server','/'+m.values[2*i],state(live));
+          const d=`M 56 ${y+18} H 264`;wire(d,live);if(live)packet(d);
+          icon(264,y,'port','P'+m.values[2*i+1],state(live));
+        }
+      }
+    }else if(['antenna','channel','power-signal','repeaters','wifi'].includes(type)){
+      const waves=(x,y,active)=>{
+        for(let i=0;i<3;i++){
+          const r=16+i*13,p=shape('path',{d:`M ${x-r} ${y-r} Q ${x} ${y-r*1.6} ${x+r} ${y-r}`,class:'equipment-radio-wave'});
+          p.style.animationDelay=i*.25+'s';p.dataset.active=String(active);
+        }
+      };
+      controls('[id^="repair-site-"]','equipment-tower-control');
+      if(type==='antenna'){
+        const x=160,y=83,angle=m.values[0]*45;
+        const mount=shape('g',{transform:`translate(${x} ${y})`});
+        const dish=shape('g',{class:'equipment-dish'+(recentAction==='antenna-turn'?' is-turning':'')},mount);
+        dish.style.setProperty('--dish-angle',angle+'deg');dish.style.setProperty('--dish-from',angle-45+'deg');
+        shape('path',{d:'M -23 -22 Q 0 12 23 -22 M 0 -5 V -36 M -8 -36 H 8',class:'equipment-antenna'},dish);
+        for(let i=0;i<3;i++)shape('path',{d:`M ${-12-i*9} ${-42-i*8} Q 0 ${-55-i*10} ${12+i*9} ${-42-i*8}`,class:'equipment-radio-wave'},dish);
+        box(-12,2,24,24,'equipment-metal',mount);
+        const radians=m.answer[0]*Math.PI/4;
+        const receiver=shape('circle',{cx:x+104*Math.sin(radians),cy:y-60*Math.cos(radians),r:7,class:'equipment-receiver'});
+        receiver.dataset.active=String(m.values[0]===m.answer[0]);
+        label(11,137,'Antena: '+m.values[0]*45+'°');
+      }else if(type==='channel'){
+        const buttons=[...board.querySelectorAll('[id^="repair-channel-"]')];
+        buttons.forEach((button,i)=>{
+          const noise=parseFloat(button.style.getPropertyValue('--noise'))||0;
+          box(14+i*62,15,42,108,'equipment-case');
+          const bar=box(22+i*62,116-noise,26,Math.max(2,noise),'equipment-interference');
+          bar.dataset.noise=noise;bar.style.animationDelay=i*.17+'s';
+          label(24+i*62,137,'C'+(i+1));
+          if(m.values[0]===i)box(13+i*62,14,44,110,'equipment-selection');
+        });
+      }else if(type==='repeaters'){
+        const buttons=[...board.querySelectorAll('[id^="repair-site-"]')];
+        buttons.forEach((button,i)=>{const x=14+i*78;icon(x,59,'tower',String(i+1),state(Boolean(m.values[i])));if(m.values[i])waves(x+22,61,true);});
+        [...board.querySelectorAll('.repair-slots .repair-equipment-note')].forEach((note,i)=>{
+          box(65+i*70,121,42,13,note.dataset.signal==='good'?'equipment-coverage is-live':'equipment-coverage');label(82+i*70,131,['A','B','C'][i]);
+        });
+      }else{
+        icon(25,83,'tower','Emissor','live');icon(250,83,'device','Receptor');waves(47,76,true);
+        const bars=[];for(let i=0;i<5;i++)bars.push(box(119+i*20,102-i*14,12,22+i*14,'equipment-signal-bar'));
+        update=()=>{
+          const meter=board.querySelector('meter'),strength=type==='wifi'?m.values[1]/100:Math.max(0,Math.min(1,(meter?.value||0)/50));
+          bars.forEach((bar,i)=>bar.dataset.active=String(strength>i/5));
+          svg.dataset.signal=meter?.parentElement.dataset.signal||'pending';
+        };update();
+      }
+    }else if(['cabling','connectors','continuity','fiber'].includes(type)){
+      controls('.repair-part,.repair-socket','equipment-port-control');
+      if(type==='cabling'){
+        box(24,8,272,40,'equipment-rj45');
+        const colors={laranja:'#ed9b53',verde:'#74ce94',azul:'#7ebbef',marrom:'#b5876d'};
+        m.values.forEach((color,i)=>{
+          const x=40+i*34,d=`M ${x} 128 C ${x-12} 94 ${x+12} 72 ${x} 42`;
+          const p=wire(d,false,'equipment-colored-wire');p.style.stroke=colors[color.split('/').at(-1).toLowerCase()];
+          if(color.includes('/')){const stripe=wire(d,false,'equipment-wire-stripe');stripe.style.stroke='#e4e9de';}
+          box(x-6,16,12,24,'equipment-pin');label(x-2,12,String(i+1));
+          if(m.selected===i)box(x-9,121,18,18,'equipment-selection');
+        });
+      }else if(type==='connectors'){
+        for(let i=0;i<4;i++){
+          const y=5+i*35;icon(12,y,'port',['RJ45','LC','BNC','USB'][i],state(m.values.includes(i)));
+          icon(263,y,'port',['A','B','C','D'][i],state(m.values[i]>=0));
+          if(m.values[i]>=0){const d=`M 56 ${23+m.values[i]*35} C 130 ${23+m.values[i]*35} 190 ${y+18} 263 ${y+18}`;wire(d,true);packet(d);}
+        }
+      }else if(type==='continuity'){
+        box(10,32,90,85,'equipment-case');box(20,44,70,23,'equipment-screen');
+        const i=m.selected,live=i!=null&&Boolean(m.values[i]);
+        label(27,59,i==null?'Sonda':live?'0 Ω':'OL');
+        for(let j=0;j<5;j++){
+          const x=123+j*38;
+          box(x,20,24,20,i===j?(live?'equipment-segment is-live':'equipment-segment is-open'):'equipment-segment');
+          label(x+7,15,'T'+(j+1));
+        }
+        if(i!=null){
+          const x=123+i*38;
+          shape('path',{d:`M 32 110 C 30 147 ${x} 146 ${x+4} 42`,class:'equipment-probe-red'});
+          shape('path',{d:`M 76 110 C 90 133 ${x+24} 133 ${x+20} 42`,class:'equipment-probe-black'});
+          if(live)packet(`M ${x+4} 30 H ${x+20}`);
+        }
+      }else{
+        box(20,40,70,70,'equipment-case');box(230,40,70,70,'equipment-case');
+        for(let i=0;i<5;i++){wire(`M 24 ${48+i*12} H 74`,true);wire(`M 246 ${48+i*12} H 296`,true);}
+        const lens=shape('circle',{cx:160,cy:74,r:31,class:'equipment-optical-lens'});
+        shape('path',{d:'M 120 74 H 200 M 160 34 V 114',class:'equipment-scope-grid'});
+        const beam=shape('path',{d:'M 88 74 H 232',class:'equipment-optical-beam'});
+        const dot=shape('circle',{cx:160,cy:74,r:6,class:'equipment-optical-dot'});
+        update=()=>{
+          const inputs=[...board.querySelectorAll('input[type="range"]')],signal=board.querySelector('meter')?.value||0;
+          dot.setAttribute('cx',142+Number(inputs[0]?.value||0)*6);dot.setAttribute('cy',56+Number(inputs[1]?.value||0)*6);
+          beam.style.opacity=Math.max(.15,signal/100);lens.dataset.aligned=String(signal===100);
+          svg.dataset.locked=String(Boolean(m.values[2]));
+        };update();
+        label(112,137,m.values[2]?'Fibra travada':'Alinhamento óptico');
+      }
+    }else if(['ip-distribution','ip-conflicts','ip-reservations','ip-pool','dhcp'].includes(type)){
+      controls('.repair-socket,[id^="repair-lease-row-"]','equipment-device-control');
+      if(type==='ip-pool'){
+        const cells=[];
+        for(let i=0;i<32;i++){
+          const x=10+i%8*39,y=9+Math.floor(i/8)*33;
+          const cell=box(x,y,31,23,'equipment-ip-cell');cell.dataset.reserved=String(i<2);cells.push(cell);
+          label(x+7,y+15,'.'+i);
+        }
+        update=()=>{
+          const inputs=board.querySelectorAll('input'),low=Number(inputs[0].value),high=Number(inputs[1].value);
+          cells.forEach((cell,i)=>cell.dataset.allocated=String(i>=low&&i<=high));
+          svg.dataset.invalid=String(low===0||high<low);
+        };update();
+      }else if(type==='ip-conflicts'){
+        icon(138,8,'server','Concessões','live');
+        let conflict=false;
+        m.values.forEach((ip,i)=>{
+          const duplicate=m.values.filter(value=>value===ip).length>1;conflict||=duplicate;
+          const x=14+i*78,d=`M 160 44 V 62 H ${x+22} V 90`;
+          wire(d,!duplicate,duplicate?'equipment-conflict-line':'');if(!duplicate)packet(d);
+          icon(x,90,'device','.'+ip,duplicate?'blocked':'live');
+        });
+        svg.dataset.conflict=String(conflict);if(conflict)label(12,18,'Conflito de IP');
+      }else{
+        const devices=m.kind==='dhcp'?m.values.length:3;
+        icon(14,55,'server','DHCP','live');
+        for(let i=0;i<devices;i++){
+          const value=m.values[i],assigned=m.kind==='dhcp'?Boolean(value):value>=0;
+          const socket=board.querySelector('#repair-device-'+i)||board.querySelector('#repair-slot-'+i);
+          const invalid=socket?.dataset.signal==='bad',y=5+i*(130/devices);
+          const d=`M 58 73 H 142 V ${y+18} H 260`;
+          wire(d,assigned&&!invalid,invalid?'equipment-conflict-line':'');
+          icon(260,y,'device',String(i+1),invalid?'blocked':state(assigned));
+          if(assigned)packet(d,invalid);
+          if(assigned){
+            const lease=type==='ip-distribution'?board.querySelector('#repair-lease-'+value):null;
+            label(166,y+14,m.kind==='dhcp'?'.'+value.split('.').at(-1):type==='ip-reservations'?'MAC '+['2A','7C','9F'][value]:'.'+(lease?.textContent.split('.').at(-1)||''));
+          }
+        }
+        if(board.querySelector('[data-signal="bad"]'))label(74,141,'Verifique o endereço');
+      }
+    }else if(['dns-records','dns-tree','dns-cache','dns-query','dns'].includes(type)){
+      controls('.repair-socket,[id^="repair-query-"],[id^="repair-hop-"]','equipment-server-control');
+      if(type==='dns-tree'){
+        ['Raiz','.com','.org'].forEach((name,i)=>icon(18+i*118,7,'server',name,'live'));
+        const children=[...board.querySelectorAll('.repair-part')];
+        m.values.forEach((parent,i)=>{
+          const x=8+i*62;
+          if(parent>=0){const d=`M ${40+parent*118} 43 V 73 H ${x+22} V 94`;wire(d,true);packet(d);}
+          icon(x,94,'server',children[i]?.textContent.split(' → ')[0],state(parent>=0));
+        });
+      }else if(type==='dns-query'){
+        const names=['Resolvedor','Raiz','.org','.com','Aut. org','Aut. com'];
+        const positions=[[8,56],[91,56],[174,8],[174,95],[262,8],[262,95]];
+        const d=m.values.map((value,i)=>`${i?'L':'M'} ${positions[value][0]+22} ${positions[value][1]+18}`).join(' ');
+        if(m.values.length>1){wire(d,true);packet(d);}
+        positions.forEach(([x,y],i)=>icon(x,y,'server',names[i],m.values.includes(i)?'live':'idle'));
+        svg.dataset.hops=m.values.length;
+      }else if(type==='dns-cache'){
+        m.values.forEach((removed,i)=>{
+          const button=board.querySelector('#repair-cache-'+i),ttl=button.textContent.match(/TTL (\d+)/)?.[1]||'0';
+          const g=icon(12+i*61,48,'file','TTL '+ttl,removed?'blocked':'live');
+          g.classList.add('equipment-cache');g.dataset.removed=String(Boolean(removed));
+          if(removed)shape('path',{d:'M 6 5 L 38 30 M 38 5 L 6 30',class:'equipment-cache-cross'},g);
+        });
+        label(13,23,'Cache do resolvedor');
+        controls('[id^="repair-cache-"]','equipment-file-control');
+      }else if(type==='dns-records'){
+        for(let i=0;i<3;i++){
+          const y=8+i*44,value=m.values[i];
+          icon(12,y,'file',['A','A','AAAA'][i],state(m.values.includes(i)));
+          icon(262,y,'server',String(i+1),state(value>=0));
+          if(value>=0){const d=`M 56 ${26+value*44} C 122 ${26+value*44} 190 ${y+18} 262 ${y+18}`;wire(d,true);packet(d);}
+        }
+      }else{
+        m.values.forEach((ip,i)=>{
+          const y=8+i*44,hop=Boolean(m.hops[i]);
+          const first=`M 56 ${y+18} H 138`,second=`M 182 ${y+18} H 262`;
+          wire(first,hop);wire(second,Boolean(ip));if(hop)packet(first);if(ip)packet(second);
+          icon(12,y,'device',String(i+1));icon(138,y,'server','Nome',state(hop));icon(262,y,'server','IP',state(Boolean(ip)));
+        });
+      }
+    }else if(['firewall','policy-order','threats','barriers'].includes(type)){
+      controls('[id^="repair-rule-"],[id^="repair-barrier-"],[id^="repair-isolate"]','equipment-gate-control');
+      if(type==='firewall'){
+        svg.setAttribute('viewBox',`0 0 320 ${m.values.length*40+9}`);
+        m.values.forEach((allow,i)=>{
+          const y=5+i*40,d=`M 48 ${y+18} H 274`;
+          wire(d,allow===true);icon(4,y,'port',String(i+1));
+          icon(138,y,'gate',undefined,allow===true?'live':allow===false?'blocked':'idle');
+          icon(270,y,'device',undefined,state(allow===true));
+          if(allow!==null)packet(d,allow===false);
+        });
+      }else if(type==='policy-order'){
+        const names=['Quarentena','HTTPS da LAN','Bloqueio geral'];
+        const notes=[...board.querySelectorAll('.repair-tray .repair-equipment-note')];
+        m.values.forEach((rule,i)=>{
+          const y=8+i*45;
+          const card=shape('g',{class:'equipment-rule-card','data-rule':rule});
+          box(12,y,164,34,'equipment-case',card);label(22,y+14,String(i+1)+' · '+names[rule],card);
+          for(let j=0;j<3;j++)box(22+j*7,y+22,4,3,'equipment-contact',card);
+          if(m.selected===i)box(11,y-1,166,36,'equipment-selection');
+          const allow=notes[i]?.textContent.endsWith('permitido'),d=`M 184 ${y+18} H 306`;
+          wire(d,allow);icon(225,y,'gate',undefined,allow?'live':'blocked');packet(d,!allow);
+        });
+      }else if(type==='threats'){
+        m.values.forEach((isolated,i)=>{
+          const x=12+i*61,d=`M ${x+22} 10 V 130`;
+          wire(d,!isolated);icon(x,55,'gate',String(i+1),isolated?'blocked':'live');packet(d,Boolean(isolated));
+          if(m.selected===i)box(x-2,53,48,40,'equipment-selection');
+        });
+      }else{
+        const points=m.values.map((_,i)=>[160+57*Math.sin(i*Math.PI*2/5),73-57*Math.cos(i*Math.PI*2/5)]);
+        points.forEach(([x,y],i)=>{
+          const [nx,ny]=points[(i+1)%5],d=`M ${x} ${y} L ${nx} ${ny}`;wire(d,Boolean(m.values[i]&&m.values[(i+1)%5]));
+        });
+        points.forEach(([x,y],i)=>{box(x-13,y-10,26,20,m.values[i]?'equipment-barrier is-live':'equipment-barrier');label(x-6,y+3,'S'+(i+1));});
+        svg.dataset.segments=m.values.filter(Boolean).length;
+      }
+    }else if(['servers','rack-power','rack-load','core-relays'].includes(type)){
+      controls('.repair-socket,[id^="repair-core-"],[id^="repair-epoch-"]','equipment-server-control');
+      const fan=(parent,x,y,live)=>{
+        const mount=shape('g',{transform:`translate(${x} ${y})`},parent);
+        const rotor=shape('g',{class:'equipment-rack-fan','data-active':String(live)},mount);
+        for(let i=0;i<4;i++)shape('rect',{x:-3,y:-11,width:6,height:10,transform:`rotate(${i*90})`,class:'equipment-fan-blade'},rotor);
+        shape('circle',{cx:0,cy:0,r:3,class:'equipment-fan-hub'},mount);
+      };
+      const rack=(x,name,used,capacity,live)=>{
+        const g=shape('g',{transform:`translate(${x} 12)`,class:'equipment-server-rack','data-overloaded':String(used>capacity)});
+        box(0,0,72,108,'equipment-case',g);
+        for(let i=0;i<3;i++){box(6,7+i*14,60,10,'equipment-drive',g);box(55,10+i*14,5,4,live?'equipment-rack-led is-live':'equipment-rack-led',g);}
+        fan(g,22,65,live);fan(g,51,65,live);
+        box(7,85,58,12,'equipment-load-track',g);
+        box(8,86,Math.max(0,Math.min(56,used/capacity*56)),10,used>capacity?'equipment-load-fill is-overloaded':'equipment-load-fill',g);
+        label(10,105,name,g);label(17,134,used+'/'+capacity,g);
+        return g;
+      };
+      if(type==='rack-load'){
+        for(let i=0;i<3;i++){
+          const socket=board.querySelector('#repair-rack-'+i),match=socket.textContent.match(/(\d+)\/(\d+) CPU/);
+          const used=Number(match?.[1]||0),capacity=Number(match?.[2]||1);
+          rack(13+i*110,'S'+(i+1),used,capacity,used>0);
+        }
+      }else if(type==='servers'){
+        m.values.forEach((epoch,i)=>rack(13+i*110,'S'+(i+1),epoch,9,m.values[i]===m.answer[i]));
+        const d='M 49 132 H 271';wire(d,m.relay);if(m.relay)packet(d);
+        svg.dataset.relay=String(m.relay);
+      }else if(type==='rack-power'){
+        const parts=[...board.querySelectorAll('.repair-part')];
+        for(let i=0;i<4;i++){
+          const x=13+i*78;icon(x,5,'chip',undefined,state(m.values.includes(i)));
+          icon(x,95,'server',['A','B','C','D'][i],state(m.values[i]>=0));
+          if(m.values[i]>=0){const from=13+m.values[i]*78+22,d=`M ${from} 41 C ${from} 69 ${x+22} 69 ${x+22} 95`;wire(d,true,'equipment-power-cable');packet(d);}
+          const part=parts.find(el=>el.id==='repair-part-'+i);
+          label(x+7,51,part?.textContent.includes('12 V')?'12 V':'5 V');
+        }
+      }else{
+        const names=['Entrada','Resfriamento','Reserva','Distribuição','Núcleo'];
+        const positions=[[8,6],[8,91],[136,6],[136,91],[264,49]],needs=[[],[],[0],[0,1],[2,3]];
+        needs.forEach((parents,i)=>parents.forEach(parent=>{
+          const [x,y]=positions[parent],[tx,ty]=positions[i];
+          const d=`M ${x+44} ${y+18} H ${tx-12} V ${ty+18} H ${tx}`;
+          wire(d,Boolean(m.values[parent]&&m.values[i]));if(m.values[i])packet(d);
+        }));
+        positions.forEach(([x,y],i)=>{const g=icon(x,y,'server',names[i],state(Boolean(m.values[i])));if(i===1)fan(g,22,18,Boolean(m.values[i]));});
+        svg.dataset.relays=m.values.filter(Boolean).length;
+      }
+    }else{svg.remove();return null;}
+    return {svg,update};
+  }
+
   function createGame(spec,context) {
     const stage=Math.max(1,Math.min(10,spec.stage || equipment.get(spec.type)?.stage || 1));
     const type=spec.type,rank=Math.max(0,Math.min(5,context.repairRank || 0));
     const random=context.random ?? (spec.seed==null?Math.random:seededRandom(spec.seed));
-    let host=null,feedback=null,board=null,stats=null,abort=null,previousFocus=null;
+    let host=null,feedback=null,board=null,stats=null,abort=null,previousFocus=null,suppressPointerClick=false,recentAction=null;
+    const animations=new Set();
+    const animate=(el,frames,options)=>{
+      if(!el||motionReduced())return null;
+      const animation=el.animate(frames,options);animations.add(animation);
+      animation.finished.catch(()=>{}).finally(()=>animations.delete(animation));
+      return animation;
+    };
+    const stopAnimations=()=>{for(const animation of animations)animation.cancel();animations.clear();};
+    const connectionEffect=el=>{
+      if(!el||el.dataset.signal==='bad'||motionReduced())return;
+      el.querySelector('.repair-connection-sparks')?.remove();
+      const sparks=document.createElement('span');sparks.className='repair-connection-sparks';sparks.setAttribute('aria-hidden','true');
+      for(let i=0;i<4;i++){const spark=document.createElement('i');spark.style.setProperty('--spark-angle',i*90+45+'deg');sparks.append(spark);}
+      el.append(sparks);
+      animate(sparks,[{opacity:1},{opacity:0}],{duration:260,easing:'steps(4,end)'})?.finished.catch(()=>{}).finally(()=>sparks.remove());
+    };
+    const syncSelection=()=>{
+      if(feedback){feedback.textContent='';feedback.className='repair-feedback';}
+      host?.querySelector('.repair-console')?.removeAttribute('data-feedback');
+      board?.querySelectorAll('[data-rejected]').forEach(el=>el.removeAttribute('data-rejected'));
+      board?.querySelectorAll('.repair-part').forEach(el=>el.setAttribute('aria-pressed',String(Number(el.id.split('-').at(-1))===game.model.selected)));
+      if(game.model.kind==='ethernet')board?.querySelectorAll('[id^="repair-port-"]').forEach((el,i)=>el.setAttribute('aria-pressed',String(i===game.model.selected)));
+      if(game.model.kind==='cabling')board?.querySelectorAll('[id^="repair-wire-"]').forEach((el,i)=>el.setAttribute('aria-pressed',String(i===game.model.selected)));
+      if(type==='ram')board?.querySelectorAll('[data-repair-socket]').forEach((el,i)=>el.classList.toggle('ram-compatible',game.model.selected===game.model.answer[i]));
+    };
     const game={
       blocksWorld:true,status:'running',progress:0,mode:'playing',mistakes:0,attempt:0,hints:1+rank,maxMistakes:3+Math.floor(rank/2),elapsed:0,winTime:0,
       model:null,
       active(){return this.status==='running'&&(!context.isActive || context.isActive());},
       start(){this.model=modelFor(type,stage,random,spec.componentIndex,spec.difficulty,context.component);this.mode='playing';this.mistakes=0;this.progress=0;this.hints=1+rank;this.elapsed=0;this.attempt++;},
       label(){return `${byType.get(type).name} · ${context.component?.label || context.component?.id || 'Componente'} · fase ${stage}`;},
-      message(text,error=false){if(feedback){feedback.textContent=text;feedback.className='repair-feedback '+(error?'error':'correct');}},
-      mutate(fn){if(!this.active()||this.mode!=='playing')return;fn(this.model);this.progress=this.model.kind==='route'?(this.model.path.length-1)/8:0;this.render();},
+      message(text,error=false){if(feedback){feedback.textContent=text;feedback.className='repair-feedback '+(error?'error':'correct');const frame=host.querySelector('.repair-console');frame.dataset.feedback=error?'error':this.mode==='won'?'restored':'notice';if(error)animate(frame,[{translate:'0 0'},{translate:'-3px 0'},{translate:'3px 0'},{translate:'0 0'}],{duration:180,easing:'steps(4,end)'});}},
+      mutate(fn,action=null){
+        if(!this.active()||this.mode!=='playing')return;
+        const selectionOnly=/^(part|lease|child|job|port)-\d+$/.test(action||'')||(this.model.kind==='cabling'&&/^wire-/.test(action||'')&&this.model.selected===null);
+        fn(this.model);recentAction=action;this.progress=this.model.kind==='route'?(this.model.path.length-1)/8:0;
+        if(selectionOnly&&board){syncSelection();recentAction=null;return;}
+        this.render();
+      },
       verify(){
         if(!this.active()||this.mode!=='playing')return;
         if(this.model.check(this.model)) {
@@ -721,11 +1184,11 @@
         }
       },
       update(dt){if(!this.active())return;this.elapsed+=dt;if(this.mode==='won'){this.winTime+=dt;if(this.winTime>=.45)this.status='success';}},
-      cancel(){this.status='cancelled';},
-      mount(target){host=target;previousFocus=document.activeElement;abort=new AbortController();this.render();host.querySelector('button,input,select')?.focus();},
+      cancel(){this.status='cancelled';abort?.abort();stopAnimations();},
+      mount(target){clearExitPresentation();host=target;previousFocus=document.activeElement;abort=new AbortController();this.render();host.querySelector('button:not(:disabled),input:not(:disabled),select:not(:disabled)')?.focus();},
       handleKey(event){
         if(event.key==='Tab') {
-          const focus=[...document.getElementById('repairPanel').querySelectorAll('button:not(:disabled),input,select')];
+          const focus=[...document.getElementById('repairPanel').querySelectorAll('button:not(:disabled),input:not(:disabled),select:not(:disabled)')];
           const i=focus.indexOf(document.activeElement),next=event.shiftKey?i-1:i+1;
           if(i<0||next<0||next>=focus.length){event.preventDefault();focus[i<0?0:(next+focus.length)%focus.length]?.focus();}return;
         }
@@ -740,17 +1203,19 @@
       render(){
         if(!host)return;
         const oldId=document.activeElement?.id;
-        abort?.abort();abort=new AbortController();host.replaceChildren();
+        abort?.abort();stopAnimations();abort=new AbortController();host.replaceChildren();
         const node=(tag,cls,text,parent=host)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;parent.append(el);return el;};
-        const listen=(el,event,fn)=>el.addEventListener(event,fn,{signal:abort.signal});
-        const button=(text,fn,parent=host,cls='')=>{const el=node('button',cls,text,parent);el.type='button';el.disabled=this.mode!=='playing';listen(el,'click',()=>{if(this.active())fn();});return el;};
+        const listen=(el,event,fn,capture=false)=>el.addEventListener(event,fn,{signal:abort.signal,capture});
+        const button=(text,fn,parent=host,cls='')=>{const el=node('button',cls,text,parent);el.type='button';el.disabled=this.mode!=='playing';listen(el,'pointerdown',()=>{suppressPointerClick=false;});listen(el,'click',event=>{if(event.detail&&suppressPointerClick){suppressPointerClick=false;return;}if(this.active())fn();});return el;};
         const m=this.model;
         const frame=node('section','repair-console');
+        frame.dataset.puzzle=type;
         frame.dataset.theme=themes[stage-1];
         frame.dataset.state=this.mode;
         const header=node('div','repair-console-header',undefined,frame);
         node('span','repair-console-led',undefined,header).setAttribute('aria-hidden','true');
         node('span','',this.mode==='won'?'REPARO CONCLUÍDO':this.mode==='failed'?'DIAGNÓSTICO INTERROMPIDO':'PAINEL DE MANUTENÇÃO',header);
+        node('span','repair-console-vent',undefined,header).setAttribute('aria-hidden','true');
         node('p','repair-guide',m.instructions,frame);
         node('p','repair-help','Mouse/toque para interagir · Tab para navegar · Enter para ativar · V verificar · H dica'+
           (context.standalone?'':' · Esc pausar'));
@@ -761,10 +1226,17 @@
           board.dataset.equipment=type;
           frame.dataset.ready=String(m.check(m));
           const control=(parent,id,text,fn,pressed,disabled=false)=>{
-            const el=button(text,()=>this.mutate(fn),parent,'repair-object');
+            const el=button(text,()=>{
+              const connecting=m.selected!=null&&/^(slot|device|parent|rack)-/.test(id);
+              this.mutate(fn,id);
+              if(type==='gpu'&&id==='power'&&m.values[0])animate(host.querySelector('.gpu-plug'),[{transform:'translateX(-32px)'},{transform:'translateX(0)'}],{duration:300,easing:'steps(6,end)'});
+              const current=host.querySelector('#repair-'+id);
+              if(connecting||(/^(link-|core-|bank-|power$|fiber-lock$|splice$)/.test(id)&&current?.getAttribute('aria-pressed')!=='false'))connectionEffect(current);
+            },parent,'repair-object');
             el.id='repair-'+id;
             el.disabled||=disabled;
             if(pressed!==undefined)el.setAttribute('aria-pressed',String(pressed));
+            if(pressed!==undefined)el.classList.add('repair-switch');
             return el;
           };
           m.draw(m,{
@@ -786,6 +1258,7 @@
                 if(!suppressClick)m.selected=m.selected===part?null:part;
                 suppressClick=false;
               },selected);
+              el.classList.add('repair-part');
               let pointer;
               listen(el,'pointerdown',event=>{
                 if(!this.active()||!event.isPrimary||event.button!==0)return;
@@ -798,34 +1271,58 @@
                 const dx=event.clientX-pointer.x,dy=event.clientY-pointer.y;
                 if(Math.hypot(dx,dy)>8)el.classList.add('dragging');
                 el.style.setProperty('--drag-x',dx+'px');el.style.setProperty('--drag-y',dy+'px');
+                if(type==='ram')for(const [socket] of sockets)socket.classList.toggle('ram-compatible',m.answer[Number(socket.dataset.repairSocket)]===part);
               });
-              listen(el,'pointercancel',()=>{pointer=null;el.classList.remove('dragging');});
+              const clearDrag=()=>{pointer=null;el.classList.remove('dragging');for(const [socket] of sockets)socket.classList.remove('ram-compatible');};
+              listen(el,'pointercancel',clearDrag);
+              listen(el,'lostpointercapture',clearDrag);
               listen(el,'pointerup',event=>{
                 if(pointer?.id!==event.pointerId)return;
                 pointer=null;
                 if(!el.classList.contains('dragging'))return;
                 el.classList.remove('dragging');
+                for(const [socket] of sockets)socket.classList.remove('ram-compatible');
                 const target=document.elementFromPoint(event.clientX,event.clientY)?.closest('[data-repair-socket]');
                 const drop=sockets.get(target);
-                if(drop)this.mutate(()=>{drop(part);m.selected=null;});
+                if(drop&&type==='ram'){suppressPointerClick=true;drop(part);}
+                else if(drop){this.mutate(()=>{drop(part);m.selected=null;});connectionEffect(host.querySelector('#'+target.id));}
                 else suppressClick=true;
               });
             },
             socket:(parent,id,text,index,state,drop)=>{
-              const el=control(parent,id,text,()=>{
+              const place=part=>{
+                if(type==='ram'&&part!==m.answer[index]){
+                  el.dataset.rejected='true';
+                  animate(el,[{transform:'translateX(0)'},{transform:'translateX(-5px)'},{transform:'translateX(5px)'},{transform:'translateX(0)'}],{duration:240,easing:'steps(4,end)'});
+                  this.message('Encaixe incompatível. Compare os entalhes do módulo e do slot.',true);return;
+                }
+                this.mutate(()=>{drop(part);m.selected=null;});
+                if(type==='ram'){
+                  const slot=host.querySelector('#repair-'+id);
+                  connectionEffect(slot);
+                  animate(slot.querySelector('.ram-module'),[{transform:'translateY(-18px)',opacity:.3},{transform:'translateY(0)',opacity:1}],{duration:280,easing:'steps(7,end)'});
+                  slot.querySelectorAll('.ram-clip').forEach((clip,i)=>animate(clip,[{transform:`translateX(${i?6:-6}px)`},{transform:'translateX(0)'}],{duration:180,delay:260,easing:'steps(3,end)'}));
+                }
+              };
+              const el=type==='ram'?button(text,()=>{if(m.selected!=null)place(m.selected);},parent,'repair-object'):control(parent,id,text,()=>{
                 if(m.selected!=null){drop(m.selected);m.selected=null;}
               });
-              el.dataset.repairSocket=index;el.dataset.signal=state;sockets.set(el,drop);
+              el.id='repair-'+id;
+              el.classList.add('repair-socket');
+              el.dataset.repairSocket=index;el.dataset.signal=state;sockets.set(el,type==='ram'?place:drop);
             },
             meter:(label,max,initial)=>{
               const readout=node('div','repair-meter',undefined,board);
               const caption=node('span','',undefined,readout);
               const meter=node('meter','',undefined,readout);
               meter.max=max;meter.setAttribute('aria-label',label);
+              const gauge=type==='cooling'?node('span','thermal-gauge',undefined,readout):null;
+              if(gauge)gauge.setAttribute('aria-hidden','true');
               const update=([value,text,good])=>{
                 caption.textContent=label+' · '+text;
                 readout.dataset.signal=good?'good':'bad';
                 meter.value=value;
+                if(gauge){gauge.style.setProperty('--temperature',Math.max(0,Math.min(100,value/max*100))+'%');readout.dataset.temperature=good?'ideal':value>54?'hot':'cold';}
               };
               update(initial);
               return update;
@@ -844,35 +1341,78 @@
                 if(!this.active())return;
                 row.querySelector('output').textContent=input.value*scale+suffix;
                 preview?.(Number(input.value));
+                visual?.update?.(index,Number(input.value));
               });
             }
           });
+          // Original hardware artwork; controls and puzzle values remain the source of truth.
+          const decoration=(parent,cls)=>{const el=node('span',cls,undefined,parent);el.setAttribute('aria-hidden','true');return el;};
+          const ramModule=(parent,key)=>{
+            const module=decoration(parent,'ram-module');module.dataset.key=key;
+            for(let i=0;i<3;i++)decoration(module,'ram-chip');
+            decoration(module,'ram-contacts');return module;
+          };
+          if(type==='ram'){
+            board.querySelectorAll('.repair-part').forEach(part=>{
+              part.classList.remove('repair-switch');
+              const index=Number(part.id.split('-').at(-1));ramModule(part,index+1);
+              part.dataset.installed=String(m.values.includes(index));
+            });
+            board.querySelectorAll('.repair-socket').forEach((slot,i)=>{
+              const assembly=decoration(slot,'ram-slot-assembly');
+              decoration(assembly,'ram-slot-channel');
+              if(m.values[i]>=0)ramModule(assembly,m.values[i]+1);
+              decoration(assembly,'ram-clip');decoration(assembly,'ram-clip');
+              slot.classList.toggle('ram-compatible',m.selected===m.answer[i]);
+            });
+          }else if(type==='cooling'){
+            const fan=board.querySelector('.repair-fan');
+            const housing=decoration(fan,'cpu-fan-housing'),rotor=decoration(housing,'cpu-fan-rotor');
+            for(let i=0;i<8;i++){const blade=decoration(rotor,'cpu-fan-blade');blade.style.setProperty('--blade-angle',i*45+'deg');}
+            decoration(housing,'cpu-fan-hub');decoration(housing,'thermal-led');
+          }else if(type==='gpu'){
+            const rack=board.querySelector('.repair-rack');
+            rack.dataset.power=String(Boolean(m.values[0]));rack.dataset.bankA=String(Boolean(m.values[1]));rack.dataset.bankB=String(Boolean(m.values[2]));
+            const card=decoration(rack,'gpu-card');
+            decoration(card,'gpu-bracket');decoration(card,'gpu-heatsink');
+            decoration(card,'gpu-trace gpu-trace-a');decoration(card,'gpu-trace gpu-trace-b');
+            decoration(card,'gpu-plug');decoration(card,'gpu-gold-contacts');
+          }
         } else if(m.kind==='circuit'){
-          const powered=m.trace(m);
-          const ready=m.check(m);
-          frame.dataset.ready=String(ready);
-          const readout=node('div','repair-circuit-readout',ready?'OUT · ENERGIZADO':'OUT · SEM SINAL',frame);
+          const readout=node('div','repair-circuit-readout','',frame),cells=[];
           readout.setAttribute('role','status');
           board.style.setProperty('--grid',m.n);
           board.setAttribute('role','group');
           board.setAttribute('aria-label','Placas do circuito');
+          const paintCircuit=()=>{
+            const powered=m.trace(m),ready=m.check(m),order=[...powered];
+            frame.dataset.ready=String(ready);readout.textContent=ready?'SAÍDA · ENERGIZADA':'SAÍDA · SEM SINAL';
+            cells.forEach((cell,i)=>{
+              cell.classList.toggle('powered',powered.has(i));cell.classList.toggle('selected',m.selected===i);
+              cell.style.setProperty('--power-delay',Math.max(0,order.indexOf(i))*45+'ms');
+              const ports=['norte','leste','sul','oeste'].filter((_,bit)=>m.values[i]&(1<<bit));
+              cell.setAttribute('aria-label',`Placa ${i+1}, ${ports.join(', ')}, ${powered.has(i)?'energizada':'sem energia'}. Girar.`);
+              cell.querySelectorAll('.repair-trace').forEach((trace,bit)=>{trace.hidden=!(m.values[i]&(1<<bit));});
+            });
+          };
           for(let i=0;i<m.values.length;i++){
-            const cell=button('',()=>this.mutate(model=>{
-              model.values[i]=rotate(model.values[i]);
-              model.selected=i;
-              model.invalid=false;
-            }),board,'repair-cell');
-            cell.id='repair-cell-'+i;
-            cell.classList.toggle('powered',powered.has(i));
-            cell.classList.toggle('selected',m.selected===i);
-            const ports=['norte','leste','sul','oeste'].filter((_,bit)=>m.values[i]&(1<<bit));
-            cell.setAttribute('aria-label',`Placa ${i+1}, ${ports.join(', ')}, ${powered.has(i)?'energizada':'sem energia'}. Girar.`);
+            const cell=button('',()=>{
+              if(this.mode!=='playing')return;
+              m.values[i]=rotate(m.values[i]);m.selected=i;m.invalid=false;paintCircuit();
+              frame.removeAttribute('data-feedback');feedback.textContent='';
+              const plate=cell.querySelector('.repair-plate');
+              plate.getAnimations().forEach(animation=>animation.cancel());
+              animate(plate,[{transform:'rotate(-90deg)'},{transform:'rotate(0deg)'}],{duration:180,easing:'steps(6,end)'});
+            },board,'repair-cell');
+            cell.id='repair-cell-'+i;cells.push(cell);
             const plate=node('span','repair-plate',undefined,cell);
             plate.setAttribute('aria-hidden','true');
-            ports.forEach(port=>node('span','repair-trace trace-'+port,undefined,plate));
+            ['norte','leste','sul','oeste'].forEach(port=>node('span','repair-trace trace-'+port,undefined,plate));
             node('span','repair-chip',undefined,plate);
-            if(i===m.source||i===m.target)node('small','terminal-tag',i===m.source?'IN':'OUT',cell);
+            node('span','repair-tile-led',undefined,cell).setAttribute('aria-hidden','true');
+            if(i===m.source||i===m.target)node('small','terminal-tag'+(i===m.target?' repair-output':''),i===m.source?'ENT.':'SAÍDA',cell);
           }
+          paintCircuit();
         } else if(m.kind==='route') {
           board.style.setProperty('--grid',m.n);
           for(let i=0;i<m.n*m.n;i++) {
@@ -883,13 +1423,13 @@
             cell.id='repair-cell-'+i;
             cell.classList.toggle('blocked',m.blocked.includes(i));cell.classList.toggle('connected',m.path.includes(i));cell.disabled=cell.disabled||m.blocked.includes(i);
             cell.textContent=m.blocked.includes(i)?'×':m.path.includes(i)?'●':String(i+1);cell.setAttribute('aria-label',`Nó ${i+1}${m.blocked.includes(i)?', bloqueado':''}`);
-            if(i===m.source||i===m.target)node('small','terminal-tag',i===m.source?'IN · O':'OUT · D',cell);
+            if(i===m.source||i===m.target)node('small','terminal-tag',i===m.source?'ORIGEM':'DEST.',cell);
           }
         } else if(m.kind==='wifi') {
           m.values.forEach((value,i)=>{
             const label=node('label','repair-tuner',i===0?'CANAL':'POTÊNCIA',board),output=node('output','',String(value)+(i?'%':''),label);
             const input=node('input','',undefined,label);input.type='range';input.min=i?'10':'1';input.max=i?'100':'11';input.step=i?'5':'1';input.value=value;input.disabled=this.mode!=='playing';input.id='repair-tuner-'+i;
-            listen(input,'input',()=>{if(!this.active())return;m.values[i]=Number(input.value);output.textContent=input.value+(i?'%':'');});
+            listen(input,'input',()=>{if(!this.active())return;m.values[i]=Number(input.value);output.textContent=input.value+(i?'%':'');visual?.update?.();});
           });
           const meter=node('div','signal-readout',`ALVO · canal ${m.answer[0]} / potência ${m.answer[1]}%`,board);meter.setAttribute('aria-live','polite');
         } else if(m.kind==='dhcp'){
@@ -904,7 +1444,11 @@
         } else {
           const controls=(parent=board)=>node('div','repair-actions',undefined,parent);
           const action=(id,text,fn,parent=board,pressed)=>{
-            const control=button(text,()=>this.mutate(fn),parent);
+            const control=button(text,()=>{
+              this.mutate(fn,id);
+              if(m.kind==='ethernet'||m.kind==='cabling')animate(host.querySelector('#repair-'+id),[{filter:'brightness(1.8)'},{filter:'brightness(1)'}],{duration:260,easing:'steps(4,end)'});
+              if((m.kind==='ethernet'&&id.startsWith('socket-'))||(id==='relay'&&m.relay))connectionEffect(host.querySelector('#repair-'+id));
+            },parent);
             control.id='repair-'+id;
             if(pressed!==undefined)control.setAttribute('aria-pressed',String(pressed));
             return control;
@@ -963,12 +1507,87 @@
                 model.values[i]=model.values[i]%9+1;model.relay=false;
               },row);
             });
-            action('relay',m.relay?'RELAY ATIVO':'ATIVAR RELAY',model=>{model.relay=true;}).disabled||=m.relay||m.values.some((v,i)=>v!==m.answer[i]);
+            action('relay',m.relay?'RELÉ ATIVO':'ATIVAR RELÉ',model=>{model.relay=true;}).disabled||=m.relay||m.values.some((v,i)=>v!==m.answer[i]);
           }
+        }
+        const visual=equipmentVisual(type,m,board,recentAction);
+        recentAction=null;
+        if(m.kind==='ethernet'||m.kind==='cabling'){
+          board.classList.add('repair-wiring');
+          const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+          svg.classList.add('repair-cables');svg.setAttribute('aria-hidden','true');board.append(svg);
+          const sources=[...board.querySelectorAll(m.kind==='ethernet'?'[id^="repair-port-"]':'[id^="repair-wire-"]')];
+          const targets=[...board.querySelectorAll(m.kind==='ethernet'?'[id^="repair-socket-"]':'[id^="repair-wire-"]')];
+          const point=(el,anchor=false)=>{
+            const r=el.getBoundingClientRect(),b=board.getBoundingClientRect();
+            const scale=b.width/board.offsetWidth||1;
+            return {x:Math.round(((anchor?r.left-18*scale:r.right+12*scale)-b.left)/scale),y:Math.round((r.top+r.height/2-b.top)/scale)};
+          };
+          const curve=(a,b)=>`M ${a.x} ${a.y} C ${a.x+50} ${a.y}, ${b.x-50} ${b.y}, ${b.x} ${b.y}`;
+          const paths=sources.map((source,i)=>{
+            const path=document.createElementNS(svg.namespaceURI,'path');svg.append(path);
+            const colors={laranja:'#ed9b53',verde:'#74ce94',azul:'#7ebbef',marrom:'#b5876d'};
+            path.style.setProperty('--cable-color',m.kind==='cabling'?colors[m.values[i].split('/').at(-1).toLowerCase()]:['#efae61','#81d6a0','#83baff','#d3a5ec'][i%4]);
+            source.classList.add('repair-cable-end');
+            return path;
+          });
+          let drag=null;
+          const destination=i=>m.kind==='ethernet'&&m.values[i]?targets[m.options.indexOf(m.values[i])]:sources[i];
+          const layout=()=>{
+            svg.setAttribute('viewBox',`0 0 ${board.offsetWidth} ${board.offsetHeight}`);
+            paths.forEach((path,i)=>{if(drag?.index!==i)path.setAttribute('d',curve(point(sources[i],true),point(destination(i))));});
+          };
+          layout();
+          const observer=new ResizeObserver(layout);observer.observe(board);
+          abort.signal.addEventListener('abort',()=>observer.disconnect(),{once:true});
+          // A single delegated pointer lifecycle owns the cable; movement never renders the panel.
+          const clear=()=>{targets.forEach(el=>el.classList.remove('repair-compatible','repair-drop-hover'));};
+          listen(board,'pointerdown',event=>{
+            suppressPointerClick=false;
+            const source=event.target.closest('.repair-cable-end');
+            if(!source||!event.isPrimary||event.button!==0||!this.active()||this.mode!=='playing'||drag)return;
+            const index=sources.indexOf(source);drag={index,id:event.pointerId,x:event.clientX,y:event.clientY,moved:false};
+            source.setPointerCapture(event.pointerId);
+          });
+          listen(board,'pointermove',event=>{
+            if(!drag||drag.id!==event.pointerId)return;
+            if(Math.hypot(event.clientX-drag.x,event.clientY-drag.y)>6)drag.moved=true;
+            if(!drag.moved)return;
+            const b=board.getBoundingClientRect();
+            const scale=b.width/board.offsetWidth||1;
+            paths[drag.index].setAttribute('d',curve(point(sources[drag.index],true),{x:(event.clientX-b.left)/scale,y:(event.clientY-b.top)/scale}));
+            const over=document.elementFromPoint(event.clientX,event.clientY)?.closest('button');
+            targets.forEach(el=>{el.classList.toggle('repair-compatible',el!==sources[drag.index]);el.classList.toggle('repair-drop-hover',el===over&&el!==sources[drag.index]);});
+          });
+          const end=(event,cancelled=false)=>{
+            if(!drag||drag.id!==event.pointerId)return;
+            const current=drag;drag=null;clear();
+            if(!current.moved)return;
+            suppressPointerClick=true;
+            const target=cancelled?null:document.elementFromPoint(event.clientX,event.clientY)?.closest('button');
+            const index=targets.indexOf(target);
+            if(index>=0&&target!==sources[current.index]&&this.active()&&this.mode==='playing'){
+              this.mutate(model=>{
+                if(model.kind==='ethernet'){
+                  const previous=model.values.indexOf(model.options[index]);if(previous>=0)model.values[previous]='';
+                  model.values[current.index]=model.options[index];model.selected=current.index;
+                }else{[model.values[current.index],model.values[index]]=[model.values[index],model.values[current.index]];model.selected=null;}
+              });
+              const connected=host.querySelector('#'+target.id);
+              connectionEffect(connected);
+              animate(connected,[{filter:'brightness(2)'},{filter:'brightness(1)'}],{duration:320,easing:'steps(4,end)'});
+            }else{
+              const path=paths[current.index],from=path.getAttribute('d');layout();const to=path.getAttribute('d');
+              animate(path,[{d:`path("${from}")`},{d:`path("${to}")`}],{duration:220,easing:'ease-out'});
+            }
+          };
+          listen(board,'pointerup',event=>end(event));
+          listen(board,'pointercancel',event=>end(event,true));
+          listen(board,'lostpointercapture',event=>end(event,true));
         }
         const actions=node('div','repair-actions repair-console-actions',undefined,frame);
         if(this.mode==='failed') {
-          const retry=button('TENTAR OUTRA VARIAÇÃO',()=>{this.start();this.render();this.message('Novo diagnóstico pronto.');host.querySelector('button,input,select')?.focus();},actions);
+          const retry=button('TENTAR OUTRA VARIAÇÃO',()=>{this.start();this.render();this.message('Novo diagnóstico pronto.');host.querySelector('button:not(:disabled),input:not(:disabled),select:not(:disabled)')?.focus();},actions);
           retry.disabled=false;
         } else {
           const verify=button('VERIFICAR CONEXÃO [V]',()=>this.verify(),actions);verify.id='repair-verify';
@@ -993,7 +1612,7 @@
         if(this.mode==='won')this.message('Conexão correta. Aplicando restauração…');
         if(oldId)host.querySelector('#'+oldId)?.focus();
       },
-      dispose(){abort?.abort();host?.replaceChildren();previousFocus?.focus?.();host=null;}
+      dispose(){if(host)presentExit(host);abort?.abort();stopAnimations();host?.replaceChildren();previousFocus?.focus?.();host=null;}
     };
     serial++;game.id=serial;game.start();return game;
   }

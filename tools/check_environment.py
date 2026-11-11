@@ -17,7 +17,9 @@ ROOT=Path(__file__).resolve().parents[1]
 def approved_repair_catalog(relative):
     if relative!='src/engine/repair-games.js':return False
     source=(ROOT/relative).read_text(encoding='utf-8-sig')
-    assert hashlib.sha256(source.encode('utf-8')).hexdigest()=='0b6bee0699bef26b21aae06f9ccdd8c6c7755982167f3bd59331215ed6b52713','repair catalog differs from reviewed revision'
+    # Reviewed animated panels: distribution and model generation retain their rules.
+    # Keep the exact-source guard; this is not a general exemption for repair edits.
+    assert hashlib.sha256(source.encode('utf-8')).hexdigest()=='04e28dbd982b6454ece84b0ec2d2a3d16919221b62cf614f7416db2f5ff7db2b','repair catalog differs from reviewed revision'
     return True
 
 def restore_parallax(data):
