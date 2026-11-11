@@ -1,0 +1,181 @@
+{
+  "phases": [
+    {
+      "phase": 9,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 150,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "maintenance-1",
+        "maintenance-0"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "sector-1-court-2-guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-1-court-3-guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-1-court-3-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-2-court-2-guard",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-2-court-2-sentry",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-2-court-3-guard",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-2-court-3-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-3-court-2-guard",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-3-court-2-sentry",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-3-court-4-guard",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-4-court-1-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-4-court-2-guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-4-court-3-guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-4-court-3-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-4-court-4-guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-4-court-4-sentry",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-5-court-1-guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-5-court-1-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-5-court-3-guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-5-court-3-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-5-court-4-sentry",
+          "type": "flyer",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-6-court-2-guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-6-court-2-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-6-court-3-guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "sector-6-court-3-sentry",
+          "type": "shooter",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {
+    "Firewall V3: setor, escotilha e retorno com salto básico": "PASS",
+    "Firewall V3: atalhos, plataformas e checkpoints": "PASS",
+    "Firewall V3: núcleo exige terminal, ACL e guardiões": "PASS",
+    "Firewall V3: mede área útil alcançável contra a revisão anterior": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "firewallArea": {
+    "baseline": {
+      "surfaces": 29,
+      "areaPx2": 1581113
+    },
+    "rebuilt": {
+      "surfaces": 150,
+      "areaPx2": 6033469
+    },
+    "ratio": 3.8159631854269747
+  },
+  "execution": {
+    "sourceSha256": "2e68bb6787a941d8bfa10d14863615cc081249d6a257080b861526b0ea69d0ba",
+    "atUTC": "2026-11-11T00:53:05.599654+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

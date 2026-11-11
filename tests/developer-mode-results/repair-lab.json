@@ -1,0 +1,68 @@
+[
+  {
+    "viewport": [
+      1440,
+      1000
+    ],
+    "componentCounts": [
+      4,
+      5,
+      6,
+      6,
+      6,
+      7,
+      6,
+      7,
+      8,
+      12
+    ],
+    "mouseDrag": true,
+    "touchDragEmulated": true,
+    "keyboardRotation": true,
+    "storageUnchanged": true
+  },
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "componentCounts": [
+      4,
+      5,
+      6,
+      6,
+      6,
+      7,
+      6,
+      7,
+      8,
+      12
+    ],
+    "mouseDrag": true,
+    "touchDragEmulated": true,
+    "keyboardRotation": true,
+    "storageUnchanged": true
+  },
+  {
+    "viewport": [
+      844,
+      390
+    ],
+    "componentCounts": [
+      4,
+      5,
+      6,
+      6,
+      6,
+      7,
+      6,
+      7,
+      8,
+      12
+    ],
+    "mouseDrag": true,
+    "touchDragEmulated": true,
+    "keyboardRotation": true,
+    "storageUnchanged": true
+  }
+]

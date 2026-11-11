@@ -66,6 +66,7 @@
     const startsHigh=(phase?.map?.start?.y||0)<(Number(phase?.map?.height)||0)/2;
     let disposed=false;
     const zone={axis:'x',progress:0,from:0,to:0,blend:0},districts=phase?.map?.regions;
+    const highestState=Math.max(3,...(districts||[]).map(d=>d.state||0));
     function computeRegion(view,result){
       // Rebuilt maps can place districts vertically as well as horizontally.
       // Legacy phases keep the original progress profile below.
@@ -84,13 +85,14 @@
     }
     function region(view){const result=computeRegion(view,{});result.labels=[result.labelA||labels[result.from],result.labelB||labels[result.to]];return result;}
     function prepareRegion(visuals){
-      const image=bank||visuals.source(config.asset),blend=Math.round(zone.blend*64),key=zone.from*512+zone.to*128+blend;
+      const image=bank||visuals.source(config.asset),blend=Math.round(zone.blend*64),key=zone.from*1024+zone.to*128+blend;
       if(mixedKey===key&&mixedImage===image){mixHits++;return;}
       mixedContext.clearRect(0,0,256,256);
       for(let side=0;side<2;side++){
-        const index=side?zone.to:zone.from,weight=side?blend/64:1-blend/64;
+        const state=side?zone.to:zone.from,weight=side?blend/64:1-blend/64;
+        const index=Math.round(clamp(state/highestState)*3);
         if(!image||weight<=0)continue;
-        const frame=bank?index:regionFrames[index];mixedContext.globalAlpha=.64*weight;
+        const frame=bank?index:regionFrames[index];mixedContext.globalAlpha=config.landmarks.opacity*weight;
         mixedContext.drawImage(image,frame% (bank?4:8)*128,bank?0:Math.floor(frame/8)*128,128,128,0,0,256,256);
       }
       mixedKey=key;mixedImage=image;mixBuilds++;
@@ -101,29 +103,29 @@
         if(disposed)return;
         const reduced=api.experience?.settings.reducedEffects,still=reduced||settings.reduceAnimations,t=still?0:time;
         if(reduced)return;
-        computeRegion(view,zone);const accent=config.accent;
+        const accent=config.accent;
         ctx.save();
         try{
           ctx.imageSmoothingEnabled=false;
-          // Regional landmarks are sparse and move at the existing near rate.
-          // Cross-fade only adjacent motifs; no world-size surfaces or rebuilds.
-          if(!reduced){
-            prepareRegion(visuals);
-            const p=config.planes[2],ox=Math.floor(view.x*p.rateX),oy=Math.floor(view.y*p.rateY),pitch=768;
-            for(let row=Math.floor(oy/pitch);row<Math.ceil((oy+view.height)/pitch);row++)for(let col=Math.floor(ox/1024);col<Math.ceil((ox+view.width)/1024);col++){
-              const x=col*1024+330-ox,y=row*pitch+160-oy;
+          // Regional landmarks share the closest plane on Hardware and have
+          // their own camera rate in the other themes.
+          {
+            let prepared=false;
+            const p=config.landmarks,ox=Math.floor(view.x*p.rateX),oy=Math.floor(view.y*p.rateY),pitch=896;
+            for(let row=Math.floor(oy/pitch);row<Math.ceil((oy+view.height)/pitch);row++)for(let col=Math.floor(ox/1152);col<Math.ceil((ox+view.width)/1152);col++){
+              const x=col*1152+300+mod(row,3)*116-ox,y=row*pitch+154+mod(col,3)*52-oy;
               if(x>view.width||x+256<0||y>view.height||y+256<0)continue;
+              if(!prepared){computeRegion(view,zone);prepareRegion(visuals);prepared=true;}
               ctx.globalAlpha=1;ctx.drawImage(mixed,x,y);
-              // Bounded neon strip and a pixel shadow, not a halo or blur.
-              ctx.globalAlpha=.12+(zone.progress*.035)+(still?0:Math.sin(t*.55)*.015);
-              ctx.fillStyle=accent;ctx.fillRect(x+44,y+190,164,2);
-              ctx.fillStyle='#041014';ctx.globalAlpha=.4;ctx.fillRect(x+12,y+218,230,4);
+              // Quiet edge light, anchored to the landmark.
+              ctx.globalAlpha=.10+(still?0:Math.sin(t*.55)*.018);
+              ctx.fillStyle=accent;ctx.fillRect(x+46,y+190,36,2);
             }
           }
           const plane=config.planes[1],size=128*plane.scale,pitch=size*(config.rowSpacing||1),ox=Math.floor(view.x*plane.rateX),oy=Math.floor(view.y*plane.rateY);
-          // At most six visible equipment marks; slowly staggered, tiny lit areas.
+          // At most three visible equipment marks with slow, staggered pulses.
           let count=0;
-          for(let row=Math.floor(oy/pitch);row<Math.ceil((oy+view.height)/pitch)&&count<6;row++)for(let col=Math.floor(ox/size);col<Math.ceil((ox+view.width)/size)&&count<6;col++){
+          for(let row=Math.floor(oy/pitch);row<Math.ceil((oy+view.height)/pitch)&&count<3;row++)for(let col=Math.floor(ox/size);col<Math.ceil((ox+view.width)/size)&&count<3;col++){
             const variant=mod(col+row,8),occupied=theme==='hardware'?(variant===0||variant===4):(variant===1||variant===5);
             if(!occupied)continue;count++;
             const x=Math.floor(col*size-ox),y=Math.floor(row*pitch-oy),cycle=mod(t+col*1.7+row*2.3,12);
@@ -139,7 +141,7 @@
             if(hasFan){
               // Stepped four-frame fan, raster arms with a fixed housing.
               const fx=x+76,fy=y+50,frame=still?0:mod(Math.floor(t*3+col+row),4);
-              ctx.globalAlpha=1;ctx.drawImage(fans,frame*20,0,20,20,fx-10,fy-10,20,20);
+              ctx.globalAlpha=.72;ctx.drawImage(fans,frame*20,0,20,20,fx-10,fy-10,20,20);
             }
             if(!still&&cycle<2.5){
               const step=Math.floor(cycle*12);ctx.fillStyle=accent;ctx.globalAlpha=.22;

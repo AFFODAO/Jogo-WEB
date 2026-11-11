@@ -1,0 +1,1464 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / software / phase-02-review-alpha": "PASS",
+    "final audit: campaign / software / phase-02-review-beta": "PASS",
+    "final audit: campaign / software / phase-02-review-gamma": "PASS",
+    "final audit: procedural / software / phase-02-review-alpha": "PASS",
+    "final audit: procedural / software / phase-02-review-beta": "PASS",
+    "final audit: procedural / software / phase-02-review-gamma": "PASS",
+    "final audit: compare structures and identity / software": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-02-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 82,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "root:index",
+              "accessible": true
+            },
+            {
+              "id": "scheduler:scheduler",
+              "accessible": true
+            },
+            {
+              "id": "swap:paging",
+              "accessible": true
+            },
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index"
+          ],
+          "surfaces": 83,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "scheduler:scheduler",
+              "accessible": true
+            },
+            {
+              "id": "swap:paging",
+              "accessible": true
+            },
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler"
+          ],
+          "surfaces": 84,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "swap:paging",
+              "accessible": true
+            },
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler",
+            "swap:paging"
+          ],
+          "surfaces": 85,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler",
+            "swap:paging",
+            "recovery:recovery"
+          ],
+          "surfaces": 107,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "desktop:to-kernel-gateway",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "recovery:to-infected-vault",
+            "infected-vault:to-recovery",
+            "kernel-gateway:to-desktop",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler",
+            "swap:paging",
+            "recovery:recovery",
+            "kernel-stack:kernel"
+          ],
+          "surfaces": 109,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "desktop:to-kernel-gateway",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "recovery:to-infected-vault",
+            "infected-vault:to-recovery",
+            "kernel-gateway:to-desktop",
+            "kernel-gateway:to-kernel-io",
+            "kernel-gateway:to-kernel-exit",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack",
+            "kernel-exit:to-kernel-gateway"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 16.099999964237213,
+      "signature": "671c9f02",
+      "rooms": 19,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 5,
+      "checkpoints": 9,
+      "surfaces": 109
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-02-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 82,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "root:index",
+              "accessible": true
+            },
+            {
+              "id": "scheduler:scheduler",
+              "accessible": true
+            },
+            {
+              "id": "swap:paging",
+              "accessible": true
+            },
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index"
+          ],
+          "surfaces": 83,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "scheduler:scheduler",
+              "accessible": true
+            },
+            {
+              "id": "swap:paging",
+              "accessible": true
+            },
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler"
+          ],
+          "surfaces": 84,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "swap:paging",
+              "accessible": true
+            },
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler",
+            "swap:paging"
+          ],
+          "surfaces": 85,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler",
+            "swap:paging",
+            "recovery:recovery"
+          ],
+          "surfaces": 107,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "desktop:to-kernel-gateway",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "recovery:to-infected-vault",
+            "infected-vault:to-recovery",
+            "kernel-gateway:to-desktop",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler",
+            "swap:paging",
+            "recovery:recovery",
+            "kernel-stack:kernel"
+          ],
+          "surfaces": 109,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "desktop:to-kernel-gateway",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "recovery:to-infected-vault",
+            "infected-vault:to-recovery",
+            "kernel-gateway:to-desktop",
+            "kernel-gateway:to-kernel-io",
+            "kernel-gateway:to-kernel-exit",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack",
+            "kernel-exit:to-kernel-gateway"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 15.300000011920929,
+      "signature": "73f92dc2",
+      "rooms": 19,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 5,
+      "checkpoints": 9,
+      "surfaces": 109
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-02-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 82,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "root:index",
+              "accessible": true
+            },
+            {
+              "id": "scheduler:scheduler",
+              "accessible": true
+            },
+            {
+              "id": "swap:paging",
+              "accessible": true
+            },
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index"
+          ],
+          "surfaces": 83,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "scheduler:scheduler",
+              "accessible": true
+            },
+            {
+              "id": "swap:paging",
+              "accessible": true
+            },
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler"
+          ],
+          "surfaces": 84,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "swap:paging",
+              "accessible": true
+            },
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler",
+            "swap:paging"
+          ],
+          "surfaces": 85,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "recovery:recovery",
+              "accessible": true
+            },
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": false
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler",
+            "swap:paging",
+            "recovery:recovery"
+          ],
+          "surfaces": 107,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "kernel-stack:kernel",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "desktop:to-kernel-gateway",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "recovery:to-infected-vault",
+            "infected-vault:to-recovery",
+            "kernel-gateway:to-desktop",
+            "kernel-gateway:to-kernel-io",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "root:index",
+            "scheduler:scheduler",
+            "swap:paging",
+            "recovery:recovery",
+            "kernel-stack:kernel"
+          ],
+          "surfaces": 109,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "desktop:to-dock",
+            "desktop:to-root",
+            "desktop:to-scheduler",
+            "desktop:to-swap",
+            "desktop:to-quarantine",
+            "desktop:to-kernel-gateway",
+            "dock:to-desktop",
+            "root:to-desktop",
+            "root:to-documents",
+            "root:to-archive",
+            "documents:to-root",
+            "documents:to-archive",
+            "documents:to-recycle",
+            "archive:to-documents",
+            "archive:to-root",
+            "archive:to-swap",
+            "archive:to-quarantine",
+            "recycle:to-documents",
+            "scheduler:to-desktop",
+            "scheduler:to-worker",
+            "scheduler:to-clock",
+            "scheduler:to-pages",
+            "worker:to-scheduler",
+            "worker:to-clock",
+            "clock:to-worker",
+            "clock:to-scheduler",
+            "clock:to-quarantine",
+            "swap:to-desktop",
+            "swap:to-pages",
+            "swap:to-archive",
+            "pages:to-swap",
+            "pages:to-swap-cache",
+            "pages:to-scheduler",
+            "swap-cache:to-pages",
+            "quarantine:to-desktop",
+            "quarantine:to-recovery",
+            "quarantine:to-clock",
+            "quarantine:to-archive",
+            "recovery:to-quarantine",
+            "recovery:to-infected-vault",
+            "infected-vault:to-recovery",
+            "kernel-gateway:to-desktop",
+            "kernel-gateway:to-kernel-io",
+            "kernel-gateway:to-kernel-exit",
+            "kernel-io:to-kernel-gateway",
+            "kernel-io:to-kernel-stack",
+            "kernel-stack:to-kernel-io",
+            "kernel-stack:to-kernel-exit",
+            "kernel-exit:to-kernel-stack",
+            "kernel-exit:to-kernel-gateway"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 16,
+      "signature": "2731c673",
+      "rooms": 19,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 5,
+      "checkpoints": 9,
+      "surfaces": 109
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 128,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 50,
+      "signature": "e27b0b3c",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 128
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 30.600000023841858,
+      "signature": "7016a7e9",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 118
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 124,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 124,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 125,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 35.80000001192093,
+      "signature": "fc960dbe",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 125
+    }
+  ],
+  "phase": 2,
+  "theme": "software",
+  "seeds": [
+    "phase-02-review-alpha",
+    "phase-02-review-beta",
+    "phase-02-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:37:48.857415+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

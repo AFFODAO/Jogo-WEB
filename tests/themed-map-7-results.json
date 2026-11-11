@@ -1,0 +1,154 @@
+{
+  "phases": [
+    {
+      "phase": 7,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 219,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "central-core:return",
+        "conflict-core:return",
+        "distribution-south:return",
+        "address-office:return",
+        "reserve-main:return",
+        "gateway-plaza:return"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "gateway-upper:address-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "address-upper:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "address-upper:address-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "reserve-upper:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "gateway-plaza:address-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "gateway-guard:address-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "gateway-guard:address-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "address-office:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "reserve-main:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "address-east:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "central-core:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "central-east:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "central-east:address-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "distribution-east:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "conflict-west:address-virus-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "conflict-west:address-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "conflict-core:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "conflict-east:address-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "conflict-east:address-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "conflict-under:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "distribution-west:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "distribution-south:address-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {},
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "2e68bb6787a941d8bfa10d14863615cc081249d6a257080b861526b0ea69d0ba",
+    "atUTC": "2026-11-11T00:52:48.009651+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

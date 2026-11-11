@@ -20,7 +20,7 @@ def main():
     with tempfile.TemporaryDirectory(prefix='byte-hardware-v3-') as folder:
         target=Path(folder)
         for name in ['index.html','game.js','style.css','README.md']:shutil.copy2(ROOT/name,target/name)
-        for name in ['src','assets','tests','tools']:shutil.copytree(ROOT/name,target/name,ignore=shutil.ignore_patterns('__pycache__','rebuild-v3-baseline','rebuild-v3-architecture','hardware-v3-results'))
+        for name in ['src','assets','tests','tools']:shutil.copytree(ROOT/name,target/name,ignore=shutil.ignore_patterns('__pycache__','rebuild-v3-architecture','hardware-v3-results'))
         helpers=(ROOT/'tests/repairs.js').read_text(encoding='utf-8').split("test('repairs:",1)[0]
         baseline=json.loads((ROOT/'tests/rebuild-v3-baseline/inventory.json').read_text(encoding='utf-8'))['inventory'][0]['definition']
         prefix='const HARDWARE_V3_BASELINE='+json.dumps(baseline,ensure_ascii=True)+';\n'

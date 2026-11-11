@@ -16,6 +16,11 @@ for(let index=0;index<10;index++){
   const reference=referenceRenderer.create(phaseData);ByteRunner.parallaxLife=finalLife;
   test('final parallax: reference pixels, diagonal seams and reversals // '+(index+1),()=>{
     let maximum=0,largeDifferences=0,samples=0,totalPixels=0;
+    const reduced=experience.settings.reducedEffects;
+    // The historical reference certifies the static tile composition. Animated
+    // scenery is deliberately different after the campaign visual pass.
+    experience.settings.reducedEffects=true;
+    try{
     for(const [w,h] of [[320,180],[905,644],[1920,1080]]){
       const a=finalCanvas(w,h),b=finalCanvas(w,h),x=a.getContext('2d',{willReadFrequently:true}),y=b.getContext('2d',{willReadFrequently:true});
       const positions=[[0,0],[317,173],[1023,255],[1024,256],[1025,257],[2047,511],[2048,512],[317,173],[0,0]];
@@ -31,6 +36,7 @@ for(let index=0;index<10;index++){
         assert(large/(w*h)<.0001,'reference mismatch/seam: '+large+' pixels at '+xx+','+yy+' / '+w+'x'+h);
       }
     }
+    }finally{experience.settings.reducedEffects=reduced;}
     report.pixelComparisons.push({phase:index+1,samples,totalPixels,maximumChannelDelta:maximum,pixelsDeltaAbove5:largeDifferences});
   });
   test('final parallax: integer offsets, fast reversal, diagonal and negative camera // '+(index+1),()=>{

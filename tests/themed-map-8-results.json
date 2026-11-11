@@ -1,0 +1,182 @@
+{
+  "phases": [
+    {
+      "phase": 8,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 264,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "root-core:query-org",
+        "org-entry:root-return",
+        "root-core:query-com",
+        "com-base:root-return",
+        "root-east:query-nx",
+        "root-east:query-cache",
+        "cache-bottom:root-return",
+        "nx-entry:safe-return",
+        "root-lower:final-query",
+        "root-dock:ttl-shortcut",
+        "root-core:hints-shortcut",
+        "resolve-entry:root-return",
+        "cache-crown:restored-return",
+        "cache-vault:vault-shortcut",
+        "cache-terminal:restored-return",
+        "cache-bypass:org-route",
+        "org-archive:delegation-com",
+        "nx-vault:risk-reward-return",
+        "org-records:restored-return",
+        "com-records:restored-return",
+        "com-zone:restored-return",
+        "org-terrace:cache-route",
+        "com-files:delegation-org",
+        "resolve-core:restored-return"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "com-records:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "com-zone:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "com-files:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "com-files:domain-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "com-stacks:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "org-archive:domain-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "org-archive:domain-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "org-records:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "org-terrace:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "org-bridge:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "cache-crown:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "cache-bypass:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "cache-loop:domain-virus-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "cache-loop:domain-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "cache-stairs:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "cache-terminal:domain-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "nx-breach:domain-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "nx-breach:domain-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "nx-cavern:domain-virus-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "nx-cavern:domain-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "resolve-core:domain-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "resolve-entry:domain-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "resolve-stack:domain-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "resolve-stack:domain-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {},
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "2e68bb6787a941d8bfa10d14863615cc081249d6a257080b861526b0ea69d0ba",
+    "atUTC": "2026-11-11T00:53:02.315097+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -1,0 +1,1115 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / servers / phase-10-review-alpha": "PASS",
+    "final audit: campaign / servers / phase-10-review-beta": "PASS",
+    "final audit: campaign / servers / phase-10-review-gamma": "PASS",
+    "final audit: procedural / servers / phase-10-review-alpha": "PASS",
+    "final audit: procedural / servers / phase-10-review-beta": "PASS",
+    "final audit: procedural / servers / phase-10-review-gamma": "PASS",
+    "final audit: compare structures and identity / servers": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-10-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 1,
+          "exit": false,
+          "repairsFound": [
+            "world:c01"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 22,
+          "exit": false,
+          "repairsFound": [
+            "world:c02",
+            "world:c05"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 22,
+          "exit": false,
+          "repairsFound": [
+            "world:c05"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05"
+          ],
+          "surfaces": 62,
+          "exit": false,
+          "repairsFound": [
+            "world:c06",
+            "world:c07"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06"
+          ],
+          "surfaces": 62,
+          "exit": false,
+          "repairsFound": [
+            "world:c07"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07"
+          ],
+          "surfaces": 97,
+          "exit": false,
+          "repairsFound": [
+            "world:c08"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c08"
+          ],
+          "surfaces": 102,
+          "exit": false,
+          "repairsFound": [
+            "world:c03"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08"
+          ],
+          "surfaces": 132,
+          "exit": false,
+          "repairsFound": [
+            "world:c10"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c10"
+          ],
+          "surfaces": 133,
+          "exit": false,
+          "repairsFound": [
+            "world:c09"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10"
+          ],
+          "surfaces": 165,
+          "exit": false,
+          "repairsFound": [
+            "world:c11",
+            "world:c12"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10",
+            "world:c11"
+          ],
+          "surfaces": 165,
+          "exit": false,
+          "repairsFound": [
+            "world:c12"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10",
+            "world:c11",
+            "world:c12"
+          ],
+          "surfaces": 205,
+          "exit": false,
+          "repairsFound": [
+            "world:c04"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10",
+            "world:c11",
+            "world:c12",
+            "world:c04"
+          ],
+          "surfaces": 222,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 35.30000001192093,
+      "signature": "588ac9a8",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 12,
+      "checkpoints": 32,
+      "surfaces": 222
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-10-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 1,
+          "exit": false,
+          "repairsFound": [
+            "world:c01"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 22,
+          "exit": false,
+          "repairsFound": [
+            "world:c02",
+            "world:c05"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 22,
+          "exit": false,
+          "repairsFound": [
+            "world:c05"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05"
+          ],
+          "surfaces": 62,
+          "exit": false,
+          "repairsFound": [
+            "world:c06",
+            "world:c07"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06"
+          ],
+          "surfaces": 62,
+          "exit": false,
+          "repairsFound": [
+            "world:c07"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07"
+          ],
+          "surfaces": 97,
+          "exit": false,
+          "repairsFound": [
+            "world:c08"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c08"
+          ],
+          "surfaces": 102,
+          "exit": false,
+          "repairsFound": [
+            "world:c03"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08"
+          ],
+          "surfaces": 132,
+          "exit": false,
+          "repairsFound": [
+            "world:c10"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c10"
+          ],
+          "surfaces": 133,
+          "exit": false,
+          "repairsFound": [
+            "world:c09"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10"
+          ],
+          "surfaces": 165,
+          "exit": false,
+          "repairsFound": [
+            "world:c11",
+            "world:c12"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10",
+            "world:c11"
+          ],
+          "surfaces": 165,
+          "exit": false,
+          "repairsFound": [
+            "world:c12"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10",
+            "world:c11",
+            "world:c12"
+          ],
+          "surfaces": 205,
+          "exit": false,
+          "repairsFound": [
+            "world:c04"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10",
+            "world:c11",
+            "world:c12",
+            "world:c04"
+          ],
+          "surfaces": 222,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 30.30000001192093,
+      "signature": "588ac9a8",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 12,
+      "checkpoints": 32,
+      "surfaces": 222
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-10-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 1,
+          "exit": false,
+          "repairsFound": [
+            "world:c01"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01"
+          ],
+          "surfaces": 22,
+          "exit": false,
+          "repairsFound": [
+            "world:c02",
+            "world:c05"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02"
+          ],
+          "surfaces": 22,
+          "exit": false,
+          "repairsFound": [
+            "world:c05"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05"
+          ],
+          "surfaces": 62,
+          "exit": false,
+          "repairsFound": [
+            "world:c06",
+            "world:c07"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06"
+          ],
+          "surfaces": 62,
+          "exit": false,
+          "repairsFound": [
+            "world:c07"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07"
+          ],
+          "surfaces": 97,
+          "exit": false,
+          "repairsFound": [
+            "world:c08"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c08"
+          ],
+          "surfaces": 102,
+          "exit": false,
+          "repairsFound": [
+            "world:c03"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08"
+          ],
+          "surfaces": 132,
+          "exit": false,
+          "repairsFound": [
+            "world:c10"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c10"
+          ],
+          "surfaces": 133,
+          "exit": false,
+          "repairsFound": [
+            "world:c09"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10"
+          ],
+          "surfaces": 165,
+          "exit": false,
+          "repairsFound": [
+            "world:c11",
+            "world:c12"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10",
+            "world:c11"
+          ],
+          "surfaces": 165,
+          "exit": false,
+          "repairsFound": [
+            "world:c12"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10",
+            "world:c11",
+            "world:c12"
+          ],
+          "surfaces": 205,
+          "exit": false,
+          "repairsFound": [
+            "world:c04"
+          ],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "world:c01",
+            "world:c02",
+            "world:c05",
+            "world:c06",
+            "world:c07",
+            "world:c03",
+            "world:c08",
+            "world:c09",
+            "world:c10",
+            "world:c11",
+            "world:c12",
+            "world:c04"
+          ],
+          "surfaces": 222,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "world:vault-1-entry",
+            "world:vault-1-return",
+            "world:vault-2-entry",
+            "world:vault-2-return",
+            "world:vault-3-entry",
+            "world:vault-3-return",
+            "world:service-to-transmission",
+            "world:transmission-to-service",
+            "world:containment-to-tower",
+            "world:tower-to-containment"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 45.90000003576279,
+      "signature": "588ac9a8",
+      "rooms": 1,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 12,
+      "checkpoints": 32,
+      "surfaces": 222
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-10-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 54,
+          "exit": false,
+          "repairsFound": [
+            "r4:relay"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 121,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 46,
+      "signature": "f610ec4f",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 121
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-10-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 41,
+          "exit": false,
+          "repairsFound": [
+            "r4:relay"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 63,
+          "exit": false,
+          "repairsFound": [
+            "r5:relay"
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 121,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 33.80000001192093,
+      "signature": "9b186397",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 121
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-10-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 105,
+          "exit": false,
+          "repairsFound": [
+            "r4:relay"
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 90,
+          "exit": false,
+          "repairsFound": [
+            "r5:relay"
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 124,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r5:relay"
+          ],
+          "surfaces": 125,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 45.90000003576279,
+      "signature": "ff13c133",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 125
+    }
+  ],
+  "phase": 10,
+  "theme": "servers",
+  "seeds": [
+    "phase-10-review-alpha",
+    "phase-10-review-beta",
+    "phase-10-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 1,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-11T00:00:43.941627+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

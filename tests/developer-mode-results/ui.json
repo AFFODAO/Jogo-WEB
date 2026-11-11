@@ -7,9 +7,9 @@
     "screen": "settings",
     "geometry": {
       "x": 492.5,
-      "y": 62.125,
+      "y": 34.125,
       "right": 932.5,
-      "bottom": 937.875,
+      "bottom": 965.875,
       "width": 1440,
       "height": 1000,
       "documentWidth": 1425,

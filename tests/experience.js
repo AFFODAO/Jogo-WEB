@@ -3,7 +3,7 @@ test('experience: reduced effects persist, bound particles and suppress shake',(
   try {
     experience.configure({reducedEffects:true,shake:true,volume:.4});
     experience.shake(20,2);assert(experience.offset().x===0,'reduced effects shook camera');
-    effects=[];for(let i=0;i<100;i++)emitParticles(20,20,'white',30);assert(effects.length===48,'reduced particle cap');
+    effects=[];for(let i=0;i<100;i++)emitParticles(20,20,'white',30);assert(effects.length===32,'reduced particle cap');
     assert(JSON.parse(localStorage.getItem('byteRunner.experience.v1')).volume===.4,'volume not persisted');
     experience.configure({reducedEffects:false,shake:true});experience.shake(30,9);experience.update(.01);
     assert(Math.abs(experience.offset().x)<=3&&Math.abs(experience.offset().y)<=3,'excessive shake');

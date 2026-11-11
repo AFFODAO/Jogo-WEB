@@ -1,0 +1,647 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / dhcp / phase-07-review-alpha": "PASS",
+    "final audit: campaign / dhcp / phase-07-review-beta": "PASS",
+    "final audit: campaign / dhcp / phase-07-review-gamma": "PASS",
+    "final audit: procedural / dhcp / phase-07-review-alpha": "PASS",
+    "final audit: procedural / dhcp / phase-07-review-beta": "PASS",
+    "final audit: procedural / dhcp / phase-07-review-gamma": "PASS",
+    "final audit: compare structures and identity / dhcp": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-07-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 1,
+          "exit": false,
+          "repairsFound": [
+            "central-core:server"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "central-core:server"
+          ],
+          "surfaces": 18,
+          "exit": false,
+          "repairsFound": [
+            "conflict-core:conflict"
+          ],
+          "activePortals": [
+            "central-core:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "central-core:server",
+            "conflict-core:conflict"
+          ],
+          "surfaces": 88,
+          "exit": false,
+          "repairsFound": [
+            "distribution-south:relay"
+          ],
+          "activePortals": [
+            "central-core:return",
+            "conflict-core:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 97,
+          "exit": false,
+          "repairsFound": [
+            "address-office:scope"
+          ],
+          "activePortals": [
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "address-office:scope",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 126,
+          "exit": false,
+          "repairsFound": [
+            "reserve-main:reservation"
+          ],
+          "activePortals": [
+            "address-office:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "address-office:scope",
+            "reserve-main:reservation",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 186,
+          "exit": false,
+          "repairsFound": [],
+          "activePortals": [
+            "address-office:return",
+            "reserve-main:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "address-office:scope",
+            "reserve-main:reservation",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 181,
+          "exit": false,
+          "repairsFound": [
+            "gateway-plaza:gateway"
+          ],
+          "activePortals": [
+            "address-office:return",
+            "reserve-main:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "gateway-plaza:gateway",
+            "address-office:scope",
+            "reserve-main:reservation",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 219,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "gateway-plaza:return",
+            "address-office:return",
+            "reserve-main:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 30.5,
+      "signature": "cdc96434",
+      "rooms": 25,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 15,
+      "surfaces": 219
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-07-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 1,
+          "exit": false,
+          "repairsFound": [
+            "central-core:server"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "central-core:server"
+          ],
+          "surfaces": 18,
+          "exit": false,
+          "repairsFound": [
+            "conflict-core:conflict"
+          ],
+          "activePortals": [
+            "central-core:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "central-core:server",
+            "conflict-core:conflict"
+          ],
+          "surfaces": 88,
+          "exit": false,
+          "repairsFound": [
+            "distribution-south:relay"
+          ],
+          "activePortals": [
+            "central-core:return",
+            "conflict-core:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 97,
+          "exit": false,
+          "repairsFound": [
+            "address-office:scope"
+          ],
+          "activePortals": [
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "address-office:scope",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 126,
+          "exit": false,
+          "repairsFound": [
+            "reserve-main:reservation"
+          ],
+          "activePortals": [
+            "address-office:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "address-office:scope",
+            "reserve-main:reservation",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 186,
+          "exit": false,
+          "repairsFound": [],
+          "activePortals": [
+            "address-office:return",
+            "reserve-main:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "address-office:scope",
+            "reserve-main:reservation",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 181,
+          "exit": false,
+          "repairsFound": [
+            "gateway-plaza:gateway"
+          ],
+          "activePortals": [
+            "address-office:return",
+            "reserve-main:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "gateway-plaza:gateway",
+            "address-office:scope",
+            "reserve-main:reservation",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 219,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "gateway-plaza:return",
+            "address-office:return",
+            "reserve-main:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 28.899999976158142,
+      "signature": "cdc96434",
+      "rooms": 25,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 15,
+      "surfaces": 219
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-07-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 1,
+          "exit": false,
+          "repairsFound": [
+            "central-core:server"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "central-core:server"
+          ],
+          "surfaces": 18,
+          "exit": false,
+          "repairsFound": [
+            "conflict-core:conflict"
+          ],
+          "activePortals": [
+            "central-core:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "central-core:server",
+            "conflict-core:conflict"
+          ],
+          "surfaces": 88,
+          "exit": false,
+          "repairsFound": [
+            "distribution-south:relay"
+          ],
+          "activePortals": [
+            "central-core:return",
+            "conflict-core:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 97,
+          "exit": false,
+          "repairsFound": [
+            "address-office:scope"
+          ],
+          "activePortals": [
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "address-office:scope",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 126,
+          "exit": false,
+          "repairsFound": [
+            "reserve-main:reservation"
+          ],
+          "activePortals": [
+            "address-office:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "address-office:scope",
+            "reserve-main:reservation",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 186,
+          "exit": false,
+          "repairsFound": [],
+          "activePortals": [
+            "address-office:return",
+            "reserve-main:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "address-office:scope",
+            "reserve-main:reservation",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 181,
+          "exit": false,
+          "repairsFound": [
+            "gateway-plaza:gateway"
+          ],
+          "activePortals": [
+            "address-office:return",
+            "reserve-main:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "gateway-plaza:gateway",
+            "address-office:scope",
+            "reserve-main:reservation",
+            "central-core:server",
+            "conflict-core:conflict",
+            "distribution-south:relay"
+          ],
+          "surfaces": 219,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "gateway-plaza:return",
+            "address-office:return",
+            "reserve-main:return",
+            "central-core:return",
+            "conflict-core:return",
+            "distribution-south:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 28.899999976158142,
+      "signature": "cdc96434",
+      "rooms": 25,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 15,
+      "surfaces": 219
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-07-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 37,
+          "exit": false,
+          "repairsFound": [
+            "r4:relay"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "repairsFound": [
+            "r11:relay"
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 122,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r11:relay"
+          ],
+          "surfaces": 123,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 56.5,
+      "signature": "29245209",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 123
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-07-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 79,
+          "exit": false,
+          "repairsFound": [
+            "r4:relay"
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 126,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 39.80000001192093,
+      "signature": "c1a0cf78",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 127
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-07-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 57,
+          "exit": false,
+          "repairsFound": [
+            "r4:relay"
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 119,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 120,
+          "exit": true,
+          "repairsFound": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 44.69999998807907,
+      "signature": "68c00747",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 120
+    }
+  ],
+  "phase": 7,
+  "theme": "dhcp",
+  "seeds": [
+    "phase-07-review-alpha",
+    "phase-07-review-beta",
+    "phase-07-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 1,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:56:42.967749+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

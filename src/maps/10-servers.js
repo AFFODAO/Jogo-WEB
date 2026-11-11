@@ -1,943 +1,489 @@
-// Rebuilt layout, revision 2. Authored by tools/build_last_five.py.
+// Data center em três atos. O recinto de VIRUS ZERO é definido à mão.
 ByteRunner.maps.register(ByteRunner.campaignGeneration.build({
   "schemaVersion": 2,
-  "revision": 2,
+  "revision": 5,
   "id": "phase-10",
-  "name": "Servidores e Internet",
+  "name": "Servidores — Data Center Corrompido",
   "theme": "servers",
-  "objective": "Restaure quatro relays nas torres e no backbone; abra o núcleo elevado e derrote VIRUS ZERO.",
-  "palette": [
-    "#071322",
-    "#14334c",
-    "#8ceaff",
-    "#44758d",
-    "#fa719a"
-  ],
+  "objective": "Restaure o data center, atravesse o backbone corrompido e enfrente VIRUS ZERO.",
+  "palette": ["#081325", "#16314c", "#82dbff", "#426d99", "#ff536e"],
   "presentation": {
     "procedural": false
   },
   "map": {
     "width": 6800,
-    "height": 2000,
+    "height": 4280,
     "layout": "multi-route",
-    "start": {
-      "x": 200,
-      "y": 1592
-    },
-    "exit": {
-      "mode": "region",
-      "x": 6480,
-      "y": 836,
-      "width": 90,
-      "height": 64
-    },
-    "bounds": {
-      "left": true,
-      "right": true,
-      "ceiling": true,
-      "floor": true
-    },
+    "start": {"x": 128, "y": 4152},
+    "exit": {"mode": "region", "x": 6480, "y": 836, "width": 90, "height": 64},
+    "bounds": {"left": true, "right": true, "ceiling": true, "floor": true},
     "camera": {
-      "axes": [
-        "x",
-        "y"
-      ],
+      "axes": ["x", "y"],
       "followOffsetX": 0.44,
       "followOffsetY": 0.55
     },
     "ground": {
       "mode": "explicit",
       "segments": [
-        {
-          "id": "dc-entry",
-          "x": 80,
-          "y": 1640,
-          "width": 1000,
-          "height": 60
-        },
-        {
-          "id": "dc-backbone",
-          "x": 1280,
-          "y": 1640,
-          "width": 1170,
-          "height": 60
-        },
-        {
-          "id": "tower-a-roof",
-          "x": 420,
-          "y": 1190,
-          "width": 600,
-          "height": 18,
-          "collision": "one-way"
-        },
-        {
-          "id": "tower-b-roof",
-          "x": 1660,
-          "y": 1050,
-          "width": 600,
-          "height": 18,
-          "collision": "one-way"
-        },
-        {
-          "id": "battle-west",
-          "x": 2580,
-          "y": 1640,
-          "width": 570,
-          "height": 60
-        },
-        {
-          "id": "battle-east",
-          "x": 3450,
-          "y": 1540,
-          "width": 700,
-          "height": 60
-        },
-        {
-          "id": "core-airlock",
-          "x": 4350,
-          "y": 1170,
-          "width": 470,
-          "height": 18,
-          "collision": "one-way"
-        },
-        {
-          "id": "virus-zero-arena",
-          "x": 4800,
-          "y": 900,
-          "width": 1800,
-          "height": 60
-        }
+        {"id": "entry-floor-0", "x": 0, "y": 4200, "width": 4770, "height": 80},
+        {"id": "towers-floor-0", "x": 0, "y": 3720, "width": 3872, "height": 80},
+        {"id": "towers-floor-1", "x": 4128, "y": 3720, "width": 642, "height": 80},
+        {"id": "service-floor-0", "x": 0, "y": 3240, "width": 632, "height": 80},
+        {"id": "service-floor-1", "x": 888, "y": 3240, "width": 2804, "height": 80},
+        {"id": "service-floor-2", "x": 3948, "y": 3240, "width": 822, "height": 80},
+        {"id": "transmission-floor-0", "x": 0, "y": 2760, "width": 372, "height": 80},
+        {"id": "transmission-floor-1", "x": 628, "y": 2760, "width": 1824, "height": 80},
+        {"id": "transmission-floor-2", "x": 2708, "y": 2760, "width": 2062, "height": 80},
+        {"id": "corruption-floor-0", "x": 0, "y": 2280, "width": 1292, "height": 80},
+        {"id": "corruption-floor-1", "x": 1548, "y": 2280, "width": 2374, "height": 80},
+        {"id": "corruption-floor-2", "x": 4178, "y": 2280, "width": 592, "height": 80},
+        {"id": "antechamber-floor-0", "x": 0, "y": 1800, "width": 572, "height": 80},
+        {"id": "antechamber-floor-1", "x": 828, "y": 1800, "width": 2244, "height": 80},
+        {"id": "antechamber-floor-2", "x": 3328, "y": 1800, "width": 1442, "height": 80},
+        {"id": "vault-1-floor", "x": 250, "y": 1440, "width": 664, "height": 32},
+        {"id": "vault-2-floor", "x": 1440, "y": 1440, "width": 664, "height": 32},
+        {"id": "vault-3-floor", "x": 2630, "y": 1440, "width": 664, "height": 32},
+        {"id": "core-airlock", "x": 4350, "y": 1170, "width": 470, "height": 18, "collision": "one-way"},
+        {"id": "virus-zero-arena", "x": 4800, "y": 900, "width": 1800, "height": 60}
       ]
     },
     "checkpoints": [
-      {
-        "x": 640,
-        "y": 1190
-      },
-      {
-        "x": 1850,
-        "y": 1050
-      },
-      {
-        "x": 2910,
-        "y": 1640
-      },
-      {
-        "x": 4450,
-        "y": 1170
-      },
-      {
-        "x": 5000,
-        "y": 900
-      }
+      {"x": 128, "y": 4200},
+      {"x": 1216, "y": 4200},
+      {"x": 2380, "y": 4200},
+      {"x": 3500, "y": 4200},
+      {"x": 4536, "y": 4200},
+      {"x": 128, "y": 3720},
+      {"x": 1216, "y": 3720},
+      {"x": 2380, "y": 3720},
+      {"x": 3500, "y": 3720},
+      {"x": 4536, "y": 3720},
+      {"x": 128, "y": 3240},
+      {"x": 1216, "y": 3240},
+      {"x": 2380, "y": 3240},
+      {"x": 3500, "y": 3240},
+      {"x": 4536, "y": 3240},
+      {"x": 128, "y": 2760},
+      {"x": 1216, "y": 2760},
+      {"x": 2380, "y": 2760},
+      {"x": 3500, "y": 2760},
+      {"x": 4536, "y": 2760},
+      {"x": 128, "y": 2280},
+      {"x": 1216, "y": 2280},
+      {"x": 2380, "y": 2280},
+      {"x": 3500, "y": 2280},
+      {"x": 4536, "y": 2280},
+      {"x": 128, "y": 1800},
+      {"x": 1216, "y": 1800},
+      {"x": 2380, "y": 1800},
+      {"x": 3500, "y": 1800},
+      {"x": 4536, "y": 1800},
+      {"x": 4450, "y": 1170},
+      {"x": 5000, "y": 900}
     ],
     "checkpointMode": "free",
-    "progress": {
-      "axis": "objectives"
-    },
-    "routes": [
-      "data center inferior",
-      "torres e fibra superior",
-      "backbone sob ataque",
-      "airlock",
-      "arena exclusiva"
-    ],
+    "progress": {"axis": "objectives"},
+    "routes": ["Entrada do data center", "Torres de servidores", "Salas de manutenção", "Central de transmissão", "Núcleo de corrupção", "Antecâmara", "Arena final"],
     "sections": [
+      {"id": "datacenter", "x": 0, "width": 4800, "label": "DATA CENTER CORROMPIDO"},
+      {"id": "virus-zero", "x": 4800, "width": 2000, "label": "VIRUS ZERO"}
+    ],
+    "regions": [
       {
-        "x": 0,
-        "label": "01 // TORRES DO DATA CENTER"
+        "id": "entry",
+        "name": "Entrada do data center",
+        "state": 0,
+        "areas": [
+          {"x": 0, "y": 3800, "width": 4770, "height": 480}
+        ]
       },
       {
-        "x": 2500,
-        "label": "02 // BACKBONE SOB ATAQUE"
+        "id": "towers",
+        "name": "Torres de servidores",
+        "state": 1,
+        "areas": [
+          {"x": 0, "y": 3320, "width": 4770, "height": 480}
+        ]
       },
       {
-        "x": 4800,
-        "label": "03 // ARENA DE VIRUS ZERO"
+        "id": "service",
+        "name": "Salas de manutenção",
+        "state": 2,
+        "areas": [
+          {"x": 0, "y": 2840, "width": 4770, "height": 480}
+        ]
+      },
+      {
+        "id": "transmission",
+        "name": "Central de transmissão",
+        "state": 3,
+        "areas": [
+          {"x": 0, "y": 2360, "width": 4770, "height": 480}
+        ]
+      },
+      {
+        "id": "corruption",
+        "name": "Núcleo de corrupção",
+        "state": 4,
+        "areas": [
+          {"x": 0, "y": 1880, "width": 4770, "height": 480}
+        ]
+      },
+      {
+        "id": "antechamber",
+        "name": "Antecâmara",
+        "state": 5,
+        "areas": [
+          {"x": 0, "y": 1400, "width": 4770, "height": 480},
+          {"x": 3800, "y": 750, "width": 1000, "height": 650}
+        ]
+      },
+      {
+        "id": "virus-zero",
+        "name": "Arena final",
+        "state": 6,
+        "areas": [
+          {"x": 4800, "y": 320, "width": 1800, "height": 640}
+        ]
       }
     ]
   },
   "entities": {
     "platforms": [
-      {
-        "id": "tower-a-step1",
-        "x": 400,
-        "y": 1550,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "tower-a-step2",
-        "x": 600,
-        "y": 1460,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "tower-a-step3",
-        "x": 420,
-        "y": 1370,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "tower-a-step4",
-        "x": 620,
-        "y": 1280,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "backbone-fallback",
-        "x": 1110,
-        "y": 1570,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "tower-b-step1",
-        "x": 1470,
-        "y": 1540,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "tower-b-step2",
-        "x": 1660,
-        "y": 1440,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "tower-b-step3",
-        "x": 1470,
-        "y": 1340,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "tower-b-step4",
-        "x": 1660,
-        "y": 1240,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "tower-b-step5",
-        "x": 1470,
-        "y": 1140,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "dc-to-battle-a",
-        "x": 2320,
-        "y": 1140,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "dc-to-battle-b",
-        "x": 2500,
-        "y": 1230,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "dc-to-battle-c",
-        "x": 2680,
-        "y": 1320,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "combat-bridge-a",
-        "x": 3200,
-        "y": 1550,
-        "width": 160,
-        "height": 18,
-        "type": "temporary",
-        "collision": "one-way",
-        "style": "cable",
-        "duration": 2.0,
-        "respawnDelay": 2.6
-      },
-      {
-        "id": "combat-bridge-b",
-        "x": 3380,
-        "y": 1460,
-        "width": 160,
-        "height": 18,
-        "type": "moving",
-        "collision": "one-way",
-        "style": "cable",
-        "motion": {
-          "axis": "x",
-          "range": 18,
-          "speed": 0.65
-        }
-      },
-      {
-        "id": "airlock-step1",
-        "x": 4000,
-        "y": 1440,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "airlock-step2",
-        "x": 4170,
-        "y": 1350,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "airlock-step3",
-        "x": 4350,
-        "y": 1260,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "arena-approach-a",
-        "x": 4700,
-        "y": 1080,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "arena-approach-b",
-        "x": 4580,
-        "y": 990,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "core-left-low",
-        "x": 5000,
-        "y": 800,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "signal"
-      },
-      {
-        "id": "core-left-high",
-        "x": 5200,
-        "y": 700,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "signal"
-      },
-      {
-        "id": "core-middle-low",
-        "x": 5410,
-        "y": 800,
-        "width": 190,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "signal"
-      },
-      {
-        "id": "core-middle-step",
-        "x": 5540,
-        "y": 720,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "signal"
-      },
-      {
-        "id": "core-aerial-lift",
-        "x": 5620,
-        "y": 640,
-        "width": 160,
-        "height": 18,
-        "type": "moving",
-        "collision": "one-way",
-        "style": "signal",
-        "motion": {
-          "axis": "y",
-          "range": 16,
-          "speed": 0.7
-        }
-      },
-      {
-        "id": "core-right-high",
-        "x": 5830,
-        "y": 730,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "signal"
-      },
-      {
-        "id": "core-right-low",
-        "x": 6050,
-        "y": 820,
-        "width": 160,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "signal"
-      },
-      {
-        "id": "core-right-step",
-        "x": 6210,
-        "y": 760,
-        "width": 130,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "signal"
-      },
-      {
-        "id": "core-right-top",
-        "x": 6240,
-        "y": 700,
-        "width": 190,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "signal"
-      },
-      {
-        "id": "entry-secret",
-        "x": 150,
-        "y": 1550,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "tower-a-secret",
-        "x": 420,
-        "y": 1100,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "tower-b-secret",
-        "x": 2130,
-        "y": 960,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "combat-secret-a",
-        "x": 2840,
-        "y": 1550,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "combat-secret-b",
-        "x": 3000,
-        "y": 1460,
-        "width": 150,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "combat-secret-top",
-        "x": 2840,
-        "y": 1370,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "airlock-secret",
-        "x": 4460,
-        "y": 1080,
-        "width": 170,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable"
-      },
-      {
-        "id": "fiber-link-a",
-        "x": 1080,
-        "y": 1190,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable",
-        "requiresComponentId": "c01"
-      },
-      {
-        "id": "fiber-link-b",
-        "x": 1260,
-        "y": 1120,
-        "width": 180,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable",
-        "requiresComponentId": "c01"
-      },
-      {
-        "id": "fiber-link-c",
-        "x": 1450,
-        "y": 1050,
-        "width": 220,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "cable",
-        "requiresComponentId": "c01"
-      },
-      {
-        "id": "upper-backbone-a",
-        "x": 2280,
-        "y": 1050,
-        "width": 250,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "packet",
-        "requiresComponentId": "c02"
-      },
-      {
-        "id": "upper-backbone-b",
-        "x": 2540,
-        "y": 1050,
-        "width": 250,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "packet",
-        "requiresComponentId": "c02"
-      },
-      {
-        "id": "upper-backbone-c",
-        "x": 2800,
-        "y": 1140,
-        "width": 200,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "packet",
-        "requiresComponentId": "c02"
-      },
-      {
-        "id": "restored-combat-bridge",
-        "x": 3150,
-        "y": 1640,
-        "width": 300,
-        "height": 18,
-        "type": "fixed",
-        "collision": "one-way",
-        "style": "route",
-        "requiresComponentId": "c03"
-      },
-      {
-        "id": "airlock-elevator",
-        "x": 4120,
-        "y": 1360,
-        "width": 160,
-        "height": 18,
-        "type": "moving",
-        "collision": "one-way",
-        "style": "packet",
-        "requiresComponentId": "c03",
-        "motion": {
-          "axis": "y",
-          "range": 140,
-          "speed": 0.5
-        }
-      }
+      {"id": "entry-shaft-0-0", "x": 3908, "y": 4104, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "entry-shaft-0-1", "x": 3972, "y": 4008, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "entry-shaft-0-2", "x": 3908, "y": 3912, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "entry-shaft-0-3", "x": 3972, "y": 3816, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "entry-shaft-0-4", "x": 3908, "y": 3720, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "entry-1-ladder", "x": 210, "y": 4108, "width": 156, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-1-rack-bridge", "x": 320, "y": 4016, "width": 448, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "entry-1-loading-bay", "x": 748, "y": 4108, "width": 168, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-1-observation", "x": 560, "y": 3928, "width": 226, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-2-ladder", "x": 1426, "y": 4108, "width": 156, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-2-rack-bridge", "x": 1480, "y": 4016, "width": 448, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "entry-2-loading-bay", "x": 1908, "y": 4108, "width": 168, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-2-observation", "x": 1720, "y": 3928, "width": 226, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-3-ladder", "x": 2498, "y": 4108, "width": 156, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-3-rack-bridge", "x": 2640, "y": 4016, "width": 448, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "entry-3-loading-bay", "x": 3068, "y": 4108, "width": 168, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-3-observation", "x": 2880, "y": 3928, "width": 226, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-4-ladder", "x": 3714, "y": 4108, "width": 156, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-4-rack-bridge", "x": 3800, "y": 4016, "width": 448, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "entry-4-loading-bay", "x": 4228, "y": 4108, "width": 168, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "entry-4-observation", "x": 4040, "y": 3928, "width": 226, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "towers-shaft-0-0", "x": 668, "y": 3624, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-shaft-0-1", "x": 732, "y": 3528, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-shaft-0-2", "x": 668, "y": 3432, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-shaft-0-3", "x": 732, "y": 3336, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-shaft-0-4", "x": 668, "y": 3240, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-shaft-1-0", "x": 3728, "y": 3624, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-shaft-1-1", "x": 3792, "y": 3528, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-shaft-1-2", "x": 3728, "y": 3432, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-shaft-1-3", "x": 3792, "y": 3336, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-shaft-1-4", "x": 3728, "y": 3240, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-1-west", "x": 238, "y": 3624, "width": 162, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "towers-1-east", "x": 810, "y": 3624, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "towers-1-fiber", "x": 350, "y": 3528, "width": 506, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "towers-1-tower", "x": 474, "y": 3432, "width": 232, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-1-bridge", "x": 698, "y": 3448, "width": 188, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "towers-1-lift", "x": 906, "y": 3528, "width": 112, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "y", "range": 58, "speed": 0.6, "phase": 0}},
+      {"id": "towers-2-west", "x": 1454, "y": 3624, "width": 162, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "towers-2-east", "x": 1970, "y": 3624, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "towers-2-fiber", "x": 1510, "y": 3528, "width": 506, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "towers-2-tower", "x": 1634, "y": 3432, "width": 232, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-2-bridge", "x": 1858, "y": 3448, "width": 188, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "towers-2-lift", "x": 2066, "y": 3528, "width": 112, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "x", "range": 58, "speed": 0.6, "phase": 1}},
+      {"id": "towers-3-west", "x": 2526, "y": 3624, "width": 162, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "towers-3-east", "x": 3130, "y": 3624, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "towers-3-fiber", "x": 2670, "y": 3528, "width": 506, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "towers-3-tower", "x": 2794, "y": 3432, "width": 232, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-3-bridge", "x": 3018, "y": 3448, "width": 188, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "towers-3-lift", "x": 3226, "y": 3528, "width": 112, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "y", "range": 58, "speed": 0.6, "phase": 2}},
+      {"id": "towers-4-west", "x": 3742, "y": 3624, "width": 162, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "towers-4-east", "x": 4290, "y": 3624, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "towers-4-fiber", "x": 3830, "y": 3528, "width": 506, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "towers-4-tower", "x": 3954, "y": 3432, "width": 232, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "towers-4-bridge", "x": 4178, "y": 3448, "width": 188, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "towers-4-lift", "x": 4386, "y": 3528, "width": 112, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "x", "range": 58, "speed": 0.6, "phase": 3}},
+      {"id": "service-shaft-0-0", "x": 408, "y": 3144, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "service-shaft-0-1", "x": 472, "y": 3048, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "service-shaft-0-2", "x": 408, "y": 2952, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "service-shaft-0-3", "x": 472, "y": 2856, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "service-shaft-0-4", "x": 408, "y": 2760, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "service-shaft-1-0", "x": 2488, "y": 3144, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "service-shaft-1-1", "x": 2552, "y": 3048, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "service-shaft-1-2", "x": 2488, "y": 2952, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "service-shaft-1-3", "x": 2552, "y": 2856, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "service-shaft-1-4", "x": 2488, "y": 2760, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "service-1-rack-step", "x": 226, "y": 3148, "width": 172, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "service-1-service-catwalk", "x": 328, "y": 3056, "width": 460, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "service-1-ramp", "x": 762, "y": 3148, "width": 172, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "service-1-duct-roof", "x": 431, "y": 2965, "width": 164, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "service-2-rack-step", "x": 1442, "y": 3148, "width": 172, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "service-2-service-catwalk", "x": 1488, "y": 3056, "width": 460, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "service-2-ramp", "x": 1922, "y": 3148, "width": 172, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "service-2-service-shuttle", "x": 1904, "y": 3054, "width": 128, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "x", "range": 52, "speed": 0.5, "phase": 1}},
+      {"id": "service-3-rack-step", "x": 2514, "y": 3148, "width": 172, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "service-3-service-catwalk", "x": 2648, "y": 3056, "width": 460, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "service-3-ramp", "x": 3082, "y": 3148, "width": 172, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "service-3-service-shuttle", "x": 3064, "y": 3054, "width": 128, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "x", "range": 52, "speed": 0.5, "phase": 2}},
+      {"id": "service-4-rack-step", "x": 3730, "y": 3148, "width": 172, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "service-4-service-catwalk", "x": 3808, "y": 3056, "width": 460, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "service-4-ramp", "x": 4242, "y": 3148, "width": 172, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "service-4-duct-roof", "x": 3911, "y": 2965, "width": 164, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "transmission-shaft-0-0", "x": 1328, "y": 2664, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-shaft-0-1", "x": 1392, "y": 2568, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-shaft-0-2", "x": 1328, "y": 2472, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-shaft-0-3", "x": 1392, "y": 2376, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-shaft-0-4", "x": 1328, "y": 2280, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-shaft-1-0", "x": 3958, "y": 2664, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-shaft-1-1", "x": 4022, "y": 2568, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-shaft-1-2", "x": 3958, "y": 2472, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-shaft-1-3", "x": 4022, "y": 2376, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-shaft-1-4", "x": 3958, "y": 2280, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-1-west", "x": 238, "y": 2664, "width": 162, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "transmission-1-east", "x": 810, "y": 2664, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "transmission-1-fiber", "x": 350, "y": 2568, "width": 506, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "transmission-1-tower", "x": 474, "y": 2472, "width": 232, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-1-bridge", "x": 698, "y": 2488, "width": 188, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "transmission-1-lift", "x": 906, "y": 2568, "width": 112, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "y", "range": 58, "speed": 0.6, "phase": 0}},
+      {"id": "transmission-2-west", "x": 1454, "y": 2664, "width": 162, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "transmission-2-east", "x": 1970, "y": 2664, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "transmission-2-fiber", "x": 1510, "y": 2568, "width": 506, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "transmission-2-tower", "x": 1634, "y": 2472, "width": 232, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-2-bridge", "x": 1858, "y": 2488, "width": 188, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "transmission-2-lift", "x": 2066, "y": 2568, "width": 112, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "x", "range": 58, "speed": 0.6, "phase": 1}},
+      {"id": "transmission-3-west", "x": 2526, "y": 2664, "width": 162, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "transmission-3-east", "x": 3130, "y": 2664, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "transmission-3-fiber", "x": 2670, "y": 2568, "width": 506, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "transmission-3-tower", "x": 2794, "y": 2472, "width": 232, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-3-bridge", "x": 3018, "y": 2488, "width": 188, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "transmission-3-lift", "x": 3226, "y": 2568, "width": 112, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "y", "range": 58, "speed": 0.6, "phase": 2}},
+      {"id": "transmission-4-west", "x": 3742, "y": 2664, "width": 162, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "transmission-4-east", "x": 4290, "y": 2664, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "transmission-4-fiber", "x": 3830, "y": 2568, "width": 506, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "transmission-4-tower", "x": 3954, "y": 2472, "width": 232, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "transmission-4-bridge", "x": 4178, "y": 2488, "width": 188, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "transmission-4-lift", "x": 4386, "y": 2568, "width": 112, "height": 16, "type": "moving", "collision": "one-way", "style": "elevator", "motion": {"axis": "x", "range": 58, "speed": 0.6, "phase": 3}},
+      {"id": "corruption-shaft-0-0", "x": 608, "y": 2184, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "corruption-shaft-0-1", "x": 672, "y": 2088, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "corruption-shaft-0-2", "x": 608, "y": 1992, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "corruption-shaft-0-3", "x": 672, "y": 1896, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "corruption-shaft-0-4", "x": 608, "y": 1800, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "corruption-shaft-1-0", "x": 3108, "y": 2184, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "corruption-shaft-1-1", "x": 3172, "y": 2088, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "corruption-shaft-1-2", "x": 3108, "y": 1992, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "corruption-shaft-1-3", "x": 3172, "y": 1896, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "corruption-shaft-1-4", "x": 3108, "y": 1800, "width": 128, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "corruption-1-approach", "x": 200, "y": 2184, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "corruption-1-split-a", "x": 304, "y": 2090, "width": 152, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "corruption-1-split-b", "x": 519, "y": 2104, "width": 202, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "corruption-1-recovery", "x": 734, "y": 2184, "width": 176, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "corruption-1-perch", "x": 480, "y": 2014, "width": 208, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "corruption-1-volatile", "x": 526, "y": 1936, "width": 118, "height": 16, "type": "temporary", "collision": "one-way", "style": "signal", "duration": 2.4, "respawnDelay": 2.3},
+      {"id": "corruption-2-approach", "x": 1360, "y": 2184, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "corruption-2-split-a", "x": 1464, "y": 2090, "width": 152, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "corruption-2-split-b", "x": 1679, "y": 2104, "width": 202, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "corruption-2-recovery", "x": 1894, "y": 2184, "width": 176, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "corruption-2-perch", "x": 1640, "y": 2014, "width": 208, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "corruption-2-volatile", "x": 1686, "y": 1936, "width": 118, "height": 16, "type": "temporary", "collision": "one-way", "style": "signal", "duration": 2.4, "respawnDelay": 2.3},
+      {"id": "corruption-3-approach", "x": 2520, "y": 2184, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "corruption-3-split-a", "x": 2624, "y": 2090, "width": 152, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "corruption-3-split-b", "x": 2839, "y": 2104, "width": 202, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "corruption-3-recovery", "x": 3054, "y": 2184, "width": 176, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "corruption-3-perch", "x": 2800, "y": 2014, "width": 208, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "corruption-3-volatile", "x": 2846, "y": 1936, "width": 118, "height": 16, "type": "temporary", "collision": "one-way", "style": "signal", "duration": 2.4, "respawnDelay": 2.3},
+      {"id": "corruption-4-approach", "x": 3680, "y": 2184, "width": 144, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "corruption-4-split-a", "x": 3784, "y": 2090, "width": 152, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "corruption-4-split-b", "x": 3999, "y": 2104, "width": 202, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "corruption-4-recovery", "x": 4214, "y": 2184, "width": 176, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "corruption-4-perch", "x": 3960, "y": 2014, "width": 208, "height": 16, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "corruption-4-volatile", "x": 4006, "y": 1936, "width": 118, "height": 16, "type": "temporary", "collision": "one-way", "style": "signal", "duration": 2.4, "respawnDelay": 2.3},
+      {"id": "antechamber-1-ladder", "x": 210, "y": 1708, "width": 156, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-1-rack-bridge", "x": 320, "y": 1616, "width": 448, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "antechamber-1-loading-bay", "x": 748, "y": 1708, "width": 168, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-1-observation", "x": 560, "y": 1528, "width": 226, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-1-restored-tray", "x": 740, "y": 1530, "width": 152, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable", "requires": {"component": "c11"}},
+      {"id": "antechamber-2-ladder", "x": 1426, "y": 1708, "width": 156, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-2-rack-bridge", "x": 1480, "y": 1616, "width": 448, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "antechamber-2-loading-bay", "x": 1908, "y": 1708, "width": 168, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-2-observation", "x": 1720, "y": 1528, "width": 226, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-2-restored-tray", "x": 1900, "y": 1530, "width": 152, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable", "requires": {"component": "c11"}},
+      {"id": "antechamber-3-ladder", "x": 2498, "y": 1708, "width": 156, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-3-rack-bridge", "x": 2640, "y": 1616, "width": 448, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "antechamber-3-loading-bay", "x": 3068, "y": 1708, "width": 168, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-3-observation", "x": 2880, "y": 1528, "width": 226, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-3-restored-tray", "x": 3060, "y": 1530, "width": 152, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable", "requires": {"component": "c12"}},
+      {"id": "antechamber-4-ladder", "x": 3714, "y": 1708, "width": 156, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-4-rack-bridge", "x": 3800, "y": 1616, "width": 448, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "antechamber-4-loading-bay", "x": 4228, "y": 1708, "width": 168, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "antechamber-4-restored-tray", "x": 4220, "y": 1530, "width": 152, "height": 16, "type": "fixed", "collision": "one-way", "style": "cable", "requires": {"component": "c12"}},
+      {"id": "vault-1-rack-0", "x": 398, "y": 1352, "width": 148, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "vault-1-rack-1", "x": 476, "y": 1264, "width": 148, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "vault-1-rack-2", "x": 554, "y": 1176, "width": 148, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "vault-2-rack-0", "x": 1588, "y": 1352, "width": 148, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "vault-2-rack-1", "x": 1666, "y": 1264, "width": 148, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "vault-2-rack-2", "x": 1744, "y": 1176, "width": 148, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "vault-3-rack-0", "x": 2778, "y": 1352, "width": 148, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "vault-3-rack-1", "x": 2856, "y": 1264, "width": 148, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "vault-3-rack-2", "x": 2934, "y": 1176, "width": 148, "height": 16, "type": "fixed", "collision": "one-way", "style": "packet"},
+      {"id": "antechamber-rise-0", "x": 3824, "y": 1704, "width": 176, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "antechamber-rise-1", "x": 3960, "y": 1608, "width": 172, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "antechamber-rise-2", "x": 4072, "y": 1512, "width": 168, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "antechamber-rise-3", "x": 4200, "y": 1416, "width": 160, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "antechamber-rise-4", "x": 4320, "y": 1320, "width": 162, "height": 16, "type": "fixed", "collision": "one-way", "style": "elevator"},
+      {"id": "arena-approach-a", "x": 4700, "y": 1080, "width": 160, "height": 18, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "core-left-low", "x": 5000, "y": 800, "width": 180, "height": 18, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "core-left-high", "x": 5200, "y": 700, "width": 180, "height": 18, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "core-middle-low", "x": 5410, "y": 800, "width": 190, "height": 18, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "core-middle-step", "x": 5540, "y": 720, "width": 150, "height": 18, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "core-aerial-lift", "x": 5620, "y": 640, "width": 160, "height": 18, "type": "moving", "collision": "one-way", "style": "signal", "motion": {"axis": "y", "range": 16, "speed": 0.7}},
+      {"id": "core-right-high", "x": 5830, "y": 730, "width": 180, "height": 18, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "core-right-low", "x": 6050, "y": 820, "width": 160, "height": 18, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "core-right-step", "x": 6210, "y": 760, "width": 130, "height": 18, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "core-right-top", "x": 6240, "y": 700, "width": 190, "height": 18, "type": "fixed", "collision": "one-way", "style": "signal"},
+      {"id": "airlock-step3", "x": 4350, "y": 1260, "width": 180, "height": 18, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "arena-approach-b", "x": 4580, "y": 990, "width": 170, "height": 18, "type": "fixed", "collision": "one-way", "style": "cable"},
+      {"id": "airlock-elevator", "x": 4120, "y": 1360, "width": 160, "height": 18, "type": "moving", "collision": "one-way", "style": "packet", "requiresComponentId": "c03", "motion": {"axis": "y", "range": 140, "speed": 0.5}}
     ],
     "obstacles": [
-      {
-        "id": "backbone-pulse",
-        "x": 3100,
-        "y": 1560,
-        "width": 28,
-        "height": 80,
-        "type": "interference",
-        "collision": "dangerous",
-        "damage": 12,
-        "requiresComponentId": "c03",
-        "window": {
-          "period": 3.6,
-          "active": 1.2,
-          "phase": 0
-        }
-      },
-      {
-        "id": "airlock-pulse",
-        "x": 4010,
-        "y": 1460,
-        "width": 28,
-        "height": 80,
-        "type": "interference",
-        "collision": "dangerous",
-        "damage": 12,
-        "requiresComponentId": "c03",
-        "window": {
-          "period": 3.4,
-          "active": 1.25,
-          "phase": 0.8
-        }
-      },
-      {
-        "id": "arena-cover-left",
-        "x": 5160,
-        "y": 826,
-        "width": 52,
-        "height": 74,
-        "type": "heatsink",
-        "collision": "solid"
-      },
-      {
-        "id": "arena-cover-right",
-        "x": 6110,
-        "y": 814,
-        "width": 60,
-        "height": 86,
-        "type": "heatsink",
-        "collision": "solid"
-      }
+      {"id": "service-1-duct-ceiling", "x": 355, "y": 3149, "width": 152, "height": 16},
+      {"id": "service-4-duct-ceiling", "x": 3835, "y": 3149, "width": 152, "height": 16},
+      {"id": "exploration-west-wall", "x": 0, "y": 1520, "width": 32, "height": 2760},
+      {"id": "exploration-east-wall", "x": 4770, "y": 1170, "width": 28, "height": 3110},
+      {"id": "arena-west-bulkhead", "x": 4770, "y": 0, "width": 28, "height": 750},
+      {"id": "vault-1-wall-west", "x": 250, "y": 1080, "width": 24, "height": 360},
+      {"id": "vault-1-wall-east", "x": 890, "y": 1080, "width": 24, "height": 360},
+      {"id": "vault-1-roof", "x": 250, "y": 1080, "width": 664, "height": 24},
+      {"id": "vault-2-wall-west", "x": 1440, "y": 1080, "width": 24, "height": 360},
+      {"id": "vault-2-wall-east", "x": 2080, "y": 1080, "width": 24, "height": 360},
+      {"id": "vault-2-roof", "x": 1440, "y": 1080, "width": 664, "height": 24},
+      {"id": "vault-3-wall-west", "x": 2630, "y": 1080, "width": 24, "height": 360},
+      {"id": "vault-3-wall-east", "x": 3270, "y": 1080, "width": 24, "height": 360},
+      {"id": "vault-3-roof", "x": 2630, "y": 1080, "width": 664, "height": 24},
+      {"id": "arena-cover-left", "x": 5160, "y": 826, "width": 52, "height": 74, "type": "heatsink", "collision": "solid"},
+      {"id": "arena-cover-right", "x": 6110, "y": 814, "width": 60, "height": 86, "type": "heatsink", "collision": "solid"},
+      {"id": "arena-east-bulkhead", "x": 6600, "y": 0, "width": 32, "height": 960}
     ],
     "gates": [
-      {
-        "id": "core-access-lock",
-        "x": 4770,
-        "y": 750,
-        "width": 28,
-        "height": 420,
-        "opensWhen": {
-          "all": [
-            {
-              "component": "c01"
-            },
-            {
-              "component": "c02"
-            },
-            {
-              "component": "c03"
-            },
-            {
-              "component": "c04"
-            }
-          ]
-        }
-      }
+      {"id": "entry-hatch-0", "x": 3872, "y": 3720, "width": 256, "height": 80, "opensWhen": {"component": "c01"}},
+      {"id": "towers-hatch-0", "x": 632, "y": 3240, "width": 256, "height": 80, "opensWhen": {"component": "c02"}},
+      {"id": "towers-hatch-1", "x": 3692, "y": 3240, "width": 256, "height": 80, "opensWhen": {"component": "c05"}},
+      {"id": "service-hatch-0", "x": 372, "y": 2760, "width": 256, "height": 80, "opensWhen": {"component": "c06"}},
+      {"id": "service-hatch-1", "x": 2452, "y": 2760, "width": 256, "height": 80, "opensWhen": {"component": "c07"}},
+      {"id": "transmission-hatch-0", "x": 1292, "y": 2280, "width": 256, "height": 80, "opensWhen": {"component": "c03"}},
+      {"id": "transmission-hatch-1", "x": 3922, "y": 2280, "width": 256, "height": 80, "opensWhen": {"component": "c08"}},
+      {"id": "corruption-hatch-0", "x": 572, "y": 1800, "width": 256, "height": 80, "opensWhen": {"component": "c09"}},
+      {"id": "corruption-hatch-1", "x": 3072, "y": 1800, "width": 256, "height": 80, "opensWhen": {"component": "c10"}},
+      {"id": "core-access-lock", "x": 4770, "y": 750, "width": 28, "height": 420, "opensWhen": {"all": [{"component": "c01"}, {"component": "c02"}, {"component": "c05"}, {"component": "c06"}, {"component": "c07"}, {"component": "c03"}, {"component": "c08"}, {"component": "c09"}, {"component": "c10"}, {"component": "c11"}, {"component": "c12"}, {"component": "c04"}]}}
     ],
     "components": [
-      {
-        "id": "c01",
-        "x": 650,
-        "y": 1146,
-        "width": 34,
-        "height": 44,
-        "label": "RELAY DA TORRE A"
-      },
-      {
-        "id": "c02",
-        "x": 1900,
-        "y": 1006,
-        "width": 34,
-        "height": 44,
-        "label": "RELAY DA TORRE B"
-      },
-      {
-        "id": "c03",
-        "x": 3730,
-        "y": 1496,
-        "width": 34,
-        "height": 44,
-        "label": "ENERGIA DO BACKBONE"
-      },
-      {
-        "id": "c04",
-        "x": 4570,
-        "y": 1126,
-        "width": 34,
-        "height": 44,
-        "label": "ESCUDO DO NÚCLEO"
-      }
+      {"id": "c01", "x": 3420, "y": 4156, "width": 34, "height": 44, "label": "RESTAURAR DISTRIBUIÇÃO DE ENTRADA"},
+      {"id": "c02", "x": 3180, "y": 3676, "width": 34, "height": 44, "label": "SINCRONIZAR TORRE B"},
+      {"id": "c05", "x": 1540, "y": 3676, "width": 34, "height": 44, "label": "RESTAURAR FIBRA DA TORRE A"},
+      {"id": "c06", "x": 1070, "y": 3196, "width": 34, "height": 44, "label": "RESTABELECER ENERGIA DA OFICINA"},
+      {"id": "c07", "x": 3440, "y": 3196, "width": 34, "height": 44, "label": "RECONECTAR CANAL DE MANUTENÇÃO"},
+      {"id": "c03", "x": 3270, "y": 2716, "width": 34, "height": 44, "label": "RESTAURAR TRANSMISSÃO CENTRAL"},
+      {"id": "c08", "x": 1260, "y": 2716, "width": 34, "height": 44, "label": "ATIVAR ROTA REDUNDANTE"},
+      {"id": "c09", "x": 2730, "y": 2236, "width": 34, "height": 44, "label": "ISOLAR MEMÓRIA CORROMPIDA"},
+      {"id": "c10", "x": 1090, "y": 2236, "width": 34, "height": 44, "label": "ESTABILIZAR CONTENÇÃO"},
+      {"id": "c11", "x": 1020, "y": 1756, "width": 34, "height": 44, "label": "RECUPERAR BARRAMENTO FINAL"},
+      {"id": "c12", "x": 2680, "y": 1756, "width": 34, "height": 44, "label": "RESTAURAR BACKUP DO NÚCLEO"},
+      {"id": "c04", "x": 4570, "y": 1126, "width": 34, "height": 44, "label": "ESCUDO DO NÚCLEO"}
     ],
     "enemies": [
-      {
-        "id": "e01",
-        "type": "basic",
-        "x": 800,
-        "y": 1616,
-        "groundY": 1640,
-        "navigationBounds": {
-          "left": 400,
-          "right": 1000
-        },
-        "patrolMin": 400,
-        "patrolMax": 1000,
-        "activationRegion": {
-          "x": 80,
-          "y": 1360,
-          "width": 1000,
-          "height": 340
-        }
-      },
-      {
-        "id": "e02",
-        "type": "shooter",
-        "x": 900,
-        "y": 1166,
-        "groundY": 1190,
-        "navigationBounds": {
-          "left": 470,
-          "right": 980
-        },
-        "patrolMin": 470,
-        "patrolMax": 980,
-        "activationRegion": {
-          "x": 420,
-          "y": 910,
-          "width": 600,
-          "height": 340
-        }
-      },
-      {
-        "id": "e03",
-        "type": "flyer",
-        "x": 2100,
-        "y": 958,
-        "groundY": 1050,
-        "navigationBounds": {
-          "left": 1740,
-          "right": 2200
-        },
-        "patrolMin": 1740,
-        "patrolMax": 2200,
-        "activationRegion": {
-          "x": 1300,
-          "y": 740,
-          "width": 1000,
-          "height": 370
-        }
-      },
-      {
-        "id": "e04",
-        "type": "shooter",
-        "x": 2980,
-        "y": 1616,
-        "groundY": 1640,
-        "navigationBounds": {
-          "left": 2700,
-          "right": 3090
-        },
-        "patrolMin": 2700,
-        "patrolMax": 3090,
-        "activationRegion": {
-          "x": 2580,
-          "y": 1360,
-          "width": 570,
-          "height": 340
-        }
-      },
-      {
-        "id": "e05",
-        "type": "parasite",
-        "x": 3570,
-        "y": 1516,
-        "groundY": 1540,
-        "navigationBounds": {
-          "left": 3500,
-          "right": 4000
-        },
-        "patrolMin": 3500,
-        "patrolMax": 4000,
-        "activationRegion": {
-          "x": 3450,
-          "y": 1260,
-          "width": 700,
-          "height": 340
-        }
-      },
-      {
-        "id": "e06",
-        "type": "fast",
-        "x": 3970,
-        "y": 1516,
-        "groundY": 1540,
-        "navigationBounds": {
-          "left": 3500,
-          "right": 4080
-        },
-        "patrolMin": 3500,
-        "patrolMax": 4080,
-        "activationRegion": {
-          "x": 3450,
-          "y": 1260,
-          "width": 700,
-          "height": 340
-        }
-      },
-      {
-        "id": "e07",
-        "type": "armored",
-        "x": 4660,
-        "y": 1146,
-        "groundY": 1170,
-        "navigationBounds": {
-          "left": 4430,
-          "right": 4750
-        },
-        "patrolMin": 4430,
-        "patrolMax": 4750,
-        "activationRegion": {
-          "x": 4350,
-          "y": 890,
-          "width": 470,
-          "height": 340
-        }
-      },
-      {
-        "id": "e08",
-        "type": "boss",
-        "x": 5680,
-        "y": 854,
-        "groundY": 900,
-        "hp": 90,
-        "multiStage": true,
-        "coreShieldRequiresRepairs": true,
-        "bossBounds": {
-          "left": 4880,
-          "right": 6500
-        },
-        "activationRegion": {
-          "x": 4800,
-          "y": 320,
-          "width": 1800,
-          "height": 650
-        },
-        "armor": 0.35,
-        "damage": 18,
-        "speed": 58,
-        "xp": 500
-      }
+      {"id": "entry-2-patrol", "type": "basic", "x": 1827, "y": 4176, "groundY": 4200, "patrolMin": 1745, "patrolMax": 1910, "navigationBounds": {"left": 1745, "right": 1910}, "activationRegion": {"x": 1622, "y": 3878, "width": 420, "height": 322}},
+      {"id": "entry-3-patrol", "type": "basic", "x": 2987, "y": 4176, "groundY": 4200, "patrolMin": 2905, "patrolMax": 3070, "navigationBounds": {"left": 2905, "right": 3070}, "activationRegion": {"x": 2782, "y": 3878, "width": 420, "height": 322}},
+      {"id": "entry-3-sentry", "type": "shooter", "x": 2875, "y": 3992, "groundY": 4016, "patrolMin": 2802, "patrolMax": 2948, "navigationBounds": {"left": 2802, "right": 2948}, "activationRegion": {"x": 2675, "y": 3838, "width": 468, "height": 362}},
+      {"id": "entry-4-patrol", "type": "basic", "x": 4147, "y": 4176, "groundY": 4200, "patrolMin": 4065, "patrolMax": 4230, "navigationBounds": {"left": 4065, "right": 4230}, "activationRegion": {"x": 3942, "y": 3878, "width": 420, "height": 322}},
+      {"id": "towers-1-patrol", "type": "fast", "x": 667, "y": 3696, "groundY": 3720, "patrolMin": 585, "patrolMax": 750, "navigationBounds": {"left": 585, "right": 750}, "activationRegion": {"x": 462, "y": 3398, "width": 420, "height": 322}},
+      {"id": "towers-1-sentry", "type": "shooter", "x": 555, "y": 3504, "groundY": 3528, "patrolMin": 482, "patrolMax": 628, "navigationBounds": {"left": 482, "right": 628}, "activationRegion": {"x": 355, "y": 3358, "width": 468, "height": 362}},
+      {"id": "towers-2-patrol", "type": "fast", "x": 1827, "y": 3696, "groundY": 3720, "patrolMin": 1745, "patrolMax": 1910, "navigationBounds": {"left": 1745, "right": 1910}, "activationRegion": {"x": 1622, "y": 3398, "width": 420, "height": 322}},
+      {"id": "towers-3-patrol", "type": "fast", "x": 2987, "y": 3696, "groundY": 3720, "patrolMin": 2905, "patrolMax": 3070, "navigationBounds": {"left": 2905, "right": 3070}, "activationRegion": {"x": 2782, "y": 3398, "width": 420, "height": 322}},
+      {"id": "towers-3-sentry", "type": "flyer", "x": 2875, "y": 3504, "groundY": 3528, "patrolMin": 2802, "patrolMax": 2948, "navigationBounds": {"left": 2802, "right": 2948}, "activationRegion": {"x": 2675, "y": 3358, "width": 468, "height": 362}},
+      {"id": "towers-4-sentry", "type": "shooter", "x": 4035, "y": 3504, "groundY": 3528, "patrolMin": 3962, "patrolMax": 4108, "navigationBounds": {"left": 3962, "right": 4108}, "activationRegion": {"x": 3835, "y": 3358, "width": 468, "height": 362}},
+      {"id": "service-1-sentry", "type": "shooter", "x": 555, "y": 3032, "groundY": 3056, "patrolMin": 482, "patrolMax": 628, "navigationBounds": {"left": 482, "right": 628}, "activationRegion": {"x": 355, "y": 2878, "width": 468, "height": 362}},
+      {"id": "service-2-patrol", "type": "fast", "x": 1827, "y": 3216, "groundY": 3240, "patrolMin": 1745, "patrolMax": 1910, "navigationBounds": {"left": 1745, "right": 1910}, "activationRegion": {"x": 1622, "y": 2918, "width": 420, "height": 322}},
+      {"id": "service-3-patrol", "type": "fast", "x": 2987, "y": 3216, "groundY": 3240, "patrolMin": 2905, "patrolMax": 3070, "navigationBounds": {"left": 2905, "right": 3070}, "activationRegion": {"x": 2782, "y": 2918, "width": 420, "height": 322}},
+      {"id": "service-3-sentry", "type": "shooter", "x": 2875, "y": 3032, "groundY": 3056, "patrolMin": 2802, "patrolMax": 2948, "navigationBounds": {"left": 2802, "right": 2948}, "activationRegion": {"x": 2675, "y": 2878, "width": 468, "height": 362}},
+      {"id": "service-4-patrol", "type": "fast", "x": 4147, "y": 3216, "groundY": 3240, "patrolMin": 4065, "patrolMax": 4230, "navigationBounds": {"left": 4065, "right": 4230}, "activationRegion": {"x": 3942, "y": 2918, "width": 420, "height": 322}},
+      {"id": "transmission-1-sentry", "type": "flyer", "x": 555, "y": 2544, "groundY": 2568, "patrolMin": 482, "patrolMax": 628, "navigationBounds": {"left": 482, "right": 628}, "activationRegion": {"x": 355, "y": 2398, "width": 468, "height": 362}},
+      {"id": "transmission-2-patrol", "type": "armored", "x": 1827, "y": 2736, "groundY": 2760, "patrolMin": 1745, "patrolMax": 1910, "navigationBounds": {"left": 1745, "right": 1910}, "activationRegion": {"x": 1622, "y": 2438, "width": 420, "height": 322}},
+      {"id": "transmission-2-sentry", "type": "shooter", "x": 1715, "y": 2544, "groundY": 2568, "patrolMin": 1642, "patrolMax": 1788, "navigationBounds": {"left": 1642, "right": 1788}, "activationRegion": {"x": 1515, "y": 2398, "width": 468, "height": 362}},
+      {"id": "transmission-3-patrol", "type": "armored", "x": 2987, "y": 2736, "groundY": 2760, "patrolMin": 2905, "patrolMax": 3070, "navigationBounds": {"left": 2905, "right": 3070}, "activationRegion": {"x": 2782, "y": 2438, "width": 420, "height": 322}},
+      {"id": "transmission-3-sentry", "type": "shooter", "x": 2875, "y": 2544, "groundY": 2568, "patrolMin": 2802, "patrolMax": 2948, "navigationBounds": {"left": 2802, "right": 2948}, "activationRegion": {"x": 2675, "y": 2398, "width": 468, "height": 362}},
+      {"id": "transmission-4-patrol", "type": "armored", "x": 4147, "y": 2736, "groundY": 2760, "patrolMin": 4065, "patrolMax": 4230, "navigationBounds": {"left": 4065, "right": 4230}, "activationRegion": {"x": 3942, "y": 2438, "width": 420, "height": 322}},
+      {"id": "transmission-4-sentry", "type": "flyer", "x": 4035, "y": 2544, "groundY": 2568, "patrolMin": 3962, "patrolMax": 4108, "navigationBounds": {"left": 3962, "right": 4108}, "activationRegion": {"x": 3835, "y": 2398, "width": 468, "height": 362}},
+      {"id": "corruption-1-patrol", "type": "armored", "x": 667, "y": 2256, "groundY": 2280, "patrolMin": 585, "patrolMax": 750, "navigationBounds": {"left": 585, "right": 750}, "activationRegion": {"x": 462, "y": 1958, "width": 420, "height": 322}},
+      {"id": "corruption-1-sentry", "type": "shooter", "x": 600, "y": 2080, "groundY": 2104, "patrolMin": 545, "patrolMax": 656, "navigationBounds": {"left": 545, "right": 656}, "activationRegion": {"x": 355, "y": 1918, "width": 468, "height": 362}},
+      {"id": "corruption-2-patrol", "type": "armored", "x": 1827, "y": 2256, "groundY": 2280, "patrolMin": 1745, "patrolMax": 1910, "navigationBounds": {"left": 1745, "right": 1910}, "activationRegion": {"x": 1622, "y": 1958, "width": 420, "height": 322}},
+      {"id": "corruption-2-sentry", "type": "shooter", "x": 1760, "y": 2080, "groundY": 2104, "patrolMin": 1705, "patrolMax": 1816, "navigationBounds": {"left": 1705, "right": 1816}, "activationRegion": {"x": 1515, "y": 1918, "width": 468, "height": 362}},
+      {"id": "corruption-3-patrol", "type": "parasite", "x": 2987, "y": 2256, "groundY": 2280, "patrolMin": 2905, "patrolMax": 3070, "navigationBounds": {"left": 2905, "right": 3070}, "activationRegion": {"x": 2782, "y": 1958, "width": 420, "height": 322}},
+      {"id": "corruption-3-sentry", "type": "flyer", "x": 2920, "y": 2080, "groundY": 2104, "patrolMin": 2865, "patrolMax": 2976, "navigationBounds": {"left": 2865, "right": 2976}, "activationRegion": {"x": 2675, "y": 1918, "width": 468, "height": 362}},
+      {"id": "corruption-4-sentry", "type": "shooter", "x": 4080, "y": 2080, "groundY": 2104, "patrolMin": 4025, "patrolMax": 4136, "navigationBounds": {"left": 4025, "right": 4136}, "activationRegion": {"x": 3835, "y": 1918, "width": 468, "height": 362}},
+      {"id": "antechamber-2-patrol", "type": "armored", "x": 1827, "y": 1776, "groundY": 1800, "patrolMin": 1745, "patrolMax": 1910, "navigationBounds": {"left": 1745, "right": 1910}, "activationRegion": {"x": 1622, "y": 1478, "width": 420, "height": 322}},
+      {"id": "antechamber-2-sentry", "type": "flyer", "x": 1715, "y": 1592, "groundY": 1616, "patrolMin": 1642, "patrolMax": 1788, "navigationBounds": {"left": 1642, "right": 1788}, "activationRegion": {"x": 1515, "y": 1438, "width": 468, "height": 362}},
+      {"id": "antechamber-3-sentry", "type": "shooter", "x": 2875, "y": 1592, "groundY": 1616, "patrolMin": 2802, "patrolMax": 2948, "navigationBounds": {"left": 2802, "right": 2948}, "activationRegion": {"x": 2675, "y": 1438, "width": 468, "height": 362}},
+      {"id": "e08", "type": "boss", "x": 5680, "y": 854, "groundY": 900, "hp": 90, "multiStage": true, "coreShieldRequiresRepairs": true, "bossBounds": {"left": 4880, "right": 6500}, "activationRegion": {"x": 4800, "y": 320, "width": 1800, "height": 650}, "armor": 0.35, "damage": 18, "speed": 58, "xp": 500}
     ],
     "collectibles": [
-      {
-        "id": "i01",
-        "x": 220,
-        "y": 1520,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i02",
-        "x": 480,
-        "y": 1070,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i03",
-        "x": 2190,
-        "y": 930,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i04",
-        "x": 2900,
-        "y": 1340,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i05",
-        "x": 4510,
-        "y": 1050,
-        "radius": 10,
-        "secret": true
-      },
-      {
-        "id": "i06",
-        "x": 6400,
-        "y": 670,
-        "radius": 10,
-        "secret": true
-      }
+      {"id": "entry-1-observation-cache", "x": 645, "y": 3898, "radius": 10, "secret": true},
+      {"id": "entry-1-archive", "x": 388, "y": 3986, "radius": 10, "secret": false},
+      {"id": "entry-2-observation-cache", "x": 1805, "y": 3898, "radius": 10, "secret": true},
+      {"id": "entry-2-archive", "x": 1548, "y": 3986, "radius": 10, "secret": false},
+      {"id": "entry-3-observation-cache", "x": 2965, "y": 3898, "radius": 10, "secret": true},
+      {"id": "entry-3-archive", "x": 2708, "y": 3986, "radius": 10, "secret": false},
+      {"id": "entry-4-observation-cache", "x": 4125, "y": 3898, "radius": 10, "secret": true},
+      {"id": "entry-4-archive", "x": 3868, "y": 3986, "radius": 10, "secret": false},
+      {"id": "towers-1-fiber-cache", "x": 748, "y": 3418, "radius": 10, "secret": false},
+      {"id": "towers-1-archive", "x": 388, "y": 3498, "radius": 10, "secret": false},
+      {"id": "towers-2-fiber-cache", "x": 1908, "y": 3418, "radius": 10, "secret": false},
+      {"id": "towers-2-archive", "x": 1548, "y": 3498, "radius": 10, "secret": false},
+      {"id": "towers-3-fiber-cache", "x": 3068, "y": 3418, "radius": 10, "secret": false},
+      {"id": "towers-3-archive", "x": 2708, "y": 3498, "radius": 10, "secret": false},
+      {"id": "towers-4-fiber-cache", "x": 4228, "y": 3418, "radius": 10, "secret": false},
+      {"id": "towers-4-archive", "x": 3868, "y": 3498, "radius": 10, "secret": false},
+      {"id": "service-1-parts", "x": 524, "y": 3026, "radius": 10, "secret": false},
+      {"id": "service-1-archive", "x": 388, "y": 3026, "radius": 10, "secret": false},
+      {"id": "service-2-parts", "x": 1684, "y": 3026, "radius": 10, "secret": false},
+      {"id": "service-2-archive", "x": 1548, "y": 3026, "radius": 10, "secret": false},
+      {"id": "service-3-parts", "x": 2844, "y": 3026, "radius": 10, "secret": false},
+      {"id": "service-3-archive", "x": 2708, "y": 3026, "radius": 10, "secret": false},
+      {"id": "service-4-parts", "x": 4004, "y": 3026, "radius": 10, "secret": false},
+      {"id": "service-4-archive", "x": 3868, "y": 3026, "radius": 10, "secret": false},
+      {"id": "transmission-1-fiber-cache", "x": 748, "y": 2458, "radius": 10, "secret": false},
+      {"id": "transmission-1-archive", "x": 388, "y": 2538, "radius": 10, "secret": false},
+      {"id": "transmission-2-fiber-cache", "x": 1908, "y": 2458, "radius": 10, "secret": false},
+      {"id": "transmission-2-archive", "x": 1548, "y": 2538, "radius": 10, "secret": false},
+      {"id": "transmission-3-fiber-cache", "x": 3068, "y": 2458, "radius": 10, "secret": false},
+      {"id": "transmission-3-archive", "x": 2708, "y": 2538, "radius": 10, "secret": false},
+      {"id": "transmission-4-fiber-cache", "x": 4228, "y": 2458, "radius": 10, "secret": false},
+      {"id": "transmission-4-archive", "x": 3868, "y": 2538, "radius": 10, "secret": false},
+      {"id": "corruption-1-volatile-cache", "x": 578, "y": 1906, "radius": 10, "secret": true},
+      {"id": "corruption-1-archive", "x": 388, "y": 2058, "radius": 10, "secret": false},
+      {"id": "corruption-2-volatile-cache", "x": 1738, "y": 1906, "radius": 10, "secret": true},
+      {"id": "corruption-2-archive", "x": 1548, "y": 2058, "radius": 10, "secret": false},
+      {"id": "corruption-3-volatile-cache", "x": 2898, "y": 1906, "radius": 10, "secret": true},
+      {"id": "corruption-3-archive", "x": 2708, "y": 2058, "radius": 10, "secret": false},
+      {"id": "corruption-4-volatile-cache", "x": 4058, "y": 1906, "radius": 10, "secret": true},
+      {"id": "corruption-4-archive", "x": 3868, "y": 2058, "radius": 10, "secret": false},
+      {"id": "antechamber-1-observation-cache", "x": 645, "y": 1498, "radius": 10, "secret": true},
+      {"id": "antechamber-1-archive", "x": 388, "y": 1586, "radius": 10, "secret": false},
+      {"id": "antechamber-2-observation-cache", "x": 1805, "y": 1498, "radius": 10, "secret": true},
+      {"id": "antechamber-2-archive", "x": 1548, "y": 1586, "radius": 10, "secret": false},
+      {"id": "antechamber-3-observation-cache", "x": 2965, "y": 1498, "radius": 10, "secret": true},
+      {"id": "antechamber-3-archive", "x": 2708, "y": 1586, "radius": 10, "secret": false},
+      {"id": "antechamber-4-archive", "x": 3868, "y": 1586, "radius": 10, "secret": false},
+      {"id": "vault-1-backup-0", "x": 456, "y": 1322, "radius": 10, "secret": true},
+      {"id": "vault-1-backup-1", "x": 534, "y": 1234, "radius": 10, "secret": true},
+      {"id": "vault-1-backup-2", "x": 612, "y": 1146, "radius": 10, "secret": true},
+      {"id": "vault-2-backup-0", "x": 1646, "y": 1322, "radius": 10, "secret": true},
+      {"id": "vault-2-backup-1", "x": 1724, "y": 1234, "radius": 10, "secret": true},
+      {"id": "vault-2-backup-2", "x": 1802, "y": 1146, "radius": 10, "secret": true},
+      {"id": "vault-3-backup-0", "x": 2836, "y": 1322, "radius": 10, "secret": true},
+      {"id": "vault-3-backup-1", "x": 2914, "y": 1234, "radius": 10, "secret": true},
+      {"id": "vault-3-backup-2", "x": 2992, "y": 1146, "radius": 10, "secret": true},
+      {"id": "i06", "x": 6400, "y": 670, "radius": 10, "secret": true}
     ],
     "features": [],
     "interactives": []
@@ -947,67 +493,268 @@ ByteRunner.maps.register(ByteRunner.campaignGeneration.build({
     "defeatAllViruses": true,
     "requireExitQuestion": true,
     "goals": [],
-    "componentsToRepair": 4,
-    "enemiesToDefeat": 8
+    "componentsToRepair": 12,
+    "enemiesToDefeat": 33
   },
-  "mechanics": [],
+  "mechanics": [
+    {
+      "id": "corruption-surge",
+      "type": "parkour-hazards",
+      "hazards": [
+        {"id": "towers-1-surge-0", "x": 425, "y": 3668, "width": 28, "height": 52, "kind": "laser", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 0.0, "damage": 10},
+        {"id": "towers-2-surge-0", "x": 1585, "y": 3668, "width": 28, "height": 52, "kind": "electric", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 0.65, "damage": 10},
+        {"id": "towers-3-surge-0", "x": 2745, "y": 3668, "width": 28, "height": 52, "kind": "laser", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 1.3, "damage": 10},
+        {"id": "towers-4-surge-0", "x": 3905, "y": 3668, "width": 28, "height": 52, "kind": "electric", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 1.9500000000000002, "damage": 10},
+        {"id": "transmission-1-surge-0", "x": 425, "y": 2708, "width": 28, "height": 52, "kind": "laser", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 0.0, "damage": 10},
+        {"id": "transmission-2-surge-0", "x": 1585, "y": 2708, "width": 28, "height": 52, "kind": "electric", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 0.65, "damage": 10},
+        {"id": "transmission-3-surge-0", "x": 2745, "y": 2708, "width": 28, "height": 52, "kind": "laser", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 1.3, "damage": 10},
+        {"id": "transmission-4-surge-0", "x": 3905, "y": 2708, "width": 28, "height": 52, "kind": "electric", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 1.9500000000000002, "damage": 10},
+        {"id": "corruption-1-surge-0", "x": 425, "y": 2228, "width": 28, "height": 52, "kind": "electric", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 0.0, "damage": 13},
+        {"id": "corruption-1-surge-1", "x": 890, "y": 2228, "width": 54, "height": 52, "kind": "laser", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 1.3, "damage": 13},
+        {"id": "corruption-2-surge-0", "x": 1585, "y": 2228, "width": 28, "height": 52, "kind": "laser", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 0.65, "damage": 13},
+        {"id": "corruption-2-surge-1", "x": 2050, "y": 2228, "width": 54, "height": 52, "kind": "electric", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 1.9500000000000002, "damage": 13},
+        {"id": "corruption-3-surge-0", "x": 2745, "y": 2228, "width": 28, "height": 52, "kind": "electric", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 1.3, "damage": 13},
+        {"id": "corruption-3-surge-1", "x": 3210, "y": 2228, "width": 54, "height": 52, "kind": "laser", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 2.6, "damage": 13},
+        {"id": "corruption-4-surge-0", "x": 3905, "y": 2228, "width": 28, "height": 52, "kind": "laser", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 1.9500000000000002, "damage": 13},
+        {"id": "corruption-4-surge-1", "x": 4370, "y": 2228, "width": 54, "height": 52, "kind": "electric", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 3.25, "damage": 13},
+        {"id": "antechamber-1-surge-0", "x": 425, "y": 1748, "width": 28, "height": 52, "kind": "laser", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 0.0, "damage": 13},
+        {"id": "antechamber-2-surge-0", "x": 1585, "y": 1748, "width": 28, "height": 52, "kind": "electric", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 0.65, "damage": 13},
+        {"id": "antechamber-3-surge-0", "x": 2745, "y": 1748, "width": 28, "height": 52, "kind": "laser", "warning": 1.35, "active": 0.7, "period": 5.6, "phase": 1.3, "damage": 13}
+      ]
+    },
+    {
+      "id": "service-transit",
+      "type": "portals",
+      "links": [
+        {"id": "vault-1-entry", "x": 2070, "y": 3644, "width": 40, "height": 76, "to": {"x": 314, "y": 1392}, "label": "ACESSAR COFRE DE BACKUP", "requires": {"component": "c05"}},
+        {"id": "vault-1-return", "x": 804, "y": 1364, "width": 40, "height": 76, "to": {"x": 2172, "y": 3672}, "label": "RETORNAR À GALERIA", "requires": {"component": "c05"}},
+        {"id": "vault-2-entry", "x": 3020, "y": 3164, "width": 40, "height": 76, "to": {"x": 1504, "y": 1392}, "label": "ACESSAR COFRE DE BACKUP", "requires": {"component": "c07"}},
+        {"id": "vault-2-return", "x": 1994, "y": 1364, "width": 40, "height": 76, "to": {"x": 3122, "y": 3192}, "label": "RETORNAR À GALERIA", "requires": {"component": "c07"}},
+        {"id": "vault-3-entry", "x": 4300, "y": 2204, "width": 40, "height": 76, "to": {"x": 2694, "y": 1392}, "label": "ACESSAR COFRE DE BACKUP", "requires": {"component": "c09"}},
+        {"id": "vault-3-return", "x": 3184, "y": 1364, "width": 40, "height": 76, "to": {"x": 4402, "y": 2232}, "label": "RETORNAR À GALERIA", "requires": {"component": "c09"}},
+        {"id": "service-to-transmission", "x": 1280, "y": 3164, "width": 40, "height": 76, "to": {"x": 2000, "y": 2712}, "label": "ATALHO / TRANSMISSÃO", "requires": {"component": "c08"}},
+        {"id": "transmission-to-service", "x": 2120, "y": 2684, "width": 40, "height": 76, "to": {"x": 1420, "y": 3192}, "label": "ATALHO / MANUTENÇÃO", "requires": {"component": "c08"}},
+        {"id": "containment-to-tower", "x": 3660, "y": 2204, "width": 40, "height": 76, "to": {"x": 3600, "y": 3672}, "label": "RETORNO / TORRE B", "requires": {"component": "c09"}},
+        {"id": "tower-to-containment", "x": 3710, "y": 3644, "width": 40, "height": 76, "to": {"x": 3790, "y": 2232}, "label": "ATALHO / CONTENÇÃO", "requires": {"component": "c09"}}
+      ]
+    }
+  ],
   "assets": [],
   "layers": [
     {
-      "id": "new-infrastructure",
+      "id": "data-rails",
+      "type": "rects",
+      "color": "#214261",
+      "rects": [
+        {"id": "entry-1-rail-0", "x": 104, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-1-rail-1", "x": 370, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-1-rail-2", "x": 636, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-2-rail-0", "x": 1264, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-2-rail-1", "x": 1530, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-2-rail-2", "x": 1796, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-3-rail-0", "x": 2424, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-3-rail-1", "x": 2690, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-3-rail-2", "x": 2956, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-4-rail-0", "x": 3584, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-4-rail-1", "x": 3850, "y": 3808, "width": 12, "height": 328},
+        {"id": "entry-4-rail-2", "x": 4116, "y": 3808, "width": 12, "height": 328},
+        {"id": "towers-1-rail-0", "x": 104, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-1-rail-1", "x": 370, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-1-rail-2", "x": 636, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-2-rail-0", "x": 1264, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-2-rail-1", "x": 1530, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-2-rail-2", "x": 1796, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-3-rail-0", "x": 2424, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-3-rail-1", "x": 2690, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-3-rail-2", "x": 2956, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-4-rail-0", "x": 3584, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-4-rail-1", "x": 3850, "y": 3328, "width": 12, "height": 328},
+        {"id": "towers-4-rail-2", "x": 4116, "y": 3328, "width": 12, "height": 328},
+        {"id": "service-1-rail-0", "x": 104, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-1-rail-1", "x": 370, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-1-rail-2", "x": 636, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-2-rail-0", "x": 1264, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-2-rail-1", "x": 1530, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-2-rail-2", "x": 1796, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-3-rail-0", "x": 2424, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-3-rail-1", "x": 2690, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-3-rail-2", "x": 2956, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-4-rail-0", "x": 3584, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-4-rail-1", "x": 3850, "y": 2848, "width": 12, "height": 328},
+        {"id": "service-4-rail-2", "x": 4116, "y": 2848, "width": 12, "height": 328},
+        {"id": "transmission-1-rail-0", "x": 104, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-1-rail-1", "x": 370, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-1-rail-2", "x": 636, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-2-rail-0", "x": 1264, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-2-rail-1", "x": 1530, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-2-rail-2", "x": 1796, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-3-rail-0", "x": 2424, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-3-rail-1", "x": 2690, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-3-rail-2", "x": 2956, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-4-rail-0", "x": 3584, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-4-rail-1", "x": 3850, "y": 2368, "width": 12, "height": 328},
+        {"id": "transmission-4-rail-2", "x": 4116, "y": 2368, "width": 12, "height": 328},
+        {"id": "corruption-1-rail-0", "x": 104, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-1-rail-1", "x": 370, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-1-rail-2", "x": 636, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-2-rail-0", "x": 1264, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-2-rail-1", "x": 1530, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-2-rail-2", "x": 1796, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-3-rail-0", "x": 2424, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-3-rail-1", "x": 2690, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-3-rail-2", "x": 2956, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-4-rail-0", "x": 3584, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-4-rail-1", "x": 3850, "y": 1888, "width": 12, "height": 328},
+        {"id": "corruption-4-rail-2", "x": 4116, "y": 1888, "width": 12, "height": 328},
+        {"id": "antechamber-1-rail-0", "x": 104, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-1-rail-1", "x": 370, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-1-rail-2", "x": 636, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-2-rail-0", "x": 1264, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-2-rail-1", "x": 1530, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-2-rail-2", "x": 1796, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-3-rail-0", "x": 2424, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-3-rail-1", "x": 2690, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-3-rail-2", "x": 2956, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-4-rail-0", "x": 3584, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-4-rail-1", "x": 3850, "y": 1408, "width": 12, "height": 328},
+        {"id": "antechamber-4-rail-2", "x": 4116, "y": 1408, "width": 12, "height": 328}
+      ],
+      "pass": "background"
+    },
+    {
+      "id": "alarm-diodes",
+      "type": "rects",
+      "color": "#b74759",
+      "rects": [
+        {"id": "entry-1-led-0", "x": 126, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-1-led-1", "x": 392, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-1-led-2", "x": 658, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-2-led-0", "x": 1286, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-2-led-1", "x": 1552, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-2-led-2", "x": 1818, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-3-led-0", "x": 2446, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-3-led-1", "x": 2712, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-3-led-2", "x": 2978, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-4-led-0", "x": 3606, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-4-led-1", "x": 3872, "y": 3848, "width": 24, "height": 8},
+        {"id": "entry-4-led-2", "x": 4138, "y": 3848, "width": 24, "height": 8},
+        {"id": "towers-1-led-0", "x": 126, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-1-led-1", "x": 392, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-1-led-2", "x": 658, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-2-led-0", "x": 1286, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-2-led-1", "x": 1552, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-2-led-2", "x": 1818, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-3-led-0", "x": 2446, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-3-led-1", "x": 2712, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-3-led-2", "x": 2978, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-4-led-0", "x": 3606, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-4-led-1", "x": 3872, "y": 3368, "width": 24, "height": 8},
+        {"id": "towers-4-led-2", "x": 4138, "y": 3368, "width": 24, "height": 8},
+        {"id": "service-1-led-0", "x": 126, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-1-led-1", "x": 392, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-1-led-2", "x": 658, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-2-led-0", "x": 1286, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-2-led-1", "x": 1552, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-2-led-2", "x": 1818, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-3-led-0", "x": 2446, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-3-led-1", "x": 2712, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-3-led-2", "x": 2978, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-4-led-0", "x": 3606, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-4-led-1", "x": 3872, "y": 2888, "width": 24, "height": 8},
+        {"id": "service-4-led-2", "x": 4138, "y": 2888, "width": 24, "height": 8},
+        {"id": "transmission-1-led-0", "x": 126, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-1-led-1", "x": 392, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-1-led-2", "x": 658, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-2-led-0", "x": 1286, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-2-led-1", "x": 1552, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-2-led-2", "x": 1818, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-3-led-0", "x": 2446, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-3-led-1", "x": 2712, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-3-led-2", "x": 2978, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-4-led-0", "x": 3606, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-4-led-1", "x": 3872, "y": 2408, "width": 24, "height": 8},
+        {"id": "transmission-4-led-2", "x": 4138, "y": 2408, "width": 24, "height": 8},
+        {"id": "corruption-1-led-0", "x": 126, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-1-led-1", "x": 392, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-1-led-2", "x": 658, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-2-led-0", "x": 1286, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-2-led-1", "x": 1552, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-2-led-2", "x": 1818, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-3-led-0", "x": 2446, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-3-led-1", "x": 2712, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-3-led-2", "x": 2978, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-4-led-0", "x": 3606, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-4-led-1", "x": 3872, "y": 1928, "width": 24, "height": 8},
+        {"id": "corruption-4-led-2", "x": 4138, "y": 1928, "width": 24, "height": 8},
+        {"id": "antechamber-1-led-0", "x": 126, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-1-led-1", "x": 392, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-1-led-2", "x": 658, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-2-led-0", "x": 1286, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-2-led-1", "x": 1552, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-2-led-2", "x": 1818, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-3-led-0", "x": 2446, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-3-led-1", "x": 2712, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-3-led-2", "x": 2978, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-4-led-0", "x": 3606, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-4-led-1", "x": 3872, "y": 1448, "width": 24, "height": 8},
+        {"id": "antechamber-4-led-2", "x": 4138, "y": 1448, "width": 24, "height": 8}
+      ],
+      "pass": "background"
+    },
+    {
+      "id": "datacenter-infrastructure",
       "type": "infrastructure-world",
       "theme": "servers",
       "items": [
-        {
-          "kind": "datacenter",
-          "x": 80,
-          "y": 870,
-          "width": 2300,
-          "height": 830,
-          "label": "DATA CENTER / REDUNDÂNCIA A–B"
-        },
-        {
-          "kind": "server-tower",
-          "x": 420,
-          "y": 1190,
-          "width": 600,
-          "height": 450,
-          "label": "TORRE A"
-        },
-        {
-          "kind": "server-tower",
-          "x": 1660,
-          "y": 1050,
-          "width": 600,
-          "height": 590,
-          "label": "TORRE B"
-        },
-        {
-          "kind": "battle-hall",
-          "x": 2580,
-          "y": 1150,
-          "width": 1570,
-          "height": 550,
-          "label": "BACKBONE / COMBATE AVANÇADO"
-        },
-        {
-          "kind": "airlock",
-          "x": 4350,
-          "y": 850,
-          "width": 470,
-          "height": 320,
-          "label": "SISTEMAS DO NÚCLEO"
-        },
-        {
-          "kind": "boss-arena",
-          "x": 4800,
-          "y": 380,
-          "width": 1800,
-          "height": 520,
-          "label": "VIRUS ZERO / NÚCLEO DA INTERNET"
-        }
+        {"id": "entry-1", "x": 100, "y": 3826, "width": 868, "height": 298, "kind": "rack", "label": "RECEPÇÃO"},
+        {"id": "entry-2", "x": 1260, "y": 3826, "width": 868, "height": 298, "kind": "rack", "label": "TRIAGEM DE PACOTES"},
+        {"id": "entry-3", "x": 2420, "y": 3826, "width": 868, "height": 298, "kind": "rack", "label": "CORREDOR DE RACKS"},
+        {"id": "entry-4", "x": 3580, "y": 3826, "width": 868, "height": 298, "kind": "rack", "label": "PORTA DE FIBRA"},
+        {"id": "towers-1", "x": 100, "y": 3346, "width": 752, "height": 298, "kind": "server-tower", "label": "TORRE A"},
+        {"id": "towers-2", "x": 1260, "y": 3346, "width": 752, "height": 298, "kind": "server-tower", "label": "PONTE ÓPTICA"},
+        {"id": "towers-3", "x": 2420, "y": 3346, "width": 752, "height": 298, "kind": "server-tower", "label": "TORRE B"},
+        {"id": "towers-4", "x": 3580, "y": 3346, "width": 752, "height": 298, "kind": "server-tower", "label": "ELEVADORES REDUNDANTES"},
+        {"id": "service-1", "x": 100, "y": 2866, "width": 868, "height": 298, "kind": "duct", "label": "SALA DE PEÇAS"},
+        {"id": "service-2", "x": 1260, "y": 2866, "width": 868, "height": 298, "kind": "duct", "label": "CONTROLE DE ENERGIA"},
+        {"id": "service-3", "x": 2420, "y": 2866, "width": 868, "height": 298, "kind": "duct", "label": "OFICINA DE FIBRA"},
+        {"id": "service-4", "x": 3580, "y": 2866, "width": 868, "height": 298, "kind": "duct", "label": "ARQUIVO TÉCNICO"},
+        {"id": "transmission-1", "x": 100, "y": 2386, "width": 868, "height": 298, "kind": "battle-hall", "label": "MULTIPLEXADORES"},
+        {"id": "transmission-2", "x": 1260, "y": 2386, "width": 868, "height": 298, "kind": "battle-hall", "label": "PÁTIO DE AMPLIFICAÇÃO"},
+        {"id": "transmission-3", "x": 2420, "y": 2386, "width": 868, "height": 298, "kind": "battle-hall", "label": "COMUTAÇÃO CENTRAL"},
+        {"id": "transmission-4", "x": 3580, "y": 2386, "width": 868, "height": 298, "kind": "battle-hall", "label": "ROTEAMENTO LESTE"},
+        {"id": "corruption-1", "x": 100, "y": 1906, "width": 868, "height": 298, "kind": "datacenter", "label": "CORREDOR INFECTADO"},
+        {"id": "corruption-2", "x": 1260, "y": 1906, "width": 868, "height": 298, "kind": "datacenter", "label": "MEMÓRIA VOLÁTIL"},
+        {"id": "corruption-3", "x": 2420, "y": 1906, "width": 868, "height": 298, "kind": "datacenter", "label": "BANCOS DE CONTENÇÃO"},
+        {"id": "corruption-4", "x": 3580, "y": 1906, "width": 868, "height": 298, "kind": "datacenter", "label": "FENDA DE CORRUPÇÃO"},
+        {"id": "antechamber-1", "x": 100, "y": 1426, "width": 868, "height": 298, "kind": "airlock", "label": "RESERVA DE ENERGIA"},
+        {"id": "antechamber-2", "x": 1260, "y": 1426, "width": 868, "height": 298, "kind": "airlock", "label": "SALA DE DIAGNÓSTICO"},
+        {"id": "antechamber-3", "x": 2420, "y": 1426, "width": 868, "height": 298, "kind": "airlock", "label": "REDUNDÂNCIA FINAL"},
+        {"id": "antechamber-4", "x": 3580, "y": 1426, "width": 868, "height": 298, "kind": "airlock", "label": "ACESSO À ARENA"},
+        {"id": "vault-1", "x": 290, "y": 1136, "width": 568, "height": 244, "kind": "server-tower", "label": "COFRE DE BACKUP 1"},
+        {"id": "vault-2", "x": 1480, "y": 1136, "width": 568, "height": 244, "kind": "server-tower", "label": "COFRE DE BACKUP 2"},
+        {"id": "vault-3", "x": 2670, "y": 1136, "width": 568, "height": 244, "kind": "server-tower", "label": "COFRE DE BACKUP 3"},
+        {"kind": "airlock", "x": 4350, "y": 850, "width": 470, "height": 320, "label": "SISTEMAS DO NÚCLEO"},
+        {"kind": "boss-arena", "x": 4800, "y": 380, "width": 1800, "height": 520, "label": "VIRUS ZERO / NÚCLEO DA INTERNET"}
       ],
       "pass": "midground"
+    },
+    {
+      "id": "arena-corruption-bus",
+      "type": "rects",
+      "pass": "midground",
+      "color": "#953047",
+      "rects": [
+        {"id": "arena-bus-0", "x": 4856, "y": 416, "width": 96, "height": 5},
+        {"id": "arena-bus-1", "x": 5024, "y": 428, "width": 96, "height": 5},
+        {"id": "arena-bus-2", "x": 5192, "y": 440, "width": 96, "height": 5},
+        {"id": "arena-bus-3", "x": 5360, "y": 416, "width": 96, "height": 5},
+        {"id": "arena-bus-4", "x": 5528, "y": 428, "width": 96, "height": 5},
+        {"id": "arena-bus-5", "x": 5696, "y": 440, "width": 96, "height": 5},
+        {"id": "arena-bus-6", "x": 5864, "y": 416, "width": 96, "height": 5},
+        {"id": "arena-bus-7", "x": 6032, "y": 428, "width": 96, "height": 5},
+        {"id": "arena-bus-8", "x": 6200, "y": 440, "width": 96, "height": 5},
+        {"id": "arena-bus-9", "x": 6368, "y": 416, "width": 96, "height": 5}
+      ]
     }
   ],
   "completion": {

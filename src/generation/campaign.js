@@ -27,12 +27,10 @@
       mechanics:[{id:'ttl-root-shortcut',type:'portals',links:[
         {id:'root-archive-secret',x:1850,y:324,width:44,height:76,label:'CACHE TTL / ATALHO',requires:{component:'c03'},to:{x:2130,y:1852}},
         {id:'archive-root-secret',x:2150,y:1824,width:44,height:76,label:'RAIZ / CACHE RESOLVIDO',requires:{component:'c03'},to:{x:1600,y:352}}]}]},
-    firewall:{seed:'digital-fortress-v3',layout:'multi-route',style:'route',regions:['PERIMETRO','INFILTRACAO','BASTIAO','ANEL INTERNO','CIDADELA'],
-      routes:[{id:'infiltration-duct',points:[[300,1380],[450,1290],[600,1200],[750,1110]],repair:'c01'}],
-      scenery:[{kind:'security-hall',x:170,y:1050,width:600,height:200,label:'DUTO DE INFILTRACAO / ACESSO OCULTO'}]},
-    servers:{seed:'datacenter-exploration-v3',layout:'multi-route',style:'cable',regions:['TORRE A','TORRE B','FIBRA OPTICA','BACKBONE','AIRLOCK','ARENA MANUAL'],
-      routes:[{id:'redundant-fiber-path',points:[[1080,1480],[1200,1390],[1320,1300]],repair:'c01'},
-        {id:'backbone-maintenance',points:[[2610,1550],[2470,1460],[2330,1370]]}],
+    firewall:{seed:'digital-fortress-v3',revision:5,layout:'multi-route',style:'route',
+      regions:['PERÍMETRO','SEGURANÇA','INFILTRAÇÃO','ANEL INTERNO','CIDADELA','NÚCLEO'],routes:[]},
+    servers:{seed:'datacenter-exploration-v3',revision:5,layout:'multi-route',style:'cable',
+      regions:['ENTRADA','TORRES','MANUTENÇÃO','TRANSMISSÃO','CORRUPÇÃO','ANTECÂMARA','VIRUS ZERO'],routes:[],
       manualArena:{left:4800,right:6800,top:0,bottom:2000}}
   };
   for(const theme of Object.keys(configurations))generation.registerGenerator({
@@ -95,6 +93,7 @@
     if(settings.manualArena)result.generation.architecture.manualArena=copy(settings.manualArena);
     result.map.checkpointMode=authored.map.checkpointMode;
     result.map.routes=copy(authored.map.routes);
+    if(authored.map.regions)result.map.regions=copy(authored.map.regions);
     if(authored.map.sections)result.map.sections=copy(authored.map.sections);
     result.palette=copy(authored.palette);
     const errors=generation.validation.definition(result);

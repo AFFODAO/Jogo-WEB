@@ -33,7 +33,8 @@
       room.entities.collectibles.push({id:'secret-cache',x:560,y:floor-270,radius:10,secret:true});
     }
     if(config.type==='repair') {
-      room.entities.components.push({id:'relay',x:208,y:floor-44,width:34,height:44,label:'RESTAURAR SERVICO',repair:api.repairChallenges.forPhase(index,g.ordinal)});
+      room.entities.components.push({id:'relay',x:208,y:floor-44,width:34,height:44,label:'RESTAURAR SERVICO',
+        repair:{...api.repairChallenges.forPhase(index,g.ordinal),difficulty:g.difficulty}});
       if(g.mandatory)room.goals.push({id:'restore-service',type:'repair',ids:['relay']});
       // Removing the maintenance roof opens headroom; the fixed deck remains a
       // base-jump alternative to the newly powered lift. Neither blocks a socket.

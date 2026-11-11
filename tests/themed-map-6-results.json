@@ -1,0 +1,195 @@
+{
+  "phases": [
+    {
+      "phase": 6,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "objectPlacement": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 372,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "basement-power:return",
+        "central-main:return",
+        "central-east:return",
+        "maintenance-west:return",
+        "shaft-west-mid:return",
+        "upper-hub:return",
+        "roof-controls:return"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "roof-antenna:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "roof-west:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "roof-bridge:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "roof-controls:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "roof-east:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "roof-east:industrial-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "upper-west:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "skybridge:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "upper-hub:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "upper-east:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "steel-west:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "upper-workshop:industrial-virus-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "upper-workshop:industrial-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "maintenance-low:industrial-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "maintenance-low:industrial-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "shaft-west-mid:industrial-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "maintenance-west:industrial-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "maintenance-corridor:industrial-virus-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "maintenance-corridor:industrial-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "maintenance-bridge:industrial-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "maintenance-east:industrial-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "maintenance-east:industrial-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "central-main:industrial-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "central-patch:industrial-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "central-patch:industrial-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "central-east:industrial-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "basement-power:industrial-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "cable-tunnel:industrial-virus-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "basement-underpass:industrial-virus-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "basement-underpass:industrial-virus-1",
+          "type": "shooter",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {},
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "2e68bb6787a941d8bfa10d14863615cc081249d6a257080b861526b0ea69d0ba",
+    "atUTC": "2026-11-11T00:52:04.983506+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -1,0 +1,17 @@
+Final phase 8 // campaign // phase-08-review-alpha
+final audit: campaign / dns / phase-08-review-alpha
+final audit: campaign / dns / phase-08-review-beta
+Final phase 8 // campaign // phase-08-review-beta
+final audit: campaign / dns / phase-08-review-gamma
+Final phase 8 // campaign // phase-08-review-gamma
+final audit: procedural / dns / phase-08-review-alpha
+Final phase 8 // procedural // phase-08-review-alpha
+Traceback (most recent call last):
+  File "C:\Users\TECNIC~1\AppData\Local\Temp\byte-final-map-validation-mjz19lnu\tests\run_review.py", line 265, in <module>
+    main()
+  File "C:\Users\TECNIC~1\AppData\Local\Temp\byte-final-map-validation-mjz19lnu\tests\run_review.py", line 163, in main
+    report=run_page(target,f'http://127.0.0.1:{server.server_port}/index.html'+query)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\TECNIC~1\AppData\Local\Temp\byte-final-map-validation-mjz19lnu\tests\run_review.py", line 46, in run_page
+    raise TimeoutError('Review page did not finish')
+TimeoutError: Review page did not finish

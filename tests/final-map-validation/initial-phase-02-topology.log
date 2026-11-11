@@ -1,0 +1,6030 @@
+Final phase 2 // campaign // phase-02-review-alpha
+final audit: campaign / software / phase-02-review-alpha
+Final phase 2 // campaign // phase-02-review-beta
+final audit: campaign / software / phase-02-review-beta
+final audit: campaign / software / phase-02-review-gamma
+Final phase 2 // campaign // phase-02-review-gamma
+final audit: procedural / software / phase-02-review-alpha
+Final phase 2 // procedural // phase-02-review-alpha
+final audit: procedural / software / phase-02-review-beta
+Final phase 2 // procedural // phase-02-review-beta
+final audit: procedural / software / phase-02-review-gamma
+Final phase 2 // procedural // phase-02-review-gamma
+final audit: compare structures and identity / software
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / software / phase-02-review-alpha": "isolated graph rooms",
+    "final audit: campaign / software / phase-02-review-beta": "isolated graph rooms",
+    "final audit: campaign / software / phase-02-review-gamma": "spawn without support",
+    "final audit: procedural / software / phase-02-review-alpha": "PASS",
+    "final audit: procedural / software / phase-02-review-beta": "PASS",
+    "final audit: procedural / software / phase-02-review-gamma": "PASS",
+    "final audit: compare structures and identity / software": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-02-review-alpha",
+      "status": "FAIL",
+      "states": [],
+      "generationAndReplayMs": 15.100000023841858,
+      "signature": "671c9f02",
+      "error": "Error: isolated graph rooms\n    at assert (http://127.0.0.1:19611/game.js:14790:53)\n    at http://127.0.0.1:19611/game.js:14931:70\n    at test (http://127.0.0.1:19611/game.js:14791:65)\n    at http://127.0.0.1:19611/game.js:14915:3\n    at http://127.0.0.1:19611/game.js:14997:3\n    at http://127.0.0.1:19611/game.js:14998:3",
+      "diagnostics": {
+        "rooms": [
+          {
+            "id": "arrival",
+            "source": {
+              "kind": "manual",
+              "id": "hw-arrival",
+              "version": 5
+            },
+            "x": 0,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "junction",
+            "source": {
+              "kind": "manual",
+              "id": "hw-junction",
+              "version": 5
+            },
+            "x": 640,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "l1-vault",
+            "source": {
+              "kind": "procedural",
+              "id": "hardware-v3-vault",
+              "version": 5
+            },
+            "x": 0,
+            "y": 2048,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "thermal",
+            "source": {
+              "kind": "manual",
+              "id": "hw-thermal",
+              "version": 5
+            },
+            "x": 0,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "socket",
+            "source": {
+              "kind": "manual",
+              "id": "hw-socket",
+              "version": 5
+            },
+            "x": 640,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "heatsink",
+            "source": {
+              "kind": "manual",
+              "id": "hw-heatsink",
+              "version": 5
+            },
+            "x": 640,
+            "y": 512,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "ram-base",
+            "source": {
+              "kind": "manual",
+              "id": "hw-ram-base",
+              "version": 5
+            },
+            "x": 1280,
+            "y": 512,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "ram-west",
+            "source": {
+              "kind": "manual",
+              "id": "hw-ram-west",
+              "version": 5
+            },
+            "x": 1280,
+            "y": 0,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "ram-east",
+            "source": {
+              "kind": "procedural",
+              "id": "hardware-v3-vault",
+              "version": 5
+            },
+            "x": 1920,
+            "y": 0,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "ram-return",
+            "source": {
+              "kind": "manual",
+              "id": "hw-ram-return",
+              "version": 5
+            },
+            "x": 1920,
+            "y": 512,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-north",
+            "source": {
+              "kind": "manual",
+              "id": "hw-bus-north",
+              "version": 5
+            },
+            "x": 1280,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-cross",
+            "source": {
+              "kind": "manual",
+              "id": "hw-bus-cross",
+              "version": 5
+            },
+            "x": 1920,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-west",
+            "source": {
+              "kind": "manual",
+              "id": "hw-bus-west",
+              "version": 5
+            },
+            "x": 1280,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-east",
+            "source": {
+              "kind": "manual",
+              "id": "hw-bus-east",
+              "version": 5
+            },
+            "x": 1920,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-cache",
+            "source": {
+              "kind": "procedural",
+              "id": "hardware-v3-vault",
+              "version": 5
+            },
+            "x": 1280,
+            "y": 2048,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-return",
+            "source": {
+              "kind": "manual",
+              "id": "hw-bus-return",
+              "version": 5
+            },
+            "x": 1920,
+            "y": 2048,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "gpu-west",
+            "source": {
+              "kind": "manual",
+              "id": "hw-gpu-west",
+              "version": 5
+            },
+            "x": 2560,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "gpu-east",
+            "source": {
+              "kind": "manual",
+              "id": "hw-gpu-east",
+              "version": 5
+            },
+            "x": 3200,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "gpu-under",
+            "source": {
+              "kind": "manual",
+              "id": "hw-gpu-under",
+              "version": 5
+            },
+            "x": 2560,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "gpu-cache",
+            "source": {
+              "kind": "procedural",
+              "id": "hardware-v3-vault",
+              "version": 5
+            },
+            "x": 3200,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "core-test",
+            "source": {
+              "kind": "manual",
+              "id": "hw-core-test",
+              "version": 5
+            },
+            "x": 3200,
+            "y": 512,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "core-exit",
+            "source": {
+              "kind": "manual",
+              "id": "hw-core-exit",
+              "version": 5
+            },
+            "x": 3840,
+            "y": 512,
+            "width": 640,
+            "height": 512
+          }
+        ],
+        "platforms": [
+          {
+            "id": "arrival:shaft-cap",
+            "x": 224,
+            "y": 1936,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "arrival:riser-1",
+            "x": 352,
+            "y": 1840,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "arrival:riser-2",
+            "x": 224,
+            "y": 1744,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "arrival:riser-3",
+            "x": 352,
+            "y": 1648,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "arrival:riser-4",
+            "x": 256,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "junction:riser-0",
+            "x": 864,
+            "y": 1936,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "junction:riser-1",
+            "x": 992,
+            "y": 1840,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "junction:riser-2",
+            "x": 864,
+            "y": 1744,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "junction:riser-3",
+            "x": 992,
+            "y": 1648,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "junction:riser-4",
+            "x": 896,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:riser-0",
+            "x": 224,
+            "y": 2448,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:riser-1",
+            "x": 352,
+            "y": 2352,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:riser-2",
+            "x": 224,
+            "y": 2256,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:riser-3",
+            "x": 352,
+            "y": 2160,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:riser-4",
+            "x": 256,
+            "y": 2064,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:cache-ledge",
+            "x": 64,
+            "y": 2416,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "thermal:shaft-cap",
+            "x": 224,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "thermal:service-step",
+            "x": 80,
+            "y": 1392,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "thermal:observation",
+            "x": 176,
+            "y": 1296,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "thermal:lift",
+            "x": 80,
+            "y": 1296,
+            "width": 128,
+            "height": 16,
+            "type": "moving",
+            "collision": "one-way",
+            "style": "elevator",
+            "motion": {
+              "axis": "y",
+              "range": 64,
+              "speed": 0.45,
+              "phase": 0
+            }
+          },
+          {
+            "id": "socket:shaft-cap",
+            "x": 864,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "socket:riser-1",
+            "x": 992,
+            "y": 1328,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "socket:riser-2",
+            "x": 864,
+            "y": 1232,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "socket:riser-3",
+            "x": 992,
+            "y": 1136,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "socket:riser-4",
+            "x": 896,
+            "y": 1040,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "socket:powered-bridge",
+            "x": 1064,
+            "y": 1328,
+            "width": 176,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit",
+            "requires": {
+              "component": "socket:cpu-relay"
+            }
+          },
+          {
+            "id": "heatsink:shaft-cap",
+            "x": 864,
+            "y": 912,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "heatsink:service-step",
+            "x": 720,
+            "y": 880,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "heatsink:observation",
+            "x": 816,
+            "y": 784,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:shaft-cap",
+            "x": 1504,
+            "y": 912,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:riser-1",
+            "x": 1632,
+            "y": 816,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:riser-2",
+            "x": 1504,
+            "y": 720,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:riser-3",
+            "x": 1632,
+            "y": 624,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:riser-4",
+            "x": 1536,
+            "y": 528,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:powered-bridge",
+            "x": 1704,
+            "y": 816,
+            "width": 176,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit",
+            "requires": {
+              "component": "ram-base:ram-relay"
+            }
+          },
+          {
+            "id": "ram-west:shaft-cap",
+            "x": 1504,
+            "y": 400,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-west:service-step",
+            "x": 1360,
+            "y": 368,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-west:observation",
+            "x": 1456,
+            "y": 272,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-east:shaft-cap",
+            "x": 2144,
+            "y": 400,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-east:service-step",
+            "x": 2000,
+            "y": 368,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-east:observation",
+            "x": 2096,
+            "y": 272,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:shaft-cap",
+            "x": 2144,
+            "y": 912,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:riser-1",
+            "x": 2272,
+            "y": 816,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:riser-2",
+            "x": 2144,
+            "y": 720,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:riser-3",
+            "x": 2272,
+            "y": 624,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:riser-4",
+            "x": 2176,
+            "y": 528,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:lift",
+            "x": 2000,
+            "y": 784,
+            "width": 128,
+            "height": 16,
+            "type": "moving",
+            "collision": "one-way",
+            "style": "elevator",
+            "motion": {
+              "axis": "y",
+              "range": 64,
+              "speed": 0.45,
+              "phase": 0
+            }
+          },
+          {
+            "id": "bus-north:shaft-cap",
+            "x": 1504,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-north:riser-1",
+            "x": 1632,
+            "y": 1328,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-north:riser-2",
+            "x": 1504,
+            "y": 1232,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-north:riser-3",
+            "x": 1632,
+            "y": 1136,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-north:riser-4",
+            "x": 1536,
+            "y": 1040,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cross:shaft-cap",
+            "x": 2144,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cross:riser-1",
+            "x": 2272,
+            "y": 1328,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cross:riser-2",
+            "x": 2144,
+            "y": 1232,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cross:riser-3",
+            "x": 2272,
+            "y": 1136,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cross:riser-4",
+            "x": 2176,
+            "y": 1040,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:shaft-cap",
+            "x": 1504,
+            "y": 1936,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:riser-1",
+            "x": 1632,
+            "y": 1840,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:riser-2",
+            "x": 1504,
+            "y": 1744,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:riser-3",
+            "x": 1632,
+            "y": 1648,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:riser-4",
+            "x": 1536,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:powered-bridge",
+            "x": 1704,
+            "y": 1840,
+            "width": 176,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit",
+            "requires": {
+              "component": "bus-west:bus-relay"
+            }
+          },
+          {
+            "id": "bus-east:shaft-cap",
+            "x": 2144,
+            "y": 1936,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-east:riser-1",
+            "x": 2272,
+            "y": 1840,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-east:riser-2",
+            "x": 2144,
+            "y": 1744,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-east:riser-3",
+            "x": 2272,
+            "y": 1648,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-east:riser-4",
+            "x": 2176,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:riser-0",
+            "x": 1504,
+            "y": 2448,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:riser-1",
+            "x": 1632,
+            "y": 2352,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:riser-2",
+            "x": 1504,
+            "y": 2256,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:riser-3",
+            "x": 1632,
+            "y": 2160,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:riser-4",
+            "x": 1536,
+            "y": 2064,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:cache-ledge",
+            "x": 1360,
+            "y": 2416,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:gap-step",
+            "x": 2200,
+            "y": 2448,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:riser-0",
+            "x": 2144,
+            "y": 2448,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:riser-1",
+            "x": 2272,
+            "y": 2352,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:riser-2",
+            "x": 2144,
+            "y": 2256,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:riser-3",
+            "x": 2272,
+            "y": 2160,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:riser-4",
+            "x": 2176,
+            "y": 2064,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:temporary-cache",
+            "x": 2368,
+            "y": 2320,
+            "width": 112,
+            "height": 16,
+            "type": "temporary",
+            "collision": "one-way",
+            "style": "signal",
+            "duration": 2.6,
+            "respawnDelay": 2.4
+          },
+          {
+            "id": "gpu-west:shaft-cap",
+            "x": 2784,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-west:service-step",
+            "x": 2640,
+            "y": 1392,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-west:observation",
+            "x": 2736,
+            "y": 1296,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:shaft-cap",
+            "x": 3424,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:riser-1",
+            "x": 3552,
+            "y": 1328,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:riser-2",
+            "x": 3424,
+            "y": 1232,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:riser-3",
+            "x": 3552,
+            "y": 1136,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:riser-4",
+            "x": 3456,
+            "y": 1040,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:powered-bridge",
+            "x": 3624,
+            "y": 1328,
+            "width": 176,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit",
+            "requires": {
+              "component": "gpu-east:gpu-relay"
+            }
+          },
+          {
+            "id": "gpu-under:gap-step",
+            "x": 2840,
+            "y": 1936,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:riser-0",
+            "x": 2784,
+            "y": 1936,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:riser-1",
+            "x": 2912,
+            "y": 1840,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:riser-2",
+            "x": 2784,
+            "y": 1744,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:riser-3",
+            "x": 2912,
+            "y": 1648,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:riser-4",
+            "x": 2816,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:lift",
+            "x": 2640,
+            "y": 1808,
+            "width": 128,
+            "height": 16,
+            "type": "moving",
+            "collision": "one-way",
+            "style": "elevator",
+            "motion": {
+              "axis": "y",
+              "range": 64,
+              "speed": 0.45,
+              "phase": 0
+            }
+          },
+          {
+            "id": "gpu-under:temporary-cache",
+            "x": 3008,
+            "y": 1808,
+            "width": 112,
+            "height": 16,
+            "type": "temporary",
+            "collision": "one-way",
+            "style": "signal",
+            "duration": 2.6,
+            "respawnDelay": 2.4
+          },
+          {
+            "id": "gpu-cache:riser-0",
+            "x": 3424,
+            "y": 1936,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-cache:riser-1",
+            "x": 3552,
+            "y": 1840,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-cache:riser-2",
+            "x": 3424,
+            "y": 1744,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-cache:riser-3",
+            "x": 3552,
+            "y": 1648,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-cache:riser-4",
+            "x": 3456,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-cache:cache-ledge",
+            "x": 3264,
+            "y": 1904,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-test:shaft-cap",
+            "x": 3424,
+            "y": 912,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-test:service-step",
+            "x": 3280,
+            "y": 880,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-test:observation",
+            "x": 3376,
+            "y": 784,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-test:lift",
+            "x": 3280,
+            "y": 784,
+            "width": 128,
+            "height": 16,
+            "type": "moving",
+            "collision": "one-way",
+            "style": "elevator",
+            "motion": {
+              "axis": "y",
+              "range": 64,
+              "speed": 0.45,
+              "phase": 0
+            }
+          },
+          {
+            "id": "core-exit:service-step",
+            "x": 3920,
+            "y": 880,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-exit:observation",
+            "x": 4016,
+            "y": 784,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-exit:core-dais",
+            "x": 4240,
+            "y": 752,
+            "width": 224,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          }
+        ],
+        "obstacles": [
+          {
+            "id": "arrival:wall-west",
+            "x": 0,
+            "y": 1536,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "arrival:wall-east",
+            "x": 624,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "arrival:roof-west",
+            "x": 16,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "arrival:roof-east",
+            "x": 496,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "junction:wall-west",
+            "x": 640,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "junction:wall-east",
+            "x": 1264,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "junction:roof-west",
+            "x": 656,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "junction:roof-east",
+            "x": 1136,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "l1-vault:wall-west",
+            "x": 0,
+            "y": 2048,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "l1-vault:wall-east",
+            "x": 624,
+            "y": 2048,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "l1-vault:roof-west",
+            "x": 16,
+            "y": 2048,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "l1-vault:roof-east",
+            "x": 496,
+            "y": 2048,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "thermal:wall-west",
+            "x": 0,
+            "y": 1024,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "thermal:wall-east",
+            "x": 624,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "thermal:roof",
+            "x": 16,
+            "y": 1024,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "socket:wall-west",
+            "x": 640,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "socket:wall-east",
+            "x": 1264,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "socket:roof-west",
+            "x": 656,
+            "y": 1024,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "socket:roof-east",
+            "x": 1136,
+            "y": 1024,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "heatsink:wall-west",
+            "x": 640,
+            "y": 512,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "heatsink:wall-east",
+            "x": 1264,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "heatsink:roof",
+            "x": 656,
+            "y": 512,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "ram-base:wall-west",
+            "x": 1280,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "ram-base:wall-east",
+            "x": 1904,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "ram-base:roof-west",
+            "x": 1296,
+            "y": 512,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "ram-base:roof-east",
+            "x": 1776,
+            "y": 512,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "ram-west:wall-west",
+            "x": 1280,
+            "y": 0,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "ram-west:wall-east",
+            "x": 1904,
+            "y": 0,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "ram-west:roof",
+            "x": 1296,
+            "y": 0,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "ram-east:wall-west",
+            "x": 1920,
+            "y": 0,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "ram-east:wall-east",
+            "x": 2544,
+            "y": 0,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "ram-east:roof",
+            "x": 1936,
+            "y": 0,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "ram-return:wall-west",
+            "x": 1920,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "ram-return:wall-east",
+            "x": 2544,
+            "y": 512,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "ram-return:roof-west",
+            "x": 1936,
+            "y": 512,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "ram-return:roof-east",
+            "x": 2416,
+            "y": 512,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-north:wall-west",
+            "x": 1280,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-north:wall-east",
+            "x": 1904,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-north:roof-west",
+            "x": 1296,
+            "y": 1024,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-north:roof-east",
+            "x": 1776,
+            "y": 1024,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-cross:wall-west",
+            "x": 1920,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-cross:wall-east",
+            "x": 2544,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-cross:roof-west",
+            "x": 1936,
+            "y": 1024,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-cross:roof-east",
+            "x": 2416,
+            "y": 1024,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-west:wall-west",
+            "x": 1280,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-west:wall-east",
+            "x": 1904,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-west:roof-west",
+            "x": 1296,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-west:roof-east",
+            "x": 1776,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-east:wall-west",
+            "x": 1920,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-east:wall-east",
+            "x": 2544,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-east:roof-west",
+            "x": 1936,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-east:roof-east",
+            "x": 2416,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-cache:wall-west",
+            "x": 1280,
+            "y": 2048,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "bus-cache:wall-east",
+            "x": 1904,
+            "y": 2048,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-cache:roof-west",
+            "x": 1296,
+            "y": 2048,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-cache:roof-east",
+            "x": 1776,
+            "y": 2048,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-return:wall-west",
+            "x": 1920,
+            "y": 2048,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-return:wall-east",
+            "x": 2544,
+            "y": 2048,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "bus-return:roof-west",
+            "x": 1936,
+            "y": 2048,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-return:roof-east",
+            "x": 2416,
+            "y": 2048,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "gpu-west:wall-west",
+            "x": 2560,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-west:wall-east",
+            "x": 3184,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-west:roof",
+            "x": 2576,
+            "y": 1024,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "gpu-east:wall-west",
+            "x": 3200,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-east:wall-east",
+            "x": 3824,
+            "y": 1024,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "gpu-east:roof-west",
+            "x": 3216,
+            "y": 1024,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "gpu-east:roof-east",
+            "x": 3696,
+            "y": 1024,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "gpu-under:wall-west",
+            "x": 2560,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-under:wall-east",
+            "x": 3184,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-under:roof-west",
+            "x": 2576,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "gpu-under:roof-east",
+            "x": 3056,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "gpu-cache:wall-west",
+            "x": 3200,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-cache:wall-east",
+            "x": 3824,
+            "y": 1536,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "gpu-cache:roof-west",
+            "x": 3216,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "gpu-cache:roof-east",
+            "x": 3696,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "core-test:wall-west",
+            "x": 3200,
+            "y": 512,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "core-test:wall-east",
+            "x": 3824,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "core-test:roof",
+            "x": 3216,
+            "y": 512,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "core-exit:wall-west",
+            "x": 3840,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "core-exit:wall-east",
+            "x": 4464,
+            "y": 512,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "core-exit:roof",
+            "x": 3856,
+            "y": 512,
+            "width": 608,
+            "height": 16
+          }
+        ],
+        "start": {
+          "x": 64,
+          "y": 1952
+        },
+        "player": {
+          "x": 64,
+          "y": 1952
+        },
+        "reached": [
+          {
+            "a": 16,
+            "z": 174,
+            "y": 1952,
+            "id": "arrival:deck-west"
+          },
+          {
+            "a": 224,
+            "z": 446,
+            "y": 1888,
+            "id": "arrival:shaft-cap"
+          },
+          {
+            "a": 256,
+            "z": 414,
+            "y": 2016,
+            "id": "l1-vault:riser-4"
+          },
+          {
+            "a": 64,
+            "z": 158,
+            "y": 2368,
+            "id": "l1-vault:cache-ledge"
+          },
+          {
+            "a": 496,
+            "z": 606,
+            "y": 1952,
+            "id": "arrival:deck-east"
+          },
+          {
+            "a": 640,
+            "z": 1246,
+            "y": 1952,
+            "id": "junction:deck"
+          },
+          {
+            "a": 352,
+            "z": 446,
+            "y": 1792,
+            "id": "arrival:riser-1"
+          },
+          {
+            "a": 16,
+            "z": 590,
+            "y": 2464,
+            "id": "l1-vault:deck"
+          },
+          {
+            "a": 224,
+            "z": 318,
+            "y": 2208,
+            "id": "l1-vault:riser-2"
+          },
+          {
+            "a": 352,
+            "z": 446,
+            "y": 2112,
+            "id": "l1-vault:riser-3"
+          },
+          {
+            "a": 224,
+            "z": 318,
+            "y": 2400,
+            "id": "l1-vault:riser-0"
+          },
+          {
+            "a": 352,
+            "z": 446,
+            "y": 2304,
+            "id": "l1-vault:riser-1"
+          },
+          {
+            "a": 1280,
+            "z": 1454,
+            "y": 1952,
+            "id": "bus-west:deck-west"
+          },
+          {
+            "a": 864,
+            "z": 958,
+            "y": 1888,
+            "id": "junction:riser-0"
+          },
+          {
+            "a": 224,
+            "z": 318,
+            "y": 1696,
+            "id": "arrival:riser-2"
+          },
+          {
+            "a": 1504,
+            "z": 1726,
+            "y": 1888,
+            "id": "bus-west:shaft-cap"
+          },
+          {
+            "a": 1536,
+            "z": 1694,
+            "y": 2016,
+            "id": "bus-cache:riser-4"
+          },
+          {
+            "a": 1360,
+            "z": 1454,
+            "y": 2368,
+            "id": "bus-cache:cache-ledge"
+          },
+          {
+            "a": 992,
+            "z": 1086,
+            "y": 1792,
+            "id": "junction:riser-1"
+          },
+          {
+            "a": 352,
+            "z": 446,
+            "y": 1600,
+            "id": "arrival:riser-3"
+          },
+          {
+            "a": 1776,
+            "z": 1886,
+            "y": 1952,
+            "id": "bus-west:deck-east"
+          },
+          {
+            "a": 1920,
+            "z": 2094,
+            "y": 1952,
+            "id": "bus-east:deck-west"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 1792,
+            "id": "bus-west:riser-1"
+          },
+          {
+            "a": 1296,
+            "z": 1886,
+            "y": 2464,
+            "id": "bus-cache:deck"
+          },
+          {
+            "a": 1504,
+            "z": 1598,
+            "y": 2208,
+            "id": "bus-cache:riser-2"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 2112,
+            "id": "bus-cache:riser-3"
+          },
+          {
+            "a": 1504,
+            "z": 1598,
+            "y": 2400,
+            "id": "bus-cache:riser-0"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 2304,
+            "id": "bus-cache:riser-1"
+          },
+          {
+            "a": 864,
+            "z": 958,
+            "y": 1696,
+            "id": "junction:riser-2"
+          },
+          {
+            "a": 256,
+            "z": 414,
+            "y": 1504,
+            "id": "arrival:riser-4"
+          },
+          {
+            "a": 1920,
+            "z": 2110,
+            "y": 2464,
+            "id": "bus-return:deck-west"
+          },
+          {
+            "a": 2144,
+            "z": 2366,
+            "y": 1888,
+            "id": "bus-east:shaft-cap"
+          },
+          {
+            "a": 2176,
+            "z": 2334,
+            "y": 2016,
+            "id": "bus-return:riser-4"
+          },
+          {
+            "a": 1504,
+            "z": 1598,
+            "y": 1696,
+            "id": "bus-west:riser-2"
+          },
+          {
+            "a": 992,
+            "z": 1086,
+            "y": 1600,
+            "id": "junction:riser-3"
+          },
+          {
+            "a": 16,
+            "z": 174,
+            "y": 1440,
+            "id": "thermal:deck-west"
+          },
+          {
+            "a": 496,
+            "z": 606,
+            "y": 1440,
+            "id": "thermal:deck-east"
+          },
+          {
+            "a": 2144,
+            "z": 2350,
+            "y": 2496,
+            "id": "bus-return:catch-deck"
+          },
+          {
+            "a": 2200,
+            "z": 2294,
+            "y": 2400,
+            "id": "bus-return:gap-step"
+          },
+          {
+            "a": 2144,
+            "z": 2238,
+            "y": 2400,
+            "id": "bus-return:riser-0"
+          },
+          {
+            "a": 2416,
+            "z": 2526,
+            "y": 1952,
+            "id": "bus-east:deck-east"
+          },
+          {
+            "a": 2560,
+            "z": 2750,
+            "y": 1952,
+            "id": "gpu-under:deck-west"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 1792,
+            "id": "bus-east:riser-1"
+          },
+          {
+            "a": 2144,
+            "z": 2238,
+            "y": 2208,
+            "id": "bus-return:riser-2"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 2112,
+            "id": "bus-return:riser-3"
+          },
+          {
+            "a": 2368,
+            "z": 2446,
+            "y": 2272,
+            "id": "bus-return:temporary-cache"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 1600,
+            "id": "bus-west:riser-3"
+          },
+          {
+            "a": 896,
+            "z": 1054,
+            "y": 1504,
+            "id": "junction:riser-4"
+          },
+          {
+            "a": 224,
+            "z": 446,
+            "y": 1376,
+            "id": "thermal:shaft-cap"
+          },
+          {
+            "a": 80,
+            "z": 174,
+            "y": 1344,
+            "id": "thermal:service-step"
+          },
+          {
+            "a": 640,
+            "z": 814,
+            "y": 1440,
+            "id": "socket:deck-west"
+          },
+          {
+            "a": 2384,
+            "z": 2510,
+            "y": 2464,
+            "id": "bus-return:deck-east"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 2304,
+            "id": "bus-return:riser-1"
+          },
+          {
+            "a": 2784,
+            "z": 2990,
+            "y": 1984,
+            "id": "gpu-under:catch-deck"
+          },
+          {
+            "a": 2840,
+            "z": 2934,
+            "y": 1888,
+            "id": "gpu-under:gap-step"
+          },
+          {
+            "a": 2784,
+            "z": 2846,
+            "y": 1888,
+            "id": "gpu-under:riser-0"
+          },
+          {
+            "a": 2144,
+            "z": 2238,
+            "y": 1696,
+            "id": "bus-east:riser-2"
+          },
+          {
+            "a": 1536,
+            "z": 1694,
+            "y": 1504,
+            "id": "bus-west:riser-4"
+          },
+          {
+            "a": 1136,
+            "z": 1246,
+            "y": 1440,
+            "id": "socket:deck-east"
+          },
+          {
+            "a": 176,
+            "z": 286,
+            "y": 1248,
+            "id": "thermal:observation"
+          },
+          {
+            "a": 80,
+            "z": 174,
+            "y": 1248,
+            "id": "thermal:lift"
+          },
+          {
+            "a": 864,
+            "z": 1086,
+            "y": 1376,
+            "id": "socket:shaft-cap"
+          },
+          {
+            "a": 3024,
+            "z": 3166,
+            "y": 1952,
+            "id": "gpu-under:deck-east"
+          },
+          {
+            "a": 2912,
+            "z": 2974,
+            "y": 1792,
+            "id": "gpu-under:riser-1"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 1600,
+            "id": "bus-east:riser-3"
+          },
+          {
+            "a": 1280,
+            "z": 1454,
+            "y": 1440,
+            "id": "bus-north:deck-west"
+          },
+          {
+            "a": 1776,
+            "z": 1886,
+            "y": 1440,
+            "id": "bus-north:deck-east"
+          },
+          {
+            "a": 992,
+            "z": 1086,
+            "y": 1280,
+            "id": "socket:riser-1"
+          },
+          {
+            "a": 3200,
+            "z": 3790,
+            "y": 1952,
+            "id": "gpu-cache:deck"
+          },
+          {
+            "a": 2784,
+            "z": 2846,
+            "y": 1696,
+            "id": "gpu-under:riser-2"
+          },
+          {
+            "a": 3008,
+            "z": 3086,
+            "y": 1760,
+            "id": "gpu-under:temporary-cache"
+          },
+          {
+            "a": 2176,
+            "z": 2334,
+            "y": 1504,
+            "id": "bus-east:riser-4"
+          },
+          {
+            "a": 1504,
+            "z": 1726,
+            "y": 1376,
+            "id": "bus-north:shaft-cap"
+          },
+          {
+            "a": 1920,
+            "z": 2094,
+            "y": 1440,
+            "id": "bus-cross:deck-west"
+          },
+          {
+            "a": 864,
+            "z": 958,
+            "y": 1184,
+            "id": "socket:riser-2"
+          },
+          {
+            "a": 3424,
+            "z": 3486,
+            "y": 1888,
+            "id": "gpu-cache:riser-0"
+          },
+          {
+            "a": 3264,
+            "z": 3358,
+            "y": 1856,
+            "id": "gpu-cache:cache-ledge"
+          },
+          {
+            "a": 2912,
+            "z": 2974,
+            "y": 1600,
+            "id": "gpu-under:riser-3"
+          },
+          {
+            "a": 2640,
+            "z": 2734,
+            "y": 1760,
+            "id": "gpu-under:lift"
+          },
+          {
+            "a": 2416,
+            "z": 2526,
+            "y": 1440,
+            "id": "bus-cross:deck-east"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 1280,
+            "id": "bus-north:riser-1"
+          },
+          {
+            "a": 2144,
+            "z": 2366,
+            "y": 1376,
+            "id": "bus-cross:shaft-cap"
+          },
+          {
+            "a": 992,
+            "z": 1086,
+            "y": 1088,
+            "id": "socket:riser-3"
+          },
+          {
+            "a": 3552,
+            "z": 3614,
+            "y": 1792,
+            "id": "gpu-cache:riser-1"
+          },
+          {
+            "a": 2816,
+            "z": 2974,
+            "y": 1504,
+            "id": "gpu-under:riser-4"
+          },
+          {
+            "a": 2560,
+            "z": 2734,
+            "y": 1440,
+            "id": "gpu-west:deck-west"
+          },
+          {
+            "a": 1504,
+            "z": 1598,
+            "y": 1184,
+            "id": "bus-north:riser-2"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 1280,
+            "id": "bus-cross:riser-1"
+          },
+          {
+            "a": 896,
+            "z": 1054,
+            "y": 992,
+            "id": "socket:riser-4"
+          },
+          {
+            "a": 3424,
+            "z": 3486,
+            "y": 1696,
+            "id": "gpu-cache:riser-2"
+          },
+          {
+            "a": 3056,
+            "z": 3166,
+            "y": 1440,
+            "id": "gpu-west:deck-east"
+          },
+          {
+            "a": 2784,
+            "z": 3006,
+            "y": 1376,
+            "id": "gpu-west:shaft-cap"
+          },
+          {
+            "a": 2640,
+            "z": 2734,
+            "y": 1344,
+            "id": "gpu-west:service-step"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 1088,
+            "id": "bus-north:riser-3"
+          },
+          {
+            "a": 2144,
+            "z": 2238,
+            "y": 1184,
+            "id": "bus-cross:riser-2"
+          },
+          {
+            "a": 656,
+            "z": 814,
+            "y": 928,
+            "id": "heatsink:deck-west"
+          },
+          {
+            "a": 1136,
+            "z": 1246,
+            "y": 928,
+            "id": "heatsink:deck-east"
+          },
+          {
+            "a": 3552,
+            "z": 3614,
+            "y": 1600,
+            "id": "gpu-cache:riser-3"
+          },
+          {
+            "a": 3200,
+            "z": 3374,
+            "y": 1440,
+            "id": "gpu-east:deck-west"
+          },
+          {
+            "a": 2736,
+            "z": 2846,
+            "y": 1248,
+            "id": "gpu-west:observation"
+          },
+          {
+            "a": 1536,
+            "z": 1694,
+            "y": 992,
+            "id": "bus-north:riser-4"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 1088,
+            "id": "bus-cross:riser-3"
+          },
+          {
+            "a": 864,
+            "z": 1086,
+            "y": 864,
+            "id": "heatsink:shaft-cap"
+          },
+          {
+            "a": 720,
+            "z": 814,
+            "y": 832,
+            "id": "heatsink:service-step"
+          },
+          {
+            "a": 1280,
+            "z": 1454,
+            "y": 928,
+            "id": "ram-base:deck-west"
+          },
+          {
+            "a": 3456,
+            "z": 3614,
+            "y": 1504,
+            "id": "gpu-cache:riser-4"
+          },
+          {
+            "a": 3424,
+            "z": 3646,
+            "y": 1376,
+            "id": "gpu-east:shaft-cap"
+          },
+          {
+            "a": 1776,
+            "z": 1886,
+            "y": 928,
+            "id": "ram-base:deck-east"
+          },
+          {
+            "a": 2176,
+            "z": 2334,
+            "y": 992,
+            "id": "bus-cross:riser-4"
+          },
+          {
+            "a": 816,
+            "z": 926,
+            "y": 736,
+            "id": "heatsink:observation"
+          },
+          {
+            "a": 1504,
+            "z": 1726,
+            "y": 864,
+            "id": "ram-base:shaft-cap"
+          },
+          {
+            "a": 3696,
+            "z": 3790,
+            "y": 1440,
+            "id": "gpu-east:deck-east"
+          },
+          {
+            "a": 3552,
+            "z": 3614,
+            "y": 1280,
+            "id": "gpu-east:riser-1"
+          },
+          {
+            "a": 1920,
+            "z": 2094,
+            "y": 928,
+            "id": "ram-return:deck-west"
+          },
+          {
+            "a": 2416,
+            "z": 2510,
+            "y": 928,
+            "id": "ram-return:deck-east"
+          },
+          {
+            "a": 1632,
+            "z": 1710,
+            "y": 768,
+            "id": "ram-base:riser-1"
+          },
+          {
+            "a": 3424,
+            "z": 3486,
+            "y": 1184,
+            "id": "gpu-east:riser-2"
+          },
+          {
+            "a": 2144,
+            "z": 2366,
+            "y": 864,
+            "id": "ram-return:shaft-cap"
+          },
+          {
+            "a": 1504,
+            "z": 1582,
+            "y": 672,
+            "id": "ram-base:riser-2"
+          },
+          {
+            "a": 3552,
+            "z": 3614,
+            "y": 1088,
+            "id": "gpu-east:riser-3"
+          },
+          {
+            "a": 2272,
+            "z": 2350,
+            "y": 768,
+            "id": "ram-return:riser-1"
+          },
+          {
+            "a": 1632,
+            "z": 1710,
+            "y": 576,
+            "id": "ram-base:riser-3"
+          },
+          {
+            "a": 3456,
+            "z": 3614,
+            "y": 992,
+            "id": "gpu-east:riser-4"
+          },
+          {
+            "a": 2144,
+            "z": 2222,
+            "y": 672,
+            "id": "ram-return:riser-2"
+          },
+          {
+            "a": 1536,
+            "z": 1694,
+            "y": 480,
+            "id": "ram-base:riser-4"
+          },
+          {
+            "a": 3216,
+            "z": 3374,
+            "y": 928,
+            "id": "core-test:deck-west"
+          },
+          {
+            "a": 3696,
+            "z": 3806,
+            "y": 928,
+            "id": "core-test:deck-east"
+          },
+          {
+            "a": 2272,
+            "z": 2350,
+            "y": 576,
+            "id": "ram-return:riser-3"
+          },
+          {
+            "a": 2000,
+            "z": 2094,
+            "y": 736,
+            "id": "ram-return:lift"
+          },
+          {
+            "a": 1296,
+            "z": 1454,
+            "y": 416,
+            "id": "ram-west:deck-west"
+          },
+          {
+            "a": 1776,
+            "z": 1886,
+            "y": 416,
+            "id": "ram-west:deck-east"
+          },
+          {
+            "a": 3424,
+            "z": 3646,
+            "y": 864,
+            "id": "core-test:shaft-cap"
+          },
+          {
+            "a": 3280,
+            "z": 3374,
+            "y": 832,
+            "id": "core-test:service-step"
+          },
+          {
+            "a": 3840,
+            "z": 4430,
+            "y": 928,
+            "id": "core-exit:deck"
+          },
+          {
+            "a": 2176,
+            "z": 2334,
+            "y": 480,
+            "id": "ram-return:riser-4"
+          },
+          {
+            "a": 1504,
+            "z": 1726,
+            "y": 352,
+            "id": "ram-west:shaft-cap"
+          },
+          {
+            "a": 1360,
+            "z": 1454,
+            "y": 320,
+            "id": "ram-west:service-step"
+          },
+          {
+            "a": 1920,
+            "z": 2094,
+            "y": 416,
+            "id": "ram-east:deck-west"
+          },
+          {
+            "a": 3376,
+            "z": 3486,
+            "y": 736,
+            "id": "core-test:observation"
+          },
+          {
+            "a": 3280,
+            "z": 3374,
+            "y": 736,
+            "id": "core-test:lift"
+          },
+          {
+            "a": 3920,
+            "z": 4014,
+            "y": 832,
+            "id": "core-exit:service-step"
+          },
+          {
+            "a": 2416,
+            "z": 2510,
+            "y": 416,
+            "id": "ram-east:deck-east"
+          },
+          {
+            "a": 1456,
+            "z": 1566,
+            "y": 224,
+            "id": "ram-west:observation"
+          },
+          {
+            "a": 2144,
+            "z": 2366,
+            "y": 352,
+            "id": "ram-east:shaft-cap"
+          },
+          {
+            "a": 2000,
+            "z": 2094,
+            "y": 320,
+            "id": "ram-east:service-step"
+          },
+          {
+            "a": 4016,
+            "z": 4126,
+            "y": 736,
+            "id": "core-exit:observation"
+          },
+          {
+            "a": 2096,
+            "z": 2206,
+            "y": 224,
+            "id": "ram-east:observation"
+          },
+          {
+            "a": 4240,
+            "z": 4430,
+            "y": 704,
+            "id": "core-exit:core-dais"
+          }
+        ]
+      }
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-02-review-beta",
+      "status": "FAIL",
+      "states": [],
+      "generationAndReplayMs": 14.300000011920929,
+      "signature": "73f92dc2",
+      "error": "Error: isolated graph rooms\n    at assert (http://127.0.0.1:19611/game.js:14790:53)\n    at http://127.0.0.1:19611/game.js:14931:70\n    at test (http://127.0.0.1:19611/game.js:14791:65)\n    at http://127.0.0.1:19611/game.js:14915:3",
+      "diagnostics": {
+        "rooms": [
+          {
+            "id": "arrival",
+            "source": {
+              "kind": "manual",
+              "id": "hw-arrival",
+              "version": 5
+            },
+            "x": 0,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "junction",
+            "source": {
+              "kind": "manual",
+              "id": "hw-junction",
+              "version": 5
+            },
+            "x": 640,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "l1-vault",
+            "source": {
+              "kind": "procedural",
+              "id": "hardware-v3-vault",
+              "version": 5
+            },
+            "x": 0,
+            "y": 2048,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "thermal",
+            "source": {
+              "kind": "manual",
+              "id": "hw-thermal",
+              "version": 5
+            },
+            "x": 0,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "socket",
+            "source": {
+              "kind": "manual",
+              "id": "hw-socket",
+              "version": 5
+            },
+            "x": 640,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "heatsink",
+            "source": {
+              "kind": "manual",
+              "id": "hw-heatsink",
+              "version": 5
+            },
+            "x": 640,
+            "y": 512,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "ram-base",
+            "source": {
+              "kind": "manual",
+              "id": "hw-ram-base",
+              "version": 5
+            },
+            "x": 1280,
+            "y": 512,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "ram-west",
+            "source": {
+              "kind": "manual",
+              "id": "hw-ram-west",
+              "version": 5
+            },
+            "x": 1280,
+            "y": 0,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "ram-east",
+            "source": {
+              "kind": "procedural",
+              "id": "hardware-v3-vault",
+              "version": 5
+            },
+            "x": 1920,
+            "y": 0,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "ram-return",
+            "source": {
+              "kind": "manual",
+              "id": "hw-ram-return",
+              "version": 5
+            },
+            "x": 1920,
+            "y": 512,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-north",
+            "source": {
+              "kind": "manual",
+              "id": "hw-bus-north",
+              "version": 5
+            },
+            "x": 1280,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-cross",
+            "source": {
+              "kind": "manual",
+              "id": "hw-bus-cross",
+              "version": 5
+            },
+            "x": 1920,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-west",
+            "source": {
+              "kind": "manual",
+              "id": "hw-bus-west",
+              "version": 5
+            },
+            "x": 1280,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-east",
+            "source": {
+              "kind": "manual",
+              "id": "hw-bus-east",
+              "version": 5
+            },
+            "x": 1920,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-cache",
+            "source": {
+              "kind": "procedural",
+              "id": "hardware-v3-vault",
+              "version": 5
+            },
+            "x": 1280,
+            "y": 2048,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "bus-return",
+            "source": {
+              "kind": "manual",
+              "id": "hw-bus-return",
+              "version": 5
+            },
+            "x": 1920,
+            "y": 2048,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "gpu-west",
+            "source": {
+              "kind": "manual",
+              "id": "hw-gpu-west",
+              "version": 5
+            },
+            "x": 2560,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "gpu-east",
+            "source": {
+              "kind": "manual",
+              "id": "hw-gpu-east",
+              "version": 5
+            },
+            "x": 3200,
+            "y": 1024,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "gpu-under",
+            "source": {
+              "kind": "manual",
+              "id": "hw-gpu-under",
+              "version": 5
+            },
+            "x": 2560,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "gpu-cache",
+            "source": {
+              "kind": "procedural",
+              "id": "hardware-v3-vault",
+              "version": 5
+            },
+            "x": 3200,
+            "y": 1536,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "core-test",
+            "source": {
+              "kind": "manual",
+              "id": "hw-core-test",
+              "version": 5
+            },
+            "x": 3200,
+            "y": 512,
+            "width": 640,
+            "height": 512
+          },
+          {
+            "id": "core-exit",
+            "source": {
+              "kind": "manual",
+              "id": "hw-core-exit",
+              "version": 5
+            },
+            "x": 3840,
+            "y": 512,
+            "width": 640,
+            "height": 512
+          }
+        ],
+        "platforms": [
+          {
+            "id": "arrival:shaft-cap",
+            "x": 224,
+            "y": 1936,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "arrival:riser-1",
+            "x": 352,
+            "y": 1840,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "arrival:riser-2",
+            "x": 224,
+            "y": 1744,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "arrival:riser-3",
+            "x": 352,
+            "y": 1648,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "arrival:riser-4",
+            "x": 256,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "junction:riser-0",
+            "x": 864,
+            "y": 1936,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "junction:riser-1",
+            "x": 992,
+            "y": 1840,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "junction:riser-2",
+            "x": 864,
+            "y": 1744,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "junction:riser-3",
+            "x": 992,
+            "y": 1648,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "junction:riser-4",
+            "x": 896,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:riser-0",
+            "x": 224,
+            "y": 2448,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:riser-1",
+            "x": 352,
+            "y": 2352,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:riser-2",
+            "x": 224,
+            "y": 2256,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:riser-3",
+            "x": 352,
+            "y": 2160,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:riser-4",
+            "x": 256,
+            "y": 2064,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "l1-vault:cache-ledge",
+            "x": 64,
+            "y": 2416,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "thermal:shaft-cap",
+            "x": 224,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "thermal:service-step",
+            "x": 80,
+            "y": 1392,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "thermal:observation",
+            "x": 176,
+            "y": 1296,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "thermal:lift",
+            "x": 80,
+            "y": 1296,
+            "width": 128,
+            "height": 16,
+            "type": "moving",
+            "collision": "one-way",
+            "style": "elevator",
+            "motion": {
+              "axis": "y",
+              "range": 64,
+              "speed": 0.45,
+              "phase": 0
+            }
+          },
+          {
+            "id": "socket:shaft-cap",
+            "x": 864,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "socket:riser-1",
+            "x": 992,
+            "y": 1328,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "socket:riser-2",
+            "x": 864,
+            "y": 1232,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "socket:riser-3",
+            "x": 992,
+            "y": 1136,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "socket:riser-4",
+            "x": 896,
+            "y": 1040,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "socket:powered-bridge",
+            "x": 1064,
+            "y": 1328,
+            "width": 176,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit",
+            "requires": {
+              "component": "socket:cpu-relay"
+            }
+          },
+          {
+            "id": "heatsink:shaft-cap",
+            "x": 864,
+            "y": 912,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "heatsink:service-step",
+            "x": 720,
+            "y": 880,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "heatsink:observation",
+            "x": 816,
+            "y": 784,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:shaft-cap",
+            "x": 1504,
+            "y": 912,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:riser-1",
+            "x": 1632,
+            "y": 816,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:riser-2",
+            "x": 1504,
+            "y": 720,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:riser-3",
+            "x": 1632,
+            "y": 624,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:riser-4",
+            "x": 1536,
+            "y": 528,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-base:powered-bridge",
+            "x": 1704,
+            "y": 816,
+            "width": 176,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit",
+            "requires": {
+              "component": "ram-base:ram-relay"
+            }
+          },
+          {
+            "id": "ram-west:shaft-cap",
+            "x": 1504,
+            "y": 400,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-west:service-step",
+            "x": 1360,
+            "y": 368,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-west:observation",
+            "x": 1456,
+            "y": 272,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-east:shaft-cap",
+            "x": 2144,
+            "y": 400,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-east:service-step",
+            "x": 2000,
+            "y": 368,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-east:observation",
+            "x": 2096,
+            "y": 272,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:shaft-cap",
+            "x": 2144,
+            "y": 912,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:riser-1",
+            "x": 2272,
+            "y": 816,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:riser-2",
+            "x": 2144,
+            "y": 720,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:riser-3",
+            "x": 2272,
+            "y": 624,
+            "width": 112,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:riser-4",
+            "x": 2176,
+            "y": 528,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "ram-return:lift",
+            "x": 2000,
+            "y": 784,
+            "width": 128,
+            "height": 16,
+            "type": "moving",
+            "collision": "one-way",
+            "style": "elevator",
+            "motion": {
+              "axis": "y",
+              "range": 64,
+              "speed": 0.45,
+              "phase": 0
+            }
+          },
+          {
+            "id": "bus-north:shaft-cap",
+            "x": 1504,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-north:riser-1",
+            "x": 1632,
+            "y": 1328,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-north:riser-2",
+            "x": 1504,
+            "y": 1232,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-north:riser-3",
+            "x": 1632,
+            "y": 1136,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-north:riser-4",
+            "x": 1536,
+            "y": 1040,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cross:shaft-cap",
+            "x": 2144,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cross:riser-1",
+            "x": 2272,
+            "y": 1328,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cross:riser-2",
+            "x": 2144,
+            "y": 1232,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cross:riser-3",
+            "x": 2272,
+            "y": 1136,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cross:riser-4",
+            "x": 2176,
+            "y": 1040,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:shaft-cap",
+            "x": 1504,
+            "y": 1936,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:riser-1",
+            "x": 1632,
+            "y": 1840,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:riser-2",
+            "x": 1504,
+            "y": 1744,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:riser-3",
+            "x": 1632,
+            "y": 1648,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:riser-4",
+            "x": 1536,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-west:powered-bridge",
+            "x": 1704,
+            "y": 1840,
+            "width": 176,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit",
+            "requires": {
+              "component": "bus-west:bus-relay"
+            }
+          },
+          {
+            "id": "bus-east:shaft-cap",
+            "x": 2144,
+            "y": 1936,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-east:riser-1",
+            "x": 2272,
+            "y": 1840,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-east:riser-2",
+            "x": 2144,
+            "y": 1744,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-east:riser-3",
+            "x": 2272,
+            "y": 1648,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-east:riser-4",
+            "x": 2176,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:riser-0",
+            "x": 1504,
+            "y": 2448,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:riser-1",
+            "x": 1632,
+            "y": 2352,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:riser-2",
+            "x": 1504,
+            "y": 2256,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:riser-3",
+            "x": 1632,
+            "y": 2160,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:riser-4",
+            "x": 1536,
+            "y": 2064,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-cache:cache-ledge",
+            "x": 1360,
+            "y": 2416,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:gap-step",
+            "x": 2200,
+            "y": 2448,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:riser-0",
+            "x": 2144,
+            "y": 2448,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:riser-1",
+            "x": 2272,
+            "y": 2352,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:riser-2",
+            "x": 2144,
+            "y": 2256,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:riser-3",
+            "x": 2272,
+            "y": 2160,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:riser-4",
+            "x": 2176,
+            "y": 2064,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "bus-return:temporary-cache",
+            "x": 2368,
+            "y": 2320,
+            "width": 112,
+            "height": 16,
+            "type": "temporary",
+            "collision": "one-way",
+            "style": "signal",
+            "duration": 2.6,
+            "respawnDelay": 2.4
+          },
+          {
+            "id": "gpu-west:shaft-cap",
+            "x": 2784,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-west:service-step",
+            "x": 2640,
+            "y": 1392,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-west:observation",
+            "x": 2736,
+            "y": 1296,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:shaft-cap",
+            "x": 3424,
+            "y": 1424,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:riser-1",
+            "x": 3552,
+            "y": 1328,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:riser-2",
+            "x": 3424,
+            "y": 1232,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:riser-3",
+            "x": 3552,
+            "y": 1136,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:riser-4",
+            "x": 3456,
+            "y": 1040,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-east:powered-bridge",
+            "x": 3624,
+            "y": 1328,
+            "width": 176,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit",
+            "requires": {
+              "component": "gpu-east:gpu-relay"
+            }
+          },
+          {
+            "id": "gpu-under:gap-step",
+            "x": 2840,
+            "y": 1936,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:riser-0",
+            "x": 2784,
+            "y": 1936,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:riser-1",
+            "x": 2912,
+            "y": 1840,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:riser-2",
+            "x": 2784,
+            "y": 1744,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:riser-3",
+            "x": 2912,
+            "y": 1648,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:riser-4",
+            "x": 2816,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-under:lift",
+            "x": 2640,
+            "y": 1808,
+            "width": 128,
+            "height": 16,
+            "type": "moving",
+            "collision": "one-way",
+            "style": "elevator",
+            "motion": {
+              "axis": "y",
+              "range": 64,
+              "speed": 0.45,
+              "phase": 0
+            }
+          },
+          {
+            "id": "gpu-under:temporary-cache",
+            "x": 3008,
+            "y": 1808,
+            "width": 112,
+            "height": 16,
+            "type": "temporary",
+            "collision": "one-way",
+            "style": "signal",
+            "duration": 2.6,
+            "respawnDelay": 2.4
+          },
+          {
+            "id": "gpu-cache:riser-0",
+            "x": 3424,
+            "y": 1936,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-cache:riser-1",
+            "x": 3552,
+            "y": 1840,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-cache:riser-2",
+            "x": 3424,
+            "y": 1744,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-cache:riser-3",
+            "x": 3552,
+            "y": 1648,
+            "width": 96,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-cache:riser-4",
+            "x": 3456,
+            "y": 1552,
+            "width": 192,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "gpu-cache:cache-ledge",
+            "x": 3264,
+            "y": 1904,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-test:shaft-cap",
+            "x": 3424,
+            "y": 912,
+            "width": 256,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-test:service-step",
+            "x": 3280,
+            "y": 880,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-test:observation",
+            "x": 3376,
+            "y": 784,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-test:lift",
+            "x": 3280,
+            "y": 784,
+            "width": 128,
+            "height": 16,
+            "type": "moving",
+            "collision": "one-way",
+            "style": "elevator",
+            "motion": {
+              "axis": "y",
+              "range": 64,
+              "speed": 0.45,
+              "phase": 0
+            }
+          },
+          {
+            "id": "core-exit:service-step",
+            "x": 3920,
+            "y": 880,
+            "width": 128,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-exit:observation",
+            "x": 4016,
+            "y": 784,
+            "width": 144,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          },
+          {
+            "id": "core-exit:core-dais",
+            "x": 4240,
+            "y": 752,
+            "width": 224,
+            "height": 16,
+            "type": "fixed",
+            "collision": "one-way",
+            "style": "circuit"
+          }
+        ],
+        "obstacles": [
+          {
+            "id": "arrival:wall-west",
+            "x": 0,
+            "y": 1536,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "arrival:wall-east",
+            "x": 624,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "arrival:roof-west",
+            "x": 16,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "arrival:roof-east",
+            "x": 496,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "junction:wall-west",
+            "x": 640,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "junction:wall-east",
+            "x": 1264,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "junction:roof-west",
+            "x": 656,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "junction:roof-east",
+            "x": 1136,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "l1-vault:wall-west",
+            "x": 0,
+            "y": 2048,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "l1-vault:wall-east",
+            "x": 624,
+            "y": 2048,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "l1-vault:roof-west",
+            "x": 16,
+            "y": 2048,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "l1-vault:roof-east",
+            "x": 496,
+            "y": 2048,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "thermal:wall-west",
+            "x": 0,
+            "y": 1024,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "thermal:wall-east",
+            "x": 624,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "thermal:roof",
+            "x": 16,
+            "y": 1024,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "socket:wall-west",
+            "x": 640,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "socket:wall-east",
+            "x": 1264,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "socket:roof-west",
+            "x": 656,
+            "y": 1024,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "socket:roof-east",
+            "x": 1136,
+            "y": 1024,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "heatsink:wall-west",
+            "x": 640,
+            "y": 512,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "heatsink:wall-east",
+            "x": 1264,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "heatsink:roof",
+            "x": 656,
+            "y": 512,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "ram-base:wall-west",
+            "x": 1280,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "ram-base:wall-east",
+            "x": 1904,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "ram-base:roof-west",
+            "x": 1296,
+            "y": 512,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "ram-base:roof-east",
+            "x": 1776,
+            "y": 512,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "ram-west:wall-west",
+            "x": 1280,
+            "y": 0,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "ram-west:wall-east",
+            "x": 1904,
+            "y": 0,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "ram-west:roof",
+            "x": 1296,
+            "y": 0,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "ram-east:wall-west",
+            "x": 1920,
+            "y": 0,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "ram-east:wall-east",
+            "x": 2544,
+            "y": 0,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "ram-east:roof",
+            "x": 1936,
+            "y": 0,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "ram-return:wall-west",
+            "x": 1920,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "ram-return:wall-east",
+            "x": 2544,
+            "y": 512,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "ram-return:roof-west",
+            "x": 1936,
+            "y": 512,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "ram-return:roof-east",
+            "x": 2416,
+            "y": 512,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-north:wall-west",
+            "x": 1280,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-north:wall-east",
+            "x": 1904,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-north:roof-west",
+            "x": 1296,
+            "y": 1024,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-north:roof-east",
+            "x": 1776,
+            "y": 1024,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-cross:wall-west",
+            "x": 1920,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-cross:wall-east",
+            "x": 2544,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-cross:roof-west",
+            "x": 1936,
+            "y": 1024,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-cross:roof-east",
+            "x": 2416,
+            "y": 1024,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-west:wall-west",
+            "x": 1280,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-west:wall-east",
+            "x": 1904,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-west:roof-west",
+            "x": 1296,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-west:roof-east",
+            "x": 1776,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-east:wall-west",
+            "x": 1920,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-east:wall-east",
+            "x": 2544,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-east:roof-west",
+            "x": 1936,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-east:roof-east",
+            "x": 2416,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-cache:wall-west",
+            "x": 1280,
+            "y": 2048,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "bus-cache:wall-east",
+            "x": 1904,
+            "y": 2048,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-cache:roof-west",
+            "x": 1296,
+            "y": 2048,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-cache:roof-east",
+            "x": 1776,
+            "y": 2048,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "bus-return:wall-west",
+            "x": 1920,
+            "y": 2048,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "bus-return:wall-east",
+            "x": 2544,
+            "y": 2048,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "bus-return:roof-west",
+            "x": 1936,
+            "y": 2048,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "bus-return:roof-east",
+            "x": 2416,
+            "y": 2048,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "gpu-west:wall-west",
+            "x": 2560,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-west:wall-east",
+            "x": 3184,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-west:roof",
+            "x": 2576,
+            "y": 1024,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "gpu-east:wall-west",
+            "x": 3200,
+            "y": 1024,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-east:wall-east",
+            "x": 3824,
+            "y": 1024,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "gpu-east:roof-west",
+            "x": 3216,
+            "y": 1024,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "gpu-east:roof-east",
+            "x": 3696,
+            "y": 1024,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "gpu-under:wall-west",
+            "x": 2560,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-under:wall-east",
+            "x": 3184,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-under:roof-west",
+            "x": 2576,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "gpu-under:roof-east",
+            "x": 3056,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "gpu-cache:wall-west",
+            "x": 3200,
+            "y": 1536,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "gpu-cache:wall-east",
+            "x": 3824,
+            "y": 1536,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "gpu-cache:roof-west",
+            "x": 3216,
+            "y": 1536,
+            "width": 192,
+            "height": 16
+          },
+          {
+            "id": "gpu-cache:roof-east",
+            "x": 3696,
+            "y": 1536,
+            "width": 128,
+            "height": 16
+          },
+          {
+            "id": "core-test:wall-west",
+            "x": 3200,
+            "y": 512,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "core-test:wall-east",
+            "x": 3824,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "core-test:roof",
+            "x": 3216,
+            "y": 512,
+            "width": 608,
+            "height": 16
+          },
+          {
+            "id": "core-exit:wall-west",
+            "x": 3840,
+            "y": 512,
+            "width": 16,
+            "height": 336
+          },
+          {
+            "id": "core-exit:wall-east",
+            "x": 4464,
+            "y": 512,
+            "width": 16,
+            "height": 464
+          },
+          {
+            "id": "core-exit:roof",
+            "x": 3856,
+            "y": 512,
+            "width": 608,
+            "height": 16
+          }
+        ],
+        "start": {
+          "x": 64,
+          "y": 1952
+        },
+        "player": {
+          "x": 4240.75,
+          "y": 704
+        },
+        "reached": [
+          {
+            "a": 4240,
+            "z": 4430,
+            "y": 704,
+            "id": "core-exit:core-dais"
+          },
+          {
+            "a": 4016,
+            "z": 4126,
+            "y": 736,
+            "id": "core-exit:observation"
+          },
+          {
+            "a": 3696,
+            "z": 3806,
+            "y": 928,
+            "id": "core-test:deck-east"
+          },
+          {
+            "a": 3840,
+            "z": 4430,
+            "y": 928,
+            "id": "core-exit:deck"
+          },
+          {
+            "a": 3920,
+            "z": 4014,
+            "y": 832,
+            "id": "core-exit:service-step"
+          },
+          {
+            "a": 3696,
+            "z": 3790,
+            "y": 1440,
+            "id": "gpu-east:deck-east"
+          },
+          {
+            "a": 3456,
+            "z": 3614,
+            "y": 992,
+            "id": "gpu-east:riser-4"
+          },
+          {
+            "a": 3424,
+            "z": 3646,
+            "y": 864,
+            "id": "core-test:shaft-cap"
+          },
+          {
+            "a": 3200,
+            "z": 3790,
+            "y": 1952,
+            "id": "gpu-cache:deck"
+          },
+          {
+            "a": 3424,
+            "z": 3646,
+            "y": 1376,
+            "id": "gpu-east:shaft-cap"
+          },
+          {
+            "a": 3456,
+            "z": 3614,
+            "y": 1504,
+            "id": "gpu-cache:riser-4"
+          },
+          {
+            "a": 3200,
+            "z": 3374,
+            "y": 1440,
+            "id": "gpu-east:deck-west"
+          },
+          {
+            "a": 3216,
+            "z": 3374,
+            "y": 928,
+            "id": "core-test:deck-west"
+          },
+          {
+            "a": 3424,
+            "z": 3486,
+            "y": 1184,
+            "id": "gpu-east:riser-2"
+          },
+          {
+            "a": 3024,
+            "z": 3166,
+            "y": 1952,
+            "id": "gpu-under:deck-east"
+          },
+          {
+            "a": 3424,
+            "z": 3486,
+            "y": 1888,
+            "id": "gpu-cache:riser-0"
+          },
+          {
+            "a": 3264,
+            "z": 3358,
+            "y": 1856,
+            "id": "gpu-cache:cache-ledge"
+          },
+          {
+            "a": 3552,
+            "z": 3614,
+            "y": 1280,
+            "id": "gpu-east:riser-1"
+          },
+          {
+            "a": 3424,
+            "z": 3486,
+            "y": 1696,
+            "id": "gpu-cache:riser-2"
+          },
+          {
+            "a": 3056,
+            "z": 3166,
+            "y": 1440,
+            "id": "gpu-west:deck-east"
+          },
+          {
+            "a": 3280,
+            "z": 3374,
+            "y": 832,
+            "id": "core-test:service-step"
+          },
+          {
+            "a": 3552,
+            "z": 3614,
+            "y": 1088,
+            "id": "gpu-east:riser-3"
+          },
+          {
+            "a": 2784,
+            "z": 2990,
+            "y": 1984,
+            "id": "gpu-under:catch-deck"
+          },
+          {
+            "a": 2840,
+            "z": 2934,
+            "y": 1888,
+            "id": "gpu-under:gap-step"
+          },
+          {
+            "a": 2784,
+            "z": 2846,
+            "y": 1888,
+            "id": "gpu-under:riser-0"
+          },
+          {
+            "a": 3552,
+            "z": 3614,
+            "y": 1792,
+            "id": "gpu-cache:riser-1"
+          },
+          {
+            "a": 3552,
+            "z": 3614,
+            "y": 1600,
+            "id": "gpu-cache:riser-3"
+          },
+          {
+            "a": 2784,
+            "z": 3006,
+            "y": 1376,
+            "id": "gpu-west:shaft-cap"
+          },
+          {
+            "a": 2816,
+            "z": 2974,
+            "y": 1504,
+            "id": "gpu-under:riser-4"
+          },
+          {
+            "a": 3008,
+            "z": 3086,
+            "y": 1760,
+            "id": "gpu-under:temporary-cache"
+          },
+          {
+            "a": 3376,
+            "z": 3486,
+            "y": 736,
+            "id": "core-test:observation"
+          },
+          {
+            "a": 3280,
+            "z": 3374,
+            "y": 736,
+            "id": "core-test:lift"
+          },
+          {
+            "a": 2560,
+            "z": 2750,
+            "y": 1952,
+            "id": "gpu-under:deck-west"
+          },
+          {
+            "a": 2912,
+            "z": 2974,
+            "y": 1792,
+            "id": "gpu-under:riser-1"
+          },
+          {
+            "a": 2560,
+            "z": 2734,
+            "y": 1440,
+            "id": "gpu-west:deck-west"
+          },
+          {
+            "a": 2640,
+            "z": 2734,
+            "y": 1344,
+            "id": "gpu-west:service-step"
+          },
+          {
+            "a": 2784,
+            "z": 2846,
+            "y": 1696,
+            "id": "gpu-under:riser-2"
+          },
+          {
+            "a": 2640,
+            "z": 2734,
+            "y": 1760,
+            "id": "gpu-under:lift"
+          },
+          {
+            "a": 2416,
+            "z": 2526,
+            "y": 1952,
+            "id": "bus-east:deck-east"
+          },
+          {
+            "a": 2416,
+            "z": 2526,
+            "y": 1440,
+            "id": "bus-cross:deck-east"
+          },
+          {
+            "a": 2736,
+            "z": 2846,
+            "y": 1248,
+            "id": "gpu-west:observation"
+          },
+          {
+            "a": 2912,
+            "z": 2974,
+            "y": 1600,
+            "id": "gpu-under:riser-3"
+          },
+          {
+            "a": 2144,
+            "z": 2366,
+            "y": 1888,
+            "id": "bus-east:shaft-cap"
+          },
+          {
+            "a": 2176,
+            "z": 2334,
+            "y": 2016,
+            "id": "bus-return:riser-4"
+          },
+          {
+            "a": 2144,
+            "z": 2366,
+            "y": 1376,
+            "id": "bus-cross:shaft-cap"
+          },
+          {
+            "a": 2176,
+            "z": 2334,
+            "y": 1504,
+            "id": "bus-east:riser-4"
+          },
+          {
+            "a": 1920,
+            "z": 2094,
+            "y": 1952,
+            "id": "bus-east:deck-west"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 1792,
+            "id": "bus-east:riser-1"
+          },
+          {
+            "a": 1920,
+            "z": 2110,
+            "y": 2464,
+            "id": "bus-return:deck-west"
+          },
+          {
+            "a": 2144,
+            "z": 2238,
+            "y": 2208,
+            "id": "bus-return:riser-2"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 2112,
+            "id": "bus-return:riser-3"
+          },
+          {
+            "a": 2368,
+            "z": 2446,
+            "y": 2272,
+            "id": "bus-return:temporary-cache"
+          },
+          {
+            "a": 1920,
+            "z": 2094,
+            "y": 1440,
+            "id": "bus-cross:deck-west"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 1280,
+            "id": "bus-cross:riser-1"
+          },
+          {
+            "a": 2144,
+            "z": 2238,
+            "y": 1696,
+            "id": "bus-east:riser-2"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 1600,
+            "id": "bus-east:riser-3"
+          },
+          {
+            "a": 1776,
+            "z": 1886,
+            "y": 1952,
+            "id": "bus-west:deck-east"
+          },
+          {
+            "a": 1296,
+            "z": 1886,
+            "y": 2464,
+            "id": "bus-cache:deck"
+          },
+          {
+            "a": 2144,
+            "z": 2350,
+            "y": 2496,
+            "id": "bus-return:catch-deck"
+          },
+          {
+            "a": 2200,
+            "z": 2294,
+            "y": 2400,
+            "id": "bus-return:gap-step"
+          },
+          {
+            "a": 2144,
+            "z": 2238,
+            "y": 2400,
+            "id": "bus-return:riser-0"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 2304,
+            "id": "bus-return:riser-1"
+          },
+          {
+            "a": 2384,
+            "z": 2510,
+            "y": 2464,
+            "id": "bus-return:deck-east"
+          },
+          {
+            "a": 1776,
+            "z": 1886,
+            "y": 1440,
+            "id": "bus-north:deck-east"
+          },
+          {
+            "a": 2144,
+            "z": 2238,
+            "y": 1184,
+            "id": "bus-cross:riser-2"
+          },
+          {
+            "a": 1504,
+            "z": 1726,
+            "y": 1888,
+            "id": "bus-west:shaft-cap"
+          },
+          {
+            "a": 1536,
+            "z": 1694,
+            "y": 2016,
+            "id": "bus-cache:riser-4"
+          },
+          {
+            "a": 1504,
+            "z": 1598,
+            "y": 2400,
+            "id": "bus-cache:riser-0"
+          },
+          {
+            "a": 1360,
+            "z": 1454,
+            "y": 2368,
+            "id": "bus-cache:cache-ledge"
+          },
+          {
+            "a": 1504,
+            "z": 1726,
+            "y": 1376,
+            "id": "bus-north:shaft-cap"
+          },
+          {
+            "a": 1536,
+            "z": 1694,
+            "y": 1504,
+            "id": "bus-west:riser-4"
+          },
+          {
+            "a": 2272,
+            "z": 2366,
+            "y": 1088,
+            "id": "bus-cross:riser-3"
+          },
+          {
+            "a": 1280,
+            "z": 1454,
+            "y": 1952,
+            "id": "bus-west:deck-west"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 1792,
+            "id": "bus-west:riser-1"
+          },
+          {
+            "a": 1504,
+            "z": 1598,
+            "y": 2208,
+            "id": "bus-cache:riser-2"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 2112,
+            "id": "bus-cache:riser-3"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 2304,
+            "id": "bus-cache:riser-1"
+          },
+          {
+            "a": 1280,
+            "z": 1454,
+            "y": 1440,
+            "id": "bus-north:deck-west"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 1280,
+            "id": "bus-north:riser-1"
+          },
+          {
+            "a": 1504,
+            "z": 1598,
+            "y": 1696,
+            "id": "bus-west:riser-2"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 1600,
+            "id": "bus-west:riser-3"
+          },
+          {
+            "a": 2176,
+            "z": 2334,
+            "y": 992,
+            "id": "bus-cross:riser-4"
+          },
+          {
+            "a": 640,
+            "z": 1246,
+            "y": 1952,
+            "id": "junction:deck"
+          },
+          {
+            "a": 1136,
+            "z": 1246,
+            "y": 1440,
+            "id": "socket:deck-east"
+          },
+          {
+            "a": 1504,
+            "z": 1598,
+            "y": 1184,
+            "id": "bus-north:riser-2"
+          },
+          {
+            "a": 1920,
+            "z": 2094,
+            "y": 928,
+            "id": "ram-return:deck-west"
+          },
+          {
+            "a": 2416,
+            "z": 2510,
+            "y": 928,
+            "id": "ram-return:deck-east"
+          },
+          {
+            "a": 496,
+            "z": 606,
+            "y": 1952,
+            "id": "arrival:deck-east"
+          },
+          {
+            "a": 864,
+            "z": 958,
+            "y": 1888,
+            "id": "junction:riser-0"
+          },
+          {
+            "a": 896,
+            "z": 1054,
+            "y": 1504,
+            "id": "junction:riser-4"
+          },
+          {
+            "a": 864,
+            "z": 1086,
+            "y": 1376,
+            "id": "socket:shaft-cap"
+          },
+          {
+            "a": 1632,
+            "z": 1726,
+            "y": 1088,
+            "id": "bus-north:riser-3"
+          },
+          {
+            "a": 1776,
+            "z": 1886,
+            "y": 928,
+            "id": "ram-base:deck-east"
+          },
+          {
+            "a": 2144,
+            "z": 2366,
+            "y": 864,
+            "id": "ram-return:shaft-cap"
+          },
+          {
+            "a": 224,
+            "z": 446,
+            "y": 1888,
+            "id": "arrival:shaft-cap"
+          },
+          {
+            "a": 256,
+            "z": 414,
+            "y": 2016,
+            "id": "l1-vault:riser-4"
+          },
+          {
+            "a": 992,
+            "z": 1086,
+            "y": 1792,
+            "id": "junction:riser-1"
+          },
+          {
+            "a": 640,
+            "z": 814,
+            "y": 1440,
+            "id": "socket:deck-west"
+          },
+          {
+            "a": 864,
+            "z": 958,
+            "y": 1696,
+            "id": "junction:riser-2"
+          },
+          {
+            "a": 992,
+            "z": 1086,
+            "y": 1600,
+            "id": "junction:riser-3"
+          },
+          {
+            "a": 992,
+            "z": 1086,
+            "y": 1280,
+            "id": "socket:riser-1"
+          },
+          {
+            "a": 1536,
+            "z": 1694,
+            "y": 992,
+            "id": "bus-north:riser-4"
+          },
+          {
+            "a": 1504,
+            "z": 1726,
+            "y": 864,
+            "id": "ram-base:shaft-cap"
+          },
+          {
+            "a": 2272,
+            "z": 2350,
+            "y": 768,
+            "id": "ram-return:riser-1"
+          },
+          {
+            "a": 16,
+            "z": 174,
+            "y": 1952,
+            "id": "arrival:deck-west"
+          },
+          {
+            "a": 352,
+            "z": 446,
+            "y": 1792,
+            "id": "arrival:riser-1"
+          },
+          {
+            "a": 16,
+            "z": 590,
+            "y": 2464,
+            "id": "l1-vault:deck"
+          },
+          {
+            "a": 224,
+            "z": 318,
+            "y": 2208,
+            "id": "l1-vault:riser-2"
+          },
+          {
+            "a": 352,
+            "z": 446,
+            "y": 2112,
+            "id": "l1-vault:riser-3"
+          },
+          {
+            "a": 64,
+            "z": 158,
+            "y": 2368,
+            "id": "l1-vault:cache-ledge"
+          },
+          {
+            "a": 496,
+            "z": 606,
+            "y": 1440,
+            "id": "thermal:deck-east"
+          },
+          {
+            "a": 864,
+            "z": 958,
+            "y": 1184,
+            "id": "socket:riser-2"
+          },
+          {
+            "a": 1280,
+            "z": 1454,
+            "y": 928,
+            "id": "ram-base:deck-west"
+          },
+          {
+            "a": 1632,
+            "z": 1710,
+            "y": 768,
+            "id": "ram-base:riser-1"
+          },
+          {
+            "a": 2144,
+            "z": 2222,
+            "y": 672,
+            "id": "ram-return:riser-2"
+          },
+          {
+            "a": 224,
+            "z": 318,
+            "y": 1696,
+            "id": "arrival:riser-2"
+          },
+          {
+            "a": 224,
+            "z": 318,
+            "y": 2400,
+            "id": "l1-vault:riser-0"
+          },
+          {
+            "a": 352,
+            "z": 446,
+            "y": 2304,
+            "id": "l1-vault:riser-1"
+          },
+          {
+            "a": 256,
+            "z": 414,
+            "y": 1504,
+            "id": "arrival:riser-4"
+          },
+          {
+            "a": 224,
+            "z": 446,
+            "y": 1376,
+            "id": "thermal:shaft-cap"
+          },
+          {
+            "a": 992,
+            "z": 1086,
+            "y": 1088,
+            "id": "socket:riser-3"
+          },
+          {
+            "a": 1136,
+            "z": 1246,
+            "y": 928,
+            "id": "heatsink:deck-east"
+          },
+          {
+            "a": 1504,
+            "z": 1582,
+            "y": 672,
+            "id": "ram-base:riser-2"
+          },
+          {
+            "a": 2272,
+            "z": 2350,
+            "y": 576,
+            "id": "ram-return:riser-3"
+          },
+          {
+            "a": 2000,
+            "z": 2094,
+            "y": 736,
+            "id": "ram-return:lift"
+          },
+          {
+            "a": 352,
+            "z": 446,
+            "y": 1600,
+            "id": "arrival:riser-3"
+          },
+          {
+            "a": 16,
+            "z": 174,
+            "y": 1440,
+            "id": "thermal:deck-west"
+          },
+          {
+            "a": 896,
+            "z": 1054,
+            "y": 992,
+            "id": "socket:riser-4"
+          },
+          {
+            "a": 864,
+            "z": 1086,
+            "y": 864,
+            "id": "heatsink:shaft-cap"
+          },
+          {
+            "a": 1632,
+            "z": 1710,
+            "y": 576,
+            "id": "ram-base:riser-3"
+          },
+          {
+            "a": 2176,
+            "z": 2334,
+            "y": 480,
+            "id": "ram-return:riser-4"
+          },
+          {
+            "a": 80,
+            "z": 174,
+            "y": 1344,
+            "id": "thermal:service-step"
+          },
+          {
+            "a": 656,
+            "z": 814,
+            "y": 928,
+            "id": "heatsink:deck-west"
+          },
+          {
+            "a": 720,
+            "z": 814,
+            "y": 832,
+            "id": "heatsink:service-step"
+          },
+          {
+            "a": 1536,
+            "z": 1694,
+            "y": 480,
+            "id": "ram-base:riser-4"
+          },
+          {
+            "a": 1920,
+            "z": 2094,
+            "y": 416,
+            "id": "ram-east:deck-west"
+          },
+          {
+            "a": 2416,
+            "z": 2510,
+            "y": 416,
+            "id": "ram-east:deck-east"
+          },
+          {
+            "a": 176,
+            "z": 286,
+            "y": 1248,
+            "id": "thermal:observation"
+          },
+          {
+            "a": 80,
+            "z": 174,
+            "y": 1248,
+            "id": "thermal:lift"
+          },
+          {
+            "a": 816,
+            "z": 926,
+            "y": 736,
+            "id": "heatsink:observation"
+          },
+          {
+            "a": 1296,
+            "z": 1454,
+            "y": 416,
+            "id": "ram-west:deck-west"
+          },
+          {
+            "a": 1776,
+            "z": 1886,
+            "y": 416,
+            "id": "ram-west:deck-east"
+          },
+          {
+            "a": 2144,
+            "z": 2366,
+            "y": 352,
+            "id": "ram-east:shaft-cap"
+          },
+          {
+            "a": 2000,
+            "z": 2094,
+            "y": 320,
+            "id": "ram-east:service-step"
+          },
+          {
+            "a": 1504,
+            "z": 1726,
+            "y": 352,
+            "id": "ram-west:shaft-cap"
+          },
+          {
+            "a": 1360,
+            "z": 1454,
+            "y": 320,
+            "id": "ram-west:service-step"
+          },
+          {
+            "a": 2096,
+            "z": 2206,
+            "y": 224,
+            "id": "ram-east:observation"
+          },
+          {
+            "a": 1456,
+            "z": 1566,
+            "y": 224,
+            "id": "ram-west:observation"
+          }
+        ]
+      }
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-02-review-gamma",
+      "status": "FAIL",
+      "states": [],
+      "generationAndReplayMs": 16.399999976158142,
+      "signature": "2731c673",
+      "error": "Error: isolated graph rooms\n    at assert (http://127.0.0.1:19611/game.js:14790:53)\n    at http://127.0.0.1:19611/game.js:14931:70\n    at test (http://127.0.0.1:19611/game.js:14791:65)\n    at http://127.0.0.1:19611/game.js:14915:3"
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 127,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 128,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 53.09999996423721,
+      "signature": "e27b0b3c",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 128
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 33.89999997615814,
+      "signature": "7016a7e9",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 118
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-02-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 124,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 124,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 125,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 36.10000002384186,
+      "signature": "fc960dbe",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 125
+    }
+  ],
+  "phase": 2,
+  "theme": "software",
+  "seeds": [
+    "phase-02-review-alpha",
+    "phase-02-review-beta",
+    "phase-02-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 3,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:31:32.549399+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

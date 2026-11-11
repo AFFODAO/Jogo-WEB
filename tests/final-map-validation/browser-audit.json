@@ -1,0 +1,1744 @@
+{
+  "atUTC": "2026-11-10T23:49:12.811937+00:00",
+  "viewports": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "mobile": false,
+      "mode": "menu",
+      "phase": 1,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 715,
+      "right": 1205,
+      "top": 372.8125,
+      "bottom": 784.1875,
+      "panelHeight": 411.375,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "mobile": false,
+      "mode": "play",
+      "phase": 1,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 370.5,
+      "right": 1549.5,
+      "top": 169,
+      "bottom": 988,
+      "panelHeight": 819,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "mobile": false,
+      "mode": "intro",
+      "phase": 1,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 370.5,
+      "right": 1549.5,
+      "top": 170.5782012939453,
+      "bottom": 989.5782012939453,
+      "panelHeight": 819,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "mobile": false,
+      "mode": "pause",
+      "phase": 1,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 715,
+      "right": 1205,
+      "top": 327.40625,
+      "bottom": 829.59375,
+      "panelHeight": 502.1875,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 1,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 380.5,
+      "right": 1539.5,
+      "top": 179,
+      "bottom": 978,
+      "panelHeight": 799,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 6,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 380.5,
+      "right": 1539.5,
+      "top": 179,
+      "bottom": 978,
+      "panelHeight": 799,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 5,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 380.5,
+      "right": 1539.5,
+      "top": 179,
+      "bottom": 978,
+      "panelHeight": 799,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "mobile": false,
+      "mode": "question",
+      "phase": 9,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 635,
+      "right": 1285,
+      "top": 398.421875,
+      "bottom": 758.5625,
+      "panelHeight": 360.140625,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "mobile": false,
+      "mode": "skills",
+      "phase": 1,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 660,
+      "right": 1260,
+      "top": 449,
+      "bottom": 708,
+      "panelHeight": 259,
+      "descriptionWidths": [
+        156.65625,
+        156.671875,
+        156.671875
+      ],
+      "unreachableControls": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "mobile": false,
+      "mode": "settings",
+      "phase": 1,
+      "viewport": [
+        1920,
+        1080
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 732.5,
+      "right": 1172.5,
+      "top": 166.125,
+      "bottom": 913.875,
+      "panelHeight": 747.75,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "mobile": false,
+      "mode": "menu",
+      "phase": 1,
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 435.5,
+      "right": 925.5,
+      "top": 211.8125,
+      "bottom": 677.1875,
+      "panelHeight": 465.375,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "mobile": false,
+      "mode": "play",
+      "phase": 1,
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 257,
+      "right": 1104,
+      "top": 169,
+      "bottom": 720,
+      "panelHeight": 551,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "mobile": false,
+      "mode": "intro",
+      "phase": 1,
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 257,
+      "right": 1104,
+      "top": 169.68507385253906,
+      "bottom": 720.6850738525391,
+      "panelHeight": 551,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "mobile": false,
+      "mode": "pause",
+      "phase": 1,
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 435.5,
+      "right": 925.5,
+      "top": 193.40625,
+      "bottom": 695.59375,
+      "panelHeight": 502.1875,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 1,
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 267,
+      "right": 1094,
+      "top": 179,
+      "bottom": 710,
+      "panelHeight": 531,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 6,
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 267,
+      "right": 1094,
+      "top": 179,
+      "bottom": 710,
+      "panelHeight": 531,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 5,
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 267,
+      "right": 1094,
+      "top": 179,
+      "bottom": 710,
+      "panelHeight": 531,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "mobile": false,
+      "mode": "question",
+      "phase": 9,
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 355.5,
+      "right": 1005.5,
+      "top": 264.421875,
+      "bottom": 624.5625,
+      "panelHeight": 360.140625,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "mobile": false,
+      "mode": "skills",
+      "phase": 1,
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 380.5,
+      "right": 980.5,
+      "top": 315,
+      "bottom": 574,
+      "panelHeight": 259,
+      "descriptionWidths": [
+        156.65625,
+        156.671875,
+        156.671875
+      ],
+      "unreachableControls": []
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "mobile": false,
+      "mode": "settings",
+      "phase": 1,
+      "viewport": [
+        1366,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 455.5,
+      "right": 895.5,
+      "top": 14,
+      "bottom": 754,
+      "panelHeight": 740,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "mobile": false,
+      "mode": "menu",
+      "phase": 1,
+      "viewport": [
+        1024,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 358.5,
+      "right": 848.5,
+      "top": 211.8125,
+      "bottom": 677.1875,
+      "panelHeight": 465.375,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "mobile": false,
+      "mode": "play",
+      "phase": 1,
+      "viewport": [
+        1024,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 227,
+      "right": 980,
+      "top": 169,
+      "bottom": 720,
+      "panelHeight": 551,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "mobile": false,
+      "mode": "intro",
+      "phase": 1,
+      "viewport": [
+        1024,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 227,
+      "right": 980,
+      "top": 169.95074462890625,
+      "bottom": 720.9507446289062,
+      "panelHeight": 551,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "mobile": false,
+      "mode": "pause",
+      "phase": 1,
+      "viewport": [
+        1024,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 358.5,
+      "right": 848.5,
+      "top": 193.40625,
+      "bottom": 695.59375,
+      "panelHeight": 502.1875,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 1,
+      "viewport": [
+        1024,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 237,
+      "right": 970,
+      "top": 179,
+      "bottom": 710,
+      "panelHeight": 531,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 6,
+      "viewport": [
+        1024,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 237,
+      "right": 970,
+      "top": 179,
+      "bottom": 710,
+      "panelHeight": 531,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 5,
+      "viewport": [
+        1024,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 237,
+      "right": 970,
+      "top": 179,
+      "bottom": 710,
+      "panelHeight": 531,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "mobile": false,
+      "mode": "question",
+      "phase": 9,
+      "viewport": [
+        1024,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 278.5,
+      "right": 928.5,
+      "top": 264.421875,
+      "bottom": 624.5625,
+      "panelHeight": 360.140625,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "mobile": false,
+      "mode": "skills",
+      "phase": 1,
+      "viewport": [
+        1024,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 303.5,
+      "right": 903.5,
+      "top": 315,
+      "bottom": 574,
+      "panelHeight": 259,
+      "descriptionWidths": [
+        156.65625,
+        156.671875,
+        156.671875
+      ],
+      "unreachableControls": []
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "mobile": false,
+      "mode": "settings",
+      "phase": 1,
+      "viewport": [
+        1024,
+        768
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 284.5,
+      "right": 724.5,
+      "top": 14,
+      "bottom": 754,
+      "panelHeight": 740,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "mobile": false,
+      "mode": "menu",
+      "phase": 1,
+      "viewport": [
+        800,
+        600
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 246.5,
+      "right": 736.5,
+      "top": 169,
+      "bottom": 552,
+      "panelHeight": 383,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "mobile": false,
+      "mode": "play",
+      "phase": 1,
+      "viewport": [
+        800,
+        600
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 219,
+      "right": 764,
+      "top": 169,
+      "bottom": 552,
+      "panelHeight": 383,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "mobile": false,
+      "mode": "intro",
+      "phase": 1,
+      "viewport": [
+        800,
+        600
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 219,
+      "right": 764,
+      "top": 169.9511260986328,
+      "bottom": 552.9511260986328,
+      "panelHeight": 383,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "mobile": false,
+      "mode": "pause",
+      "phase": 1,
+      "viewport": [
+        800,
+        600
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 246.5,
+      "right": 736.5,
+      "top": 169,
+      "bottom": 552,
+      "panelHeight": 383,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 1,
+      "viewport": [
+        800,
+        600
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 229,
+      "right": 754,
+      "top": 179,
+      "bottom": 542,
+      "panelHeight": 363,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 6,
+      "viewport": [
+        800,
+        600
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 229,
+      "right": 754,
+      "top": 179,
+      "bottom": 542,
+      "panelHeight": 363,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "mobile": false,
+      "mode": "repair",
+      "phase": 5,
+      "viewport": [
+        800,
+        600
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 229,
+      "right": 754,
+      "top": 179,
+      "bottom": 542,
+      "panelHeight": 363,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "mobile": false,
+      "mode": "question",
+      "phase": 9,
+      "viewport": [
+        800,
+        600
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 235,
+      "right": 748,
+      "top": 185,
+      "bottom": 536,
+      "panelHeight": 351,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "mobile": false,
+      "mode": "skills",
+      "phase": 1,
+      "viewport": [
+        800,
+        600
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 233,
+      "right": 750,
+      "top": 231,
+      "bottom": 490,
+      "panelHeight": 259,
+      "descriptionWidths": [
+        129,
+        129,
+        129
+      ],
+      "unreachableControls": []
+    },
+    {
+      "width": 800,
+      "height": 600,
+      "mobile": false,
+      "mode": "settings",
+      "phase": 1,
+      "viewport": [
+        800,
+        600
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 172.5,
+      "right": 612.5,
+      "top": 14,
+      "bottom": 586,
+      "panelHeight": 572,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "mode": "menu",
+      "phase": 1,
+      "viewport": [
+        390,
+        844
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 27.5625,
+      "right": 362.4375,
+      "top": 138,
+      "bottom": 576,
+      "panelHeight": 438,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "mode": "play",
+      "phase": 1,
+      "viewport": [
+        390,
+        844
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 13,
+      "right": 377,
+      "top": 138,
+      "bottom": 576,
+      "panelHeight": 438,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "mode": "intro",
+      "phase": 1,
+      "viewport": [
+        390,
+        844
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 13,
+      "right": 377,
+      "top": 138.2671661376953,
+      "bottom": 576.2671661376953,
+      "panelHeight": 438,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "mode": "pause",
+      "phase": 1,
+      "viewport": [
+        390,
+        844
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 27.5625,
+      "right": 362.4375,
+      "top": 138,
+      "bottom": 576,
+      "panelHeight": 438,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "mode": "repair",
+      "phase": 1,
+      "viewport": [
+        390,
+        844
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 18,
+      "right": 372,
+      "top": 143,
+      "bottom": 571,
+      "panelHeight": 428,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "mode": "repair",
+      "phase": 6,
+      "viewport": [
+        390,
+        844
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 18,
+      "right": 372,
+      "top": 143,
+      "bottom": 571,
+      "panelHeight": 428,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "mode": "repair",
+      "phase": 5,
+      "viewport": [
+        390,
+        844
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 18,
+      "right": 372,
+      "top": 143,
+      "bottom": 571,
+      "panelHeight": 428,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "mode": "question",
+      "phase": 9,
+      "viewport": [
+        390,
+        844
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 29,
+      "right": 361,
+      "top": 191.421875,
+      "bottom": 522.5625,
+      "panelHeight": 331.140625,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "mode": "skills",
+      "phase": 1,
+      "viewport": [
+        390,
+        844
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 27,
+      "right": 363,
+      "top": 152,
+      "bottom": 562,
+      "panelHeight": 410,
+      "descriptionWidths": [
+        282,
+        282,
+        282
+      ],
+      "unreachableControls": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "mobile": true,
+      "mode": "settings",
+      "phase": 1,
+      "viewport": [
+        390,
+        844
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 19,
+      "right": 371,
+      "top": 16.5625,
+      "bottom": 827.4375,
+      "panelHeight": 810.875,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "mobile": true,
+      "mode": "menu",
+      "phase": 1,
+      "viewport": [
+        360,
+        640
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 26.359375,
+      "right": 333.625,
+      "top": 138,
+      "bottom": 576,
+      "panelHeight": 438,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "mobile": true,
+      "mode": "play",
+      "phase": 1,
+      "viewport": [
+        360,
+        640
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 13,
+      "right": 347,
+      "top": 138,
+      "bottom": 576,
+      "panelHeight": 438,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "mobile": true,
+      "mode": "intro",
+      "phase": 1,
+      "viewport": [
+        360,
+        640
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 13,
+      "right": 347,
+      "top": 138.26687622070312,
+      "bottom": 576.266845703125,
+      "panelHeight": 437.9999694824219,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "mobile": true,
+      "mode": "pause",
+      "phase": 1,
+      "viewport": [
+        360,
+        640
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 26.359375,
+      "right": 333.625,
+      "top": 138,
+      "bottom": 576,
+      "panelHeight": 438,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "mobile": true,
+      "mode": "repair",
+      "phase": 1,
+      "viewport": [
+        360,
+        640
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 18,
+      "right": 342,
+      "top": 143,
+      "bottom": 571,
+      "panelHeight": 428,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "mobile": true,
+      "mode": "repair",
+      "phase": 6,
+      "viewport": [
+        360,
+        640
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 18,
+      "right": 342,
+      "top": 143,
+      "bottom": 571,
+      "panelHeight": 428,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "mobile": true,
+      "mode": "repair",
+      "phase": 5,
+      "viewport": [
+        360,
+        640
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 18,
+      "right": 342,
+      "top": 143,
+      "bottom": 571,
+      "panelHeight": 428,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "mobile": true,
+      "mode": "question",
+      "phase": 9,
+      "viewport": [
+        360,
+        640
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 29,
+      "right": 331,
+      "top": 191.421875,
+      "bottom": 522.5625,
+      "panelHeight": 331.140625,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "mobile": true,
+      "mode": "skills",
+      "phase": 1,
+      "viewport": [
+        360,
+        640
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 27,
+      "right": 333,
+      "top": 152,
+      "bottom": 562,
+      "panelHeight": 410,
+      "descriptionWidths": [
+        252,
+        252,
+        252
+      ],
+      "unreachableControls": []
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "mobile": true,
+      "mode": "settings",
+      "phase": 1,
+      "viewport": [
+        360,
+        640
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 19,
+      "right": 341,
+      "top": 14,
+      "bottom": 626,
+      "panelHeight": 612,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "mode": "menu",
+      "phase": 1,
+      "viewport": [
+        844,
+        390
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 177,
+      "right": 667,
+      "top": 91,
+      "bottom": 359,
+      "panelHeight": 268,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "mode": "play",
+      "phase": 1,
+      "viewport": [
+        844,
+        390
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 11,
+      "right": 833,
+      "top": 91,
+      "bottom": 359,
+      "panelHeight": 268,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "mode": "intro",
+      "phase": 1,
+      "viewport": [
+        844,
+        390
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 11,
+      "right": 833,
+      "top": 91.2663803100586,
+      "bottom": 359.2663803100586,
+      "panelHeight": 268,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "mode": "pause",
+      "phase": 1,
+      "viewport": [
+        844,
+        390
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 177,
+      "right": 667,
+      "top": 91,
+      "bottom": 359,
+      "panelHeight": 268,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "mode": "repair",
+      "phase": 1,
+      "viewport": [
+        844,
+        390
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 21,
+      "right": 823,
+      "top": 101,
+      "bottom": 349,
+      "panelHeight": 248,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "mode": "repair",
+      "phase": 6,
+      "viewport": [
+        844,
+        390
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 21,
+      "right": 823,
+      "top": 101,
+      "bottom": 349,
+      "panelHeight": 248,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "mode": "repair",
+      "phase": 5,
+      "viewport": [
+        844,
+        390
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 21,
+      "right": 823,
+      "top": 101,
+      "bottom": 349,
+      "panelHeight": 248,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "mode": "question",
+      "phase": 9,
+      "viewport": [
+        844,
+        390
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 97,
+      "right": 747,
+      "top": 107,
+      "bottom": 343,
+      "panelHeight": 236,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "mode": "skills",
+      "phase": 1,
+      "viewport": [
+        844,
+        390
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 122,
+      "right": 722,
+      "top": 105,
+      "bottom": 345,
+      "panelHeight": 240,
+      "descriptionWidths": [
+        156.65625,
+        156.671875,
+        156.671875
+      ],
+      "unreachableControls": []
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "mobile": true,
+      "mode": "settings",
+      "phase": 1,
+      "viewport": [
+        844,
+        390
+      ],
+      "pageOverflow": false,
+      "panelOverflow": false,
+      "visible": true,
+      "left": 202,
+      "right": 642,
+      "top": 14,
+      "bottom": 376,
+      "panelHeight": 362,
+      "descriptionWidths": [],
+      "unreachableControls": []
+    }
+  ],
+  "input": {
+    "keyboard": {
+      "before": {
+        "x": 64,
+        "y": 1952,
+        "running": true,
+        "keys": [],
+        "repair": false
+      },
+      "after": {
+        "x": 121.375,
+        "y": 1952,
+        "running": true,
+        "keys": [],
+        "repair": false
+      },
+      "passed": true
+    },
+    "touch": {
+      "before": {
+        "x": 64,
+        "y": 1952,
+        "running": true,
+        "keys": [],
+        "repair": false
+      },
+      "after": {
+        "x": 136.25,
+        "y": 1952,
+        "running": true,
+        "keys": [],
+        "repair": false
+      },
+      "passed": true
+    }
+  },
+  "consoleErrors": [],
+  "exceptions": [],
+  "networkFailures": [],
+  "failures": [],
+  "captures": [
+    "ui-snapshots/1920x1080-menu-phase-01.png",
+    "ui-snapshots/1920x1080-play-phase-01.png",
+    "ui-snapshots/1920x1080-intro-phase-01.png",
+    "ui-snapshots/1920x1080-pause-phase-01.png",
+    "ui-snapshots/1920x1080-repair-phase-01.png",
+    "ui-snapshots/1920x1080-repair-phase-06.png",
+    "ui-snapshots/1920x1080-repair-phase-05.png",
+    "ui-snapshots/1920x1080-question-phase-09.png",
+    "ui-snapshots/1920x1080-skills-phase-01.png",
+    "ui-snapshots/1920x1080-settings-phase-01.png",
+    "ui-snapshots/1366x768-menu-phase-01.png",
+    "ui-snapshots/1366x768-play-phase-01.png",
+    "ui-snapshots/1366x768-intro-phase-01.png",
+    "ui-snapshots/1366x768-pause-phase-01.png",
+    "ui-snapshots/1366x768-repair-phase-01.png",
+    "ui-snapshots/1366x768-repair-phase-06.png",
+    "ui-snapshots/1366x768-repair-phase-05.png",
+    "ui-snapshots/1366x768-question-phase-09.png",
+    "ui-snapshots/1366x768-skills-phase-01.png",
+    "ui-snapshots/1366x768-settings-phase-01.png",
+    "ui-snapshots/1024x768-menu-phase-01.png",
+    "ui-snapshots/1024x768-play-phase-01.png",
+    "ui-snapshots/1024x768-intro-phase-01.png",
+    "ui-snapshots/1024x768-pause-phase-01.png",
+    "ui-snapshots/1024x768-repair-phase-01.png",
+    "ui-snapshots/1024x768-repair-phase-06.png",
+    "ui-snapshots/1024x768-repair-phase-05.png",
+    "ui-snapshots/1024x768-question-phase-09.png",
+    "ui-snapshots/1024x768-skills-phase-01.png",
+    "ui-snapshots/1024x768-settings-phase-01.png",
+    "ui-snapshots/800x600-menu-phase-01.png",
+    "ui-snapshots/800x600-play-phase-01.png",
+    "ui-snapshots/800x600-intro-phase-01.png",
+    "ui-snapshots/800x600-pause-phase-01.png",
+    "ui-snapshots/800x600-repair-phase-01.png",
+    "ui-snapshots/800x600-repair-phase-06.png",
+    "ui-snapshots/800x600-repair-phase-05.png",
+    "ui-snapshots/800x600-question-phase-09.png",
+    "ui-snapshots/800x600-skills-phase-01.png",
+    "ui-snapshots/800x600-settings-phase-01.png",
+    "ui-snapshots/390x844-menu-phase-01.png",
+    "ui-snapshots/390x844-play-phase-01.png",
+    "ui-snapshots/390x844-intro-phase-01.png",
+    "ui-snapshots/390x844-pause-phase-01.png",
+    "ui-snapshots/390x844-repair-phase-01.png",
+    "ui-snapshots/390x844-repair-phase-06.png",
+    "ui-snapshots/390x844-repair-phase-05.png",
+    "ui-snapshots/390x844-question-phase-09.png",
+    "ui-snapshots/390x844-skills-phase-01.png",
+    "ui-snapshots/390x844-settings-phase-01.png",
+    "ui-snapshots/360x640-menu-phase-01.png",
+    "ui-snapshots/360x640-play-phase-01.png",
+    "ui-snapshots/360x640-intro-phase-01.png",
+    "ui-snapshots/360x640-pause-phase-01.png",
+    "ui-snapshots/360x640-repair-phase-01.png",
+    "ui-snapshots/360x640-repair-phase-06.png",
+    "ui-snapshots/360x640-repair-phase-05.png",
+    "ui-snapshots/360x640-question-phase-09.png",
+    "ui-snapshots/360x640-skills-phase-01.png",
+    "ui-snapshots/360x640-settings-phase-01.png",
+    "ui-snapshots/844x390-menu-phase-01.png",
+    "ui-snapshots/844x390-play-phase-01.png",
+    "ui-snapshots/844x390-intro-phase-01.png",
+    "ui-snapshots/844x390-pause-phase-01.png",
+    "ui-snapshots/844x390-repair-phase-01.png",
+    "ui-snapshots/844x390-repair-phase-06.png",
+    "ui-snapshots/844x390-repair-phase-05.png",
+    "ui-snapshots/844x390-question-phase-09.png",
+    "ui-snapshots/844x390-skills-phase-01.png",
+    "ui-snapshots/844x390-settings-phase-01.png"
+  ],
+  "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+  "phaseLoading": [
+    {
+      "phase": 1,
+      "assetErrors": []
+    },
+    {
+      "phase": 2,
+      "assetErrors": []
+    },
+    {
+      "phase": 3,
+      "assetErrors": []
+    },
+    {
+      "phase": 4,
+      "assetErrors": []
+    },
+    {
+      "phase": 5,
+      "assetErrors": []
+    },
+    {
+      "phase": 6,
+      "assetErrors": []
+    },
+    {
+      "phase": 7,
+      "assetErrors": []
+    },
+    {
+      "phase": 8,
+      "assetErrors": []
+    },
+    {
+      "phase": 9,
+      "assetErrors": []
+    },
+    {
+      "phase": 10,
+      "assetErrors": []
+    }
+  ],
+  "reloadPersistence": {
+    "before": {
+      "phase": 2,
+      "x": 1984,
+      "y": 1952,
+      "xp": 37,
+      "components": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "enemies": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "skills": [
+        [
+          "armor",
+          2
+        ]
+      ],
+      "flag": true
+    },
+    "after": {
+      "phase": 2,
+      "x": 1984,
+      "y": 1952,
+      "xp": 37,
+      "components": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "enemies": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "skills": [
+        [
+          "armor",
+          2
+        ]
+      ],
+      "flag": true
+    },
+    "passed": true
+  },
+  "runtimeErrors": []
+}

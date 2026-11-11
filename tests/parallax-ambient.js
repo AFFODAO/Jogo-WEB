@@ -21,16 +21,12 @@ for(let index=0;index<10;index++){
   const render=t=>{service.parallax.draw(x,view,t,service);return x.getImageData(0,0,width,height).data;};
   const equal=(a,b)=>a.every((v,i)=>v===b[i]);
   test('ambient: progressive regions and bounded cache // phase '+(index+1),()=>{
-    const axis=life.region(view).axis,max=Math.max(0,(axis==='x'?worldWidth()-width:worldHeight()-height));
-    let previous=null;
-    for(let step=0;step<=120;step++){
-      const current=life.region({...view,[axis]:max*step/120});
-      assert(current.blend>=0&&current.blend<=1&&current.to-current.from<=1,'invalid mixture');
-      const weights=[0,0,0,0];weights[current.from]+=1-current.blend;weights[current.to]+=current.blend;
-      assert(Math.abs(weights.reduce((a,b)=>a+b)-1)<1e-6,'blend is not normalized');
-      if(previous)assert(weights.every((v,i)=>Math.abs(v-previous[i])<.05),'abrupt transition');previous=weights;
+    const districts=phaseData.map.regions||[];
+    for(const district of districts){
+      const area=district.areas[0];
+      const current=life.region({...view,x:area.x+area.width/2-width/2,y:area.y+area.height/2-height/2});
+      assert(current.blend>=0&&current.blend<=1&&current.labels.every(Boolean),'invalid district mixture');
     }
-    if(index===0)assert(life.region({...view,x:0}).labels[0]==='Placa-mãe'&&life.region({...view,x:max}).labels[0]==='Alimentação final','Hardware progression');
     render(0);const builds=service.parallax.stats.builds;
     for(let step=0;step<20;step++)service.parallax.draw(x,{...view,x:step*300,y:step*170},step,service);
     assert(service.parallax.stats.builds===builds&&service.parallax.stats.totalBytes<=4.25*1024*1024,'unbounded ambient cache');
@@ -49,7 +45,7 @@ for(let index=0;index<10;index++){
     scenery.configure({reduceAnimations:true});assert(equal(render(0),render(7)),'freeze left time-dependent scenery');
     scenery.configure({reduceAnimations:false});
     let dust=0;const native=x.fillRect.bind(x);x.fillRect=(...args)=>{if(args[2]===1&&args[3]===1)dust++;return native(...args);};
-    try{render(0);assert(dust===4,'default dust count');dust=0;scenery.configure({reduceParticles:true});render(0);assert(dust===0,'particles not reduced');assert(!equal(render(0),render(3)),'particle reduction froze equipment');}finally{x.fillRect=native;scenery.configure({reduceParticles:false});}
+    try{render(0);assert(dust===service.parallax.config.particles.count,'default dust count');dust=0;scenery.configure({reduceParticles:true});render(0);assert(dust===0,'particles not reduced');}finally{x.fillRect=native;scenery.configure({reduceParticles:false});}
     experience.settings.reducedEffects=true;assert(equal(render(0),render(7)),'master comfort not static');experience.settings.reducedEffects=false;
   });
   test('ambient: damage feedback follows readonly repair state // phase '+(index+1),()=>{

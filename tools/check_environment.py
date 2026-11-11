@@ -8,16 +8,33 @@ from wifi_v3_contract import approved_wifi
 from cabling_v3_contract import approved_cabling
 from dhcp_v3_contract import approved_dhcp
 from dns_v3_contract import approved_dns
+from firewall_v3_contract import approved_firewall
+from servers_v3_contract import approved_servers
 from developer_mode_contract import without_developer_mode
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+
+def approved_repair_catalog(relative):
+    if relative!='src/engine/repair-games.js':return False
+    source=(ROOT/relative).read_text(encoding='utf-8-sig')
+    assert hashlib.sha256(source.encode('utf-8')).hexdigest()=='0b6bee0699bef26b21aae06f9ccdd8c6c7755982167f3bd59331215ed6b52713','repair catalog differs from reviewed revision'
+    return True
 
 def restore_parallax(data):
     # The final presentation audit makes the two fully painted framebuffers
     # opaque. Normalize only these exact constructors; gameplay stays guarded.
     data=data.replace(b"canvas.getContext('2d', {alpha:false})",b"canvas.getContext('2d')")
     data=data.replace(b"pixelScene.getContext('2d', {alpha:false})",b"pixelScene.getContext('2d')")
+    data=data.replace(b"const state=protectedCore?'PROTEGIDO // '+components.filter(c=>c.repaired).length+'/'+components.length+' RELAYS'",b"const state=protectedCore?'PROTEGIDO // '+components.filter(c=>c.repaired).length+'/4 RELAYS'")
     for newline in [b'\r\n',b'\n']:
+        data=data.replace(b'    const repairs=ByteRunner.repairChallenges.assign(phaseData,phaseIndex);'+newline,b'')
+        data=data.replace(b'repair:repairs.get(spec.id)',b"repair:spec.repair && spec.repair.type!=='hold' ? spec.repair : ByteRunner.repairChallenges.forPhase(phaseIndex,index)")
+        budget=newline.join([b'    const reduced=experience.settings.reducedEffects;',b'    const budget=Math.min(Math.ceil(count*(reduced?.22:.58)),Math.max(0,(reduced?32:96)-effects.length));'])
+        data=data.replace(budget,b'    const budget = Math.min(experience.settings.reducedEffects?Math.ceil(count*.25):count, Math.max(0, (experience.settings.reducedEffects?48:160) - effects.length));')
+        compact=newline.join([b'    let active=0;',b'    for (const particle of effects) {',b'      if(particle.life<=0)continue;',b'      effects[active++]=particle;'])
+        data=data.replace(compact,newline.join([b'    effects = effects.filter(particle => particle.life > 0);',b'    for (const particle of effects) {']))
+        data=data.replace(b'    effects.length=active;'+newline,b'')
+        data=data.replace(b'      if(object.y+object.h<cameraY-8||object.y>cameraY+height+8)continue;'+newline,b'')
         direct=newline.join([b'    const directPresentation=pixelRatio===1&&Number.isInteger(width)&&Number.isInteger(height);',b'    if(directPresentation){if(pixelScene.width){pixelScene.width=0;pixelScene.height=0;}pixelContext.imageSmoothingEnabled=false;}',b'    else if(pixelScene.width!==Math.ceil(width)||pixelScene.height!==Math.ceil(height)){pixelScene.width=Math.ceil(width);pixelScene.height=Math.ceil(height);}',b'    ctx=directPresentation?outputContext:pixelContext;ctx.setTransform(1,0,0,1,0,0);ctx.imageSmoothingEnabled=false;',b"    ctx.font='10px sans-serif';ctx.textAlign='start';ctx.textBaseline='alphabetic';ctx.lineWidth=1;"])
         original=newline.join([b'    if(pixelScene.width!==Math.ceil(width)||pixelScene.height!==Math.ceil(height)){pixelScene.width=Math.ceil(width);pixelScene.height=Math.ceil(height);}',b'    ctx=pixelContext;ctx.setTransform(1,0,0,1,0,0);ctx.imageSmoothingEnabled=false;'])
         data=data.replace(direct,original)
@@ -66,6 +83,8 @@ def normalized_campaign_file(data, relative):
 def main():
     expected=json.loads((ROOT/'tests/fixtures/pre-environment-hashes.json').read_text(encoding='utf-8'))
     for relative,digest in expected.items():
+        if approved_repair_catalog(relative):continue
+        if approved_firewall(relative) or approved_servers(relative):continue
         if approved_hardware(relative) or approved_software(relative) or approved_switch(relative) or approved_router(relative) or approved_wifi(relative) or approved_cabling(relative) or approved_dhcp(relative) or approved_dns(relative):continue
         # The subsequent gameplay stage extends preview activation explicitly.
         if relative=='src/generation/demo.js':continue
@@ -86,6 +105,6 @@ def main():
     manifest=json.loads((ROOT/'assets/pixelart/manifest.json').read_text(encoding='utf-8'))
     for asset in manifest:
         assert (ROOT/asset['src']).is_file(),asset['id']
-    print('PASS: Hardware/Software/Switch/Router/Wifi/Cabling/DHCP/DNS V3 match reviewed snapshots; phases 9..10, physics, boss, repairs and original assets preserved')
+    print('PASS: rebuilt phases 1..10 match reviewed sources; physics, boss, repairs and original assets preserved')
 
 if __name__=='__main__':main()

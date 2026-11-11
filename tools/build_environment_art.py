@@ -5,7 +5,7 @@ Then extend: python tools/build_environment_art.py --all
 """
 import argparse,json
 from pathlib import Path
-from pixelart.raster import Raster,panel,circuit
+from pixelart.raster import Raster,color,panel,circuit
 from pixelart.environment import PALETTES as ORIGINAL,decor
 from pixelart.identities import paint as identity_vista
 
@@ -52,20 +52,45 @@ def texture(p,n,f):
     else:
         for y in [3,13,23]:panel(p,3,y,26,8,dark,mid,dark);p.rect(6,y+2,2,2,neon);p.rect(11,y+2,2,2,'#79e8c8');p.rect(17,y+3,9,1,mid)
 
+def blend(a,b,weight):
+    return tuple(round(x+(y-x)*weight) for x,y in zip(color(a),color(b)))
+
 def terrain(p,state,f,n):
     dark,base,mid,neon,light=PALETTES[n]
     if state.startswith('inner-'):
         k=int(state[-1]);x=0 if k in [0,3] else 29;y=0 if k<2 else 29
         p.rect(x,y,3,3,dark);p.rect(x+(1 if x==0 else 0),y+(1 if y==0 else 0),2,2,neon)
         return
-    texture(p,n,f)
+    # Preserve the theme silhouette while leaving quiet panels between motifs.
+    quiet=f in (2,6)
+    fill=blend(base,dark,.18 if quiet else .08)
+    p.rect(0,0,32,32,fill)
+    if quiet:
+        p.rect(5,8,22,16,blend(fill,dark,.23))
+        p.rect(7,9,18,1,blend(fill,mid,.30))
+    else:
+        sample=Raster(32,32)
+        texture(sample,n,f)
+        muted={}
+        for y in range(4,29):
+            for x in range(3,29):
+                sx=31-x if f&1 else x
+                sy=32-y if f&4 else y
+                pos=(sy*32+sx)*4
+                ink=tuple(sample.data[pos:pos+4])
+                if ink not in muted:muted[ink]=blend(fill,ink,.38)
+                p.pixel(x,y,muted[ink])
     mask=int(state.split('-')[1])
-    if not mask&1:p.rect(0,0,32,4,dark);p.rect(0,1,32,1,light);p.rect(0,3,32,1,neon)
+    if not mask&1:
+        p.rect(0,0,32,4,dark)
+        p.rect(0,1,32,1,blend(mid,light,.58))
+        p.rect(0,3,32,1,blend(base,neon,.30))
+        if f in (0,5):p.rect(9,1,8,1,blend(mid,light,.85))
     if not mask&2:p.rect(29,0,3,32,dark);p.rect(29,1,1,30,mid)
     if not mask&4:p.rect(0,29,32,3,dark);p.rect(1,29,30,1,mid)
     if not mask&8:p.rect(0,0,3,32,dark);p.rect(1,1,1,30,mid)
-    if mask!=15:
-        for x,y in [(5,6),(26,6),(5,25),(26,25)]:p.pixel(x,y,light if (x+y+f)%3 else mid)
+    if mask!=15 and not quiet:
+        for x,y in [(5,6),(26,6),(5,25),(26,25)]:p.pixel(x,y,blend(base,mid,.65))
 
 def structure(p,state,f,n):
     dark,base,mid,neon,light=PALETTES[n]
@@ -205,8 +230,12 @@ def atlas(name,cell,states,painter,n):
     return {'id':f'{name}-{n+1:02}','src':path.relative_to(ROOT).as_posix(),'frameWidth':cell,'frameHeight':cell,'columns':8,'pixelArt':True,'animations':animations,**({'spatialVariants':True,'emptyFrames':empty_frames,'frameBounds':frame_bounds} if name=='vista' else {})}
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--phase',type=int,choices=range(1,11));parser.add_argument('--all',action='store_true');parser.add_argument('--parallax-all',action='store_true');parser.add_argument('--parallax-hardware',action='store_true');parser.add_argument('--parallax-phase',type=int,choices=range(1,11));args=parser.parse_args()
-    if not args.all and args.phase is None and not args.parallax_hardware and not args.parallax_all and args.parallax_phase is None:parser.error('choose --phase N, --all or --parallax-phase N')
+    parser=argparse.ArgumentParser();parser.add_argument('--phase',type=int,choices=range(1,11));parser.add_argument('--all',action='store_true');parser.add_argument('--terrain-all',action='store_true');parser.add_argument('--parallax-all',action='store_true');parser.add_argument('--parallax-hardware',action='store_true');parser.add_argument('--parallax-phase',type=int,choices=range(1,11));args=parser.parse_args()
+    masks=[f'mask-{i}' for i in range(16)]+[f'inner-{i}' for i in range(4)]
+    if args.terrain_all:
+        for n in range(10):atlas('terrain',32,masks,terrain,n)
+        print('Rebuilt ten terrain atlases with unchanged frame layout');return
+    if not args.all and args.phase is None and not args.parallax_hardware and not args.parallax_all and args.parallax_phase is None:parser.error('choose --phase N, --all, --terrain-all or --parallax-phase N')
     manifest_path=ROOT/'assets/pixelart/manifest.json';manifest=json.loads(manifest_path.read_text(encoding='utf-8'));by_id={a['id']:a for a in manifest}
     if args.parallax_all:
         for n in range(10):
@@ -221,7 +250,7 @@ def main():
         print(f'Phase {n+1}: authored parallax only; terrain, actors and other phase atlases unchanged');return
     phases=range(10) if args.all else [args.phase-1]
     for n in phases:
-        for asset in [atlas('terrain',32,[f'mask-{i}' for i in range(16)]+[f'inner-{i}' for i in range(4)],terrain,n),atlas('structure',128,['structure'],structure,n),atlas('vista',128,vista_states(n),vista,n)]:by_id[asset['id']]=asset
+        for asset in [atlas('terrain',32,masks,terrain,n),atlas('structure',128,['structure'],structure,n),atlas('vista',128,vista_states(n),vista,n)]:by_id[asset['id']]=asset
         print(f'Phase {n+1}: terrain (16 masks + 4 inner corners), animated structures, {4 if n==0 else 3} parallax planes')
     manifest=list(by_id.values());manifest_path.write_text(json.dumps(manifest,indent=2),encoding='utf-8');(ROOT/'src/engine/art-manifest.js').write_text('ByteRunner.artAssets = '+json.dumps(manifest)+';\n',encoding='utf-8')
     # Native-pixel Hardware reference: all connection masks and the hero structure.

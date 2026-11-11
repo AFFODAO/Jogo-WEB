@@ -9,7 +9,7 @@ test('architecture: all layouts distinct, hybrid campaign preserves authored con
     return current;
   }
   PHASES.forEach((phase,index)=>{
-    assert(phase.revision===(index<8?5:3)&&phase.map.ground.mode==='explicit'&&canonical(phase.entities.platforms)!==canonical(MAP_BASELINE[index].entities.platforms),'layout was not rebuilt: '+phase.id);
+    assert(phase.revision===5&&phase.map.ground.mode==='explicit'&&canonical(phase.entities.platforms)!==canonical(MAP_BASELINE[index].entities.platforms),'layout was not rebuilt: '+phase.id);
     if(index===0){
       assert(phase.generation.rooms.length===22&&phase.map.regions.length===6&&phase.entities.components.length===4&&phase.entities.enemies.length===13,'Hardware V3 content contract');
       assert(phase.generation.rooms.some(r=>r.source.kind==='manual')&&phase.generation.rooms.some(r=>r.source.kind==='procedural'),'Hardware V3 hybrid sources');
@@ -40,6 +40,10 @@ test('architecture: all layouts distinct, hybrid campaign preserves authored con
       assert(phase.generation.rooms.length===33&&phase.map.regions.length===6&&phase.entities.components.length===7,'DNS complex content');
       assert(phase.generation.recipe.connectivity==='portal-network'&&phase.generation.architecture.portalEdges.length===24,'DNS portal architecture');
       assert(phase.generation.architecture.optionalEnemies.length===4,'NXDOMAIN optional enemies');
+    }else if(index===8){
+      assert(phase.map.regions.length===6&&phase.entities.components.length===8&&phase.entities.enemies.length===25,'Firewall fortress content');
+    }else if(index===9){
+      assert(phase.map.regions.length===7&&phase.entities.components.length===12&&phase.completion.enemyId==='e08','Data center and final arena contract');
     }
     assert(Object.isFrozen(phase)&&Object.isFrozen(phase.entities.platforms),'map definitions are mutable');
   });

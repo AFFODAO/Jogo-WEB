@@ -1,0 +1,895 @@
+{
+  "phases": [],
+  "systems": {
+    "final audit: campaign / wifi / phase-05-review-alpha": "PASS",
+    "final audit: campaign / wifi / phase-05-review-beta": "PASS",
+    "final audit: campaign / wifi / phase-05-review-gamma": "PASS",
+    "final audit: procedural / wifi / phase-05-review-alpha": "PASS",
+    "final audit: procedural / wifi / phase-05-review-beta": "PASS",
+    "final audit: procedural / wifi / phase-05-review-gamma": "PASS",
+    "final audit: compare structures and identity / wifi": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cases": [
+    {
+      "scope": "campaign",
+      "seed": "phase-05-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 254,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "main-array:uplink",
+              "accessible": true
+            },
+            {
+              "id": "repeater-west:west",
+              "accessible": true
+            },
+            {
+              "id": "repeater-east:east",
+              "accessible": true
+            },
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink"
+          ],
+          "surfaces": 255,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "repeater-west:west",
+              "accessible": true
+            },
+            {
+              "id": "repeater-east:east",
+              "accessible": true
+            },
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west"
+          ],
+          "surfaces": 256,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "repeater-east:east",
+              "accessible": true
+            },
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east"
+          ],
+          "surfaces": 257,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east",
+            "noise-center:spectrum"
+          ],
+          "surfaces": 258,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return",
+            "noise-center:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east",
+            "noise-center:spectrum",
+            "transmit-west:carrier"
+          ],
+          "surfaces": 259,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return",
+            "noise-center:return",
+            "transmit-west:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east",
+            "noise-center:spectrum",
+            "transmit-west:carrier",
+            "base-west:association"
+          ],
+          "surfaces": 261,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return",
+            "noise-center:return",
+            "transmit-west:return",
+            "base-west:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 26.399999976158142,
+      "signature": "02ea1e87",
+      "rooms": 27,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 16,
+      "surfaces": 261
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-05-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 254,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "main-array:uplink",
+              "accessible": true
+            },
+            {
+              "id": "repeater-west:west",
+              "accessible": true
+            },
+            {
+              "id": "repeater-east:east",
+              "accessible": true
+            },
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink"
+          ],
+          "surfaces": 255,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "repeater-west:west",
+              "accessible": true
+            },
+            {
+              "id": "repeater-east:east",
+              "accessible": true
+            },
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west"
+          ],
+          "surfaces": 256,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "repeater-east:east",
+              "accessible": true
+            },
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east"
+          ],
+          "surfaces": 257,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east",
+            "noise-center:spectrum"
+          ],
+          "surfaces": 258,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return",
+            "noise-center:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east",
+            "noise-center:spectrum",
+            "transmit-west:carrier"
+          ],
+          "surfaces": 259,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return",
+            "noise-center:return",
+            "transmit-west:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east",
+            "noise-center:spectrum",
+            "transmit-west:carrier",
+            "base-west:association"
+          ],
+          "surfaces": 261,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return",
+            "noise-center:return",
+            "transmit-west:return",
+            "base-west:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 43.60000002384186,
+      "signature": "02ea1e87",
+      "rooms": 27,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 16,
+      "surfaces": 261
+    },
+    {
+      "scope": "campaign",
+      "seed": "phase-05-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 254,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "main-array:uplink",
+              "accessible": true
+            },
+            {
+              "id": "repeater-west:west",
+              "accessible": true
+            },
+            {
+              "id": "repeater-east:east",
+              "accessible": true
+            },
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink"
+          ],
+          "surfaces": 255,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "repeater-west:west",
+              "accessible": true
+            },
+            {
+              "id": "repeater-east:east",
+              "accessible": true
+            },
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west"
+          ],
+          "surfaces": 256,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "repeater-east:east",
+              "accessible": true
+            },
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east"
+          ],
+          "surfaces": 257,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "noise-center:spectrum",
+              "accessible": true
+            },
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east",
+            "noise-center:spectrum"
+          ],
+          "surfaces": 258,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "transmit-west:carrier",
+              "accessible": true
+            },
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return",
+            "noise-center:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east",
+            "noise-center:spectrum",
+            "transmit-west:carrier"
+          ],
+          "surfaces": 259,
+          "exit": false,
+          "remainingRepairs": [
+            {
+              "id": "base-west:association",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return",
+            "noise-center:return",
+            "transmit-west:return"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "main-array:uplink",
+            "repeater-west:west",
+            "repeater-east:east",
+            "noise-center:spectrum",
+            "transmit-west:carrier",
+            "base-west:association"
+          ],
+          "surfaces": 261,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "main-array:return",
+            "repeater-west:return",
+            "repeater-east:return",
+            "noise-center:return",
+            "transmit-west:return",
+            "base-west:return"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 40.80000001192093,
+      "signature": "02ea1e87",
+      "rooms": 27,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 6,
+      "checkpoints": 16,
+      "surfaces": 261
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-05-review-alpha",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 122,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 123,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 58.69999998807907,
+      "signature": "edde6010",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 1,
+      "checkpoints": 12,
+      "surfaces": 123
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-05-review-beta",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": []
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r9:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 117,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r9:relay"
+          ],
+          "surfaces": 118,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r8:cache-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 85.89999997615814,
+      "signature": "70bf88d2",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 2,
+      "checkpoints": 12,
+      "surfaces": 118
+    },
+    {
+      "scope": "procedural",
+      "seed": "phase-05-review-gamma",
+      "status": "PASS",
+      "states": [
+        {
+          "afterRepairs": [],
+          "surfaces": 115,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r4:relay",
+              "accessible": true
+            },
+            {
+              "id": "r10:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay"
+          ],
+          "surfaces": 115,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r10:relay",
+              "accessible": true
+            },
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r10:relay"
+          ],
+          "surfaces": 115,
+          "exit": true,
+          "remainingRepairs": [
+            {
+              "id": "r11:relay",
+              "accessible": true
+            }
+          ],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r10:relay",
+            "r11:relay"
+          ],
+          "surfaces": 115,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        },
+        {
+          "afterRepairs": [
+            "r4:relay",
+            "r10:relay",
+            "r11:relay"
+          ],
+          "surfaces": 116,
+          "exit": true,
+          "remainingRepairs": [],
+          "activePortals": [
+            "r4:service-out",
+            "r5:cache-back",
+            "bus-out",
+            "bus-back"
+          ]
+        }
+      ],
+      "generationAndReplayMs": 70.20000004768372,
+      "signature": "6a45db25",
+      "rooms": 12,
+      "unprovenPlatforms": [],
+      "embedded": [],
+      "repairs": 3,
+      "checkpoints": 12,
+      "surfaces": 116
+    }
+  ],
+  "phase": 5,
+  "theme": "wifi",
+  "seeds": [
+    "phase-05-review-alpha",
+    "phase-05-review-beta",
+    "phase-05-review-gamma"
+  ],
+  "structuralVariety": {
+    "campaign": 1,
+    "procedural": 3
+  },
+  "execution": {
+    "sourceSha256": "4c09c52fc63ebbe7b0c383a244633de1f7c3d87409cca32748094feec7e25778",
+    "atUTC": "2026-11-10T23:48:07.738614+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}
