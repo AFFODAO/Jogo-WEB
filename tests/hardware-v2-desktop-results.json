@@ -1,0 +1,21 @@
+{
+  "phases": [],
+  "systems": {
+    "hardware v2: CPU rejects orientation, then locks and activates automatically": "PASS",
+    "hardware v2: three DIMMs require matching notches and unique empty slots": "PASS",
+    "hardware v2: power connectors reject mismatched pin counts before activation": "PASS",
+    "hardware v2: replacement fan needs removal, four mounts and cable before cooling": "PASS",
+    "hardware v2: only Stage 1 mappings change and the four objectives persist": "PASS",
+    "hardware v2: laboratory controls retain DOM, rotate the held CPU and reject bad DIMMs": "PASS",
+    "hardware v2: cooling and socket activation freeze when the session pauses": "PASS",
+    "hardware v2: reduced motion freezes blades while cooling remains functional": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "03ebcee1b918f5417aaa422c1106b6522dffe740140d59e43fd097916ad16863",
+    "atUTC": "2026-11-12T00:54:36.777588+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

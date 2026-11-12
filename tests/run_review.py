@@ -73,6 +73,9 @@ def main():
     if '--frame-pacing' in sys.argv:focused='parallax-frame-pacing'
     if '--visual-finish' in sys.argv:focused='visual-finish'
     if '--repairs-only' in sys.argv:focused='repairs'
+    if '--repairs-v2' in sys.argv:focused='repairs-v2'
+    if '--hardware-repairs' in sys.argv:focused='repairs-hardware-v2'
+    if '--software-repairs' in sys.argv:focused='repairs-software-v2'
     if '--final-map-comparison' in sys.argv:focused='final-map-comparison'
     if '--rebuild-v3-architecture' in sys.argv:focused='rebuild-v3-architecture'
     phase_number=int(sys.argv[sys.argv.index('--phase')+1]) if '--phase' in sys.argv else None
@@ -93,7 +96,7 @@ def main():
     architecture += '\n'+(ROOT/'tests/last-five.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/enemies.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/art.js').read_text(encoding='utf-8')
-    architecture += '\n'+(ROOT/'tests/repairs.js').read_text(encoding='utf-8')
+    architecture += '\nconst previousRepairEngineForLegacyTests=ByteRunner.repairV2.enabled;ByteRunner.repairV2.enabled=false;\n'+(ROOT/'tests/repairs.js').read_text(encoding='utf-8')+'\nByteRunner.repairV2.enabled=previousRepairEngineForLegacyTests;\n'
     architecture += '\n'+(ROOT/'tests/experience.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/audit.js').read_text(encoding='utf-8')
     architecture += '\n'+(ROOT/'tests/pixelart.js').read_text(encoding='utf-8')
@@ -132,6 +135,7 @@ def main():
         inventory=json.loads((ROOT/'tests/rebuild-v3-baseline/inventory.json').read_text(encoding='utf-8'))['inventory']
         hook='const HISTORICAL_MAPS='+json.dumps([row['definition'] for row in inventory])+';\n'+hook
     hook = 'const ENVIRONMENT_HARDWARE_ONLY='+str('--environment-hardware' in sys.argv).lower()+';\n'+hook
+    hook = (ROOT/'tests/repairs-v2.js').read_text(encoding='utf-8').split("\ntest(",1)[0]+'\n'+hook
     hook = '(async()=>{\n' + hook + '\n})().catch(error=>{document.body.innerHTML="<pre id=review-result>"+JSON.stringify({phases:[],systems:{fatal:error.stack}})+"</pre>";});'
     if '--capture-map-baseline' in sys.argv:
         hook = 'const mapBaseline = JSON.parse(JSON.stringify(PHASES));\n' + hook.replace('const output=document.createElement', 'report.mapBaseline=mapBaseline;\nconst output=document.createElement')
@@ -164,6 +168,8 @@ def main():
             query='?procedural=pcb-alpha&rooms=12&difficulty=2&optional=0.4&gameplay=0' if focused=='procedural-demo' else ''
             if focused=='map-debug':query='?dev=1'
             if focused=='gameplay-demo':query='?procedural=gameplay-save&rooms=12&difficulty=3&theme=hardware'
+            if focused=='repairs' or '--legacy-repairs' in sys.argv:
+                query+=('&' if query else '?')+'repairs=legacy'
             report=run_page(target,f'http://127.0.0.1:{server.server_port}/index.html'+query)
         finally:
             server.shutdown()

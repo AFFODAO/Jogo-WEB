@@ -1,5 +1,6 @@
 // Solve through DOM controls; no success flags are assigned by these tests.
 function solveRepairUI(session=repairSession) {
+  if(session.engine==='v2')return solvePhysicalRepairUI(session);
   const m=session.model,host=document.getElementById('repairContent');
   const click=id=>host.querySelector('#repair-'+id).click();
   if(m.kind==='equipment'){
@@ -48,6 +49,41 @@ function solveRepairUI(session=repairSession) {
   } else throw new Error('Unknown repair interaction: '+m.kind);
   host.querySelector('#repair-verify').click();
 }
+test('repairs: shared scene scales coordinates and owns gesture lifecycle',()=>{
+  const host=document.createElement('div');host.style.width='320px';document.body.append(host);
+  const api=ByteRunner.repairScene;
+  let enabled=true,moves=0,cancels=0,ends=0,commits=0,ticks=0,valid=false;
+  const scene=api.create(host,{width:640,height:360,isActive:()=>enabled});
+  const handle=document.createElement('button');handle.textContent='Encaixar';scene.stage.append(handle);
+  handle.setPointerCapture=()=>{};handle.releasePointerCapture=()=>{};
+  scene.bindPointer(handle,{move:()=>moves++,cancel:()=>cancels++,end:()=>ends++});
+  const send=(type,id=7)=>handle.dispatchEvent(new PointerEvent(type,{pointerId:id,isPrimary:true,button:0,clientX:30,clientY:40,bubbles:true}));
+  try{
+    scene.fit();const rect=scene.stage.getBoundingClientRect();
+    const p=scene.point(rect.left+rect.width/2,rect.top+rect.height/2);
+    assert(Math.abs(p.x-320)<.01&&Math.abs(p.y-180)<.01,'scaled pointer coordinates drifted');
+    assert(Math.abs(host.getBoundingClientRect().height-180)<1,'responsive scene height incorrect');
+    send('pointerdown');send('pointermove',8);assert(moves===0,'secondary pointer stole gesture');
+    send('pointermove');scene.setPaused(true);send('pointerup');
+    assert(moves===1&&cancels===1&&ends===0,'pause committed an unfinished gesture');
+    scene.setPaused(false);send('pointerdown');send('pointerup');assert(ends===1,'valid gesture did not end');
+    send('pointerdown');send('lostpointercapture');assert(cancels===2,'lost capture did not cancel');
+    const complete=scene.completion(()=>valid,()=>commits++);
+    assert(!complete()&&commits===0,'invalid state committed');valid=true;enabled=false;
+    assert(!complete(),'inactive scene committed');enabled=true;
+    assert(complete()&&!complete()&&commits===1,'success was not one-shot');
+    scene.onTick(dt=>{ticks+=dt;});scene.update(5);assert(ticks===.05,'resume delta not clamped');
+    scene.setPaused(true);scene.update(1);assert(ticks===.05,'paused machinery advanced');scene.setPaused(false);
+    assert(api.angleDelta(179,-179)===2&&api.snap(43,15)===45,'rotation helpers failed');
+    document.body.classList.add('reduced-effects');
+    try{assert(scene.animate(handle,[{opacity:0},{opacity:1}])===null,'reduced motion animated');}
+    finally{document.body.classList.remove('reduced-effects');}
+    send('pointerdown');scene.dispose();send('pointerdown');send('pointermove');
+    assert(cancels===3&&moves===1&&!host.children.length,'disposal leaked gesture or DOM');
+    scene.dispose();
+  }finally{scene.dispose();host.remove();}
+});
+
 test('repairs: circuit panel tracks live power, focus and reset',()=>{
   const session=ByteRunner.repairs.create({type:'circuit',stage:9,seed:'panel'}, {});
   const panel=document.getElementById('repairPanel'),host=document.getElementById('repairContent');
@@ -75,6 +111,93 @@ test('repairs: circuit panel tracks live power, focus and reset',()=>{
     panel.hidden=true;
   }
 });
+test('repairs: physical cables preserve anchors, reject empty drops and clean up',()=>{
+  const panel=document.getElementById('repairPanel'),host=document.getElementById('repairContent');
+  panel.hidden=false;
+  for(const [type,pointerType] of [['ethernet','mouse'],['cabling','touch']]){
+    const session=ByteRunner.repairs.create({type,seed:'physical-cable'},{});
+    const originalHitTest=document.elementFromPoint;
+    try{
+      session.mount(host);
+      const prefix=type==='ethernet'?'port':'wire';
+      const source=host.querySelector('#repair-'+prefix+'-0');
+      const destination=host.querySelector(type==='ethernet'?'#repair-socket-1':'#repair-wire-1');
+      source.setPointerCapture=()=>{}; // Synthetic pointers have no browser capture registration.
+      const board=host.querySelector('.repair-board'),path=host.querySelector('.repair-cables path');
+      const before=path.getAttribute('d'),values=[...session.model.values];
+      const send=(event,x,y)=>source.dispatchEvent(new PointerEvent(event,{bubbles:true,pointerId:31,pointerType,isPrimary:true,button:0,clientX:x,clientY:y}));
+      document.elementFromPoint=()=>null;
+      send('pointerdown',30,40);send('pointermove',120,160);
+      assert(board===host.querySelector('.repair-board')&&path===host.querySelector('.repair-cables path'),'drag rebuilt DOM');
+      assert(path.getAttribute('d')!==before&&path.getAttribute('d').split(' C ')[0]===before.split(' C ')[0],'opposite endpoint moved');
+      assert(host.querySelectorAll('.repair-compatible').length>0,'compatible sockets missing');
+      send('pointerup',120,160);
+      assert(JSON.stringify(values)===JSON.stringify(session.model.values)&&path.getAttribute('d')===before,'invalid drop changed model or did not snap back');
+      assert(!host.querySelector('.repair-compatible'),'drop highlight leaked');
+      send('pointerdown',30,40);document.elementFromPoint=()=>destination;send('pointermove',180,220);send('pointerup',180,220);
+      if(type==='ethernet')assert(session.model.values[0]===session.model.options[1],'ethernet drag failed');
+      else assert(session.model.values[0]===values[1]&&session.model.values[1]===values[0],'cable swap drag failed');
+      const detached=host.querySelector('.repair-board');
+      session.dispose();
+      assert(!detached.getAnimations({subtree:true}).length,'animations survived close');
+      assert(!host.children.length,'closed cable DOM remains');
+    }finally{document.elementFromPoint=originalHitTest;session.dispose();}
+  }
+  panel.hidden=true;
+});
+
+test('repairs: circuit motion honors reduced motion and preserves validation',()=>{
+  const panel=document.getElementById('repairPanel'),host=document.getElementById('repairContent');
+  const originalMatchMedia=window.matchMedia;
+  panel.hidden=false;
+  const session=ByteRunner.repairs.create({type:'circuit',seed:'physical-circuit'},{});
+  try{
+    session.mount(host);
+    host.querySelector('#repair-cell-0').click();
+    assert(host.querySelectorAll('.repair-tile-led').length===session.model.values.length,'tile LEDs missing');
+    window.matchMedia=()=>({matches:true});
+    host.querySelector('#repair-cell-0').click();
+    assert(!host.querySelector('.repair-plate').getAnimations().length,'reduced motion still rotates');
+    solveRepairUI(session);
+    assert(host.querySelector('.repair-console').dataset.ready==='true'&&session.model.check(session.model),'animated circuit no longer validates');
+    const detached=host.querySelector('.repair-console');session.dispose();
+    assert(!detached.getAnimations({subtree:true}).length,'circuit animations survived close');
+  }finally{window.matchMedia=originalMatchMedia;session.dispose();panel.hidden=true;}
+});
+
+test('repairs: polish preserves DOM, input ownership and close semantics',()=>{
+  const panel=document.getElementById('repairPanel'),host=document.getElementById('repairContent');panel.hidden=false;
+  let session=ByteRunner.repairs.create({type:'files',seed:'polish'},{});
+  try{
+    session.mount(host);
+    const board=host.querySelector('.repair-board'),part=host.querySelector('#repair-part-0');
+    part.click();assert(host.querySelector('.repair-board')===board&&part.getAttribute('aria-pressed')==='true','selection rebuilt DOM or lost state');
+    part.click();assert(part.getAttribute('aria-pressed')==='false','selection listener duplicated');
+    session.dispose();
+    const selected=session.model.selected;part.click();assert(session.model.selected===selected,'disposed listener still runs');
+    const ghost=document.querySelector('.repair-exit');
+    if(ghost)assert(ghost.inert&&ghost.getAttribute('aria-hidden')==='true'&&!ghost.querySelector('[id]'),'exit copy is interactive or duplicates IDs');
+    session=ByteRunner.repairs.create({type:'circuit',seed:'polish'},{});session.mount(host);
+    assert(!document.querySelector('.repair-exit'),'opening kept previous exit copy');
+    const circuit=host.querySelector('.repair-board'),tile=host.querySelector('#repair-cell-0'),initial=session.model.values[0];
+    for(let i=0;i<4;i++)tile.click();
+    assert(circuit===host.querySelector('.repair-board')&&tile===host.querySelector('#repair-cell-0'),'rotation rebuilt DOM');
+    assert(session.model.values[0]===initial,'four clicks rotated more or less than 360 degrees');
+    session.verify();assert(host.querySelector('.repair-console').dataset.feedback==='error'&&session.mistakes===1,'error feedback changed verification rules');
+  }finally{session.dispose();panel.hidden=true;}
+});
+
+test('repairs: reduced effects suppress programmatic polish motion',()=>{
+  const panel=document.getElementById('repairPanel'),host=document.getElementById('repairContent'),wasReduced=document.body.classList.contains('reduced-effects');
+  const session=ByteRunner.repairs.create({type:'circuit',seed:'reduced-polish'},{});
+  panel.hidden=false;document.body.classList.add('reduced-effects');
+  try{
+    session.mount(host);host.querySelector('#repair-cell-0').click();session.verify();
+    assert(!host.getAnimations({subtree:true}).length,'reduced effects still animate');
+    session.dispose();assert(!document.querySelector('.repair-exit'),'reduced effects created an exit animation');
+  }finally{session.dispose();document.body.classList.toggle('reduced-effects',wasReduced);panel.hidden=true;}
+});
+
 test('repairs: campaign distributes distinct mechanics with a cap of two',()=>{
   const api=ByteRunner.repairChallenges;
   report.repairInventory=[];
@@ -123,6 +246,49 @@ test('repairs: themed equipment variants solve through the panel',()=>{
     }
   }
 });
+test('repairs: hardware artwork follows RAM, cooling and GPU state',()=>{
+  const panel=document.getElementById('repairPanel'),host=document.getElementById('repairContent');
+  panel.hidden=false;
+  for(const type of ['ram','cooling','gpu']){
+    const session=ByteRunner.repairs.create({type,seed:'hardware-animation'},{});
+    try{
+      session.mount(host);const m=session.model;
+      const click=id=>host.querySelector('#repair-'+id).click();
+      if(type==='ram'){
+        assert(host.querySelectorAll('.ram-chip').length===9,'RAM chips missing');
+        click('part-'+m.answer[0]);
+        assert(host.querySelector('#repair-slot-0').classList.contains('ram-compatible'),'RAM insertion guide missing');
+        click('slot-1');
+        assert(m.values.every(value=>value===-1)&&!session.mistakes,'wrong RAM changed values or penalties');
+        assert(host.querySelector('[data-rejected="true"]')&&host.querySelector('.repair-feedback').textContent.includes('incompatível'),'invalid RAM feedback missing');
+        click('slot-0');
+        assert(host.querySelector('#repair-slot-0 .ram-module')&&host.querySelectorAll('#repair-slot-0 .ram-clip').length===2,'RAM did not insert or lock');
+      }else if(type==='cooling'){
+        const fan=host.querySelector('.repair-fan'),input=host.querySelector('input'),gauge=host.querySelector('.thermal-gauge');
+        assert(host.querySelectorAll('.cpu-fan-blade').length===8&&fan.dataset.spinning==='false','fan initial state wrong');
+        input.value=m.answer[0];input.dispatchEvent(new Event('input',{bubbles:true}));
+        assert(fan===host.querySelector('.repair-fan')&&fan.dataset.spinning==='true','fan preview rebuilt DOM or stayed stopped');
+        assert(fan.style.getPropertyValue('--fan-speed')===1/m.answer[0]+'s'&&fan.dataset.temperature==='ideal','fan speed or temperature LED wrong');
+        assert(gauge.parentElement.dataset.temperature==='ideal'&&host.querySelector('meter').value===54,'temperature preview wrong');
+        assert(m.values[0]===0,'preview changed committed puzzle state');
+        input.dispatchEvent(new Event('change',{bubbles:true}));
+        assert(m.values[0]===m.answer[0],'cooling adjustment did not commit');
+      }else{
+        assert(host.querySelector('.gpu-card')&&host.querySelector('#repair-bank-a').disabled&&host.querySelector('#repair-bank-b').disabled,'GPU interlock wrong');
+        click('power');assert(host.querySelector('.repair-rack').dataset.power==='true'&&!host.querySelector('#repair-bank-a').disabled&&host.querySelector('#repair-bank-b').disabled,'GPU connector did not enable only A');
+        click('bank-a');assert(host.querySelector('.repair-rack').dataset.bankA==='true'&&!host.querySelector('#repair-bank-b').disabled,'GPU circuit A not energized');
+        click('bank-b');assert(host.querySelector('.repair-rack').dataset.bankB==='true'&&m.check(m),'GPU circuit B not energized');
+        click('power');assert(m.values.every(value=>value===0),'unplugged GPU kept banks active');
+      }
+      solveRepairUI(session);session.update(.6);
+      assert(session.status==='success','hardware visual broke validation '+type);
+      const detached=host.querySelector('.repair-console');session.dispose();
+      assert(!detached.getAnimations({subtree:true}).length,'hardware animations survived close '+type);
+    }finally{session.dispose();}
+  }
+  panel.hidden=true;
+});
+
 test('repairs: placement accepts touch drop and click selection',()=>{
   setup(0);
   const panel=document.getElementById('repairPanel'),host=document.getElementById('repairContent');
@@ -301,5 +467,74 @@ test('repairs: type-specific controls enforce different rules',()=>{
     control('core-0').click();
     assert(!m.check(m)&&!m.values[2]&&!m.values[3]&&!m.values[4],'dependent relays stayed enabled');
   });
+});
+function testEquipmentStage(stage,types,inspect){
+  test('repairs: animated equipment stage '+stage,()=>{
+    const panel=document.getElementById('repairPanel'),host=document.getElementById('repairContent');panel.hidden=false;
+    try{for(const type of types){
+      const session=ByteRunner.repairs.create({type,stage,seed:'visual-stage-'+stage},{});
+      try{
+        session.mount(host);
+        assert(host.contains(document.activeElement)&&!document.activeElement.disabled,'no usable initial keyboard focus '+type);
+        assert(host.querySelector('.repair-equipment-scene[data-mechanic="'+type+'"]'),'missing equipment scene '+type);
+        assert(!host.querySelector('.repair-equipment-scene').querySelector('button,input'),'decorative scene stole controls');
+        const before={mistakes:session.mistakes,hints:session.hints};
+        solveRepairUI(session);
+        assert(session.mode==='won'&&session.mistakes===before.mistakes&&session.hints===before.hints,'visual changed rules '+type);
+        inspect?.(type,host,session.model);
+        const scene=host.querySelector('.repair-equipment-scene');session.dispose();
+        assert(!scene.getAnimations({subtree:true}).length,'scene motion survived close '+type);
+      }finally{session.dispose();}
+    }}finally{panel.hidden=true;}
+  });
+}
+testEquipmentStage(2,['files','software','boot','quarantine'],(type,host,m)=>{
+  if(type==='files')assert(host.querySelectorAll('.visual-file[data-filed="true"]').length===3,'files not archived visually');
+  if(type==='quarantine')assert(host.querySelectorAll('.equipment-isolation').length===m.values.filter(Boolean).length,'quarantine visual disagrees with isolation');
+  if(type==='boot')assert(host.querySelectorAll('.equipment-icon[data-state="live"]').length===4,'boot stages not lit');
+});
+testEquipmentStage(3,['ethernet','packets','vlan','uplink'],(type,host)=>{
+  assert(host.querySelectorAll('.equipment-icon[data-state="live"]').length>0||type==='vlan','switch LEDs stayed dark');
+  if(type==='ethernet')assert(host.querySelectorAll('[data-link="true"]').length===4,'Ethernet link indicators missing');
+  if(type==='packets')assert(host.querySelector('.equipment-packet'),'dispatched packet missing');
+  if(type==='vlan')assert(host.querySelectorAll('.equipment-vlan.is-live').length===4,'VLAN contacts disagree with membership');
+});
+testEquipmentStage(4,['route','interfaces','gateway','route-table'],(type,host,m)=>{
+  assert(host.querySelector('.equipment-wire.is-live'),'router path stayed dark '+type);
+  if(type==='route')assert(host.querySelectorAll('.route-node.is-live').length===m.path.length,'route nodes disagree with selected path');
+  if(type==='gateway')assert(!host.querySelector('.equipment-packet.is-blocked'),'external probe shown as blocked');
+});
+testEquipmentStage(5,['antenna','channel','power-signal','repeaters','wifi'],(type,host)=>{
+  if(type==='antenna')assert(host.querySelector('.equipment-receiver[data-active="true"]'),'antenna receiver not lit');
+  if(type==='channel')assert(host.querySelectorAll('.equipment-interference[data-noise="0"]').length===1,'free channel has interference');
+  if(type==='repeaters')assert(host.querySelectorAll('.equipment-coverage.is-live').length===3,'covered zones not lit');
+  if(type==='power-signal')assert(host.querySelector('.repair-equipment-scene').dataset.signal==='good','signal scene did not follow meter');
+});
+testEquipmentStage(6,['cabling','connectors','continuity','fiber'],(type,host)=>{
+  if(type==='cabling')assert(host.querySelectorAll('.equipment-pin').length===8&&host.querySelectorAll('.equipment-colored-wire').length===8,'RJ45 pins or wires missing');
+  if(type==='continuity')assert(host.querySelector('.equipment-probe-red')&&host.querySelector('.equipment-segment.is-live'),'probe failed to show restored continuity');
+  if(type==='fiber')assert(host.querySelector('.equipment-optical-lens[data-aligned="true"]')&&host.querySelector('.repair-equipment-scene').dataset.locked==='true','fiber lock disagrees with optical alignment');
+});
+testEquipmentStage(7,['ip-distribution','ip-conflicts','ip-reservations','ip-pool','dhcp'],(type,host,m)=>{
+  if(type==='ip-conflicts')assert(host.querySelector('.repair-equipment-scene').dataset.conflict==='false'&&!host.querySelector('.equipment-conflict-line'),'resolved conflict still shown');
+  if(type==='ip-pool')assert(host.querySelectorAll('.equipment-ip-cell[data-allocated="true"]').length===m.values[1]-m.values[0]+1,'IP pool visual has wrong size');
+  if(type==='ip-distribution')assert(host.querySelectorAll('.equipment-icon[data-state="live"]').length===4,'allocated devices stayed disconnected');
+});
+testEquipmentStage(8,['dns-records','dns-tree','dns-cache','dns-query','dns'],(type,host,m)=>{
+  if(type==='dns-tree')assert(host.querySelectorAll('.equipment-wire.is-live').length===m.values.length,'delegation links missing');
+  if(type==='dns-query')assert(Number(host.querySelector('.repair-equipment-scene').dataset.hops)===m.values.length,'DNS hop count wrong');
+  if(type==='dns-cache')assert(host.querySelectorAll('.equipment-cache[data-removed="true"]').length===m.values.filter(Boolean).length,'cache invalidation not shown');
+});
+testEquipmentStage(9,['firewall','policy-order','threats','barriers'],(type,host,m)=>{
+  if(type==='firewall')assert(host.querySelectorAll('.icon-gate[data-state="blocked"]').length===m.values.filter(value=>value===false).length,'firewall gates disagree with policies');
+  if(type==='threats')assert(host.querySelectorAll('.equipment-packet.is-blocked').length===m.values.filter(Boolean).length,'isolated flows still travel through');
+  if(type==='barriers')assert(host.querySelectorAll('.equipment-barrier.is-live').length===5,'protection ring not energized');
+  if(type==='policy-order')assert([...host.querySelectorAll('.equipment-rule-card')].map(card=>Number(card.dataset.rule)).join(',')===m.values.join(','),'rule cards display a different order');
+});
+testEquipmentStage(10,['servers','rack-power','rack-load','core-relays','fiber'],(type,host)=>{
+  if(type==='rack-load')assert(host.querySelectorAll('.equipment-server-rack').length===3&&!host.querySelector('.equipment-server-rack[data-overloaded="true"]'),'valid CPU distribution shown overloaded');
+  if(type==='servers')assert(host.querySelector('.repair-equipment-scene').dataset.relay==='true'&&host.querySelectorAll('.equipment-rack-fan[data-active="true"]').length===6,'server relay or cooling inactive');
+  if(type==='core-relays')assert(host.querySelector('.repair-equipment-scene').dataset.relays==='5','relay matrix not energized');
+  if(type==='rack-power')assert(host.querySelectorAll('.equipment-power-cable').length===4,'rack power cables missing');
 });
 running=false;

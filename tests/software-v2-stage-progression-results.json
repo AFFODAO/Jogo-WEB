@@ -1,0 +1,167 @@
+{
+  "phases": [
+    {
+      "phase": 2,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 109,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "desktop:to-dock",
+        "desktop:to-root",
+        "dock:to-desktop",
+        "root:to-desktop",
+        "root:to-documents",
+        "documents:to-root",
+        "documents:to-archive",
+        "desktop:to-scheduler",
+        "archive:to-documents",
+        "archive:to-root",
+        "root:to-archive",
+        "scheduler:to-desktop",
+        "scheduler:to-worker",
+        "desktop:to-quarantine",
+        "documents:to-recycle",
+        "worker:to-scheduler",
+        "worker:to-clock",
+        "quarantine:to-desktop",
+        "quarantine:to-recovery",
+        "archive:to-swap",
+        "recycle:to-documents",
+        "clock:to-worker",
+        "scheduler:to-clock",
+        "recovery:to-quarantine",
+        "swap:to-archive",
+        "clock:to-scheduler",
+        "scheduler:to-pages",
+        "quarantine:to-clock",
+        "clock:to-quarantine",
+        "pages:to-scheduler",
+        "swap:to-pages",
+        "pages:to-swap",
+        "pages:to-swap-cache",
+        "swap-cache:to-pages",
+        "desktop:to-kernel-gateway",
+        "desktop:to-swap",
+        "kernel-gateway:to-desktop",
+        "kernel-gateway:to-kernel-io",
+        "swap:to-desktop",
+        "recovery:to-infected-vault",
+        "archive:to-quarantine",
+        "kernel-io:to-kernel-gateway",
+        "kernel-io:to-kernel-stack",
+        "infected-vault:to-recovery",
+        "quarantine:to-archive",
+        "kernel-stack:to-kernel-io",
+        "kernel-stack:to-kernel-exit",
+        "kernel-exit:to-kernel-stack",
+        "kernel-gateway:to-kernel-exit",
+        "kernel-exit:to-kernel-gateway"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "root:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "documents:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "documents:process-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "scheduler:process-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "worker:process-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "worker:process-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "clock:process-0",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "swap:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "pages:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "quarantine:process-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "quarantine:process-1",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "recovery:process-0",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "kernel-io:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "kernel-io:process-1",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "kernel-stack:process-0",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "kernel-exit:process-0",
+          "type": "basic",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {},
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "45b7bfb130df255e090e78204cdb4558d03c9d9c59769c5798f9d39f8531dac3",
+    "atUTC": "2026-11-12T01:19:08.445910+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "sourceSha256": "f22397accab83a4e7fb60230584ede59becbcf61980a24dcb7224a2df70724e4",
+  "tasks": 4,
+  "runs": [
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "type": "cpu-install",
+      "name": "Instalação do processador",
+      "passed": true,
+      "minimumTargetPx": 104
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "type": "ram-install",
+      "name": "Instalação de memória",
+      "passed": true,
+      "minimumTargetPx": 112
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "type": "power-wiring",
+      "name": "Ligação da alimentação",
+      "passed": true,
+      "minimumTargetPx": 112
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "type": "fan-replacement",
+      "name": "Troca da ventoinha",
+      "passed": true,
+      "minimumTargetPx": 104
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "type": "cpu-install",
+      "name": "Instalação do processador",
+      "passed": true,
+      "minimumTargetPx": 55.899993896484375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "type": "ram-install",
+      "name": "Instalação de memória",
+      "passed": true,
+      "minimumTargetPx": 60.199981689453125
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "type": "power-wiring",
+      "name": "Ligação da alimentação",
+      "passed": true,
+      "minimumTargetPx": 60.199951171875
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "type": "fan-replacement",
+      "name": "Troca da ventoinha",
+      "passed": true,
+      "minimumTargetPx": 55.899993896484375
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "type": "cpu-install",
+      "name": "Instalação do processador",
+      "passed": true,
+      "minimumTargetPx": 104
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "type": "ram-install",
+      "name": "Instalação de memória",
+      "passed": true,
+      "minimumTargetPx": 112
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "type": "power-wiring",
+      "name": "Ligação da alimentação",
+      "passed": true,
+      "minimumTargetPx": 112
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "type": "fan-replacement",
+      "name": "Troca da ventoinha",
+      "passed": true,
+      "minimumTargetPx": 104
+    }
+  ],
+  "storageUnchanged": true,
+  "limits": [
+    "Toque emulado no Chrome; aparelho físico não testado."
+  ]
+}

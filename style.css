@@ -205,3 +205,233 @@ button:focus-visible{outline:2px solid #bdadff;outline-offset:4px}.touch-control
 .developer-laboratory:focus-visible{outline:3px solid #ffe09a;outline-offset:2px}
 .repair-console .repair-object,.repair-equipment-note,.repair-match-row{min-width:0;overflow-wrap:anywhere}
 .repair-console .repair-equipment-label{color:var(--panel-accent)}
+
+/* Shared equipment chassis and interaction primitives. No puzzle-specific artwork. */
+.repair-console{position:relative;isolation:isolate;border-radius:0;padding:clamp(12px,2vw,20px);border:4px solid #324650;background:repeating-linear-gradient(0deg,#0000 0 3px,#ffffff03 3px 4px),#192a34;box-shadow:inset 3px 3px #71838a,inset -3px -3px #0a141d,4px 4px #03090f}
+.repair-console::before,.repair-console::after{content:"";position:absolute;left:5px;width:4px;height:4px;background:#09131c;box-shadow:2px 0 #819198;pointer-events:none}
+.repair-console::before{top:5px}.repair-console::after{bottom:5px}
+.repair-console-header{min-height:32px;box-shadow:inset 0 2px #0008;overflow-wrap:anywhere}
+.repair-console-header>span:nth-child(2){flex:1;min-width:0}
+.repair-console-led{flex:none;border:2px solid #040b10;box-shadow:2px 2px #40545c,inset 1px 1px #ffffff66}
+.repair-console-vent{flex:0 0 28px;height:16px;background:repeating-linear-gradient(90deg,#050c12 0 3px,#455963 3px 5px)}
+.repair-console .repair-board{background:linear-gradient(90deg,#91bdb408 1px,transparent 1px),linear-gradient(#91bdb408 1px,transparent 1px),#091820;background-size:16px 16px;min-width:0}
+.repair-equipment-group{border-radius:0;box-shadow:inset 2px 2px #060d13,inset -1px -1px #60747b;gap:10px}
+.repair-equipment-label{border-bottom:2px solid #344952;padding-bottom:5px;letter-spacing:.05em}
+.repair-panel .repair-console .repair-object{position:relative;border-width:2px;transition:background-color .12s steps(2),border-color .12s steps(2)}
+.repair-console .repair-switch::before{content:"";display:inline-block;vertical-align:middle;width:10px;height:16px;margin-right:8px;border:2px solid #061019;background:linear-gradient(#526874 0 50%,#172832 50%);box-shadow:1px 1px #8a9da2}
+.repair-console .repair-switch[aria-pressed="true"]::before{background:linear-gradient(var(--panel-accent) 0 50%,#526874 50%);box-shadow:1px 1px #8a9da2,inset 0 2px #e6fff3}
+.repair-console .repair-socket::before{content:"";display:inline-block;vertical-align:middle;width:16px;height:12px;margin-right:8px;border:3px solid #050d13;background:repeating-linear-gradient(90deg,#bba370 0 2px,#12232b 2px 4px);box-shadow:0 -2px #60727b,2px 2px #60727b}
+.repair-console .repair-socket[data-signal="good"]::before{border-bottom-color:var(--panel-accent)}
+.repair-console .repair-socket[data-signal="bad"]::before{border-bottom-color:#fc9d86}
+.repair-console .repair-part{border-bottom:4px solid #bea36c;cursor:grab}
+.repair-console .repair-equipment-note,.repair-console .repair-meter,.repair-console .signal-readout{border:2px solid #354c57;border-radius:0;box-shadow:inset 2px 2px #02080d;color:#d7f1e9;background:#06131a}
+.repair-console .repair-tuner{padding:10px;background:#0b1b24;border:2px solid #344952}
+.repair-console .repair-tuner input{min-height:44px;accent-color:var(--panel-accent)}
+.repair-console .repair-tuner output{color:var(--panel-accent);font-variant-numeric:tabular-nums}
+@media(hover:hover){.repair-panel .repair-console button:not(:disabled):hover{border-color:var(--panel-accent)}}
+.repair-panel .repair-console button:not(:disabled):active{box-shadow:inset 2px 2px #0009;translate:0 2px}
+.repair-panel .repair-console button:focus-visible{outline:3px solid #fff0ba;outline-offset:3px}
+.repair-console[data-state="playing"][data-ready="true"] .repair-console-led{animation:repair-led-ready 1.2s steps(2,end) infinite}
+@keyframes repair-led-ready{50%{box-shadow:2px 2px #40545c,0 0 0 2px var(--panel-accent)}}
+@media(max-width:600px){.repair-console{padding:10px}.repair-console-header{padding:6px;gap:6px;font-size:10px}.repair-console-vent{flex-basis:18px}}
+@media(prefers-reduced-motion:reduce){.repair-console *,.repair-console *::before,.repair-console *::after{animation:none!important;transition:none!important}.repair-panel .repair-console button:not(:disabled):active{translate:none}}
+/* Physical cables and live circuit feedback. */
+.repair-wiring{position:relative;isolation:isolate;padding:16px 32px!important}
+.repair-wiring>.repair-actions{position:relative;z-index:1;justify-content:space-between;gap:20px}
+.repair-wiring .repair-cable-end{touch-action:none;cursor:grab}
+.repair-wiring .repair-cable-end:active{cursor:grabbing}
+.repair-cables{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:0}
+.repair-cables path{fill:none;stroke:var(--cable-color);stroke-width:5;stroke-linecap:square;filter:drop-shadow(2px 3px 0 #02070d)}
+.repair-panel .repair-compatible{outline:2px dashed var(--panel-accent);outline-offset:3px}
+.repair-panel .repair-drop-hover{outline:3px solid #fff0ba;background:#315454}
+.repair-tile-led{position:absolute;right:4px;top:4px;width:4px;height:4px;background:#0b171c;box-shadow:1px 1px #75888b;pointer-events:none}
+.powered .repair-tile-led{background:var(--panel-accent);animation:repair-power-on .3s steps(3,end) both;animation-delay:var(--power-delay)}
+.powered .repair-trace{background-image:repeating-linear-gradient(45deg,transparent 0 4px,#efffffa6 4px 6px,transparent 6px 10px);background-size:14px 14px;animation:repair-current .7s steps(7,end) infinite;animation-delay:var(--power-delay)}
+.repair-console[data-ready="true"] .repair-circuit .repair-output{animation:repair-terminal .8s steps(2,end) infinite}
+@keyframes repair-current{to{background-position:14px -14px}}
+@keyframes repair-power-on{from{opacity:.25}to{opacity:1}}
+@keyframes repair-terminal{50%{background:var(--panel-accent);color:#06131a}}
+@media(prefers-reduced-motion:reduce){.repair-cables path,.repair-tile-led,.repair-trace,.repair-console .terminal-tag{animation:none!important}}
+
+/* Hardware bench: original CSS pixel artwork, kept outside accessible labels. */
+[data-equipment="ram"] .repair-tray,[data-equipment="ram"] .repair-slots{display:grid;grid-template-columns:1fr}
+[data-equipment="ram"] .repair-part{display:flex;flex-direction:column;align-items:center;gap:8px;background:#162b28!important;border-bottom-width:2px!important}
+.ram-module{display:flex;position:relative;align-items:center;justify-content:space-around;gap:8px;width:min(210px,100%);height:42px;padding:5px 12px 10px;background:#357753;border:3px solid #193c31;box-shadow:inset 2px 2px #78aa6f,2px 2px #030c10;pointer-events:none}
+.ram-chip{height:20px;flex:1;max-width:42px;background:#102029;border:2px solid #050e15;box-shadow:0 -2px #90a49a,0 2px #90a49a}
+.ram-contacts{position:absolute;bottom:-3px;left:7px;right:7px;height:7px;background:repeating-linear-gradient(90deg,#d6b766 0 4px,#4c4c2e 4px 6px)}
+.ram-contacts::after{content:"";position:absolute;bottom:0;width:8px;height:10px;left:34%;background:#0b1c24;border-left:2px solid #d6b766}
+.ram-module[data-key="2"] .ram-contacts::after{left:50%;box-shadow:18px 0 #0b1c24}
+.ram-module[data-key="3"] .ram-contacts::after{left:60%;box-shadow:18px 0 #0b1c24,-18px 0 #0b1c24}
+[data-equipment="ram"] .repair-socket{display:flex;flex-direction:column;align-items:center;gap:10px;background:#162b25;min-height:92px;padding:10px!important;border-style:solid!important}
+[data-equipment="ram"] .repair-socket::before{display:none}
+.ram-slot-assembly{position:relative;display:grid;place-items:center;width:min(246px,100%);height:46px;border-left:2px dashed #8bafa1;border-right:2px dashed #8bafa1;pointer-events:none}
+.ram-slot-channel{position:absolute;left:12px;right:12px;top:17px;height:14px;border:4px solid #819087;background:repeating-linear-gradient(90deg,#050d13 0 4px,#ae935e 4px 6px);box-shadow:0 3px #03090f}
+.ram-clip{position:absolute;left:0;top:8px;width:12px;height:30px;background:#a9b8ab;border:3px solid #40574e;box-shadow:2px 2px #040c11}
+.ram-clip:last-child{left:auto;right:0}
+[data-equipment="ram"] [data-signal="good"] .ram-clip{background:#8ee5b4;top:13px;height:22px}
+[data-equipment="ram"] .ram-compatible{outline:2px dashed #b6f6d2;outline-offset:-5px;background:#264a39}
+[data-equipment="ram"] [data-rejected="true"]{outline:2px solid #ff9e86;outline-offset:-5px}
+[data-equipment="ram"] [data-installed="true"]>.ram-module{opacity:.35}
+[data-equipment="ram"] .dragging{pointer-events:none}
+[data-equipment="cooling"] .repair-fan{justify-content:center}
+[data-equipment="cooling"] .repair-fan::after{display:none}
+.cpu-fan-housing{position:relative;display:block;width:144px;height:144px;margin:10px;border:10px solid #657782;box-shadow:inset 4px 4px #020a10,4px 4px #030a10;background:repeating-linear-gradient(90deg,#182b36 0 5px,#81939a 5px 8px)}
+.cpu-fan-rotor{position:absolute;inset:5px;background:#11252e;border:4px solid #283e47;border-radius:35%;animation:repair-spin var(--fan-speed) linear infinite;animation-play-state:paused}
+[data-spinning="true"] .cpu-fan-rotor{animation-play-state:running}
+.cpu-fan-blade{position:absolute;left:calc(50% - 8px);top:6px;width:16px;height:42%;background:#9ab4bb;border:3px solid #405e69;transform-origin:50% calc(100% + 1px);transform:rotate(var(--blade-angle));clip-path:polygon(0 0,100% 10%,100% 75%,45% 100%,0 60%)}
+.cpu-fan-hub{position:absolute;inset:calc(50% - 14px);background:#263e4b;border:4px solid #bac9c5;box-shadow:2px 2px #030b10}
+.thermal-led{position:absolute;right:-8px;top:-8px;width:8px;height:8px;background:var(--thermal-color);border:2px solid #07131b;box-shadow:0 0 0 2px #a9b9b4}
+[data-temperature="hot"]{--thermal-color:#ff9c79}
+[data-temperature="cold"]{--thermal-color:#88c9ff}
+[data-temperature="ideal"]{--thermal-color:#8ef2b7}
+[data-equipment="cooling"] .repair-meter{border-color:var(--thermal-color)}
+[data-equipment="cooling"] meter{width:100%;accent-color:var(--thermal-color)}
+.thermal-gauge{position:relative;width:100%;height:18px;border:3px solid #495e68;background:#040c14}
+.thermal-gauge::before{content:"";display:block;height:100%;width:var(--temperature);background:repeating-linear-gradient(90deg,var(--thermal-color) 0 7px,#0000 7px 9px);transition:width .35s steps(10,end)}
+[data-puzzle="cooling"][data-state="won"] .cpu-fan-housing{animation:hardware-restored .45s steps(3,end)}
+[data-equipment="gpu"] .repair-rack{justify-content:center}
+.gpu-card{position:relative;flex-basis:100%;height:132px;margin:12px 18px 20px;background:#235747;border:5px solid #102d2b;box-shadow:inset 3px 3px #5a8b70,4px 4px #030b11;pointer-events:none}
+.gpu-bracket{position:absolute;left:-15px;top:-7px;bottom:-15px;width:12px;border:3px solid #9badae;background:repeating-linear-gradient(#293d48 0 6px,#6e858e 6px 10px)}
+.gpu-heatsink{position:absolute;left:10%;right:24%;top:16px;height:72px;border:6px solid #546d76;background:repeating-linear-gradient(90deg,#142833 0 4px,#9caeb0 4px 7px);box-shadow:3px 3px #0a2429}
+.gpu-heatsink::before,.gpu-heatsink::after{content:"";position:absolute;top:5px;bottom:5px;width:38px;border:5px solid #243d48;background:conic-gradient(#92a8ad 0 15%,#152b37 15% 30%,#92a8ad 30% 45%,#152b37 45% 60%,#92a8ad 60% 75%,#152b37 75%);box-shadow:2px 2px #03131b}
+.gpu-heatsink::before{left:8%}.gpu-heatsink::after{right:8%}
+.gpu-plug{position:absolute;right:8px;top:10px;width:32px;height:22px;border:4px solid #9baba1;background:repeating-linear-gradient(90deg,#08161d 0 3px,#d0ba7f 3px 5px);transform:translateX(24px)}
+.gpu-plug::after{content:"";position:absolute;left:100%;top:2px;width:20px;height:10px;background:repeating-linear-gradient(#ddae5b 0 2px,#182b35 2px 4px)}
+[data-power="true"] .gpu-plug{transform:translateX(0)}
+.gpu-gold-contacts{position:absolute;bottom:-12px;left:18%;width:55%;height:10px;background:repeating-linear-gradient(90deg,#d6b766 0 4px,#364132 4px 6px)}
+.gpu-trace{position:absolute;right:12px;top:45px;width:14%;height:15px;border:3px solid #41685a;border-left:0;box-shadow:4px 0 #132f2d}
+.gpu-trace-b{top:77px}
+[data-bank-a="true"] .gpu-trace-a,[data-bank-b="true"] .gpu-trace-b{border-color:#9cf4bb;box-shadow:4px 0 #9cf4bb;animation:hardware-restored .35s steps(3,end)}
+[data-puzzle="gpu"][data-state="won"] .gpu-card{animation:hardware-restored .45s steps(3,end)}
+@keyframes hardware-restored{50%{filter:brightness(1.8)}}
+@media(max-width:400px){.gpu-heatsink::after{display:none}.gpu-heatsink::before{left:20%}.gpu-card{margin-inline:10px}}
+@media(prefers-reduced-motion:reduce){.thermal-gauge::before{transition:none}.cpu-fan-rotor,.gpu-card,.gpu-trace,.cpu-fan-housing{animation:none!important}}
+
+/* Stage equipment scenes use a small SVG vocabulary and state-driven CSS motion. */
+.repair-equipment-scene{display:block;width:100%;max-width:520px;height:auto;max-height:230px;margin:0 auto 12px;background:#08151e;border:3px solid #435963;box-shadow:inset 2px 2px #03090e;overflow:hidden;pointer-events:none;color:var(--panel-accent)}
+.repair-equipment-scene text{fill:#d8e8ee;font:8px monospace;paint-order:stroke;stroke:#08151e;stroke-width:2px}
+.equipment-case,.equipment-window{fill:#1b303c;stroke:#5b7380;stroke-width:2px}
+.equipment-titlebar{fill:#3c5369}.equipment-paper{fill:#c3d6d1;stroke:#526a78;stroke-width:2px}
+.equipment-folder{fill:#b49c68;stroke:#e2c28c;stroke-width:2px}
+.equipment-engraving{fill:none;stroke:#3c5966;stroke-width:2px}
+.equipment-socket,.equipment-chip,.equipment-drive{fill:#06121c;stroke:#69828a;stroke-width:2px}
+.equipment-contact,.equipment-metal{fill:#a5b0a1}.equipment-led{fill:#40545b;stroke:#071019;stroke-width:1px}
+.equipment-screen{fill:#214858;stroke:#789caa;stroke-width:2px}
+.equipment-wire{fill:none;stroke:#425961;stroke-width:3px;stroke-linejoin:bevel}
+.equipment-wire.is-live{stroke:var(--panel-accent);stroke-dasharray:7 4;animation:equipment-flow 1s linear infinite}
+.equipment-packet{fill:#fff0b8;stroke:#071019;stroke-width:1px;offset-distance:0%;offset-rotate:0deg;animation:equipment-packet 1.8s linear infinite}
+.equipment-packet.is-blocked{fill:#ff9b8e;animation:equipment-block 1.3s steps(6,end) infinite}
+.equipment-icon[data-state="live"] .equipment-led{fill:var(--panel-accent)}
+.equipment-icon[data-state="blocked"] .equipment-led{fill:#ff927f}
+.equipment-isolation{fill:#64344999;stroke:#ffab8e;stroke-width:3px;stroke-dasharray:4 3}
+.equipment-action{animation:equipment-confirm .32s steps(4,end)}
+.visual-file[data-filed="true"]{opacity:.35}
+.repair-console .equipment-file-control::before{content:"";display:inline-block;vertical-align:middle;width:16px;height:20px;margin-right:8px;background:repeating-linear-gradient(#bfd5dd 0 4px,#688894 4px 6px);border:2px solid #0a1821;box-shadow:2px 2px #7e9ba5}
+.repair-console .equipment-folder-control::before{content:"";display:inline-block;width:25px;height:16px;margin-right:8px;border:2px solid #d5ba7f;border-top-width:5px;background:#735e3b}
+.repair-console .equipment-process-control[aria-pressed="true"]{border-left:6px solid var(--panel-accent)}
+@keyframes equipment-flow{to{stroke-dashoffset:-22}}
+@keyframes equipment-packet{to{offset-distance:100%}}
+@keyframes equipment-block{0%{offset-distance:0%;opacity:1}65%{offset-distance:48%;opacity:1}100%{offset-distance:48%;opacity:0}}
+@keyframes equipment-confirm{50%{filter:brightness(1.5)}}
+@media(prefers-reduced-motion:reduce){.repair-equipment-scene *{animation:none!important;transition:none!important}.equipment-packet{offset-distance:50%}}
+.repair-console .equipment-port-control::before{content:"";display:inline-block;vertical-align:middle;width:26px;height:18px;margin-right:8px;border:4px solid #81959c;border-bottom-width:6px;background:repeating-linear-gradient(90deg,#bca571 0 2px,#07121b 2px 4px);box-shadow:inset 0 -7px #07121b,2px 2px #02070d}
+.repair-console .equipment-port-control[data-link="true"]::after,.repair-console .equipment-port-control[aria-pressed="true"]::after{content:"";display:inline-block;width:5px;height:5px;margin-left:6px;background:var(--panel-accent);box-shadow:1px 1px #02070d}
+.equipment-vlan{fill:#162c37;stroke:#5d7481;stroke-width:2px}.equipment-vlan.is-live{fill:#326460;stroke:var(--panel-accent)}
+.route-node{fill:#18313e;stroke:#617c86;stroke-width:2px}.route-node.is-live{fill:#2d635a;stroke:var(--panel-accent)}.route-node.is-blocked{fill:#633446;stroke:#c88180}
+.visual-file[data-filed="true"]{animation:equipment-file-store .32s steps(6,end) both}
+.equipment-isolation{transform-box:fill-box;transform-origin:center;animation:equipment-seal .28s steps(4,end)}
+.equipment-icon[data-state="live"] .equipment-screen{fill:#2b625e}
+@keyframes equipment-file-store{from{translate:0 0;opacity:1}to{translate:0 35px;opacity:.35}}
+@keyframes equipment-seal{from{scale:1.2;opacity:0}to{scale:1;opacity:1}}
+.equipment-antenna{fill:none;stroke:#a8c0c8;stroke-width:5px;stroke-linejoin:bevel}
+.equipment-radio-wave{fill:none;stroke:var(--panel-accent);stroke-width:2px;animation:equipment-radio 1.6s steps(6,end) infinite}
+.equipment-radio-wave[data-active="false"]{opacity:.1;animation:none}
+.equipment-dish{rotate:var(--dish-angle);transform-origin:0 0}.equipment-dish.is-turning{animation:equipment-dish-turn .25s steps(5,end)}
+.equipment-receiver{fill:#152c38;stroke:#ffc98a;stroke-width:3px}.equipment-receiver[data-active="true"]{fill:var(--panel-accent)}
+.equipment-interference{fill:#d78c9c;animation:equipment-noise .65s steps(3,end) infinite;transform-box:fill-box;transform-origin:bottom}
+.equipment-interference[data-noise="0"]{fill:var(--panel-accent);animation:none}
+.equipment-selection{fill:none;stroke:#fff0b8;stroke-width:3px}
+.equipment-signal-bar,.equipment-coverage{fill:#243845;stroke:#6a8190;stroke-width:2px}.equipment-signal-bar[data-active="true"],.equipment-coverage.is-live{fill:var(--panel-accent)}
+.repair-console .equipment-tower-control::before{content:"";display:inline-block;width:20px;height:24px;margin-right:7px;background:repeating-linear-gradient(#9cbdc7 0 4px,#17313d 4px 8px);clip-path:polygon(45% 0,55% 0,100% 100%,65% 100%,50% 50%,35% 100%,0 100%)}
+@keyframes equipment-radio{0%{opacity:.2}50%{opacity:.9}100%{opacity:.2}}
+@keyframes equipment-noise{50%{scale:1 .85;opacity:.65}}
+@keyframes equipment-dish-turn{from{rotate:var(--dish-from)}to{rotate:var(--dish-angle)}}
+.equipment-rj45{fill:#9baeb580;stroke:#c2d2d1;stroke-width:3px}.equipment-pin{fill:#bba46b;stroke:#192d35;stroke-width:2px}
+.equipment-colored-wire{stroke-width:7px}.equipment-wire-stripe{stroke-width:3px;stroke-dasharray:5 7}
+.equipment-segment{fill:#213a45;stroke:#7c9699;stroke-width:3px}.equipment-segment.is-live{fill:var(--panel-accent)}.equipment-segment.is-open{fill:#9f625b}
+.equipment-probe-red,.equipment-probe-black{fill:none;stroke:#f19b84;stroke-width:4px}.equipment-probe-black{stroke:#9cadb7;stroke-dasharray:10 3}
+.equipment-optical-lens{fill:#173642;stroke:#8bafbb;stroke-width:3px}.equipment-optical-lens[data-aligned="true"]{stroke:var(--panel-accent);fill:#235c56}
+.equipment-scope-grid{stroke:#759799;stroke-width:1px;fill:none}.equipment-optical-beam{stroke:#f7d6a0;stroke-width:4px;stroke-dasharray:7 4;animation:equipment-flow .7s linear infinite}
+.equipment-optical-dot{fill:#f9e7be;stroke:#112533;stroke-width:2px}
+.equipment-ip-cell{fill:#192f3a;stroke:#506b78;stroke-width:2px}.equipment-ip-cell[data-allocated="true"]{fill:#38615b;stroke:var(--panel-accent)}.equipment-ip-cell[data-reserved="true"]{fill:#653c46;stroke:#ff9e89}
+.equipment-conflict-line{stroke:#f5a28d;stroke-dasharray:3 4;animation:equipment-warning 1s steps(2,end) infinite}
+.repair-console .equipment-device-control::before{content:"";display:inline-block;vertical-align:middle;width:24px;height:18px;margin-right:8px;border:3px solid #90aeb5;background:#21454d;box-shadow:0 4px #07131c,0 6px #90aeb5}
+.repair-console [data-signal="bad"].equipment-device-control::before{background:#86514d}
+@keyframes equipment-warning{50%{opacity:.5}}
+.repair-console .equipment-server-control::before{content:"";display:inline-block;vertical-align:middle;width:22px;height:24px;margin-right:8px;border:3px solid #7a959f;background:repeating-linear-gradient(#102633 0 5px,#678b95 5px 7px);box-shadow:2px 2px #02080e}
+.equipment-cache[data-removed="true"] .equipment-paper{opacity:.25}.equipment-cache-cross{fill:none;stroke:#ffb19b;stroke-width:3px;stroke-dasharray:6 2;animation:equipment-seal .3s steps(4,end)}
+[data-equipment="dns-cache"] .repair-object[aria-pressed="true"]::before{opacity:.35;rotate:-8deg}
+.equipment-gate{fill:#97695b;stroke:#f8bd8f;stroke-width:2px}
+.equipment-icon[data-state="live"] .equipment-gate{translate:0 -15px;animation:equipment-gate-open .24s steps(4,end)}
+.equipment-icon[data-state="blocked"] .equipment-gate{fill:#914659;stroke:#ffa795}
+.equipment-barrier{fill:#482e40;stroke:#b17d7c;stroke-width:3px}.equipment-barrier.is-live{fill:#376b65;stroke:var(--panel-accent)}
+.equipment-rule-card{animation:equipment-seal .2s steps(4,end);transform-box:fill-box;transform-origin:center}
+.repair-console .equipment-gate-control::before{content:"";display:inline-block;vertical-align:middle;width:20px;height:22px;margin-right:8px;border:3px solid #c5a18c;background:repeating-linear-gradient(90deg,#914f51 0 4px,#50303e 4px 7px)}
+.repair-console .equipment-gate-control[aria-pressed="true"]::before{background:#59867d}
+[data-equipment="policy-order"] [id^="repair-rule-card-"]{flex-basis:100%;text-align:left;border-left:6px solid #a7837d}
+@keyframes equipment-gate-open{from{translate:0 0}to{translate:0 -15px}}
+.equipment-rack-led{fill:#3f525b}.equipment-rack-led.is-live{fill:var(--panel-accent);animation:equipment-radio 2s steps(3,end) infinite}
+.equipment-load-track{fill:#050f18;stroke:#5d7b86;stroke-width:1px}.equipment-load-fill{fill:var(--panel-accent)}.equipment-load-fill.is-overloaded{fill:#ffa08b;animation:equipment-warning .8s steps(2,end) infinite}
+.equipment-server-rack[data-overloaded="true"]>.equipment-case{stroke:#ffa08b}
+.equipment-fan-blade{fill:#83a6b1;stroke:#11242f;stroke-width:1px}.equipment-fan-hub{fill:#c1d3cf;stroke:#102330;stroke-width:2px}
+.equipment-rack-fan[data-active="true"]{animation:repair-spin 1s steps(12,end) infinite;transform-origin:0 0}
+.equipment-power-cable{stroke-width:5px;stroke-dasharray:6 3}
+[data-equipment="rack-power"] .repair-part{border-bottom:4px solid #dcc084}
+[data-equipment="rack-load"] .repair-part::before{content:"";display:inline-block;width:16px;height:16px;margin-right:8px;border:3px solid #a3b7b3;background:#1c3541;box-shadow:2px 2px #040c13}
+
+/* Bounded finishing effects. Panel visibility and game state remain synchronous. */
+.repair-panel:not([hidden]):not(.repair-exit){animation:repair-panel-arrive .18s ease-out}
+.repair-exit{z-index:9!important;overflow:hidden!important;animation:none!important;user-select:none}
+.repair-exit *,.repair-exit *::before,.repair-exit *::after{animation:none!important;transition:none!important}
+.repair-console button{position:relative}
+.repair-console .repair-board{position:relative}
+.repair-console .repair-trace[hidden]{display:none}
+.repair-console button[aria-pressed="true"]{outline:1px solid var(--panel-accent);outline-offset:-4px}
+.repair-console .repair-switch::before{transition:translate .12s steps(3,end)}
+.repair-console .repair-switch[aria-pressed="true"]::before{translate:0 -2px}
+.repair-console .repair-part[aria-pressed="true"]{box-shadow:inset 2px 2px #ffffff40,inset -2px -2px #0008,0 0 0 2px var(--panel-accent)}
+.repair-connection-sparks{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:3}
+.repair-connection-sparks i{position:absolute;left:-1px;top:-1px;width:3px;height:3px;background:#fff0bc;box-shadow:1px 1px var(--panel-accent);animation:repair-spark .26s steps(5,end) both;transform-origin:center}
+.repair-console[data-state="won"] .repair-board::after{content:"";position:absolute;inset:0;border:2px solid var(--panel-accent);pointer-events:none;animation:repair-restoration .44s ease-out both}
+.repair-console[data-feedback="error"] .repair-board{border-color:#e6a08b}
+.repair-console[data-feedback="error"] .repair-console-led{background:#ef9d88}
+.repair-console[data-state="failed"] .repair-console-header{border-bottom-color:#e59a86;background:repeating-linear-gradient(135deg,#3d2932 0 8px,#291f2c 8px 16px)}
+.repair-console .repair-feedback.error{border-left:3px solid #efa58e}
+@media(hover:hover){.repair-console button:not(:disabled):hover{filter:brightness(1.1)}.repair-console .repair-part:not(:disabled):hover{border-top-color:#b2ebcf}}
+@keyframes repair-panel-arrive{from{opacity:0;transform:translateY(8px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes repair-spark{from{transform:rotate(var(--spark-angle)) translateX(3px);opacity:1}to{transform:rotate(var(--spark-angle)) translateX(17px);opacity:0}}
+@keyframes repair-restoration{0%{box-shadow:inset 0 0 0 transparent;opacity:0}45%{box-shadow:inset 0 0 14px #a9ffe525;opacity:1}100%{box-shadow:inset 0 0 0 transparent;opacity:0}}
+@media(prefers-reduced-motion:reduce){.repair-panel{animation:none!important}.repair-console *::before,.repair-console *::after{animation:none!important;transition:none!important}.repair-switch[aria-pressed="true"]::before{translate:none}}
+.reduced-effects .repair-console *::before,.reduced-effects .repair-console *::after{animation:none!important;transition:none!important}
+/* Opt-in logical equipment canvas; each repair supplies its own original art. */
+.repair-scene-viewport{position:relative;width:100%;min-width:0;overflow:hidden;isolation:isolate}
+.repair-scene-stage{position:relative;margin-inline:auto;transform-origin:top left;image-rendering:pixelated}
+.repair-scene-stage *{box-sizing:border-box}
+.repair-scene-handle{touch-action:none;user-select:none;-webkit-user-select:none}
+.repair-scene-handle:focus-visible{outline:3px solid #ffe18a;outline-offset:3px}
+.repair-scene-viewport[data-paused="true"] *,.repair-scene-viewport[data-paused="true"] *::before,.repair-scene-viewport[data-paused="true"] *::after{animation-play-state:paused!important}
+.repair-v2-host{max-width:760px;margin-inline:auto;color:#d6e4e6}
+.repair-v2-instruction{font:12px/1.5 monospace;color:#b8cdcf;margin:4px 0 10px;text-align:center}
+.repair-v2-viewport{background:#080f19;border:2px solid #41606b}
+.repair-v2-canvas{position:absolute;inset:0;width:640px;height:560px;image-rendering:pixelated;pointer-events:none}
+.repair-panel .repair-v2-handle{position:absolute;display:block;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:transparent;box-shadow:none;touch-action:none;user-select:none;outline-offset:-4px}
+.repair-panel .repair-v2-handle:hover:not(:disabled){background:#ffffff07}
+.repair-panel .repair-v2-handle:focus-visible{outline:3px dashed #ffe18a}
+.repair-panel .repair-v2-handle:disabled{opacity:1;filter:none}
+.repair-v2-tools{display:flex;justify-content:center;gap:12px}
+.repair-v2-tools button{min-height:44px!important;border-radius:0!important}
+.repair-v2-tools button[hidden]{display:none}
+.repair-v2-feedback{min-height:24px;margin:8px 0;text-align:center;font:12px/1.5 monospace;color:#91edb8}
+.repair-v2-feedback[data-state="error"]{color:#ffc090}
+.repair-v2-help{display:block;text-align:center;font:10px/1.6 monospace;color:#91a6ad;margin-top:10px}
+@media(max-width:600px){.repair-v2-instruction{font-size:11px}.repair-v2-tools{gap:6px}.repair-v2-help{font-size:10px}.repair-panel:has(.repair-v2-host){padding:8px;border-radius:0}.repair-panel:has(.repair-v2-host)>#repairPrompt{font-size:14px;margin:2px 0 5px}}

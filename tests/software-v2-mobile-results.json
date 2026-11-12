@@ -1,0 +1,23 @@
+{
+  "phases": [],
+  "systems": {
+    "software v2: scan distinguishes normal files and only infected files are deleted": "PASS",
+    "software v2: six fragments reconstruct two images, rejecting incompatible cuts": "PASS",
+    "software v2: incorrect process order visibly fails and can be repaired": "PASS",
+    "software v2: boot needs connected modules and a logical power sequence": "PASS",
+    "software v2: five campaign components keep IDs, objectives, XP and saved completion": "PASS",
+    "software v2: pause freezes scans, conveyors, reconstruction and boot timers": "PASS",
+    "software v2: failure penalty, hints and retry still belong to the campaign": "PASS",
+    "software v2: scan completion updates accessible state without replacing file DOM": "PASS",
+    "software v2: real pause menu resumes repair input immediately and world stays frozen": "PASS",
+    "software v2: reduced motion preserves all four tasks without moving decorative machinery": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "b52b8dfdc087159d058686dd4d9b7add310347cfc6b8fd539cc3d28e40618de2",
+    "atUTC": "2026-11-12T01:22:53.927700+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "width": 1280,
+      "reducedMotion": false,
+      "cases": 43,
+      "result": "PASS"
+    },
+    {
+      "width": 390,
+      "reducedMotion": false,
+      "cases": 43,
+      "result": "PASS"
+    },
+    {
+      "width": 390,
+      "reducedMotion": true,
+      "cases": 43,
+      "result": "PASS"
+    }
+  ],
+  "captures": [
+    "02-files-antes.png",
+    "02-files-depois.png",
+    "03-packets-antes.png",
+    "03-packets-depois.png",
+    "04-gateway-antes.png",
+    "04-gateway-depois.png",
+    "05-antenna-antes.png",
+    "05-antenna-depois.png",
+    "06-fiber-antes.png",
+    "06-fiber-depois.png",
+    "07-ip-conflicts-antes.png",
+    "07-ip-conflicts-depois.png",
+    "08-dns-query-antes.png",
+    "08-dns-query-depois.png",
+    "09-policy-order-antes.png",
+    "09-policy-order-depois.png",
+    "10-rack-load-antes.png",
+    "10-rack-load-depois.png"
+  ],
+  "errors": [],
+  "sourceSha256": "d9a09e3e399b87f3355bbc036fb8770f73441db82854454c3d80b56962f145ad"
+}

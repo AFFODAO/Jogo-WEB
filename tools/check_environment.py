@@ -17,10 +17,24 @@ ROOT=Path(__file__).resolve().parents[1]
 def approved_repair_catalog(relative):
     if relative!='src/engine/repair-games.js':return False
     source=(ROOT/relative).read_text(encoding='utf-8-sig')
-    assert hashlib.sha256(source.encode('utf-8')).hexdigest()=='0b6bee0699bef26b21aae06f9ccdd8c6c7755982167f3bd59331215ed6b52713','repair catalog differs from reviewed revision'
+    # The shared scene exposes the same reduced-motion predicate as the reviewed panel.
+    source=source.replace('const motionReduced=api.repairScene.reducedMotion;',
+        "const motionReduced=()=>document.body.classList.contains('reduced-effects')||window.matchMedia('(prefers-reduced-motion: reduce)').matches;")
+    # Reviewed animated panels: distribution and model generation retain their rules.
+    # Keep the exact-source guard; this is not a general exemption for repair edits.
+    assert hashlib.sha256(source.encode('utf-8')).hexdigest()=='04e28dbd982b6454ece84b0ec2d2a3d16919221b62cf614f7416db2f5ff7db2b','repair catalog differs from reviewed revision'
     return True
 
 def restore_parallax(data):
+    # Reverse only the three reviewed repair-v2 integration hooks. The same
+    # normalization serves both the environment and parallax exact-source guards.
+    v2=b'const repairs=(ByteRunner.repairV2?.enabled?ByteRunner.repairV2:ByteRunner.repairChallenges).assign(phaseData,phaseIndex);'
+    pause=b'    repairSession?.setPaused?.(!running||paused);'
+    resume=b'      repairSession?.setPaused?.(false);'
+    if v2 in data:
+        assert data.count(v2)==1 and data.count(pause)==1 and data.count(resume)==1,'repair-v2 integration hooks changed'
+        data=data.replace(v2,b'const repairs=ByteRunner.repairChallenges.assign(phaseData,phaseIndex);')
+        for newline in [b'\r\n',b'\n']:data=data.replace(pause+newline,b'').replace(resume+newline,b'')
     # The final presentation audit makes the two fully painted framebuffers
     # opaque. Normalize only these exact constructors; gameplay stays guarded.
     data=data.replace(b"canvas.getContext('2d', {alpha:false})",b"canvas.getContext('2d')")

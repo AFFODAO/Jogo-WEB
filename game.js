@@ -870,7 +870,7 @@
   }
 
   function createComponents() {
-    const repairs=ByteRunner.repairChallenges.assign(phaseData,phaseIndex);
+    const repairs=(ByteRunner.repairV2?.enabled?ByteRunner.repairV2:ByteRunner.repairChallenges).assign(phaseData,phaseIndex);
     return phaseData.entities.components.map((spec, index) => ({ ...spec, repair:repairs.get(spec.id), id: spec.id, x: spec.x, y: entityY(spec, 44), width: spec.width || 34, height: spec.height || 44, repaired: false, integrity: 100, corruption: 0, phase: index * .9 }));
   }
 
@@ -2855,6 +2855,7 @@
       ctx.restore();
     }
     const repairPanel=document.getElementById('repairPanel');
+    repairSession?.setPaused?.(!running||paused);
     repairPanel.hidden=!(running && repairSession?.blocksWorld);
     if (repairSession?.blocksWorld) {
       document.getElementById('repairPrompt').textContent=repairSession.label?.() || 'REPARO EM ANDAMENTO';
@@ -2920,6 +2921,7 @@
     if (paused) {
       paused = false;
       running = true;
+      repairSession?.setPaused?.(false);
       menuScreen = false;
       document.querySelector('.game-shell').classList.add('playing');
       continueButton.hidden = true;

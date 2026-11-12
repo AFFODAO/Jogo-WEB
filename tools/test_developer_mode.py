@@ -18,6 +18,9 @@ def exercise_repair_lab(cdp,evaluate,url,width,height):
     while not evaluate("Boolean(document.querySelector('#repairPanel[data-repair-type]'))"):
         if time.monotonic()>deadline:raise AssertionError(evaluate("document.querySelector('#component')?.innerHTML"))
         time.sleep(.05)
+    # This historical gesture regression intentionally exercises the retained engine.
+    # New equipment and native pointer gestures are covered by run_repair_v2_ui.py.
+    evaluate("const engine=document.getElementById('repairEngine');engine.value='legacy';engine.dispatchEvent(new Event('change'))")
     counts=evaluate("""(()=>{
         const phase=document.getElementById('phase'), component=document.getElementById('component');
         const choose=(picker,value)=>{picker.value=value;picker.dispatchEvent(new Event('change'));};
@@ -41,19 +44,34 @@ def exercise_repair_lab(cdp,evaluate,url,width,height):
         return evaluate(f"""(()=>{{const el=document.querySelector({json.dumps(selector)});
             const r=el.getBoundingClientRect();return {{x:r.x+r.width/2,y:r.y+r.height/2}};}})()""")
     def mouse(kind,point,button='none'):
-        cdp.call('Input.dispatchMouseEvent',{'type':kind,**point,'button':button,'clickCount':1})
+        cdp.call('Input.dispatchMouseEvent',{'type':kind,**point,'button':button,'buttons':0 if kind=='mouseReleased' else 1,'clickCount':1})
     def touch(kind,point=None):
         cdp.call('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[] if point is None else [point]})
 
-    evaluate("document.querySelector('.repair-board').scrollIntoView({block:'center'})")
-    part=position('#repair-part-0');slot=position('#repair-slot-0')
-    assert all(0<=p['y']<height for p in (part,slot)),(part,slot,height)
-    mouse('mousePressed',part,'left');mouse('mouseMoved',slot,'left');mouse('mouseReleased',slot,'left')
-    assert evaluate("document.querySelector('#repair-slot-0').dataset.signal!==''"),'mouse drag did not place DIMM'
-    evaluate("document.querySelector('#repair-reset').click();document.querySelector('.repair-board').scrollIntoView({block:'center'})")
-    part=position('#repair-part-1');slot=position('#repair-slot-1')
-    touch('touchStart',part);touch('touchMove',slot);touch('touchEnd')
-    assert evaluate("document.querySelector('#repair-slot-1').dataset.signal!==''"),'touch drag did not place DIMM'
+    def matching_part(slot_index):
+        return evaluate(f"""(()=>{{const text=document.getElementById('repair-slot-{slot_index}').textContent;
+            return [...document.querySelectorAll('.repair-part')].find(part=>text.includes(part.textContent.trim())).id;}})()""")
+    part_id=matching_part(0)
+    evaluate(f"document.getElementById({json.dumps(part_id)}).scrollIntoView({{block:'center'}})")
+    part=position('#'+part_id);assert 0<=part['y']<height,part
+    mouse('mousePressed',part,'left')
+    mouse('mouseMoved',{'x':part['x']+12,'y':part['y']},'left')
+    evaluate("document.querySelector('#repair-slot-0').scrollIntoView({block:'center'})")
+    slot=position('#repair-slot-0');assert 0<=slot['y']<height,slot
+    mouse('mouseMoved',slot,'left');mouse('mouseReleased',slot,'left')
+    assert evaluate("document.querySelector('#repair-slot-0').dataset.signal==='good'"),'mouse drag did not place compatible DIMM'
+    evaluate("document.querySelector('#repair-reset').click()")
+    part_id=matching_part(1)
+    evaluate(f"document.getElementById({json.dumps(part_id)}).scrollIntoView({{block:'center'}})")
+    part=position('#'+part_id);assert 0<=part['y']<height,part
+    cdp.call('Emulation.setTouchEmulationEnabled',{'enabled':True})
+    touch('touchStart',part)
+    touch('touchMove',{'x':part['x']+12,'y':part['y']})
+    evaluate("document.querySelector('#repair-slot-1').scrollIntoView({block:'center'})")
+    slot=position('#repair-slot-1');assert 0<=slot['y']<height,slot
+    touch('touchMove',slot);touch('touchEnd')
+    cdp.call('Emulation.setTouchEmulationEnabled',{'enabled':False})
+    assert evaluate("document.querySelector('#repair-slot-1').dataset.signal==='good'"),'touch drag did not place compatible DIMM'
     evaluate("""const picker=document.getElementById('component');picker.value='bus-west:bus-relay';
         picker.dispatchEvent(new Event('change'));document.getElementById('repair-cell-0').focus()""")
     before=evaluate("document.getElementById('repair-cell-0').getAttribute('aria-label')")
@@ -85,10 +103,15 @@ def capture_ui(target):
     cdp=None;results=[];lab_results=[]
     try:
         deadline=time.monotonic()+20
-        while not (profile/'DevToolsActivePort').exists():
-            if time.monotonic()>deadline:raise TimeoutError('UI Chrome failed to start')
-            time.sleep(.1)
-        cdp=CDP(page_endpoint(int((profile/'DevToolsActivePort').read_text().splitlines()[0])))
+        while True:
+            if time.monotonic()>deadline or process.poll() is not None:
+                raise TimeoutError('UI Chrome failed to start')
+            try:
+                debug_port=int((profile/'DevToolsActivePort').read_text().splitlines()[0])
+                break
+            except (OSError,ValueError,IndexError):
+                time.sleep(.1)
+        cdp=CDP(page_endpoint(debug_port))
         def evaluate(code):
             value=cdp.call('Runtime.evaluate',{'expression':code,'returnByValue':True})
             if value.get('exceptionDetails'):raise AssertionError(value['exceptionDetails'])

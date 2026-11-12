@@ -1,0 +1,401 @@
+{
+  "phases": [],
+  "systems": {
+    "repairs v2: 40 rules, 800 deterministic solvable variations": "PASS",
+    "repairs v2: manifest covers every stable component and saves": "PASS",
+    "repairs v2: pause, failure, hints, cancel and retry preserve economy": "PASS",
+    "repairs v2: pointer cancellation, insertion and keyboard have one owner": "PASS",
+    "repairs v2: renderer is responsive and contains no form or verify controls": "PASS",
+    "repairs v2: procedural assignment remains deterministic and accepts explicit extensions": "PASS",
+    "repairs v2: version 1 legacy save keeps repairs, XP and checkpoint after migration": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "v2Variations": 800,
+  "v2Inventory": [
+    {
+      "phase": 1,
+      "components": [
+        {
+          "id": "socket:cpu-relay",
+          "type": "v2-fan-replacement"
+        },
+        {
+          "id": "ram-base:ram-relay",
+          "type": "v2-ram-install"
+        },
+        {
+          "id": "bus-west:bus-relay",
+          "type": "v2-cpu-install"
+        },
+        {
+          "id": "gpu-east:gpu-relay",
+          "type": "v2-power-wiring"
+        }
+      ],
+      "counts": {
+        "v2-fan-replacement": 1,
+        "v2-ram-install": 1,
+        "v2-cpu-install": 1,
+        "v2-power-wiring": 1
+      }
+    },
+    {
+      "phase": 2,
+      "components": [
+        {
+          "id": "root:index",
+          "type": "v2-file-recovery"
+        },
+        {
+          "id": "scheduler:scheduler",
+          "type": "v2-process-repair"
+        },
+        {
+          "id": "swap:paging",
+          "type": "v2-system-restore"
+        },
+        {
+          "id": "recovery:recovery",
+          "type": "v2-virus-cleanup"
+        },
+        {
+          "id": "kernel-stack:kernel",
+          "type": "v2-process-repair"
+        }
+      ],
+      "counts": {
+        "v2-file-recovery": 1,
+        "v2-process-repair": 2,
+        "v2-system-restore": 1,
+        "v2-virus-cleanup": 1
+      }
+    },
+    {
+      "phase": 3,
+      "components": [
+        {
+          "id": "matrix-north:table",
+          "type": "v2-packet-diverter"
+        },
+        {
+          "id": "core-guard:fabric",
+          "type": "v2-packet-diverter"
+        },
+        {
+          "id": "uplink-crown:uplink",
+          "type": "v2-uplink-clutch"
+        },
+        {
+          "id": "port04:connector",
+          "type": "v2-patch-leads"
+        },
+        {
+          "id": "port01:connector",
+          "type": "v2-patch-leads"
+        },
+        {
+          "id": "channel-relay:bus",
+          "type": "v2-vlan-shutters"
+        }
+      ],
+      "counts": {
+        "v2-packet-diverter": 2,
+        "v2-uplink-clutch": 1,
+        "v2-patch-leads": 2,
+        "v2-vlan-shutters": 1
+      }
+    },
+    {
+      "phase": 4,
+      "components": [
+        {
+          "id": "gateway-tower:gateway",
+          "type": "v2-gateway-periscope"
+        },
+        {
+          "id": "iface-lan:lan",
+          "type": "v2-interface-crimp"
+        },
+        {
+          "id": "core-main:table",
+          "type": "v2-prefix-cams"
+        },
+        {
+          "id": "wan-relay:link",
+          "type": "v2-route-rail"
+        },
+        {
+          "id": "iface-console:transit",
+          "type": "v2-route-rail"
+        },
+        {
+          "id": "iface-wan:wan",
+          "type": "v2-interface-crimp"
+        }
+      ],
+      "counts": {
+        "v2-gateway-periscope": 1,
+        "v2-interface-crimp": 2,
+        "v2-prefix-cams": 1,
+        "v2-route-rail": 2
+      }
+    },
+    {
+      "phase": 5,
+      "components": [
+        {
+          "id": "main-array:uplink",
+          "type": "v2-dish-gimbal"
+        },
+        {
+          "id": "repeater-west:west",
+          "type": "v2-repeater-mast"
+        },
+        {
+          "id": "repeater-east:east",
+          "type": "v2-repeater-mast"
+        },
+        {
+          "id": "noise-center:spectrum",
+          "type": "v2-spectrum-tuner"
+        },
+        {
+          "id": "transmit-west:carrier",
+          "type": "v2-rf-compressor"
+        },
+        {
+          "id": "base-west:association",
+          "type": "v2-spectrum-tuner"
+        }
+      ],
+      "counts": {
+        "v2-dish-gimbal": 1,
+        "v2-repeater-mast": 2,
+        "v2-spectrum-tuner": 2,
+        "v2-rf-compressor": 1
+      }
+    },
+    {
+      "phase": 6,
+      "components": [
+        {
+          "id": "roof-controls:antenna",
+          "type": "v2-fiber-splice"
+        },
+        {
+          "id": "upper-hub:distribution",
+          "type": "v2-cable-reel"
+        },
+        {
+          "id": "shaft-west-mid:motor",
+          "type": "v2-continuity-trace"
+        },
+        {
+          "id": "maintenance-west:service",
+          "type": "v2-rj45-comb"
+        },
+        {
+          "id": "central-main:patch",
+          "type": "v2-cable-reel"
+        },
+        {
+          "id": "central-east:trunk",
+          "type": "v2-rj45-comb"
+        },
+        {
+          "id": "basement-power:power",
+          "type": "v2-continuity-trace"
+        }
+      ],
+      "counts": {
+        "v2-fiber-splice": 1,
+        "v2-cable-reel": 2,
+        "v2-continuity-trace": 2,
+        "v2-rj45-comb": 2
+      }
+    },
+    {
+      "phase": 7,
+      "components": [
+        {
+          "id": "gateway-plaza:gateway",
+          "type": "v2-pool-sluice"
+        },
+        {
+          "id": "address-office:scope",
+          "type": "v2-pool-sluice"
+        },
+        {
+          "id": "reserve-main:reservation",
+          "type": "v2-reservation-drum"
+        },
+        {
+          "id": "central-core:server",
+          "type": "v2-lease-pneumatics"
+        },
+        {
+          "id": "conflict-core:conflict",
+          "type": "v2-conflict-localizer"
+        },
+        {
+          "id": "distribution-south:relay",
+          "type": "v2-lease-pneumatics"
+        }
+      ],
+      "counts": {
+        "v2-pool-sluice": 2,
+        "v2-reservation-drum": 1,
+        "v2-lease-pneumatics": 2,
+        "v2-conflict-localizer": 1
+      }
+    },
+    {
+      "phase": 8,
+      "components": [
+        {
+          "id": "root-core:hints",
+          "type": "v2-delegation-hoist"
+        },
+        {
+          "id": "com-records:records",
+          "type": "v2-record-engraver"
+        },
+        {
+          "id": "com-zone:delegation",
+          "type": "v2-delegation-hoist"
+        },
+        {
+          "id": "org-records:records",
+          "type": "v2-record-engraver"
+        },
+        {
+          "id": "cache-crown:ttl",
+          "type": "v2-cache-carousel"
+        },
+        {
+          "id": "cache-terminal:recursive",
+          "type": "v2-query-courier"
+        },
+        {
+          "id": "resolve-core:resolution",
+          "type": "v2-query-courier"
+        }
+      ],
+      "counts": {
+        "v2-delegation-hoist": 2,
+        "v2-record-engraver": 2,
+        "v2-cache-carousel": 1,
+        "v2-query-courier": 2
+      }
+    },
+    {
+      "phase": 9,
+      "components": [
+        {
+          "id": "c01",
+          "type": "v2-policy-camshaft"
+        },
+        {
+          "id": "c02",
+          "type": "v2-inspection-airlock"
+        },
+        {
+          "id": "c05",
+          "type": "v2-shield-iris"
+        },
+        {
+          "id": "c06",
+          "type": "v2-shield-iris"
+        },
+        {
+          "id": "c03",
+          "type": "v2-policy-camshaft"
+        },
+        {
+          "id": "c07",
+          "type": "v2-threat-triangulation"
+        },
+        {
+          "id": "c04",
+          "type": "v2-inspection-airlock"
+        },
+        {
+          "id": "c08",
+          "type": "v2-threat-triangulation"
+        }
+      ],
+      "counts": {
+        "v2-policy-camshaft": 2,
+        "v2-inspection-airlock": 2,
+        "v2-shield-iris": 2,
+        "v2-threat-triangulation": 2
+      }
+    },
+    {
+      "phase": 10,
+      "components": [
+        {
+          "id": "c01",
+          "type": "v2-rack-busbars"
+        },
+        {
+          "id": "c02",
+          "type": "v2-replica-flywheels"
+        },
+        {
+          "id": "c05",
+          "type": "v2-backbone-prisms"
+        },
+        {
+          "id": "c06",
+          "type": "v2-rack-busbars"
+        },
+        {
+          "id": "c07",
+          "type": "v2-backbone-prisms"
+        },
+        {
+          "id": "c03",
+          "type": "v2-rack-gantry"
+        },
+        {
+          "id": "c08",
+          "type": "v2-backbone-prisms"
+        },
+        {
+          "id": "c09",
+          "type": "v2-rack-gantry"
+        },
+        {
+          "id": "c10",
+          "type": "v2-replica-flywheels"
+        },
+        {
+          "id": "c11",
+          "type": "v2-rack-busbars"
+        },
+        {
+          "id": "c12",
+          "type": "v2-replica-flywheels"
+        },
+        {
+          "id": "c04",
+          "type": "v2-rack-gantry"
+        }
+      ],
+      "counts": {
+        "v2-rack-busbars": 3,
+        "v2-replica-flywheels": 3,
+        "v2-backbone-prisms": 3,
+        "v2-rack-gantry": 3
+      }
+    }
+  ],
+  "execution": {
+    "sourceSha256": "b52b8dfdc087159d058686dd4d9b7add310347cfc6b8fd539cc3d28e40618de2",
+    "atUTC": "2026-11-12T01:20:30.754849+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

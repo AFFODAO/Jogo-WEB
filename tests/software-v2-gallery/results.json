@@ -1,0 +1,176 @@
+{
+  "sourceSha256": "45b7bfb130df255e090e78204cdb4558d03c9d9c59769c5798f9d39f8531dac3",
+  "concepts": 4,
+  "components": 5,
+  "runs": [
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "recovery:recovery",
+      "type": "virus-cleanup",
+      "passed": true,
+      "minimumTargetPx": 120
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "root:index",
+      "type": "file-recovery",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "scheduler:scheduler",
+      "type": "process-repair",
+      "passed": true,
+      "minimumTargetPx": 104
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "swap:paging",
+      "type": "system-restore",
+      "passed": true,
+      "minimumTargetPx": 104
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "kernel-stack:kernel",
+      "type": "process-repair",
+      "passed": true,
+      "minimumTargetPx": 104
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "recovery:recovery",
+      "type": "virus-cleanup",
+      "passed": true,
+      "minimumTargetPx": 64.5
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "root:index",
+      "type": "file-recovery",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "scheduler:scheduler",
+      "type": "process-repair",
+      "passed": true,
+      "minimumTargetPx": 55.9000244140625
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "swap:paging",
+      "type": "system-restore",
+      "passed": true,
+      "minimumTargetPx": 55.9000244140625
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "kernel-stack:kernel",
+      "type": "process-repair",
+      "passed": true,
+      "minimumTargetPx": 55.9000244140625
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "recovery:recovery",
+      "type": "virus-cleanup",
+      "passed": true,
+      "minimumTargetPx": 120
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "root:index",
+      "type": "file-recovery",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "scheduler:scheduler",
+      "type": "process-repair",
+      "passed": true,
+      "minimumTargetPx": 104
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "swap:paging",
+      "type": "system-restore",
+      "passed": true,
+      "minimumTargetPx": 104
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "kernel-stack:kernel",
+      "type": "process-repair",
+      "passed": true,
+      "minimumTargetPx": 104
+    }
+  ],
+  "storageUnchanged": true,
+  "limits": [
+    "Toque emulado no Chrome; aparelho físico não testado."
+  ]
+}

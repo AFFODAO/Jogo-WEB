@@ -1,0 +1,106 @@
+{
+  "phases": [
+    {
+      "phase": 1,
+      "assetLoad": "PASS",
+      "render": "PASS",
+      "camera": "PASS",
+      "baseAbilities": "PASS",
+      "reachableSurfaces": 152,
+      "repairAccess": "PASS",
+      "platformAccess": [],
+      "switchAccess": "PASS",
+      "portals": [
+        "bus-west:return",
+        "socket:return",
+        "gpu-east:return",
+        "ram-base:return"
+      ],
+      "collectibleAccess": "PASS",
+      "exitAccess": "PASS",
+      "enemyAccess": "PASS",
+      "combat": [
+        {
+          "id": "thermal:guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "socket:guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "heatsink:guard",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "heatsink:sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "ram-base:guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "bus-cross:guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "bus-west:guard",
+          "type": "basic",
+          "result": "PASS"
+        },
+        {
+          "id": "bus-east:guard",
+          "type": "fast",
+          "result": "PASS"
+        },
+        {
+          "id": "bus-east:sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "gpu-west:guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "gpu-west:sentry",
+          "type": "shooter",
+          "result": "PASS"
+        },
+        {
+          "id": "gpu-east:guard",
+          "type": "armored",
+          "result": "PASS"
+        },
+        {
+          "id": "core-test:guard",
+          "type": "basic",
+          "result": "PASS"
+        }
+      ],
+      "checkpoints": "PASS",
+      "respawn": "PASS",
+      "bounds": "PASS",
+      "save": "PASS",
+      "questions": "PASS",
+      "transitionSave": "PASS"
+    }
+  ],
+  "systems": {},
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "195699052f51672ff14556747e513529e19ae197ea93dd414ceba640a58bfd9d",
+    "atUTC": "2026-11-12T00:49:16.828584+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

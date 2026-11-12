@@ -1,10 +1,12 @@
 # Diagnósticos interativos
 
+A seção **Finalização dos painéis animados** registra a implementação e os resultados da execução atual. As tabelas de revisões anteriores abaixo são histórico de validação, não resultados reexecutados automaticamente.
+
 Os componentes das dez fases usam desafios modais. Aperte **E uma vez** perto do componente ou toque em REPARAR. Movimentação, gravidade, inimigos, tiros, plataformas, partículas e relógios do mundo ficam congelados. A sessão mantém a velocidade e a posição anteriores; ao fechar, o mundo retoma dali, com as teclas de movimento limpas para evitar comandos presos.
 
 | ID | Interação |
 | --- | --- |
-| `circuit` | Gire peças para formar um circuito contínuo de IN a OUT. |
+| `circuit` | Gire peças para formar um circuito contínuo da entrada à saída. |
 | `software` | Monte a sequência de restauração por cliques. Desfaça ações para corrigir a ordem. |
 | `ethernet` | Selecione uma porta e encaixe um destino. Mover o destino libera sua conexão anterior. |
 | `route` | Trace uma rota por nós adjacentes, evitando ligações bloqueadas. Volte pelo último nó ou reinicie a rota. |
@@ -21,7 +23,7 @@ As peças embaralhadas, opções, destinos, canal, potência, IPs, domínios, re
 
 ### Painel de circuitos
 
-A bancada usa placas de circuito desenhadas em CSS, com trilhas, chips, terminais IN e OUT e uma moldura com botões em relevo. Clique, toque ou pressione Enter ou Espaço para girar a placa focada. As setas movem o foco pelo tabuleiro. A última placa girada permanece destacada e as trilhas conectadas à entrada acendem durante a manipulação. O visor informa quando OUT está energizado. Verificar confirma a solução e exibe a animação de restauração, que respeita a preferência por movimento reduzido.
+A bancada usa placas de circuito desenhadas em CSS, com trilhas, chips, terminais de entrada e saída e uma moldura com botões em relevo. Clique, toque ou pressione Enter ou Espaço para girar a placa focada. As setas movem o foco pelo tabuleiro. A última placa girada permanece destacada e as trilhas conectadas à entrada acendem durante a manipulação. O visor informa quando a saída está energizada. Verificar confirma a solução e exibe a animação de restauração, que respeita a preferência por movimento reduzido.
 
 **Reiniciar circuito** restaura as orientações iniciais da tentativa e mantém os erros e as dicas já consumidos. Dica, verificar e fechar continuam disponíveis no painel ou no rodapé do diagnóstico.
 
@@ -298,3 +300,55 @@ Os relatórios estão em `tests/repair-integration-results.json`, `tests/repair-
 ### Limitações restantes
 
 Toque, orientação e tamanhos de tela foram exercitados no Chrome headless. A ergonomia em aparelhos físicos, leitores de tela e partidas humanas contínuas continua pendente. A prova de acesso dos mapas usa saltos simulados e deslocamentos entre apoios alcançáveis. A automação resolve os diagnósticos a partir de seus modelos e não mede dificuldade percebida ou duração de uma partida.
+
+## Finalização dos painéis animados
+
+### Apresentação e ciclo de vida
+
+- Abertura em 180 ms, com deslocamento e escala discretos. Fechamento em 160 ms, sem atrasar o cancelamento, o resultado do reparo ou a retomada do mundo.
+- O fechamento usa uma cópia visual temporária, sem IDs, sem eventos copiados, com `inert`, `aria-hidden` e eventos de ponteiro desativados. A cópia é removida ao terminar; abrir outro painel remove imediatamente qualquer fechamento anterior.
+- Seleção e foco permanecem nos controles nativos. Interruptores deslocam sua alavanca; encaixes e ativações aceitas produzem quatro pequenas faíscas durante 260 ms. A confirmação ilumina a borda interna do equipamento durante 440 ms.
+- Uma verificação incorreta tem um deslocamento curto e uma indicação de erro em texto, borda e LED. A tentativa esgotada usa um cabeçalho de interrupção distinto. Encaixes RAM incompatíveis continuam tendo sua própria rejeição visual, sem consumir uma verificação.
+- O sistema operacional (`prefers-reduced-motion`) e a opção **Reduzir efeitos** do jogo desativam esses movimentos, inclusive os efeitos feitos com Web Animations. Cor, texto, foco, estados e controles continuam disponíveis.
+
+As ilustrações de equipamento são originais, em CSS e SVG: módulos DIMM e travas, ventoinha e medidor térmico, GPU e conector PCIe, arquivos e pastas, portas Ethernet, antenas, RJ45, sondas, acoplador óptico, dispositivos DHCP, servidores DNS, portões de segurança e racks com ventilação e carga. Os efeitos refletem as mesmas escolhas e leituras usadas pelos controles. Diagramas decorativos ficam fora da árvore de acessibilidade; instruções, pistas, mensagens e nomes acessíveis continuam em pt-BR. Os estados do Modo Desenvolvedor agora mostram **LIGADO/DESLIGADO**, e os terminais do circuito usam **ENT./SAÍDA**.
+
+### Desempenho e preservação das regras
+
+Não foi acrescentado um ciclo de `requestAnimationFrame`. CSS e Web Animations executam os efeitos; apenas posições de cabos e medidores são atualizadas nos eventos de entrada. A seleção de peças, concessões, nós e processos, a escolha de portas e a rotação de placas mantêm o DOM existente. A rotação atualiza trilhas, LEDs, seleção, descrição acessível e saída no próprio tabuleiro; mudanças que alteram a estrutura do desafio ainda usam o renderizador compartilhado.
+
+Durante o arraste, o SVG acompanha o ponteiro sem reconstrução. As coordenadas são convertidas para o espaço local do painel, para manter a outra ponta ancorada mesmo durante a escala da abertura. `AbortController` remove os eventos da renderização anterior; observadores de tamanho são desconectados e animações programáticas são canceladas ao descartar a sessão. A única apresentação restante ao fechar é a cópia inerte de 160 ms.
+
+Distribuição, sementes, soluções e dificuldade foram preservadas. Não há mudanças em XP, penalidades, dicas, dados salvos, objetivos, checkpoints ou progressão. A comparação com o código versionado confirmou a distribuição e a geração dos modelos, descontando apenas os ajustes de texto em pt-BR. A proteção de fonte em `tools/check_environment.py` foi atualizada para o hash exato da revisão visual; ela continua rejeitando outras alterações. Nenhum módulo de mapa foi refeito.
+
+### Validação desta finalização
+
+| Execução atual | Resultado confirmado |
+| --- | --- |
+| `python tests/run_review.py --repairs-only --viewport 1280x720 --result-label repairs-polish-desktop` | 26 verificações aprovadas; zero erros de runtime. |
+| `python tests/run_review.py --repairs-only --viewport 390x844 --result-label repairs-polish-mobile` | 26 verificações aprovadas; zero erros de runtime. |
+| `python tests/audit_equipment.py` | 43 tipos em desktop, celular e movimento reduzido (129 execuções); solução pelos controles do DOM, descarte e reabertura rápida aprovados; zero erros de runtime. |
+| `python tools/test_developer_mode.py --full` | Aprovado: interface e entrada nativa em três tamanhos, 21 verificações do Modo Desenvolvedor, verificadores de mapas/ambiente/parallax/geração e regressão geral com 239 verificações aprovadas, dez fases, checkpoints e progressão aprovados; zero erros de runtime. Hashes dos mapas inalterados. |
+
+Os relatórios desta versão estão em `tests/repairs-polish-desktop-results.json`, `tests/repairs-polish-mobile-results.json`, `tests/animated-equipment/results.json` e `tests/developer-mode-results/`. O campo `sourceSha256` identifica o código exercitado. As capturas antes/depois estão em `tests/animated-equipment/gallery.html` e `gallery.png`.
+
+A suíte de reparos exercita sucesso e falha, XP concedido uma só vez, penalidades, dicas, persistência, pausa do mundo, distribuição dos 67 componentes e variantes de todos os tipos do catálogo. Os novos testes também verificam estabilidade do DOM, ausência de ouvintes ativos após descarte e respeito à opção de redução de efeitos.
+
+Foram encontradas e corrigidas duas incompatibilidades dos testes antigos: o teste do laboratório tentava instalar qualquer DIMM em qualquer slot, e o verificador de ambiente exigia o hash anterior a esta sequência de melhorias visuais. O arraste agora escolhe o módulo pelo rótulo público de entalhes e considera a rolagem; o verificador mantém a proteção por hash exato. Um teste de desktop também detectou a variação indevida das coordenadas locais de cabos durante a abertura; a conversão de escala corrigiu a ancoragem. Os relatórios reprovados intermediários não são usados como aprovação final.
+
+### Arquivos da finalização
+
+- Apresentação e idioma: `src/engine/repair-games.js`, `style.css`, `index.html`, `src/engine/developer-mode.js`.
+- Testes e proteção de escopo: `tests/repairs.js`, `tests/developer-mode.js`, `tests/audit_equipment.py`, `tools/test_developer_mode.py`, `tools/check_environment.py`.
+- Documentação: `docs/repair-minigames.md`.
+- Evidências geradas: `tests/repairs-polish-*-results.json`, `tests/animated-equipment/` e `tests/developer-mode-results/`. As alterações anteriores em `tests/minigames.html` e `tests/capture_hardware.py` continuam fazendo parte da sequência de melhorias.
+
+### Limites da validação
+
+Os controles nativos são exercitados pelo Chrome DevTools Protocol. Toque é emulado; aparelhos físicos, outros navegadores, leitores de tela e avaliação humana de ergonomia e dificuldade continuam pendentes. Os solucionadores usam as respostas dos modelos para acionar os controles, sem atribuir sucesso diretamente. A regressão de percurso usa a simulação de saltos existente, não uma partida humana contínua.
+
+A espera de inicialização do Chrome em `tools/test_developer_mode.py` agora tolera arquivo temporariamente bloqueado ou incompleto, com prazo e verificação de encerramento do processo. Isso corrige a falha de infraestrutura observada antes dos testes da interface.
+
+Após uma interrupção por disco cheio e reinício do servidor, a auditoria de equipamentos foi reconstruída e reexecutada. As capturas foram regeneradas. Essa auditoria usa cliques e alterações nos controles pelo DOM; a entrada nativa por mouse, toque e teclado é exercitada separadamente no laboratório pelo teste do Modo Desenvolvedor. As execuções interrompidas por falta de espaço não são contabilizadas como aprovadas.
+
+O verificador de ambiente reconhece a extração exata do predicado de movimento reduzido para `ByteRunner.repairScene.reducedMotion`, cujo corpo preserva a consulta ao sistema operacional e à opção do jogo. A comparação de hash continua exigindo o restante da fonte revisada, sem liberar alterações arbitrárias nos reparos.

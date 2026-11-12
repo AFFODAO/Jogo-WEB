@@ -1544,9 +1544,15 @@
     "art: all 77 PNG atlases decode; sprites paint pixels and spatial gaps match declarations": "PASS",
     "art: failed image returns fallback signal": "PASS",
     "art: robot actions and shield draw without changing gameplay": "PASS",
+    "repairs: shared scene scales coordinates and owns gesture lifecycle": "PASS",
     "repairs: circuit panel tracks live power, focus and reset": "PASS",
+    "repairs: physical cables preserve anchors, reject empty drops and clean up": "PASS",
+    "repairs: circuit motion honors reduced motion and preserves validation": "PASS",
+    "repairs: polish preserves DOM, input ownership and close semantics": "PASS",
+    "repairs: reduced effects suppress programmatic polish motion": "PASS",
     "repairs: campaign distributes distinct mechanics with a cap of two": "PASS",
     "repairs: themed equipment variants solve through the panel": "PASS",
+    "repairs: hardware artwork follows RAM, cooling and GPU state": "PASS",
     "repairs: placement accepts touch drop and click selection": "PASS",
     "repairs: explicit specs reserve capacity and procedural repairs use the map theme and seed": "PASS",
     "repairs: all campaign components have solvable modal challenges and persist once": "PASS",
@@ -1555,6 +1561,15 @@
     "repairs: skill supplies hints and tolerance without solving the challenge": "PASS",
     "repairs: generated variations remain solvable across all ten types": "PASS",
     "repairs: type-specific controls enforce different rules": "PASS",
+    "repairs: animated equipment stage 2": "PASS",
+    "repairs: animated equipment stage 3": "PASS",
+    "repairs: animated equipment stage 4": "PASS",
+    "repairs: animated equipment stage 5": "PASS",
+    "repairs: animated equipment stage 6": "PASS",
+    "repairs: animated equipment stage 7": "PASS",
+    "repairs: animated equipment stage 8": "PASS",
+    "repairs: animated equipment stage 9": "PASS",
+    "repairs: animated equipment stage 10": "PASS",
     "experience: reduced effects persist, bound particles and suppress shake": "PASS",
     "experience: intro freezes the world, can be skipped and settings pause safely": "PASS",
     "experience: camera anticipation and vertical safety stay inside all map bounds": "PASS",
@@ -3622,13 +3637,13 @@
       644
     ],
     "samples": 180,
-    "p50Ms": 2.300000011920929,
-    "p95Ms": 3.900000035762787,
+    "p50Ms": 2.3000000715255737,
+    "p95Ms": 4.700000047683716,
     "cacheSize": 48,
     "parallaxBytes": 3414272
   },
   "execution": {
-    "atUTC": "2026-11-11T01:07:47.561439+00:00",
+    "atUTC": "2026-11-12T00:13:51.552554+00:00",
     "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
     "transport": "localhost HTTP",
     "isolatedStorage": true,
@@ -3640,7 +3655,7 @@
       "Combat is tested separately with damage protection; survival balance still needs manual play.",
       "Minigame solvers use generated answers through real DOM controls."
     ],
-    "sourceSha256": "618886fc32ae678e3676566af35b5885018112655b9538713f7ece5edbbf84f8"
+    "sourceSha256": "274e7fad4dbc5ccc4d33d17248d832f6c0dd395142da3aa9663e7232e5b70eb4"
   },
   "captures": [
     "snapshots/phase-01-overview.png",
@@ -3738,8 +3753,8 @@
   ],
   "summary": {
     "phases": 10,
-    "systems": 224,
-    "passedSystems": 224,
+    "systems": 239,
+    "passedSystems": 239,
     "captures": 92,
     "runtimeErrors": 0,
     "failures": []

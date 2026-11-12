@@ -6,6 +6,9 @@
   const host=document.getElementById('repairContent');
   const panel=document.getElementById('repairPanel');
   const query=new URLSearchParams(location.search);
+  const enginePicker=document.getElementById('repairEngine');
+  enginePicker.value=query.get('repairs')==='legacy'?'legacy':'v2';
+  const engine=()=>enginePicker.value==='legacy'?api.repairChallenges:api.repairV2;
   const previewWidth=Number(query.get('width'));
   if(previewWidth>0){
     document.body.style.maxWidth=previewWidth+'px';
@@ -31,10 +34,10 @@
   function selectPhase(initial=false){
     const index=Number(phasePicker.value);
     phase=phases[index];
-    assignments=api.repairChallenges.assign(phase,index);
+    assignments=engine().assign(phase,index);
     componentPicker.replaceChildren(...phase.entities.components.map(component=>{
       const type=assignments.get(component.id).type;
-      const name=api.repairChallenges.catalog.find(entry=>entry.id===type)?.name||type;
+      const name=engine().catalog.find(entry=>entry.id===type)?.name||type;
       return option(component.id,component.label+' · '+name);
     }));
     if(initial&&assignments.has(query.get('component')))componentPicker.value=query.get('component');
@@ -43,6 +46,7 @@
 
   phasePicker.addEventListener('change',()=>{selectPhase();phasePicker.focus();});
   componentPicker.addEventListener('change',()=>{open();componentPicker.focus();});
+  enginePicker.addEventListener('change',()=>{selectPhase();enginePicker.focus();});
   document.getElementById('cancelRepairButton').addEventListener('click',open);
   panel.addEventListener('keydown',event=>{if(event.key!=='Tab')session.handleKey(event);});
   function frame(now){

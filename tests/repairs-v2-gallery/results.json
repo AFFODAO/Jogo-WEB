@@ -1,0 +1,31 @@
+{
+  "concepts": 40,
+  "components": 67,
+  "geometry": [
+    {
+      "width": 1280,
+      "height": 1000,
+      "components": 67
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "components": 67
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "components": 67
+    }
+  ],
+  "nativeMouseInsertion": true,
+  "emulatedTouchInsertion": true,
+  "nativeKeyboardRotation": true,
+  "nativeCableConnection": true,
+  "nativeStencilTrace": true,
+  "minimumTargetPx": 44,
+  "storageUnchanged": true,
+  "limitations": [
+    "Touch is browser-emulated; a physical mobile device has not been tested."
+  ]
+}

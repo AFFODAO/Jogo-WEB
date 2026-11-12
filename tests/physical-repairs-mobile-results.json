@@ -1,0 +1,480 @@
+{
+  "phases": [],
+  "systems": {
+    "repairs: circuit panel tracks live power, focus and reset": "PASS",
+    "repairs: physical cables preserve anchors, reject empty drops and clean up": "PASS",
+    "repairs: circuit motion honors reduced motion and preserves validation": "PASS",
+    "repairs: campaign distributes distinct mechanics with a cap of two": "PASS",
+    "repairs: themed equipment variants solve through the panel": "PASS",
+    "repairs: placement accepts touch drop and click selection": "PASS",
+    "repairs: explicit specs reserve capacity and procedural repairs use the map theme and seed": "PASS",
+    "repairs: all campaign components have solvable modal challenges and persist once": "PASS",
+    "repairs: keyboard tap opens immediately and freezes movement, combat and timers": "PASS",
+    "repairs: failure penalizes once, retry varies, cancel does not repair": "PASS",
+    "repairs: skill supplies hints and tolerance without solving the challenge": "PASS",
+    "repairs: generated variations remain solvable across all ten types": "PASS",
+    "repairs: type-specific controls enforce different rules": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "repairInventory": [
+    {
+      "phase": 1,
+      "components": [
+        {
+          "id": "socket:cpu-relay",
+          "label": "REFRIGERACAO DA CPU",
+          "type": "cooling",
+          "mechanic": "thermal-balance"
+        },
+        {
+          "id": "ram-base:ram-relay",
+          "label": "BANCO DE MEMORIA",
+          "type": "ram",
+          "mechanic": "keyed-module"
+        },
+        {
+          "id": "bus-west:bus-relay",
+          "label": "MALHA DOS BARRAMENTOS",
+          "type": "circuit",
+          "mechanic": "rotation"
+        },
+        {
+          "id": "gpu-east:gpu-relay",
+          "label": "ALIMENTACAO PRINCIPAL DA GPU",
+          "type": "gpu",
+          "mechanic": "power-interlock"
+        }
+      ]
+    },
+    {
+      "phase": 2,
+      "components": [
+        {
+          "id": "root:index",
+          "label": "RESTAURAR INDICE DE ARQUIVOS",
+          "type": "files",
+          "mechanic": "directory-sort"
+        },
+        {
+          "id": "scheduler:scheduler",
+          "label": "RESTAURAR ESCALONADOR",
+          "type": "software",
+          "mechanic": "sequence"
+        },
+        {
+          "id": "swap:paging",
+          "label": "RESTAURAR PAGINACAO",
+          "type": "boot",
+          "mechanic": "boot-dependency"
+        },
+        {
+          "id": "recovery:recovery",
+          "label": "RECONSTRUIR ARQUIVOS",
+          "type": "quarantine",
+          "mechanic": "signature-inspection"
+        },
+        {
+          "id": "kernel-stack:kernel",
+          "label": "RESTAURAR PROCESSOS DO NUCLEO",
+          "type": "software",
+          "mechanic": "sequence"
+        }
+      ]
+    },
+    {
+      "phase": 3,
+      "components": [
+        {
+          "id": "matrix-north:table",
+          "label": "RECONSTRUIR TABELA MAC",
+          "type": "packets",
+          "mechanic": "packet-queue"
+        },
+        {
+          "id": "core-guard:fabric",
+          "label": "RESTAURAR CONECTIVIDADE",
+          "type": "packets",
+          "mechanic": "packet-queue"
+        },
+        {
+          "id": "uplink-crown:uplink",
+          "label": "RESTAURAR UPLINK",
+          "type": "uplink",
+          "mechanic": "link-negotiation"
+        },
+        {
+          "id": "port04:connector",
+          "label": "REPARAR RJ45 / PORTA 04",
+          "type": "ethernet",
+          "mechanic": "connection"
+        },
+        {
+          "id": "port01:connector",
+          "label": "REPARAR RJ45 / PORTA 01",
+          "type": "ethernet",
+          "mechanic": "connection"
+        },
+        {
+          "id": "channel-relay:bus",
+          "label": "SINCRONIZAR CANAIS",
+          "type": "vlan",
+          "mechanic": "membership-matrix"
+        }
+      ]
+    },
+    {
+      "phase": 4,
+      "components": [
+        {
+          "id": "gateway-tower:gateway",
+          "label": "RESTAURAR GATEWAY PADRAO",
+          "type": "gateway",
+          "mechanic": "default-probe"
+        },
+        {
+          "id": "iface-lan:lan",
+          "label": "CONFIGURAR INTERFACE LAN",
+          "type": "interfaces",
+          "mechanic": "media-patching"
+        },
+        {
+          "id": "core-main:table",
+          "label": "RESTAURAR TABELA DE ROTEAMENTO",
+          "type": "route-table",
+          "mechanic": "prefix-entry"
+        },
+        {
+          "id": "wan-relay:link",
+          "label": "SINCRONIZAR TUNEL WAN",
+          "type": "route",
+          "mechanic": "path"
+        },
+        {
+          "id": "iface-console:transit",
+          "label": "RECONSTRUIR ROTAS DE TRANSITO",
+          "type": "route",
+          "mechanic": "path"
+        },
+        {
+          "id": "iface-wan:wan",
+          "label": "CONFIGURAR INTERFACE WAN",
+          "type": "interfaces",
+          "mechanic": "media-patching"
+        }
+      ]
+    },
+    {
+      "phase": 5,
+      "components": [
+        {
+          "id": "main-array:uplink",
+          "label": "RESTAURAR ANTENA PRINCIPAL",
+          "type": "antenna",
+          "mechanic": "beam-alignment"
+        },
+        {
+          "id": "repeater-west:west",
+          "label": "SINCRONIZAR REPETIDOR OESTE",
+          "type": "repeaters",
+          "mechanic": "coverage-budget"
+        },
+        {
+          "id": "repeater-east:east",
+          "label": "SINCRONIZAR REPETIDOR LESTE",
+          "type": "repeaters",
+          "mechanic": "coverage-budget"
+        },
+        {
+          "id": "noise-center:spectrum",
+          "label": "LIMPAR ESPECTRO DE RADIO",
+          "type": "channel",
+          "mechanic": "spectrum-selection"
+        },
+        {
+          "id": "transmit-west:carrier",
+          "label": "RESTAURAR PORTADORA",
+          "type": "power-signal",
+          "mechanic": "signal-budget"
+        },
+        {
+          "id": "base-west:association",
+          "label": "CALIBRAR ASSOCIACAO WI-FI",
+          "type": "channel",
+          "mechanic": "spectrum-selection"
+        }
+      ]
+    },
+    {
+      "phase": 6,
+      "components": [
+        {
+          "id": "roof-controls:antenna",
+          "label": "RECONECTAR COBERTURA",
+          "type": "fiber",
+          "mechanic": "optical-coupling"
+        },
+        {
+          "id": "upper-hub:distribution",
+          "label": "RESTAURAR DISTRIBUICAO SUPERIOR",
+          "type": "connectors",
+          "mechanic": "port-patching"
+        },
+        {
+          "id": "shaft-west-mid:motor",
+          "label": "REPARAR CONTROLE DOS ELEVADORES",
+          "type": "continuity",
+          "mechanic": "continuity-probe"
+        },
+        {
+          "id": "maintenance-west:service",
+          "label": "RESTAURAR QUADRO DE MANUTENCAO",
+          "type": "cabling",
+          "mechanic": "swap"
+        },
+        {
+          "id": "central-main:patch",
+          "label": "RECONECTAR PAINEL PRINCIPAL",
+          "type": "connectors",
+          "mechanic": "port-patching"
+        },
+        {
+          "id": "central-east:trunk",
+          "label": "REPARAR TRONCO DE COBRE",
+          "type": "cabling",
+          "mechanic": "swap"
+        },
+        {
+          "id": "basement-power:power",
+          "label": "RESTAURAR ALIMENTACAO DO SUBSOLO",
+          "type": "continuity",
+          "mechanic": "continuity-probe"
+        }
+      ]
+    },
+    {
+      "phase": 7,
+      "components": [
+        {
+          "id": "gateway-plaza:gateway",
+          "label": "RESTAURAR GATEWAY DA CIDADE",
+          "type": "ip-pool",
+          "mechanic": "lease-window"
+        },
+        {
+          "id": "address-office:scope",
+          "label": "RECONSTRUIR ESCOPO DE ENDERECOS",
+          "type": "ip-pool",
+          "mechanic": "lease-window"
+        },
+        {
+          "id": "reserve-main:reservation",
+          "label": "RESTAURAR TABELA DE RESERVAS",
+          "type": "ip-reservations",
+          "mechanic": "reservation-binding"
+        },
+        {
+          "id": "central-core:server",
+          "label": "RESTAURAR SERVIDOR DHCP",
+          "type": "ip-distribution",
+          "mechanic": "lease-allocation"
+        },
+        {
+          "id": "conflict-core:conflict",
+          "label": "RESOLVER ENDERECOS DUPLICADOS",
+          "type": "ip-conflicts",
+          "mechanic": "duplicate-remediation"
+        },
+        {
+          "id": "distribution-south:relay",
+          "label": "REPARAR DISTRIBUICAO DE CONCESSOES",
+          "type": "ip-distribution",
+          "mechanic": "lease-allocation"
+        }
+      ]
+    },
+    {
+      "phase": 8,
+      "components": [
+        {
+          "id": "root-core:hints",
+          "label": "RESTAURAR REFERENCIAS DA RAIZ",
+          "type": "dns-tree",
+          "mechanic": "hierarchy-attachment"
+        },
+        {
+          "id": "com-records:records",
+          "label": "RECONSTRUIR REGISTROS A / AAAA",
+          "type": "dns-records",
+          "mechanic": "record-patching"
+        },
+        {
+          "id": "com-zone:delegation",
+          "label": "RESTAURAR DELEGACAO .COM",
+          "type": "dns-tree",
+          "mechanic": "hierarchy-attachment"
+        },
+        {
+          "id": "org-records:records",
+          "label": "RECONSTRUIR REGISTROS .ORG",
+          "type": "dns-records",
+          "mechanic": "record-patching"
+        },
+        {
+          "id": "cache-crown:ttl",
+          "label": "RENOVAR CACHE / TTL",
+          "type": "dns-cache",
+          "mechanic": "cache-invalidation"
+        },
+        {
+          "id": "cache-terminal:recursive",
+          "label": "RESTAURAR RESOLVEDOR RECURSIVO",
+          "type": "dns-query",
+          "mechanic": "referral-walk"
+        },
+        {
+          "id": "resolve-core:resolution",
+          "label": "CONCLUIR RESOLUCAO DNS",
+          "type": "dns-query",
+          "mechanic": "referral-walk"
+        }
+      ]
+    },
+    {
+      "phase": 9,
+      "components": [
+        {
+          "id": "c01",
+          "label": "REGRAS DO PERÍMETRO",
+          "type": "policy-order",
+          "mechanic": "first-match-policy"
+        },
+        {
+          "id": "c02",
+          "label": "POLÍTICA DE INSPEÇÃO",
+          "type": "firewall",
+          "mechanic": "policy"
+        },
+        {
+          "id": "c05",
+          "label": "RESTAURAR TRAVAS DA ECLUSA",
+          "type": "barriers",
+          "mechanic": "coupled-segments"
+        },
+        {
+          "id": "c06",
+          "label": "ENERGIZAR DUTOS",
+          "type": "barriers",
+          "mechanic": "coupled-segments"
+        },
+        {
+          "id": "c03",
+          "label": "REGRAS DO ANEL INTERNO",
+          "type": "policy-order",
+          "mechanic": "first-match-policy"
+        },
+        {
+          "id": "c07",
+          "label": "SINCRONIZAR DEFESA DO ANEL",
+          "type": "threats",
+          "mechanic": "evidence-correlation"
+        },
+        {
+          "id": "c04",
+          "label": "POLÍTICA DA CIDADELA",
+          "type": "firewall",
+          "mechanic": "policy"
+        },
+        {
+          "id": "c08",
+          "label": "RESTAURAR NÚCLEO DE SEGURANÇA",
+          "type": "threats",
+          "mechanic": "evidence-correlation"
+        }
+      ]
+    },
+    {
+      "phase": 10,
+      "components": [
+        {
+          "id": "c01",
+          "label": "RESTAURAR DISTRIBUIÇÃO DE ENTRADA",
+          "type": "rack-power",
+          "mechanic": "redundant-power"
+        },
+        {
+          "id": "c02",
+          "label": "SINCRONIZAR TORRE B",
+          "type": "servers",
+          "mechanic": "synchronization"
+        },
+        {
+          "id": "c05",
+          "label": "RESTAURAR FIBRA DA TORRE A",
+          "type": "fiber",
+          "mechanic": "optical-coupling"
+        },
+        {
+          "id": "c06",
+          "label": "RESTABELECER ENERGIA DA OFICINA",
+          "type": "rack-power",
+          "mechanic": "redundant-power"
+        },
+        {
+          "id": "c07",
+          "label": "RECONECTAR CANAL DE MANUTENÇÃO",
+          "type": "fiber",
+          "mechanic": "optical-coupling"
+        },
+        {
+          "id": "c03",
+          "label": "RESTAURAR TRANSMISSÃO CENTRAL",
+          "type": "rack-load",
+          "mechanic": "capacity-packing"
+        },
+        {
+          "id": "c08",
+          "label": "ATIVAR ROTA REDUNDANTE",
+          "type": "circuit",
+          "mechanic": "rotation"
+        },
+        {
+          "id": "c09",
+          "label": "ISOLAR MEMÓRIA CORROMPIDA",
+          "type": "rack-load",
+          "mechanic": "capacity-packing"
+        },
+        {
+          "id": "c10",
+          "label": "ESTABILIZAR CONTENÇÃO",
+          "type": "servers",
+          "mechanic": "synchronization"
+        },
+        {
+          "id": "c11",
+          "label": "RECUPERAR BARRAMENTO FINAL",
+          "type": "circuit",
+          "mechanic": "rotation"
+        },
+        {
+          "id": "c12",
+          "label": "RESTAURAR BACKUP DO NÚCLEO",
+          "type": "core-relays",
+          "mechanic": "relay-dependency"
+        },
+        {
+          "id": "c04",
+          "label": "ESCUDO DO NÚCLEO",
+          "type": "core-relays",
+          "mechanic": "relay-dependency"
+        }
+      ]
+    }
+  ],
+  "execution": {
+    "sourceSha256": "41275eed64f7a72277cec34edbf6d13fc2309b81eba31cc4a6610727884748ab",
+    "atUTC": "2026-11-11T22:04:51.594958+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

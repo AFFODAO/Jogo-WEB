@@ -24,7 +24,7 @@ if(reloadRecord){
   questionHistory={hardware:['hw-01']};saveQuestionHistory();saveCampaign();
   devIds('settingsButton').click();const normalSaved=localStorage.getItem(SAVE_KEY),normalHistory=localStorage.getItem(QUESTION_HISTORY_KEY),normalX=player.x,normalY=player.y;
   test('developer: toggle ON starts a separate base-attribute test session',()=>{
-    devToggle(true);assert(developerSession&&devIds('developerModeState').textContent==='ON'&&!devIds('developerTools').hidden,'activation failed');
+    devToggle(true);assert(developerSession&&devIds('developerModeState').textContent==='LIGADO'&&!devIds('developerTools').hidden,'activation failed');
     assert(xp===0&&level===1&&!unlockedSkills.length&&player.damage===1,'test inherited normal attributes');
     assert(!running&&paused&&devIds('settingsDialog').open,'settings world advanced');devUnchanged(normalSaved,normalHistory);
   });

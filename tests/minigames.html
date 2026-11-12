@@ -17,6 +17,7 @@ header select{box-sizing:border-box;min-width:0;width:100%;min-height:44px;paddi
 <span>As tentativas desta bancada ficam na aba e não alteram a campanha.</span>
 <label>Fase <select id="phase"></select></label>
 <label>Componente <select id="component"></select></label>
+<label>Experiência <select id="repairEngine"><option value="v2">Equipamentos interativos</option><option value="legacy">Reparos anteriores</option></select></label>
 </header>
 <main class="laboratory"><section class="repair-panel" id="repairPanel" aria-labelledby="repairPrompt">
 <p id="repairPrompt"></p><div id="repairContent"></div>
@@ -36,7 +37,18 @@ header select{box-sizing:border-box;min-width:0;width:100%;min-height:44px;paddi
 <script src="../src/generation/gameplay.js"></script>
 <script src="../src/generation/rebuild-v3.js"></script>
 <script src="../src/engine/repairs.js"></script>
+<script src="../src/engine/repair-scene.js"></script>
 <script src="../src/engine/repair-games.js"></script>
+<script src="../src/engine/repair-hardware-models.js"></script>
+<script src="../src/engine/repair-software-models.js"></script>
+<script src="../src/engine/repair-v2-models.js"></script>
+<script src="../src/engine/repair-hardware-art.js"></script>
+<script src="../src/engine/repair-software-art.js"></script>
+<script src="../src/engine/repair-v2-renderer.js"></script>
+<script src="../src/engine/repair-v2-manifest.js"></script>
+<script src="../src/engine/repair-v2.js"></script>
+<script src="../src/engine/level-runtime.js"></script>
+<script src="../src/engine/visuals.js"></script>
 <script src="../src/content/first-five.js"></script>
 <script src="../src/content/parkour.js"></script>
 <script src="../src/content/last-five.js"></script>
