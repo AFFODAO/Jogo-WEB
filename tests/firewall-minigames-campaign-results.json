@@ -1,0 +1,62 @@
+{
+  "phases": [],
+  "systems": {
+    "firewall: 120 deterministic variants and delayed completion": "PASS",
+    "firewall: header policy, gate interlock and inspection evidence are distinct": "PASS",
+    "firewall: shield requires orientation and complete circuit before power": "PASS",
+    "firewall: first match stops evaluation and equivalent valid orders are accepted": "PASS",
+    "firewall: eight campaign objectives preserve rewards, progression and saves": "PASS",
+    "firewall: pause, cancel, failure and retry preserve economy": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "firewallVariations": 120,
+  "firewallRewards": [
+    {
+      "id": "c01",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c02",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c05",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c06",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c03",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c07",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c04",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c08",
+      "xp": 130,
+      "saved": true
+    }
+  ],
+  "execution": {
+    "sourceSha256": "4e96199de4234a59b66caf4b2ed3619ef93afeadcda256a1cfbee29b5b342847",
+    "atUTC": "2026-11-12T23:15:18.318784+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

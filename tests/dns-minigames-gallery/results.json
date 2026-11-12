@@ -1,0 +1,242 @@
+{
+  "sourceSha256": "7f4b84f2203ccd64ca2850e66dd799ad0b27c14bd0e3983f6f93c3f87bed6bfd",
+  "concepts": 4,
+  "components": 7,
+  "runs": [
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "root-core:hints",
+      "type": "delegation-hoist",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "com-records:records",
+      "type": "record-engraver",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "com-zone:delegation",
+      "type": "delegation-hoist",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "org-records:records",
+      "type": "record-engraver",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "cache-crown:ttl",
+      "type": "cache-carousel",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "cache-terminal:recursive",
+      "type": "query-courier",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "resolve-core:resolution",
+      "type": "query-courier",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "root-core:hints",
+      "type": "delegation-hoist",
+      "passed": true,
+      "minimumTargetPx": 47.300048828125
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "com-records:records",
+      "type": "record-engraver",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "com-zone:delegation",
+      "type": "delegation-hoist",
+      "passed": true,
+      "minimumTargetPx": 47.300048828125
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "org-records:records",
+      "type": "record-engraver",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "cache-crown:ttl",
+      "type": "cache-carousel",
+      "passed": true,
+      "minimumTargetPx": 51.60003662109375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "cache-terminal:recursive",
+      "type": "query-courier",
+      "passed": true,
+      "minimumTargetPx": 51.60003662109375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "resolve-core:resolution",
+      "type": "query-courier",
+      "passed": true,
+      "minimumTargetPx": 51.60003662109375
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "root-core:hints",
+      "type": "delegation-hoist",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "com-records:records",
+      "type": "record-engraver",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "com-zone:delegation",
+      "type": "delegation-hoist",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "org-records:records",
+      "type": "record-engraver",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "cache-crown:ttl",
+      "type": "cache-carousel",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "cache-terminal:recursive",
+      "type": "query-courier",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "resolve-core:resolution",
+      "type": "query-courier",
+      "passed": true,
+      "minimumTargetPx": 96
+    }
+  ],
+  "storageUnchanged": true,
+  "limits": [
+    "Toque emulado no Chrome; aparelho físico não testado."
+  ]
+}

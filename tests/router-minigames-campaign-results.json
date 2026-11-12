@@ -1,0 +1,49 @@
+{
+  "phases": [],
+  "systems": {
+    "router: deterministic models, alternate routes and animation completion": "PASS",
+    "router: six campaign objectives, rewards, saves and no duplicate XP": "PASS",
+    "router: pause, cancel, failure and retry keep campaign economy": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "routerVariations": 120,
+  "routerRewards": [
+    {
+      "id": "gateway-tower:gateway",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "iface-lan:lan",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "core-main:table",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "wan-relay:link",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "iface-console:transit",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "iface-wan:wan",
+      "xp": 130,
+      "saved": true
+    }
+  ],
+  "execution": {
+    "sourceSha256": "f35318b46288989fdd157ea6ee9b02461731a53e338b5aeb16ac31e7e5af5a54",
+    "atUTC": "2026-11-12T22:18:16.263715+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

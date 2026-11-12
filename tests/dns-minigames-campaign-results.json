@@ -1,0 +1,57 @@
+{
+  "phases": [],
+  "systems": {
+    "dns: 120 deterministic variants and delayed resolution completion": "PASS",
+    "dns: CNAME follows A records, shared IPs work and hierarchy preserves parents": "PASS",
+    "dns: expired TTLs require replacement and valid cache records survive": "PASS",
+    "dns: referrals return to resolver before authority answer": "PASS",
+    "dns: seven campaign objectives preserve XP, progression and saves": "PASS",
+    "dns: pause, cancel, failure and retry preserve economy": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "dnsVariations": 120,
+  "dnsRewards": [
+    {
+      "id": "root-core:hints",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "com-records:records",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "com-zone:delegation",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "org-records:records",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "cache-crown:ttl",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "cache-terminal:recursive",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "resolve-core:resolution",
+      "xp": 130,
+      "saved": true
+    }
+  ],
+  "execution": {
+    "sourceSha256": "7f4b84f2203ccd64ca2850e66dd799ad0b27c14bd0e3983f6f93c3f87bed6bfd",
+    "atUTC": "2026-11-12T23:02:00.949594+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

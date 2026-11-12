@@ -249,6 +249,14 @@
     // Module 2 needs module 1 in the same rack; only the larger rack fits both.
     m.next=()=>{const destination=m.cargo<0?0:m.cargo===0?1:2;return m.rail===destination?tap('claw'):set('rail',destination);};
   });
+  for(const [id,build] of Object.entries(ByteRunner.switchRepairModels))register(id,build);
+  for(const [id,build] of Object.entries(ByteRunner.routerRepairModels))register(id,build);
+  for(const [id,build] of Object.entries(ByteRunner.wifiRepairModels))register(id,build);
+  for(const [id,build] of Object.entries(ByteRunner.cablingRepairModels))register(id,build);
+  for(const [id,build] of Object.entries(ByteRunner.dhcpRepairModels))register(id,build);
+  for(const [id,build] of Object.entries(ByteRunner.dnsRepairModels))register(id,build);
+  for(const [id,build] of Object.entries(ByteRunner.firewallRepairModels))register(id,build);
+  for(const [id,build] of Object.entries(ByteRunner.serversRepairModels))register(id,build);
   window.ByteRunner.repairV2Models=Object.freeze({
     ids:Object.freeze([...factories.keys()]),
     create(id,random=Math.random,options={}){const build=factories.get(id);if(!build)throw new Error('Unknown physical repair: '+id);const m=base(random,options);build(m);return m;}

@@ -1,0 +1,209 @@
+{
+  "sourceSha256": "a08a04aedfa537ff017de9a2de7513e2cbf6abcfe87d79a49f9f88528a3c28d9",
+  "concepts": 4,
+  "components": 6,
+  "runs": [
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "gateway-plaza:gateway",
+      "type": "pool-sluice",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "address-office:scope",
+      "type": "pool-sluice",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "reserve-main:reservation",
+      "type": "lease-pneumatics",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "central-core:server",
+      "type": "reservation-drum",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "conflict-core:conflict",
+      "type": "conflict-localizer",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "distribution-south:relay",
+      "type": "lease-pneumatics",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "gateway-plaza:gateway",
+      "type": "pool-sluice",
+      "passed": true,
+      "minimumTargetPx": 47.300048828125
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "address-office:scope",
+      "type": "pool-sluice",
+      "passed": true,
+      "minimumTargetPx": 47.300048828125
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "reserve-main:reservation",
+      "type": "lease-pneumatics",
+      "passed": true,
+      "minimumTargetPx": 47.300048828125
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "central-core:server",
+      "type": "reservation-drum",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "conflict-core:conflict",
+      "type": "conflict-localizer",
+      "passed": true,
+      "minimumTargetPx": 47.300048828125
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "distribution-south:relay",
+      "type": "lease-pneumatics",
+      "passed": true,
+      "minimumTargetPx": 47.300048828125
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "gateway-plaza:gateway",
+      "type": "pool-sluice",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "address-office:scope",
+      "type": "pool-sluice",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "reserve-main:reservation",
+      "type": "lease-pneumatics",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "central-core:server",
+      "type": "reservation-drum",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "conflict-core:conflict",
+      "type": "conflict-localizer",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "distribution-south:relay",
+      "type": "lease-pneumatics",
+      "passed": true,
+      "minimumTargetPx": 88
+    }
+  ],
+  "storageUnchanged": true,
+  "limits": [
+    "Toque emulado no Chrome; aparelho físico não testado."
+  ]
+}

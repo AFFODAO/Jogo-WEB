@@ -1,0 +1,51 @@
+{
+  "phases": [],
+  "systems": {
+    "dhcp: 120 deterministic variants with animated completion": "PASS",
+    "dhcp: subnet, reservations, used addresses and authoritative duplicate ownership": "PASS",
+    "dhcp: multiple valid intervals, exclusions, capacity and allocator board safety": "PASS",
+    "dhcp: six objectives preserve progression, rewards and saves": "PASS",
+    "dhcp: pause, cancel, failure and retry preserve economy": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "dhcpVariations": 120,
+  "dhcpRewards": [
+    {
+      "id": "gateway-plaza:gateway",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "address-office:scope",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "reserve-main:reservation",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "central-core:server",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "conflict-core:conflict",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "distribution-south:relay",
+      "xp": 130,
+      "saved": true
+    }
+  ],
+  "execution": {
+    "sourceSha256": "a08a04aedfa537ff017de9a2de7513e2cbf6abcfe87d79a49f9f88528a3c28d9",
+    "atUTC": "2026-11-12T22:51:13.684118+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

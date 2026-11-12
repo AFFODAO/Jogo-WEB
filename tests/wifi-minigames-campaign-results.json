@@ -1,0 +1,50 @@
+{
+  "phases": [],
+  "systems": {
+    "wifi: 120 deterministic variations and completion after signal stabilization": "PASS",
+    "wifi: frequency protection, geometric coverage, repositioning and thermal safety": "PASS",
+    "wifi: six campaign objectives preserve XP, saves and repair integration": "PASS",
+    "wifi: pause, cancel, failure and retry preserve campaign economy": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "wifiVariations": 120,
+  "wifiRewards": [
+    {
+      "id": "main-array:uplink",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "repeater-west:west",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "repeater-east:east",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "noise-center:spectrum",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "transmit-west:carrier",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "base-west:association",
+      "xp": 130,
+      "saved": true
+    }
+  ],
+  "execution": {
+    "sourceSha256": "92171ce728d5bbafe7c3a167feba97cb9da37c496642928346c25cce29558224",
+    "atUTC": "2026-11-12T22:25:36.854610+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

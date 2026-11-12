@@ -1,0 +1,209 @@
+{
+  "sourceSha256": "f35318b46288989fdd157ea6ee9b02461731a53e338b5aeb16ac31e7e5af5a54",
+  "concepts": 4,
+  "components": 6,
+  "runs": [
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "gateway-tower:gateway",
+      "type": "gateway-periscope",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "iface-lan:lan",
+      "type": "interface-crimp",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "core-main:table",
+      "type": "prefix-cams",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "wan-relay:link",
+      "type": "route-rail",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "iface-console:transit",
+      "type": "route-rail",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "iface-wan:wan",
+      "type": "interface-crimp",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "gateway-tower:gateway",
+      "type": "gateway-periscope",
+      "passed": true,
+      "minimumTargetPx": 51.59999084472656
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "iface-lan:lan",
+      "type": "interface-crimp",
+      "passed": true,
+      "minimumTargetPx": 47.300048828125
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "core-main:table",
+      "type": "prefix-cams",
+      "passed": true,
+      "minimumTargetPx": 47.300048828125
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "wan-relay:link",
+      "type": "route-rail",
+      "passed": true,
+      "minimumTargetPx": 47.29998779296875
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "iface-console:transit",
+      "type": "route-rail",
+      "passed": true,
+      "minimumTargetPx": 47.29998779296875
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "iface-wan:wan",
+      "type": "interface-crimp",
+      "passed": true,
+      "minimumTargetPx": 47.300048828125
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "gateway-tower:gateway",
+      "type": "gateway-periscope",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "iface-lan:lan",
+      "type": "interface-crimp",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "core-main:table",
+      "type": "prefix-cams",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "wan-relay:link",
+      "type": "route-rail",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "iface-console:transit",
+      "type": "route-rail",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "iface-wan:wan",
+      "type": "interface-crimp",
+      "passed": true,
+      "minimumTargetPx": 88
+    }
+  ],
+  "storageUnchanged": true,
+  "limits": [
+    "Toque emulado no Chrome; aparelho físico não testado."
+  ]
+}

@@ -76,6 +76,13 @@ def main():
     if '--repairs-v2' in sys.argv:focused='repairs-v2'
     if '--hardware-repairs' in sys.argv:focused='repairs-hardware-v2'
     if '--software-repairs' in sys.argv:focused='repairs-software-v2'
+    if '--router-repairs' in sys.argv:focused='repairs-router-v2'
+    if '--wifi-repairs' in sys.argv:focused='repairs-wifi-v2'
+    if '--cabling-repairs' in sys.argv:focused='repairs-cabling-v2'
+    if '--dhcp-repairs' in sys.argv:focused='repairs-dhcp-v2'
+    if '--dns-repairs' in sys.argv:focused='repairs-dns-v2'
+    if '--firewall-repairs' in sys.argv:focused='repairs-firewall-v2'
+    if '--servers-repairs' in sys.argv:focused='repairs-servers-v2'
     if '--final-map-comparison' in sys.argv:focused='final-map-comparison'
     if '--rebuild-v3-architecture' in sys.argv:focused='rebuild-v3-architecture'
     phase_number=int(sys.argv[sys.argv.index('--phase')+1]) if '--phase' in sys.argv else None

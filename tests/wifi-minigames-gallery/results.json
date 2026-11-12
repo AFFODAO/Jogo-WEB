@@ -1,0 +1,209 @@
+{
+  "sourceSha256": "92171ce728d5bbafe7c3a167feba97cb9da37c496642928346c25cce29558224",
+  "concepts": 4,
+  "components": 6,
+  "runs": [
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "main-array:uplink",
+      "type": "dish-gimbal",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "repeater-west:west",
+      "type": "repeater-mast",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "repeater-east:east",
+      "type": "repeater-mast",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "noise-center:spectrum",
+      "type": "spectrum-tuner",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "transmit-west:carrier",
+      "type": "rf-compressor",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "base-west:association",
+      "type": "spectrum-tuner",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "main-array:uplink",
+      "type": "dish-gimbal",
+      "passed": true,
+      "minimumTargetPx": 51.600006103515625
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "repeater-west:west",
+      "type": "repeater-mast",
+      "passed": true,
+      "minimumTargetPx": 47.300018310546875
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "repeater-east:east",
+      "type": "repeater-mast",
+      "passed": true,
+      "minimumTargetPx": 47.300018310546875
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "noise-center:spectrum",
+      "type": "spectrum-tuner",
+      "passed": true,
+      "minimumTargetPx": 47.29999923706055
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "transmit-west:carrier",
+      "type": "rf-compressor",
+      "passed": true,
+      "minimumTargetPx": 51.600006103515625
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "base-west:association",
+      "type": "spectrum-tuner",
+      "passed": true,
+      "minimumTargetPx": 47.29999923706055
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "main-array:uplink",
+      "type": "dish-gimbal",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "repeater-west:west",
+      "type": "repeater-mast",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "repeater-east:east",
+      "type": "repeater-mast",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "noise-center:spectrum",
+      "type": "spectrum-tuner",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "transmit-west:carrier",
+      "type": "rf-compressor",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "base-west:association",
+      "type": "spectrum-tuner",
+      "passed": true,
+      "minimumTargetPx": 88
+    }
+  ],
+  "storageUnchanged": true,
+  "limits": [
+    "Toque emulado no Chrome; aparelho físico não testado."
+  ]
+}

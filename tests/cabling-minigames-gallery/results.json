@@ -1,0 +1,242 @@
+{
+  "sourceSha256": "99ff309fab27132e304f524fc1f29f4f5b891a41be9dd1f542a9ec3e155a0ebc",
+  "concepts": 4,
+  "components": 7,
+  "runs": [
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "roof-controls:antenna",
+      "type": "fiber-splice",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "upper-hub:distribution",
+      "type": "cable-reel",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "shaft-west-mid:motor",
+      "type": "continuity-trace",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "maintenance-west:service",
+      "type": "rj45-comb",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "central-main:patch",
+      "type": "cable-reel",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "central-east:trunk",
+      "type": "rj45-comb",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "basement-power:power",
+      "type": "continuity-trace",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "roof-controls:antenna",
+      "type": "fiber-splice",
+      "passed": true,
+      "minimumTargetPx": 51.600006103515625
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "upper-hub:distribution",
+      "type": "cable-reel",
+      "passed": true,
+      "minimumTargetPx": 51.60000228881836
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "shaft-west-mid:motor",
+      "type": "continuity-trace",
+      "passed": true,
+      "minimumTargetPx": 47.29999542236328
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "maintenance-west:service",
+      "type": "rj45-comb",
+      "passed": true,
+      "minimumTargetPx": 47.29999542236328
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "central-main:patch",
+      "type": "cable-reel",
+      "passed": true,
+      "minimumTargetPx": 51.60000228881836
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "central-east:trunk",
+      "type": "rj45-comb",
+      "passed": true,
+      "minimumTargetPx": 47.29999542236328
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "basement-power:power",
+      "type": "continuity-trace",
+      "passed": true,
+      "minimumTargetPx": 47.29999542236328
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "roof-controls:antenna",
+      "type": "fiber-splice",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "upper-hub:distribution",
+      "type": "cable-reel",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "shaft-west-mid:motor",
+      "type": "continuity-trace",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "maintenance-west:service",
+      "type": "rj45-comb",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "central-main:patch",
+      "type": "cable-reel",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "central-east:trunk",
+      "type": "rj45-comb",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "basement-power:power",
+      "type": "continuity-trace",
+      "passed": true,
+      "minimumTargetPx": 88
+    }
+  ],
+  "storageUnchanged": true,
+  "limits": [
+    "Toque emulado no Chrome; aparelho físico não testado."
+  ]
+}

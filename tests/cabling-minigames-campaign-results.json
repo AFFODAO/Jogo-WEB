@@ -1,0 +1,55 @@
+{
+  "phases": [],
+  "systems": {
+    "cabling: 120 deterministic variations and delayed physical completion": "PASS",
+    "cabling: actual T568A/T568B pinouts, stripped ends, optical alignment and mandatory retest": "PASS",
+    "cabling: seven campaign repairs preserve rewards, progression and saves": "PASS",
+    "cabling: pause, cancel, failure and retry preserve campaign economy": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "cablingVariations": 120,
+  "cablingRewards": [
+    {
+      "id": "roof-controls:antenna",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "upper-hub:distribution",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "shaft-west-mid:motor",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "maintenance-west:service",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "central-main:patch",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "central-east:trunk",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "basement-power:power",
+      "xp": 130,
+      "saved": true
+    }
+  ],
+  "execution": {
+    "sourceSha256": "99ff309fab27132e304f524fc1f29f4f5b891a41be9dd1f542a9ec3e155a0ebc",
+    "atUTC": "2026-11-12T22:35:26.531918+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

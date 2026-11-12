@@ -1,0 +1,95 @@
+{
+  "phases": [],
+  "systems": {
+    "servers: 120 deterministic solvable variants with staged completion": "PASS",
+    "servers: voltage, redundant feeds, grounding and startup sequence": "PASS",
+    "servers: healthy fans survive and live airflow controls thermal stability": "PASS",
+    "servers: capacity rejection, temporary parking and equivalent balanced assignments": "PASS",
+    "servers: core relay keys, dependency branches and full restoration sequence": "PASS",
+    "servers: twelve actual repairs preserve boss HP, objectives, XP and saves": "PASS",
+    "servers: pause freezes boss and world; cancel, failure and retry preserve economy": "PASS",
+    "servers: VIRUS ZERO keeps every relay shield, phase thresholds, grace and final question": "PASS",
+    "servers: VIRUS ZERO still telegraphs attacks and exposes its weak point": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "serversVariations": 120,
+  "serversRewards": [
+    {
+      "id": "c01",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c02",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c05",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c06",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c07",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c03",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c08",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c09",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c10",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c11",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c12",
+      "xp": 30,
+      "saved": true
+    },
+    {
+      "id": "c04",
+      "xp": 130,
+      "saved": true
+    }
+  ],
+  "virusZero": {
+    "allRelaysRequired": true,
+    "phaseThresholds": [
+      0.67,
+      0.34
+    ],
+    "transitionGrace": true,
+    "finalQuestionRequired": true,
+    "victorySaved": true
+  },
+  "execution": {
+    "sourceSha256": "835671fb5cc338434f1e4a0f8e5f03c3c622d6c2d2f8e26e3970fa4c64a0d528",
+    "atUTC": "2026-11-12T23:49:01.604145+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

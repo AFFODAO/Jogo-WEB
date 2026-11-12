@@ -1,0 +1,407 @@
+{
+  "sourceSha256": "835671fb5cc338434f1e4a0f8e5f03c3c622d6c2d2f8e26e3970fa4c64a0d528",
+  "concepts": 4,
+  "components": 12,
+  "runs": [
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c01",
+      "type": "rack-busbars",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c02",
+      "type": "replica-flywheels",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c05",
+      "type": "rack-gantry",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c06",
+      "type": "rack-busbars",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c07",
+      "type": "backbone-prisms",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c03",
+      "type": "rack-gantry",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c08",
+      "type": "backbone-prisms",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c09",
+      "type": "rack-gantry",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c10",
+      "type": "replica-flywheels",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c11",
+      "type": "rack-busbars",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c12",
+      "type": "replica-flywheels",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "mouse",
+      "viewport": [
+        1280,
+        1000
+      ],
+      "component": "c04",
+      "type": "backbone-prisms",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c01",
+      "type": "rack-busbars",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c02",
+      "type": "replica-flywheels",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c05",
+      "type": "rack-gantry",
+      "passed": true,
+      "minimumTargetPx": 47.29999542236328
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c06",
+      "type": "rack-busbars",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c07",
+      "type": "backbone-prisms",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c03",
+      "type": "rack-gantry",
+      "passed": true,
+      "minimumTargetPx": 47.29999542236328
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c08",
+      "type": "backbone-prisms",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c09",
+      "type": "rack-gantry",
+      "passed": true,
+      "minimumTargetPx": 47.29999542236328
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c10",
+      "type": "replica-flywheels",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c11",
+      "type": "rack-busbars",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c12",
+      "type": "replica-flywheels",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "touch",
+      "viewport": [
+        390,
+        844
+      ],
+      "component": "c04",
+      "type": "backbone-prisms",
+      "passed": true,
+      "minimumTargetPx": 51.5999755859375
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c01",
+      "type": "rack-busbars",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c02",
+      "type": "replica-flywheels",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c05",
+      "type": "rack-gantry",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c06",
+      "type": "rack-busbars",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c07",
+      "type": "backbone-prisms",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c03",
+      "type": "rack-gantry",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c08",
+      "type": "backbone-prisms",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c09",
+      "type": "rack-gantry",
+      "passed": true,
+      "minimumTargetPx": 88
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c10",
+      "type": "replica-flywheels",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c11",
+      "type": "rack-busbars",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c12",
+      "type": "replica-flywheels",
+      "passed": true,
+      "minimumTargetPx": 96
+    },
+    {
+      "input": "keyboard",
+      "viewport": [
+        844,
+        390
+      ],
+      "component": "c04",
+      "type": "backbone-prisms",
+      "passed": true,
+      "minimumTargetPx": 96
+    }
+  ],
+  "storageUnchanged": true,
+  "limits": [
+    "Toque emulado no Chrome; aparelho físico não testado."
+  ]
+}
