@@ -67,6 +67,8 @@ def main():
     if '--combat-v2' in sys.argv:focused='combat-v2'
     if '--game-over' in sys.argv:focused='game-over'
     if '--boss-balance' in sys.argv:focused='boss-balance'
+    if '--audio' in sys.argv:focused='audio'
+    if '--developer-tools' in sys.argv:focused='developer-tools'
     if '--abilities-v2' in sys.argv:focused='abilities-v2'
     if '--progression-v2' in sys.argv:focused='progression-v2'
     if parallax_only:focused='parallax'

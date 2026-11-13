@@ -165,7 +165,9 @@ def main():
         commands=[['tests/run_review.py','--identity-phase','1','--result-label','developer-mode']]
         if '--full' in sys.argv:commands.extend([[f'tools/{name}.py'] for name in ['check_maps','check_environment','check_parallax','check_generation']]+[['tests/run_review.py']])
         for args in commands:
-            result=subprocess.run([sys.executable,'-X','utf8',*args],cwd=target,capture_output=True,text=True,encoding='utf-8')
+            runner_path=target/args[0]
+            bootstrap="import runpy,sys;sys.path.insert(0,"+repr(str(runner_path.parent))+ ");sys.argv="+repr(args)+";runpy.run_path("+repr(str(runner_path))+",run_name='__main__')"
+            result=subprocess.run([sys.executable,'-X','utf8','-c',bootstrap],cwd=target,capture_output=True,text=True,encoding='utf-8')
             records.append({'command':['python',*args],'returncode':result.returncode,'stdout':result.stdout,'stderr':result.stderr})
             reportfile=target/'tests'/('review-results.json' if args==['tests/run_review.py'] else 'developer-mode-results.json')
             if reportfile.exists():shutil.copy2(reportfile,OUTPUT/('regression.json' if args==['tests/run_review.py'] else 'developer.json'))

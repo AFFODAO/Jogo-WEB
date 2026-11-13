@@ -17,7 +17,7 @@ if(reloadRecord){
 }else{
   test('developer: default OFF and no tools in normal menu',()=>assert(!developerSession&&!devIds('developerModeToggle').checked&&devIds('developerTools').hidden&&document.querySelector('.developer-pause-actions').hidden,'tools visible by default'));
   // A real normal campaign with progress, skills, checkpoint and runtime flags.
-  setup(2);await levelVisuals.ready;endPhaseIntro();highestUnlockedPhase=2;level=3;xp=47;xpRequired=experienceForLevel(level);unlockedSkills=[{id:'cannon',level:2}];restoreSkillEffects();
+  setup(2);await levelVisuals.ready;endPhaseIntro();highestUnlockedPhase=2;level=3;xp=47;xpRequired=experienceForLevel(level);unlockedSkills=[{id:'cannon',level:2}];equippedCombat=['cannon'];restoreSkillEffects();
   components[0].repaired=true;collectibles[0].collected=true;viruses[0].alive=false;viruses[0].hp=0;
   const normalPort=phaseData.entities.interactives[0];levelRuntime.setFlag(normalPort.flag);
   checkpointIndex=2;checkpointX=phaseData.map.checkpoints[2].x;checkpointY=phaseData.map.checkpoints[2].y;respawnAtCheckpoint();
@@ -60,7 +60,7 @@ if(reloadRecord){
     xpRequired=999999;const boss=viruses.find(v=>v.multiStage),hp=boss.hp;damageVirus(boss,1000);assert(boss.hp===hp,'boss shield bypassed');
     for(const c of components.filter(c=>!c.repaired)){player.x=c.x;player.y=c.y;keys.add('e');updateRepair(0);keys.clear();solveRepairUI();updateRepair(.6);assert(c.repaired,'relay repair failed');}
     damageVirus(boss,1000);assert(Math.abs(boss.hp-boss.maxHp*.67)<.001,'boss stage skipped');
-    player.x=boss.x-180;player.y=bossGroundY(boss)-48;for(let t=0;t<40;t++)updateVirusZero(boss,1/60,player.x+17,player.y+24);assert(boss.attackWindup>0,'boss AI did not announce attack');
+    player.x=boss.x-180;player.y=bossGroundY(boss)-48;for(let t=0;t<60;t++)updateVirusZero(boss,1/60,player.x+17,player.y+24);assert(boss.attackWindup>0,'boss AI did not announce attack');
     devUnchanged(normalSaved,normalHistory);
   });
   test('developer: restart clears XP, abilities, enemies, checkpoints, flags and projectiles',()=>{

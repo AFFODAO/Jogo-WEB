@@ -14,11 +14,10 @@
   continueButton.textContent = 'CONTINUAR CAMPANHA';
   continueButton.hidden = true;
   startButton.insertAdjacentElement('afterend', continueButton);
-  const soundToggle = document.getElementById('soundToggle');
   const touchControls = document.getElementById('touchControls');
   const experience = ByteRunner.experience;
+  const audioManager = ByteRunner.audio;
   const SAVE_KEY = ByteRunner.proceduralDemo?.storageKey || 'byteRunner.campaign.v1';
-  const SOUND_KEY = 'byteRunner.sound.v1';
   let developerSession = null;
   let developerTools = null;
   let frameRequest = null;
@@ -248,8 +247,11 @@
   let menuScreen = true;
   let saveTimer = 0;
   let effects = [];
+  // Kept as an injectable compatibility hook for existing test harnesses.
   let audioContext = null;
-  let soundEnabled = readSoundPreference();
+  let soundEnabled = true;
+  let activeSounds = 0;
+  let healthWarningLevel = 0;
   let width = 800;
   let height = 500;
   let pixelRatio = 1;
@@ -306,7 +308,6 @@
   let shotPose = 0;
   let abilityPose = 0;
   let actorAnimationTime = 0;
-  let activeSounds = 0;
   let hudTimer = 0;
 
   function notifyExperience(text) {
@@ -358,57 +359,17 @@
     return Object.values(readQuestionHistory()).some(ids => Array.isArray(ids) && ids.length > 0);
   }
 
-  function readSoundPreference() {
-    try { return localStorage.getItem(SOUND_KEY) !== 'off'; }
-    catch { return true; }
-  }
-
-  function setSoundEnabled(enabled) {
-    soundEnabled = enabled;
-    soundToggle.textContent = soundEnabled ? 'SOM: LIGADO' : 'SOM: DESLIGADO';
-    soundToggle.setAttribute('aria-pressed', String(soundEnabled));
-    try { localStorage.setItem(SOUND_KEY, soundEnabled ? 'on' : 'off'); } catch {}
-    if(!enabled)experience.silence(audioContext);
-  }
-
-  function playSound(kind) {
-    if (!soundEnabled || experience.settings.volume===0 || experience.settings.sfx===0 || activeSounds>=12) return;
-    const Audio = window.AudioContext || window.webkitAudioContext;
-    if (!Audio) return;
-    try {
-      audioContext ||= new Audio();
-      if (audioContext.state === 'suspended') audioContext.resume()?.catch?.(()=>{});
-      const now = audioContext.currentTime;
-      const settings = {
-        pulse:[460,.12,'sine'],dash:[270,.08,'triangle'],heal:[740,.16,'sine'],charge: [360,.24,'triangle'], burst: [980,.12,'sawtooth'], burstHit:[240,.08,'triangle'], attack: [620, .045, 'square'], hit: [150, .12, 'sawtooth'],
-        repair: [760, .16, 'sine'], xp: [880, .07, 'triangle'],
-        level: [1040, .22, 'triangle'], correct: [980, .24, 'sine'],
-        checkpoint: [1320,.28,'sine'], victory:[660,.6,'triangle'], start:[330,.18,'sine'], jump:[420,.08,'triangle'], land:[100,.05,'sine'],
-        wrong: [190, .22, 'square'], damage: [110, .18, 'sawtooth'],defeat:[68,.72,'sawtooth'],
-        enemyWarning:[360,.16,'triangle'], dashWarning:[480,.2,'sawtooth'],
-        enemyDash:[220,.12,'sawtooth'], enemyShot:[820,.09,'square'],
-        enemyStrike:[180,.1,'triangle'], enemyDive:[560,.15,'sine'],
-        infectWarning:[130,.25,'sine'], enemySummon:[260,.3,'triangle'],
-        dnsEcho:[1020,.12,'sine'], enemyDeath:[90,.22,'sawtooth'],
-        bossTransition:[75,.45,'sawtooth'], bossWarning:[290,.24,'square'], bossImpact:[65,.2,'triangle']
-      }[kind] || [440, .08, 'sine'];
-      const oscillator = audioContext.createOscillator();
-      const gain = audioContext.createGain();
-      oscillator.type = settings[2];
-      oscillator.frequency.setValueAtTime(settings[0], now);
-      if (kind === 'correct' || kind === 'repair' || kind === 'level' || kind === 'victory') {
-        oscillator.frequency.exponentialRampToValueAtTime(settings[0] * (kind==='victory'?2:1.35), now + settings[1]);
-      }
-      gain.gain.setValueAtTime(.0001, now);
-      gain.gain.exponentialRampToValueAtTime(Math.max(.0001,.07*experience.settings.volume*experience.settings.sfx), now + .012);
-      gain.gain.exponentialRampToValueAtTime(.0001, now + settings[1]);
-      oscillator.connect(gain); gain.connect(audioContext.destination);
-      oscillator.start(now); oscillator.stop(now + settings[1] + .02);
-      activeSounds++;
-      oscillator.onended=()=>{activeSounds=Math.max(0,activeSounds-1);oscillator.disconnect?.();gain.disconnect?.();};
-    } catch {
-      // Audio is optional; blocked audio contexts must not interrupt gameplay.
+  function playSound(kind,source=null) {
+    if(audioContext){
+      if(!soundEnabled||activeSounds>=12)return;
+      const [hz,duration,wave]=({enemyDash:[220,.12,'sawtooth'],enemyShot:[820,.09,'square'],enemyStrike:[180,.1,'triangle'],enemyDive:[560,.15,'sine'],enemySummon:[260,.3,'triangle'],dnsEcho:[1020,.12,'sine'],enemyDeath:[90,.22,'sawtooth'],bossTransition:[75,.45,'sawtooth']})[kind]||[440,.08,'sine'];
+      try{const osc=audioContext.createOscillator(),gain=audioContext.createGain(),now=audioContext.currentTime;osc.type=wave;osc.frequency.setValueAtTime(hz,now);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.07,now+.012);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);osc.connect(gain);gain.connect(audioContext.destination);osc.start(now);osc.stop(now+duration+.02);activeSounds++;osc.onended=()=>activeSounds=Math.max(0,activeSounds-1);}catch{}return;
     }
+    const sourceInfo=source&&typeof source==='object'?source:{};
+    const positioned=Number.isFinite(sourceInfo.x);
+    audioManager.playSFX(kind,{channel:['correct','wrong','level','xp','start','victory','repair','collect','repairOpen','repairAction','repairFailed','wireConnect','switchOn','abilityUnlock','upgradeSelect','correctAnswer','wrongAnswer','menuOpen','menuClose','pause','resume','uiHover','uiSelect','settingChange','confirm','error'].includes(kind)?'interface':undefined,
+      sourceId:sourceInfo.id,enemyType:sourceInfo.type||sourceInfo.enemyType,
+      pan:positioned?Math.max(-1,Math.min(1,((sourceInfo.x-cameraX)/Math.max(1,width)-.5)*2)):undefined});
   }
 
   function getSavedCampaign() {
@@ -613,6 +574,89 @@
     loadPhase(index,true);launchLoadedPhase(false);
     developerTools?.refresh();
     notifyExperience('SESSÃO DE TESTE · '+PHASES[index].name);
+  }
+
+  function resumeDeveloperGameplay() {
+    if(!developerSession||!phaseData||gameOver||campaignComplete)return false;
+    paused=false;running=true;phaseQuestionOpen=false;questionRetryRequired=false;
+    ui.questionOverlay.classList.remove('active');overlay.classList.add('hidden');
+    document.querySelector('.game-shell').classList.add('playing');
+    audioManager.unlock();audioManager.resumeMusic();
+    lastFrame=performance.now();frameAccumulator=0;previousRenderPlayer=null;
+    updateHud();draw();scheduleFrame();return true;
+  }
+
+  function skipDeveloperStage10Minigames() {
+    if(!developerSession)return false;
+    if(phaseIndex!==9)loadDeveloperPhase(9);
+    cancelRepair();repairTarget=null;repairProgress=0;
+    for(const component of components){component.repaired=true;component.integrity=100;component.corruption=0;}
+    for(const boss of viruses.filter(enemy=>enemy.multiStage))boss.coreShielded=false;
+    objectives.allRepairs=true;objectives.allViruses=true;
+    // Prevent checkObjectives from awarding the skipped objective rewards.
+    phaseObjectiveAwarded=true;phaseExitUnlocked=true;
+    ui.questionOverlay.classList.remove('active');phaseQuestionOpen=false;currentQuestion=null;
+    questionAnswered=false;questionRetryRequired=false;
+    updateHud();draw();resumeDeveloperGameplay();return true;
+  }
+
+  function prepareDeveloperBoss() {
+    if(!developerSession)return false;
+    if(phaseIndex!==9)loadDeveloperPhase(9);
+    skipDeveloperStage10Minigames();
+    const boss=viruses.find(enemy=>enemy.multiStage&&enemy.id===phaseData.completion?.enemyId)||viruses.find(enemy=>enemy.multiStage);
+    if(!boss)return false;
+    for(const enemy of viruses){
+      if(enemy.summonedBy)enemy.alive=false;
+      enemy.attackWindup=0;enemy.chargeTime=0;enemy.dashTime=0;enemy.diveTime=0;enemy.echoTime=0;enemy.interceptTime=0;enemy.recovery=0;
+      if(enemy.multiStage){
+        enemy.alive=true;enemy.hp=enemy.maxHp;enemy.bossStage=1;enemy.coreShielded=false;enemy.bossPatternIndex=0;
+        enemy.attackWindup=0;enemy.chargeTime=0;enemy.summonWindup=0;enemy.vulnerableTime=0;enemy.bossPhaseTransitionTime=0;
+        enemy.bossCycleCooldown=1.2;enemy.bossAttackKind=null;enemy.bossBlockedMessageTimer=0;
+        enemy.specialCooldownTimer=(enemy.summonCooldown||9)*.5;enemy.x=Math.max(enemy.bossBounds.left,Math.min(enemy.bossBounds.right,enemy.baseX));
+      }
+    }
+    player.health=player.maxHealth;player.x=Math.max(phaseData.map.sections.find(s=>s.id==='virus-zero')?.x||4800,4900);
+    player.y=(boss.groundY??900)-player.height;player.vx=0;player.vy=0;player.grounded=true;player.facing=1;player.shieldTime=0;player.interferenceTime=0;
+    damageCooldown=0;damageFlash=0;attackCooldown=0;projectiles=[];enemyProjectiles=[];enemyObstacles=[];effects=[];deathEcho=null;
+    combatAttack.clear();skillRuntime.cancel();checkpointIndex=-1;checkpointX=player.x;checkpointY=player.y+player.height;
+    cameraX=Math.max(0,Math.min(worldWidth()-width,player.x-width*phaseData.map.camera.followOffsetX));
+    cameraY=Math.max(0,Math.min(worldHeight()-height,player.y-height*phaseData.map.camera.followOffsetY));
+    gameOver=false;combatDefeat=false;defeatSequence=null;gameOverScreen.hidden=true;phaseIntroTime=0;
+    audioManager.resetBossEncounter();
+    resumeDeveloperGameplay();
+    updateHud();draw();return true;
+  }
+
+  function adjustDeveloperXP(amount) {
+    if(!developerSession||!Number.isSafeInteger(amount)||amount<0)return false;
+    xp=Math.min(Number.MAX_SAFE_INTEGER,xp+amount);
+    experience.pop('+'+amount+' XP',player.x+player.width/2,player.y-8,'#ffe097');
+    interactionMessage='+'+amount+' XP // AJUSTE DE TESTE';interactionMessageTimer=1.5;
+    playSound('xp');updateHud();draw();
+    if(running&&xp>=xpRequired&&!levelChoiceOpen)openLevelChoice();
+    return true;
+  }
+
+  function developerLevelUp() {
+    if(!developerSession)return false;
+    return adjustDeveloperXP(Math.max(0,xpRequired-xp));
+  }
+
+  function maximizeDeveloperSkills() {
+    if(!developerSession)return false;
+    unlockedSkills=ABILITIES.map(ability=>({id:ability.id,name:ability.name,level:ability.maxLevel,maxLevel:ability.maxLevel,description:ability.description(ability.maxLevel)}));
+    equippedCombat=[...new Set(equippedCombat.filter(id=>ByteRunner.progression.combatIds.includes(id)))].slice(0,3);
+    for(const id of ByteRunner.progression.combatIds)if(equippedCombat.length<3&&!equippedCombat.includes(id))equippedCombat.push(id);
+    for(const ability of ABILITIES)ability.apply(ability.maxLevel);
+    restoreSkillEffects();renderSkills();updateHud();draw();return true;
+  }
+
+  function restoreDeveloperHealth() {
+    if(!developerSession)return false;
+    player.health=player.maxHealth;player.shieldTime=0;damageCooldown=0;damageFlash=0;
+    if(gameOver){gameOver=false;combatDefeat=false;defeatSequence=null;gameOverScreen.hidden=true;audioManager.resetBossEncounter();resumeDeveloperGameplay();}
+    updateHud();draw();return true;
   }
 
   function setupMenu() {
@@ -1019,7 +1063,7 @@
     if (direction) player.facing = direction;
 
     if (jumpQueued && player.grounded) {
-      playSound('jump');
+      playSound('jump',{x:player.x+player.width/2});
       emitParticles(player.x + player.width / 2, player.y + player.height, phaseData.palette[2], 5);
       player.vy = -player.jumpPower;
       player.grounded = false;
@@ -1096,7 +1140,7 @@
     if (phaseData.map.bounds.left) player.x = Math.max(0, player.x);
     if (phaseData.map.bounds.right) player.x = Math.min(worldWidth() - player.width, player.x);
     if (!wasGrounded && player.grounded && fallingSpeed > 180) {
-      landingSpring=.14;playSound('land');
+      landingSpring=.14;playSound('land',{x:player.x+player.width/2});
       emitParticles(player.x + player.width / 2, player.y + player.height, phaseData.palette[2], 6);
     }
     if (direction) player.walkTime += dt * 12;
@@ -1145,12 +1189,15 @@
         repairRank:unlockedSkills.find(skill=>skill.id==='repair')?.level || 0,
         isActive:()=>running && !paused,
         onFailure:()=>{
+          playSound('repairFailed');
           player.health=Math.max(1,player.health-5);
           addLog('Diagnóstico falhou: até 5 de integridade. Nova tentativa disponível.');
           updateHud();saveCampaign();
         }
       });
       if(repairSession.blocksWorld) {
+        playSound('repairOpen');
+        bindRepairSounds(repairSession);
         keys.clear();clearCombatInput();jumpQueued=false;
         document.getElementById('repairPanel').hidden=false;
         document.getElementById('repairPrompt').textContent=repairSession.label?.() || 'DIAGNÓSTICO DO COMPONENTE';
@@ -1161,6 +1208,7 @@
     repairProgress = repairSession.progress * repairDuration;
     if (['failed','cancelled'].includes(repairSession.status)) {
       const failed=repairSession.status === 'failed';
+      if(failed)playSound('repairFailed');
       cancelRepair();
       if (failed) { keys.clear();clearCombatInput(); interactionMessage='REPARO NÃO CONCLUÍDO // TENTE NOVAMENTE'; interactionMessageTimer=1.5; }
       return;
@@ -1182,6 +1230,27 @@
       checkObjectives();
       updateHud();
       saveCampaign();
+    }
+  }
+
+  function bindRepairSounds(session){
+    const kindFor=action=>{
+      const id=typeof action==='string'?action:action?.id||'';
+      if(/wire|lead|cable|port|socket|splice|fiber|plug|patch|ethernet/i.test(id))return 'wireConnect';
+      if(/switch|shutter|pulse|relay|power|clutch|enable|toggle/i.test(id))return 'switchOn';
+      return 'repairAction';
+    };
+    if(typeof session.action==='function'){
+      const original=session.action.bind(session);
+      session.action=action=>{original(action);if(session.model?.error)playSound('wrong');else if(session.model?.done)playSound('correct');else playSound(kindFor(action));};
+    }
+    if(typeof session.mutate==='function'){
+      const original=session.mutate.bind(session);
+      session.mutate=(fn,action)=>{const before=session.mode;original(fn,action);if(session.mode==='failed')playSound('repairFailed');else if(session.mode==='won'&&before!=='won')playSound('correct');else if(session.mode==='playing')playSound(kindFor(action));};
+    }
+    if(typeof session.verify==='function'){
+      const original=session.verify.bind(session);
+      session.verify=()=>{const before=session.mode;original();if(session.mode==='won'&&before!=='won')playSound('correct');else if(session.mistakes>(session._audioMistakes||0))playSound('wrong');session._audioMistakes=session.mistakes;};
     }
   }
 
@@ -1242,7 +1311,7 @@
       interactionMessage = 'OBJETIVOS CONCLUÍDOS // SAÍDA LIBERADA';
       interactionMessageTimer = 2.5;
       addLog('Objetivos da fase concluídos. Saída liberada.');
-      playSound('correct');
+      playSound('correctAnswer');
       awardExperience(100, 'objetivo concluído: saída liberada','objective:exit');
       updateHud();
     }
@@ -1256,6 +1325,7 @@
       const dy = Math.abs(player.y + player.height / 2 - collectible.y);
       if (dx < collectible.radius + player.width / 2 && dy < collectible.radius + player.height / 2) {
         collectible.collected = true;
+      playSound('collect',{x:collectible.x});
         awardExperience(20, 'fragmento de dados coletado','fragment:'+collectible.id);
       }
     }
@@ -1274,6 +1344,12 @@
     const choices = getAbilityChoices();
     updateHud();
     offeredChoices=new Map(choices.map(c=>[c.ability.id,c.targetLevel]));
+
+    if(!choices.length){
+      levelChoiceOpen=false;offeredChoices.clear();running=true;
+      document.querySelector('.game-shell').classList.add('playing');
+      lastFrame=performance.now();scheduleFrame();return;
+    }
 
     levelChoiceOpen = true;
     running = false;
@@ -1357,7 +1433,8 @@
     notifyExperience(isReward ? 'REGISTRO DE SERVIÇO · '+ability.name : abilityStatus+' · '+ability.name+' · NÍVEL '+targetLevel);
     experience.impact(player.x+17,player.y+24,true,'#c3a1ff');
     saveCampaign();
-    playSound('level');
+    playSound('upgradeSelect');
+    if(!skill&&!isReward)playSound('abilityUnlock');
     running = true;
     document.querySelector('.game-shell').classList.add('playing');
     lastFrame = performance.now();
@@ -1420,7 +1497,7 @@
     const x=player.facing>0?player.x+player.width+radius:player.x-radius;
     const blocked=solids().some(s=>s.collision==='solid'&&ByteRunner.playerCombat.box(origin,y,x-origin,0,s,radius)!==null);
     shotPose=.18;
-    playSound(special?'burst':'attack');
+    playSound(special?'burst':'attack',{x:origin});
     emitParticles(blocked?origin:x,y,special?'#ffd37c':'#70ffe5',special?10:3);
     if(blocked||projectiles.length>=32)return;
     projectiles.push({x,y,vx:player.facing*570*(special?1:1+.05*ByteRunner.abilities.potency(skillRank('rapid')))*levelRuntime.modifiers().projectileSpeedMultiplier,
@@ -1446,7 +1523,7 @@
         p.hits??=new Set();p.hits.add(hit.v);
         const bonus=p.special?0:skillRuntime.precision(skillRank('precision'),hit.v);
         damageVirus(hit.v,p.damage+bonus,p.x-Math.sign(p.vx)*12);
-        if(p.special){emitParticles(p.x,p.y,'#ffd37c',9);playSound('burstHit');}
+        if(p.special){emitParticles(p.x,p.y,'#ffd37c',9);playSound('burstHit',{x:p.x});}
         p.remainingHits=(p.remainingHits??1)-1;
         if(p.remainingHits<=0){p.life=0;break;}
       }
@@ -1465,10 +1542,14 @@
     const incomingDamage = Number.isFinite(amount) ? Math.max(0, amount) : 0;
     if(incomingDamage<=0)return;
     const appliedDamage = Math.max(1, Math.ceil(incomingDamage * (1 - armor)));
+    const previousHealth=player.health;
     player.health = Math.max(0, player.health - appliedDamage);
     experience.impact(player.x+17,player.y+22,appliedDamage>=16,'#ff9a9a');
     emitParticles(player.x + player.width / 2, player.y + 22, '#ff716e', 16);
-    playSound('damage');
+    playSound('damage',virus);
+    if(player.health>0&&player.health<=15&&healthWarningLevel<2){healthWarningLevel=2;playSound('lowHealth');}
+    else if(player.health>15&&player.health<=30&&healthWarningLevel<1){healthWarningLevel=1;playSound('lowHealth');}
+    else if(previousHealth>35&&player.health>35)healthWarningLevel=0;
     damageCooldown = PLAYER_HIT_INVULNERABILITY;
     damageFlash=.24;
     player.vy = -210;
@@ -1539,12 +1620,13 @@
     gameOver=true;combatDefeat=true;defeatSequence={elapsed:0,duration:1.65};
     running=false;paused=false;keys.clear();clearCombatInput();jumpQueued=false;
     cancelRepair();repairTarget=null;repairProgress=0;
-    playSound('defeat');addLog('Sinal da Unidade R-07 perdido.');saveCampaign();
+    audioManager.playGameOver({pan:Math.max(-1,Math.min(1,((player.x+player.width/2-cameraX)/Math.max(1,width)-.5)*2))});addLog('Sinal da Unidade R-07 perdido.');saveCampaign();
     frameAccumulator=0;previousRenderPlayer=null;lastFrame=performance.now();scheduleFrame();
   }
 
   function finishDefeat(save=true) {
     running=false;paused=false;gameOver=true;combatDefeat=true;defeatSequence=null;
+    audioManager.stopMusic();
     menuScreen=false;
     keys.clear();clearCombatInput();document.querySelector('.game-shell').classList.remove('playing');
     overlay.classList.add('hidden');gameOverScreen.hidden=false;
@@ -1557,6 +1639,7 @@
 
   function restartFromCheckpoint() {
     if(!gameOver||!combatDefeat)return;
+    audioManager.resetBossEncounter();
     const start=mapStart();
     const baseX=checkpointIndex>=0?checkpointX+38:start.x;
     const baseY=(checkpointIndex>=0?(checkpointY??floorY()):start.y+player.height)-player.height;
@@ -1591,7 +1674,7 @@
     damageCooldown=PLAYER_HIT_INVULNERABILITY;damageFlash=0;attackCooldown=0;shotPose=0;abilityPose=0;
     cameraX=phaseData.map.camera.axes.includes('x')?Math.max(0,Math.min(worldWidth()-width,player.x-width*phaseData.map.camera.followOffsetX)):0;
     cameraY=phaseData.map.camera.axes.includes('y')?Math.max(0,Math.min(worldHeight()-height,player.y-height*phaseData.map.camera.followOffsetY)):0;
-    paused=false;running=true;phaseIntroTime=0;document.querySelector('.game-shell').classList.add('playing');overlay.classList.add('hidden');
+    paused=false;running=true;phaseIntroTime=0;document.querySelector('.game-shell').classList.add('playing');overlay.classList.add('hidden');audioManager.unlock();audioManager.resumeMusic();
     lastFrame=performance.now();frameAccumulator=0;previousRenderPlayer=null;saveTimer=0;
     ui.stage.textContent='FASE '+String(phaseIndex+1).padStart(2,'0')+' // RETOMADA NO CHECKPOINT';
     saveCampaign();updateHud();draw();scheduleFrame();
@@ -1602,6 +1685,7 @@
     running=false;paused=false;defeatSequence=null;gameOverScreen.hidden=true;
     document.querySelector('.game-shell').classList.remove('playing');overlay.classList.remove('hidden');
     menuScreen=true;setupMenu();saveCampaign();
+    audioManager.resetBossEncounter();audioManager.unlock();audioManager.crossfadeMusic(0);
   }
 
   function choosePhaseQuestion() {
@@ -1679,7 +1763,7 @@
           if (choice.dataset.correct === 'true') choice.classList.add('correct');
         });
         if (option.correct) {
-          playSound('correct');
+          playSound('correctAnswer');
           button.classList.add('correct');
           result.className = 'question-result success';
           result.textContent = 'RESPOSTA CORRETA. ' + selection.question.explanation;
@@ -1688,7 +1772,7 @@
         } else {
           questionRetryRequired = true;
           saveCampaign();
-          playSound('wrong');
+          playSound('wrongAnswer');
           button.classList.add('wrong');
           result.className = 'question-result error';
           result.textContent = 'RESPOSTA INCORRETA. Esta fase será reiniciada. ' + selection.question.explanation;
@@ -1728,6 +1812,7 @@
   function completePhase() {
     if (!running || !phaseExitUnlocked) return;
     running = false;
+    audioManager.stopMusic();
     document.querySelector('.game-shell').classList.remove('playing');
     paused = false;
     phaseTransition = true;
@@ -1803,6 +1888,7 @@
   }
 
   function fireVirusZeroVolley(virus, targetX, targetY, count, speed, damage, spread) {
+    playSound('bossProjectile',virus);
     const baseAngle = Math.atan2(targetY - virus.y, targetX - virus.x);
     for (let shot = 0; shot < count; shot++) {
       const ratio = count === 1 ? 0 : shot / (count - 1) * 2 - 1;
@@ -1816,7 +1902,10 @@
   function bossGroundY(virus) { return Number.isFinite(virus.groundY) ? virus.groundY : floorY(); }
 
   function triggerVirusZeroAttack(virus, playerCenterX, playerCenterY) {
-    playSound('bossImpact');virus.attackFlash=.25;
+    const impactSound={slam:'bossSlam',charge:'bossCharge',volley:'bossVolley',surge:'bossArea',combo:'bossCombo'}[virus.bossAttackKind]||'bossImpact';
+    playSound(impactSound,virus);
+    if(virus.bossAttackKind==='slam'||virus.bossAttackKind==='combo')playSound('bossImpact',virus);
+    virus.attackFlash=.25;
     experience.impact(virus.x,bossGroundY(virus)-8,true,'#ff759b');
     const stage = virus.bossStage || 1;
     const kind = virus.bossAttackKind;
@@ -1860,7 +1949,8 @@
       experience.impact(virus.x,virus.y,true,stage===3?'#ffd36e':'#c79aff');
       experience.pop('NÚCLEO · ETAPA '+stage,virus.x,virus.y-virus.radius-30,'#ffd6a0');
       virus.bossStage = stage;
-      playSound('bossTransition');
+      playSound('bossTransition',virus);
+      audioManager.setBossStage(stage);
       virus.attackWindup=0;virus.chargeTime=0;virus.vulnerableTime=0;virus.bossPatternIndex=0;virus.bossCycleCooldown=1;virus.bossPhaseTransitionTime=.85;virus.summonWindup=0;
       enemyProjectiles=enemyProjectiles.filter(projectile=>!projectile.bossOwned);
       enemyObstacles=enemyObstacles.filter(obstacle=>!obstacle.bossOwned);
@@ -1874,7 +1964,7 @@
     if(virus.bossPhaseTransitionTime>0)return;
     if(virus.summonWindup>0) {
       virus.summonWindup=Math.max(0,virus.summonWindup-dt);
-      if(!virus.summonWindup){spawnEnemyMinion(virus);playSound('enemySummon');}
+      if(!virus.summonWindup){spawnEnemyMinion(virus);playSound('enemySummon',virus);}
     }
     if (virus.chargeTime > 0) {
       const step = Math.min(dt, virus.chargeTime);
@@ -1902,10 +1992,12 @@
       virus.bossAttackDirection = Math.sign(playerCenterX - virus.x) || 1;
       virus.bossAimX = playerCenterX; virus.bossAimY = playerCenterY;
       virus.attackWindup = [0,1.05,1,.95][stage];
-      playSound('bossWarning');
+      audioManager.startBossMusic(stage);
+      playSound(stage===3?'bossFinalWarning':'bossWarning',virus);
+      if(virus.bossAttackKind==='charge')playSound('bossChargeWarning',virus);
     }
     if (stage >= 2 && virus.specialCooldownTimer <= 0) {
-      virus.summonWindup=.9;playSound('infectWarning');
+      virus.summonWindup=.9;playSound('infectWarning',virus);
       virus.specialCooldownTimer = stage === 3 ? 6.5 : 9;
     }
   }
@@ -1936,10 +2028,11 @@
     experience.pop((bossWeakPoint?'CRÍTICO ':'')+'−'+Math.round(applied),virus.x,virus.y-virus.radius-10,bossWeakPoint?'#ffda81':'#e1fff3');
     virus.hitFlash = .12;
     emitParticles(virus.x, virus.y, virus.color || '#c078ff', virus.type === 'boss' ? 10 : 6);
-    playSound('hit');
+    playSound(virus.multiStage?'bossHit':virus.type==='armored'?'armoredImpact':'enemyHit',virus);
     if (virus.hp > 0) return;
     virus.alive = false;
-    virus.deathAt=animationTime;playSound('enemyDeath');
+    virus.deathAt=animationTime;
+    if(virus.multiStage)audioManager.defeatBoss();else playSound('enemyDeath',virus);
     levelRuntime.emit('enemyDefeated',virus);
     if (virus.multiStage) {
       experience.impact(virus.x,virus.y,true,'#a9fff2');
@@ -1972,7 +2065,7 @@
     virus.phase += dt * (virus.type === 'fast' ? 9 : virus.flying ? 6 : 4);
     if(!virus.multiStage && ByteRunner.enemies.update(virus,{
       playerX:playerCenterX,playerY:playerCenterY,player,enemies:viruses,shapes:solids(),width:worldWidth(),height:worldHeight(),
-      components,damage:damagePlayer,fire:fireEnemyProjectile,spawn:spawnEnemyMinion,sound:playSound
+      components,damage:damagePlayer,fire:fireEnemyProjectile,spawn:spawnEnemyMinion,sound:(kind,enemy)=>playSound(kind,enemy||virus)
     },dt))return;
     const dx = playerCenterX - virus.x;
     const dy = playerCenterY - virus.y;
@@ -2093,14 +2186,18 @@
     damageFlash = Math.max(0, damageFlash - dt);
     interactionMessageTimer = Math.max(0, interactionMessageTimer - dt);
     skillRuntime.tick(dt);
+    const shieldWasActive=player.shieldTime>0;
     player.shieldTime=Math.max(0,player.shieldTime-dt);
+    if(shieldWasActive&&player.shieldTime===0)playSound('shieldExpire',{x:player.x+player.width/2});
     for(const key of skillRequests){
       const id={q:'shield',l:'boost',h:'recovery'}[key];
       if(id==='shield'&&damageCooldown>0)continue;
       if(id==='shield'&&combatAttack.energy<50)continue;
       if(skillRuntime.activate(id,skillRank(id),player)){
         if(id==='shield')combatAttack.spendEnergy(50);
-        playSound(id==='shield'?'pulse':id==='boost'?'dash':'heal');abilityPose=.25;
+        playSound(id==='shield'?'shieldActivate':id==='boost'?'dash':'heal',{x:player.x+player.width/2});
+        if(id==='recovery'&&player.health>35)healthWarningLevel=0;
+        abilityPose=.25;
         emitParticles(player.x+17,player.y+24,id==='recovery'?'#86ffd0':'#a3ceff',8);saveCampaign();
       }
     }
@@ -2128,6 +2225,11 @@
       if (!virus.alive) continue;
       updateEnemyBrain(virus, dt, playerCenterX, playerCenterY);
       if (!running) return;
+      const enemyDistance=Math.hypot(virus.x-playerCenterX,virus.y-playerCenterY);
+      if(virus.flying&&enemyDistance<560&&(virus.detected||enemyDistance<250)){
+        virus.audioFlutterTimer=(virus.audioFlutterTimer??0)-dt;
+        if(virus.audioFlutterTimer<=0){playSound('flyerHum',virus);virus.audioFlutterTimer=.95;}
+      }else virus.audioFlutterTimer=Math.min(virus.audioFlutterTimer??.95,.25);
     }
     updateHostileProjectiles(dt);
 
@@ -2254,7 +2356,8 @@
       ? Math.hypot(player.x + player.width / 2 - phaseData.map.exit.x, player.y + player.height / 2 - exitY) <= (phaseData.map.exit.triggerRadius || phaseData.map.exit.triggerRadiusY || 74)
       : player.x + player.width >= phaseData.map.exit.x + 20 && Math.abs(player.y + player.height / 2 - exitY) <= (phaseData.map.exit.triggerRadiusY || 86);
     const finalCoreCleared = phaseData.completion?.type === 'boss-question' && viruses.some(virus => virus.id === phaseData.completion.enemyId && !virus.alive);
-    if (running && phaseExitUnlocked && (exitReached || finalCoreCleared)) {
+    const debugBossGate=Boolean(developerSession&&phaseIndex===9&&phaseData.completion?.type==='boss-question'&&viruses.some(virus=>virus.id===phaseData.completion.enemyId&&virus.alive));
+    if (running && phaseExitUnlocked && !debugBossGate && (exitReached || finalCoreCleared)) {
       if (phaseData.objectives.requireExitQuestion !== false) openPhaseQuestion();
       else completePhase();
     }
@@ -3027,7 +3130,11 @@
 
   function draw() {
     const activeBoss=viruses.find(v=>v.multiStage&&v.alive&&player.x+17>=v.bossBounds.left-120&&(!v.activationRegion || (player.y+24>=v.activationRegion.y && player.y+24<=v.activationRegion.y+v.activationRegion.height)));
-    experience.audio(audioContext,phaseIndex,soundEnabled&&running&&!repairSession?.blocksWorld&&!document.getElementById('settingsDialog').open,activeBoss?.bossStage || 0);
+    const audibleGameplay=running&&!paused&&!gameOver&&!phaseIntroTime&&!document.getElementById('settingsDialog').open;
+    const combatThreat=audibleGameplay&&(Boolean(activeBoss)||viruses.some(v=>v.alive&&(v.detected||v.attackWindup>0)&&Math.hypot(v.x-player.x,v.y-player.y)<850));
+    audioManager.setCombat(combatThreat);
+    audioManager.setRepair(audibleGameplay&&Boolean(repairSession?.blocksWorld));
+    if(activeBoss&&audibleGameplay)audioManager.enterBossEncounter();
     const outputContext=ctx;
     const directPresentation=pixelRatio===1&&Number.isInteger(width)&&Number.isInteger(height);
     if(directPresentation){if(pixelScene.width){pixelScene.width=0;pixelScene.height=0;}pixelContext.imageSmoothingEnabled=false;}
@@ -3156,6 +3263,7 @@
   }
 
   function launchLoadedPhase(showIntro = true) {
+    if(phaseIndex!==9)audioManager.resetBossEncounter();
     paused = false;
     menuScreen = false;
     phaseTransition = false;
@@ -3168,7 +3276,7 @@
     ui.stage.textContent = 'FASE ' + String(phaseIndex + 1).padStart(2, '0') + ' // EM ANDAMENTO';
     addLog('Iniciada: ' + phaseData.name + '.');
     if(showIntro)beginPhaseIntro();
-    playSound('start');frameAccumulator=0;previousRenderPlayer=null;
+    audioManager.unlock().then(()=>playSound('start'));audioManager.crossfadeMusic(phaseIndex);frameAccumulator=0;previousRenderPlayer=null;
     lastFrame = performance.now();
     scheduleFrame();
     saveCampaign();
@@ -3181,6 +3289,8 @@
     running = false;
     frameAccumulator=0;previousRenderPlayer=null;
     paused = true;
+    playSound('pause');
+    audioManager.pauseMusic();
     document.querySelector('.game-shell').classList.remove('playing');
     saveCampaign();
     ui.title.innerHTML = 'TRAVESSIA <span>PAUSADA</span>';
@@ -3193,8 +3303,10 @@
 
   startButton.addEventListener('click', () => {
     if (paused) {
+      playSound('resume');
       paused = false;
       running = true;
+      audioManager.unlock();audioManager.resumeMusic();
       repairSession?.setPaused?.(false);
       menuScreen = false;
       document.querySelector('.game-shell').classList.add('playing');
@@ -3218,18 +3330,29 @@
   continueButton.addEventListener('click', continueCampaign);
   document.getElementById('loadoutButton').addEventListener('click',()=>{
     if(running)pause();
+    playSound('menuOpen');
     renderLoadout();document.getElementById('loadoutDialog').showModal();
   });
   document.getElementById('closeLoadout').addEventListener('click',()=>document.getElementById('loadoutDialog').close());
-  soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled));
+  document.getElementById('loadoutDialog').addEventListener('close',()=>playSound('menuClose'));
   document.getElementById('skipIntro').addEventListener('click',endPhaseIntro);
+  audioManager.mountSettings(()=>{playSound('menuOpen');if(running)pause();else if(menuScreen){audioManager.unlock();audioManager.playMusic(0);}},(name,value)=>{if(name&&typeof name==='object')experience.configure({volume:name.master,music:name.music,sfx:name.sfx});else if(name==='master')experience.configure({volume:value});else if(name==='music')experience.configure({music:value});else if(name==='sfx')experience.configure({sfx:value});});
+  document.getElementById('settingsDialog').addEventListener('close',()=>playSound('menuClose'));
+  let hoverSoundTarget=null;
+  document.addEventListener('pointerover',event=>{const target=event.target.closest?.('button,a,[role="button"]');if(target&&target!==hoverSoundTarget){hoverSoundTarget=target;playSound('uiHover');}});
+  document.addEventListener('pointerout',event=>{if(event.target.closest?.('button,a,[role="button"]')&&!event.relatedTarget?.closest?.('button,a,[role="button"]'))hoverSoundTarget=null;});
+  document.addEventListener('click',event=>{if(event.target.closest?.('button,a,[role="button"]'))audioManager.unlock().then(()=>playSound('uiSelect'));});
   experience.mountSettings(()=>{if(running)pause();},resize);
   document.querySelectorAll('[data-bind]').forEach(button=>button.addEventListener('click',()=>{
     bindingAction=button.dataset.bind;showCombatBindings();
     setHudText(document.getElementById('keyBindFeedback'),'Pressione uma tecla livre (A/D/W/S, setas, espaço, J, K, E e Esc estão reservados).');
   }));
   showCombatBindings();
-  developerTools=ByteRunner.developerMode.mount({enabled:()=>Boolean(developerSession),enable:setDeveloperMode,load:loadDeveloperPhase,current:()=>phaseIndex,pause});
+  developerTools=ByteRunner.developerMode.mount({
+    enabled:()=>Boolean(developerSession),enable:setDeveloperMode,load:loadDeveloperPhase,current:()=>phaseIndex,pause,
+    skipMinigames:skipDeveloperStage10Minigames,directBoss:prepareDeveloperBoss,restartBoss:prepareDeveloperBoss,
+    addXP:adjustDeveloperXP,levelUp:developerLevelUp,maximizeSkills:maximizeDeveloperSkills,restoreHealth:restoreDeveloperHealth
+  });
   document.getElementById('cancelRepairButton').addEventListener('click', () => {cancelRepair();keys.clear();clearCombatInput();draw();});
   document.getElementById('repairPauseButton').addEventListener('click', pause);
 
@@ -3280,12 +3403,11 @@
   });
   window.addEventListener('blur', () => {keys.clear();clearCombatInput();});
   window.addEventListener('pagehide', saveCampaign);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) {if(running)pause();experience.silence(audioContext);saveCampaign();} });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) {if(running)pause();audioManager.pauseAll();saveCampaign();} });
 
   resetCampaign();
   resize();
   draw();
-  setSoundEnabled(soundEnabled);
   bindTouchControls();
   setupMenu();
 

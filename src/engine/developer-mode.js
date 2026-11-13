@@ -9,8 +9,31 @@
     laboratory.className='developer-laboratory';laboratory.target='_blank';laboratory.rel='noopener';
     laboratory.textContent='Laboratório de reparos (nova aba)';
     tools.append(laboratory);
+    const section=(title,items)=>{
+      const group=document.createElement('fieldset');group.className='developer-tool-section';
+      const legend=document.createElement('legend');legend.textContent=title;group.append(legend);
+      const grid=document.createElement('div');grid.className='developer-tool-grid';
+      for(const [text,action] of items){
+        const button=document.createElement('button');button.type='button';button.textContent=text;
+        button.addEventListener('click',()=>{if(game.enabled())action();});grid.append(button);
+      }
+      group.append(grid);tools.append(group);
+    };
+    const loadPhase=index=>{closeForLoad();game.load(index);refresh();};
+    section('TESTES DE FASE',[
+      ['IR PARA FASE 10',()=>loadPhase(9)],
+      ['PULAR MINIGAMES DA FASE 10',()=>{closeForLoad();game.skipMinigames();refresh();}],
+      ['IR DIRETO PARA VIRUS ZERO',()=>{closeForLoad();game.directBoss();refresh();}]
+    ]);
+    section('CONTROLE DE XP',[
+      ['+100 XP',()=>game.addXP(100)],['+500 XP',()=>game.addXP(500)],['+1000 XP',()=>game.addXP(1000)],
+      ['SUBIR 1 NÍVEL',()=>game.levelUp()],['MAXIMIZAR HABILIDADES',()=>game.maximizeSkills()]
+    ]);
+    section('TESTES DE COMBATE',[
+      ['RESTAURAR VIDA',()=>game.restoreHealth()],['REINICIAR BOSS',()=>{closeForLoad();game.restartBoss();refresh();}]
+    ]);
     toggle.checked=false; // Deliberately never persisted, including browser form restoration.
-    const badge=document.createElement('span');badge.className='developer-badge';badge.textContent='SESSÃO DE TESTE';badge.hidden=true;
+    const badge=document.createElement('span');badge.className='developer-badge';badge.textContent='MODO DEBUG ATIVO';badge.hidden=true;
     byId('sectorChip').insertAdjacentElement('beforebegin',badge);
     const actions=document.createElement('div');actions.className='developer-pause-actions';actions.hidden=true;
     for(const [text,action] of [['Trocar de fase',()=>open('pause')],['Reiniciar fase',()=>game.load(game.current())]]){

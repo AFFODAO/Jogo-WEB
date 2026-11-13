@@ -14,24 +14,14 @@
   const settings=normalize(stored),floats=[],rings=[];
   let shakePower=0,shakeLife=0,clock=0,mixer=null,nextNote=0,beat=0,track=-1,lastActive=false,voices=[];
   const tracks=[
-    {root:48,bpm:72,notes:[0,7,12,7,3,10,7,3]},
-    {root:50,bpm:78,notes:[0,3,7,10,12,10,7,3]},
-    {root:55,bpm:84,notes:[0,7,3,10,0,12,7,3]},
-    {root:46,bpm:80,notes:[0,5,7,12,10,7,5,3]},
-    {root:57,bpm:68,notes:[0,12,7,3,10,7,12,3]},
-    {root:43,bpm:86,notes:[0,7,0,3,10,7,12,7]},
-    {root:53,bpm:82,notes:[0,3,10,7,12,7,3,10]},
-    {root:51,bpm:74,notes:[0,7,14,10,3,12,7,10]},
-    {root:45,bpm:90,notes:[0,0,7,3,10,7,0,12]},
-    {root:41,bpm:94,notes:[0,7,3,10,0,12,10,7]}
+    {root:48,bpm:72,notes:[0,7,12,7,3,10,7,3]},{root:50,bpm:78,notes:[0,3,7,10,12,10,7,3]},
+    {root:55,bpm:84,notes:[0,7,3,10,0,12,7,3]},{root:46,bpm:80,notes:[0,5,7,12,10,7,5,3]},
+    {root:57,bpm:68,notes:[0,12,7,3,10,7,12,3]},{root:43,bpm:86,notes:[0,7,0,3,10,7,12,7]},
+    {root:53,bpm:82,notes:[0,3,10,7,12,7,3,10]},{root:51,bpm:74,notes:[0,7,14,10,3,12,7,10]},
+    {root:45,bpm:90,notes:[0,0,7,3,10,7,0,12]},{root:41,bpm:94,notes:[0,7,3,10,0,12,10,7]}
   ];
   const frequency=note=>440*Math.pow(2,(note-69)/12);
-  function silence(context) {
-    if(mixer && context?.state==='running') {
-      mixer.gain.cancelScheduledValues(context.currentTime);
-      mixer.gain.setTargetAtTime(0,context.currentTime,.035);
-    }
-  }
+  function silence(context){if(mixer&&context?.state==='running'){mixer.gain.cancelScheduledValues(context.currentTime);mixer.gain.setTargetAtTime(0,context.currentTime,.035);}}
   const experience={settings,tracks,floats,rings,
     configure(value){Object.assign(settings,normalize({...settings,...value}));document.body.classList.toggle('reduced-effects',settings.reducedEffects);if(settings.reducedEffects||!settings.shake){shakePower=0;shakeLife=0;}try{localStorage.setItem(key,JSON.stringify(settings));}catch{}},
     reset(){floats.length=0;rings.length=0;shakePower=0;shakeLife=0;clock=0;},
@@ -63,44 +53,26 @@
       if(map.axes.includes('y'))y=clamp(Math.max(player.y+player.height-view.height+60,Math.min(y,player.y-45)),maxY);
       return {x:clamp(x,maxX),y:clamp(y,maxY)};
     },
+    // Legacy direct-context adapter remains available to older integrations; gameplay uses ByteRunner.audio.
     audio(context,index,active,bossStage=0){
-      if(!context?.createOscillator || !context.createGain)return;
-      try {
-        if(!mixer || mixer.context!==context){mixer=context.createGain();mixer.connect(context.destination);nextNote=0;track=-1;voices=[];}
-        const audible=active&&!document.hidden&&context.state==='running'&&settings.music>0&&settings.volume>0;
-        mixer.gain.cancelScheduledValues(context.currentTime);
-        mixer.gain.setTargetAtTime(audible?settings.volume*settings.music:0,context.currentTime,.08);
-        if(!audible){lastActive=false;return;}
-        if(index!==track||!lastActive){track=index;beat=0;nextNote=context.currentTime+.04;for(const voice of voices){try{voice.stop();}catch{}}voices=[];}
-        lastActive=true;
-        const tune=tracks[index] || tracks[0],step=60/(tune.bpm+(bossStage?bossStage*7:0))/2;
-        if(nextNote<context.currentTime)nextNote=context.currentTime+.02;
-        for(let count=0;nextNote<context.currentTime+.12 && count<3;count++) {
-          const now=nextNote,note=tune.root+tune.notes[beat%8];
-          for(const [pitch,gainValue,type,duration] of [[note,.026,'triangle',step*.8],...(beat%4===0?[[tune.root-12,.035,'sine',step*2.5]]:[])]) {
-            if(voices.length>=12)break;
-            const oscillator=context.createOscillator(),gain=context.createGain();
-            oscillator.type=type;oscillator.frequency.setValueAtTime(frequency(pitch),now);
-            gain.gain.setValueAtTime(.0001,now);gain.gain.linearRampToValueAtTime(gainValue,now+.035);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);
-            oscillator.connect(gain);gain.connect(mixer);oscillator.start(now);oscillator.stop(now+duration+.03);voices.push(oscillator);
-            oscillator.onended=()=>{oscillator.disconnect();gain.disconnect();voices=voices.filter(v=>v!==oscillator);};
-          }
-          beat++;nextNote+=step;
-        }
-      }catch{/* Missing/blocked audio remains optional. */}
+      if(!context?.createOscillator||!context.createGain)return;
+      try{if(!mixer||mixer.context!==context){mixer=context.createGain();mixer.connect(context.destination);nextNote=0;track=-1;voices=[];}
+        const audible=active&&!document.hidden&&context.state==='running'&&settings.music>0&&settings.volume>0;mixer.gain.cancelScheduledValues(context.currentTime);mixer.gain.setTargetAtTime(audible?settings.volume*settings.music:0,context.currentTime,.08);if(!audible){lastActive=false;return;}
+        if(index!==track||!lastActive){track=index;beat=0;nextNote=context.currentTime+.04;for(const voice of voices){try{voice.stop();}catch{}}voices=[];}lastActive=true;
+        const tune=tracks[index]||tracks[0],step=60/(tune.bpm+(bossStage?bossStage*7:0))/2;if(nextNote<context.currentTime)nextNote=context.currentTime+.02;
+        for(let count=0;nextNote<context.currentTime+.12&&count<3;count++){const now=nextNote,note=tune.root+tune.notes[beat%8];for(const [pitch,gainValue,type,duration] of [[note,.026,'triangle',step*.8],...(beat%4===0?[[tune.root-12,.035,'sine',step*2.5]]:[])]){if(voices.length>=12)break;const oscillator=context.createOscillator(),gain=context.createGain();oscillator.type=type;oscillator.frequency.setValueAtTime(frequency(pitch),now);gain.gain.setValueAtTime(.0001,now);gain.gain.linearRampToValueAtTime(gainValue,now+.035);gain.gain.exponentialRampToValueAtTime(.0001,now+duration);oscillator.connect(gain);gain.connect(mixer);oscillator.start(now);oscillator.stop(now+duration+.03);voices.push(oscillator);oscillator.onended=()=>{oscillator.disconnect();gain.disconnect();voices=voices.filter(v=>v!==oscillator);};}beat++;nextNote+=step;}
+      }catch{/* Optional legacy audio remains best-effort. */}
     },
     silence,
     mountSettings(onOpen,onChange){
-      const button=document.getElementById('settingsButton'),dialog=document.getElementById('settingsDialog');
-      if(!button||!dialog)return;
+      const dialog=document.getElementById('settingsDialog');
+      if(!dialog)return;
       for(const input of dialog.querySelectorAll('[data-setting]')) {
         const name=input.dataset.setting;
         if(input.type==='checkbox')input.checked=settings[name];else input.value=Math.round(settings[name]*100);
         const output=input.parentElement.querySelector('output');if(output)output.textContent=input.value+'%';
         input.addEventListener('input',()=>{this.configure({[name]:input.type==='checkbox'?input.checked:Number(input.value)/100});if(output)output.textContent=input.value+'%';onChange?.();});
       }
-      button.addEventListener('click',()=>{onOpen?.();dialog.showModal();});
-      document.getElementById('closeSettings').addEventListener('click',()=>dialog.close());
     }
   };
   experience.configure(settings);api.experience=experience;
