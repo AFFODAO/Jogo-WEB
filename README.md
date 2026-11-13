@@ -1,39 +1,55 @@
 # BYTE RUNNER
 
-BYTE RUNNER é um jogo de plataforma 2D ambientado no interior de um computador infectado e de uma infraestrutura de rede comprometida. Você assume o controle da unidade robótica R-07, criada para proteger sistemas e restaurar os setores afetados por uma ameaça digital.
+BYTE RUNNER é um jogo de plataforma 2D ambientado no interior de um computador infectado e de uma infraestrutura de rede comprometida. Você controla R-07, uma unidade robótica criada para proteger sistemas e restaurar os setores afetados por uma ameaça digital.
 
-A campanha atravessa dez fases com ambientes e percursos próprios, inspirados em componentes e conceitos de informática, como hardware, sistemas operacionais, switches, roteadores, Wi-Fi, DHCP, DNS, segurança e servidores. Em cada setor, será preciso explorar o cenário, superar obstáculos de plataforma, enfrentar vírus e recuperar componentes corrompidos. Reparos são apresentados como desafios interativos de diagnóstico; perguntas de conhecimento fazem parte da progressão da campanha.
+A campanha percorre dez fases com cenários próprios inspirados em informática e redes: hardware, sistemas operacionais, switches, roteadores, Wi-Fi, DHCP, DNS, segurança e servidores. Explore os mapas, atravesse obstáculos, enfrente vírus e repare componentes corrompidos por meio de desafios interativos de diagnóstico. Perguntas de conhecimento também fazem parte da progressão.
 
-O combate combina movimentação, saltos, ataques e disparos especiais. Ao derrotar inimigos e concluir desafios, R-07 ganha experiência, sobe de nível e pode desbloquear ou aprimorar habilidades. O progresso da campanha, incluindo a evolução do personagem, é salvo no navegador para que você possa continuar depois. A missão culmina no confronto contra VIRUS ZERO, no núcleo digital da rede.
+O combate combina movimentação, saltos, ataques e disparos especiais. Derrotar inimigos e concluir desafios concede experiência; ao subir de nível, é possível desbloquear e aprimorar habilidades. O progresso da campanha é salvo no navegador. A missão culmina no confronto com VIRUS ZERO, no núcleo digital da rede.
 
-## Tecnologias utilizadas
+## Tecnologias
 
-- HTML5 e Canvas 2D: estrutura da página e renderização do jogo.
-- CSS3: interface, layout responsivo e controles por toque.
-- JavaScript: física, combate, fases, minigames e salvamento local.
-- PNG e spritesheets: cenários e animações em pixel art.
-- Python: ferramentas auxiliares e testes; não é necessário para jogar.
+- HTML5 e Canvas 2D para a estrutura e a renderização do jogo.
+- CSS3 para a interface, o layout responsivo e os controles por toque.
+- JavaScript para o jogo, incluindo fases, combate, minigames e salvamento local.
+- Imagens PNG e spritesheets para cenários e animações em pixel art.
+- Python para ferramentas de desenvolvimento e verificações; não é necessário para jogar.
 
-## Como executar
+## Como jogar online
 
-1. Baixe ou clone o projeto, mantendo a estrutura das pastas.
-2. Abra o arquivo index.html em um navegador moderno, como Chrome, Edge ou Firefox.
-3. Inicie a campanha pela interface do jogo.
+Acesse [BYTE RUNNER no GitHub Pages](https://affodao.github.io/Jogo-WEB/).
 
-Não é necessário instalar dependências ou compilar o projeto.
+## Como executar localmente
 
-Se preferir usar um servidor local, com Python instalado, execute na pasta do projeto:
+1. Baixe ou clone este repositório, preservando a estrutura de arquivos e pastas.
+2. Abra `index.html` em um navegador moderno para iniciar o jogo.
 
+O projeto não exige instalação de dependências nem compilação. Se preferir servir os arquivos localmente, execute na pasta do projeto:
+
+```sh
 python -m http.server 8000
+```
 
-Acesse http://localhost:8000 no navegador. Para encerrar o servidor, pressione Ctrl+C no terminal.
+Depois, acesse [http://localhost:8000](http://localhost:8000). Encerre o servidor com `Ctrl+C` no terminal.
 
-## Controles básicos
+## Controles
 
-- A/D ou setas laterais: mover.
-- W, seta para cima ou Espaço: pular.
-- J: atacar; K: disparo especial.
-- E: reparar ou interagir.
-- Esc: pausar.
+- **Mover:** A/D ou setas laterais.
+- **Pular:** W, seta para cima ou Espaço.
+- **Atacar:** J.
+- **Disparo especial:** K.
+- **Reparar ou interagir:** E.
+- **Pausar:** Esc.
 
 Em dispositivos com tela sensível ao toque, use os botões exibidos na interface.
+
+## Estrutura do projeto
+
+- `index.html` e `style.css`: interface e apresentação.
+- `game.js`: lógica principal do jogo.
+- `src/engine/`: sistemas reutilizáveis de fases, inimigos, visuais e reparos.
+- `src/maps/`: definições das dez fases da campanha.
+- `assets/`: recursos visuais e sonoros.
+- `docs/`: documentação de arquitetura, mapas, arte e mecânicas.
+- `tests/`: verificações e materiais de revisão do projeto.
+
+Para detalhes de arquitetura e desenvolvimento, consulte [docs/architecture.md](docs/architecture.md), [docs/art-direction.md](docs/art-direction.md) e [tests/README.md](tests/README.md).
