@@ -156,11 +156,14 @@ for(let i=0;i<10;i++) {
       r.objectPlacement=embedded.length?'EMBEDDED: '+embedded.join(','):'PASS';
     }
     viruses.forEach(v=>v.alive=false);xpRequired=999999;
-    player.x=worldWidth()-player.width-8;player.y=phaseData.map.layout==='vertical'?400:floorY()-player.height;
+    const cameraSupport=solids().filter(s=>s.collision!=='one-way'&&s.w>=player.width+64&&s.y>player.height).sort((a,b)=>(b.x+b.w)-(a.x+a.w)||b.y-a.y)[0];
+    player.x=cameraSupport?cameraSupport.x+cameraSupport.w-player.width-16:worldWidth()-player.width-80;
+    player.y=cameraSupport?cameraSupport.y-player.height:phaseData.map.layout==='vertical'?400:floorY()-player.height;
+    player.vy=0;player.grounded=Boolean(cameraSupport);
     for(let t=0;t<90;t++) update(1/60);
     assert(cameraX>=0&&cameraX<=Math.max(0,worldWidth()-width)&&cameraY>=0&&cameraY<=Math.max(0,worldHeight()-height),'camera outside map');
     assert(player.x-cameraX>=-1&&player.x-cameraX+player.width<=width+1,'camera lost player');r.camera='PASS';
-    assert(player.y-cameraY>=-1&&player.y-cameraY+player.height<=height+1,'vertical camera lost player');
+    assert(player.y-cameraY>=-1&&player.y-cameraY+player.height<=height+1,'vertical camera lost player '+JSON.stringify({playerY:player.y,cameraY,height,grounded:player.grounded,combatDefeat,running,worldHeight:worldHeight()}));
     setup(i);
     assert(!unlockedSkills.length&&player.jumpPower===JUMP_SPEED&&player.damage===1&&player.armor===0,'optional skill in traversal');
     r.baseAbilities='PASS';
@@ -231,8 +234,8 @@ for(let i=0;i<10;i++) {
       assert(!(phaseData.map.pits||[]).some(p=>player.x+player.width>p.x&&player.x<p.x+p.width),'checkpoint over pit');
     } r.checkpoints='PASS';
     const checkpointProgress=components.map(c=>c.repaired).join();
-    if(phaseData.map.pits?.length) {const pit=phaseData.map.pits[0];player.x=pit.x+pit.width/2-17;player.y=floorY()+120;player.vy=400;movePlayer(1/60);assert(player.health===100&&player.y<floorY(),'pit respawn');}
-    damageCooldown=0;player.health=1;damagePlayer(20,{x:0});assert(player.health===100&&damageCooldown>0&&components.map(c=>c.repaired).join()===checkpointProgress,'death checkpoint progress');r.respawn='PASS';
+    if(phaseData.map.pits?.length) {const pit=phaseData.map.pits[0];player.x=pit.x+pit.width/2-17;player.y=floorY()+120;player.vy=400;movePlayer(1/60);assert(combatDefeat&&player.health===0,'pit did not enter Game Over');restartFromCheckpoint();}
+    damageCooldown=0;player.health=1;damagePlayer(20,{x:0});assert(combatDefeat&&player.health===0&&components.map(c=>c.repaired).join()===checkpointProgress,'death checkpoint progress');restartFromCheckpoint();assert(player.health===player.maxHealth&&damageCooldown>0,'checkpoint restart protection');r.respawn='PASS';
     player.x=-10;player.y=-10; movePlayer(1/60);assert(player.x>=0&&player.y>=0,'left/top bounds');
     player.x=worldWidth()+10; movePlayer(1/60);assert(player.x+player.width<=worldWidth(),'right bounds');r.bounds='PASS';
     setup(i); const c=components[0];c.repaired=true;viruses[0].alive=false;viruses[0].hp=0;xp=37;checkpointX=typeof phaseData.map.checkpoints[0]==='number'?phaseData.map.checkpoints[0]:phaseData.map.checkpoints[0].x;
@@ -264,7 +267,11 @@ test('boss stages, shield and projectile defeat',()=>{
   setup(9);const boss=viruses.find(v=>v.type==='boss');let hp=boss.hp;damageVirus(boss,10);assert(boss.hp===hp,'shield');components.forEach(c=>c.repaired=true);
   for(const ratio of [.9,.6,.2]) {boss.hp=boss.maxHp*ratio;boss.bossCycleCooldown=0;boss.bossPatternIndex=0;boss.attackWindup=0;boss.chargeTime=0;boss.bossPhaseTransitionTime=0;for(let t=0;t<95;t++)updateVirusZero(boss,1/60,boss.x-180,boss.y);assert(boss.bossStage===(ratio>.67?1:ratio>.34?2:3),'stage');}
   boss.hp=boss.maxHp;boss.bossStage=1;boss.bossPhaseTransitionTime=0;boss.vulnerableTime=0;boss.attackWindup=0;boss.bossCycleCooldown=1.2;enemyProjectiles=[];enemyObstacles=[];viruses=viruses.filter(v=>v===boss);player.x=boss.x-150;player.y=boss.y-22;player.facing=1;keys.add('j');
-  for(let t=0;t<2400&&boss.alive;t++) {boss.speed=0;updateCombat(1/60);}
+  for(let t=0;t<2400&&boss.alive;t++) {
+    boss.speed=0;player.facing=boss.x>player.x+17?1:-1;
+    if(!combatAttack.charging&&combatAttack.remaining<=0&&combatAttack.energy>=25)combatAttack.request('k');
+    updateCombat(1/60);
+  }
   assert(!boss.alive,'boss survived actual shots');
 });
 test('keyboard controls',()=>{
@@ -313,9 +320,9 @@ test('final boss telegraphs, dodge and weak point',()=>{
     assert(jumping?player.health===100:player.health<100,'charge dodge/hit '+jumping);
     assert(b.vulnerableTime>0,'charge recovery');
   }
-  b=arena();b.hp=b.maxHp*.6;b.bossCycleCooldown=0;b.bossPatternIndex=0;
-  updateVirusZero(b,.01,player.x+17,player.y+24);updateVirusZero(b,.65,player.x+17,player.y+24);const aimX=b.bossAimX,aimY=b.bossAimY;
-  triggerVirusZeroAttack(b,player.x+200,player.y-100);const center=enemyProjectiles[1];
+  b=arena();b.hp=b.maxHp*.6;b.bossStage=2;b.bossAttackKind='volley';b.bossCycleCooldown=0;b.bossPatternIndex=0;b.specialCooldownTimer=99;
+  updateVirusZero(b,.01,player.x+17,player.y+24);const aimX=b.bossAimX,aimY=b.bossAimY;
+  updateVirusZero(b,1.1,player.x+200,player.y-100);const center=enemyProjectiles[1];
   assert(Math.abs(Math.atan2(center.vy,center.vx)-Math.atan2(aimY-b.y,aimX-b.x))<.001,'volley ignores target telegraph');
   enemyProjectiles=[];b.bossAttackKind='surge';triggerVirusZeroAttack(b,player.x+17,player.y+24);assert(enemyObstacles.some(o=>o.bossOwned),'no scenario change');
   assert(!enemyObstacles.some(o=>overlaps(player,o)),'pillar traps player');

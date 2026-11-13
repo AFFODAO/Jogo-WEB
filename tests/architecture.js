@@ -76,8 +76,9 @@ test('architecture: arbitrary ground segments and room checkpoints',()=>{
   player.x=500;player.y=800;player.vy=0;player.grounded=false;
   for(let t=0;t<80&&player.y<1050;t++)movePlayer(1/60);
   assert(player.y>1000&&!player.grounded,'implicit bottom floor still blocks gaps');
-  for(let t=0;t<45;t++)movePlayer(1/60);
-  assert(player.x===108&&player.y===252,'gap did not respawn at room start');
+  for(let t=0;t<45&&!gameOver;t++)movePlayer(1/60);
+  assert(gameOver&&combatDefeat&&player.health===0,'gap did not enter the defeat flow');
+  restartFromCheckpoint();assert(!gameOver&&player.health===player.maxHealth&&player.x>=0&&player.x+player.width<=worldWidth()&&player.y===mapStart().y&&!solids().some(s=>s.collision!=='one-way'&&overlaps(player,s)),'checkpoint retry did not recover from the gap');
   player.x=80;player.y=252;updateCheckpoints();assert(checkpointIndex===0,'first room checkpoint');
   player.x=650;player.y=652;updateCheckpoints();assert(checkpointIndex===1&&checkpointY===700,'descending checkpoint rejected');
   respawnAtCheckpoint();assert(player.y===652&&!solids().some(s=>s.collision!=='one-way'&&overlaps(player,s)),'lower room respawn');

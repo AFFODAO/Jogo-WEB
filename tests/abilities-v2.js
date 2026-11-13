@@ -7,12 +7,17 @@ test('abilities v2: capped passives and base movement at every rank',()=>{
   }
   const armor=player.armor;damageCooldown=0;damagePlayer(20,{x:0});assert(player.health===84&&armor===.2,'actual armor');
 });
+test('abilities v2: empty and invalid damage events do not chip health',()=>{
+  setup(0);damageCooldown=0;const health=player.health;
+  for(const amount of [0,-1,NaN,Infinity,-Infinity])damagePlayer(amount,{x:player.x-10});
+  assert(player.health===health&&!damageCooldown,'non-positive or invalid damage consumed the one-point minimum');
+});
 test('abilities v2: shield is manual, brief, edge triggered and cannot auto-reactivate',()=>{
-  setup(0);viruses=[];equip('shield');updateCombat(.01);assert(player.shieldTime===0,'automatic acquisition');
+  setup(0);damageCooldown=0;viruses=[];equip('shield');updateCombat(.01);assert(player.shieldTime===0,'automatic acquisition');
   window.dispatchEvent(new KeyboardEvent('keydown',{key:'q'}));updateCombat(.01);assert(player.shieldTime<=.65&&player.shieldTime>.6,'pulse duration');
   damageCooldown=0;damagePlayer(30,{x:0});assert(player.health===100,'pulse did not protect');
   for(let i=0;i<1700;i++){window.dispatchEvent(new KeyboardEvent('keydown',{key:'q',repeat:true}));updateCombat(.01);}
-  assert(player.shieldTime===0&&skillRuntime.state.shieldCooldown===0,'automatic repetition');damageCooldown=0;damagePlayer(20,{x:0});assert(player.health<100,'permanent immunity');
+  assert(player.shieldTime===0&&skillRuntime.state.shieldCooldown===0,'automatic repetition');damageCooldown=0;damagePlayer(20,{x:0});assert(player.health<100,'permanent immunity');damageCooldown=0;
   window.dispatchEvent(new KeyboardEvent('keyup',{key:'q'}));window.dispatchEvent(new KeyboardEvent('keydown',{key:'q'}));updateCombat(.01);assert(player.shieldTime>0,'fresh manual activation');
 });
 test('abilities v2: recovery has finite campaign charges and no upgrade refill exploit',()=>{
@@ -65,6 +70,27 @@ test('abilities v2: cooldowns and spent supplies survive pause, map, save and ch
   saveCampaign();restoreCampaign(createCampaignSnapshot());assert(skillRuntime.state.recoverySpent===1&&skillRuntime.state.recoveryCooldown===20&&!player.shieldTime,'save refill');
   respawnAtCheckpoint();assert(skillRuntime.state.recoverySpent===1&&skillRuntime.state.recoveryCooldown===20,'checkpoint refill');
 });
+test('abilities v2: hit windows, respawn and reload cannot stack active protection',()=>{
+  setup(0);viruses=[];equip('shield');
+  const startingHealth=player.health;damageCooldown=0;damagePlayer(12,{x:player.x-80});
+  assert(player.health===startingHealth-12&&damageCooldown===PLAYER_HIT_INVULNERABILITY,'first hit window missing');
+  damagePlayer(12,{x:player.x-80});assert(player.health===startingHealth-12,'hit cooldown did not prevent repeat damage');
+  updateHud();assert(document.querySelector('.health-meter').closest('.stat-block').classList.contains('taking-damage'),'damage feedback missing');
+  window.dispatchEvent(new KeyboardEvent('keydown',{key:'q'}));updateCombat(.01);
+  assert(player.shieldTime===0&&skillRuntime.state.shieldCooldown===0,'shield stacked with hit invulnerability');
+  window.dispatchEvent(new KeyboardEvent('keyup',{key:'q'}));
+
+  player.health=1;damageCooldown=0;damagePlayer(10,{x:player.x-80});
+  assert(combatDefeat&&player.health===0,'lethal damage bypassed Game Over');update(2);restartFromCheckpoint();
+  assert(player.health===player.maxHealth&&damageCooldown===PLAYER_HIT_INVULNERABILITY&&!player.shieldTime,'restart did not grant bounded checkpoint protection');
+  assert(skillRuntime.state.shieldCooldown>=player.shieldCooldownDuration,'respawn left shield ready during protection');
+  window.dispatchEvent(new KeyboardEvent('keydown',{key:'q'}));updateCombat(.01);
+  assert(player.shieldTime===0,'shield activated during respawn protection');window.dispatchEvent(new KeyboardEvent('keyup',{key:'q'}));
+  saveCampaign();const saved=getSavedCampaign();restoreCampaign(saved);
+  assert(player.shieldTime===0&&skillRuntime.state.shieldCooldown>15,'save/load restored active protection or refunded cooldown');
+  damageCooldown=0;const resumedHealth=player.health;damagePlayer(10,{x:player.x-80});
+  assert(player.health===resumedHealth-10,'reload granted unintended invulnerability');
+});
 test('abilities v2: three choices at every cap boundary and safe fallback completes selection',()=>{
   setup(0);assert(getAbilityChoices().length===3,'initial choices');
   unlockedSkills=ABILITIES.map(a=>({id:a.id,level:3,name:a.name,maxLevel:3,description:a.description(3)}));equipTestSkills();
@@ -88,8 +114,9 @@ test('abilities v2: selection accepts only an offered skill and rank',()=>{
 test('abilities v2: repair remains puzzle utility and touch abilities have visible readiness',()=>{
   setup(0);equip('repair');const c=components[0];player.x=c.x;player.y=c.y;keys.add('e');updateRepair(0);keys.clear();
   assert(repairSession.hints===4&&repairSession.maxMistakes===4,'repair benefits');cancelRepair();
-  for(const id of ['shield','boost','recovery'])equip(id);updateHud();document.querySelector('.game-shell').classList.add('playing');
+  damageCooldown=0;for(const id of ['shield','boost','recovery'])equip(id);updateHud();document.querySelector('.game-shell').classList.add('playing');
   const button=touchControls.querySelector('[data-touch="q"]');assert(!button.hidden,'missing manual control');
-  button.dispatchEvent(new PointerEvent('pointerdown',{pointerId:77,bubbles:true}));button.dispatchEvent(new PointerEvent('pointerup',{pointerId:77,bubbles:true}));updateCombat(.01);updateHud();assert(player.shieldTime>0&&document.getElementById('abilityReady').textContent.includes('16,0 s'),'readiness');
+  button.dispatchEvent(new PointerEvent('pointerdown',{pointerId:77,bubbles:true}));button.dispatchEvent(new PointerEvent('pointerup',{pointerId:77,bubbles:true}));updateCombat(.01);updateHud();assert(player.shieldTime>0&&document.getElementById('abilityReady').textContent.includes('ATIVO'),'active readiness');
+  player.shieldTime=0;updateHud();assert(document.getElementById('abilityReady').textContent.includes('16,0 s'),'cooldown readiness');
   if(innerWidth<=600){const wrap=canvas.parentElement.getBoundingClientRect();for(const b of touchControls.querySelectorAll('button:not([hidden])')){const r=b.getBoundingClientRect();assert(r.width>=42&&r.left>=wrap.left&&r.right<=wrap.right+1,'mobile control bounds');}}
 });

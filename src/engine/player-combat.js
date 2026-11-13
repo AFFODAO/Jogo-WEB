@@ -2,15 +2,17 @@
 (() => {
   const positive=(n,fallback)=>Number.isFinite(n)&&n>0?n:fallback;
   function create() {
-    let now=0,basic=0,special=0,charge=0,buffer=-1,pending=false,held=false;
+    let now=0,basic=0,special=0,charge=0,buffer=-1,pending=false,held=false,energy=100;
     return {
       request(key){if(key==='j')buffer=now+.12;else pending=true;},
       clear(){buffer=-1;pending=false;held=false;charge=0;},
+      refillEnergy(){energy=100;},
+      spendEnergy(amount){if(!Number.isFinite(amount)||amount<=0||energy+1e-8<amount)return false;energy=Math.max(0,energy-amount);return true;},
       basic(interval){if(charge||now+1e-8<basic)return false;basic=(now-basic<.1?basic:now)+Math.max(.14,positive(interval,.32));buffer=-1;return true;},
       step(dt,input,config){
         const events=[];now+=Math.max(0,Number.isFinite(dt)?dt:0);
         if(input.special&&!held)pending=true;held=input.special;
-        if(pending&&!charge&&now+1e-8>=special){charge=now+.28;special=now+positive(config.cooldown,6);events.push('charge');}
+        if(pending&&!charge&&now+1e-8>=special&&this.spendEnergy(positive(config.specialCost,25))){charge=now+.28;special=now+positive(config.cooldown,6);events.push('charge');}
         pending=false;
         if(charge){if(now+1e-8>=charge){charge=0;events.push('special');}return events;}
         if((input.basic||buffer>=now)&&this.basic(config.interval))events.push('basic');
@@ -19,8 +21,9 @@
       get charging(){return charge>0;},
       get progress(){return charge?Math.max(0,Math.min(1,1-(charge-now)/.28)):0;},
       get remaining(){return Math.max(0,special-now);},
-      snapshot(){return {version:1,basicRemaining:Math.max(0,basic-now),specialRemaining:Math.max(0,special-now)};},
-      restore(saved){this.clear();const clamp=(v,max)=>Number.isFinite(v)?Math.max(0,Math.min(max,v)):0;basic=now+clamp(saved?.basicRemaining,5);special=now+clamp(saved?.specialRemaining,60);}
+      get energy(){return energy;},
+      snapshot(){return {version:2,basicRemaining:Math.max(0,basic-now),specialRemaining:Math.max(0,special-now),energy};},
+      restore(saved){this.clear();const clamp=(v,max)=>Number.isFinite(v)?Math.max(0,Math.min(max,v)):0;basic=now+clamp(saved?.basicRemaining,5);special=now+clamp(saved?.specialRemaining,60);energy=Number.isFinite(saved?.energy)?clamp(saved.energy,100):100;}
     };
   }
   function box(x,y,dx,dy,s,r=0){

@@ -1,0 +1,673 @@
+{
+  "phases": [],
+  "systems": {
+    "VIRUS ZERO: six legal builds complete measurable combat simulations": "PASS",
+    "VIRUS ZERO: phase transition removes active boss projectiles and hazards": "PASS",
+    "VIRUS ZERO: reinforcement identity remains with a finite lifetime cap": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "bossBalance": [
+    {
+      "build": "sem aprimoramentos",
+      "equippedSkills": [],
+      "durationSeconds": 25.75,
+      "incomingDamage": 44,
+      "damageEvents": 3,
+      "endingHealth": 56,
+      "defeated": true,
+      "failure": "nenhuma",
+      "phaseTransitions": [
+        {
+          "stage": 1,
+          "at": 6.366666666666649
+        },
+        {
+          "stage": 2,
+          "at": 16.416666666667016
+        }
+      ],
+      "initialHp": 90,
+      "remainingBossHp": 0,
+      "bossDamage": 90,
+      "weakPointDamage": 43,
+      "stageDamage": [
+        29.7,
+        29.7,
+        30.6
+      ],
+      "attackStarts": [
+        {
+          "at": 1.22,
+          "stage": 1,
+          "kind": "slam",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 4.58,
+          "stage": 1,
+          "kind": "charge",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 7.35,
+          "stage": 2,
+          "kind": "volley",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 10.87,
+          "stage": 2,
+          "kind": "surge",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 14.38,
+          "stage": 2,
+          "kind": "volley",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 17.4,
+          "stage": 3,
+          "kind": "combo",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 21.07,
+          "stage": 3,
+          "kind": "charge",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 24.73,
+          "stage": 3,
+          "kind": "surge",
+          "telegraphSeconds": 0.95
+        }
+      ],
+      "incomingEvents": [
+        {
+          "at": 6.05,
+          "attack": "charge",
+          "damage": 14
+        },
+        {
+          "at": 18.33,
+          "attack": "combo",
+          "damage": 16
+        },
+        {
+          "at": 22.37,
+          "attack": "charge",
+          "damage": 14
+        }
+      ],
+      "defensiveActions": {
+        "shieldUses": 0,
+        "dashUses": 0
+      },
+      "playerX": 5725,
+      "bossX": 5801,
+      "distanceRange": [
+        1,
+        388
+      ],
+      "healingUses": 0
+    },
+    {
+      "build": "build intermediária",
+      "equippedSkills": [
+        {
+          "id": "cannon",
+          "level": 1
+        },
+        {
+          "id": "rapid",
+          "level": 1
+        },
+        {
+          "id": "armor",
+          "level": 1
+        }
+      ],
+      "durationSeconds": 24.88,
+      "incomingDamage": 41,
+      "damageEvents": 3,
+      "endingHealth": 59,
+      "defeated": true,
+      "failure": "nenhuma",
+      "phaseTransitions": [
+        {
+          "stage": 1,
+          "at": 6.383333333333316
+        },
+        {
+          "stage": 2,
+          "at": 16.300000000000356
+        }
+      ],
+      "initialHp": 90,
+      "remainingBossHp": 0,
+      "bossDamage": 90,
+      "weakPointDamage": 35.4,
+      "stageDamage": [
+        29.7,
+        29.7,
+        30.6
+      ],
+      "attackStarts": [
+        {
+          "at": 1.22,
+          "stage": 1,
+          "kind": "slam",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 4.58,
+          "stage": 1,
+          "kind": "charge",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 7.37,
+          "stage": 2,
+          "kind": "volley",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 10.88,
+          "stage": 2,
+          "kind": "surge",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 14.4,
+          "stage": 2,
+          "kind": "volley",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 17.28,
+          "stage": 3,
+          "kind": "combo",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 20.95,
+          "stage": 3,
+          "kind": "charge",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 24.62,
+          "stage": 3,
+          "kind": "surge",
+          "telegraphSeconds": 0.95
+        }
+      ],
+      "incomingEvents": [
+        {
+          "at": 6.05,
+          "attack": "charge",
+          "damage": 13
+        },
+        {
+          "at": 18.22,
+          "attack": "combo",
+          "damage": 15
+        },
+        {
+          "at": 22.25,
+          "attack": "charge",
+          "damage": 13
+        }
+      ],
+      "defensiveActions": {
+        "shieldUses": 0,
+        "dashUses": 0
+      },
+      "playerX": 5725,
+      "bossX": 5801,
+      "distanceRange": [
+        1,
+        388
+      ],
+      "healingUses": 0
+    },
+    {
+      "build": "ofensiva máxima",
+      "equippedSkills": [
+        {
+          "id": "precision",
+          "level": 3
+        },
+        {
+          "id": "cannon",
+          "level": 3
+        },
+        {
+          "id": "rapid",
+          "level": 3
+        }
+      ],
+      "durationSeconds": 19.42,
+      "incomingDamage": 30,
+      "damageEvents": 2,
+      "endingHealth": 70,
+      "defeated": true,
+      "failure": "nenhuma",
+      "phaseTransitions": [
+        {
+          "stage": 1,
+          "at": 5.483333333333319
+        },
+        {
+          "stage": 2,
+          "at": 12.150000000000183
+        }
+      ],
+      "initialHp": 90,
+      "remainingBossHp": 0,
+      "bossDamage": 90,
+      "weakPointDamage": 49.3,
+      "stageDamage": [
+        29.7,
+        29.7,
+        30.6
+      ],
+      "attackStarts": [
+        {
+          "at": 1.22,
+          "stage": 1,
+          "kind": "slam",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 4.58,
+          "stage": 1,
+          "kind": "charge",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 6.47,
+          "stage": 2,
+          "kind": "volley",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 9.98,
+          "stage": 2,
+          "kind": "surge",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 13.13,
+          "stage": 3,
+          "kind": "combo",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 16.8,
+          "stage": 3,
+          "kind": "charge",
+          "telegraphSeconds": 0.95
+        }
+      ],
+      "incomingEvents": [
+        {
+          "at": 14.07,
+          "attack": "combo",
+          "damage": 16
+        },
+        {
+          "at": 18.1,
+          "attack": "charge",
+          "damage": 14
+        }
+      ],
+      "defensiveActions": {
+        "shieldUses": 0,
+        "dashUses": 0
+      },
+      "playerX": 5300,
+      "bossX": 5317,
+      "distanceRange": [
+        0,
+        363
+      ],
+      "healingUses": 0
+    },
+    {
+      "build": "defensiva máxima",
+      "equippedSkills": [
+        {
+          "id": "armor",
+          "level": 3
+        },
+        {
+          "id": "shield",
+          "level": 3
+        },
+        {
+          "id": "recovery",
+          "level": 3
+        }
+      ],
+      "durationSeconds": 26.2,
+      "incomingDamage": 25,
+      "damageEvents": 2,
+      "endingHealth": 88,
+      "defeated": true,
+      "failure": "nenhuma",
+      "phaseTransitions": [
+        {
+          "stage": 1,
+          "at": 6.366666666666649
+        },
+        {
+          "stage": 2,
+          "at": 17.150000000000308
+        }
+      ],
+      "initialHp": 90,
+      "remainingBossHp": 0,
+      "bossDamage": 90,
+      "weakPointDamage": 42.7,
+      "stageDamage": [
+        29.7,
+        29.7,
+        30.6
+      ],
+      "attackStarts": [
+        {
+          "at": 1.22,
+          "stage": 1,
+          "kind": "slam",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 4.58,
+          "stage": 1,
+          "kind": "charge",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 7.35,
+          "stage": 2,
+          "kind": "volley",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 10.87,
+          "stage": 2,
+          "kind": "surge",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 14.38,
+          "stage": 2,
+          "kind": "volley",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 18.13,
+          "stage": 3,
+          "kind": "combo",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 21.8,
+          "stage": 3,
+          "kind": "charge",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 25.47,
+          "stage": 3,
+          "kind": "surge",
+          "telegraphSeconds": 0.95
+        }
+      ],
+      "incomingEvents": [
+        {
+          "at": 19.07,
+          "attack": "combo",
+          "damage": 13
+        },
+        {
+          "at": 23.1,
+          "attack": "charge",
+          "damage": 12
+        }
+      ],
+      "defensiveActions": {
+        "shieldUses": 1,
+        "dashUses": 0
+      },
+      "playerX": 5725,
+      "bossX": 5684,
+      "distanceRange": [
+        0,
+        388
+      ],
+      "healingUses": 1
+    },
+    {
+      "build": "foco em mobilidade",
+      "equippedSkills": [
+        {
+          "id": "boost",
+          "level": 3
+        },
+        {
+          "id": "rapid",
+          "level": 1
+        },
+        {
+          "id": "armor",
+          "level": 1
+        }
+      ],
+      "durationSeconds": 24.42,
+      "incomingDamage": 0,
+      "damageEvents": 0,
+      "endingHealth": 100,
+      "defeated": true,
+      "failure": "nenhuma",
+      "phaseTransitions": [
+        {
+          "stage": 1,
+          "at": 6.416666666666649
+        },
+        {
+          "stage": 2,
+          "at": 14.333333333333625
+        }
+      ],
+      "initialHp": 90,
+      "remainingBossHp": 0,
+      "bossDamage": 90,
+      "weakPointDamage": 39.3,
+      "stageDamage": [
+        29.7,
+        29.7,
+        30.6
+      ],
+      "attackStarts": [
+        {
+          "at": 1.22,
+          "stage": 1,
+          "kind": "slam",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 4.58,
+          "stage": 1,
+          "kind": "charge",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 7.4,
+          "stage": 2,
+          "kind": "volley",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 10.92,
+          "stage": 2,
+          "kind": "surge",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 15.32,
+          "stage": 3,
+          "kind": "combo",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 18.98,
+          "stage": 3,
+          "kind": "charge",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 22.65,
+          "stage": 3,
+          "kind": "surge",
+          "telegraphSeconds": 0.95
+        }
+      ],
+      "incomingEvents": [],
+      "defensiveActions": {
+        "shieldUses": 0,
+        "dashUses": 2
+      },
+      "playerX": 6076,
+      "bossX": 5780,
+      "distanceRange": [
+        1,
+        640
+      ],
+      "healingUses": 0
+    },
+    {
+      "build": "foco em reparo",
+      "equippedSkills": [
+        {
+          "id": "repair",
+          "level": 3
+        }
+      ],
+      "durationSeconds": 25.75,
+      "incomingDamage": 44,
+      "damageEvents": 3,
+      "endingHealth": 56,
+      "defeated": true,
+      "failure": "nenhuma",
+      "phaseTransitions": [
+        {
+          "stage": 1,
+          "at": 6.366666666666649
+        },
+        {
+          "stage": 2,
+          "at": 16.416666666667016
+        }
+      ],
+      "initialHp": 90,
+      "remainingBossHp": 0,
+      "bossDamage": 90,
+      "weakPointDamage": 43,
+      "stageDamage": [
+        29.7,
+        29.7,
+        30.6
+      ],
+      "attackStarts": [
+        {
+          "at": 1.22,
+          "stage": 1,
+          "kind": "slam",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 4.58,
+          "stage": 1,
+          "kind": "charge",
+          "telegraphSeconds": 1.05
+        },
+        {
+          "at": 7.35,
+          "stage": 2,
+          "kind": "volley",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 10.87,
+          "stage": 2,
+          "kind": "surge",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 14.38,
+          "stage": 2,
+          "kind": "volley",
+          "telegraphSeconds": 1
+        },
+        {
+          "at": 17.4,
+          "stage": 3,
+          "kind": "combo",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 21.07,
+          "stage": 3,
+          "kind": "charge",
+          "telegraphSeconds": 0.95
+        },
+        {
+          "at": 24.73,
+          "stage": 3,
+          "kind": "surge",
+          "telegraphSeconds": 0.95
+        }
+      ],
+      "incomingEvents": [
+        {
+          "at": 6.05,
+          "attack": "charge",
+          "damage": 14
+        },
+        {
+          "at": 18.33,
+          "attack": "combo",
+          "damage": 16
+        },
+        {
+          "at": 22.37,
+          "attack": "charge",
+          "damage": 14
+        }
+      ],
+      "defensiveActions": {
+        "shieldUses": 0,
+        "dashUses": 0
+      },
+      "playerX": 5725,
+      "bossX": 5801,
+      "distanceRange": [
+        1,
+        388
+      ],
+      "healingUses": 0
+    }
+  ],
+  "execution": {
+    "sourceSha256": "058adf4fbb1f5ec58cc462027496b16a28b7561c8b1ca9e2bc08f73b00306feb",
+    "atUTC": "2026-11-13T16:33:07.440717+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

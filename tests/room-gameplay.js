@@ -128,7 +128,7 @@ test('room gameplay: every checkpoint is stable before repairs and death preserv
     for(let t=0;t<60;t++)movePlayer(1/60);
     assert(player.grounded&&Math.abs(player.x-x)<.1&&Math.abs(player.y-y)<.1,'unstable generated checkpoint');
   }
-  components[0].repaired=true;damageCooldown=0;player.health=1;damagePlayer(20,{x:0});assert(components[0].repaired&&player.health===100,'death reset completed repair');
+  components[0].repaired=true;damageCooldown=0;player.health=1;damagePlayer(20,{x:0});assert(components[0].repaired&&combatDefeat&&player.health===0,'death reset completed repair');restartFromCheckpoint();
 });
 setup(0);loadMap(gameplayRuntimeMap,true);campaignStarted=false;await levelVisuals.ready;
 const gameplayView={width,height,pixelRatio,cameraX,cameraY,cw:canvas.width,ch:canvas.height};

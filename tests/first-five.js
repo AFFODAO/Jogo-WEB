@@ -13,8 +13,8 @@ test('rebuilt maps: fans and radio interference affect physics and weapons',()=>
   assert(player.x-start<25.5&&player.x-start>18,'radio movement modifier');
   player.facing=1;fireProjectile();const weakSpeed=projectiles.at(-1).vx,weakCooldown=attackCooldown;
   assert(weakSpeed<570&&weakCooldown>player.fireRate,'radio does not affect combat');
-  components.find(c=>c.id===interference.disabledWhen.component).repaired=true;fireProjectile();assert(projectiles.at(-1).vx===570&&attackCooldown===player.fireRate,'AP repair does not restore combat');
-  unlockedSkills=[{id:'rapid',level:3},{id:'cannon',level:2}];restoreSkillEffects();fireProjectile();assert(projectiles.at(-1).damage===1&&attackCooldown<.32,'radio replaced campaign abilities');
+  components.find(c=>c.id===interference.disabledWhen.component).repaired=true;combatAttack=ByteRunner.playerCombat.create();attackCooldown=0;fireProjectile();assert(projectiles.at(-1).vx===570&&attackCooldown===player.fireRate,'AP repair does not restore combat');
+  unlockedSkills=[{id:'rapid',level:3},{id:'cannon',level:2}];equippedCombat=['rapid','cannon'];restoreSkillEffects();combatAttack=ByteRunner.playerCombat.create();attackCooldown=0;fireProjectile();assert(projectiles.at(-1).damage===1&&attackCooldown<.32,'radio replaced campaign abilities');
 });
 test('rebuilt maps: directories and interfaces have safe actual destinations',()=>{
   for(const i of [1,3]) {
@@ -42,7 +42,7 @@ test('rebuilt maps: free checkpoints and legacy map saves',()=>{
   setup(1);for(const index of [0,2,0]){const point=phaseData.map.checkpoints[index];player.x=point.x;player.y=point.y-player.height;updateCheckpoints();assert(checkpointIndex===index,'checkpoint cannot return to earlier room');}
   saveCampaign();continueCampaign();assert(checkpointIndex===0&&checkpointY===phaseData.map.checkpoints[0].y,'room checkpoint save');
   setup(0);xp=47;unlockedSkills=[{id:'cannon',level:2}];restoreSkillEffects();components[0].repaired=true;saveCampaign();const saved=getSavedCampaign();saved.mapRevision=1;saved.player.x=2400;saved.player.y=500;saved.checkpointX=1850;localStorage.setItem(SAVE_KEY,JSON.stringify(saved));continueCampaign();
-  assert(player.x===mapStart().x&&player.y===mapStart().y&&components.every(c=>!c.repaired)&&xp===47&&player.damage===1&&skillRank('cannon')===2,'old layout save not migrated safely');
+  assert(player.x===mapStart().x&&player.y===mapStart().y&&components.every(c=>!c.repaired)&&xp===47&&player.damage===1&&unlockedRank('cannon')===2,'old layout save not migrated safely');
   xp=xpRequired;openLevelChoice();const pending=getSavedCampaign();pending.mapRevision=1;localStorage.setItem(SAVE_KEY,JSON.stringify(pending));continueCampaign();assert(levelChoiceOpen&&level===2,'layout migration lost pending skill');
 });
 test('rebuilt maps: checkpoints are stable before any repairs',()=>{

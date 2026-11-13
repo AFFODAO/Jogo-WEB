@@ -2,15 +2,18 @@
   "phases": [],
   "systems": {
     "abilities v2: capped passives and base movement at every rank": "PASS",
+    "abilities v2: empty and invalid damage events do not chip health": "PASS",
     "abilities v2: shield is manual, brief, edge triggered and cannot auto-reactivate": "PASS",
     "abilities v2: recovery has finite campaign charges and no upgrade refill exploit": "PASS",
     "abilities v2: dash preserves platforming, has no invulnerability and stops at edges": "PASS",
     "abilities v2: precision rewards vulnerable hits with bounded extra damage": "PASS",
     "abilities v2: explicit legacy migration preserves ranks, deduplicates and is idempotent": "PASS",
     "abilities v2: cooldowns and spent supplies survive pause, map, save and checkpoint": "PASS",
+    "abilities v2: hit windows, respawn and reload cannot stack active protection": "PASS",
     "abilities v2: three choices at every cap boundary and safe fallback completes selection": "PASS",
     "abilities v2: selection accepts only an offered skill and rank": "PASS",
     "abilities v2: repair remains puzzle utility and touch abilities have visible readiness": "PASS",
+    "enemies: nearby attacks take turns while separated rooms stay independent": "PASS",
     "enemies: patrol detects only reachable visible targets and avoids ledges": "PASS",
     "enemies: fast dash has fixed direction, warning, dodge and retreat": "PASS",
     "enemies: frontal armor, rear weakness and recovery remain killable": "PASS",
@@ -49,8 +52,8 @@
     }
   ],
   "execution": {
-    "sourceSha256": "9899317eee045651c6c96487a66d9cf027e5b3c3d033f8aebdf2ffd0c952f4e6",
-    "atUTC": "2026-11-13T00:51:51.379299+00:00",
+    "sourceSha256": "058adf4fbb1f5ec58cc462027496b16a28b7561c8b1ca9e2bc08f73b00306feb",
+    "atUTC": "2026-11-13T16:29:40.254769+00:00",
     "instrumented": true,
     "isolatedStorage": true
   }

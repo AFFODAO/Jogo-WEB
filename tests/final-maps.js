@@ -88,7 +88,7 @@ for(const scope of ['campaign','procedural'])for(const seed of finalSeeds) {
         for(let t=0;t<60;t++)movePlayer(1/60);assert(player.grounded&&Math.abs(player.x-x)<.1&&Math.abs(player.y-y)<.1,'unstable checkpoint '+i);
       }
       checkpointIndex=-1;checkpointX=mapStart().x;checkpointY=mapStart().y+48;damageCooldown=0;player.health=1;damagePlayer(20,{x:0});
-      assert(player.health===100&&components.every(c=>c.repaired),'death lost repair progress');
+      assert(combatDefeat&&player.health===0&&components.every(c=>c.repaired),'death lost repair progress');restartFromCheckpoint();
       for(let t=0;t<300;t++)updateCombat(1/120);player.health=100;damagePlayer(10,{x:0});assert(player.health<100,'permanent invulnerability after death');
       const temp=phaseData.entities.platforms.find(p=>p.type==='temporary');
       if(temp){finalAtStart();const state=getPlatformState(temp);state.active=true;state.triggered=true;state.elapsed=0;state.respawning=false;for(let t=0;t<Math.ceil(((temp.duration||1.8)+.2)*60);t++)update(1/60);assert(!state.active,'temporary platform never disappears');for(let t=0;t<Math.ceil(((temp.respawnDelay||3)+.2)*60);t++)update(1/60);assert(state.active,'temporary platform permanently disappeared');}

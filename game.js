@@ -6,6 +6,7 @@
   const pixelContext=pixelScene.getContext('2d', {alpha:false});
   const overlay = document.getElementById('overlay');
   const startButton = document.getElementById('startButton');
+  const gameOverScreen=document.getElementById('gameOverScreen');
   const continueButton = document.createElement('button');
   continueButton.id = 'continueButton';
   continueButton.type = 'button';
@@ -32,6 +33,26 @@
   const unlockedRank=id=>ByteRunner.abilities.rank(unlockedSkills.find(s=>s.id===id)?.level||0);
   const skillRank=id=>id==='repair'||equippedCombat.includes(id)?unlockedRank(id):0;
   const abilityKeys=['j','k','q','l','h'];
+  const combatBindDefaults={shield:'q',boost:'l',recovery:'h'};
+  const combatBindStorage='byteRunner.combatKeys.v1';
+  const reservedCombatKeys=new Set(['a','d','w','s','e','j','k',' ','arrowleft','arrowright','arrowup','arrowdown','escape','enter']);
+  let combatBindings={...combatBindDefaults};
+  try {
+    const saved=JSON.parse(localStorage.getItem(combatBindStorage));
+    if(saved&&Object.values(combatBindDefaults).every((_,index)=>{
+      const action=Object.keys(combatBindDefaults)[index],key=saved[action];
+      return typeof key==='string'&&/^[a-z0-9]$/.test(key)&&!reservedCombatKeys.has(key)&&Object.values(saved).filter(value=>value===key).length===1;
+    }))combatBindings={...combatBindDefaults,...saved};
+  } catch {}
+  let bindingAction='';
+  const hudTextCache=new WeakMap();
+  const setHudText=(element,value)=>{if(element&&hudTextCache.get(element)!==value){element.textContent=value;hudTextCache.set(element,value);}};
+  const physicalAbility=key=>({shield:'q',boost:'l',recovery:'h'})[Object.keys(combatBindings).find(action=>combatBindings[action]===key)]||(['j','k'].includes(key)?key:'');
+  function showCombatBindings(){
+    document.querySelectorAll('[data-bind]').forEach(button=>setHudText(button,bindingAction===button.dataset.bind?'PRESSIONE UMA TECLA':combatBindings[button.dataset.bind].toUpperCase()));
+    document.querySelectorAll('[data-bind-label]').forEach(label=>setHudText(label,combatBindings[label.dataset.bindLabel].toUpperCase()));
+    setHudText(document.getElementById('specialLabel'),'ENERGIA · K');
+  }
   const keyboardAttacks=new Set(),touchAttacks=new Map();
   function clearCombatInput(){keyboardAttacks.clear();touchAttacks.clear();for(const key of abilityKeys)keys.delete(key);skillRequests.clear();skillRuntime.cancel();if(player)player.shieldTime=0;combatAttack.clear();}
   function attackInput(key,source,down){
@@ -263,11 +284,14 @@
   let objectives = { allRepairs: false, allViruses: false };
   let attackCooldown = 0;
   let damageCooldown = 0;
+  let damageFlash = 0;
   let interactionMessage = '';
   let interactionMessageTimer = 0;
   let running = false;
   let paused = false;
   let gameOver = false;
+  let combatDefeat = false;
+  let defeatSequence = null;
   let jumpQueued = false;
   let lastFrame = 0;
   let animationTime = 0;
@@ -360,7 +384,7 @@
         repair: [760, .16, 'sine'], xp: [880, .07, 'triangle'],
         level: [1040, .22, 'triangle'], correct: [980, .24, 'sine'],
         checkpoint: [1320,.28,'sine'], victory:[660,.6,'triangle'], start:[330,.18,'sine'], jump:[420,.08,'triangle'], land:[100,.05,'sine'],
-        wrong: [190, .22, 'square'], damage: [110, .18, 'sawtooth'],
+        wrong: [190, .22, 'square'], damage: [110, .18, 'sawtooth'],defeat:[68,.72,'sawtooth'],
         enemyWarning:[360,.16,'triangle'], dashWarning:[480,.2,'sawtooth'],
         enemyDash:[220,.12,'sawtooth'], enemyShot:[820,.09,'square'],
         enemyStrike:[180,.1,'triangle'], enemyDive:[560,.15,'sine'],
@@ -421,7 +445,7 @@
       repaired: components.map(component => component.repaired),
       componentIntegrity: components.map(component => ({ integrity: component.integrity, corruption: component.corruption })),
       collected: collectibles.map(item => item.collected),
-      phaseExitUnlocked, phaseObjectiveAwarded, phaseTransition, campaignComplete, gameOver, checkpointX, checkpointY, questionRetryRequired,
+      phaseExitUnlocked, phaseObjectiveAwarded, phaseTransition, campaignComplete, gameOver, combatDefeat, checkpointX, checkpointY, questionRetryRequired,
       pendingAbility: levelChoiceOpen,
       savedAt: Date.now()
     };
@@ -472,7 +496,8 @@
     highestUnlockedPhase = Math.max(phaseIndex, Math.min(PHASES.length - 1, Number(saved.highestUnlockedPhase) || 0));
     const mapChanged=(saved.mapRevision || 1)!==(PHASES[phaseIndex].revision || 1);
     const isNextPhase = saved.phaseTransition || mapChanged;
-    const retryAfterDefeat = Boolean(saved.gameOver || saved.questionRetryRequired);
+    const wasCombatDefeat=Boolean(saved.combatDefeat);
+    const retryAfterDefeat = Boolean((saved.gameOver&&!wasCombatDefeat) || saved.questionRetryRequired);
     loadPhase(phaseIndex, true);
     combatAttack.restore(saved.combatAttack);
     skillRuntime.restore(saved.skillState);
@@ -483,7 +508,8 @@
       ? (phaseData.map.layout === 'vertical' || phaseData.map.ground?.mode === 'explicit' ? mapStart().y+player.height : null) : Number(saved.checkpointY);
     checkpointIndex = isNextPhase ? -1 : Number.isInteger(saved.checkpointIndex) ? saved.checkpointIndex
       : phaseData.map.checkpoints.findIndex(point => (typeof point === 'number' ? point : point.x) === checkpointX);
-    if (isNextPhase || retryAfterDefeat) player.health = Math.min(player.maxHealth, retryAfterDefeat ? player.maxHealth : (Number(saved.player?.health) || 100) + 25);
+    if(wasCombatDefeat)player.health=0;
+    else if (isNextPhase || retryAfterDefeat) player.health = Math.min(player.maxHealth, retryAfterDefeat ? player.maxHealth : (Number(saved.player?.health) || 100) + 25);
     if (retryAfterDefeat) {
       player.x = Math.max(0, Math.min(worldWidth() - player.width, checkpointX + 38));
       player.y = (checkpointY ?? floorY()) - player.height;
@@ -526,7 +552,8 @@
         ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
     }
     renderSkills(); updateHud(); draw();
-    launchLoadedPhase(Boolean(saved.phaseTransition));
+    if(wasCombatDefeat){player.health=0;gameOver=true;combatDefeat=true;finishDefeat(false);}
+    else launchLoadedPhase(Boolean(saved.phaseTransition));
     if(saved.progressionSchema!==2){addLog('Progressão atualizada: níveis, XP e habilidades preservados. Até três habilidades de combate equipadas; demais disponíveis na reserva.');saveCampaign();}
     if(mapChanged){addLog('Mapa reconstruído: fase reiniciada, XP e habilidades mantidos.');interactionMessage='NOVO MAPA // XP E HABILIDADES PRESERVADOS';interactionMessageTimer=4;}
     if (saved.pendingAbility && !saved.phaseTransition) openLevelChoice(true);
@@ -807,7 +834,11 @@
 
   function loadPhase(index, retry = false) {
     player.interferenceTime=0;
-    phaseIndex = Math.max(0, Math.min(PHASES.length - 1, index));
+    const nextIndex = Math.max(0, Math.min(PHASES.length - 1, index));
+    const nextPhaseId = PHASES[nextIndex]?.id;
+    const enteringNewPhase = Boolean(phaseData && phaseData.id !== nextPhaseId);
+    phaseIndex = nextIndex;
+    if(enteringNewPhase)combatAttack.refillEnergy();
     loadMap(PHASES[phaseIndex], retry);
   }
 
@@ -828,6 +859,7 @@
     cameraX = phaseData.map.camera.axes.includes('x') ? Math.max(0, Math.min(worldWidth() - width, player.x - width * phaseData.map.camera.followOffsetX)) : 0;
     cameraY = phaseData.map.camera.axes.includes('y') ? Math.max(0, Math.min(worldHeight() - height, player.y - height * phaseData.map.camera.followOffsetY)) : 0;
     platformRuntime = new Map(); animationTime = 0; deathEcho = null; jumpQueued = false;
+    gameOverScreen.hidden=true;combatDefeat=false;defeatSequence=null;
     checkpointX = start.x;
     checkpointIndex = -1;
     checkpointY = phaseData.map.layout === 'vertical' || phaseData.map.ground?.mode === 'explicit' ? start.y+player.height : null;
@@ -856,7 +888,7 @@
     defeated = 0; levelChoiceOpen = false; repairTarget = null; repairProgress = 0;
     phaseExitUnlocked = false; phaseObjectiveAwarded = false; phaseTransition = false; campaignComplete = false;
     objectives = { allRepairs: false, allViruses: false };
-    attackCooldown = 0; damageCooldown = 0; interactionMessage = ''; interactionMessageTimer = 0; gameOver = false;
+    attackCooldown = 0; damageCooldown = 0; damageFlash=0; interactionMessage = ''; interactionMessageTimer = 0; gameOver = false;combatDefeat=false;defeatSequence=null;
     ui.levelOverlay.classList.remove('active');
     ui.questionOverlay.classList.remove('active');
     phaseQuestionOpen = false; currentQuestion = null; questionAnswered = false;
@@ -1049,7 +1081,7 @@
       player.grounded = true;
     }
     if (overPit && player.y > floorY() + 112) {
-      respawnAtCheckpoint();
+      player.health=0;beginDefeat();
       return;
     }
     if (phaseData.map.bounds.ceiling && player.y < 0) {
@@ -1057,7 +1089,7 @@
       if (player.vy < 0) player.vy = 0;
     }
     if ((!phaseData.map.bounds.floor || phaseData.map.ground?.mode === 'explicit') && player.y > worldHeight() + 180) {
-      respawnAtCheckpoint();
+      player.health=0;beginDefeat();
       return;
     }
     // Side resolution can move the robot after the initial bounds clamp.
@@ -1425,24 +1457,26 @@
   }
 
   function damagePlayer(amount, virus) {
+    if(gameOver||defeatSequence)return;
     const hasShieldSkill = skillRank('shield')>0;
     const activeShieldTime = hasShieldSkill && Number.isFinite(player.shieldTime) ? Math.max(0, player.shieldTime) : 0;
     if (damageCooldown > 0 || !running || activeShieldTime > 0) return;
     const armor = Number.isFinite(player.armor) ? Math.min(MAX_PLAYER_ARMOR, Math.max(0, player.armor)) : 0;
     const incomingDamage = Number.isFinite(amount) ? Math.max(0, amount) : 0;
+    if(incomingDamage<=0)return;
     const appliedDamage = Math.max(1, Math.ceil(incomingDamage * (1 - armor)));
     player.health = Math.max(0, player.health - appliedDamage);
     experience.impact(player.x+17,player.y+22,appliedDamage>=16,'#ff9a9a');
     emitParticles(player.x + player.width / 2, player.y + 22, '#ff716e', 16);
     playSound('damage');
     damageCooldown = PLAYER_HIT_INVULNERABILITY;
+    damageFlash=.24;
     player.vy = -210;
     player.grounded = false;
-    player.facing = player.x + player.width / 2 < virus.x ? -1 : 1;
+    player.facing = player.x + player.width / 2 < (virus?.x??player.x) ? -1 : 1;
     addLog('Impacto de vírus! Integridade em ' + player.health + '%.');
     updateHud();
-    saveCampaign();
-    if (player.health <= 0) respawnAtCheckpoint();
+    if(player.health<=0)beginDefeat();else saveCampaign();
   }
 
   function respawnAtCheckpoint() {
@@ -1464,6 +1498,7 @@
     player.shieldTime = 0;
     player.shieldCooldown = unlockedSkills.some(skill => skill.id === 'shield')
       ? player.shieldCooldownDuration : 0;
+    if(skillRank('shield')>0)skillRuntime.state.shieldCooldown=Math.max(skillRuntime.state.shieldCooldown,player.shieldCooldownDuration);
     damageCooldown = 2;
     cancelRepair(); jumpQueued = false;
     platformRuntime = new Map();
@@ -1499,18 +1534,74 @@
     }
   }
 
-  function finishDefeat() {
-    running = false;
-    document.querySelector('.game-shell').classList.remove('playing');
-    paused = false;
-    gameOver = true;
-    ui.title.innerHTML = 'SINAL <span>PERDIDO</span>';
-    ui.copy.textContent = 'A integridade da unidade chegou a zero. Reinicie a missão para tentar novamente.';
-    startButton.innerHTML = 'TENTAR FASE NOVAMENTE <span>→</span>';
-    overlay.classList.remove('hidden');
-    ui.stage.textContent = 'UNIDADE DESCONECTADA';
-    addLog('Unidade R-07 desconectada.');
-    saveCampaign();
+  function beginDefeat() {
+    if(gameOver||defeatSequence)return;
+    gameOver=true;combatDefeat=true;defeatSequence={elapsed:0,duration:1.65};
+    running=false;paused=false;keys.clear();clearCombatInput();jumpQueued=false;
+    cancelRepair();repairTarget=null;repairProgress=0;
+    playSound('defeat');addLog('Sinal da Unidade R-07 perdido.');saveCampaign();
+    frameAccumulator=0;previousRenderPlayer=null;lastFrame=performance.now();scheduleFrame();
+  }
+
+  function finishDefeat(save=true) {
+    running=false;paused=false;gameOver=true;combatDefeat=true;defeatSequence=null;
+    menuScreen=false;
+    keys.clear();clearCombatInput();document.querySelector('.game-shell').classList.remove('playing');
+    overlay.classList.add('hidden');gameOverScreen.hidden=false;
+    document.getElementById('gameOverStage').textContent=phaseData.name;
+    document.getElementById('gameOverCheckpoint').textContent=checkpointIndex>=0?'CHECKPOINT '+String(checkpointIndex+1).padStart(2,'0'):'INÍCIO SEGURO';
+    ui.stage.textContent='CONEXÃO PERDIDA';
+    document.getElementById('restartCheckpointButton').focus({preventScroll:true});
+    if(save)saveCampaign();
+  }
+
+  function restartFromCheckpoint() {
+    if(!gameOver||!combatDefeat)return;
+    const start=mapStart();
+    const baseX=checkpointIndex>=0?checkpointX+38:start.x;
+    const baseY=(checkpointIndex>=0?(checkpointY??floorY()):start.y+player.height)-player.height;
+    const offsets=[0,-28,28,-56,56,-84,84,-112,112,-140,140,-168,168,-196,196];
+    let spawn=null;
+    for(const dx of offsets){
+      const x=Math.max(0,Math.min(worldWidth()-player.width,baseX+dx));
+      const candidate={x,y:baseY,width:player.width,height:player.height};
+      const blocked=solids().some(s=>s.collision!=='one-way'&&overlaps(candidate,s))||
+        enemyObstacles.some(s=>s.life>0&&overlaps(candidate,{x:s.x,y:s.y,w:s.w,h:s.h}))||
+        (phaseData.entities.obstacles||[]).some(s=>['dangerous','interference'].includes(s.type)&&overlaps(candidate,{x:s.x,y:s.y,w:s.width||s.w,h:s.height||s.h}))||
+        viruses.some(v=>v.alive&&Math.hypot(v.x-(x+player.width/2),v.y-(baseY+player.height/2))<v.radius+30);
+      if(!blocked){spawn={x,y:baseY};break;}
+    }
+    if(!spawn)spawn={x:Math.max(0,Math.min(worldWidth()-player.width,start.x)),y:start.y};
+    gameOver=false;combatDefeat=false;defeatSequence=null;gameOverScreen.hidden=true;
+    player.health=player.maxHealth;player.x=spawn.x;player.y=spawn.y;player.vx=0;player.vy=0;player.grounded=true;player.facing=1;player.interferenceTime=0;player.shieldTime=0;
+    keys.clear();clearCombatInput();jumpQueued=false;cancelRepair();repairTarget=null;repairProgress=0;
+    skillRuntime.cancel();combatAttack.clear();projectiles=[];enemyProjectiles=[];enemyObstacles=[];effects=[];deathEcho=null;
+    if(skillRank('shield')>0)skillRuntime.state.shieldCooldown=Math.max(skillRuntime.state.shieldCooldown,player.shieldCooldownDuration);
+    for(const enemy of viruses){
+      if(enemy.summonedBy){enemy.alive=false;continue;}
+      if(enemy.alive)enemy.hp=enemy.maxHp;
+      enemy.attackWindup=0;enemy.dashTime=0;enemy.diveTime=0;enemy.echoTime=0;enemy.interceptTime=0;enemy.recovery=0;enemy.attackCooldownTimer=Math.max(enemy.attackCooldownTimer||0,.65);
+      if(enemy.summonLimit)enemy.totalSummons=0;
+      if(enemy.multiStage){
+        enemy.bossStage=1;enemy.coreShielded=Boolean(enemy.coreShieldRequiresRepairs&&components.some(component=>!component.repaired));
+        enemy.chargeTime=0;enemy.summonWindup=0;enemy.vulnerableTime=0;enemy.bossPatternIndex=0;enemy.bossPhaseTransitionTime=0;enemy.bossCycleCooldown=1.2;
+        enemy.specialCooldownTimer=(enemy.summonCooldown||9)*.5;
+      }
+    }
+    damageCooldown=PLAYER_HIT_INVULNERABILITY;damageFlash=0;attackCooldown=0;shotPose=0;abilityPose=0;
+    cameraX=phaseData.map.camera.axes.includes('x')?Math.max(0,Math.min(worldWidth()-width,player.x-width*phaseData.map.camera.followOffsetX)):0;
+    cameraY=phaseData.map.camera.axes.includes('y')?Math.max(0,Math.min(worldHeight()-height,player.y-height*phaseData.map.camera.followOffsetY)):0;
+    paused=false;running=true;phaseIntroTime=0;document.querySelector('.game-shell').classList.add('playing');overlay.classList.add('hidden');
+    lastFrame=performance.now();frameAccumulator=0;previousRenderPlayer=null;saveTimer=0;
+    ui.stage.textContent='FASE '+String(phaseIndex+1).padStart(2,'0')+' // RETOMADA NO CHECKPOINT';
+    saveCampaign();updateHud();draw();scheduleFrame();
+  }
+
+  function returnToMenuFromDefeat() {
+    if(!combatDefeat)return;
+    running=false;paused=false;defeatSequence=null;gameOverScreen.hidden=true;
+    document.querySelector('.game-shell').classList.remove('playing');overlay.classList.remove('hidden');
+    menuScreen=true;setupMenu();saveCampaign();
   }
 
   function choosePhaseQuestion() {
@@ -1680,7 +1771,7 @@
 
   function spawnEnemyMinion(virus) {
     const aliveMinions = viruses.filter(enemy => enemy.alive && enemy.summonedBy === virus.id).length;
-    if (aliveMinions >= (virus.summonLimit || 2) || (!virus.multiStage && (virus.totalSummons||0)>=4)) return false;
+    if (aliveMinions >= (virus.summonLimit || 2) || (virus.totalSummons||0)>=4) return false;
     const profile = ENEMY_PROFILES.fast;
     const side = Math.random() < .5 ? -1 : 1;
     const spawnY=virus.baseY ?? virus.y;
@@ -1732,14 +1823,14 @@
     const horizontalDistance = Math.abs(playerCenterX - virus.x);
     const ground=bossGroundY(virus);
     if ((kind === 'slam' || kind === 'combo') && horizontalDistance <= (stage === 3 ? 188 : 148) && player.y + player.height > ground - 28) {
-      damagePlayer(stage === 3 ? 22 : 16, virus);
+      damagePlayer(stage === 3 ? 16 : 12, virus);
     }
     if (kind === 'charge') {
       virus.chargeTime = .48;
     }
     if (kind === 'volley' || kind === 'combo') {
       fireVirusZeroVolley(virus, virus.bossAimX ?? playerCenterX, virus.bossAimY ?? playerCenterY, stage === 3 ? 5 : 3,
-        stage === 3 ? 310 : 245, stage === 3 ? 12 : 10, stage === 3 ? .38 : .24);
+        stage === 3 ? 310 : 245, stage === 3 ? 9 : 8, stage === 3 ? .38 : .24);
     }
     if (kind === 'surge' || kind === 'combo') {
       const arena = virus.bossBounds || {left:3420,right:4450};
@@ -1755,8 +1846,8 @@
           x:x-15,y:ground-68,w:30,h:68,life:2.5,bossOwned:true});
       }
     }
-    virus.vulnerableTime = kind === 'charge' ? 0 : [0,1.25,1.1,1.65][stage];
-    virus.bossCycleCooldown = [0,1.9,1.6,1.9][stage];
+    virus.vulnerableTime = kind === 'charge' ? 0 : [0,1.55,1.45,1.9][stage];
+    virus.bossCycleCooldown = [0,2.3,2.5,2.7][stage];
     virus.attackWindup = 0;
   }
 
@@ -1770,7 +1861,9 @@
       experience.pop('NÚCLEO · ETAPA '+stage,virus.x,virus.y-virus.radius-30,'#ffd6a0');
       virus.bossStage = stage;
       playSound('bossTransition');
-      virus.attackWindup=0;virus.chargeTime=0;virus.vulnerableTime=0;virus.bossPatternIndex=0;virus.bossCycleCooldown=0;virus.bossPhaseTransitionTime=.6;virus.summonWindup=0;
+      virus.attackWindup=0;virus.chargeTime=0;virus.vulnerableTime=0;virus.bossPatternIndex=0;virus.bossCycleCooldown=1;virus.bossPhaseTransitionTime=.85;virus.summonWindup=0;
+      enemyProjectiles=enemyProjectiles.filter(projectile=>!projectile.bossOwned);
+      enemyObstacles=enemyObstacles.filter(obstacle=>!obstacle.bossOwned);
       addLog('VIRUS ZERO // ETAPA ' + stage + ' // PADRÃO DE ATAQUE ALTERADO.');
       emitParticles(virus.x, virus.y, stage === 3 ? '#ffd36e' : '#ff5479', 18);
     }
@@ -1793,7 +1886,7 @@
         virus.x = oldX; virus.chargeTime = 0;
         interactionMessage='INVESTIDA BLOQUEADA // NÚCLEO EXPOSTO';interactionMessageTimer=1.5;emitParticles(virus.x,virus.y,'#ffe27a',14);
       }
-      if (!blocked && playerCenterX >= Math.min(oldX,virus.x)-55 && playerCenterX <= Math.max(oldX,virus.x)+55 && player.y+player.height > bossGroundY(virus)-76) damagePlayer(18,virus);
+      if (!blocked && playerCenterX >= Math.min(oldX,virus.x)-55 && playerCenterX <= Math.max(oldX,virus.x)+55 && player.y+player.height > bossGroundY(virus)-76) damagePlayer(14,virus);
       virus.chargeTime = Math.max(0,virus.chargeTime-step);
       if (!virus.chargeTime) virus.vulnerableTime = blocked ? 1.8 : 1.25;
       return;
@@ -1808,7 +1901,7 @@
       virus.bossPatternIndex++;
       virus.bossAttackDirection = Math.sign(playerCenterX - virus.x) || 1;
       virus.bossAimX = playerCenterX; virus.bossAimY = playerCenterY;
-      virus.attackWindup = [0,1.05,.85,.8][stage];
+      virus.attackWindup = [0,1.05,1,.95][stage];
       playSound('bossWarning');
     }
     if (stage >= 2 && virus.specialCooldownTimer <= 0) {
@@ -1878,7 +1971,7 @@
     virus.hitFlash = Math.max(0, (virus.hitFlash || 0) - dt);
     virus.phase += dt * (virus.type === 'fast' ? 9 : virus.flying ? 6 : 4);
     if(!virus.multiStage && ByteRunner.enemies.update(virus,{
-      playerX:playerCenterX,playerY:playerCenterY,player,shapes:solids(),width:worldWidth(),height:worldHeight(),
+      playerX:playerCenterX,playerY:playerCenterY,player,enemies:viruses,shapes:solids(),width:worldWidth(),height:worldHeight(),
       components,damage:damagePlayer,fire:fireEnemyProjectile,spawn:spawnEnemyMinion,sound:playSound
     },dt))return;
     const dx = playerCenterX - virus.x;
@@ -1997,19 +2090,23 @@
   function updateCombat(dt) {
     attackCooldown = Math.max(0, attackCooldown - dt);
     damageCooldown = Math.max(0, damageCooldown - dt);
+    damageFlash = Math.max(0, damageFlash - dt);
     interactionMessageTimer = Math.max(0, interactionMessageTimer - dt);
     skillRuntime.tick(dt);
     player.shieldTime=Math.max(0,player.shieldTime-dt);
     for(const key of skillRequests){
       const id={q:'shield',l:'boost',h:'recovery'}[key];
+      if(id==='shield'&&damageCooldown>0)continue;
+      if(id==='shield'&&combatAttack.energy<50)continue;
       if(skillRuntime.activate(id,skillRank(id),player)){
+        if(id==='shield')combatAttack.spendEnergy(50);
         playSound(id==='shield'?'pulse':id==='boost'?'dash':'heal');abilityPose=.25;
         emitParticles(player.x+17,player.y+24,id==='recovery'?'#86ffd0':'#a3ceff',8);saveCampaign();
       }
     }
     skillRequests.clear();player.shieldCooldown=skillRuntime.state.shieldCooldown;
     const attackEvents=combatAttack.step(dt,{basic:keys.has('j'),special:keys.has('k')},
-      {interval:player.fireRate*levelRuntime.modifiers().fireIntervalMultiplier,cooldown:specialCooldown()*levelRuntime.modifiers().fireIntervalMultiplier});
+      {interval:player.fireRate*levelRuntime.modifiers().fireIntervalMultiplier,cooldown:specialCooldown()*levelRuntime.modifiers().fireIntervalMultiplier,specialCost:25});
     for(const event of attackEvents){
       if(event==='charge'){playSound('charge');saveCampaign();}
       else spawnPlayerProjectile(event==='special');
@@ -2040,21 +2137,41 @@
   }
 
   function updateHud() {
-    const status=(id,key,label,remaining,extra='')=>!skillRank(id)?label+(unlockedRank(id)?' · NA RESERVA':' · BLOQUEADO'):label+' · '+(id==='recovery'&&skillRuntime.state.recoverySpent>=1+skillRank(id)?'ESGOTADO':remaining>0?remaining.toFixed(1).replace('.',',')+' s':'PRONTO')+extra;
-    document.getElementById('abilityReady').textContent=[status('shield','q','Q ESCUDO',skillRuntime.state.shieldCooldown),status('boost','l','L ESQUIVA',skillRuntime.state.dashCooldown),status('recovery','h','H RECUPERAÇÃO',skillRuntime.state.recoveryCooldown,' · '+Math.max(0,1+skillRank('recovery')-skillRuntime.state.recoverySpent)+' CARGAS')].join(' / ');
-    for(const [key,id] of [['q','shield'],['l','boost'],['h','recovery']]){const b=touchControls.querySelector('[data-touch="'+key+'"]');b.hidden=!skillRank(id);}
+    const status=(id,label,remaining,active=false,extra='')=>!skillRank(id)?label+(unlockedRank(id)?' · RESERVA':' · BLOQUEADO'):label+' · '+(active?'ATIVO':id==='recovery'&&skillRuntime.state.recoverySpent>=1+skillRank(id)?'ESGOTADO':remaining>0?remaining.toFixed(1).replace('.',',')+' s':'PRONTO')+extra;
+    const names=equippedCombat.map(id=>ByteRunner.abilities.definitions.find(definition=>definition[0]===id)?.[1]||id);
+    const ready=document.getElementById('abilityReady');
+    setHudText(ready,'EQUIPADAS: '+(names.length?names.join(' · '):'NENHUMA')+'  |  '+[
+      status('shield',combatBindings.shield.toUpperCase()+' ESCUDO',skillRuntime.state.shieldCooldown,player.shieldTime>0,combatAttack.energy<50?' · SEM ENERGIA':''),
+      status('boost',combatBindings.boost.toUpperCase()+' ESQUIVA',skillRuntime.state.dashCooldown,skillRuntime.state.dashTime>0),
+      status('recovery',combatBindings.recovery.toUpperCase()+' RECUPERAR',skillRuntime.state.recoveryCooldown,false,' · '+Math.max(0,1+skillRank('recovery')-skillRuntime.state.recoverySpent)+' CARGAS')
+    ].join('  |  '));
+    for(const [key,id] of [['q','shield'],['l','boost'],['h','recovery']]){const b=touchControls.querySelector('[data-touch="'+key+'"]'),hidden=!skillRank(id);if(b&&b.hidden!==hidden)b.hidden=hidden;}
     const specialHud=document.getElementById('specialReady');
-    specialHud.textContent=combatAttack.charging?'CARREGANDO':combatAttack.remaining>0?'RECARGA '+combatAttack.remaining.toFixed(1).replace('.',',')+' s':'PRONTO';
-    document.getElementById('specialMeter').style.width=(combatAttack.charging?combatAttack.progress*100:Math.max(0,1-combatAttack.remaining/(specialCooldown()*levelRuntime.modifiers().fireIntervalMultiplier))*100)+'%';
+    setHudText(specialHud,combatAttack.energy<25?'SEM ENERGIA':combatAttack.charging?'CARREGANDO':combatAttack.remaining>0?'RECARGA '+combatAttack.remaining.toFixed(1).replace('.',',')+' s':'PRONTO');
+    setHudText(document.getElementById('specialLabel'),'ENERGIA · K · '+Math.round(combatAttack.energy)+'%');
+    const specialPercent=combatAttack.energy;
+    const specialMeter=document.getElementById('specialMeter'),specialWidth=specialPercent+'%';if(specialMeter.style.width!==specialWidth)specialMeter.style.width=specialWidth;
     const progressAxis=phaseData.map.progress?.axis || (phaseData.map.layout === 'vertical' ? 'y' : 'x');
     const progress = Math.max(0, Math.min(100, Math.round(player.x / (worldWidth() - player.width) * 100)));
     const authoredProgress=progressAxis === 'objectives' ? Math.round(levelRuntime.progress()*100) : progressAxis === 'y'
       ? Math.max(0,Math.min(100,Math.round((mapStart().y-player.y)/Math.max(1,mapStart().y-phaseData.map.exit.y)*100))) : progress;
     ui.progress.textContent = String(authoredProgress).padStart(2, '0') + '%';
-    ui.progressBar.style.width = authoredProgress + '%';
+    const progressWidth=authoredProgress+'%';if(ui.progressBar.style.width!==progressWidth)ui.progressBar.style.width=progressWidth;
     const healthPercent = Math.max(0, player.health / player.maxHealth * 100);
-    ui.health.style.width = healthPercent + '%';
-    ui.healthText.textContent = Math.ceil(healthPercent) + '%';
+    const healthWidth=healthPercent+'%';if(ui.health.style.width!==healthWidth)ui.health.style.width=healthWidth;
+    setHudText(ui.healthText,Math.ceil(healthPercent)+'%'+(damageFlash>0?' · IMPACTO':damageCooldown>0?' · PROTEGIDO':''));
+    const combatHealthText=document.getElementById('combatHealthText'),combatHealthBar=document.getElementById('combatHealthBar');
+    setHudText(combatHealthText,Math.ceil(healthPercent)+'%');
+    const combatHealthWidth=healthPercent+'%';if(combatHealthBar.style.width!==combatHealthWidth)combatHealthBar.style.width=combatHealthWidth;
+    const activeStatuses=[];
+    if(player.shieldTime>0)activeStatuses.push('ESCUDO ATIVO');
+    if(skillRuntime.state.dashTime>0)activeStatuses.push('ESQUIVA ATIVA');
+    if(player.interferenceTime>0)activeStatuses.push('INTERFERÊNCIA');
+    if(damageCooldown>0&&player.shieldTime<=0)activeStatuses.push('PROTEGIDO');
+    setHudText(document.getElementById('combatStatus'),activeStatuses.join('  ·  '));
+    const healthBlock=ui.health.closest('.stat-block');
+    healthBlock?.classList.toggle('taking-damage',damageFlash>0);
+    healthBlock?.classList.toggle('protected',damageCooldown>0);
     ui.level.textContent = String(level).padStart(2, '0');
     ui.xp.textContent = xp + ' / ' + xpRequired + ' XP';
     ui.xpBar.style.width = Math.min(100, xp / xpRequired * 100) + '%';
@@ -2095,6 +2212,11 @@
   }
 
   function update(dt) {
+    if(defeatSequence){
+      actorAnimationTime+=dt;animationTime+=dt;defeatSequence.elapsed=Math.min(defeatSequence.duration,defeatSequence.elapsed+dt);
+      if(defeatSequence.elapsed>=defeatSequence.duration)finishDefeat();
+      return;
+    }
     // Sprite-only clock keeps the repair tool alive while world physics is frozen.
     actorAnimationTime+=dt;
     if(phaseIntroTime>0) {
@@ -2107,6 +2229,7 @@
     levelRuntime.update(dt,{keys,repairNearby:Boolean(findNearbyComponent())});
     advancePlatformMotion(dt);
     movePlayer(dt);
+    if(!running)return;
     updateCheckpoints();
     updateCombat(dt);
     if (!running) return;
@@ -2741,7 +2864,15 @@
     }
     for (const projectile of projectiles) {
       const x = projectile.x;
-      if(projectile.special){ctx.fillStyle='#ffce78';ctx.fillRect(x-(projectile.vx>0?24:6),projectile.y-4,30,8);ctx.fillStyle='#fff5d1';ctx.fillRect(x-5,projectile.y-7,10,14);continue;}
+      if(projectile.special){
+        const left=x-(projectile.vx>0?24:6),reduced=experience.settings.reducedEffects,pulse=reduced?0:Math.floor(animationTime*18)%2;
+        ctx.fillStyle='#b77bff';ctx.fillRect(left,projectile.y-3,30,6);
+        ctx.fillStyle='#ffce78';ctx.fillRect(left+4,projectile.y-5,22,10);
+        ctx.fillStyle='#fff5d1';ctx.fillRect(x-4,projectile.y-8,8,16);
+        ctx.fillStyle=pulse?'#fff5d1':'#fff0a3';
+        for(let pixel=0;pixel<3;pixel++)ctx.fillRect(left+2+((pixel*9+(reduced?0:Math.floor(animationTime*24)))%24),projectile.y-1+(pixel%2?3:-3),3,2);
+        continue;
+      }
       if(levelVisuals.sprite(ctx,{asset:'fx',animation:'bolt',flipX:projectile.vx<0},{x:x-16,y:projectile.y-12,width:32,height:24},animationTime))continue;
       ctx.save();
       ctx.strokeStyle = 'rgba(78, 245, 223, .55)';
@@ -2778,7 +2909,7 @@
   }
 
   function drawRobot() {
-    if (!player) return;
+    if (!player||combatDefeat) return;
     if(deathEcho && animationTime-deathEcho.start<.7) {
       levelVisuals.sprite(ctx,{asset:'r07',animation:'death',instance:'death-echo-'+deathEcho.start}, {x:Math.round(deathEcho.x+1),y:Math.round(deathEcho.y),width:32,height:48},actorAnimationTime);
     }
@@ -2984,6 +3115,24 @@
     if (repairSession?.blocksWorld) {
       document.getElementById('repairPrompt').textContent=repairSession.label?.() || 'REPARO EM ANDAMENTO';
     }
+    drawShutdownScene();
+  }
+
+  function drawShutdownScene() {
+    if(!combatDefeat)return;
+    const progress=defeatSequence?Math.min(1,defeatSequence.elapsed/defeatSequence.duration):1;
+    const reduced=experience.settings.reducedEffects;
+    ctx.save();ctx.fillStyle='rgba(8,3,12,'+(0.18+progress*.76)+')';ctx.fillRect(0,0,width,height);
+    const cx=Math.round(width/2),cy=Math.round(height*.52),flicker=reduced?0:Math.sin(animationTime*71)*3;
+    ctx.globalAlpha=1-progress*.42;ctx.fillStyle='#778792';
+    ctx.fillRect(cx-13+flicker,cy-35,26,22);ctx.fillStyle='#35404a';ctx.fillRect(cx-9,cy-27,18,7);
+    ctx.fillStyle='#ff4659';ctx.fillRect(cx-6,cy-25,4,3);ctx.fillRect(cx+3,cy-25,4,3);
+    ctx.fillStyle='#69747d';ctx.fillRect(cx-17,cy-11,34,25);ctx.fillRect(cx-14,cy+14,10,20);ctx.fillRect(cx+4,cy+14,10,20);
+    ctx.fillStyle='#d74554';ctx.fillRect(cx-4,cy-6,8,6);ctx.fillStyle='#242831';ctx.fillRect(cx-4,cy+1,8,3);
+    ctx.globalAlpha=1;ctx.fillStyle='#ff344d';
+    if(!reduced)for(let i=0;i<8;i++){const x=cx+Math.sin(animationTime*19+i*6)*(.04*width+24),y=cy+Math.cos(animationTime*23+i*3)*48;ctx.fillRect(Math.round(x),Math.round(y),3+(i%3),3+(i%2));}
+    if(!reduced&&Math.sin(animationTime*47)>.88){ctx.fillStyle='#f04b60';ctx.fillRect(0,Math.round(cy-45+Math.sin(animationTime*9)*28),width,2);}
+    ctx.restore();
   }
 
   function scheduleFrame() {
@@ -2993,17 +3142,17 @@
 
   function frame(timestamp) {
     frameRequest=null;
-    if (!running) return;
+    if (!running&&!defeatSequence) return;
     const dt = Math.min(Math.max(0,(timestamp - lastFrame) / 1000 || 0), 1 / 15);
     lastFrame = timestamp;
     frameAccumulator+=dt;
-    for(let step=0;frameAccumulator>=1/120 && step<8 && running;step++) {
+    for(let step=0;frameAccumulator>=1/120 && step<8 && (running||defeatSequence);step++) {
       previousRenderPlayer={x:player.x,y:player.y};
       update(1/120);frameAccumulator=Math.max(0,frameAccumulator-1/120);
     }
     renderAlpha=Math.min(1,frameAccumulator*120);
     draw();
-    if (running) scheduleFrame();
+    if (running||defeatSequence) scheduleFrame();
   }
 
   function launchLoadedPhase(showIntro = true) {
@@ -3011,6 +3160,7 @@
     menuScreen = false;
     phaseTransition = false;
     gameOver = false;
+    combatDefeat=false;defeatSequence=null;gameOverScreen.hidden=true;
     running = true;
     document.querySelector('.game-shell').classList.add('playing');
     continueButton.hidden = true;
@@ -3056,13 +3206,15 @@
     } else if (phaseTransition && !campaignComplete) {
       loadPhase(phaseIndex + 1);
       launchLoadedPhase();
-    } else if (gameOver) {
+    } else if (gameOver && !combatDefeat) {
       loadPhase(phaseIndex, true);
       launchLoadedPhase();
     } else {
       startNewCampaign();
     }
   });
+  document.getElementById('restartCheckpointButton').addEventListener('click',restartFromCheckpoint);
+  document.getElementById('returnMenuButton').addEventListener('click',returnToMenuFromDefeat);
   continueButton.addEventListener('click', continueCampaign);
   document.getElementById('loadoutButton').addEventListener('click',()=>{
     if(running)pause();
@@ -3072,13 +3224,33 @@
   soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled));
   document.getElementById('skipIntro').addEventListener('click',endPhaseIntro);
   experience.mountSettings(()=>{if(running)pause();},resize);
+  document.querySelectorAll('[data-bind]').forEach(button=>button.addEventListener('click',()=>{
+    bindingAction=button.dataset.bind;showCombatBindings();
+    setHudText(document.getElementById('keyBindFeedback'),'Pressione uma tecla livre (A/D/W/S, setas, espaço, J, K, E e Esc estão reservados).');
+  }));
+  showCombatBindings();
   developerTools=ByteRunner.developerMode.mount({enabled:()=>Boolean(developerSession),enable:setDeveloperMode,load:loadDeveloperPhase,current:()=>phaseIndex,pause});
   document.getElementById('cancelRepairButton').addEventListener('click', () => {cancelRepair();keys.clear();clearCombatInput();draw();});
   document.getElementById('repairPauseButton').addEventListener('click', pause);
 
   window.addEventListener('keydown', event => {
-    const key = event.key.toLowerCase();
+    const physicalKey = event.key.toLowerCase();
+    if(bindingAction){
+      event.preventDefault();event.stopImmediatePropagation();
+      if(physicalKey==='escape'){bindingAction='';showCombatBindings();setHudText(document.getElementById('keyBindFeedback'),'Remapeamento cancelado.');return;}
+      const action=bindingAction,conflict=reservedCombatKeys.has(physicalKey)||Object.entries(combatBindings).some(([other,key])=>other!==action&&key===physicalKey);
+      if(/^[a-z0-9]$/.test(physicalKey)&&!conflict){combatBindings[action]=physicalKey;bindingAction='';try{localStorage.setItem(combatBindStorage,JSON.stringify(combatBindings));}catch{}showCombatBindings();setHudText(document.getElementById('keyBindFeedback'),'Tecla salva.');}
+      else setHudText(document.getElementById('keyBindFeedback'),'Tecla indisponível. Escolha uma letra ou número livre.');
+      return;
+    }
+    const key = physicalAbility(physicalKey)||physicalKey;
     if(document.getElementById('settingsDialog').open||document.getElementById('developerPhaseDialog').open)return;
+    if(defeatSequence){event.preventDefault();return;}
+    if(gameOver&&combatDefeat){
+      if(key==='enter'||key===' '){event.preventDefault();restartFromCheckpoint();}
+      else if(key==='escape'){event.preventDefault();returnToMenuFromDefeat();}
+      return;
+    }
     if(phaseIntroTime>0 && running) {
       if(key==='escape')pause();
       else if(key==='enter'||key===' '){event.preventDefault();endPhaseIntro();}
@@ -3101,7 +3273,7 @@
     if (key === 'escape') pause();
   });
   window.addEventListener('keyup', event => {
-    const key = event.key.toLowerCase();
+    const key = physicalAbility(event.key.toLowerCase())||event.key.toLowerCase();
     if(abilityKeys.includes(key)){attackInput(key,'keyboard',false);return;}
     keys.delete(key);
     if (key === 'e' && !repairSession?.blocksWorld) cancelRepair();

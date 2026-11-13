@@ -3,13 +3,15 @@ report.audit={respawn:[],temporaryPlatforms:[],repairConsequences:[],geometry:[]
 test('audit: respawn protection expires in all phases and skill combinations',()=>{
   for(let phase=0;phase<10;phase++)for(const mode of ['base','armor','shield','all']) {
     setup(phase);viruses=[];xpRequired=999999;
-    unlockedSkills=mode==='all'?ABILITIES.map(a=>({id:a.id,level:5})):mode==='base'?[]:[{id:mode,level:5}];restoreSkillEffects();
+    unlockedSkills=mode==='all'?ABILITIES.map(a=>({id:a.id,level:5})):mode==='base'?[]:[{id:mode,level:5}];
+    equippedCombat=mode==='all'?['shield','armor','rapid']:mode==='base'?[]:[mode];restoreSkillEffects();
     respawnAtCheckpoint();const initial=player.health;
     damagePlayer(10,{x:0});assert(player.health===initial,'no initial protection '+phase+'/'+mode);
     for(let t=0;t<253;t++)updateCombat(1/120);
     damagePlayer(10,{x:0});assert(player.health<initial,'protection permanent '+phase+'/'+mode);
     let vulnerableTicks=0,shieldTicks=0;
     for(let t=0;t<3600;t++) {
+      if(t===2200&&(mode==='shield'||mode==='all'))skillRequests.add('q');
       updateCombat(1/120);
       if(player.shieldTime>0)shieldTicks++;
       if(t%30===0){player.health=100;damagePlayer(10,{x:0});if(player.health<100)vulnerableTicks++;}

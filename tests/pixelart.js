@@ -27,7 +27,7 @@ test('pixel art: tilesets differ structurally after removing palette colors',()=
 });
 pixelLibrary.dispose();
 test('pixel art: activating a real ability and respawning select the new animation rows',()=>{
-  damageCooldown=0;xp=100;openLevelChoice();ui.levelOverlay.querySelector('[data-skill]').click();
+  damageCooldown=0;xp=xpRequired;openLevelChoice();ui.levelOverlay.querySelector('[data-skill]').click();
   assert(abilityPose>0,'ability pose not triggered');
   const calls=[],original=levelVisuals.sprite;levelVisuals.sprite=(c,v,b,t,s)=>{calls.push({visual:v,box:b,state:s});return original(c,v,b,t,s);};
   try {

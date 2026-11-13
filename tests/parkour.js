@@ -80,12 +80,12 @@ test('parkour: every checkpoint survives lethal damage and void falls, protectio
     parkourSetup(seed);levelRuntime.setFlag('test-progress');
     for(const point of phaseData.map.checkpoints){
       checkpointX=point.x;checkpointY=point.y;player.health=1;damageCooldown=0;damagePlayer(99,{x:player.x-20});
-      assert(player.health===player.maxHealth&&player.y+player.height===point.y,'lethal hit failed respawn');
+      assert(combatDefeat&&player.health===0,'lethal hit did not enter defeat');restartFromCheckpoint();
       assert(!solids().some(s=>s.collision!=='one-way'&&overlaps(player,s)),'respawn embedded in geometry');
       assert(levelRuntime.getFlag('test-progress'),'respawn lost progress');
       assert(cameraX>=0&&cameraY>=0&&player.x-cameraX>=0&&player.y-cameraY>=0,'respawn camera lost player');
       updateCombat(2.1);const hp=player.health;damagePlayer(8,{x:player.x-20});assert(player.health<hp,'permanent respawn protection');
-      player.y=worldHeight()+181;movePlayer(0);assert(player.y+player.height===point.y,'void fall failed respawn');
+      player.y=worldHeight()+181;movePlayer(0);assert(combatDefeat&&player.health===0,'void fall did not enter defeat');restartFromCheckpoint();
     }
   }
 });

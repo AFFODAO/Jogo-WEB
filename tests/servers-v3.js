@@ -61,7 +61,7 @@ test('Servers V3: cofres, atalhos e recuperação da antecâmara',()=>{
   assert(safe,'checkpoint da antecâmara ausente');
   assert(viruses.every(v=>!v.activationRegion||safe.y<=v.activationRegion.y||safe.y-48>=v.activationRegion.y+v.activationRegion.height||safe.x+72<=v.activationRegion.x||safe.x+38>=v.activationRegion.x+v.activationRegion.width),'antecâmara sob ativação inimiga');
   Object.assign(player,{x:safe.x,y:safe.y-player.height});
-  updateCheckpoints();damageCooldown=0;player.health=1;damagePlayer(20,{x:0});
+  updateCheckpoints();damageCooldown=0;player.health=1;damagePlayer(20,{x:0});assert(combatDefeat,'boss checkpoint death state');restartFromCheckpoint();
   assert(player.x===safe.x+38&&player.y===safe.y-player.height,'respawn fora da baia da antecâmara');
   assert(components.every(c=>c.repaired),'respawn da antecâmara perdeu reparos');
 });

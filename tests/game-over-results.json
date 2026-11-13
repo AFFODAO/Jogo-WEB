@@ -1,0 +1,19 @@
+{
+  "phases": [],
+  "systems": {
+    "game over: lethal hits freeze combat and persist one defeat state": "PASS",
+    "game over: projectile and hazard damage enter the same defeat flow": "PASS",
+    "game over: final boss defeat is recoverable without resetting objectives": "PASS",
+    "game over: checkpoint and safe initial spawn restarts work": "PASS",
+    "game over: checkpoint retry resets the active encounter without refunding supplies": "PASS",
+    "game over: reload and menu cannot bypass defeat, and controls return after restart": "PASS"
+  },
+  "errors": [],
+  "snapshots": [],
+  "execution": {
+    "sourceSha256": "058adf4fbb1f5ec58cc462027496b16a28b7561c8b1ca9e2bc08f73b00306feb",
+    "atUTC": "2026-11-13T16:52:11.516976+00:00",
+    "instrumented": true,
+    "isolatedStorage": true
+  }
+}

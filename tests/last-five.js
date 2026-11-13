@@ -74,7 +74,7 @@ test('last five: arena protection, phase grace and cover weak points',()=>{
   components.forEach(c=>c.repaired=true);assert(!solids().some(s=>s.id==='core-access-lock'),'restored core gate stuck');
   boss.hp=boss.maxHp;damageVirus(boss,1000);assert(Math.abs(boss.hp-boss.maxHp*.67)<.001,'high damage skipped boss stage');
   player.x=boss.x-180;player.y=bossGroundY(boss)-48;updateVirusZero(boss,.01,player.x+17,player.y+24);const hp=boss.hp;damageVirus(boss,1000);assert(boss.hp===hp&&boss.bossPhaseTransitionTime>0,'phase grace not protected');
-  for(let t=0;t<40;t++)updateVirusZero(boss,1/60,player.x+17,player.y+24);assert(boss.attackWindup>0,'phase change lacks fresh telegraph');
+  for(let t=0;t<110;t++)updateVirusZero(boss,1/60,player.x+17,player.y+24);assert(boss.attackWindup>0,'phase change lacks fresh telegraph');
   boss.hp=boss.maxHp;boss.bossStage=1;boss.bossPhaseTransitionTime=0;boss.vulnerableTime=0;boss.attackWindup=0;boss.chargeTime=0;boss.bossCycleCooldown=0;boss.x=5252;boss.baseX=5252;boss.speed=0;viruses=[boss];player.x=5080;player.y=852;player.health=100;damageCooldown=0;boss.bossAttackKind='charge';boss.bossAttackDirection=-1;
   triggerVirusZeroAttack(boss,player.x+17,player.y+24);for(let t=0;t<12;t++)updateCombat(1/60);
   assert(boss.x>=5250&&boss.vulnerableTime>1.4&&player.health===100,'cover does not stop charge/expose weak point');
@@ -83,8 +83,8 @@ test('last five: arena protection, phase grace and cover weak points',()=>{
 });
 test('last five: old map saves restart safely with progression intact',()=>{
   for(let i=5;i<10;i++){
-    setup(i);level=4;xp=63;unlockedSkills=[{id:'cannon',level:2}];restoreSkillEffects();components[0].repaired=true;saveCampaign();const saved=getSavedCampaign();delete saved.mapRevision;saved.player.x=1;saved.player.y=1;localStorage.setItem(SAVE_KEY,JSON.stringify(saved));continueCampaign();
-    assert(level===4&&xp===63&&player.damage===1&&skillRank('cannon')===2&&player.x===mapStart().x&&player.y===mapStart().y&&components.every(c=>!c.repaired),'old save unsafe in '+phaseData.id);
+    setup(i);level=4;xp=63;unlockedSkills=[{id:'cannon',level:2}];equippedCombat=['cannon'];restoreSkillEffects();components[0].repaired=true;saveCampaign();const saved=getSavedCampaign();delete saved.mapRevision;saved.player.x=1;saved.player.y=1;localStorage.setItem(SAVE_KEY,JSON.stringify(saved));continueCampaign();
+    assert(level===4&&xp===63&&player.damage===1&&unlockedRank('cannon')===2&&player.x===mapStart().x&&player.y===mapStart().y&&components.every(c=>!c.repaired),'old save unsafe in '+phaseData.id);
   }
 });
 running=false;

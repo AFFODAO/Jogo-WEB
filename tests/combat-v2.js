@@ -12,6 +12,39 @@ test('combat v2: tap buffer, preparation, held special and cooldown persistence'
   assert(!n,'held special repeated');c.step(.01,{},config);c.request('k');c.step(.01,{},config);
   const saved=c.snapshot();c.clear();const d=ByteRunner.playerCombat.create();d.restore(saved);d.request('k');assert(!d.step(.01,{},config).includes('charge')&&d.remaining>5,'reload bypass');
 });
+test('combat v2: special energy is finite, persisted, and only refilled on a new phase',()=>{
+  const c=ByteRunner.playerCombat.create(),config={interval:.32,cooldown:6,specialCost:25};
+  for(let shot=0;shot<4;shot++){
+    c.request('k');assert(c.step(.01,{},config).includes('charge'),'charge '+shot);
+    assert(c.energy===75-shot*25,'early energy charge '+shot);
+    assert(c.step(.28,{},config).includes('special'),'shot '+shot);
+    c.step(6,{},config);
+  }
+  c.request('k');assert(!c.step(.01,{},config).includes('charge')&&c.energy===0,'unlimited special');
+  const saved=c.snapshot(),loaded=ByteRunner.playerCombat.create();loaded.restore(saved);assert(loaded.energy===0,'energy save migration');
+  loaded.restore({specialRemaining:0});assert(loaded.energy===100,'legacy save did not receive initial energy');
+});
+test('combat v2: shield spends shared energy and retry cannot refill it',()=>{
+  setup(0);unlockedSkills=[{id:'shield',level:3,name:'Escudo de pulso',maxLevel:3}];equipTestSkills();damageCooldown=0;
+  skillRequests.add('q');updateCombat(.01);assert(combatAttack.energy===50&&player.shieldTime>0,'first shield cost');
+  player.shieldTime=0;skillRuntime.state.shieldCooldown=0;skillRequests.add('q');updateCombat(.01);
+  assert(combatAttack.energy===0&&player.shieldTime>0,'second shield cost');
+  player.shieldTime=0;skillRuntime.state.shieldCooldown=0;skillRequests.add('q');updateCombat(.01);
+  assert(combatAttack.energy===0&&!player.shieldTime,'third shield exceeded budget');
+  loadPhase(0,true);assert(combatAttack.energy===0,'retry refunded energy');
+  loadPhase(1,true);assert(combatAttack.energy===100,'new phase did not refill energy');
+});
+test('combat v2: base robot defeats VIRUS ZERO with its finite special reserve',()=>{
+  setup(9);components.forEach(c=>{c.repaired=true;c.corruption=0;c.integrity=100;});
+  const boss=viruses.find(v=>v.multiStage);viruses=[boss];boss.hp=boss.maxHp;boss.bossStage=1;boss.bossPhaseTransitionTime=0;boss.bossCycleCooldown=1.2;
+  enemyProjectiles=[];enemyObstacles=[];player.x=boss.x-150;player.y=boss.y-22;player.facing=1;keys.add('j');
+  for(let t=0;t<2400&&boss.alive;t++){
+    boss.speed=0;player.facing=boss.x>player.x+17?1:-1;
+    if(!combatAttack.charging&&combatAttack.remaining<=0&&combatAttack.energy>=25)combatAttack.request('k');
+    updateCombat(1/60);
+  }
+  assert(!boss.alive,'boss survived base attacks: hp='+boss.hp+', stage='+boss.bossStage+', energy='+combatAttack.energy+', shots='+projectiles.length+', x='+player.x+'/'+boss.x);
+});
 test('combat v2: swept geometry handles walls, circles, tangents and reverse direction',()=>{
   const {box,circle}=ByteRunner.playerCombat;
   assert(box(0,20,1000,0,{x:50,y:0,w:1,h:40},5)<.1,'thin wall tunneled');
@@ -60,10 +93,19 @@ test('combat v2: physical attack buttons, pause cancellation and mobile bounds',
   pause();const spent=combatAttack.remaining;assert(!combatAttack.charging&&!keys.has('k')&&spent>5,'pause refund');
   window.dispatchEvent(new KeyboardEvent('keydown',{key:'k'}));running=true;paused=false;updateCombat(1/120);assert(!combatAttack.charging&&combatAttack.remaining<spent,'paused input replayed');
   if(innerWidth<=600){document.querySelector('.game-shell').classList.add('playing');const wrap=canvas.parentElement.getBoundingClientRect();
-    const buttons=[...touchControls.querySelectorAll('button')];for(const button of buttons){const r=button.getBoundingClientRect();assert(r.width>=42&&r.left>=wrap.left&&r.right<=wrap.right+1,'button bounds '+button.textContent);}
+    const buttons=[...touchControls.querySelectorAll('button:not([hidden])')];for(const button of buttons){const r=button.getBoundingClientRect();assert(r.width>=42&&r.left>=wrap.left&&r.right<=wrap.right+1,'button bounds '+button.textContent);}
     const left=document.querySelector('.touch-movement').getBoundingClientRect(),right=document.querySelector('.touch-actions').getBoundingClientRect();assert(left.right<=right.left,'touch groups overlap');
     const hud=document.querySelector('.special-hud').getBoundingClientRect();assert(hud.right<=wrap.right&&hud.left>=wrap.left,'HUD clipped');
   }
+});
+test('combat v2: new ability keys remap, persist and reject occupied keys',()=>{
+  const original={...combatBindings},press=(action,key)=>{document.querySelector('[data-bind="'+action+'"]').click();window.dispatchEvent(new KeyboardEvent('keydown',{key,bubbles:true,cancelable:true}));};
+  try {
+    press('shield','m');assert(combatBindings.shield==='m'&&physicalAbility('m')==='q','remapped key not active');
+    assert(JSON.parse(localStorage.getItem(combatBindStorage)).shield==='m','remapped key not saved');
+    press('boost','m');assert(combatBindings.boost===original.boost&&document.getElementById('keyBindFeedback').textContent.includes('indisponível'),'duplicate key accepted');
+    press('shield',original.shield);assert(combatBindings.shield===original.shield,'default key could not be restored');
+  } finally {bindingAction='';combatBindings={...original};try{localStorage.setItem(combatBindStorage,JSON.stringify(original));}catch{}showCombatBindings();}
 });
 test('combat v2: basic and special audio are distinct and drawing honors reduced effects',()=>{
   setup(0);const old=audioContext,enabled=soundEnabled,count=activeSounds,reduced=experience.settings.reducedEffects,notes=[];

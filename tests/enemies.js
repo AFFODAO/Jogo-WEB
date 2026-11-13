@@ -5,7 +5,7 @@ function enemyHarness(type,variant) {
     patrolMin:170,patrolMax:300,attackCooldownTimer:0,summonCooldownTimer:0,attackWindup:0,vulnerableTime:0};
   const hits=[],shots=[],sounds=[],spawns=[];
   const c={playerX:380,playerY:376,player:{},width:1000,height:800,components:[],
-    shapes:[{id:'floor',x:80,y:400,w:700,h:30,collision:'solid'}],
+    shapes:[{id:'floor',x:80,y:400,w:700,h:30,collision:'solid'}],enemies:[],
     damage:(...args)=>hits.push(args),fire:(...args)=>shots.push(args),sound:s=>sounds.push(s),
     spawn:()=>{spawns.push(1);e.totalSummons=(e.totalSummons||0)+1;return true;}};
   function tick(n=1){for(let i=0;i<n;i++){
@@ -14,6 +14,15 @@ function enemyHarness(type,variant) {
   }}
   return {e,c,hits,shots,sounds,spawns,tick};
 }
+test('enemies: nearby attacks take turns while separated rooms stay independent',()=>{
+  const a=enemyHarness('basic'),b=enemyHarness('fast');a.e.x=240;b.e.x=255;
+  a.c.playerX=b.c.playerX=290;a.c.enemies=b.c.enemies=[a.e,b.e];
+  ByteRunner.enemies.update(a.e,a.c,1/60);ByteRunner.enemies.update(b.e,b.c,1/60);
+  assert(a.e.attackWindup>0&&b.e.attackWindup===0,'nearby attacks overlapped');
+  const distant=enemyHarness('shooter');distant.e.x=700;distant.c.playerX=850;
+  distant.c.enemies=[a.e,b.e,distant.e];ByteRunner.enemies.update(distant.e,distant.c,1/60);
+  assert(distant.e.attackWindup>0,'distant room attack was unnecessarily delayed');
+});
 test('enemies: patrol detects only reachable visible targets and avoids ledges',()=>{
   const h=enemyHarness('basic');h.tick();assert(h.e.detected&&h.e.x>240,'reachable player not pursued');
   h.c.playerY=200;h.tick();assert(!h.e.detected&&h.e.animationState==='patrol','pursued another floor');

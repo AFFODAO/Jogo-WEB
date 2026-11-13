@@ -4,8 +4,8 @@
   const potency=n=>[0,1.5,2.4,3][rank(n)];
   const definitions=[
     ['precision','Tiro de precisão',r=>`+1 de dano a cada ${7-r} acertos básicos em alvos vulneráveis; intervalo mínimo de 1,5 s entre bônus.`],
-    ['cannon','Sobrecarga de energia',r=>`K: rajada preparada, dano 3, até 2 alvos; recarga de ${(6-.4*potency(r)).toFixed(2).replace('.',',')} s.`],
-    ['shield','Escudo de pulso',r=>`Q: proteção manual por ${( .35+.1*r).toFixed(2).replace('.',',')} s; recarga de 16 s. Não se reativa sozinho.`],
+    ['cannon','Sobrecarga de energia',r=>`K: rajada preparada, dano 3, até 2 alvos; custa 25 de energia. Recarga de ${(6-.4*potency(r)).toFixed(2).replace('.',',')} s.`],
+    ['shield','Escudo de pulso',r=>`Q: proteção manual por ${( .35+.1*r).toFixed(2).replace('.',',')} s; custa 50 de energia e tem recarga de 16 s. Não se reativa sozinho.`],
     ['boost','Esquiva lateral',r=>`L: impulso no chão por ${( .1+.02*r).toFixed(2).replace('.',',')} s; recarga de 5 s. Sem invulnerabilidade; não prolonga saltos.`],
     ['recovery','Recuperação',r=>`H: restaura 20 de integridade; ${1+r} cargas por campanha e 20 s entre usos. Cargas gastas não retornam.`],
     ['rapid','Estabilizador',r=>`Reduz o intervalo e aumenta a velocidade do projétil básico em ${potency(r)*5}%. Ganhos menores a cada aprimoramento.`],

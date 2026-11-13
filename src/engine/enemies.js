@@ -65,6 +65,17 @@
     e.aimX=c.playerX;e.aimY=c.playerY;e.attackDirection=e.direction;
     e.animationState='prepare';c.sound(e.type==='fast'?'dashWarning':e.type==='parasite'?'infectWarning':'enemyWarning');
   }
+  function canPrepare(e,c) {
+    if(!Array.isArray(c.enemies))return true;
+    return !c.enemies.some(other=>{
+      if(other===e||!other.alive||Math.hypot(other.x-e.x,other.y-e.y)>300)return false;
+      const a=e.activationRegion,b=other.activationRegion;
+      if(a&&b&&(a.x>=b.x+b.width||b.x>=a.x+a.width||a.y>=b.y+b.height||b.y>=a.y+a.height))return false;
+      const attacking=other.attackWindup>0||other.dashTime>0||other.diveTime>0||other.echoTime>0||
+        (other.recovery>0&&['melee','dash','shot','dive','countermeasure','summon'].includes(other.action));
+      return attacking;
+    });
+  }
   function preparation(e,dt) {if(e.attackWindup<=0)return false;e.attackWindup=Math.max(0,e.attackWindup-dt);return e.attackWindup===0;}
   function melee(e,c,range) {
     if(Math.hypot(c.playerX-e.x,c.playerY-e.y)<=range && sight(e,c.playerX,c.playerY,c.shapes))c.damage(e.damage*(e.buffed?1.25:1),e);
@@ -88,10 +99,10 @@
     if(!detected){patrol(e,c,dt);return;}
     face(e,dx);e.animationState='chase';
     if(Math.abs(dx)>(e.attackRange||34)+e.radius+8)move(e,e.direction,e.speed*(e.buffed?1.3:1),dt,c);
-    if(Math.abs(dx)<(e.attackRange||34)+e.radius+17 && e.attackCooldownTimer<=0) {
+    if(Math.abs(dx)<(e.attackRange||34)+e.radius+17 && e.attackCooldownTimer<=0 && canPrepare(e,c)) {
       begin(e,'melee',Math.max(.36,e.windup||.36),c);e.attackCooldownTimer=e.attackCooldown||1.3;
     }
-    if(e.variant==='firewall' && e.variantCooldown<=0 && Math.abs(dx)>100) {
+    if(e.variant==='firewall' && e.variantCooldown<=0 && Math.abs(dx)>100 && canPrepare(e,c)) {
       begin(e,'countermeasure',.8,c);e.variantCooldown=6;
     }
   }
@@ -102,7 +113,7 @@
       if(!move(e,e.attackDirection,e.speed*2.6,step,c))e.dashTime=0;
       else e.dashTime=Math.max(0,e.dashTime-step);
       e.animationState='attack';
-      if(c.playerX>=Math.min(old,e.x)-25 && c.playerX<=Math.max(old,e.x)+25 && Math.abs(c.playerY-e.y)<32)melee(e,c,65);
+      if(c.playerX>=Math.min(old,e.x)-25 && c.playerX<=Math.max(old,e.x)+25 && Math.abs(c.playerY-e.y)<32 && sight(e,c.playerX,c.playerY,c.shapes))melee(e,c,65);
       if(!e.dashTime){e.recovery=.7;e.vulnerableTime=.7;e.interceptTime=e.variant==='packet'?.4:0;}
       return;
     }
@@ -112,13 +123,13 @@
     if(!l||c.playerX<l.left-20||c.playerX>l.right+20||Math.abs(c.playerY-e.y)>70||!sight(e,c.playerX,c.playerY,c.shapes)){patrol(e,c,dt);return;}
     face(e,dx);e.animationState='chase';
     if(Math.abs(dx)>180)move(e,e.direction,e.speed,dt,c);
-    else if(e.attackCooldownTimer<=0){begin(e,'dash',.58,c);e.attackCooldownTimer=2.1;}
+    else if(e.attackCooldownTimer<=0&&canPrepare(e,c)){begin(e,'dash',.58,c);e.attackCooldownTimer=2.1;}
   }
   function ranged(e,c,dt) {
     const dx=c.playerX-e.x,visible=sight(e,c.playerX,c.playerY,c.shapes);
     if(e.attackWindup>0) {
       if(preparation(e,dt)) {
-        c.fire(e.stolenShot?{...e,projectileSpeed:210,damage:e.damage+2}:e,e.aimX,e.aimY);e.stolenShot=false;
+        if(sight(e,e.aimX,e.aimY,c.shapes))c.fire(e.stolenShot?{...e,projectileSpeed:210,damage:e.damage+2}:e,e.aimX,e.aimY);e.stolenShot=false;
         e.attackFlash=.2;e.animationState='attack';c.sound('enemyShot');
         if(e.variant==='dns'){e.echoTime=.4;e.echoX=e.aimX;e.echoY=e.aimY;}
         e.recovery=.35;
@@ -144,7 +155,7 @@
     else if(Math.abs((e.positionX??e.x)-e.x)>10){e.animationState='position';move(e,Math.sign(e.positionX-e.x),e.speed,dt,c);}
     else if(!visible||Math.abs(dx)>(e.attackRange||330)){e.animationState='position';if(!move(e,e.direction,e.speed,dt,c))patrol(e,c,dt);}
     else e.animationState='aim';
-    if(visible&&Math.hypot(dx,c.playerY-e.y)<(e.attackRange||330)&&e.attackCooldownTimer<=0&&e.recovery<=0) {
+    if(visible&&Math.hypot(dx,c.playerY-e.y)<(e.attackRange||330)&&e.attackCooldownTimer<=0&&e.recovery<=0&&canPrepare(e,c)) {
       begin(e,'shot',.7,c);e.intercepted=false;e.attackCooldownTimer=e.attackCooldown||2.2;
     }
   }
@@ -175,7 +186,7 @@
     if(e.attackWindup>0) {
       if(preparation(e,dt)) {
         e.diveTime=.48;e.animationState='attack';c.sound('enemyDive');
-        if(e.variant==='wifi') {
+        if(e.variant==='wifi' && sight(e,e.aimX,e.aimY,c.shapes)) {
           c.fire({...e,projectileSpeed:190,damage:6,slowOnHit:.7},e.aimX,e.aimY);
           c.fire({...e,projectileSpeed:190,damage:6,slowOnHit:.7},e.aimX,e.aimY-100);
         }
@@ -184,7 +195,7 @@
     }
     if(e.diveTime>0) {
       flyMove(e,e.aimX,e.aimY,dt,c,e.speed*2.2);e.diveTime=Math.max(0,e.diveTime-dt);
-      if(Math.hypot(c.playerX-e.x,c.playerY-e.y)<44)melee(e,c,48);
+      if(Math.hypot(c.playerX-e.x,c.playerY-e.y)<44 && sight(e,c.playerX,c.playerY,c.shapes))melee(e,c,48);
       if(!e.diveTime){e.recovery=.65;e.altitudeIndex=(e.altitudeIndex||0)+1;}
       return;
     }
@@ -192,7 +203,7 @@
     const altitude=[-90,30,-145][(e.altitudeIndex||0)%3];
     const targetY=c.playerY+altitude;
     flyMove(e,c.playerX+e.direction*(e.recovery>0?-125:-80),targetY,dt,c,e.speed);
-    if(Math.hypot(c.playerX-e.x,c.playerY-e.y)<260&&sight(e,c.playerX,c.playerY,c.shapes)&&e.attackCooldownTimer<=0&&e.recovery<=0) {
+    if(Math.hypot(c.playerX-e.x,c.playerY-e.y)<260&&sight(e,c.playerX,c.playerY,c.shapes)&&e.attackCooldownTimer<=0&&e.recovery<=0&&canPrepare(e,c)) {
       begin(e,'dive',.75,c);e.attackCooldownTimer=2.4;
     }
   }
@@ -209,8 +220,10 @@
         target.infected=true;
       }
     }else patrol(e,c,dt);
-    if(e.attackWindup>0){if(preparation(e,dt)){c.spawn(e);e.summonCooldownTimer=e.summonCooldown||9;e.animationState='attack';c.sound('enemySummon');}return;}
-    if(e.summonCooldownTimer<=0 && Math.hypot(c.playerX-e.x,c.playerY-e.y)<430 && (e.totalSummons||0)<4) {
+    if(e.attackWindup>0){if(preparation(e,dt)){c.spawn(e);e.summonCooldownTimer=e.summonCooldown||9;e.recovery=.55;e.animationState='attack';c.sound('enemySummon');}return;}
+    const l=lane(e,c.shapes);
+    const playerReachable=l && c.playerX>=l.left-22 && c.playerX<=l.right+22 && Math.abs(c.playerY-(l.y-24))<65;
+    if(e.summonCooldownTimer<=0 && playerReachable && sight(e,c.playerX,c.playerY,c.shapes) && Math.hypot(c.playerX-e.x,c.playerY-e.y)<430 && (e.totalSummons||0)<4 && canPrepare(e,c)) {
       begin(e,'summon',1,c);e.summonCooldownTimer=2;
     }
   }
@@ -244,12 +257,12 @@
       e.variantCooldown=Math.max(0,(e.variantCooldown??3)-dt);
       e.recovery=Math.max(0,(e.recovery||0)-dt);e.attackFlash=Math.max(0,(e.attackFlash||0)-dt);
       e.interceptTime=Math.max(0,(e.interceptTime||0)-dt);
-      if(e.echoTime>0){e.echoTime=Math.max(0,e.echoTime-dt);if(!e.echoTime){c.fire(e,e.echoX,e.echoY);c.sound('dnsEcho');}}
+      if(e.echoTime>0){e.echoTime=Math.max(0,e.echoTime-dt);if(!e.echoTime){if(sight(e,e.echoX,e.echoY,c.shapes))c.fire(e,e.echoX,e.echoY);c.sound('dnsEcho');}}
       if(e.action==='countermeasure'&&e.attackWindup>0) {
-        if(preparation(e,dt)){c.fire({...e,projectileSpeed:210,damage:10},e.aimX,e.aimY);e.recovery=.6;e.vulnerableTime=1;c.sound('enemyShot');}
+        if(preparation(e,dt)){if(sight(e,e.aimX,e.aimY,c.shapes))c.fire({...e,projectileSpeed:210,damage:10},e.aimX,e.aimY);e.recovery=.6;e.vulnerableTime=1;c.sound('enemyShot');}
         return true;
       }
-      if(e.variant==='file' && e.hp<e.maxHp && !e.forked && e.attackWindup<=0){e.forked=true;begin(e,'fork',.9,c);}
+      if(e.variant==='file' && e.hp<e.maxHp && !e.forked && e.attackWindup<=0 && canPrepare(e,c)){e.forked=true;begin(e,'fork',.9,c);}
       if(e.action==='fork'&&e.attackWindup>0){if(preparation(e,dt)){c.spawn(e);e.recovery=.5;c.sound('enemySummon');}return true;}
       handler(e,c,dt);return true;
     },

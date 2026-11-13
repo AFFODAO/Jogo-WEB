@@ -7,8 +7,8 @@ A seleção aceita somente o ID e o nível de uma das três opções exibidas. A
 | Habilidade | Benefício e limite |
 | --- | --- |
 | Tiro de precisão | +1 de dano a cada 6/5/4 impactos básicos em alvos vulneráveis; pelo menos 1,5 s entre bônus. Não beneficia o especial. |
-| Sobrecarga de energia | K: dano 3, preparação de 0,28 s, até dois alvos distintos. Recarga de 5,6/5,2/4,8 s; sem upgrade, continua disponível com 6 s. |
-| Escudo de pulso | Q: proteção de 0,45/0,55/0,65 s, recarga de 16 s. Exige acionamento novo; segurar não repete. |
+| Sobrecarga de energia | K: dano 3, preparação de 0,28 s, até dois alvos distintos. Custa 25 de energia; recarga de 5,4/5,04/4,8 s; sem upgrade, 6 s. |
+| Escudo de pulso | Q: proteção de 0,45/0,55/0,65 s, custa 50 de energia e tem recarga de 16 s. Exige acionamento novo; segurar não repete. |
 | Esquiva lateral | L: impulso terrestre a 1,6× a velocidade normal por 0,12/0,14/0,16 s, recarga de 5 s, sem invulnerabilidade. Exige apoio contínuo, cancela em bordas, no ar e ao saltar; usa as colisões existentes. |
 | Recuperação | H: cura 20; capacidade total de 2/3/4 usos por campanha, com 20 s entre usos. Aprimorar amplia a capacidade em um, preservando todos os gastos anteriores. Não gasta em integridade cheia. |
 | Estabilizador | Intervalo básico reduzido em 7,5/12/15% e velocidade básica aumentada em 7,5/12/15%. Não acelera a recarga do especial. |
@@ -31,7 +31,7 @@ O envelope da campanha continua v1 e passa a incluir `skillSchema: 2`, `skillSta
 
 Saves sem schema 2 convertem os ranks antigos 1/2/3/4/5 em 1/2/2/3/3, preservando a posição relativa da progressão e o teto de três ranks. Duplicatas usam o maior rank; entradas desconhecidas ou inválidas são descartadas. Saves com schema 2 apenas normalizam os ranks; a conversão nunca se repete. Nomes e descrições são reconstruídos pelo catálogo atual. A campanha é salva já migrada ao continuar; nível, XP e objetivos seguem preservados.
 
-O estado guarda recargas e cargas de recuperação gastas. Atividades temporárias (pulso e esquiva) não voltam ativas após carregar. Pausar, abrir um diagnóstico ou mudar de mapa cancela as atividades, preservando custos. Reaplicar atributos ou selecionar upgrades não cura, não recarrega e não devolve cargas. Saves antigos sem estado recebem uma única reserva inicial do novo sistema de recuperação; a primeira gravação passa a registrar o consumo. A recuperação normal dos checkpoints da campanha não foi alterada.
+O estado guarda recargas, energia especial e cargas de recuperação gastas. K custa 25 e Q custa 50 de uma reserva compartilhada de 100 por fase; não há regeneração. Energia e cargas gastas sobrevivem a pausa, morte, retry e save/load; nova fase recebe uma reserva nova, e saves antigos recebem 100 uma única vez. Atividades temporárias (pulso e esquiva) não voltam ativas após carregar. Reaplicar atributos ou selecionar upgrades não cura, não recarrega e não devolve recursos.
 
 ## Testes
 

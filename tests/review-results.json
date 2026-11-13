@@ -1526,6 +1526,7 @@
     "last five: laser cycles are predictable and can be jumped normally": "PASS",
     "last five: arena protection, phase grace and cover weak points": "PASS",
     "last five: old map saves restart safely with progression intact": "PASS",
+    "enemies: nearby attacks take turns while separated rooms stay independent": "PASS",
     "enemies: patrol detects only reachable visible targets and avoids ledges": "PASS",
     "enemies: fast dash has fixed direction, warning, dodge and retreat": "PASS",
     "enemies: frontal armor, rear weakness and recovery remain killable": "PASS",
@@ -2203,15 +2204,15 @@
         "phase": 1,
         "mode": "shield",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 1,
         "mode": "all",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 2,
@@ -2231,15 +2232,15 @@
         "phase": 2,
         "mode": "shield",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 2,
         "mode": "all",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 3,
@@ -2259,15 +2260,15 @@
         "phase": 3,
         "mode": "shield",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 3,
         "mode": "all",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 4,
@@ -2287,15 +2288,15 @@
         "phase": 4,
         "mode": "shield",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 4,
         "mode": "all",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 5,
@@ -2315,15 +2316,15 @@
         "phase": 5,
         "mode": "shield",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 5,
         "mode": "all",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 6,
@@ -2343,15 +2344,15 @@
         "phase": 6,
         "mode": "shield",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 6,
         "mode": "all",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 7,
@@ -2371,15 +2372,15 @@
         "phase": 7,
         "mode": "shield",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 7,
         "mode": "all",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 8,
@@ -2399,15 +2400,15 @@
         "phase": 8,
         "mode": "shield",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 8,
         "mode": "all",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 9,
@@ -2427,15 +2428,15 @@
         "phase": 9,
         "mode": "shield",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 9,
         "mode": "all",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 10,
@@ -2455,15 +2456,15 @@
         "phase": 10,
         "mode": "shield",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       },
       {
         "phase": 10,
         "mode": "all",
         "damageAfterProtection": true,
-        "vulnerableSamples": 17,
-        "shieldActiveSamples": 960
+        "vulnerableSamples": 23,
+        "shieldActiveSamples": 78
       }
     ],
     "temporaryPlatforms": [
@@ -3637,13 +3638,13 @@
       644
     ],
     "samples": 180,
-    "p50Ms": 2.3000000715255737,
-    "p95Ms": 4.5,
+    "p50Ms": 1.2000000029802322,
+    "p95Ms": 3.9000000059604645,
     "cacheSize": 48,
     "parallaxBytes": 3414272
   },
   "execution": {
-    "atUTC": "2026-11-12T00:30:02.626695+00:00",
+    "atUTC": "2026-11-13T17:23:32.032499+00:00",
     "browser": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
     "transport": "localhost HTTP",
     "isolatedStorage": true,
@@ -3655,7 +3656,7 @@
       "Combat is tested separately with damage protection; survival balance still needs manual play.",
       "Minigame solvers use generated answers through real DOM controls."
     ],
-    "sourceSha256": "758f6480f07b2a0ff465070ce967ac07db8318a6465b9429c312145d181c6608"
+    "sourceSha256": "058adf4fbb1f5ec58cc462027496b16a28b7561c8b1ca9e2bc08f73b00306feb"
   },
   "captures": [
     "snapshots/phase-01-overview.png",
@@ -3753,8 +3754,8 @@
   ],
   "summary": {
     "phases": 10,
-    "systems": 239,
-    "passedSystems": 239,
+    "systems": 240,
+    "passedSystems": 240,
     "captures": 92,
     "runtimeErrors": 0,
     "failures": []

@@ -3,12 +3,17 @@
   "systems": {
     "combat v2: cadence independent of refresh rate and no direct spam": "PASS",
     "combat v2: tap buffer, preparation, held special and cooldown persistence": "PASS",
+    "combat v2: special energy is finite, persisted, and only refilled on a new phase": "PASS",
+    "combat v2: shield spends shared energy and retry cannot refill it": "PASS",
+    "combat v2: base robot defeats VIRUS ZERO with its finite special reserve": "PASS",
     "combat v2: swept geometry handles walls, circles, tangents and reverse direction": "PASS",
     "combat v2: real projectiles stop at first wall and pierce two distinct targets": "PASS",
     "combat v2: native keyboard taps, multi-source ownership, movement, HUD and legacy saves": "PASS",
     "combat v2: environment modifiers, muzzle obstruction and bounded upgrades": "PASS",
     "combat v2: physical attack buttons, pause cancellation and mobile bounds": "PASS",
+    "combat v2: new ability keys remap, persist and reject occupied keys": "PASS",
     "combat v2: basic and special audio are distinct and drawing honors reduced effects": "PASS",
+    "enemies: nearby attacks take turns while separated rooms stay independent": "PASS",
     "enemies: patrol detects only reachable visible targets and avoids ledges": "PASS",
     "enemies: fast dash has fixed direction, warning, dodge and retreat": "PASS",
     "enemies: frontal armor, rear weakness and recovery remain killable": "PASS",
@@ -44,8 +49,8 @@
     }
   ],
   "execution": {
-    "sourceSha256": "7c0835040c62a25303280a5bf0d10255a3104685b59b52c3ad346620c199685e",
-    "atUTC": "2026-11-13T00:46:43.838344+00:00",
+    "sourceSha256": "058adf4fbb1f5ec58cc462027496b16a28b7561c8b1ca9e2bc08f73b00306feb",
+    "atUTC": "2026-11-13T17:19:41.825308+00:00",
     "instrumented": true,
     "isolatedStorage": true
   }

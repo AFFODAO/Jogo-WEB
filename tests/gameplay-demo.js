@@ -14,7 +14,7 @@ test('room demo: completed repairs, XP, skills and checkpoints survive death and
   for(const panel of panels){player.x=panel.x;player.y=panel.y-8;levelRuntime.update(.6,{keys:new Set(),repairNearby:false});levelRuntime.update(.016,{keys:new Set(['e']),repairNearby:false});assert(levelRuntime.getFlag(panel.flag),'secret was not discovered');}
   xp=37;unlockedSkills=[{id:'cannon',level:2}];restoreSkillEffects();
   const point=phaseData.map.checkpoints[0];checkpointX=point.x;checkpointY=point.y;checkpointIndex=0;saveCampaign();
-  damageCooldown=0;player.health=1;damagePlayer(20,{x:0});assert(components.every(c=>c.repaired)&&player.health===100,'death lost repairs');
+  damageCooldown=0;player.health=1;damagePlayer(20,{x:0});assert(components.every(c=>c.repaired)&&combatDefeat&&player.health===0,'death lost repairs');restartFromCheckpoint();
   saveCampaign();components.forEach(c=>c.repaired=false);xp=0;continueCampaign();endPhaseIntro();
   assert(components.every(c=>c.repaired)&&JSON.stringify(components.map(c=>c.id))===JSON.stringify(ids),'repair indices lost on restore');
   assert(xp===37&&player.damage===1&&skillRank('cannon')===2&&checkpointX===point.x&&checkpointY===point.y,'progress/checkpoint lost');
