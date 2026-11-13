@@ -28,15 +28,16 @@ fragmentos, depósitos e bônus de objetivos. Os níveis abaixo são acumulados 
 
 ## Poder e variedade
 
-Até três habilidades de combate ficam equipadas. As demais preservam seus níveis na
-reserva; Reparo eficiente funciona como utilidade independente dos espaços de combate.
-O botão EQUIPAMENTO permite trocar no início ou checkpoint, pausado e sem inimigos
+Todas as habilidades de combate desbloqueadas podem ficar equipadas juntas. Reparo
+eficiente funciona como utilidade independente. O botão EQUIPAMENTO permite equipar ou
+desequipar habilidades enquanto o jogo está pausado, sem reparo aberto e sem inimigos
 próximos. Trocar não cura, não devolve cargas e não reinicia recargas.
 
 Estabilizador e Armadura usam potência 1,5 / 2,4 / 3: ganhos marginais de 1,5 / 0,9 / 0,6.
 O bônus máximo de velocidade continua em 15% e a redução máxima de dano em 20%.
 Ataques fortes, escudo, esquiva e recuperação mantêm suas recargas e limites de uso.
-Combinações ofensivas, defensivas e de mobilidade disputam os mesmos três espaços.
+Combinações ofensivas, defensivas e de mobilidade continuam respeitando os limites
+individuais de potência, recarga, cargas e proteção.
 Disparo básico, especial sem aprimoramento e salto continuam disponíveis sem desbloqueios.
 Nenhum objetivo exige uma habilidade opcional.
 
@@ -50,8 +51,8 @@ aprimoramentos, registros de serviço substituem escolhas sem gerar atributos ou
 ## Saves existentes
 
 O schema de progressão 2 preserva nível, XP e habilidades desbloqueadas. A migração
-equipa até três habilidades, mantém as demais na reserva e informa a mudança no registro
-em pt-BR. Fontes já concluídas são marcadas; fases anteriores usam uma marca de fase
+preserva a lista equipada no save e permite equipar as habilidades restantes pela
+interface. Fontes já concluídas são marcadas; fases anteriores usam uma marca de fase
 inteira para evitar duplicação onde o save antigo não guardava o histórico de entidades.
 A migração de níveis de habilidades segue o schema 2 descrito em abilities-v2.md.
 

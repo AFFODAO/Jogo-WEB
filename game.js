@@ -450,7 +450,8 @@
     unlockedSkills=ByteRunner.abilities.migrate(saved).map(item=>{
       const a=ABILITIES.find(a=>a.id===item.id);return {...item,name:a.name,maxLevel:3,description:a.description(item.level)};
     });
-    equippedCombat=ByteRunner.progression.loadout(unlockedSkills,saved.progressionSchema===2?saved.equippedCombat:undefined);
+    const migratedLoadout=saved.progressionSchema===2?saved.equippedCombat:Array.isArray(saved.equippedCombat)?saved.equippedCombat:unlockedSkills.map(skill=>skill.id).slice(0,3);
+    equippedCombat=ByteRunner.progression.loadout(unlockedSkills,migratedLoadout);
     claimedXP=new Set(Array.isArray(saved.claimedXP)?saved.claimedXP.filter(k=>typeof k==='string'):[]);
     if(saved.progressionSchema!==2)migrateProgressionRewards(saved);
     restoreSkillEffects();
@@ -515,7 +516,7 @@
     renderSkills(); updateHud(); draw();
     if(wasCombatDefeat){player.health=0;gameOver=true;combatDefeat=true;finishDefeat(false);}
     else launchLoadedPhase(Boolean(saved.phaseTransition));
-    if(saved.progressionSchema!==2){addLog('Progressão atualizada: níveis, XP e habilidades preservados. Até três habilidades de combate equipadas; demais disponíveis na reserva.');saveCampaign();}
+    if(saved.progressionSchema!==2){addLog('Progressão atualizada: níveis, XP e habilidades preservados. Habilidades de combate desbloqueadas disponíveis para equipar.');saveCampaign();}
     if(mapChanged){addLog('Mapa reconstruído: fase reiniciada, XP e habilidades mantidos.');interactionMessage='NOVO MAPA // XP E HABILIDADES PRESERVADOS';interactionMessageTimer=4;}
     if (saved.pendingAbility && !saved.phaseTransition) openLevelChoice(true);
   }
@@ -646,8 +647,8 @@
   function maximizeDeveloperSkills() {
     if(!developerSession)return false;
     unlockedSkills=ABILITIES.map(ability=>({id:ability.id,name:ability.name,level:ability.maxLevel,maxLevel:ability.maxLevel,description:ability.description(ability.maxLevel)}));
-    equippedCombat=[...new Set(equippedCombat.filter(id=>ByteRunner.progression.combatIds.includes(id)))].slice(0,3);
-    for(const id of ByteRunner.progression.combatIds)if(equippedCombat.length<3&&!equippedCombat.includes(id))equippedCombat.push(id);
+    equippedCombat=[...new Set(equippedCombat.filter(id=>ByteRunner.progression.combatIds.includes(id)))];
+    for(const id of ByteRunner.progression.combatIds)if(!equippedCombat.includes(id))equippedCombat.push(id);
     for(const ability of ABILITIES)ability.apply(ability.maxLevel);
     restoreSkillEffects();renderSkills();updateHud();draw();return true;
   }
@@ -1355,7 +1356,7 @@
     running = false;
     document.querySelector('.game-shell').classList.remove('playing');
     keys.clear();clearCombatInput();
-    ui.levelOverlay.innerHTML = '<section class="level-dialog"><div class="level-kicker">NÍVEL ' + String(level).padStart(2, '0') + ' DESBLOQUEADO</div><h2>ESCOLHA UMA HABILIDADE</h2><p>Desbloqueie ou aprimore uma habilidade. Até três de combate equipadas; as demais ficam na reserva. Reparo eficiente não ocupa espaço.</p><div class="ability-options">' + choices.map(choice => {
+    ui.levelOverlay.innerHTML = '<section class="level-dialog"><div class="level-kicker">NÍVEL ' + String(level).padStart(2, '0') + ' DESBLOQUEADO</div><h2>ESCOLHA UMA HABILIDADE</h2><p>Desbloqueie ou aprimore habilidades de combate e utilidade. Reparo eficiente funciona como utilidade independente.</p><div class="ability-options">' + choices.map(choice => {
       const label = choice.kind === 'reward' ? 'RECOMPENSA' : choice.kind === 'new' ? 'NOVA' : 'APRIMORAMENTO';
       const levelText = choice.kind === 'reward' ? 'Registro de serviço' : choice.kind === 'new'
         ? 'Nível 0 → Nível 1'
@@ -1419,7 +1420,7 @@
       skill.description = ability.description(targetLevel);
     } else if (!isReward) {
       unlockedSkills.push({ id: ability.id, name: ability.name, level: 1, maxLevel: ability.maxLevel, description: ability.description(1) });
-      if(id!=='repair'&&equippedCombat.length<3)equippedCombat.push(id);
+      if(id!=='repair')equippedCombat.push(id);
     }
     restoreSkillEffects();
     levelChoiceOpen = false;
@@ -1447,31 +1448,27 @@
       ? unlockedSkills.map(skill => '<span class="skill-tag" title="' + skill.description + '">' + skill.name + ' <b>NV.' + skill.level + '/' + skill.maxLevel + ' · '+(skill.id==='repair'?'UTILIDADE':equippedCombat.includes(skill.id)?'EQUIPADA':'RESERVA')+'</b></span>').join('')
       : '<span class="no-skills">Nenhuma habilidade</span>';
     const records=Object.values(serviceRewards).reduce((a,b)=>a+b,0);if(records)ui.skillList.innerHTML+='<span class="skill-tag">REGISTROS DE SERVIÇO <b>'+records+'</b></span>';
-    document.getElementById('loadoutButton').textContent='EQUIPAMENTO '+equippedCombat.length+'/3';
+    document.getElementById('loadoutButton').textContent='EQUIPADAS '+equippedCombat.length;
   }
 
   function canChangeLoadout(){
     if(!paused||!player||!phaseData)return false;
-    const start=mapStart(),foot=player.y+player.height;
-    const atStart=Math.hypot(player.x-start.x,player.y-start.y)<=100;
-    const atCheckpoint=checkpointIndex>=0&&Math.abs(player.x-checkpointX)<=100&&Math.abs(foot-(checkpointY??floorY()))<=70;
-    return paused&&!repairSession&&(atStart||atCheckpoint)&&!viruses.some(v=>v.alive&&Math.hypot(v.x-player.x,v.y-player.y)<240);
+    return !repairSession&&!viruses.some(v=>v.alive&&Math.hypot(v.x-player.x,v.y-player.y)<240);
   }
 
   function changeLoadout(id){
     if(!canChangeLoadout()||!unlockedRank(id)||!ByteRunner.progression.combatIds.includes(id))return false;
     const index=equippedCombat.indexOf(id);
     if(index>=0)equippedCombat.splice(index,1);
-    else if(equippedCombat.length<3)equippedCombat.push(id);
-    else return false;
+    else equippedCombat.push(id);
     clearCombatInput();restoreSkillEffects();renderSkills();updateHud();saveCampaign();return true;
   }
 
   function renderLoadout(){
     const allowed=canChangeLoadout();
     document.getElementById('loadoutHelp').textContent=allowed
-      ? 'Até três habilidades de combate. Desequipe uma para trocar. Reparo eficiente não ocupa espaço. Recargas e cargas gastas são mantidas.'
-      : 'Troque no início da fase ou em um checkpoint, com a travessia pausada, sem reparo aberto e sem vírus por perto. Recargas e cargas gastas são mantidas.';
+      ? 'Todas as habilidades de combate desbloqueadas podem ser equipadas juntas. Reparo eficiente é uma utilidade independente. Recargas e cargas gastas são mantidas.'
+      : 'Pause a travessia, feche qualquer reparo e afaste-se dos vírus para trocar habilidades. Recargas e cargas gastas são mantidas.';
     const list=document.getElementById('loadoutList');list.replaceChildren();
     for(const skill of unlockedSkills){
       const item=document.createElement('div');item.className='loadout-item';
@@ -1479,13 +1476,13 @@
       const description=document.createElement('small');description.textContent=skill.description||ABILITIES.find(a=>a.id===skill.id).description(skill.level);item.append(label,description);
       if(skill.id!=='repair'){
         const button=document.createElement('button');button.type='button';button.dataset.equip=skill.id;button.textContent=equippedCombat.includes(skill.id)?'DESEQUIPAR':'EQUIPAR';button.setAttribute('aria-label',button.textContent+' '+skill.name);
-        button.disabled=!allowed||(!equippedCombat.includes(skill.id)&&equippedCombat.length>=3);
+        button.disabled=!allowed;
         button.addEventListener('click',()=>{changeLoadout(skill.id);renderLoadout();});item.append(button);
       }
       list.append(item);
     }
     if(!unlockedSkills.length)list.textContent='Suba de nível para desbloquear habilidades. O disparo básico, o especial e o salto permitem concluir todas as fases sem habilidades opcionais.';
-    document.getElementById('loadoutTitle').textContent='EQUIPAMENTO DE COMBATE · '+equippedCombat.length+'/3';
+    document.getElementById('loadoutTitle').textContent='HABILIDADES EQUIPADAS · '+equippedCombat.length;
   }
 
   function fireProjectile() {
@@ -2015,12 +2012,21 @@
       return;
     }
     const bossWeakPoint = virus.multiStage && virus.vulnerableTime > 0;
+    if(virus.multiStage){
+      const stage=virus.bossStage||1;
+      const floor=stage===1?virus.maxHp*.67:stage===2?virus.maxHp*.34:0;
+      // Each health gate must be acknowledged by updateVirusZero before the
+      // next phase can take damage, even when several shots land in one tick.
+      if(floor>0&&virus.hp<=floor+1e-6)return;
+    }
     if (bossWeakPoint) damage *= 2;
     damage*=ByteRunner.enemies.damageMultiplier(virus,sourceX);
     const armor = virus.type==='armored' || virus.vulnerableTime > 0 ? 0 : (virus.armor || 0);
     let nextHp=Math.max(0, virus.hp - Math.max(1, Math.ceil(damage * (1 - armor))));
     if(virus.multiStage) {
-      for(const threshold of [virus.maxHp*.67,virus.maxHp*.34])if(virus.hp>threshold+1e-6&&nextHp<threshold){nextHp=threshold;break;}
+      const stage=virus.bossStage||1;
+      const floor=stage===1?virus.maxHp*.67:stage===2?virus.maxHp*.34:0;
+      if(floor>0&&nextHp<floor)nextHp=floor;
     }
     const applied=virus.hp-nextHp;
     virus.hp=nextHp;

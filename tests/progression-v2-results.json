@@ -16,7 +16,8 @@
     "progression: real normal campaign awards match every stage projection": "PASS",
     "progression: sources persist through save, retry, checkpoint and minion farming": "PASS",
     "progression: legacy progress is preserved and migration is idempotent": "PASS",
-    "progression: three combat slots, reserve upgrades, utility and safe loadout UI": "PASS",
+    "progression: all combat skills can be equipped or reserved through the safe loadout UI": "PASS",
+    "progression: VIRUS ZERO must enter all three stages before defeat": "PASS",
     "progression: diminishing returns, no free level-up and capped fallback stays finite": "PASS",
     "progression: stage 1 completion gates work without optional skills": "PASS",
     "progression: stage 2 completion gates work without optional skills": "PASS",
@@ -228,9 +229,13 @@
     "choices": 11,
     "unlocked": 8,
     "equipped": [
+      "shield",
+      "armor",
       "precision",
-      "recovery",
-      "cannon"
+      "boost",
+      "cannon",
+      "rapid",
+      "recovery"
     ]
   },
   "requiredScenario": {
@@ -264,8 +269,8 @@
     "choices": 10
   },
   "execution": {
-    "sourceSha256": "058adf4fbb1f5ec58cc462027496b16a28b7561c8b1ca9e2bc08f73b00306feb",
-    "atUTC": "2026-11-13T16:36:00.016984+00:00",
+    "sourceSha256": "1dcb3c584e8c48103984e1220b9702e3d400fe79f12ac5a1585729412563d6a6",
+    "atUTC": "2026-11-13T21:17:06.406611+00:00",
     "instrumented": true,
     "isolatedStorage": true
   }

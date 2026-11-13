@@ -266,7 +266,16 @@ test('enemy attacks',()=>{
 test('boss stages, shield and projectile defeat',()=>{
   setup(9);const boss=viruses.find(v=>v.type==='boss');let hp=boss.hp;damageVirus(boss,10);assert(boss.hp===hp,'shield');components.forEach(c=>c.repaired=true);
   for(const ratio of [.9,.6,.2]) {boss.hp=boss.maxHp*ratio;boss.bossCycleCooldown=0;boss.bossPatternIndex=0;boss.attackWindup=0;boss.chargeTime=0;boss.bossPhaseTransitionTime=0;for(let t=0;t<95;t++)updateVirusZero(boss,1/60,boss.x-180,boss.y);assert(boss.bossStage===(ratio>.67?1:ratio>.34?2:3),'stage');}
-  boss.hp=boss.maxHp;boss.bossStage=1;boss.bossPhaseTransitionTime=0;boss.vulnerableTime=0;boss.attackWindup=0;boss.bossCycleCooldown=1.2;enemyProjectiles=[];enemyObstacles=[];viruses=viruses.filter(v=>v===boss);player.x=boss.x-150;player.y=boss.y-22;player.facing=1;keys.add('j');
+  player.x=boss.bossBounds.left+150;player.y=boss.groundY-player.height;boss.alive=true;boss.hp=boss.maxHp;boss.bossStage=1;boss.bossPhaseTransitionTime=0;boss.vulnerableTime=0;
+  const phaseTwoGate=boss.maxHp*.67,phaseThreeGate=boss.maxHp*.34;
+  damageVirus(boss,10000);assert(Math.abs(boss.hp-phaseTwoGate)<1e-6&&boss.alive,'phase 1 did not stop at its health gate');
+  damageVirus(boss,10000);assert(boss.alive&&boss.bossStage===1&&Math.abs(boss.hp-phaseTwoGate)<1e-6,'extra hit skipped phase 2');
+  updateVirusZero(boss,.9,boss.x-180,boss.y);assert(boss.bossStage===2&&boss.bossPhaseTransitionTime===0,'phase 2 did not begin');
+  damageVirus(boss,10000);assert(Math.abs(boss.hp-phaseThreeGate)<1e-6&&boss.alive,'phase 2 did not stop at its health gate');
+  damageVirus(boss,10000);assert(boss.alive&&boss.bossStage===2&&Math.abs(boss.hp-phaseThreeGate)<1e-6,'extra hit skipped phase 3');
+  updateVirusZero(boss,.9,boss.x-180,boss.y);assert(boss.bossStage===3&&boss.bossPhaseTransitionTime===0,'phase 3 did not begin');
+  damageVirus(boss,10000);assert(!boss.alive,'phase 3 could not defeat boss');
+  boss.alive=true;boss.hp=boss.maxHp;boss.bossStage=1;boss.bossPhaseTransitionTime=0;boss.vulnerableTime=0;boss.attackWindup=0;boss.bossCycleCooldown=1.2;enemyProjectiles=[];enemyObstacles=[];viruses=viruses.filter(v=>v===boss);player.x=boss.x-150;player.y=boss.y-22;player.facing=1;keys.add('j');
   for(let t=0;t<2400&&boss.alive;t++) {
     boss.speed=0;player.facing=boss.x>player.x+17?1:-1;
     if(!combatAttack.charging&&combatAttack.remaining<=0&&combatAttack.energy>=25)combatAttack.request('k');

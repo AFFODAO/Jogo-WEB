@@ -18,7 +18,7 @@ test('developer tools: XP adjustments use progression, sequence level choices an
   [...document.querySelectorAll('#developerTools button')].find(button=>button.textContent.startsWith('SUBIR 1 ')).click();assert(xp===1600,'level control consumed or duplicated XP while paused');
   debugButton('MAXIMIZAR HABILIDADES').click();
   assert(unlockedSkills.length===ABILITIES.length&&unlockedSkills.every(skill=>skill.level===3&&skill.maxLevel===3),'skill rank exceeded or missed its cap');
-  assert(equippedCombat.length<=3&&player.armor<=MAX_PLAYER_ARMOR+1e-9&&player.damage===1,'debug skills exceeded combat balance limits');
+  assert(equippedCombat.length===ByteRunner.progression.combatIds.length&&player.armor<=MAX_PLAYER_ARMOR+1e-9&&player.damage===1,'debug skills exceeded combat balance limits');
   debugIds('closeSettings').click();startButton.click();update(1/120);
   assert(levelChoiceOpen&&ui.levelOverlay.querySelector('[data-skill]'),'level-up choice did not open after resuming');
   ui.levelOverlay.querySelector('[data-skill]').click();update(1/120);
