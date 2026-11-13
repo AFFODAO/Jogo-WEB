@@ -86,7 +86,7 @@ test('hardware v3: completion requires repairs and enemies, then educational que
 });
 test('hardware v3: revision 3 save migrates to new entry and preserves XP/skills',()=>{
   setup(0);xp=47;unlockedSkills=[{id:'cannon',level:2}];restoreSkillEffects();saveCampaign();const saved=getSavedCampaign();saved.mapRevision=3;saved.player.x=2400;saved.player.y=500;saved.checkpointX=1850;localStorage.setItem(SAVE_KEY,JSON.stringify(saved));continueCampaign();
-  assert(player.x===mapStart().x&&player.y===mapStart().y&&xp===47&&player.damage===3&&components.every(c=>!c.repaired),'migration');
+  assert(player.x===mapStart().x&&player.y===mapStart().y&&xp===47&&player.damage===1&&skillRank('cannon')===2&&components.every(c=>!c.repaired),'migration');
 });
 test('hardware v3: new save preserves repaired devices and checkpoint',()=>{
   setup(0);components[0].repaired=true;checkpointIndex=2;checkpointX=phaseData.map.checkpoints[2].x;checkpointY=phaseData.map.checkpoints[2].y;respawnAtCheckpoint();saveCampaign();continueCampaign();assert(components[0].repaired&&checkpointIndex===2,'new save lost progress');

@@ -435,3 +435,17 @@ button:focus-visible{outline:2px solid #bdadff;outline-offset:4px}.touch-control
 .repair-v2-feedback[data-state="error"]{color:#ffc090}
 .repair-v2-help{display:block;text-align:center;font:10px/1.6 monospace;color:#91a6ad;margin-top:10px}
 @media(max-width:600px){.repair-v2-instruction{font-size:11px}.repair-v2-tools{gap:6px}.repair-v2-help{font-size:10px}.repair-panel:has(.repair-v2-host){padding:8px;border-radius:0}.repair-panel:has(.repair-v2-host)>#repairPrompt{font-size:14px;margin:2px 0 5px}}
+
+.special-hud{position:absolute;top:14px;right:16px;z-index:3;pointer-events:none;background:#071722e8;border:1px solid #d6ad64;padding:7px 10px;min-width:144px;font:10px monospace;color:#ffe1a3;display:grid;gap:4px}
+.special-hud b{font-size:11px}.special-hud>div{height:3px;background:#39414a}.special-hud i{display:block;height:100%;width:100%;background:#ffd37c}
+@media(max-width:600px){.special-hud{top:8px;right:8px;padding:5px;min-width:120px}.touch-actions{display:grid;grid-template-columns:repeat(3,minmax(48px,auto));gap:4px}.touch-actions button[data-touch]{min-width:48px;padding:8px 5px;font-size:9px}}
+
+.ability-hud{position:absolute;left:12px;bottom:12px;z-index:3;pointer-events:none;max-width:calc(100% - 24px);background:#071722e8;color:#c1dfeb;font:9px/1.5 monospace;padding:5px 8px;border:1px solid #577b91}.touch-controls button[hidden]{display:none}
+@media(max-width:900px){.game-shell.playing .ability-hud{bottom:166px;font-size:8px}.touch-actions{display:grid;grid-template-columns:repeat(3,minmax(46px,auto));gap:4px}}
+/* Equipment remains available on narrow screens with the side panels hidden. */
+.loadout-open{min-height:44px;padding:8px;border:1px solid #617d99;background:#101e30;color:#dcf1ff;font:700 10px monospace;cursor:pointer}
+.loadout-dialog{width:min(620px,calc(100vw - 24px));max-height:85vh;overflow:auto}
+.loadout-item{display:grid;grid-template-columns:1fr auto;gap:8px;padding:12px 0;border-bottom:1px solid #324359}
+.loadout-item p{margin:0;grid-column:1/-1}.loadout-item small{line-height:1.5;color:#b5cadb}
+.loadout-item button{min-height:44px;align-self:center}.loadout-item button:disabled{opacity:.45;cursor:default}
+@media(max-width:700px){.topbar{height:auto;min-height:66px;flex-wrap:wrap;gap:8px;padding:8px 0}.top-right{flex-wrap:wrap;gap:8px}}

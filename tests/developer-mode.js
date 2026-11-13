@@ -10,7 +10,7 @@ if(reloadRecord){
   test('developer: reload starts OFF with untouched campaign and question history',()=>{
     assert(!developerSession&&!devIds('developerModeToggle').checked&&devIds('developerTools').hidden,'test mode survived reload');
     devUnchanged(previous.saved,previous.history);assert(menuScreen&&!running,'reload did not return to menu');
-    continueButton.click();assert(phaseIndex===2&&xp===47&&level===3&&player.damage===3&&components[0].repaired,'normal progress not resumable after reload');
+    continueButton.click();assert(phaseIndex===2&&xp===47&&level===3&&player.damage===1&&skillRank('cannon')===2&&components[0].repaired,'normal progress not resumable after reload');
     assert(checkpointIndex===2,'normal checkpoint lost');
   });
   sessionStorage.removeItem('byteRunner.developerTestReload');
@@ -77,7 +77,7 @@ if(reloadRecord){
   });
   test('developer: disabling restores normal live progress and hides every tool',()=>{
     devIds('settingsButton').click();devToggle(false);assert(!developerSession&&!devIds('developerModeToggle').checked&&devIds('developerTools').hidden&&document.querySelector('.developer-pause-actions').hidden&&document.querySelector('.developer-badge').hidden,'tools survived OFF');
-    assert(phaseIndex===2&&level===3&&xp===47&&player.damage===3&&player.x===normalX&&player.y===normalY,'normal player not restored');
+    assert(phaseIndex===2&&level===3&&xp===47&&player.damage===1&&skillRank('cannon')===2&&player.x===normalX&&player.y===normalY,'normal player not restored');
     assert(components[0].repaired&&collectibles[0].collected&&!viruses[0].alive&&levelRuntime.getFlag(normalPort.flag)&&checkpointIndex===2,'normal world not restored');
     assert(!campaignComplete&&highestUnlockedPhase===2&&paused&&!running,'normal screen/progression leaked');devUnchanged(normalSaved,normalHistory);
     devIds('closeSettings').click();startButton.click();assert(running,'normal resume failed');

@@ -12,6 +12,7 @@ function captureCanvas(){
 }
 let traversedPortals=new Set();
 function setup(i) { resetCampaign(); loadPhase(i,true); running=true; paused=false; campaignStarted=true; damageCooldown=99999; keys.clear();traversedPortals=new Set(); }
+function equipTestSkills(){equippedCombat=ByteRunner.progression.loadout(unlockedSkills);restoreSkillEffects();}
 function fulfilGoalsForQuestionTest() {
   const mark=c=>{if(c.flag)levelRuntime.setFlag(c.flag,c.value??true);(c.all||c.any||[]).forEach(mark);};
   (phaseData.objectives.goals||[]).forEach(goal=>{if(goal.type==='condition')mark(goal.condition);});
@@ -245,11 +246,11 @@ for(let i=0;i<10;i++) {
   } catch(e) {r.error=e.stack;}
 }
 test('skills and pending choice',()=>{
-  setup(0);xp=100;openLevelChoice();assert(level===2&&levelChoiceOpen,'level');saveCampaign();continueCampaign();assert(level===2&&levelChoiceOpen,'pending choice lost');
+  setup(0);xp=xpRequired;openLevelChoice();assert(level===2&&levelChoiceOpen,'level');saveCampaign();continueCampaign();assert(level===2&&levelChoiceOpen,'pending choice lost');
   let b=ui.levelOverlay.querySelector('[data-skill]');b.click();assert(unlockedSkills.length===1&&running,'ability selection');
-  for(const ability of ABILITIES) {unlockedSkills=[{id:ability.id,level:2}];restoreSkillEffects();}
-  unlockedSkills=[{id:'armor',level:3},{id:'cannon',level:2},{id:'rapid',level:2},{id:'boost',level:2},{id:'repair',level:2}];restoreSkillEffects();assert(player.armor===.3||Math.abs(player.armor-.3)<1e-9,'armor');assert(player.damage===3&&player.fireRate<.32&&player.jumpPower>690&&repairDuration<.8,'effects');
-  unlockedSkills=[{id:'cannon',level:1}];xp=xpRequired;openLevelChoice();selectAbility('cannon',2);assert(unlockedSkills[0].level===2&&player.damage===3,'upgrade');
+  for(const ability of ABILITIES) {unlockedSkills=[{id:ability.id,level:2}];equipTestSkills();}
+  unlockedSkills=[{id:'armor',level:3},{id:'cannon',level:2},{id:'rapid',level:2},{id:'boost',level:2},{id:'repair',level:2}];equipTestSkills();assert(Math.abs(player.armor-.2)<1e-9,'armor');assert(player.damage===1&&player.fireRate<.32&&player.jumpPower===JUMP_SPEED&&repairDuration<.8,'effects');
+  unlockedSkills=[{id:'cannon',level:1}];xp=xpRequired;openLevelChoice();selectAbility('cannon',2);assert(unlockedSkills[0].level===2&&player.damage===1,'upgrade');
 });
 test('enemy attacks',()=>{
   for(const type of ['basic','fast','armored','flyer','shooter','parasite']) {
@@ -289,10 +290,10 @@ test('frame rate independent jump',()=>{
   assert(Math.max(...heights)-Math.min(...heights)<1,'different jump heights: '+heights.join());
 });
 test('damage, shield, healing and repair upgrades',()=>{
-  setup(0);unlockedSkills=[{id:'armor',level:3}];restoreSkillEffects();damageCooldown=0;damagePlayer(20,{x:0});assert(player.health===86,'armor damage');
-  unlockedSkills=[{id:'shield',level:2}];restoreSkillEffects();player.shieldTime=1;damageCooldown=0;const hp=player.health;damagePlayer(20,{x:0});assert(player.health===hp,'shield damage');
-  viruses=[];updateCombat(1);assert(player.shieldTime===0&&player.shieldCooldown>0,'shield expiry');updateCombat(player.shieldCooldown);updateCombat(.01);assert(player.shieldTime>0,'shield recharge');
-  player.health=30;ABILITIES.find(a=>a.id==='recovery').apply(2);assert(player.health===60,'healing');
+  setup(0);unlockedSkills=[{id:'armor',level:3}];equipTestSkills();damageCooldown=0;damagePlayer(20,{x:0});assert(player.health===84,'armor damage');
+  unlockedSkills=[{id:'shield',level:2}];equipTestSkills();player.shieldTime=1;damageCooldown=0;const hp=player.health;damagePlayer(20,{x:0});assert(player.health===hp,'shield damage');
+  viruses=[];skillRuntime.activate('shield',2,player);updateCombat(1);assert(player.shieldTime===0&&player.shieldCooldown>0,'shield expiry');updateCombat(player.shieldCooldown);updateCombat(.01);assert(player.shieldTime===0,'automatic shield recharge');
+  player.health=30;assert(skillRuntime.activate('recovery',2,player)&&player.health===50,'limited healing');
   ABILITIES.find(a=>a.id==='repair').apply(3);assert(Math.abs(repairDuration-.56)<.001,'repair upgrade');
 });
 test('distinct layouts and themes',()=>{
@@ -323,7 +324,7 @@ test('final boss telegraphs, dodge and weak point',()=>{
 });
 test('boss activation, skills and final checkpoint',()=>{
   setup(9);const b=viruses.find(v=>v.multiStage),origin=b.x;for(let t=0;t<300;t++)updateEnemyBrain(b,1/60,100,mapStart().y+24);assert(!enemyProjectiles.some(p=>p.bossOwned)&&b.x===origin,'boss attacks before arena');
-  unlockedSkills=[{id:'cannon',level:3},{id:'armor',level:3},{id:'boost',level:2}];restoreSkillEffects();saveCampaign();continueCampaign();assert(player.damage===4&&player.armor>.29&&player.jumpPower>690,'campaign abilities lost');
+  unlockedSkills=[{id:'cannon',level:3},{id:'armor',level:3},{id:'boost',level:2}];equipTestSkills();saveCampaign();continueCampaign();assert(player.damage===1&&player.armor===.2&&player.jumpPower===JUMP_SPEED,'campaign abilities lost');
   const cp=phaseData.map.checkpoints.at(-1);player.x=cp.x;player.y=cp.y-48;components.forEach(c=>c.repaired=true);updateCheckpoints();respawnAtCheckpoint();assert(checkpointX===cp.x&&checkpointY===cp.y&&components.every(c=>c.repaired)&&!solids().some(s=>s.collision!=='one-way'&&overlaps(player,s)),'arena checkpoint');
   saveCampaign();continueCampaign();assert(checkpointX===cp.x&&components.every(c=>c.repaired),'arena save');
 });

@@ -64,6 +64,9 @@ def main():
     if identity_phase is not None:assert 1<=identity_phase<=10
     focused='profile-render' if '--profile-render' in sys.argv else 'final-performance' if '--performance-only' in sys.argv else 'final-regressions' if '--final-regressions' in sys.argv else 'map-debug' if '--debug-only' in sys.argv else 'final-maps' if final_phase is not None else 'gameplay-demo' if '--gameplay-demo' in sys.argv else 'room-gameplay' if '--room-gameplay' in sys.argv else 'environment-art' if '--environment-only' in sys.argv or '--environment-hardware' in sys.argv else 'infrastructure-generation' if '--infrastructure-generation' in sys.argv else 'campaign-generation' if '--campaign-generation' in sys.argv else 'pixelart' if '--pixel-only' in sys.argv else 'generation' if '--generation-only' in sys.argv else 'procedural' if '--procedural-only' in sys.argv else 'procedural-demo' if '--procedural-demo' in sys.argv else 'parkour' if '--parkour-only' in sys.argv else None
     if final_phase is not None:assert 1<=final_phase<=10
+    if '--combat-v2' in sys.argv:focused='combat-v2'
+    if '--abilities-v2' in sys.argv:focused='abilities-v2'
+    if '--progression-v2' in sys.argv:focused='progression-v2'
     if parallax_only:focused='parallax'
     if '--depth-only' in sys.argv:focused='parallax-depth'
     if identity_phase is not None:focused='parallax-identity'
@@ -96,6 +99,14 @@ def main():
         hook+='\nreport.errors=window.__reviewErrors;const output=document.createElement("pre");output.id="review-result";output.textContent=JSON.stringify(report);document.body.replaceChildren(output);'
     elif focused:
         hook=hook[:hook.index('for(let i=0;i<10;i++) {')]+(ROOT/('tests/'+focused+'.js')).read_text(encoding='utf-8')+'\nawait new Promise(resolve=>setTimeout(resolve,0));\nreport.errors=window.__reviewErrors;const output=document.createElement("pre");output.id="review-result";output.textContent=JSON.stringify(report);document.body.replaceChildren(output);'
+        if focused in ['combat-v2','abilities-v2']:
+            hook=hook.replace('await new Promise(resolve=>setTimeout(resolve,0));',(ROOT/'tests/enemies.js').read_text(encoding='utf-8')+'\nawait new Promise(resolve=>setTimeout(resolve,0));',1)
+        if focused=='abilities-v2':
+            review=(ROOT/'tests/review.js').read_text(encoding='utf-8')
+            regression=''
+            for first,last in [('skills and pending choice','enemy attacks'),('damage, shield, healing and repair upgrades','distinct layouts and themes'),('boss activation, skills and final checkpoint','boss visual states')]:
+                regression+=review[review.index("test('"+first):review.index("test('"+last)]+'\n'
+            hook=hook.replace('await new Promise(resolve=>setTimeout(resolve,0));',regression+'await new Promise(resolve=>setTimeout(resolve,0));',1)
     if focused in ['room-gameplay','gameplay-demo','final-maps']:
         hook=(ROOT/'tests/repairs.js').read_text(encoding='utf-8').split("test('repairs:",1)[0]+hook
     architecture = (ROOT/'tests/architecture.js').read_text(encoding='utf-8')

@@ -22,6 +22,28 @@
   let developerTools = null;
   let frameRequest = null;
   const keys = new Set();
+  let combatAttack = ByteRunner.playerCombat.create();
+  let skillRuntime=ByteRunner.abilities.create();
+  const skillRequests=new Set();
+  let serviceRewards={archive:0,merit:0,report:0};
+  let offeredChoices=new Map();
+  let equippedCombat=[];
+  let claimedXP=new Set();
+  const unlockedRank=id=>ByteRunner.abilities.rank(unlockedSkills.find(s=>s.id===id)?.level||0);
+  const skillRank=id=>id==='repair'||equippedCombat.includes(id)?unlockedRank(id):0;
+  const abilityKeys=['j','k','q','l','h'];
+  const keyboardAttacks=new Set(),touchAttacks=new Map();
+  function clearCombatInput(){keyboardAttacks.clear();touchAttacks.clear();for(const key of abilityKeys)keys.delete(key);skillRequests.clear();skillRuntime.cancel();if(player)player.shieldTime=0;combatAttack.clear();}
+  function attackInput(key,source,down){
+    const was=keys.has(key);
+    if(source==='keyboard'){if(down)keyboardAttacks.add(key);else keyboardAttacks.delete(key);}
+    else {if(down)touchAttacks.set(source,key);else touchAttacks.delete(source);}
+    const active=keyboardAttacks.has(key)||[...touchAttacks.values()].includes(key);
+    if(active)keys.add(key);else keys.delete(key);
+    if(down&&!was){if(key==='j'||key==='k')combatAttack.request(key);else skillRequests.add(key);}
+  }
+  function specialCooldown(){return 6-.4*ByteRunner.abilities.potency(skillRank('cannon'));}
+
   const ui = {
     title: document.getElementById('overlayTitle'),
     copy: document.getElementById('overlayText'),
@@ -56,18 +78,11 @@
   const GRAVITY = ByteRunner.platformPhysics.base.gravity;
   const RUN_SPEED = ByteRunner.platformPhysics.base.speed;
   const JUMP_SPEED = ByteRunner.platformPhysics.base.jump;
-  const MAX_PLAYER_ARMOR = .5;
+  const MAX_PLAYER_ARMOR = .2;
   const PLAYER_HIT_INVULNERABILITY = 1;
   const ENEMY_PROFILES = ByteRunner.enemies.profiles;
-  const ABILITIES = [
-    { id: 'armor', name: 'Armadura reforçada', maxLevel: 5, description: level => `Reduz o dano recebido em ${level * 10}% no total.`, apply: level => { player.armor = Math.min(MAX_PLAYER_ARMOR, Math.max(0, level) * .1); } },
-    { id: 'rapid', name: 'Disparo rápido', maxLevel: 5, description: level => `Reduz o intervalo entre ataques em ${Math.round((1 - Math.pow(.9, level)) * 100)}%.`, apply: level => { player.fireRate = Math.max(.14, .32 * Math.pow(.9, level)); } },
-    { id: 'cannon', name: 'Canhão de energia', maxLevel: 5, description: level => `Projéteis causam ${level + 1} de dano.`, apply: level => { player.damage = 1 + level; } },
-    { id: 'boost', name: 'Propulsores', maxLevel: 5, description: level => `Aumenta a força do pulo em ${Math.round((Math.pow(1.08, level) - 1) * 100)}%.`, apply: level => { player.jumpPower = JUMP_SPEED * Math.pow(1.08, level); } },
-    { id: 'shield', name: 'Escudo temporário', maxLevel: 5, description: level => `Escudo por ${5 + (level - 1) * .75}s; recarga de ${Math.max(14, 18 - (level - 1))}s.`, apply: level => { const rank = Math.max(1, Math.min(5, level)); player.shieldDuration = 5 + (rank - 1) * .75; player.shieldCooldownDuration = Math.max(14, 18 - (rank - 1)); player.shieldTime = player.shieldDuration; player.shieldCooldown = -1; } },
-    { id: 'repair', name: 'Reparo eficiente', maxLevel: 5, description: level => `+${level} dicas por tentativa e +${Math.floor(level / 2)} verificações antes da falha.`, apply: level => { repairDuration = .8 * (1 - level * .1); } },
-    { id: 'recovery', name: 'Recuperação', maxLevel: 5, description: level => `Restaura ${20 + level * 5} pontos de integridade ao escolher.`, apply: level => { player.health = Math.min(player.maxHealth, player.health + 20 + level * 5); } }
-  ];
+  const ABILITIES = ByteRunner.abilities.definitions.map(([id,name,description])=>({id,name,description,maxLevel:3,apply:rank=>configureSkills({id,rank})}));
+  const SAFE_REWARDS=[['archive','Arquivo de dados'],['merit','Mérito técnico'],['report','Registro de missão']].map(([id,name])=>({id:'reward-'+id,name,maxLevel:1,description:()=>'+1 registro de serviço permanente. Sem bônus de combate.',apply:()=>{serviceRewards[id]++;}}));
   const QUESTION_HISTORY_KEY = 'byteRunner.usedQuestions.v1';
   function createQuestionSet(prefix, entries) {
     return entries.map(([text, options, answer, explanation], index) => ({
@@ -239,7 +254,7 @@
   let defeated = 0;
   let level = 1;
   let xp = 0;
-  let xpRequired = 100;
+  let xpRequired = ByteRunner.progression.threshold(1);
   let unlockedSkills = [];
   let levelChoiceOpen = false;
   let repairTarget = null;
@@ -276,7 +291,7 @@
   }
 
   function endPhaseIntro() {
-    phaseIntroTime=0;keys.clear();jumpQueued=false;frameAccumulator=0;
+    phaseIntroTime=0;keys.clear();clearCombatInput();jumpQueued=false;frameAccumulator=0;
     document.getElementById('phaseIntro').hidden=true;
     document.querySelector('.game-shell').classList.remove('introducing');
   }
@@ -288,7 +303,7 @@
     document.getElementById('introMission').textContent=phaseData.objective;
     document.getElementById('introLesson').textContent=ByteRunner.pacing.lessons[phaseIndex];
     document.getElementById('phaseIntro').hidden=false;
-    document.querySelector('.game-shell').classList.add('introducing');keys.clear();jumpQueued=false;
+    document.querySelector('.game-shell').classList.add('introducing');keys.clear();clearCombatInput();jumpQueued=false;
   }
 
   function readQuestionHistory() {
@@ -341,7 +356,7 @@
       if (audioContext.state === 'suspended') audioContext.resume()?.catch?.(()=>{});
       const now = audioContext.currentTime;
       const settings = {
-        attack: [620, .045, 'square'], hit: [150, .12, 'sawtooth'],
+        pulse:[460,.12,'sine'],dash:[270,.08,'triangle'],heal:[740,.16,'sine'],charge: [360,.24,'triangle'], burst: [980,.12,'sawtooth'], burstHit:[240,.08,'triangle'], attack: [620, .045, 'square'], hit: [150, .12, 'sawtooth'],
         repair: [760, .16, 'sine'], xp: [880, .07, 'triangle'],
         level: [1040, .22, 'triangle'], correct: [980, .24, 'sine'],
         checkpoint: [1320,.28,'sine'], victory:[660,.6,'triangle'], start:[330,.18,'sine'], jump:[420,.08,'triangle'], land:[100,.05,'sine'],
@@ -396,7 +411,9 @@
     if (!campaignStarted || !player) return null;
     return {
       version: 1, phaseIndex, phaseId:phaseData.id, mapRevision:phaseData.revision || 1, highestUnlockedPhase, level, xp, xpRequired,
-      levelState:levelRuntime?.save(), checkpointIndex,
+      levelState:levelRuntime?.save(), checkpointIndex, combatAttack:combatAttack.snapshot(),
+      skillSchema:2,skillState:skillRuntime.snapshot(),serviceRewards:{...serviceRewards},
+      progressionSchema:2,equippedCombat:[...equippedCombat],claimedXP:[...claimedXP],
       unlockedSkills: unlockedSkills.map(skill => ({ id: skill.id, level: skill.level })),
       player: { x: player.x, y: player.y, health: player.health, facing: player.facing, grounded: player.grounded, shieldTime: player.shieldTime, shieldCooldown: player.shieldCooldown },
       viruses: viruses.map(virus => ({ alive: virus.alive, hp: virus.hp, x: virus.x, y: virus.y, baseY:virus.baseY, direction: virus.direction, state:virus.state,
@@ -423,22 +440,14 @@
     }
   }
 
-  function restoreSkillEffects() {
-    player.armor = 0; player.fireRate = .32; player.damage = 1; player.jumpPower = JUMP_SPEED;
-    player.shieldDuration = 5; player.shieldCooldownDuration = 18; repairDuration = .8;
-    for (const skill of unlockedSkills) {
-      const rank = skill.level;
-      if (skill.id === 'armor') player.armor = Math.min(MAX_PLAYER_ARMOR, Math.max(0, rank) * .1);
-      if (skill.id === 'rapid') player.fireRate = Math.max(.14, .32 * Math.pow(.9, rank));
-      if (skill.id === 'cannon') player.damage = 1 + rank;
-      if (skill.id === 'boost') player.jumpPower = JUMP_SPEED * Math.pow(1.08, rank);
-      if (skill.id === 'shield') {
-        player.shieldDuration = 5 + (rank - 1) * .75;
-        player.shieldCooldownDuration = Math.max(14, 18 - (rank - 1));
-      }
-      if (skill.id === 'repair') repairDuration = .8 * (1 - rank * .1);
-    }
+  function configureSkills(override) {
+    const rank=id=>override?.id===id&&(id==='repair'||equippedCombat.includes(id))?ByteRunner.abilities.rank(override.rank):skillRank(id);
+    player.armor=Math.min(MAX_PLAYER_ARMOR,ByteRunner.abilities.potency(rank('armor'))*.2/3);
+    player.fireRate=.32*(1-.05*ByteRunner.abilities.potency(rank('rapid')));player.damage=1;player.jumpPower=JUMP_SPEED;
+    player.shieldDuration=.35+.1*rank('shield');player.shieldCooldownDuration=16;
+    repairDuration=.8*(1-.1*rank('repair'));
   }
+  function restoreSkillEffects(){configureSkills();}
 
   function continueCampaign() {
     if(developerSession)return;
@@ -453,17 +462,21 @@
     level = Math.max(1, Number(saved.level) || 1);
     xpRequired = experienceForLevel(level);
     xp = Math.max(0, Number(saved.xp) || 0);
-    unlockedSkills = Array.isArray(saved.unlockedSkills) ? saved.unlockedSkills.flatMap(item => {
-      const ability = ABILITIES.find(candidate => candidate.id === item.id);
-      const rank = Math.max(1, Math.min(ability ? ability.maxLevel : 1, Number(item.level) || 1));
-      return ability ? [{ id: ability.id, name: ability.name, level: rank, maxLevel: ability.maxLevel, description: ability.description(rank) }] : [];
-    }) : [];
+    unlockedSkills=ByteRunner.abilities.migrate(saved).map(item=>{
+      const a=ABILITIES.find(a=>a.id===item.id);return {...item,name:a.name,maxLevel:3,description:a.description(item.level)};
+    });
+    equippedCombat=ByteRunner.progression.loadout(unlockedSkills,saved.progressionSchema===2?saved.equippedCombat:undefined);
+    claimedXP=new Set(Array.isArray(saved.claimedXP)?saved.claimedXP.filter(k=>typeof k==='string'):[]);
+    if(saved.progressionSchema!==2)migrateProgressionRewards(saved);
     restoreSkillEffects();
     highestUnlockedPhase = Math.max(phaseIndex, Math.min(PHASES.length - 1, Number(saved.highestUnlockedPhase) || 0));
     const mapChanged=(saved.mapRevision || 1)!==(PHASES[phaseIndex].revision || 1);
     const isNextPhase = saved.phaseTransition || mapChanged;
     const retryAfterDefeat = Boolean(saved.gameOver || saved.questionRetryRequired);
     loadPhase(phaseIndex, true);
+    combatAttack.restore(saved.combatAttack);
+    skillRuntime.restore(saved.skillState);
+    for(const key of Object.keys(serviceRewards))serviceRewards[key]=Number.isSafeInteger(saved.serviceRewards?.[key])?Math.max(0,saved.serviceRewards[key]):0;
     checkpointX = isNextPhase ? mapStart().x
       : Math.max(0, Math.min(worldWidth() - player.width, Number.isFinite(saved.checkpointX) ? saved.checkpointX : mapStart().x));
     checkpointY = isNextPhase || saved.checkpointY == null || !Number.isFinite(Number(saved.checkpointY))
@@ -485,11 +498,8 @@
       player.y = Math.max(phaseData.map.bounds.ceiling ? 0 : -Infinity, Math.min(mapBottom, savedY));
       player.facing = source.facing === -1 ? -1 : 1;
       player.grounded = Boolean(source.grounded);
-      const hasShieldSkill = unlockedSkills.some(skill => skill.id === 'shield');
-      player.shieldTime = hasShieldSkill
-        ? Math.max(0, Math.min(player.shieldDuration, Number(source.shieldTime) || 0)) : 0;
-      player.shieldCooldown = hasShieldSkill
-        ? Math.max(-1, Math.min(player.shieldCooldownDuration, Number(source.shieldCooldown) || 0)) : 0;
+      // Protection never resumes automatically; already spent cooldowns remain spent.
+      player.shieldTime=0;player.shieldCooldown=skillRuntime.state.shieldCooldown;
       viruses = viruses.map((virus, index) => {
         const progress = saved.viruses?.[index];
         return progress ? { ...virus, state:progress.state || {}, alive: Boolean(progress.alive), hp: Math.max(0, Math.min(virus.maxHp, Number(progress.hp) || 0)), x: Number.isFinite(progress.x) ? progress.x : virus.x, y: Number.isFinite(progress.y) ? progress.y : virus.y,
@@ -517,6 +527,7 @@
     }
     renderSkills(); updateHud(); draw();
     launchLoadedPhase(Boolean(saved.phaseTransition));
+    if(saved.progressionSchema!==2){addLog('Progressão atualizada: níveis, XP e habilidades preservados. Até três habilidades de combate equipadas; demais disponíveis na reserva.');saveCampaign();}
     if(mapChanged){addLog('Mapa reconstruído: fase reiniciada, XP e habilidades mantidos.');interactionMessage='NOVO MAPA // XP E HABILIDADES PRESERVADOS';interactionMessageTimer=4;}
     if (saved.pendingAbility && !saved.phaseTransition) openLevelChoice(true);
   }
@@ -536,7 +547,7 @@
   // snapshot stays in memory; reload naturally returns to the untouched disk save.
   function setDeveloperMode(enabled) {
     if(enabled===Boolean(developerSession))return;
-    keys.clear();jumpQueued=false;
+    keys.clear();clearCombatInput();jumpQueued=false;
     if(enabled){
       if(running)pause();
       developerSession={normal:createCampaignSnapshot(),testHistory:readQuestionHistory(),history:ByteRunner.maps.clone(questionHistory),
@@ -590,6 +601,7 @@
       const key = button.dataset.touch;
       const release = event => {
         if (event) event.preventDefault();
+        if(abilityKeys.includes(key)){attackInput(key,event.pointerId,false);return;}
         keys.delete(key);
         if (key === 'e' && !repairSession?.blocksWorld) cancelRepair();
       };
@@ -597,6 +609,7 @@
         event.preventDefault();
         if (!running || repairSession?.blocksWorld || phaseIntroTime>0 || document.getElementById('settingsDialog').open || document.getElementById('developerPhaseDialog').open) return;
         try { if (event.pointerId !== undefined) button.setPointerCapture?.(event.pointerId); } catch {}
+        if(abilityKeys.includes(key)){attackInput(key,event.pointerId,true);return;}
         if (key === 'w' && !keys.has(key)) jumpQueued = true;
         if (key === 'e' && !findNearbyComponent()) {
           interactionMessage = 'NENHUM COMPONENTE AO ALCANCE';
@@ -776,6 +789,8 @@
   }
 
   function resetCampaign() {
+    combatAttack=ByteRunner.playerCombat.create();
+    skillRuntime=ByteRunner.abilities.create();serviceRewards={archive:0,merit:0,report:0};offeredChoices.clear();
     player = {
       x: 70, y: floorY() - ROBOT_HEIGHT, vx: 0, vy: 0,
       width: ROBOT_WIDTH, height: ROBOT_HEIGHT,
@@ -783,7 +798,7 @@
       armor: 0, fireRate: .32, damage: 1, jumpPower: JUMP_SPEED,
       shieldTime: 0, shieldCooldown: 0, shieldDuration: 5, shieldCooldownDuration: 18
     };
-    level = 1; xp = 0; xpRequired = 100; unlockedSkills = [];
+    level = 1; xp = 0; xpRequired = experienceForLevel(1); unlockedSkills = [];equippedCombat=[];claimedXP=new Set();
     repairDuration = .8;
     highestUnlockedPhase = 0;
     renderSkills();
@@ -797,7 +812,7 @@
   }
 
   function loadMap(definition, retry = false) {
-    cancelAnimationFrame(frameRequest);frameRequest=null;keys.clear();
+    cancelAnimationFrame(frameRequest);frameRequest=null;keys.clear();clearCombatInput();
     endPhaseIntro();experience.reset();pacing=null;previousRenderPlayer=null;landingSpring=0;shotPose=0;abilityPose=0;actorAnimationTime=0;frameAccumulator=0;
     document.getElementById('experienceNotice').classList.remove('visible');noticeTime=0;
     levelRuntime?.dispose();
@@ -833,7 +848,7 @@
     levelVisuals = ByteRunner.visuals.create(phaseData);
     pacing=ByteRunner.pacing.create(phaseData,phaseIndex,levelRuntime,{
       solids,player:()=>player,enemies:()=>viruses,
-      reward(amount,reason,cache){awardExperience(amount,reason);experience.impact(cache.x,cache.y);},
+      reward(amount,reason,cache){awardExperience(amount,reason,'cache:'+cache.id);experience.impact(cache.x,cache.y);},
       hint:notifyExperience
     });
     const activeVisuals=levelVisuals;
@@ -955,6 +970,7 @@
 
   function movePlayer(dt) {
     const wasGrounded = player.grounded;
+    if(!player.grounded||jumpQueued)skillRuntime.cancel();
     const fallingSpeed = player.vy;
     const left = keys.has('a') || keys.has('arrowleft');
     const right = keys.has('d') || keys.has('arrowright');
@@ -962,6 +978,12 @@
     const environment=levelRuntime.modifiers();
     player.interferenceTime=Math.max(0,(player.interferenceTime||0)-dt);
     player.vx = direction * RUN_SPEED * environment.speedMultiplier * (player.interferenceTime>0?.82:1) + environment.forceX;
+    if(skillRuntime.state.dashTime>0){
+      const boosted=skillRuntime.state.dashDirection*RUN_SPEED*1.6*environment.speedMultiplier+environment.forceX;
+      const next=player.x+boosted*dt,foot=player.y+player.height;
+      const supported=solids().some(s=>Math.abs(s.y-foot)<2&&Math.min(player.x,next)>=s.x&&Math.max(player.x,next)+player.width<=s.x+s.w);
+      if(supported)player.vx=boosted;else skillRuntime.cancel();
+    }
     if (direction) player.facing = direction;
 
     if (jumpQueued && player.grounded) {
@@ -1097,7 +1119,7 @@
         }
       });
       if(repairSession.blocksWorld) {
-        keys.clear();jumpQueued=false;
+        keys.clear();clearCombatInput();jumpQueued=false;
         document.getElementById('repairPanel').hidden=false;
         document.getElementById('repairPrompt').textContent=repairSession.label?.() || 'DIAGNÓSTICO DO COMPONENTE';
       }
@@ -1108,7 +1130,7 @@
     if (['failed','cancelled'].includes(repairSession.status)) {
       const failed=repairSession.status === 'failed';
       cancelRepair();
-      if (failed) { keys.clear(); interactionMessage='REPARO NÃO CONCLUÍDO // TENTE NOVAMENTE'; interactionMessageTimer=1.5; }
+      if (failed) { keys.clear();clearCombatInput(); interactionMessage='REPARO NÃO CONCLUÍDO // TENTE NOVAMENTE'; interactionMessageTimer=1.5; }
       return;
     }
     if (repairSession.status === 'success') {
@@ -1117,14 +1139,14 @@
       component.integrity = 100;
       component.corruption = 0;
       cancelRepair();
-      if (wasModal) keys.clear();
+      if (wasModal) {keys.clear();clearCombatInput();}
       interactionMessage = 'COMPONENTE REPARADO';
       interactionMessageTimer = 1.5;
       addLog('Componente do setor reparado.');
       emitParticles(component.x + component.width / 2, component.y + 16, '#65f3bc', 16);
       playSound('repair');
       levelRuntime.emit('repair',component);
-      awardExperience(30, 'componente reparado');
+      awardExperience(30, 'componente reparado','repair:'+component.id);
       checkObjectives();
       updateHud();
       saveCampaign();
@@ -1132,10 +1154,30 @@
   }
 
   function experienceForLevel(currentLevel) {
-    return 100 + (currentLevel - 1) * 45;
+    return ByteRunner.progression.threshold(currentLevel);
   }
 
-  function awardExperience(amount, reason) {
+  function migrateProgressionRewards(saved) {
+    // Old rewards are kept. Seed their sources so retries cannot pay twice.
+    for(let i=0;i<saved.phaseIndex;i++)claimedXP.add(PHASES[i].id+':*');
+    const phase=PHASES[saved.phaseIndex];if(!phase)return;
+    const mark=source=>claimedXP.add(phase.id+':'+source);
+    if(saved.phaseTransition){mark('*');return;}
+    phase.entities.enemies.forEach((e,i)=>{if(saved.viruses?.[i]?.alive===false)mark('enemy:'+e.id);});
+    phase.entities.components.forEach((e,i)=>{if(saved.repaired?.[i])mark('repair:'+e.id);});
+    phase.entities.collectibles.forEach((e,i)=>{if(saved.collected?.[i])mark('fragment:'+e.id);});
+    for(const [id,value] of Object.entries(saved.levelState?.flags||{}))if(value&&id.startsWith('rhythm:'))mark('cache:'+id);
+    if(saved.repaired?.filter(Boolean).length>=phase.objectives.componentsToRepair)mark('objective:repairs');
+    if(saved.viruses?.filter(v=>!v.alive).length>=phase.objectives.enemiesToDefeat)mark('objective:enemies');
+    if(saved.phaseObjectiveAwarded)mark('objective:exit');
+  }
+
+  function awardExperience(amount, reason,source) {
+    if(!Number.isSafeInteger(amount)||amount<=0)return false;
+    if(typeof source!=='string'||!source.trim())return false;
+    const key=phaseData.id+':'+source;
+    if(source&&(claimedXP.has(key)||claimedXP.has(phaseData.id+':*')))return false;
+    if(source)claimedXP.add(key);
     experience.pop('+'+amount+' XP',player.x+player.width/2,player.y-8,'#ffe097');
     ui.xpBar.parentElement.classList.remove('xp-gain');void ui.xpBar.parentElement.offsetWidth;ui.xpBar.parentElement.classList.add('xp-gain');
     xp += amount;
@@ -1146,6 +1188,7 @@
     playSound('xp');
     updateHud();
     saveCampaign();
+    return true;
   }
 
   function checkObjectives() {
@@ -1155,11 +1198,11 @@
     const requireEnemies=phaseData.objectives.defeatAllViruses !== false;
     if (!objectives.allRepairs && (!requireRepairs || repairedCount >= phaseData.objectives.componentsToRepair)) {
       objectives.allRepairs = true;
-      if (requireRepairs) awardExperience(100, 'objetivo concluído: setor reparado');
+      if (requireRepairs) awardExperience(100, 'objetivo concluído: setor reparado','objective:repairs');
     }
     if (!objectives.allViruses && (!requireEnemies || defeatedCount >= phaseData.objectives.enemiesToDefeat)) {
       objectives.allViruses = true;
-      if (requireEnemies) awardExperience(100, 'objetivo concluído: setor limpo');
+      if (requireEnemies) awardExperience(100, 'objetivo concluído: setor limpo','objective:enemies');
     }
     if (!phaseObjectiveAwarded && objectives.allRepairs && objectives.allViruses && levelRuntime.goalsComplete()) {
       phaseObjectiveAwarded = true;
@@ -1168,7 +1211,7 @@
       interactionMessageTimer = 2.5;
       addLog('Objetivos da fase concluídos. Saída liberada.');
       playSound('correct');
-      awardExperience(100, 'objetivo concluído: saída liberada');
+      awardExperience(100, 'objetivo concluído: saída liberada','objective:exit');
       updateHud();
     }
   }
@@ -1181,13 +1224,14 @@
       const dy = Math.abs(player.y + player.height / 2 - collectible.y);
       if (dx < collectible.radius + player.width / 2 && dy < collectible.radius + player.height / 2) {
         collectible.collected = true;
-        awardExperience(20, 'fragmento de dados coletado');
+        awardExperience(20, 'fragmento de dados coletado','fragment:'+collectible.id);
       }
     }
   }
 
   function openLevelChoice(restorePending = false) {
     if (levelChoiceOpen || !running) return;
+    if(!restorePending&&xp<xpRequired)return;
     if (!restorePending) {
       xp -= xpRequired;
       level++;
@@ -1197,15 +1241,15 @@
     emitParticles(player.x + player.width / 2, player.y + 14, '#a890ff', 20);
     const choices = getAbilityChoices();
     updateHud();
-    if (!choices.length) return;
+    offeredChoices=new Map(choices.map(c=>[c.ability.id,c.targetLevel]));
 
     levelChoiceOpen = true;
     running = false;
     document.querySelector('.game-shell').classList.remove('playing');
-    keys.clear();
-    ui.levelOverlay.innerHTML = '<section class="level-dialog"><div class="level-kicker">NÍVEL ' + String(level).padStart(2, '0') + ' DESBLOQUEADO</div><h2>ESCOLHA UMA HABILIDADE</h2><p>Desbloqueie uma habilidade ou aprimore uma habilidade ativa.</p><div class="ability-options">' + choices.map(choice => {
-      const label = choice.kind === 'new' ? 'NOVA' : 'APRIMORAMENTO';
-      const levelText = choice.kind === 'new'
+    keys.clear();clearCombatInput();
+    ui.levelOverlay.innerHTML = '<section class="level-dialog"><div class="level-kicker">NÍVEL ' + String(level).padStart(2, '0') + ' DESBLOQUEADO</div><h2>ESCOLHA UMA HABILIDADE</h2><p>Desbloqueie ou aprimore uma habilidade. Até três de combate equipadas; as demais ficam na reserva. Reparo eficiente não ocupa espaço.</p><div class="ability-options">' + choices.map(choice => {
+      const label = choice.kind === 'reward' ? 'RECOMPENSA' : choice.kind === 'new' ? 'NOVA' : 'APRIMORAMENTO';
+      const levelText = choice.kind === 'reward' ? 'Registro de serviço' : choice.kind === 'new'
         ? 'Nível 0 → Nível 1'
         : 'Nível ' + (choice.targetLevel - 1) + ' → Nível ' + choice.targetLevel;
       return '<button class="ability-option" data-skill="' + choice.ability.id + '" data-target="' + choice.targetLevel + '"><span class="ability-badge ' + choice.kind + '">' + label + '</span><b>' + choice.ability.name + ' — ' + levelText + '</b><small>' + choice.ability.description(choice.targetLevel) + '</small></button>';
@@ -1248,31 +1292,37 @@
       if (choices.length === 3) break;
       if (!choices.some(choice => choice.ability.id === ability.ability.id)) choices.push(ability);
     }
+    for(const ability of SAFE_REWARDS){if(choices.length===3)break;choices.push({ability,kind:'reward',targetLevel:1});}
     return choices;
   }
 
   function selectAbility(id, targetLevel) {
-    if (!levelChoiceOpen) return;
-    const ability = ABILITIES.find(item => item.id === id);
+    if (!levelChoiceOpen || offeredChoices.get(id)!==targetLevel) return;
+    const ability = ABILITIES.find(item => item.id === id) || (offeredChoices.has(id)?SAFE_REWARDS.find(item=>item.id===id):null);
     const skill = unlockedSkills.find(item => item.id === id);
     const expectedLevel = skill ? skill.level + 1 : 1;
     if (!ability || targetLevel !== expectedLevel || targetLevel > ability.maxLevel) return;
     ability.apply(targetLevel);
     abilityPose=.65;
-    if (skill) {
+    const isReward=id.startsWith('reward-');
+    offeredChoices.clear();
+    if (!isReward && skill) {
       skill.level = targetLevel;
       skill.description = ability.description(targetLevel);
-    } else {
+    } else if (!isReward) {
       unlockedSkills.push({ id: ability.id, name: ability.name, level: 1, maxLevel: ability.maxLevel, description: ability.description(1) });
+      if(id!=='repair'&&equippedCombat.length<3)equippedCombat.push(id);
     }
+    restoreSkillEffects();
     levelChoiceOpen = false;
     ui.levelOverlay.classList.remove('active');
     renderSkills();
     updateHud();
-    addLog((skill ? 'Habilidade aprimorada: ' : 'Habilidade adquirida: ') + ability.name + ' nível ' + targetLevel + '.');
-    interactionMessage = 'HABILIDADE ATIVA // ' + ability.name.toUpperCase() + ' NV. ' + targetLevel;
+    addLog(isReward ? 'Registro de serviço recebido: '+ability.name+'.' : (skill ? 'Habilidade aprimorada: ' : 'Habilidade adquirida: ') + ability.name + ' nível ' + targetLevel + '.');
+    const abilityStatus=id==='repair'?'UTILIDADE ATIVA':equippedCombat.includes(id)?'HABILIDADE EQUIPADA':'HABILIDADE NA RESERVA';
+    interactionMessage = isReward ? 'REGISTRO DE SERVIÇO // '+ability.name.toUpperCase() : abilityStatus+' // ' + ability.name.toUpperCase() + ' NV. ' + targetLevel;
     interactionMessageTimer = 2;
-    notifyExperience('HABILIDADE ATIVA · '+ability.name+' · NÍVEL '+targetLevel);
+    notifyExperience(isReward ? 'REGISTRO DE SERVIÇO · '+ability.name : abilityStatus+' · '+ability.name+' · NÍVEL '+targetLevel);
     experience.impact(player.x+17,player.y+24,true,'#c3a1ff');
     saveCampaign();
     playSound('level');
@@ -1285,27 +1335,97 @@
   function renderSkills() {
     ui.skillCount.textContent = unlockedSkills.length;
     ui.skillList.innerHTML = unlockedSkills.length
-      ? unlockedSkills.map(skill => '<span class="skill-tag" title="' + skill.description + '">' + skill.name + ' <b>NV.' + skill.level + '/' + skill.maxLevel + '</b></span>').join('')
+      ? unlockedSkills.map(skill => '<span class="skill-tag" title="' + skill.description + '">' + skill.name + ' <b>NV.' + skill.level + '/' + skill.maxLevel + ' · '+(skill.id==='repair'?'UTILIDADE':equippedCombat.includes(skill.id)?'EQUIPADA':'RESERVA')+'</b></span>').join('')
       : '<span class="no-skills">Nenhuma habilidade</span>';
+    const records=Object.values(serviceRewards).reduce((a,b)=>a+b,0);if(records)ui.skillList.innerHTML+='<span class="skill-tag">REGISTROS DE SERVIÇO <b>'+records+'</b></span>';
+    document.getElementById('loadoutButton').textContent='EQUIPAMENTO '+equippedCombat.length+'/3';
+  }
+
+  function canChangeLoadout(){
+    if(!paused||!player||!phaseData)return false;
+    const start=mapStart(),foot=player.y+player.height;
+    const atStart=Math.hypot(player.x-start.x,player.y-start.y)<=100;
+    const atCheckpoint=checkpointIndex>=0&&Math.abs(player.x-checkpointX)<=100&&Math.abs(foot-(checkpointY??floorY()))<=70;
+    return paused&&!repairSession&&(atStart||atCheckpoint)&&!viruses.some(v=>v.alive&&Math.hypot(v.x-player.x,v.y-player.y)<240);
+  }
+
+  function changeLoadout(id){
+    if(!canChangeLoadout()||!unlockedRank(id)||!ByteRunner.progression.combatIds.includes(id))return false;
+    const index=equippedCombat.indexOf(id);
+    if(index>=0)equippedCombat.splice(index,1);
+    else if(equippedCombat.length<3)equippedCombat.push(id);
+    else return false;
+    clearCombatInput();restoreSkillEffects();renderSkills();updateHud();saveCampaign();return true;
+  }
+
+  function renderLoadout(){
+    const allowed=canChangeLoadout();
+    document.getElementById('loadoutHelp').textContent=allowed
+      ? 'Até três habilidades de combate. Desequipe uma para trocar. Reparo eficiente não ocupa espaço. Recargas e cargas gastas são mantidas.'
+      : 'Troque no início da fase ou em um checkpoint, com a travessia pausada, sem reparo aberto e sem vírus por perto. Recargas e cargas gastas são mantidas.';
+    const list=document.getElementById('loadoutList');list.replaceChildren();
+    for(const skill of unlockedSkills){
+      const item=document.createElement('div');item.className='loadout-item';
+      const label=document.createElement('p');label.textContent=skill.name+' · NÍVEL '+skill.level+' · '+(skill.id==='repair'?'UTILIDADE SEM ESPAÇO':equippedCombat.includes(skill.id)?'EQUIPADA':'RESERVA');
+      const description=document.createElement('small');description.textContent=skill.description||ABILITIES.find(a=>a.id===skill.id).description(skill.level);item.append(label,description);
+      if(skill.id!=='repair'){
+        const button=document.createElement('button');button.type='button';button.dataset.equip=skill.id;button.textContent=equippedCombat.includes(skill.id)?'DESEQUIPAR':'EQUIPAR';button.setAttribute('aria-label',button.textContent+' '+skill.name);
+        button.disabled=!allowed||(!equippedCombat.includes(skill.id)&&equippedCombat.length>=3);
+        button.addEventListener('click',()=>{changeLoadout(skill.id);renderLoadout();});item.append(button);
+      }
+      list.append(item);
+    }
+    if(!unlockedSkills.length)list.textContent='Suba de nível para desbloquear habilidades. O disparo básico, o especial e o salto permitem concluir todas as fases sem habilidades opcionais.';
+    document.getElementById('loadoutTitle').textContent='EQUIPAMENTO DE COMBATE · '+equippedCombat.length+'/3';
   }
 
   function fireProjectile() {
+    if(!running || repairSession?.blocksWorld || phaseIntroTime>0 || !combatAttack.basic(player.fireRate*levelRuntime.modifiers().fireIntervalMultiplier))return false;
+    spawnPlayerProjectile(false);attackCooldown=combatAttack.snapshot().basicRemaining;return true;
+  }
+  function spawnPlayerProjectile(special) {
+    const radius=special?8:5, y=player.y+22, origin=player.x+player.width/2;
+    const x=player.facing>0?player.x+player.width+radius:player.x-radius;
+    const blocked=solids().some(s=>s.collision==='solid'&&ByteRunner.playerCombat.box(origin,y,x-origin,0,s,radius)!==null);
     shotPose=.18;
-    projectiles.push({
-      x: player.facing > 0 ? player.x + player.width + 5 : player.x - 5,
-      y: player.y + 22,
-      vx: player.facing * 570 * levelRuntime.modifiers().projectileSpeedMultiplier,
-      life: 1.35,
-      radius: 5,
-      damage: player.damage
-    });
-    attackCooldown = player.fireRate * levelRuntime.modifiers().fireIntervalMultiplier;
-    emitParticles(projectiles[projectiles.length - 1].x, player.y + 22, '#70ffe5', 3);
-    playSound('attack');
+    playSound(special?'burst':'attack');
+    emitParticles(blocked?origin:x,y,special?'#ffd37c':'#70ffe5',special?10:3);
+    if(blocked||projectiles.length>=32)return;
+    projectiles.push({x,y,vx:player.facing*570*(special?1:1+.05*ByteRunner.abilities.potency(skillRank('rapid')))*levelRuntime.modifiers().projectileSpeedMultiplier,
+      life:1.35,radius,damage:special?3:1,special,hits:new Set(),remainingHits:special?2:1});
+  }
+  function updatePlayerProjectiles(dt) {
+    const geometry=solids().filter(s=>s.collision==='solid');
+    for(const p of projectiles){
+      const dx=p.vx*Math.min(dt,p.life), impacts=[];
+      for(const s of geometry){const t=ByteRunner.playerCombat.box(p.x,p.y,dx,0,s,p.radius);if(t!==null)impacts.push({t,wall:true});}
+      for(const v of viruses){
+        if(!v.alive||p.hits?.has(v))continue;
+        const intercept=v.variant==='packet'&&v.attackWindup>0&&!v.intercepted;
+        const t=ByteRunner.playerCombat.circle(p.x,p.y,dx,0,v,v.radius+(intercept?35:p.radius));
+        if(t!==null)impacts.push({t,v,intercept});
+      }
+      impacts.sort((a,b)=>a.t-b.t||Number(b.wall)-Number(a.wall));
+      const start=p.x;
+      for(const hit of impacts){
+        p.x=start+dx*hit.t;
+        if(hit.wall){p.life=0;emitParticles(p.x,p.y,'#c8e9e5',4);break;}
+        if(hit.intercept){hit.v.intercepted=true;hit.v.stolenShot=true;p.life=0;emitParticles(p.x,p.y,'#60ffd4',6);break;}
+        p.hits??=new Set();p.hits.add(hit.v);
+        const bonus=p.special?0:skillRuntime.precision(skillRank('precision'),hit.v);
+        damageVirus(hit.v,p.damage+bonus,p.x-Math.sign(p.vx)*12);
+        if(p.special){emitParticles(p.x,p.y,'#ffd37c',9);playSound('burstHit');}
+        p.remainingHits=(p.remainingHits??1)-1;
+        if(p.remainingHits<=0){p.life=0;break;}
+      }
+      if(p.life>0)p.x=start+dx;
+      p.life-=dt;
+    }
+    projectiles=projectiles.filter(p=>p.life>0&&p.x>0&&p.x<worldWidth());
   }
 
   function damagePlayer(amount, virus) {
-    const hasShieldSkill = unlockedSkills.some(skill => skill.id === 'shield');
+    const hasShieldSkill = skillRank('shield')>0;
     const activeShieldTime = hasShieldSkill && Number.isFinite(player.shieldTime) ? Math.max(0, player.shieldTime) : 0;
     if (damageCooldown > 0 || !running || activeShieldTime > 0) return;
     const armor = Number.isFinite(player.armor) ? Math.min(MAX_PLAYER_ARMOR, Math.max(0, player.armor)) : 0;
@@ -1326,6 +1446,7 @@
   }
 
   function respawnAtCheckpoint() {
+    clearCombatInput();
     deathEcho = {x:player.x,y:player.y,start:animationTime};
     player.interferenceTime=0;
     player.health = player.maxHealth;
@@ -1415,7 +1536,7 @@
     if (!selection) return;
     running = false;
     document.querySelector('.game-shell').classList.remove('playing');
-    keys.clear();
+    keys.clear();clearCombatInput();
     phaseQuestionOpen = true;
     questionAnswered = false;
     currentQuestion = selection.question;
@@ -1519,7 +1640,7 @@
     document.querySelector('.game-shell').classList.remove('playing');
     paused = false;
     phaseTransition = true;
-    keys.clear();
+    keys.clear();clearCombatInput();
     if (phaseIndex === PHASES.length - 1) {
       campaignComplete = true;
       const card = overlay.querySelector('.overlay-card');
@@ -1738,7 +1859,7 @@
     }
     if (virus.countsForObjective !== false) defeated++;
     addLog(virus.type === 'boss' ? 'VIRUS ZERO recebeu dano critico.' : virus.type === 'fast' ? 'Virus rapido neutralizado.' : 'Virus neutralizado.');
-    awardExperience(virus.countsForObjective === false ? 12 : virus.xp || 45, virus.type === 'boss' ? 'chefe derrotado' : 'vírus derrotado');
+    if(virus.countsForObjective!==false)awardExperience(virus.xp || 45, virus.type === 'boss' ? 'chefe derrotado' : 'vírus derrotado','enemy:'+virus.id);
   }
 
   function updateEnemyBrain(virus, dt, playerCenterX, playerCenterY) {
@@ -1877,19 +1998,23 @@
     attackCooldown = Math.max(0, attackCooldown - dt);
     damageCooldown = Math.max(0, damageCooldown - dt);
     interactionMessageTimer = Math.max(0, interactionMessageTimer - dt);
-    if (unlockedSkills.some(skill => skill.id === 'shield')) {
-      if (player.shieldTime > 0) {
-        player.shieldTime = Math.max(0, player.shieldTime - dt);
-        if (player.shieldTime === 0) player.shieldCooldown = player.shieldCooldownDuration;
-      } else if (player.shieldCooldown > 0) {
-        player.shieldCooldown = Math.max(0, player.shieldCooldown - dt);
-      } else {
-        player.shieldTime = player.shieldDuration;
-        player.shieldCooldown = -1;
-        abilityPose=.65;
+    skillRuntime.tick(dt);
+    player.shieldTime=Math.max(0,player.shieldTime-dt);
+    for(const key of skillRequests){
+      const id={q:'shield',l:'boost',h:'recovery'}[key];
+      if(skillRuntime.activate(id,skillRank(id),player)){
+        playSound(id==='shield'?'pulse':id==='boost'?'dash':'heal');abilityPose=.25;
+        emitParticles(player.x+17,player.y+24,id==='recovery'?'#86ffd0':'#a3ceff',8);saveCampaign();
       }
     }
-    if (keys.has('j') && attackCooldown <= 0) fireProjectile();
+    skillRequests.clear();player.shieldCooldown=skillRuntime.state.shieldCooldown;
+    const attackEvents=combatAttack.step(dt,{basic:keys.has('j'),special:keys.has('k')},
+      {interval:player.fireRate*levelRuntime.modifiers().fireIntervalMultiplier,cooldown:specialCooldown()*levelRuntime.modifiers().fireIntervalMultiplier});
+    for(const event of attackEvents){
+      if(event==='charge'){playSound('charge');saveCampaign();}
+      else spawnPlayerProjectile(event==='special');
+    }
+    attackCooldown=combatAttack.snapshot().basicRemaining;
 
     const playerCenterX = player.x + player.width / 2;
     const playerCenterY = player.y + player.height / 2;
@@ -1909,27 +2034,18 @@
     }
     updateHostileProjectiles(dt);
 
-    for (const projectile of projectiles) {
-      projectile.x += projectile.vx * dt;
-      projectile.life -= dt;
-      for (const virus of viruses) {
-        if (!virus.alive) continue;
-        if(virus.variant==='packet' && virus.attackWindup>0 && !virus.intercepted && Math.hypot(projectile.x-virus.x,projectile.y-virus.y)<virus.radius+35) {
-          virus.intercepted=true;virus.stolenShot=true;projectile.life=0;emitParticles(projectile.x,projectile.y,'#60ffd4',6);break;
-        }
-        if (Math.hypot(projectile.x - virus.x, projectile.y - virus.y) <= virus.radius + projectile.radius) {
-          projectile.life = 0;
-          damageVirus(virus, projectile.damage, projectile.x-Math.sign(projectile.vx)*12);
-          break;
-        }
-      }
-    }
-    projectiles = projectiles.filter(projectile => projectile.life > 0 && projectile.x > 0 && projectile.x < worldWidth());
+    updatePlayerProjectiles(dt);
     viruses = viruses.filter(virus => virus.countsForObjective !== false || virus.alive);
     checkObjectives();
   }
 
   function updateHud() {
+    const status=(id,key,label,remaining,extra='')=>!skillRank(id)?label+(unlockedRank(id)?' · NA RESERVA':' · BLOQUEADO'):label+' · '+(id==='recovery'&&skillRuntime.state.recoverySpent>=1+skillRank(id)?'ESGOTADO':remaining>0?remaining.toFixed(1).replace('.',',')+' s':'PRONTO')+extra;
+    document.getElementById('abilityReady').textContent=[status('shield','q','Q ESCUDO',skillRuntime.state.shieldCooldown),status('boost','l','L ESQUIVA',skillRuntime.state.dashCooldown),status('recovery','h','H RECUPERAÇÃO',skillRuntime.state.recoveryCooldown,' · '+Math.max(0,1+skillRank('recovery')-skillRuntime.state.recoverySpent)+' CARGAS')].join(' / ');
+    for(const [key,id] of [['q','shield'],['l','boost'],['h','recovery']]){const b=touchControls.querySelector('[data-touch="'+key+'"]');b.hidden=!skillRank(id);}
+    const specialHud=document.getElementById('specialReady');
+    specialHud.textContent=combatAttack.charging?'CARREGANDO':combatAttack.remaining>0?'RECARGA '+combatAttack.remaining.toFixed(1).replace('.',',')+' s':'PRONTO';
+    document.getElementById('specialMeter').style.width=(combatAttack.charging?combatAttack.progress*100:Math.max(0,1-combatAttack.remaining/(specialCooldown()*levelRuntime.modifiers().fireIntervalMultiplier))*100)+'%';
     const progressAxis=phaseData.map.progress?.axis || (phaseData.map.layout === 'vertical' ? 'y' : 'x');
     const progress = Math.max(0, Math.min(100, Math.round(player.x / (worldWidth() - player.width) * 100)));
     const authoredProgress=progressAxis === 'objectives' ? Math.round(levelRuntime.progress()*100) : progressAxis === 'y'
@@ -2616,8 +2732,16 @@
   }
 
   function drawProjectiles() {
+    if(skillRuntime.state.dashTime>0){ctx.fillStyle='#86cfff';for(let i=1;i<=3;i++)ctx.fillRect(player.x+17-skillRuntime.state.dashDirection*i*12,player.y+16+i*4,8,3);}
+    if(combatAttack.charging){
+      const x=player.x+(player.facing>0?player.width+5:-5),y=player.y+22;
+      ctx.save();ctx.strokeStyle='#ffd37c';ctx.lineWidth=3;ctx.beginPath();
+      ctx.arc(x,y,6+combatAttack.progress*12,0,Math.PI*2*combatAttack.progress);ctx.stroke();
+      ctx.fillStyle='#fff0ac';ctx.fillRect(x-3,y-3,6,6);ctx.restore();
+    }
     for (const projectile of projectiles) {
       const x = projectile.x;
+      if(projectile.special){ctx.fillStyle='#ffce78';ctx.fillRect(x-(projectile.vx>0?24:6),projectile.y-4,30,8);ctx.fillStyle='#fff5d1';ctx.fillRect(x-5,projectile.y-7,10,14);continue;}
       if(levelVisuals.sprite(ctx,{asset:'fx',animation:'bolt',flipX:projectile.vx<0},{x:x-16,y:projectile.y-12,width:32,height:24},animationTime))continue;
       ctx.save();
       ctx.strokeStyle = 'rgba(78, 245, 223, .55)';
@@ -2903,7 +3027,7 @@
   function pause() {
     if (!running) return;
     cancelAnimationFrame(frameRequest);frameRequest=null;
-    keys.clear();
+    keys.clear();clearCombatInput();
     running = false;
     frameAccumulator=0;previousRenderPlayer=null;
     paused = true;
@@ -2940,11 +3064,16 @@
     }
   });
   continueButton.addEventListener('click', continueCampaign);
+  document.getElementById('loadoutButton').addEventListener('click',()=>{
+    if(running)pause();
+    renderLoadout();document.getElementById('loadoutDialog').showModal();
+  });
+  document.getElementById('closeLoadout').addEventListener('click',()=>document.getElementById('loadoutDialog').close());
   soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled));
   document.getElementById('skipIntro').addEventListener('click',endPhaseIntro);
   experience.mountSettings(()=>{if(running)pause();},resize);
   developerTools=ByteRunner.developerMode.mount({enabled:()=>Boolean(developerSession),enable:setDeveloperMode,load:loadDeveloperPhase,current:()=>phaseIndex,pause});
-  document.getElementById('cancelRepairButton').addEventListener('click', () => {cancelRepair();keys.clear();draw();});
+  document.getElementById('cancelRepairButton').addEventListener('click', () => {cancelRepair();keys.clear();clearCombatInput();draw();});
   document.getElementById('repairPauseButton').addEventListener('click', pause);
 
   window.addEventListener('keydown', event => {
@@ -2959,6 +3088,7 @@
       if(key==='escape'){event.preventDefault();pause();return;}
       if(repairSession.handleKey){repairSession.handleKey(event);return;}
     }
+    if(abilityKeys.includes(key)){event.preventDefault();if(running&&!repairSession?.blocksWorld&&!event.repeat)attackInput(key,'keyboard',true);return;}
     if(key==='e' && event.repeat)return;
     if ([' ', 'arrowup', 'arrowleft', 'arrowright'].includes(key)) event.preventDefault();
     if (['w', 'arrowup', ' '].includes(key) && !keys.has(key)) jumpQueued = true;
@@ -2972,10 +3102,11 @@
   });
   window.addEventListener('keyup', event => {
     const key = event.key.toLowerCase();
+    if(abilityKeys.includes(key)){attackInput(key,'keyboard',false);return;}
     keys.delete(key);
     if (key === 'e' && !repairSession?.blocksWorld) cancelRepair();
   });
-  window.addEventListener('blur', () => keys.clear());
+  window.addEventListener('blur', () => {keys.clear();clearCombatInput();});
   window.addEventListener('pagehide', saveCampaign);
   document.addEventListener('visibilitychange', () => { if (document.hidden) {if(running)pause();experience.silence(audioContext);saveCampaign();} });
 

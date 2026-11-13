@@ -28,7 +28,7 @@ test('procedural demo: Part 2 saves retain XP and skills while resetting obsolet
   const old=JSON.parse(localStorage.getItem(SAVE_KEY));old.mapRevision=1;old.player.x=4000;old.player.y=4000;old.checkpointX=4000;old.checkpointY=4000;old.phaseExitUnlocked=true;
   localStorage.setItem(SAVE_KEY,JSON.stringify(old));continueCampaign();endPhaseIntro();
   assert(player.x===mapStart().x&&player.y===mapStart().y&&!phaseExitUnlocked,'obsolete geometry restored');
-  assert(xp===37&&unlockedSkills.some(s=>s.id==='armor'&&s.level===2)&&player.armor===.2,'migration lost XP or skills');
+  assert(xp===37&&unlockedSkills.some(s=>s.id==='armor'&&s.level===2)&&Math.abs(player.armor-2*.2/3)<1e-9,'migration lost XP or skills');
   assert(!levelRuntime.getFlag('old-geometry'),'obsolete flags restored');
 });
 running=false;

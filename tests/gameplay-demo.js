@@ -17,7 +17,7 @@ test('room demo: completed repairs, XP, skills and checkpoints survive death and
   damageCooldown=0;player.health=1;damagePlayer(20,{x:0});assert(components.every(c=>c.repaired)&&player.health===100,'death lost repairs');
   saveCampaign();components.forEach(c=>c.repaired=false);xp=0;continueCampaign();endPhaseIntro();
   assert(components.every(c=>c.repaired)&&JSON.stringify(components.map(c=>c.id))===JSON.stringify(ids),'repair indices lost on restore');
-  assert(xp===37&&player.damage===3&&checkpointX===point.x&&checkpointY===point.y,'progress/checkpoint lost');
+  assert(xp===37&&player.damage===1&&skillRank('cannon')===2&&checkpointX===point.x&&checkpointY===point.y,'progress/checkpoint lost');
   assert(panels.every(p=>levelRuntime.getFlag(p.flag)),'secret discovery lost on restore');
   assert(JSON.stringify(phaseData.generation.recipe)===recipe,'restored a different recipe');
   assert(localStorage.getItem('byteRunner.campaign.v1')==='authored-campaign-sentinel','authored campaign save overwritten');

@@ -84,7 +84,7 @@ test('last five: arena protection, phase grace and cover weak points',()=>{
 test('last five: old map saves restart safely with progression intact',()=>{
   for(let i=5;i<10;i++){
     setup(i);level=4;xp=63;unlockedSkills=[{id:'cannon',level:2}];restoreSkillEffects();components[0].repaired=true;saveCampaign();const saved=getSavedCampaign();delete saved.mapRevision;saved.player.x=1;saved.player.y=1;localStorage.setItem(SAVE_KEY,JSON.stringify(saved));continueCampaign();
-    assert(level===4&&xp===63&&player.damage===3&&player.x===mapStart().x&&player.y===mapStart().y&&components.every(c=>!c.repaired),'old save unsafe in '+phaseData.id);
+    assert(level===4&&xp===63&&player.damage===1&&skillRank('cannon')===2&&player.x===mapStart().x&&player.y===mapStart().y&&components.every(c=>!c.repaired),'old save unsafe in '+phaseData.id);
   }
 });
 running=false;
